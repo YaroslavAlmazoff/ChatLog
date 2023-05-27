@@ -42,16 +42,16 @@ class MobileService {
     }
     async getForecast(req, res) {
         console.log(req.ip)
-        let ip = ""
-        if(req.ip.split('.')[0] > 99) {
+        let ip = req.ip.replace("::", "").split(":")[1]
+        if(ip.split('.')[0] > 99) {
             ip = "1." + req.ip.split('.')[1] + "." + req.ip.split('.')[2] + "." + req.ip.split('.')[3]
         } else {
             ip = req.ip
         }
+        console.log(ip)
         let ip2location = new IP2Location()
         ip2location.open("../sample.bin.db1/SAMPLE.BIN")
         let result = ip2location.getAll(req.ip)
-        console.log(result)
         res.json({latitude: result.latitude, longitude: result.longitude, result})
     }
 }
