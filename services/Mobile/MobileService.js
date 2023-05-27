@@ -46,7 +46,7 @@ class MobileService {
         ip2location.open("../sample.bin.db1/SAMPLE.BIN")
         let result = ip2location.getAll(req.ip)
         console.log(result)
-        const URL = `https://pro.openweathermap.org/data/2.5/forecast/hourly?lat=${result.latitude}&lon=${result.longitude}&lang=ru&appid=7928ba4c186e0cc4a17e79a4bf57e8ae`
+        const URL = `https://pro.openweathermap.org/data/2.5/forecast/hourly?lat=${result.latitude}&lon=${result.longitude}&lang=ru&appid=928ba56fdc47f5fe29a01f2ae34f87f3`
         const weather = request(URL)
         //console.log(weather)
         res.json(weather)
