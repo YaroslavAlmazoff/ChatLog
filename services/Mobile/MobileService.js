@@ -49,9 +49,8 @@ class MobileService {
         const URL = `https://api.open-meteo.com/v1/forecast?latitude=${result.latitude}&longitude=${result.longitude}&hourly=temperature_2m`
         const weather = request(URL)
         console.log(weather.json())
-        res.json(weather.json())
+        res.json({latitude: result.latitude, longitude: result.longitude})
     }
-
 }
 
 module.exports = new MobileService()
