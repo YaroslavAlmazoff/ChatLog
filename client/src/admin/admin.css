@@ -1,0 +1,55 @@
+@media screen and (width > 500px) {
+    .admin {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+    }
+    .admin-messages {
+        width: 30%;
+        min-height: 100vh;
+        background-color: rgba(0, 0, 0, .5);
+        overflow-y: scroll;
+        border-radius: 15px;
+    }
+    .admin-visits {
+        width: 70%;
+    }
+}
+@media screen and (width < 500px) {
+    .admin {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+    .admin-messages {
+        width: 90%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, .5);
+        overflow-y: scroll;
+        border-radius: 15px;
+    }
+    .admin-visits {
+        width: 90%;
+    }
+}
+.admin-messages::-webkit-scrollbar {
+    width: 0;
+}
+.admin-message {
+    border: 1px solid rgb(0, 140, 255);
+    background-color: transparent;
+    border-radius: 15px;
+    padding: 15px;
+    display: block;
+    margin: 10px;
+}
+.admin-message-text {
+    font-size: 14pt;
+    width: 90%;
+}
+.admin-visits-text {
+    color: rgb(0, 140, 255);
+    font-weight: 100;
+}

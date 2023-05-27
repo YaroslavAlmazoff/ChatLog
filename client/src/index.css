@@ -1,0 +1,43 @@
+* {
+  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+body {
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+body::-webkit-scrollbar {
+  width: 20px;               /* ширина scrollbar */
+}
+body::-webkit-scrollbar-track {
+  background: transparent;        /* цвет дорожки */
+}
+body::-webkit-scrollbar-thumb {
+  background-color: rgb(20, 20, 32);    /* цвет плашки */
+  border-radius: 11px;       /* закругления плашки */
+  border: 1px solid rgb(0, 140, 255);  /* padding вокруг плашки */
+}
+
+body::-moz-scrollbar {
+  width: 20px;               /* ширина scrollbar */
+}
+body::-moz-scrollbar-track {
+  background: transparent;        /* цвет дорожки */
+}
+body::-moz-scrollbar-thumb {
+  background-color: rgb(20, 20, 32);    /* цвет плашки */
+  border-radius: 11px;       /* закругления плашки */
+  border: 1px solid rgb(0, 140, 255);  /* padding вокруг плашки */
+}
+
+body::-o-scrollbar {
+  width: 20px;               /* ширина scrollbar */
+}
+body::-o-scrollbar-track {
+  background: transparent;        /* цвет дорожки */
+}
+body::-o-scrollbar-thumb {
+  background-color: rgb(20, 20, 32);    /* цвет плашки */
+  border-radius: 11px;       /* закругления плашки */
+  border: 1px solid rgb(0, 140, 255);  /* padding вокруг плашки */
+}

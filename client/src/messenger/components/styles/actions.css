@@ -1,0 +1,29 @@
+@media screen and (width > 500px) {
+    .room-message-actions {
+        width: 25%;
+        height: 30px;
+        align-items: flex-start;
+        justify-content: flex-start;
+        margin-top: 10px;
+    }
+}
+@media screen and (width < 500px) {
+    .room-message-actions {
+        position: absolute;
+        width: 50%;
+        height: 30px;
+        background-color: rgb(20, 20, 32);
+        border-radius: 11px;
+        align-items: center;
+        justify-content: flex-start;
+        margin-top: 10px;
+        z-index: 10;
+    }
+}
+.room-message-action1 {
+    cursor: pointer;
+}
+.room-message-action2 {
+    cursor: pointer;
+    margin-left: 10px;
+}

@@ -1,0 +1,39 @@
+@media screen and (width > 500px) {
+    .homepage-forecast {
+        width: 25%;
+        padding: 20px;
+        background-color: rgba(0, 0, 0, 0.654);
+        border: 1px solid rgb(83, 83, 83);
+        border-radius: 15px;
+        text-shadow: none;
+        margin-top: 15px;
+        color: white;
+    }
+    .homepage-forecast-wrapper {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+    }
+}
+@media screen and (width < 500px) {
+    .homepage-forecast {
+        width: 86%;
+        padding: 20px;
+        background-color: rgba(0, 0, 0, 0.654);
+        border: 1px solid rgb(83, 83, 83);
+        border-radius: 15px;
+        text-shadow: none;
+        margin-top: 10px;
+        color: white;
+    }
+    .homepage-forecast-wrapper {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+.homepage-forecast-temp {
+    color: rgb(0, 140, 255);
+}

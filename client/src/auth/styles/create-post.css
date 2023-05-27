@@ -1,0 +1,23 @@
+@media screen and (width > 500px) {
+    .create-post {
+        width: 30%;
+        margin: 0 auto;
+        margin-top: 10%;
+        background-color: rgba(0, 0, 0, .5);
+        border-radius: 12px;
+        padding: 10px;
+    }
+}
+@media screen and (width < 500px) {
+    .create-post {
+        width: 90%;
+        margin: 0 auto;
+        margin-top: 5%;
+        background-color: rgba(0, 0, 0, .5);
+        border-radius: 12px;
+        padding: 10px;
+    }
+}
+.upload-image {
+    width: 40px;
+}

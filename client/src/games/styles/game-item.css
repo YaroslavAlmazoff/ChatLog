@@ -1,0 +1,33 @@
+.game-item {
+    width: 75px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    cursor: pointer;
+    margin-left: 30px;
+}
+.game-item-preview {
+    width: 75px;
+    height: 75px;
+    object-fit: cover;
+    border-radius: 11px;
+}
+.game-item-name {
+    color: white;
+    margin-top: 10px;
+}
+.game-item-add {
+    border: 1px solid rgb(83, 83, 83);
+    background-color: rgba(83, 83, 83, .3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 73px;
+    height: 73px;
+    border-radius: 11px;
+}
+.game-item-add-plus {
+    font-size: 30pt;
+    color: rgb(0, 140, 255);
+}

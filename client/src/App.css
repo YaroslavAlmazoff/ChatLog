@@ -1,0 +1,27 @@
+body {
+  overflow-x: hidden;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+h1 {
+  color: white;
+}
+
+h3 {
+  color: white;
+}
+span {
+  color: white;
+}
+
+.App {
+  text-align: center;
+  background-size: cover;
+  background-attachment: fixed;
+  height: auto
+}
+
+
+
+

@@ -1,0 +1,98 @@
+.store-overlay {
+    background-color: rgba(0, 0, 0, .7);
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+}
+@media screen and (width > 500px) {
+    .store {
+        width: 50%;
+        background-color: rgb(29, 29, 29);
+        padding: 20px;
+        padding-left: 0;
+        margin: 0 auto;
+        min-height: 100vh;
+    }
+    .store-content {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        width: 100%;
+    }
+    .store-categories {
+        width: 30%;
+        min-height: 100vh;
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-start;
+        flex-direction: column;
+        background-color: rgba(0, 0, 0, .5);
+    }
+    .store-products {
+        width: 70%;
+    }
+}
+@media screen and (width < 500px) {
+    .store {
+        width: 98%;
+        background-color: rgb(29, 29, 29);
+        padding: 15px;
+        margin: 0 auto;
+        min-height: 100vh;
+    }
+    .store-content {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        flex-direction: column;
+        width: 100%;
+    }
+    .store-categories {
+        width: 98%;
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-start;
+        flex-direction: column;
+        background-color: rgba(0, 0, 0, .5);
+    }
+    .store-products {
+        width: 98%;
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-start;
+        flex-direction: column;
+    }
+}
+.store-category {
+    background-color: transparent;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    cursor: pointer;
+    width: 100%;
+}
+.store-category-name {
+    color: white;
+}
+.store-category:hover {
+    background-color: black;
+}
+.store-title {
+    color: white;
+    font-size: 20pt;
+}
+.store-add-category {
+    width: 100%;
+    margin: 0 auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+.store-category-delete {
+    color: rgb(0, 140, 255);
+    margin-left: 10px;
+    cursor: pointer;
+}

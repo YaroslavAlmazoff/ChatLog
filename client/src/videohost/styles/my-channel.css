@@ -1,0 +1,47 @@
+.videohost-my-channel {
+    height: 47px;
+    width: 90%;
+    background-color: rgba(0, 0, 0, .3);
+    border: 1px solid rgb(0, 140, 255);
+    border-radius: 15px;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
+
+.videohost-my-channel-left {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.videohost-my-channel-avatar {
+    border-radius: 50%;
+    height: 60px;
+    width: 60px;
+    object-fit: cover;
+    border: 1px solid rgb(0, 140, 255);
+    border-radius: 50%;
+}
+.videohost-my-channel-avatar-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, .3);
+    border-bottom: 3px solid rgb(0, 140, 255);
+    border-top: 3px solid rgb(0, 140, 255);
+    border-radius: 50%;
+    height: 80px;
+    width: 80px;
+    margin-top: 40px;
+    margin-right: 20px;
+    margin-left: 10px;
+}
+.videohost-my-channel-title {
+    color: white;
+    margin: 20px;
+    margin-left: 10px;
+}

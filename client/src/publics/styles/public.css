@@ -1,0 +1,14 @@
+@media screen and (width > 500px) {
+    .public {
+        width: 80%;
+        margin: 0 auto;
+        margin-top: 10px;
+    }
+}
+@media screen and (width < 500px) {
+    .public {
+        width: 98%;
+        margin: 0 auto;
+        margin-top: 10px;
+    }
+}

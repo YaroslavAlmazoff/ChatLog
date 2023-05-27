@@ -1,0 +1,84 @@
+@media screen and (width > 500px) {
+    .ad {
+        width: 45%;
+        background-color: rgba(41, 41, 41, 0.75);
+        border: rgb(83, 83, 83);
+        border-radius: 12px;
+        padding: 5px;
+        margin: 0 auto;
+        margin-top: 10px;
+    }
+    .ad-image {
+        width: 98%;
+        height: 60vh;
+        border-radius: 12px;
+        object-fit: cover;
+    }
+}
+@media screen and (width < 500px) {
+    .ad {
+        width: 98%;
+        background-color: rgba(41, 41, 41, 0.75);
+        border: rgb(83, 83, 83);
+        border-radius: 12px;
+        padding: 5px;
+        margin: 0 auto;
+        margin-top: 10px;
+    }
+    .ad-image {
+        width: 98%;
+        height: auto;
+        border-radius: 12px;
+        object-fit: cover;
+    }
+}
+.ad-images {
+    width: 98%;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+.ad-small-image {
+    height: 100%;
+    margin: 5px;
+}
+.ad-info {
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.ad-data {
+    margin: 20px;
+    color: white;
+    text-align: left;
+}
+.ad-title {
+    font-size: 16pt;
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 1px;
+}
+.ad-description {
+    font-size: 14pt;
+    color: white;
+}
+.ad-price {
+    color: rgb(0, 140, 255);
+    font-size: 14pt;
+    margin: 1px;
+}
+.ad-city {
+    font-size: 12pt;
+    margin: 1px;
+    color: rgb(0, 140, 255)
+}
+.ad-date {
+    font-size: 10pt;
+    font-family: 'Courier New', Courier, monospace;
+    color:rgb(176, 176, 176);
+}
+.ad-phone {
+    color:rgb(0, 140, 255);
+    font-size: 18pt;
+}

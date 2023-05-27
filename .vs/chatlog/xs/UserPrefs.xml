@@ -1,0 +1,43 @@
+﻿<Properties StartupConfiguration="{43993CF8-4F68-40B2-92C7-5EB6A49EA038}|Default">
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.ItemProperties.art-shop PreferredExecutionTarget="/Applications/Google Chrome.app" />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="art-shop/.csproject">
+    <Files>
+      <File FileName="art-shop/ClientApp/src/routes.tsx" Line="1" Column="23" />
+      <File FileName="art-shop/ClientApp/src/App.tsx" Line="16" Column="23" />
+      <File FileName="art-shop/ClientApp/src/components/pages/MainPage.tsx" Line="9" Column="20" />
+      <File FileName="art-shop/ClientApp/src/components/pages/LandingPage.tsx" Line="9" Column="23" />
+      <File FileName="art-shop/ClientApp/src/components/pages/AdminPanelPage.tsx" Line="9" Column="21" />
+      <File FileName="art-shop/ClientApp/src/components/pages/ProductPage.tsx" Line="1" Column="1" />
+      <File FileName="art-shop/ClientApp/src/react-app-env.d.ts" Line="1" Column="1" />
+      <File FileName="art-shop/ClientApp/package.json" Line="38" Column="15" />
+      <File FileName="art-shop/ClientApp/src/custom.css" Line="45" Column="15" />
+      <File FileName="art-shop/ClientApp/src/store/index.ts" Line="1" Column="1" />
+      <File FileName="art-shop/ClientApp/src/store/Counter.ts" Line="1" Column="1" />
+      <File FileName="art-shop/ClientApp/src/components/Header.tsx" Line="14" Column="22" />
+      <File FileName="art-shop/ClientApp/src/components/Footer.tsx" Line="14" Column="41" />
+      <File FileName="art-shop/Startup.cs" Line="1" Column="1" />
+      <File FileName="art-shop/WeatherForecast.cs" Line="1" Column="1" />
+      <File FileName="art-shop/appsettings.json" Line="1" Column="1" />
+      <File FileName="art-shop/Program.cs" Line="1" Column="1" />
+      <File FileName="art-shop/.csproject" Line="3" Column="17" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="chatlog" expanded="True">
+            <Node name="art-shop" expanded="True" />
+          </Node>
+        </State>
+      </Pad>
+      <Pad Id="MonoDevelop.Debugger.WatchPad">
+        <State />
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+</Properties>

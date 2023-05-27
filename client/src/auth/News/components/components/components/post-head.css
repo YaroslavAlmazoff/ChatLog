@@ -1,0 +1,18 @@
+.post-head {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+.post-head-avatar {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-right: 7px;
+}
+.post-head-name {
+    margin-left: 8px;
+    color: rgb(0, 140, 255);
+}
