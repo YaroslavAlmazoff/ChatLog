@@ -35,7 +35,7 @@ class MobileService {
         res.json({message: answer})
     }
     async getWeather(req, res) {
-        const URL = `https://api.openweathermap.org/data/2.5/weather?q=${this.translit(req.params.city)},RU&units=metric&APPID=${config.get("WEATHER_API_KEY")}`
+        const URL = `https://api.openweathermap.org/data/2.5/weather?q=${this.translit(req.params.city)},RU&units=metric&lang=ru&APPID=${config.get("WEATHER_API_KEY")}`
         const weather = request(URL)
         console.log(weather)
         res.json(weather)
@@ -46,7 +46,7 @@ class MobileService {
         ip2location.open("../sample.bin.db1/SAMPLE.BIN")
         let result = ip2location.getAll(req.ip)
         console.log(result)
-        const URL = `https://pro.openweathermap.org/data/2.5/forecast/hourly?lat=${result.latitude}&lon=${result.longitude}&lang=ru&appid=${config.get("WEATHER_API_KEY")}`
+        const URL = `https://pro.openweathermap.org/data/2.5/forecast/hourly?lat=${result.latitude}&lon=${result.longitude}&lang=ru&appid=7928ba4c186e0cc4a17e79a4bf57e8ae`
         const weather = request(URL)
         //console.log(weather)
         res.json(weather)
