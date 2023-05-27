@@ -48,8 +48,8 @@ class MobileService {
         console.log(result)
         const URL = `https://api.open-meteo.com/v1/forecast?latitude=${result.latitude}&longitude=${result.longitude}&hourly=temperature_2m`
         const weather = request(URL)
-        console.log(weather)
-        res.json(weather)
+        console.log(weather.body)
+        res.json(weather.body)
     }
 
 }
