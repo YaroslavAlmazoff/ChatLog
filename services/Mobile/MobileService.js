@@ -51,7 +51,7 @@ class MobileService {
         console.log(ip)
         let ip2location = new IP2Location()
         ip2location.open("../sample.bin.db1/SAMPLE.BIN")
-        let result = ip2location.getAll(req.ip)
+        let result = ip2location.getAll(ip)
         res.json({latitude: result.latitude, longitude: result.longitude, result})
     }
 }
