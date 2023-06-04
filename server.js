@@ -109,7 +109,7 @@ const start = async () => {
         })
         setInterval(() => {
             startNotifications()
-        }, 1000000)
+        }, 10000)
         
     } catch(e) {
         console.log('Server Error: ', e.message)
