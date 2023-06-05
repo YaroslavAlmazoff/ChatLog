@@ -69,7 +69,8 @@ class AEPController {
                     await AstronomicalEvent.findByIdAndUpdate(item._id, {upcoming: false})
                 }
 
-                if(item.month == "июнь" && item.day == "4") {
+                if(item.month == "июнь" && item.day == "6") {
+                    console.log(item)
                     console.log(item.month, getMonth().string, item.month == getMonth().string)
                     console.log(item.day, date.getDate() + 1, item.day == date.getDate() + 1)
                     console.log(item.month == getMonth().string && item.day == date.getDate() + 1)
@@ -78,7 +79,6 @@ class AEPController {
                     console.log(date.getDate(), is31(getMonth().string), date.getDate() == is31(getMonth().string))
                     console.log(item.month == getMonth().next() && item.day == 1 && date.getDate() == is31(getMonth().string))
                 }
-                console.log(date.getDate())
                 if((item.month == getMonth().string && item.day == date.getDate() + 1) || (item.month == getMonth().next() && item.day == 1 && date.getDate() == is31(getMonth().string)) || (item.month == getMonth().string && item.day == date.getDate() && item.time.split(':')[0] < date.getHours())) {
                     console.log("хрень")
                     tokens.forEach((el) => {
