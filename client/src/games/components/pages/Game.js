@@ -44,7 +44,7 @@ const Game = () => {
                         <span className={`game-top-info-name ${randomColor()} ${randomShadow()}`}>{game.name}</span>
                         <span className="game-description" style={{color: 'rgb(0, 140, 255)'}}>Версия: {game.version}</span>
                         {game.description && window.innerWidth > 500 ? <span className="game-description">{game.description}</span> : null}
-                        <a href={process.env.REACT_APP_API_URL + '/gamedownloads/' + game.downloadUrl} download={game.name} className="button">Скачать APK</a>
+                        <a href={process.env.REACT_APP_API_URL + '/gamedownloads/' + game.downloadUrl} download={game.downloadUrl} className="button">Скачать APK</a>
                         <button onClick={gotoUpdate} className="button_default">Обновить</button>
                     </div>
                 </div>
