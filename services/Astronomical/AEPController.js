@@ -69,17 +69,17 @@ class AEPController {
                     await AstronomicalEvent.findByIdAndUpdate(item._id, {upcoming: false})
                 }
 
-                if(item.month == "июнь" && item.day == "6") {
-                    console.log(item)
-                    console.log(item.month, getMonth().string, item.month == getMonth().string)
-                    console.log(item.day, date.getDate() + 1, item.day == date.getDate() + 1)
-                    console.log(item.month == getMonth().string && item.day == date.getDate() + 1)
-                    console.log(item.month, getMonth().next(), item.month == getMonth().next())
-                    console.log(item.day, 1, item.day == 1)
-                    console.log(date.getDate(), is31(getMonth().string), date.getDate() == is31(getMonth().string))
-                    console.log(item.month == getMonth().next() && item.day == 1 && date.getDate() == is31(getMonth().string))
-                }
-                if((item.month == getMonth().string && item.day == date.getDate() + 1) || (item.month == getMonth().next() && item.day == 1 && date.getDate() == is31(getMonth().string)) || (item.month == getMonth().string && item.day == date.getDate() && item.time.split(':')[0] < date.getHours())) {
+                // if(item.month == "июнь" && item.day == "6") {
+                //     console.log(item)
+                //     console.log(item.month, getMonth().string, item.month == getMonth().string)
+                //     console.log(item.day, date.getDate() + 1, item.day == date.getDate() + 1)
+                //     console.log(item.month == getMonth().string && item.day == date.getDate() + 1)
+                //     console.log(item.month, getMonth().next(), item.month == getMonth().next())
+                //     console.log(item.day, 1, item.day == 1)
+                //     console.log(date.getDate(), is31(getMonth().string), date.getDate() == is31(getMonth().string))
+                //     console.log(item.month == getMonth().next() && item.day == 1 && date.getDate() == is31(getMonth().string))
+                // }
+                if((item.month == getMonth().string && item.day == date.getDate() + 1) || (item.month == getMonth().next() && item.day == 1 && date.getDate() == is31(getMonth().string)) || (item.month == getMonth().string && item.day == date.getDate() && date.getHours() < item.time.split(':')[0])) {
                     console.log("хрень")
                     tokens.forEach((el) => {
                         const message = {
