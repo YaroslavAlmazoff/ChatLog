@@ -16,7 +16,7 @@ const LPV2Head = () => {
             <div className="lpv2-buttons">
                 <LPV2Button text="Зарегистрироваться" link="/register" />
                 <LPV2Button text="Войти" link="/login" />   
-                <a className="button" href={process.env.REACT_APP_API_URL + '/gamedownloads/63b5e40a09fd3ea66ba884a5'} download="ChatLog">Скачать приложение</a>  
+                <a className="button" href={process.env.REACT_APP_API_URL + '/gamedownloads/ab35e540-220b-4881-abfb-4e5b6c4f10e6.apk'} download="ChatLog">Скачать приложение</a>  
             </div>
         </div>
     )
