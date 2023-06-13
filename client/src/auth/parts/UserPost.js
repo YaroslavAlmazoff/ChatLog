@@ -77,7 +77,9 @@ const UserPost = ({post, isOwner, userPosts = [], setUserPosts = () => {}}) => {
     } 
     const deletePost = async () => {
         setUserPosts([...userPosts].filter(el => el._id !== post._id))
-        await api.delete(`/api/deleteuserpost/${post._id}`)
+        await api.delete(`/api/deleteuserpost/${post._id}`, {headers: {
+            Authorization: `Bearer ${auth.token}`
+        }})
     }
     const toggleCommentsDisplay = () => {
         if(commentsDisplay) {
