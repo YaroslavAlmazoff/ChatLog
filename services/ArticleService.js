@@ -72,15 +72,16 @@ class ArticleService {
     }
     //Удаление поста пользователя
     async deleteUserPost(req, res) {
+        console.log("here")
         const post = await UserPost.findById(req.params.id)
+        console.log(post)
         const images = post.images
+        await UserPost.findByIdAndDelete(req.params.id)
         const filepathes = images.map(el => path.resolve('..', 'static', 'articles', el))
     
         filepathes.forEach(el => {
             ImageService.deleteFile(el)
         })
-
-        await UserPost.findByIdAndDelete(req.params.id)
         res.json({message: 'Запись удалена.'})
     }
     async postHead(req, res) {
