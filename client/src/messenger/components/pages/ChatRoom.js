@@ -275,6 +275,9 @@ const ChatRoom = () => {
 
   const sendMessage = async () => {
     if (!currentMessage._id) {
+      const imageUrl = file;
+      const videoUrl = videoFile;
+      const audioUrl = audioFile;
       setVideoFile("");
       setFile("");
       setAudioFile("");
