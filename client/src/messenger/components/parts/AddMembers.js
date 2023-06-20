@@ -17,7 +17,7 @@ const AddMembers = ({ close }) => {
     const getFriends = async () => {
       const response = await api.get(`/api/userfriends/${auth.userId}`);
       console.log(response);
-      setFriends(response.data.users);
+      setFriends(response.data.friends);
     };
     const getMembers = async () => {
       const response = await api.get(`/api/members/${params.id}`);
