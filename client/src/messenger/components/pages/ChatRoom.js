@@ -145,6 +145,10 @@ const ChatRoom = () => {
     setMembersText(declination(room.members.length));
   }, [room]);
 
+  const addMembersCount = (count) => {
+    setMembersText(declination(room.members.length + count));
+  };
+
   useEffect(() => {
     const getMessages = async () => {
       setLoading(true);
@@ -446,7 +450,10 @@ const ChatRoom = () => {
                   )}
                 </>
               ) : (
-                <AddMembers close={closeAddMembers} />
+                <AddMembers
+                  close={closeAddMembers}
+                  addMembersCount={addMembersCount}
+                />
               )}
             </>
           ) : (

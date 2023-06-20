@@ -5,7 +5,7 @@ import api from "../../../auth/api/auth";
 import MemberItem from "./MemberItem";
 import useArray from "../../../common_hooks/array.hook";
 
-const AddMembers = ({ close }) => {
+const AddMembers = ({ close, addMembersCount }) => {
   const auth = useContext(AuthContext);
   const params = useParams();
   const { unique } = useArray();
@@ -34,6 +34,7 @@ const AddMembers = ({ close }) => {
   const send = async () => {
     const uniqueMembers = unique(members);
     console.log(members, uniqueMembers);
+    addMembersCount(uniqueMembers.length);
     const response = await api.post(`/api/invite/${params.id}`, {
       members: uniqueMembers,
     });
