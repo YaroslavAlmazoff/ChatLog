@@ -89,7 +89,7 @@ const ChatRoom = () => {
     if (!params.id) return;
     console.log("connection");
     const eventSource = new EventSource(
-      `https://chatlog.ru/api/chatconnect/${params.id}`
+      `https://chatlog.ru/api/connect/${params.id}`
     );
     console.log(eventSource);
     eventSource.onmessage = function (event) {

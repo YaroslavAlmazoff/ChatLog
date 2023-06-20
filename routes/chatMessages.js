@@ -133,62 +133,65 @@ router.get("/chatconnect/:id", async (req, res) => {
     Connection: "keep-alive",
     "Content-Type": "text/event-stream",
     "Cache-Control": "no-cache",
+    "Accept-Ranges": "bytes",
+    "Content-Range": "bytes 100-64656926/64656927",
   });
   emitter.on("newMessage", async (message) => {
-    Message.findOne({ message: message.message, date: message.date }).then(
-      async (data) => {
-        console.log(data);
-        if (data) {
+    Message.findOne({
+      message: message.message,
+      date: message.date,
+      room: message.room,
+    }).then(async (data) => {
+      if (data) {
+        const messages = await Message.find({ room: message.room });
+        res.write(`data: ${JSON.stringify(messages)} \n\n`);
+        return;
+      }
+      console.log("в эмиттере");
+      if (message.file) {
+        const filename = uuid.v4() + ".jpg";
+        ImageService.saveImageBase64(message.file, filename, "messagefotos");
+        Message.create({ ...message, imageUrl: filename }).then(async () => {
+          removeDups();
+          console.log("сообщение создано");
           const messages = await Message.find({ room: message.room });
           res.write(`data: ${JSON.stringify(messages)} \n\n`);
-          return;
-        }
-        console.log("в эмиттере");
-        if (message.file) {
-          const filename = uuid.v4() + ".jpg";
-          ImageService.saveImageBase64(message.file, filename, "messagefotos");
-          Message.create({ ...message, imageUrl: filename }).then(async () => {
-            removeDups();
-            console.log("сообщение создано");
-            const messages = await Message.find({ room: message.room });
-            res.write(`data: ${JSON.stringify(messages)} \n\n`);
-          });
-        } else if (message.videoFile) {
-          const filename = uuid.v4() + ".mp4";
-          ImageService.saveVideoBase64(
-            message.videoFile,
-            filename,
-            "messagevideos"
-          );
-          Message.create({ ...message, videoUrl: filename }).then(async () => {
-            removeDups();
-            console.log("сообщение создано");
-            const messages = await Message.find({ room: message.room });
-            res.write(`data: ${JSON.stringify(messages)} \n\n`);
-          });
-        } else if (message.audioFile) {
-          const filename = uuid.v4() + ".mp3";
-          ImageService.saveAudioBase64(
-            message.audioFile,
-            filename,
-            "messageaudios"
-          );
-          Message.create({ ...message, audioUrl: filename }).then(async () => {
-            removeDups();
-            console.log("сообщение создано");
-            const messages = await Message.find({ room: message.room });
-            res.write(`data: ${JSON.stringify(messages)} \n\n`);
-          });
-        } else {
-          Message.create({ ...message }).then(async () => {
-            removeDups();
-            console.log("сообщение создано");
-            const messages = await Message.find({ room: message.room });
-            res.write(`data: ${JSON.stringify(messages)} \n\n`);
-          });
-        }
+        });
+      } else if (message.videoFile) {
+        const filename = uuid.v4() + ".mp4";
+        ImageService.saveVideoBase64(
+          message.videoFile,
+          filename,
+          "messagevideos"
+        );
+        Message.create({ ...message, videoUrl: filename }).then(async () => {
+          removeDups();
+          console.log("сообщение создано");
+          const messages = await Message.find({ room: message.room });
+          res.write(`data: ${JSON.stringify(messages)} \n\n`);
+        });
+      } else if (message.audioFile) {
+        const filename = uuid.v4() + ".mp3";
+        ImageService.saveAudioBase64(
+          message.audioFile,
+          filename,
+          "messageaudios"
+        );
+        Message.create({ ...message, audioUrl: filename }).then(async () => {
+          removeDups();
+          console.log("сообщение создано");
+          const messages = await Message.find({ room: message.room });
+          res.write(`data: ${JSON.stringify(messages)} \n\n`);
+        });
+      } else {
+        Message.create({ ...message }).then(async () => {
+          removeDups();
+          console.log("сообщение создано");
+          const messages = await Message.find({ room: message.room });
+          res.write(`data: ${JSON.stringify(messages)} \n\n`);
+        });
       }
-    );
+    });
   });
 });
 
