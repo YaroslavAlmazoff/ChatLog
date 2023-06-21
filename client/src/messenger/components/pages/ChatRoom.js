@@ -499,7 +499,7 @@ const ChatRoom = () => {
           ref={messageRef}
           type="text"
           className="message-input input"
-          placeholder="Напишите сообщение..."
+          placeholder={!isRecording ? "Напишите сообщение..." : "Говорите..."}
         />
         <img
           onClick={showSmiles}
