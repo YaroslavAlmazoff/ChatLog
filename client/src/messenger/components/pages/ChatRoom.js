@@ -288,6 +288,7 @@ const ChatRoom = () => {
       setVideoFile("");
       setFile("");
       setAudioFile("");
+      console.log(imageUrl);
       await api.post(
         `/api/new-messages/${params.id}`,
         {
