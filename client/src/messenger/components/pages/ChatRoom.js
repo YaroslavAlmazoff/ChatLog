@@ -282,8 +282,8 @@ const ChatRoom = () => {
     if (!currentMessage._id) {
       const text = messageRef.current.value;
       messageRef.current.value = "";
-      const imageUrl = file;
-      const videoUrl = videoFile;
+      const imageUrl = imagePreviewUrl1;
+      const videoUrl = videoPreviewUrl;
       const audioUrl = audioFile;
       setVideoFile("");
       setFile("");
