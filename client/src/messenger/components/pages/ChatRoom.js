@@ -22,6 +22,7 @@ import useHighlight from "../../../common_hooks/highlight.hook";
 const ChatRoom = () => {
   const { verify } = useVerify();
   const { randomColor, randomShadow, randomBlockShadow } = useHighlight();
+  const [messageActionsDisplay, setMessageActionsDisplay] = useState("none");
   useEffect(() => {
     verify();
   }, [verify]);
@@ -331,12 +332,9 @@ const ChatRoom = () => {
   };
 
   const deleteMessage = async () => {
-    const response = await api.delete(
-      `/api/deletechatmessage/${currentMessage._id}`
-    );
-    console.log(response);
+    const res = await api.get(`/api/deletemessage/${currentMessage._id}`);
     setMessages([...messages].filter((el) => el._id !== currentMessage._id));
-    setMessageActions(false);
+    setMessageActionsDisplay("none");
     setCurrentMessage({});
   };
   const editMessage = async () => {
@@ -344,14 +342,14 @@ const ChatRoom = () => {
   };
 
   const showMessageActions = (mess) => {
-    console.log(mess);
-    setMessageActions(true);
-    setCurrentMessage(mess);
-    setTimeout(() => {
-      setMessageActions(false);
-    }, 10000);
-    console.log("sesh");
-    console.log(currentMessage);
+    if (auth.userId == mess.user) {
+      setMessageActionsDisplay("block");
+      setCurrentMessage(mess);
+      setTimeout(() => {
+        setMessageActionsDisplay("none");
+      }, 10000);
+      console.log("sesh", messageActionsDisplay, currentMessage);
+    }
   };
 
   useEffect(() => {
@@ -392,21 +390,39 @@ const ChatRoom = () => {
         }}
       >
         <div className="room-head">
+          <div
+            className="room-message-actions"
+            style={{ display: messageActionsDisplay }}
+          >
+            <span
+              onClick={editMessage}
+              className="room-message-action1"
+              style={{ color: "rgb(0, 140, 255)" }}
+            >
+              Редактировать
+            </span>
+            <span
+              onClick={deleteMessage}
+              className="room-message-action2"
+              style={{ color: "red" }}
+            >
+              Удалить
+            </span>
+          </div>
           <span
             onClick={!isCheckMembers ? openMembers : closeMembers}
             className={`${randomColor()} ${randomShadow()}`}
             style={{ cursor: "pointer" }}
           >
-            {membersText}
-          </span>{" "}
-          |
-          <button
-            className="button"
-            style={{ pading: "8px" }}
-            onClick={!isAddMembers ? openAddMembers : closeAddMembers}
-          >
-            {buttonText}
-          </button>
+            {membersText} |
+            <button
+              className="button"
+              style={{ pading: "8px" }}
+              onClick={!isAddMembers ? openAddMembers : closeAddMembers}
+            >
+              {buttonText}
+            </button>
+          </span>
         </div>
         {messageActions && (
           <>
