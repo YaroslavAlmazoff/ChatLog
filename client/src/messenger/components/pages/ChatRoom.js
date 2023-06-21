@@ -147,7 +147,7 @@ const ChatRoom = () => {
   }, [room]);
 
   const addMembersCount = (count) => {
-    setMembersText(declination(room.members.length + count));
+    setMembersText(declination(count));
   };
 
   useEffect(() => {
