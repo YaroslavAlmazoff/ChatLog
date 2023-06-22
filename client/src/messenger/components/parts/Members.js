@@ -1,27 +1,39 @@
-import { useEffect, useState } from "react"
-import { useParams } from "react-router"
-import api from '../../../auth/api/auth'
-import FullMemberItem from "./FullMemberItem"
+import { useEffect, useState } from "react";
+import { useParams } from "react-router";
+import api from "../../../auth/api/auth";
+import FullMemberItem from "./FullMemberItem";
 
 const Members = () => {
-    const params = useParams()
-    const [members, setMembers] = useState([])
+  const params = useParams();
+  const [members, setMembers] = useState([]);
 
-    useEffect(() => {
-        const getMembers = async () => {
-            const response = await api.get(`/api/fullmembers/${params.id}`)
-            setMembers(response.data.members)
-        }
-        getMembers()
-    }, [])
+  useEffect(() => {
+    const getMembers = async () => {
+      const response = await api.get(`/api/fullmembers/${params.id}`);
+      setMembers(response.data.members);
+    };
+    getMembers();
+  }, []);
 
-    return (
-        <div>
-            {
-                members.map(el => <FullMemberItem name={el.name} surname={el.surname} avatarUrl={el.avatarUrl} id={el.id} />)
-            }
-        </div>
-    )
-}
+  return (
+    <div>
+      <button
+        className="button"
+        style={{ pading: "8px" }}
+        onClick={!isAddMembers ? openAddMembers : closeAddMembers}
+      >
+        Добавить участников
+      </button>
+      {members.map((el) => (
+        <FullMemberItem
+          name={el.name}
+          surname={el.surname}
+          avatarUrl={el.avatarUrl}
+          id={el.id}
+        />
+      ))}
+    </div>
+  );
+};
 
-export default Members
+export default Members;
