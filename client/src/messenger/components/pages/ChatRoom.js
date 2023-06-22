@@ -178,6 +178,7 @@ const ChatRoom = () => {
   };
   const closeAddMembers = () => {
     setIsMembers(false);
+    setIsCheckMembers(false);
     setButtonText("+ Добавить");
   };
   const openMembers = () => {
@@ -186,6 +187,7 @@ const ChatRoom = () => {
   };
   const closeMembers = () => {
     setIsCheckMembers(false);
+    setIsMembers(false);
     setMembersText(declination(room.members.length));
   };
 
