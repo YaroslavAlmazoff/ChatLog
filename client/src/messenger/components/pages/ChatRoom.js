@@ -167,30 +167,42 @@ const ChatRoom = () => {
     getMessages();
   }, [params]);
 
-  const [isAddMembers, setIsMembers] = useState(false);
+  const [isAddMembers, setIsAddMembers] = useState(false);
   const [isCheckMembers, setIsCheckMembers] = useState(false);
   const [buttonText, setButtonText] = useState("+ Добавить");
   const [membersText, setMembersText] = useState("");
 
   const openAddMembers = () => {
-    setIsMembers(true);
+    setIsAddMembers(true);
     setIsCheckMembers(false);
     setButtonText("Отмена");
   };
   const closeAddMembers = () => {
-    setIsMembers(false);
+    setIsAddMembers(false);
     setIsCheckMembers(false);
     setButtonText("+ Добавить");
   };
   const openMembers = () => {
-    setIsMembers(false);
+    setIsAddMembers(false);
     setIsCheckMembers(true);
     setMembersText("К сообщениям");
   };
   const closeMembers = () => {
     setIsCheckMembers(false);
-    setIsMembers(false);
+    setIsAddMembers(false);
     setMembersText(declination(room.members.length));
+  };
+
+  const members = () => {
+    if (isCheckMembers) {
+      closeMembers();
+    } else if (isAddMembers) {
+      closeAddMembers();
+    } else if (!isCheckMembers) {
+      openMembers();
+    } else if (!isAddMembers) {
+      openAddMembers();
+    }
   };
 
   //Эмитирование открытия загрузки файла изображения для поста
@@ -416,11 +428,11 @@ const ChatRoom = () => {
             </span>
           </div>
           <span
-            onClick={!isCheckMembers ? openMembers : closeMembers}
+            onClick={members}
             className={`${randomColor()} ${randomShadow()}`}
             style={{ cursor: "pointer" }}
           >
-            {room.title},{membersText}
+            {room.title}, {membersText}
           </span>
         </div>
         {messageActions && (
