@@ -112,6 +112,7 @@ class ChatRoomService {
     delete members[members.indexOf(req.params.user)];
     const finalMembers = members.filter((el) => el != null);
     await ChatRoom.findByIdAndUpdate(req.params.id, { members: finalMembers });
+    res.json({ msg: "LOL" });
   }
   async members(req, res) {
     const room = await ChatRoom.findById(req.params.id);
