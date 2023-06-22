@@ -1,14 +1,20 @@
 import { useContext } from "react";
 import "../../../auth/styles/user-item.css";
 import { AuthContext } from "../../../context/AuthContext";
+import api from "../../../auth/api/auth";
 
 const FullMemberItem = ({ room, name, surname, avatarUrl, id }) => {
   const auth = useContext(AuthContext);
   const gotoMember = () => {
     window.location = `/user/${id}`;
   };
-  const exclude = () => {
-    //exclude member...
+  const exclude = async (e) => {
+    e.stopPropagation();
+    await api.delete(`/api/exclude/${room._id}/${id}`, {
+      headers: {
+        Authorization: `Bearer ${auth.token}`,
+      },
+    });
   };
 
   return (
@@ -27,7 +33,9 @@ const FullMemberItem = ({ room, name, surname, avatarUrl, id }) => {
           </h3>
         </div>
         {auth.userId == room.creator ? (
-          <button className="button-neon-red">Исключить</button>
+          <button className="button-neon-red" onClick={(e) => exclude(e)}>
+            Исключить
+          </button>
         ) : (
           <></>
         )}
