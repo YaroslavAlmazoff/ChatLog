@@ -3,7 +3,7 @@ import { useParams } from "react-router";
 import api from "../../../auth/api/auth";
 import FullMemberItem from "./FullMemberItem";
 
-const Members = () => {
+const Members = ({ openAddMembers }) => {
   const params = useParams();
   const [members, setMembers] = useState([]);
 
@@ -20,7 +20,7 @@ const Members = () => {
       <button
         className="button"
         style={{ pading: "8px" }}
-        onClick={!isAddMembers ? openAddMembers : closeAddMembers}
+        onClick={openAddMembers}
       >
         Добавить участников
       </button>

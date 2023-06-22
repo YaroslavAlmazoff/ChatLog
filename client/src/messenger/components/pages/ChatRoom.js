@@ -470,7 +470,7 @@ const ChatRoom = () => {
               )}
             </>
           ) : (
-            <Members />
+            <Members openAddMembers={openAddMembers} />
           )}
           <img
             onClick={(e) => emitOpenBg(e)}
