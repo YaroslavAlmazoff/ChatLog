@@ -30,7 +30,7 @@ const Members = ({ room, openAddMembers }) => {
           name={el.name}
           surname={el.surname}
           avatarUrl={el.avatarUrl}
-          id={el.id}
+          id={el._id}
         />
       ))}
     </div>
