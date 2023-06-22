@@ -418,14 +418,7 @@ const ChatRoom = () => {
             className={`${randomColor()} ${randomShadow()}`}
             style={{ cursor: "pointer" }}
           >
-            {membersText} |
-            <button
-              className="button"
-              style={{ pading: "8px" }}
-              onClick={!isAddMembers ? openAddMembers : closeAddMembers}
-            >
-              {buttonText}
-            </button>
+            {room.title},{membersText}
           </span>
         </div>
         {messageActions && (
