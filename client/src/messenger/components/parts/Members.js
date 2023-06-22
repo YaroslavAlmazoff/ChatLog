@@ -3,7 +3,7 @@ import { useParams } from "react-router";
 import api from "../../../auth/api/auth";
 import FullMemberItem from "./FullMemberItem";
 
-const Members = ({ openAddMembers }) => {
+const Members = ({ room, openAddMembers }) => {
   const params = useParams();
   const [members, setMembers] = useState([]);
 
@@ -26,6 +26,7 @@ const Members = ({ openAddMembers }) => {
       </button>
       {members.map((el) => (
         <FullMemberItem
+          room={room}
           name={el.name}
           surname={el.surname}
           avatarUrl={el.avatarUrl}

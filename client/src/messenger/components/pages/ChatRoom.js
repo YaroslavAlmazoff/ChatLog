@@ -484,7 +484,7 @@ const ChatRoom = () => {
               )}
             </>
           ) : (
-            <Members openAddMembers={openAddMembers} />
+            <Members room={room} openAddMembers={openAddMembers} />
           )}
           <img
             onClick={(e) => emitOpenBg(e)}
