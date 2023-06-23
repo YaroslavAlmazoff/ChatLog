@@ -23,7 +23,7 @@ class ChatRoomService {
 
     await FileService.insertChatAvatar(req.files.file, avatarUrl);
 
-    res.json({ msg: "success" });
+    res.json("");
   }
   async getRooms(req, res) {
     const user = req.user.userId;
