@@ -216,6 +216,25 @@ router.post("/new-chatmessages/:id", auth, async (req, res) => {
   emitter.emit("newMessage", message);
   res.status(200);
 });
+router.post("/new-chatmessages-mobile/:id", auth, async (req, res) => {
+  const user = await User.findById(req.user.userId);
+  console.log("в роуте");
+  const message = req.body;
+  console.log(message);
+  await ChatRoom.findByIdAndUpdate(req.params.id, {
+    lastMessage: message.message,
+  });
+  message.isFile =
+    message.isFile == "true" || message.isFile == true ? true : false;
+  message.room = req.params.id;
+  message.avatarUrl = user.avatarUrl;
+  message.name = user.name;
+  message.isNotReaded = true;
+  message.user = user._id;
+  message.date = message.date;
+  emitter.emit("newMessage", message, req);
+  res.status(200);
+});
 
 router.post("/uploadbg/:id", (req, res) => {
   try {
