@@ -12,7 +12,7 @@ require("events").EventEmitter.defaultMaxListeners = 15;
 class ChatRoomService {
   async createRoom(req, res) {
     const creator = req.user.userId;
-    const { title } = req.body;
+    let { title } = req.body;
     title = title.replace('"', "");
     title = title.replace('"', "");
     const avatarUrl = uuid.v4() + ".jpg";
