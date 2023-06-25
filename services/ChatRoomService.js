@@ -263,10 +263,10 @@ class ChatRoomService {
     });
     Promise.all(members)
       .then((fullMembers) => {
-        res.json({ members: fullMembers });
+        res.json({ members: fullMembers.filter((el) => el != null) });
       })
       .catch(() => {
-        res.json({ msg: "errors" });
+        res.json({ members: [] });
       });
   }
   async uploadBg(req, res) {
