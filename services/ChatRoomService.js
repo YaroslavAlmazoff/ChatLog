@@ -17,11 +17,10 @@ class ChatRoomService {
     title = title.replace('"', "");
     const avatarUrl = uuid.v4() + ".jpg";
     const members = [creator];
+    await ChatRoom.create({ creator, title, members });
     if (req.files) {
-      await ChatRoom.create({ creator, title, avatarUrl, members });
+      await ChatRoom.findByIdAndUpdate({ avatarUrl });
       await FileService.insertChatAvatar(req.files.file, avatarUrl);
-    } else {
-      await ChatRoom.create({ creator, title, members });
     }
 
     res.json("");
