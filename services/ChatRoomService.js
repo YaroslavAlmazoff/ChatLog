@@ -19,11 +19,10 @@ class ChatRoomService {
     const members = [creator];
     if (req.files) {
       await ChatRoom.create({ creator, title, avatarUrl, members });
+      await FileService.insertChatAvatar(req.files.file, avatarUrl);
     } else {
-      await ChatRoom.create({ creator, title, avatarUrl, members });
+      await ChatRoom.create({ creator, title, members });
     }
-
-    await FileService.insertChatAvatar(req.files.file, avatarUrl);
 
     res.json("");
   }
@@ -121,6 +120,24 @@ class ChatRoomService {
     } else {
       res.json({ errors: ["Недостаточно прав для исключения пользователя"] });
     }
+  }
+  async editDiscussion(req, res) {
+    let { title } = req.body;
+    title = title.replace('"', "");
+    title = title.replace('"', "");
+    const avatarUrl = uuid.v4() + ".jpg";
+    if (req.files) {
+      await ChatRoom.findByIdAndUpdate(req.params.id, {
+        title,
+        avatarUrl,
+        members,
+      });
+      await FileService.insertChatAvatar(req.files.file, avatarUrl);
+    } else {
+      await ChatRoom.findByIdAndUpdate(req.params.id, { title });
+    }
+
+    res.json("");
   }
   async members(req, res) {
     const room = await ChatRoom.findById(req.params.id);

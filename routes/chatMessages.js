@@ -62,7 +62,13 @@ router.delete("/exclude/:id/:user", auth, (req, res) => {
     console.log(e);
   }
 });
-
+router.post("/edit-discussion/:id", (req, res) => {
+  try {
+    ChatRoomService.editDiscussion(req, res);
+  } catch (e) {
+    console.log(e);
+  }
+});
 router.get("/getchatmessages/:room", (req, res) => {
   try {
     ChatRoomService.getMessage(req, res);
