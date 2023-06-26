@@ -11,6 +11,7 @@ require("events").EventEmitter.defaultMaxListeners = 15;
 
 class ChatRoomService {
   async createRoom(req, res) {
+    console.log("ААААФИИИГЕЕЕЕТЬ");
     const creator = req.user.userId;
     let { title } = req.body;
     title = title.replace('"', "");
