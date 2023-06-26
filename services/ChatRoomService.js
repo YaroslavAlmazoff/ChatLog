@@ -110,19 +110,17 @@ class ChatRoomService {
   }
   async exclude(req, res) {
     const room = await ChatRoom.findById(req.params.id);
-    console.log(room);
-    const members = room.members;
-    console.log(members);
-    console.log(
-      req.params.user,
-      members.indexOf(req.params.user),
-      members[members.indexOf(req.params.user)]
-    );
-    delete members[members.indexOf(req.params.user)];
-    const finalMembers = members.filter((el) => el != null);
-    console.log(finalMembers);
-    await ChatRoom.findByIdAndUpdate(req.params.id, { members: finalMembers });
-    res.json({ msg: "LOL" });
+    if (room.creator == req.user.userId) {
+      const members = room.members;
+      delete members[members.indexOf(req.params.user)];
+      const finalMembers = members.filter((el) => el != null);
+      await ChatRoom.findByIdAndUpdate(req.params.id, {
+        members: finalMembers,
+      });
+      res.json({ errors: [] });
+    } else {
+      res.json({ errors: ["Недостаточно прав для исключения пользователя"] });
+    }
   }
   async members(req, res) {
     const room = await ChatRoom.findById(req.params.id);
