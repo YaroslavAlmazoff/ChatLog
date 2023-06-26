@@ -130,7 +130,6 @@ class ChatRoomService {
       await ChatRoom.findByIdAndUpdate(req.params.id, {
         title,
         avatarUrl,
-        members,
       });
       await FileService.insertChatAvatar(req.files.file, avatarUrl);
     } else {
