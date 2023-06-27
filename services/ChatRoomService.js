@@ -109,6 +109,13 @@ class ChatRoomService {
     await ChatRoom.findByIdAndUpdate(req.params.id, { members });
     res.json({ msg: "success" });
   }
+  async inviteMobile(req, res) {
+    const room = ChatRoom.findById(req.params.id);
+    const finalMembers = room.members;
+    finalMembers.push(req.params.user);
+    await ChatRoom.findByIdAndUpdate(req.params.id, { members: finalMembers });
+    res.json({ msg: "success" });
+  }
   async exclude(req, res) {
     const room = await ChatRoom.findById(req.params.id);
     if (room.creator == req.user.userId) {

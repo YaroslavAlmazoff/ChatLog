@@ -55,6 +55,13 @@ router.post("/invite/:id", (req, res) => {
     console.log(e);
   }
 });
+router.get("/invite-mobile/:id/:user", (req, res) => {
+  try {
+    ChatRoomService.inviteMobile(req, res);
+  } catch (e) {
+    console.log(e);
+  }
+});
 router.delete("/exclude/:id/:user", auth, (req, res) => {
   try {
     ChatRoomService.exclude(req, res);
