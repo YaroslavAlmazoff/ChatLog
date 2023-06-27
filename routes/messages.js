@@ -18,7 +18,14 @@ const emitter = new events.EventEmitter();
 events.EventEmitter.defaultMaxListeners = 2;
 events.EventEmitter.setMaxListeners(2);
 
-router.get("/createroom/:id/:to", (req, res) => {
+router.get("/createroom/:to", auth, (req, res) => {
+  try {
+    MessengerService.createRoom(req, res);
+  } catch (e) {
+    console.log(e);
+  }
+});
+router.get("/createroom-mobile/:id/:to", (req, res) => {
   try {
     MessengerService.createRoom(req, res);
   } catch (e) {

@@ -30,6 +30,26 @@ class MessengerService {
       res.json({ msg: "success" });
     }
   }
+  async createRoomMobile(req, res) {
+    const user1 = req.params.id;
+    const user2 = req.params.to;
+
+    const room1 = await Room.findOne({ user1, user2 });
+    const room2 = await Room.findOne({ user1: user2, user2: user1 });
+
+    if (room1) {
+      res.json({ err: 1, room: room1 });
+    } else if (room2) {
+      res.json({ err: 1, room: room2 });
+    } else {
+      Room.create({ user1, user2 })
+        .then((data) => {
+          res.json({ err: 0, room: data._id });
+        })
+        .catch((err) => res.json({ err: 2, room: "", errors: [err.message] }));
+      res.json({ msg: "success" });
+    }
+  }
   async getRooms(req, res) {
     const user = req.user.userId;
 
