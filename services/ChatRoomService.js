@@ -134,6 +134,7 @@ class ChatRoomService {
   }
   async leave(req, res) {
     const room = await ChatRoom.findById(req.params.id);
+    console.log(room, room.members.includes(req.user.userId));
     if (room.members.includes(req.user.userId)) {
       const members = room.members;
       delete members[members.indexOf(req.user.userId)];
