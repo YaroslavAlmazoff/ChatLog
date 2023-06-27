@@ -34,7 +34,7 @@ class ChatRoomService {
     const allRooms = await ChatRoom.find({});
     allRooms.forEach((room) => {
       room.members.forEach((member) => {
-        if (member == user || room.creator == user) {
+        if (member == user) {
           rooms.push(room);
         }
       });
@@ -60,7 +60,7 @@ class ChatRoomService {
     const allRooms = await ChatRoom.find({});
     allRooms.forEach((room) => {
       room.members.forEach((member) => {
-        if (member == user || room.creator == user) {
+        if (member == user) {
           rooms.push(room);
         }
       });
