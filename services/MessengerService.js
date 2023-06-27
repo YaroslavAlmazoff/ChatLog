@@ -44,7 +44,7 @@ class MessengerService {
     } else {
       Room.create({ user1, user2 })
         .then((data) => {
-          res.json({ err: 0, room: data._id });
+          res.json({ err: 0, room: data });
         })
         .catch((err) => res.json({ err: 2, room: "", errors: [err.message] }));
     }
