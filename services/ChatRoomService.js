@@ -132,6 +132,29 @@ class ChatRoomService {
       res.json({ errors: ["Недостаточно прав для исключения пользователя"] });
     }
   }
+  async leave(req, res) {
+    const room = await ChatRoom.findById(req.params.id);
+    if (room.members.includes(req.user.userId)) {
+      const members = room.members;
+      delete members[members.indexOf(req.user.userId)];
+      const finalMembers = members.filter((el) => el != null);
+      await ChatRoom.findByIdAndUpdate(req.params.id, {
+        members: finalMembers,
+      });
+      res.json({ errors: [] });
+    } else {
+      res.json({ errors: ["Недостаточно прав для исключения пользователя"] });
+    }
+  }
+  async remove(req, res) {
+    const room = await ChatRoom.findById(req.params.id);
+    if (req.user.userId == room.creator) {
+      await ChatRoom.findByIdAndDelete(req.params.id);
+      res.json("Беседа удалена");
+    } else {
+      res.json({ errors: ["Недостаточно прав для удаления"] });
+    }
+  }
   async editDiscussion(req, res) {
     let { title } = req.body;
     title = title.replace('"', "");

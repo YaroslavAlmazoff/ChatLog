@@ -125,6 +125,20 @@ router.post("/lastchatmessage/:room", (req, res) => {
     console.log(e);
   }
 });
+router.delete("/leave/:id", auth, (req, res) => {
+  try {
+    ChatRoomService.lastMessage(req, res);
+  } catch (e) {
+    console.log(e);
+  }
+});
+router.delete("/remove/:id", auth, (req, res) => {
+  try {
+    ChatRoomService.remove(req, res);
+  } catch (e) {
+    console.log(e);
+  }
+});
 router.get("/newchatmessage/:id", (req, res) => {
   try {
     ChatRoomService.newMessageExists(req, res);
