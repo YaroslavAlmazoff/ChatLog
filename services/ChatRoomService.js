@@ -110,6 +110,7 @@ class ChatRoomService {
     res.json({ msg: "success" });
   }
   async inviteMobile(req, res) {
+    console.log(req.params.id, req.params.user);
     const room = ChatRoom.findById(req.params.id);
     const finalMembers = room.members;
     finalMembers.push(req.params.user);
