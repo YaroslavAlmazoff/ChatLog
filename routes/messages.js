@@ -27,7 +27,7 @@ router.get("/createroom/:to", auth, (req, res) => {
 });
 router.get("/createroom-mobile/:id/:to", (req, res) => {
   try {
-    MessengerService.createRoom(req, res);
+    MessengerService.createRoomMobile(req, res);
   } catch (e) {
     console.log(e);
   }
