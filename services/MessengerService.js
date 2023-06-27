@@ -47,7 +47,6 @@ class MessengerService {
           res.json({ err: 0, room: data._id });
         })
         .catch((err) => res.json({ err: 2, room: "", errors: [err.message] }));
-      res.json({ msg: "success" });
     }
   }
   async getRooms(req, res) {
