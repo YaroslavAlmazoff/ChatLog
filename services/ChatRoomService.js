@@ -151,7 +151,7 @@ class ChatRoomService {
     const room = await ChatRoom.findById(req.params.id);
     if (req.user.userId == room.creator) {
       await ChatRoom.findByIdAndDelete(req.params.id);
-      res.json("Беседа удалена");
+      res.json({ errors: [] });
     } else {
       res.json({ errors: ["Недостаточно прав для удаления"] });
     }

@@ -127,7 +127,7 @@ router.post("/lastchatmessage/:room", (req, res) => {
 });
 router.delete("/leave/:id", auth, (req, res) => {
   try {
-    ChatRoomService.lastMessage(req, res);
+    ChatRoomService.leave(req, res);
   } catch (e) {
     console.log(e);
   }
