@@ -111,8 +111,8 @@ class ChatRoomService {
   }
   async inviteMobile(req, res) {
     console.log(req.params.id, req.params.user);
-    const room = ChatRoom.findById(req.params.id);
-    console.log(room);
+    const room = await ChatRoom.findById(req.params.id);
+    console.log(room, room.members);
     const finalMembers = room.members;
     finalMembers.push(req.params.user);
     await ChatRoom.findByIdAndUpdate(req.params.id, { members: finalMembers });
