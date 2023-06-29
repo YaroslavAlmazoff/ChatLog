@@ -375,7 +375,7 @@ class CloudService {
     });
   }
   async removeFolder(req, res) {
-    const id = req.params.userId;
+    const id = req.user.userId;
     const folder = await File.findById(req.params.id);
     if (req.user.userId == folder.owner) {
       this.walk(
