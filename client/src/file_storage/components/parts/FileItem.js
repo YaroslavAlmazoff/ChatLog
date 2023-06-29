@@ -25,11 +25,15 @@ const FileItem = ({
   const [y, setY] = useState(0);
 
   const handleClick = (event) => {
-    event.preventDefault();
-    setShowMenu(false);
-    setShowMenu(true);
-    setX(event.pageX);
-    setY(event.pageY);
+    if (file.folder == "folder") {
+      event.preventDefault();
+      setShowMenu(false);
+      setShowMenu(true);
+      setX(event.pageX);
+      setY(event.pageY);
+    } else {
+      return false;
+    }
   };
 
   const handleMenuClose = () => {
