@@ -375,8 +375,31 @@ class CloudService {
     });
   }
   async removeFolder(req, res) {
+    const id = req.params.userId;
     const folder = await File.findById(req.params.id);
     if (req.user.userId == folder.owner) {
+      this.walk(
+        path.resolve("..", "static", "userfiles", id),
+        (err, results) => {
+          if (err) throw err;
+          results.forEach((item) => {
+            const itemName = item.split("/")[item.split("/").length - 1];
+            if (itemName == folder.name) {
+              fs.rmdir(item, function (err) {
+                throw err;
+              });
+            } else if (folder == "root") {
+              fs.rmdir(
+                path.resolve("..", "static", "userfiles", id, folder.name),
+                function (err) {
+                  throw err;
+                }
+              );
+            }
+          });
+          //console.log(results)
+        }
+      );
       await File.findByIdAndDelete(req.params.id);
       res.json({ message: "Удалено" });
     } else {
