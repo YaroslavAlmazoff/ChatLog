@@ -42,6 +42,14 @@ const FileItem = ({
   const openFolder = async () => {
     setCurrentFolder({ name: file.name, id: file._id });
   };
+  const removeFolder = async () => {
+    const response = await api.delete(`/api/rmdir/${file._id}`, {
+      headers: {
+        Authorization: `Bearer ${auth.token}`,
+      },
+    });
+    console.log(response);
+  };
   return (
     <div
       onClick={file.type === "folder" ? openFolder : showDetails}
@@ -49,7 +57,7 @@ const FileItem = ({
       className="file-item"
     >
       <ul id="context-menu">
-        <li>Пункт 1</li>
+        <li onClick={removeFolder}>Удалить папку</li>
         <li>Пункт 2</li>
         <li>Пункт 3</li>
       </ul>

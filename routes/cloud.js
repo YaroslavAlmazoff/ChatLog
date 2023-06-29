@@ -1,117 +1,122 @@
-const { Router } = require("express")
-const CloudService = require("../services/CloudService")
-const router = require("./auth")
-const auth = require('../middleware/auth.middleware')
+const { Router } = require("express");
+const CloudService = require("../services/CloudService");
+const router = require("./auth");
+const auth = require("../middleware/auth.middleware");
 
-router.post('/upload', auth, (req, res) => {
-    try {
-        CloudService.upload(req, res)
-    } catch(e) {
-        console.log(e)
-        res.json({e})
-    }
-})
-router.post('/files', auth, (req, res) => {
-    try {
-        CloudService.getFiles(req, res)
-    } catch(e) {
-        console.log(e)
-    }
-})
-router.get('/delete/:id', auth, (req, res) => {
-    try {
-        CloudService.deleteFile(req, res)
-    } catch(e) {
-        console.log(e)
-    }
-})
-router.get('/filetext/:id', auth, (req, res) => {
-    try {
-        CloudService.fileText(req, res)
-    } catch(e) {
-        console.log(e)
-    }
-})
-router.get('/hardfiletext/:id', auth, (req, res) => {
-    try {
-        CloudService.hardFileText(req, res)
-    } catch(e) {
-        console.log(e)
-    }
-})
-router.get('/file/:id', (req, res) => {
-    try {
-        CloudService.fileById(req, res)
-    } catch(e) {
-        console.log(e)
-    }
-})
-router.get('/publicfile/:id', auth, (req, res) => {
-    try {
-        CloudService.publicFile(req, res)
-    } catch(e) {
-        console.log(e)
-    }
-})
-router.get('/sendfile/:user/:id/:filename', auth, (req, res) => {
-    try { 
-        CloudService.sendFile(req, res)
-    } catch(e) {
-        console.log(e)
-    }
-})
-router.get('/getsentfile/:id', (req, res) => {
-    try { 
-        CloudService.getSentFile(req, res)
-    } catch(e) {
-        console.log(e)
-    }
-})
-router.get('/filetodownload/:id', auth, (req, res) => {
-    try {
-        CloudService.getFileToDownload(req, res)
-    } catch(e) {
-        console.log(e)
-    }
-})
-router.post('/mkdir', auth, (req, res) => {
-    try {
-        CloudService.makeFolder(req, res)
-    } catch(e) {
-        console.log(e)
-    }
-})
-router.post('/checkfolder', auth, (req, res) => {
-    try {
-        CloudService.checkFolder(req, res)
-    } catch(e) {
-        console.log(e)
-    }
-})
-router.post('/filesbyfolder', auth, (req, res) => {
-    try {
-        CloudService.getFilesByFolderName(req, res)
-    } catch(e) {
-        console.log(e)
-    }
-})
-router.get('/getpath/:id', auth, (req, res) => {
-    try {
-        CloudService.getPath(req, res)
-    } catch(e) {
-        console.log(e)
-    }
-})
-router.get('/rootfiles', auth, (req, res) => {
-    try {
-        CloudService.getRootFile(req, res)
-    } catch(e) {
-        console.log(e)
-    }
-})
-
+router.post("/upload", auth, (req, res) => {
+  try {
+    CloudService.upload(req, res);
+  } catch (e) {
+    console.log(e);
+    res.json({ e });
+  }
+});
+router.post("/files", auth, (req, res) => {
+  try {
+    CloudService.getFiles(req, res);
+  } catch (e) {
+    console.log(e);
+  }
+});
+router.get("/delete/:id", auth, (req, res) => {
+  try {
+    CloudService.deleteFile(req, res);
+  } catch (e) {
+    console.log(e);
+  }
+});
+router.delete("/rmdir/:id", auth, (req, res) => {
+  try {
+    CloudService.removeFolder(req, res);
+  } catch (e) {
+    console.log(e);
+  }
+});
+router.get("/filetext/:id", auth, (req, res) => {
+  try {
+    CloudService.fileText(req, res);
+  } catch (e) {
+    console.log(e);
+  }
+});
+router.get("/hardfiletext/:id", auth, (req, res) => {
+  try {
+    CloudService.hardFileText(req, res);
+  } catch (e) {
+    console.log(e);
+  }
+});
+router.get("/file/:id", (req, res) => {
+  try {
+    CloudService.fileById(req, res);
+  } catch (e) {
+    console.log(e);
+  }
+});
+router.get("/publicfile/:id", auth, (req, res) => {
+  try {
+    CloudService.publicFile(req, res);
+  } catch (e) {
+    console.log(e);
+  }
+});
+router.get("/sendfile/:user/:id/:filename", auth, (req, res) => {
+  try {
+    CloudService.sendFile(req, res);
+  } catch (e) {
+    console.log(e);
+  }
+});
+router.get("/getsentfile/:id", (req, res) => {
+  try {
+    CloudService.getSentFile(req, res);
+  } catch (e) {
+    console.log(e);
+  }
+});
+router.get("/filetodownload/:id", auth, (req, res) => {
+  try {
+    CloudService.getFileToDownload(req, res);
+  } catch (e) {
+    console.log(e);
+  }
+});
+router.post("/mkdir", auth, (req, res) => {
+  try {
+    CloudService.makeFolder(req, res);
+  } catch (e) {
+    console.log(e);
+  }
+});
+router.post("/checkfolder", auth, (req, res) => {
+  try {
+    CloudService.checkFolder(req, res);
+  } catch (e) {
+    console.log(e);
+  }
+});
+router.post("/filesbyfolder", auth, (req, res) => {
+  try {
+    CloudService.getFilesByFolderName(req, res);
+  } catch (e) {
+    console.log(e);
+  }
+});
+router.get("/getpath/:id", auth, (req, res) => {
+  try {
+    CloudService.getPath(req, res);
+  } catch (e) {
+    console.log(e);
+  }
+});
+router.get("/rootfiles", auth, (req, res) => {
+  try {
+    CloudService.getRootFile(req, res);
+  } catch (e) {
+    console.log(e);
+  }
+});
 
 //Создание роутера для авторизации пользователя
 
-
-module.exports = router
+module.exports = router;
