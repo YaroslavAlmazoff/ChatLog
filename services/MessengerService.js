@@ -221,9 +221,10 @@ class MessengerService {
       old: message.message,
       message: req.body.message,
     });
-    await Room.findByIdAndUpdate(message.room, {
-      lastMessage: req.body.message,
-    });
+
+    // await Room.findByIdAndUpdate(message.room, {
+    //   lastMessage: req.body.message,
+    // });
     res.json({ msg: "updated" });
   }
 
