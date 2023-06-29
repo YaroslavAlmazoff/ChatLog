@@ -56,11 +56,6 @@ const FileItem = ({
       onContextMenu={handleClick}
       className="file-item"
     >
-      <ul id="context-menu">
-        <li onClick={removeFolder}>Удалить папку</li>
-        <li>Пункт 2</li>
-        <li>Пункт 3</li>
-      </ul>
       {file.ext === "jpg" ||
       file.ext === "png" ||
       file.ext === "gif" ||
@@ -139,9 +134,12 @@ const FileItem = ({
       {showMenu && (
         <ContextMenu x={x} y={y} onClose={handleMenuClose}>
           {/* Пункты вашего контекстного меню */}
-          <li>Пункт 1</li>
-          <li>Пункт 2</li>
-          <li>Пункт 3</li>
+          <li
+            style={{ color: "#40A4FF", listStyle: "none" }}
+            onClick={removeFolder}
+          >
+            Удалить папку
+          </li>
         </ContextMenu>
       )}
     </div>
