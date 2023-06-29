@@ -25,6 +25,7 @@ const FileItem = ({
 
   const handleClick = (event) => {
     event.preventDefault();
+    setShowMenu(false);
     setShowMenu(true);
     setX(event.pageX);
     setY(event.pageY);
