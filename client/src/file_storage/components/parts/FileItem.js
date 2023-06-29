@@ -14,12 +14,13 @@ const FileItem = ({
   setFilePreviewDisplay,
   currentFolder,
   setCurrentFolder,
+  showMenu,
+  setShowMenu,
 }) => {
   const auth = useContext(AuthContext);
   const { divideFilename, divideWord } = useWord();
   const { randomBlockShadow, randomColor, randomShadow } = useHighlight();
 
-  const [showMenu, setShowMenu] = useState(false);
   const [x, setX] = useState(0);
   const [y, setY] = useState(0);
 
