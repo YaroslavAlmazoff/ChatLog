@@ -1,6 +1,7 @@
 .context-menu {
   border: 1px solid #40a4ff;
   border-radius: 15px;
+  background-color: black;
 }
 
 .menu-item {

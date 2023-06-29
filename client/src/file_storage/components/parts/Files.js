@@ -21,7 +21,6 @@ const Files = ({
   const fileRef = useRef();
   const { randomColor } = useHighlight();
   const [loadingUploading, setLoadingUploading] = useState(false);
-  const [showMenu, setShowMenu] = useState(false);
   const [folderName, setFolderName] = useState("");
   const [error, setError] = useState("");
   const [path, setPath] = useState([]);
@@ -181,8 +180,6 @@ const Files = ({
                 currentFolder={currentFolder}
                 setCurrentFolder={setCurrentFolder}
                 file={el}
-                showMenu={showMenu}
-                setShowMenu={setShowMenu}
               />
             ))}
           </div>

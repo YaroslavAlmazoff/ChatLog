@@ -6,6 +6,7 @@ import api from "../../../auth/api/auth";
 import { AuthContext } from "../../../context/AuthContext";
 import useHighlight from "../../../common_hooks/highlight.hook";
 import ContextMenu from "./ContextMenu";
+import "../../styles/context-menu.css";
 
 const FileItem = ({
   file,
@@ -14,12 +15,11 @@ const FileItem = ({
   setFilePreviewDisplay,
   currentFolder,
   setCurrentFolder,
-  showMenu,
-  setShowMenu,
 }) => {
   const auth = useContext(AuthContext);
   const { divideFilename, divideWord } = useWord();
-  const { randomBlockShadow, randomColor, randomShadow } = useHighlight();
+  const { randomColor } = useHighlight();
+  const [showMenu, setShowMenu] = useState(false);
 
   const [x, setX] = useState(0);
   const [y, setY] = useState(0);
