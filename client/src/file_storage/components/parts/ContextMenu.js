@@ -1,5 +1,5 @@
 import React from "react";
-import "../styles/context-menu.css";
+import "../../styles/context-menu.css";
 
 const ContextMenu = ({ x, y, onClose, children }) => {
   return (
