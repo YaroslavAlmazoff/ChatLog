@@ -25,7 +25,7 @@ const FileItem = ({
   const [y, setY] = useState(0);
 
   const handleClick = (event) => {
-    if (file.folder == "folder") {
+    if (file.type == "folder") {
       event.preventDefault();
       setShowMenu(false);
       setShowMenu(true);
