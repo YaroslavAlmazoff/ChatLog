@@ -1,231 +1,252 @@
-const User = require('../models/User')
-const bcrypt = require('bcryptjs')
-const { validationResult } = require('express-validator')
-const jwt = require('jsonwebtoken')
-const uuid = require('uuid')
-const fs = require('fs')
-const { secret, refreshSecret } = require('../config')
-const FileService = require('./FileService')
-const ImageService = require('./ImageService')
-const Token = require('../models/Token')
-const MailService = require('./MailService')
+const User = require("../models/User");
+const bcrypt = require("bcryptjs");
+const { validationResult } = require("express-validator");
+const jwt = require("jsonwebtoken");
+const uuid = require("uuid");
+const fs = require("fs");
+const { secret, refreshSecret } = require("../config");
+const FileService = require("./FileService");
+const ImageService = require("./ImageService");
+const Token = require("../models/Token");
+const MailService = require("./MailService");
 
 //Сервис авторизации пользователя
 class AuthService {
-    async newToken(req, res) {
-        res.json({msg: 'efe'})
+  async newToken(req, res) {
+    res.json({ msg: "efe" });
+  }
+  async uploadImage(req, res) {
+    await ImageService.saveFile(req.files.file, req.body.name, req.body.folder);
+    res.json({ message: "yra" });
+  }
+  async uploadBINFile(req, res) {
+    await ImageService.saveBINFile(req.files.file, req.files.file.name);
+    res.json({ message: "yra" });
+  }
+  async refresh(req, res) {
+    // const {refreshToken} = req.cookies
+    // if (!refreshToken) {
+    //     res.json({message: "unauthorized"})
+    // }
+    // const userData = tokenService.validateRefreshToken(refreshToken);
+    // const tokenFromDb = await tokenService.findToken(refreshToken);
+    // if (!userData || !tokenFromDb) {
+    //     throw ApiError.UnauthorizedError();
+    // }
+    // const user = await UserModel.findById(userData.id);
+    // const userDto = new UserDto(user);
+    // const tokens = tokenService.generateTokens({...userDto});
+    // await tokenService.saveToken(userDto.id, tokens.refreshToken);
+  }
+  //Регистрация пользователя
+  async register(req, res) {
+    try {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        res.json({ errors }).status(400);
+      }
+      const userData = req.body;
+      const { name, surname, age, email, country, city, password } = req.body;
+
+      const candidate = await User.findOne({ email });
+      if (candidate) {
+        res
+          .status(400)
+          .json({ error: "Пользователь с таким email уже зарегистрирован" });
+        return;
+      }
+
+      const hashPassword = bcrypt.hashSync(password);
+
+      const user = await User.create({
+        name,
+        surname,
+        age,
+        email,
+        country,
+        city,
+        password: hashPassword,
+      });
+
+      const token = jwt.sign({ userId: user._id }, secret, { expiresIn: "1h" });
+      const refreshToken = jwt.sign({ userId: user._id }, refreshSecret, {
+        expiresIn: "30d",
+      });
+
+      const tokenData = await Token.findOne({ user: user._id });
+      if (tokenData) {
+        tokenData.token = refreshToken;
+        await tokenData.save();
+      }
+
+      await MailService.sendActivationLink(
+        email,
+        "https://chatlog.ru/api/activate/" + user._id
+      );
+
+      fs.mkdir(`../static/userfiles/${user._id}`, (err) => {
+        console.log(err);
+      });
+      res.cookie("refreshToken", refreshToken, {
+        maxAge: 30 * 24 * 60 * 60 * 1000,
+        httpOnly: false,
+      });
+      res.json({
+        user: userData,
+        message: "Success register!",
+        userId: user._id,
+        token,
+      });
+    } catch (e) {
+      console.log(e);
+      res.status(400).json({ e });
     }
-    async uploadImage(req, res) {
-        await ImageService.saveFile(req.files.file, req.body.name, req.body.folder)
-        res.json({message: "yra"})
-    }
-    async uploadBINFile(req, res) {
-        await ImageService.saveBINFile(req.files.file, req.files.file.name)
-        res.json({message: "yra"})
-    }
-    async refresh(req, res) {
+  }
+  //Обновление профиля пользователя
+  async update(req, res) {
+    try {
+      //Получение результата валидации данных пользователя
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        //Отправка ошибок, если она есть
+        res.json({ errors }).status(400);
+      }
+      //Получение данных пользователя из тела запроса
+      let { name, surname, age, email, aboutMe } = req.body;
 
-    }
-    //Регистрация пользователя
-    async register(req, res) {
-        try {
-            const errors = validationResult(req)
-            if(!errors.isEmpty()) {
-                res.json({errors}).status(400)
-            }
-            const userData = req.body
-            const {name, surname, age, email, country, city, password} = req.body
+      name = name.replace('"', "");
+      surname = surname.replace('"', "");
+      age = age.replace('"', "");
+      email = email.replace('"', "");
+      aboutMe = aboutMe.replace('"', "");
 
-            const candidate = await User.findOne({email})
-            if(candidate) {
-                res.status(400).json({error: "Пользователь с таким email уже зарегистрирован"})
-                return
-            }
-
-            const hashPassword = bcrypt.hashSync(password)
-
-            const user = await User.create({name, surname, age, email, country, city, password: hashPassword})
-
-            const token = jwt.sign(
-                {userId: user._id},
-                secret,
-                {expiresIn: '1h'}
-            )
-            const refreshToken = jwt.sign(
-                {userId: user._id},
-                refreshSecret,
-                {expiresIn: '30d'}
-            )
-
-            const tokenData = await Token.findOne({user: user._id})
-            if(tokenData) {
-                tokenData.token = refreshToken
-                await tokenData.save()
-            }
-            
-            await MailService.sendActivationLink(email, "https://chatlog.ru/api/activate/" + user._id)
-            
-            
-            fs.mkdir(`../static/userfiles/${user._id}`, err => {
-                console.log(err)
-            })
-            res.cookie('refreshToken', refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: false})
-            res.json({user: userData, message: 'Success register!', userId: user._id, token})
-        } catch(e) {
-            console.log(e)
-            res.status(400).json({e})
+      name = name.replace('"', "");
+      surname = surname.replace('"', "");
+      age = age.replace('"', "");
+      email = email.replace('"', "");
+      aboutMe = aboutMe.replace('"', "");
+      //Получение ID пользователя
+      const id = req.user.userId;
+      //Обновление профиля пользователя
+      await User.findByIdAndUpdate(
+        { _id: id },
+        { name, surname, age, email, aboutMe }
+      );
+      //Загрузка или обновление изображений аватарки и баннера
+      if (req.files) {
+        if (req.files.file) {
+          //Генерирование нового имени для файла аватарки
+          const filename1 = uuid.v4() + ".jpg";
+          //Загрузка аватарки на сервер
+          await FileService.insertUserAvatar(req.files.file, id, filename1);
+          //Обновление аватарки
+          await User.findByIdAndUpdate({ _id: id }, { avatarUrl: filename1 });
         }
-
-    } 
-    //Обновление профиля пользователя
-    async update(req, res) {
-        try {
-            //Получение результата валидации данных пользователя
-            const errors = validationResult(req)
-            if(!errors.isEmpty()) {
-                //Отправка ошибок, если она есть
-                res.json({errors}).status(400)
-            }
-            //Получение данных пользователя из тела запроса
-            let {name, surname, age, email, aboutMe} = req.body
-
-            name = name.replace("\"", "")
-            surname = surname.replace("\"", "")
-            age = age.replace("\"", "")
-            email = email.replace("\"", "")
-            aboutMe = aboutMe.replace("\"", "")
-
-            name = name.replace("\"", "")
-            surname = surname.replace("\"", "")
-            age = age.replace("\"", "")
-            email = email.replace("\"", "")
-            aboutMe = aboutMe.replace("\"", "")
-            //Получение ID пользователя
-            const id = req.user.userId
-            //Обновление профиля пользователя
-            await User.findByIdAndUpdate({_id: id}, {name, surname, age, email, aboutMe})
-            //Загрузка или обновление изображений аватарки и баннера
-            if(req.files) {
-                if(req.files.file) {
-                    //Генерирование нового имени для файла аватарки
-                    const filename1 = uuid.v4() + '.jpg'
-                    //Загрузка аватарки на сервер
-                    await FileService.insertUserAvatar(req.files.file, id, filename1)
-                    //Обновление аватарки
-                    await User.findByIdAndUpdate({_id: id}, {avatarUrl: filename1})
-                }
-                if(req.files.file2) {
-                    //Генерирование нового имени для файла баннера
-                    const filename2 = uuid.v4() + '.jpg'
-                    //Загрузка баннера на сервер
-                    await FileService.insertUserBanner(req.files.file2, id, filename2)
-                    //Обновление баннера
-                    await User.findByIdAndUpdate({_id: id}, {bannerUrl: filename2})
-                }
-            }
-            res.json("")
-        } catch(e) {
-            console.log(e)
-            res.status(400).json({e})
+        if (req.files.file2) {
+          //Генерирование нового имени для файла баннера
+          const filename2 = uuid.v4() + ".jpg";
+          //Загрузка баннера на сервер
+          await FileService.insertUserBanner(req.files.file2, id, filename2);
+          //Обновление баннера
+          await User.findByIdAndUpdate({ _id: id }, { bannerUrl: filename2 });
         }
-
-    } 
-
-    async login(req, res) {
-        try {
-            const errors = validationResult(req)
-            if(!errors.isEmpty()) {
-                res.json({errors}).status(400)
-                res.end()
-                return
-            }
-            const {email, password} = req.body
-            const user = await User.findOne({email})
-            if(!user) {
-                res.json({errors: ['Такого пользователя не существует']})
-                res.end()
-                return
-            }   
-            const validPassword = bcrypt.compareSync(password, user.password)
-            if(!validPassword) {
-                res.json({errors: ['Пароль не верный']}).status(400)
-                res.end()
-                return
-            }
-            const token = jwt.sign(
-                {userId: user._id},
-                secret,
-                {expiresIn: '8h'}
-            )
-            const refreshToken = jwt.sign(
-                {userId: user._id},
-                refreshSecret,
-                {expiresIn: '30d'}
-            )
-
-            const tokenData = await Token.findOne({user: user._id})
-            if(tokenData) {
-                tokenData.token = refreshToken
-                await tokenData.save()
-            }
-            res.cookie('refreshToken', refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: false})
-            res.json({user, token, userId: user._id, errors: []})
-        } catch(e) {
-            console.log(e)
-            res.status(400).json({e})
-        }
+      }
+      res.json("");
+    } catch (e) {
+      console.log(e);
+      res.status(400).json({ e });
     }
-    async loginMobile(req, res) {
-        try {
-            console.log("login")
-            const errors = validationResult(req)
-            if(!errors.isEmpty()) {
-                res.json({errors}).status(400)
-                res.end()
-                return
-            }
-            const {email, password} = req.body
-            const user = await User.findOne({email})
-            if(!user) {
-                res.json({errors: ['Такого пользователя не существует']})
-                res.end()
-                return
-            }   
-            const validPassword = bcrypt.compareSync(password, user.password)
-            if(!validPassword) {
-                res.json({errors: ['Пароль не верный']}).status(400)
-                res.end()
-                return
-            }
-            const token = jwt.sign(
-                {userId: user._id},
-                secret,
-                {expiresIn: '8h'}
-            )
-            const refreshToken = jwt.sign(
-                {userId: user._id},
-                refreshSecret,
-                {expiresIn: '30d'}
-            )
-            const tokenData = await Token.findOne({user: user._id})
-            if(tokenData) {
-                tokenData.token = refreshToken
-                await tokenData.save()
-            }
-            console.log("fuck", refreshToken, "fuck")
-            res.cookie('refreshToken', refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: false})
-            res.json({token, userId: user._id, errors: []})
-        } catch(e) {
-            console.log(e)
-            res.status(400).json({e})
-        }
+  }
+
+  async login(req, res) {
+    try {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        res.json({ errors }).status(400);
+        res.end();
+        return;
+      }
+      const { email, password } = req.body;
+      const user = await User.findOne({ email });
+      if (!user) {
+        res.json({ errors: ["Такого пользователя не существует"] });
+        res.end();
+        return;
+      }
+      const validPassword = bcrypt.compareSync(password, user.password);
+      if (!validPassword) {
+        res.json({ errors: ["Пароль не верный"] }).status(400);
+        res.end();
+        return;
+      }
+      const token = jwt.sign({ userId: user._id }, secret, { expiresIn: "8h" });
+      const refreshToken = jwt.sign({ userId: user._id }, refreshSecret, {
+        expiresIn: "30d",
+      });
+
+      const tokenData = await Token.findOne({ user: user._id });
+      if (tokenData) {
+        tokenData.token = refreshToken;
+        await tokenData.save();
+      }
+      res.cookie("refreshToken", refreshToken, {
+        maxAge: 30 * 24 * 60 * 60 * 1000,
+        httpOnly: false,
+      });
+      res.json({ user, token, userId: user._id, errors: [] });
+    } catch (e) {
+      console.log(e);
+      res.status(400).json({ e });
     }
-    async activate(req, res) {
-        const user = await User.findById(req.params.link)
-        user.isActivated = true
-        user.save()
-        res.json({message: "success acivation"})
+  }
+  async loginMobile(req, res) {
+    try {
+      console.log("login");
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        res.json({ errors }).status(400);
+        res.end();
+        return;
+      }
+      const { email, password } = req.body;
+      const user = await User.findOne({ email });
+      if (!user) {
+        res.json({ errors: ["Такого пользователя не существует"] });
+        res.end();
+        return;
+      }
+      const validPassword = bcrypt.compareSync(password, user.password);
+      if (!validPassword) {
+        res.json({ errors: ["Пароль не верный"] }).status(400);
+        res.end();
+        return;
+      }
+      const token = jwt.sign({ userId: user._id }, secret, { expiresIn: "8h" });
+      const refreshToken = jwt.sign({ userId: user._id }, refreshSecret, {
+        expiresIn: "30d",
+      });
+      const tokenData = await Token.findOne({ user: user._id });
+      if (tokenData) {
+        tokenData.token = refreshToken;
+        await tokenData.save();
+      }
+      console.log("fuck", refreshToken, "fuck");
+      res.cookie("refreshToken", refreshToken, {
+        maxAge: 30 * 24 * 60 * 60 * 1000,
+        httpOnly: false,
+      });
+      res.json({ token, userId: user._id, errors: [] });
+    } catch (e) {
+      console.log(e);
+      res.status(400).json({ e });
     }
+  }
+  async activate(req, res) {
+    const user = await User.findById(req.params.link);
+    user.isActivated = true;
+    user.save();
+    res.json({ message: "success acivation" });
+  }
 }
 
-module.exports = new AuthService()
+module.exports = new AuthService();
