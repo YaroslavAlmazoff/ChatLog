@@ -12,8 +12,9 @@ module.exports = async (req, res, next) => {
     if (token) {
       try {
         const verified = jwt.verify(token, secret);
+        console.log(verified);
         if (!verified) {
-          res.status(401).json({ msg: "Not authorized" });
+          res.json({ msg: "Not authorized" });
           return;
         }
         req.user = verified;
