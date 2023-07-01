@@ -85,7 +85,12 @@ router.get("/refresh", async (req, res) => {
       httpOnly: false,
       secure: true,
     });
-    res.json({ verified: true, isActivated: user.isActivated, token });
+    res.json({
+      verified: true,
+      isActivated: user.isActivated,
+      token: accessToken,
+      userId: user._id,
+    });
   } catch (e) {
     console.log(e);
   }

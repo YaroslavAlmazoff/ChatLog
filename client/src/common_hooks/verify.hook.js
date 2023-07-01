@@ -18,8 +18,8 @@ const useVerify = () => {
       if (!response.data.verified) {
         window.location = "/login";
       }
-      console.log(response.data.token.token);
-      login(response.data.token.token);
+      console.log(response.data.token);
+      login(response.data.token, response.data.userId);
     } catch (e) {
       console.log(e);
       window.location = "/login";
