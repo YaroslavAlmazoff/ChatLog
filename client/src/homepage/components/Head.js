@@ -18,6 +18,7 @@ const Head = () => {
   }, []);
 
   useEffect(() => {
+    console.log(auth);
     const getUser = async () => {
       const response = await api.get("/api/user", {
         headers: {
