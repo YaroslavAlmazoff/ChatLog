@@ -16,7 +16,7 @@ module.exports = async (req, res, next) => {
           res.status(401).json({ msg: "Not authorized" });
           return;
         }
-        req.user = accessVerified;
+        req.user = verified;
         next();
       } catch (e) {
         res.json({ verified: false });
