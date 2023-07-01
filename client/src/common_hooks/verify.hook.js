@@ -11,6 +11,8 @@ const useVerify = () => {
         },
       });
 
+      console.log(response);
+
       if (!response.data.verified) {
         window.location = "/login";
       }
