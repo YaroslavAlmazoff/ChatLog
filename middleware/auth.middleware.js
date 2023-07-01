@@ -9,21 +9,10 @@ module.exports = async (req, res, next) => {
 
   try {
     let token = req.headers.authorization.split(" ")[1];
-    const { refreshToken } = req.cookies;
-    if (refreshToken) {
-      const tokenData = await Token.findOne({ refreshToken });
-      const validated = jwt.verify(refreshToken, refreshSecret);
-      const verified = tokenData || validated;
-      if (!verified) {
-        res.status(401).json({ msg: "Not authorized" });
-        return;
-      }
-      req.user = validated;
-      next();
-    } else if (token) {
+    if (token) {
       try {
-        const accessVerified = jwt.verify(token, secret);
-        if (!accessVerified) {
+        const verified = jwt.verify(token, secret);
+        if (!verified) {
           res.status(401).json({ msg: "Not authorized" });
           return;
         }
@@ -32,11 +21,39 @@ module.exports = async (req, res, next) => {
       } catch (e) {
         res.json({ verified: false });
       }
-    } else {
-      res.status(401).json({ msg: "Not authorized" });
     }
   } catch (e) {
-    res.status(401).json({ msg: "Not authorized" });
     console.log(e);
+    res.json("UNAUTHORIZED ERROR");
   }
 };
+
+//   const { refreshToken } = req.cookies;
+//   if (refreshToken) {
+//     const tokenData = await Token.findOne({ refreshToken });
+//     const validated = jwt.verify(refreshToken, refreshSecret);
+//     const verified = tokenData || validated;
+//     if (!verified) {
+//       res.status(401).json({ msg: "Not authorized" });
+//       return;
+//     }
+//     req.user = validated;
+//     next();
+//   } else if (token) {
+//     try {
+//       const accessVerified = jwt.verify(token, secret);
+//       if (!accessVerified) {
+//         res.status(401).json({ msg: "Not authorized" });
+//         return;
+//       }
+//       req.user = accessVerified;
+//       next();
+//     } catch (e) {
+//       res.json({ verified: false });
+//     }
+//   } else {
+//     res.status(401).json({ msg: "Not authorized" });
+//   }
+// } catch (e) {
+//   res.status(401).json({ msg: "Not authorized" });
+//   console.log(e);

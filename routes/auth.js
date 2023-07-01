@@ -11,18 +11,12 @@ const jwt = require("jsonwebtoken");
 const { secret, refreshSecret } = require("../config");
 const User = require("../models/User.js");
 const bcrypt = require("bcryptjs");
+const TokenService = require("../services/TokenService.js");
 
 //Создание роутера для авторизации пользователя
 router.get("/new-token/:token", (req, res) => {
   try {
     AuthService.newToken(req, res);
-  } catch (e) {
-    console.log(e);
-  }
-});
-router.get("/refresh", (req, res) => {
-  try {
-    AuthService.refresh(req, res);
   } catch (e) {
     console.log(e);
   }
@@ -51,27 +45,48 @@ router.post("/deleteprofile", auth, async (req, res) => {
     console.log(e);
   }
 });
-router.get("/verify", auth, async (req, res) => {
+router.get("/refresh", async (req, res) => {
   try {
     const { refreshToken } = req.cookies;
-    console.log(refreshToken);
 
-    const generated = jwt.sign({ userId: req.user.userId }, refreshSecret, {
-      expiresIn: "30d",
+    if (!refreshToken) {
+      res.json({ verified: false });
+      return;
+    }
+
+    const validated = jwt.verify(refreshToken, refreshSecret);
+    if (!validated) {
+      res.json({ verified: false });
+      return;
+    }
+
+    const accessToken = jwt.sign({ userId: req.user.userId }, refreshSecret, {
+      expiresIn: "1h",
     });
-
-    const user = await User.findById(req.user.userId);
+    const newRefreshToken = jwt.sign(
+      { userId: req.user.userId },
+      refreshSecret,
+      {
+        expiresIn: "30d",
+      }
+    );
 
     const token = await Token.findOne({ user: req.user.userId });
     if (token) {
-      tokenData.token = generated;
+      tokenData.token = newRefreshToken;
       await tokenData.save();
+    } else {
+      await Token.create({ user: req.user.userId, token: newRefreshToken });
     }
+
+    const user = await User.findById(req.user.userId);
+
     res.cookie("refreshToken", refreshToken, {
       maxAge: 30 * 24 * 60 * 60 * 1000,
       httpOnly: false,
+      secure: true,
     });
-    res.json({ verified: true, isActivated: user.isActivated });
+    res.json({ verified: true, isActivated: user.isActivated, accessToken });
   } catch (e) {
     console.log(e);
   }

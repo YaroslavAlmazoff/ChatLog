@@ -23,21 +23,7 @@ class AuthService {
     await ImageService.saveBINFile(req.files.file, req.files.file.name);
     res.json({ message: "yra" });
   }
-  async refresh(req, res) {
-    // const {refreshToken} = req.cookies
-    // if (!refreshToken) {
-    //     res.json({message: "unauthorized"})
-    // }
-    // const userData = tokenService.validateRefreshToken(refreshToken);
-    // const tokenFromDb = await tokenService.findToken(refreshToken);
-    // if (!userData || !tokenFromDb) {
-    //     throw ApiError.UnauthorizedError();
-    // }
-    // const user = await UserModel.findById(userData.id);
-    // const userDto = new UserDto(user);
-    // const tokens = tokenService.generateTokens({...userDto});
-    // await tokenService.saveToken(userDto.id, tokens.refreshToken);
-  }
+
   //Регистрация пользователя
   async register(req, res) {
     try {
@@ -179,7 +165,7 @@ class AuthService {
         res.end();
         return;
       }
-      const token = jwt.sign({ userId: user._id }, secret, { expiresIn: "8h" });
+      const token = jwt.sign({ userId: user._id }, secret, { expiresIn: "1h" });
       const refreshToken = jwt.sign({ userId: user._id }, refreshSecret, {
         expiresIn: "30d",
       });
@@ -221,7 +207,7 @@ class AuthService {
         res.end();
         return;
       }
-      const token = jwt.sign({ userId: user._id }, secret, { expiresIn: "8h" });
+      const token = jwt.sign({ userId: user._id }, secret, { expiresIn: "1h" });
       const refreshToken = jwt.sign({ userId: user._id }, refreshSecret, {
         expiresIn: "30d",
       });
