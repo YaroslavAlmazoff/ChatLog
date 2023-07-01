@@ -73,8 +73,7 @@ router.get("/refresh", async (req, res) => {
 
     const token = await Token.findOne({ user: validated.userId });
     if (token) {
-      tokenData.token = newRefreshToken;
-      await tokenData.save();
+      await Token.findByIdAndUpdate(token._id, { token: refreshToken });
     } else {
       await Token.create({ user: validated.userId, token: newRefreshToken });
     }
@@ -86,7 +85,7 @@ router.get("/refresh", async (req, res) => {
       httpOnly: false,
       secure: true,
     });
-    res.json({ verified: true, isActivated: user.isActivated, accessToken });
+    res.json({ verified: true, isActivated: user.isActivated, token });
   } catch (e) {
     console.log(e);
   }

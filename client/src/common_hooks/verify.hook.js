@@ -1,6 +1,8 @@
 import api from "../auth/api/auth";
+import { useAuth } from "./auth.hook";
 
 const useVerify = () => {
+  const { login } = useAuth();
   const verify = async () => {
     try {
       const response = await api.get("/api/refresh", {
@@ -16,6 +18,7 @@ const useVerify = () => {
       if (!response.data.verified) {
         window.location = "/login";
       }
+      login(response.data.token);
     } catch (e) {
       console.log(e);
       window.location = "/login";
