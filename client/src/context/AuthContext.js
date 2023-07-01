@@ -2,9 +2,9 @@ import { createContext } from "react";
 
 function noop() {}
 export const AuthContext = createContext({
-    token: null,
-    userId: null,
-    login: noop,
-    logout: noop,
-    isAuthenticated: false
-})
+  token: JSON.parse(localStorage.getItem("user")).token,
+  userId: JSON.parse(localStorage.getItem("user")).userId,
+  login: noop,
+  logout: noop,
+  isAuthenticated: false,
+});
