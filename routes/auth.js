@@ -60,26 +60,26 @@ router.get("/refresh", async (req, res) => {
       return;
     }
 
-    const accessToken = jwt.sign({ userId: req.user.userId }, refreshSecret, {
+    const accessToken = jwt.sign({ userId: validated.userId }, refreshSecret, {
       expiresIn: "1h",
     });
     const newRefreshToken = jwt.sign(
-      { userId: req.user.userId },
+      { userId: validated.userId },
       refreshSecret,
       {
         expiresIn: "30d",
       }
     );
 
-    const token = await Token.findOne({ user: req.user.userId });
+    const token = await Token.findOne({ user: validated.userId });
     if (token) {
       tokenData.token = newRefreshToken;
       await tokenData.save();
     } else {
-      await Token.create({ user: req.user.userId, token: newRefreshToken });
+      await Token.create({ user: validated.userId, token: newRefreshToken });
     }
 
-    const user = await User.findById(req.user.userId);
+    const user = await User.findById(validated.userId);
 
     res.cookie("refreshToken", refreshToken, {
       maxAge: 30 * 24 * 60 * 60 * 1000,
