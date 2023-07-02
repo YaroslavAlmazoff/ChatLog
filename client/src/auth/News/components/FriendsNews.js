@@ -13,10 +13,10 @@ const FriendsNews = () => {
   useEffect(() => {
     if (!auth.userId) return;
     const getPosts = async () => {
-      await verify();
+      const data = await verify();
       const response = await api.get("/api/friendsnews", {
         headers: {
-          Authorization: `Bearer ${auth.token}`,
+          Authorization: `Bearer ${data.token}`,
         },
       });
       console.log(response);

@@ -23,11 +23,11 @@ const Head = () => {
   useEffect(() => {
     console.log(auth);
     const getUser = async () => {
-      await verify();
+      const data = await verify();
       console.log(auth);
       const response = await api.get("/api/user", {
         headers: {
-          Authorization: `Bearer ${auth.token}`,
+          Authorization: `Bearer ${data.token}`,
         },
       });
       console.log(response);

@@ -20,10 +20,10 @@ const Forecast = () => {
     if (!auth.token) return;
     if (!auth.userId) return;
     const getWeather = async () => {
-      await verify();
+      const data = await verify();
       const URL = "https://api.openweathermap.org/data/2.5/weather";
       const API_KEY = "928ba56fdc47f5fe29a01f2ae34f87f3";
-      const response1 = await api.get(`/api/user/${auth.userId}`);
+      const response1 = await api.get(`/api/user/${data.userId}`);
       setCity(response1.data.user.city);
       if (response1.data.user.city) {
         try {
