@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import api from "../../api/auth";
 import { AuthContext } from "../../../context/AuthContext";
 import PublicNewsPost from "./components/PublicNewsPost";
-import useVerify from "../../common_hooks/verify.hook";
+import useVerify from "../../../common_hooks/verify.hook";
 
 const PublicNews = () => {
   const auth = useContext(AuthContext);

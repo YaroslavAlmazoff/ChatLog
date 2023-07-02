@@ -7,7 +7,7 @@ import { AuthContext } from "../../../../context/AuthContext";
 import PublicCommentField from "../../../../publics/components/components/components/PublicCommentField";
 import PublicCommentItem from "../../../../publics/components/components/components/PublicCommentItem";
 import { LIKE_NOTIFICATION } from "../../../../publicNotificationTypes";
-import useVerify from "../../common_hooks/verify.hook";
+import useVerify from "../../../../common_hooks/verify.hook";
 
 const PublicNewsPost = ({ id }) => {
   const auth = useContext(AuthContext);

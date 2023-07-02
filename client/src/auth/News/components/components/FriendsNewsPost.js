@@ -6,7 +6,7 @@ import Loader from "../../../../common_components/Loader";
 import FriendsPostHead from "./components/FriendsPostHead";
 import Comment from "../../../../common_components/Comment";
 import CommentField from "../../../parts/CommentField";
-import useVerify from "../../common_hooks/verify.hook";
+import useVerify from "../../../../common_hooks/verify.hook";
 
 const FriendsNewsPost = ({ id }) => {
   const { verify } = useVerify();
