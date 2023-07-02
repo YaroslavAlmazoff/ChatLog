@@ -10,7 +10,7 @@ import useVerify from "../../../../common_hooks/verify.hook";
 
 const FriendsNewsPost = ({ id }) => {
   const { verify } = useVerify();
-  const auth = useContext(AuthContext);
+  //const auth = useContext(AuthContext);
   const [image, setImage] = useState("");
   const [post, setPost] = useState({ images: [], title: "", date: "" });
   const [error, setError] = useState("");
@@ -18,9 +18,12 @@ const FriendsNewsPost = ({ id }) => {
   const [mainImageLoading, setMainImageLoading] = useState(true);
   const [commentsDisplay, setCommentsDisplay] = useState(false);
   const [comments, setComments] = useState([]);
+  const [data, setData] = useState({});
   useEffect(() => {
-    const verify = async () => await verify();
-    verify();
+    const verify = async () => {
+      const v = await verify();
+      setData(v);
+    };
   }, [verify]);
   const [colors] = useState([
     "color-neon-blue",

@@ -14,8 +14,10 @@ const PublicNewsPost = ({ id }) => {
   const [image, setImage] = useState("");
   const { verify } = useVerify();
   useEffect(() => {
-    const verify = async () => await verify();
-    verify();
+    const verify = async () => {
+      const v = await verify();
+      setData(v);
+    };
   }, [verify]);
   const [post, setPost] = useState({
     images: [],
