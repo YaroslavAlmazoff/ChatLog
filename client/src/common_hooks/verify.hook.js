@@ -2,7 +2,7 @@ import api from "../auth/api/auth";
 import { useAuth } from "./auth.hook";
 
 const useVerify = () => {
-  const { login } = useAuth();
+  const { login, logout } = useAuth();
   const verify = async () => {
     try {
       const response = await api.get("/api/refresh", {
@@ -20,6 +20,13 @@ const useVerify = () => {
       }
       console.log(response.data.token);
       login(response.data.token, response.data.userId);
+      return {
+        isAuthenticated: response.data.verified,
+        token: response.data.token,
+        userId: response.data.userId,
+        login,
+        logout,
+      };
     } catch (e) {
       console.log(e);
       window.location = "/login";
