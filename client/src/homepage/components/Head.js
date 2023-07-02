@@ -18,9 +18,9 @@ const Head = () => {
   }, []);
 
   useEffect(() => {
-    if (!auth.userId || !auth.token) return;
     console.log(auth);
     const getUser = async () => {
+      if (!auth.userId || !auth.token) return;
       console.log(auth);
       const response = await api.get("/api/user", {
         headers: {
