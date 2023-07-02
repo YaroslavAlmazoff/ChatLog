@@ -3,6 +3,7 @@ import { useRef, useEffect, useState, useContext } from "react";
 import useDaytime from "../hooks/daytime.hook";
 import api from "../../auth/api/auth";
 import { AuthContext } from "../../context/AuthContext";
+import useVerify from "../../common_hooks/verify.hook";
 
 const Head = () => {
   const auth = useContext(AuthContext);
