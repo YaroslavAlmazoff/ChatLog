@@ -17,8 +17,7 @@ const Forecast = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!auth.token) return;
-    if (!auth.userId) return;
+    if (!auth.userId || !auth.token) return;
     const getWeather = async () => {
       const data = await verify();
       const URL = "https://api.openweathermap.org/data/2.5/weather";

@@ -10,16 +10,8 @@ import { LIKE_NOTIFICATION } from "../../../../publicNotificationTypes";
 import useVerify from "../../../../common_hooks/verify.hook";
 
 const PublicNewsPost = ({ id }) => {
-  //const auth = useContext(AuthContext);
+  const auth = useContext(AuthContext);
   const [image, setImage] = useState("");
-  const [data, setData] = useState({ userId: "" });
-  const { verify } = useVerify();
-  useEffect(() => {
-    const verify = async () => {
-      const v = await verify();
-      setData(v);
-    };
-  }, [verify]);
   const [post, setPost] = useState({
     images: [],
     title: "",
@@ -82,10 +74,11 @@ const PublicNewsPost = ({ id }) => {
   }, [id]);
 
   useEffect(() => {
-    if (localStorage.getItem(post._id) === data.userId) {
+    if (!auth.userId || !auth.token) return;
+    if (localStorage.getItem(post._id) === auth.userId) {
       setLike(require("../../../../img/red-like.png"));
     }
-  }, [post, data]);
+  }, [post, auth]);
 
   const [like, setLike] = useState(require("../../../../img/blue-like.png"));
   const [likesCount, setLikesCount] = useState();
@@ -97,26 +90,26 @@ const PublicNewsPost = ({ id }) => {
       { type: LIKE_NOTIFICATION },
       {
         headers: {
-          Authorization: `Bearer ${data.token}`,
+          Authorization: `Bearer ${auth.token}`,
         },
       }
     );
     if (like === require("../../../../img/blue-like.png")) {
-      localStorage.setItem(post._id, data.userId);
+      localStorage.setItem(post._id, auth.userId);
       setLikesCount(likesCount + 1);
       setLike(require("../../../../img/red-like.png"));
       await api.get(`/api/public/likepost/${post._id}`, {
         headers: {
-          Authorization: `Bearer ${data.token}`,
+          Authorization: `Bearer ${auth.token}`,
         },
       });
     } else {
-      localStorage.removeItem(post._id, data.userId);
+      localStorage.removeItem(post._id, auth.userId);
       setLikesCount(likesCount - 1);
       setLike(require("../../../../img/blue-like.png"));
       await api.get(`/api/public/likepost/${post._id}`, {
         headers: {
-          Authorization: `Bearer ${data.token}`,
+          Authorization: `Bearer ${auth.token}`,
         },
       });
     }

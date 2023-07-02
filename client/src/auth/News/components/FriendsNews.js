@@ -8,15 +8,12 @@ const FriendsNews = () => {
   const auth = useContext(AuthContext);
   const [posts, setPosts] = useState([]);
 
-  const { verify } = useVerify();
-
   useEffect(() => {
-    if (!auth.userId) return;
+    if (!auth.userId || !auth.token) return;
     const getPosts = async () => {
-      const data = await verify();
       const response = await api.get("/api/friendsnews", {
         headers: {
-          Authorization: `Bearer ${data.token}`,
+          Authorization: `Bearer ${auth.token}`,
         },
       });
       console.log(response);

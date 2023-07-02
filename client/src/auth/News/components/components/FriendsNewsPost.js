@@ -9,8 +9,7 @@ import CommentField from "../../../parts/CommentField";
 import useVerify from "../../../../common_hooks/verify.hook";
 
 const FriendsNewsPost = ({ id }) => {
-  const { verify } = useVerify();
-  //const auth = useContext(AuthContext);
+  const auth = useContext(AuthContext);
   const [image, setImage] = useState("");
   const [post, setPost] = useState({ images: [], title: "", date: "" });
   const [error, setError] = useState("");
@@ -18,13 +17,6 @@ const FriendsNewsPost = ({ id }) => {
   const [mainImageLoading, setMainImageLoading] = useState(true);
   const [commentsDisplay, setCommentsDisplay] = useState(false);
   const [comments, setComments] = useState([]);
-  const [data, setData] = useState({ userid: "" });
-  useEffect(() => {
-    const verify = async () => {
-      const v = await verify();
-      setData(v);
-    };
-  }, [verify]);
   const [colors] = useState([
     "color-neon-blue",
     "color-neon-orange",
@@ -76,7 +68,8 @@ const FriendsNewsPost = ({ id }) => {
   }, [post]);
 
   useEffect(() => {
-    if (localStorage.getItem(post._id) === data.userId) {
+    if (!auth.userId || !auth.token) return;
+    if (localStorage.getItem(post._id) === auth.userId) {
       setLike(require("../../../../img/red-like.png"));
     }
   }, [post, data]);
@@ -94,22 +87,22 @@ const FriendsNewsPost = ({ id }) => {
 
   const mark = async () => {
     if (like === require("../../../../img/blue-like.png")) {
-      localStorage.setItem(post._id, data.userId);
+      localStorage.setItem(post._id, auth.userId);
       setLikesCount(likesCount + 1);
       setLike(require("../../../../img/red-like.png"));
       await api.post(
         `/api/like`,
         { id: post._id },
-        { headers: { Authorization: `Bearer ${data.token}` } }
+        { headers: { Authorization: `Bearer ${auth.token}` } }
       );
     } else {
-      localStorage.removeItem(post._id, data.userId);
+      localStorage.removeItem(post._id, auth.userId);
       setLikesCount(likesCount - 1);
       setLike(require("../../../../img/blue-like.png"));
       await api.post(
         `/api/like`,
         { sub: true, id: post._id },
-        { headers: { Authorization: `Bearer ${data.token}` } }
+        { headers: { Authorization: `Bearer ${auth.token}` } }
       );
     }
   };

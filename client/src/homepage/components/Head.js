@@ -9,9 +9,6 @@ const Head = () => {
   const auth = useContext(AuthContext);
   const { getDaytime } = useDaytime();
   const [user, setUser] = useState({ name: "name" });
-
-  const { verify } = useVerify();
-
   let clockRef = useRef(null);
   useEffect(() => {
     setInterval(() => {
@@ -21,13 +18,13 @@ const Head = () => {
   }, []);
 
   useEffect(() => {
+    if (!auth.userId || !auth.token) return;
     console.log(auth);
     const getUser = async () => {
-      const data = await verify();
       console.log(auth);
       const response = await api.get("/api/user", {
         headers: {
-          Authorization: `Bearer ${data.token}`,
+          Authorization: `Bearer ${auth.token}`,
         },
       });
       console.log(response);

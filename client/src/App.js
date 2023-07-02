@@ -88,8 +88,8 @@ function App() {
   const { token, login, logout, userId } = useAuth();
 
   const [verifyData, setVerifyData] = useState({
-    token: JSON.parse(localStorage.getItem("user")).token,
-    userId: JSON.parse(localStorage.getItem("user")).userId,
+    token: null,
+    userId: null,
     login,
     logout,
     isAuthenticated: true,
