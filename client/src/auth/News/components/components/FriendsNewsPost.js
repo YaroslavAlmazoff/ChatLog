@@ -72,7 +72,7 @@ const FriendsNewsPost = ({ id }) => {
     if (localStorage.getItem(post._id) === auth.userId) {
       setLike(require("../../../../img/red-like.png"));
     }
-  }, [post, data]);
+  }, [post, auth]);
 
   const [like, setLike] = useState(require("../../../../img/blue-like.png"));
   const [likesCount, setLikesCount] = useState();
