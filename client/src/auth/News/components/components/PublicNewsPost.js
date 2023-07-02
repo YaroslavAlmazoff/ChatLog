@@ -10,8 +10,9 @@ import { LIKE_NOTIFICATION } from "../../../../publicNotificationTypes";
 import useVerify from "../../../../common_hooks/verify.hook";
 
 const PublicNewsPost = ({ id }) => {
-  const auth = useContext(AuthContext);
+  //const auth = useContext(AuthContext);
   const [image, setImage] = useState("");
+  const [data, setData] = useState({ userId: "" });
   const { verify } = useVerify();
   useEffect(() => {
     const verify = async () => {
@@ -81,10 +82,10 @@ const PublicNewsPost = ({ id }) => {
   }, [id]);
 
   useEffect(() => {
-    if (localStorage.getItem(post._id) === auth.userId) {
+    if (localStorage.getItem(post._id) === data.userId) {
       setLike(require("../../../../img/red-like.png"));
     }
-  }, [post, auth]);
+  }, [post, data]);
 
   const [like, setLike] = useState(require("../../../../img/blue-like.png"));
   const [likesCount, setLikesCount] = useState();
@@ -96,26 +97,26 @@ const PublicNewsPost = ({ id }) => {
       { type: LIKE_NOTIFICATION },
       {
         headers: {
-          Authorization: `Bearer ${auth.token}`,
+          Authorization: `Bearer ${data.token}`,
         },
       }
     );
     if (like === require("../../../../img/blue-like.png")) {
-      localStorage.setItem(post._id, auth.userId);
+      localStorage.setItem(post._id, data.userId);
       setLikesCount(likesCount + 1);
       setLike(require("../../../../img/red-like.png"));
       await api.get(`/api/public/likepost/${post._id}`, {
         headers: {
-          Authorization: `Bearer ${auth.token}`,
+          Authorization: `Bearer ${data.token}`,
         },
       });
     } else {
-      localStorage.removeItem(post._id, auth.userId);
+      localStorage.removeItem(post._id, data.userId);
       setLikesCount(likesCount - 1);
       setLike(require("../../../../img/blue-like.png"));
       await api.get(`/api/public/likepost/${post._id}`, {
         headers: {
-          Authorization: `Bearer ${auth.token}`,
+          Authorization: `Bearer ${data.token}`,
         },
       });
     }
