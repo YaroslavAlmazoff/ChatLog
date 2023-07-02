@@ -9,6 +9,7 @@ import api from "./auth/api/auth";
 import useDate from "./common_hooks/date.hook";
 import $ from "jquery";
 import useVerify from "./common_hooks/verify.hook";
+import auth from "./auth/api/auth";
 
 function App() {
   const { verify } = useVerify();
@@ -85,6 +86,15 @@ function App() {
   }, [colors]);
 
   const { token, login, logout, userId } = useAuth();
+
+  const [verifyData, setVerifyData] = useState({
+    token: JSON.parse(localStorage.getItem("user")).token,
+    userId: JSON.parse(localStorage.getItem("user")).userId,
+    login,
+    logout,
+    isAuthenticated: true,
+  });
+
   const isAuthenticated = !!token;
   const [isVerified, setIsVerified] = useState(false);
   const routes = useRoutes(isVerified);
@@ -95,7 +105,8 @@ function App() {
     };
     setVisit();
     const lastVisit = async () => {
-      await verify();
+      const data = await verify();
+      setVerifyData(data);
       setIsVerified(true);
       const date = getCurrentDate();
       if (localStorage.getItem("user")) {
@@ -108,7 +119,7 @@ function App() {
   return (
     <AuthContext.Provider
       value={{
-        token,
+        token: verifyData.token,
         login,
         logout,
         userId,

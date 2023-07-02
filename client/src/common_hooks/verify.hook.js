@@ -21,11 +21,11 @@ const useVerify = () => {
       console.log(response.data.token);
       login(response.data.token, response.data.userId);
       return {
-        isAuthenticated: response.data.verified,
         token: response.data.token,
         userId: response.data.userId,
         login,
         logout,
+        isAuthenticated: response.data.verified,
       };
     } catch (e) {
       console.log(e);
