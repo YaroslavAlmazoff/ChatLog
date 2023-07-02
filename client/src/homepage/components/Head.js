@@ -9,6 +9,8 @@ const Head = () => {
   const { getDaytime } = useDaytime();
   const [user, setUser] = useState({ name: "name" });
 
+  const { verify } = useVerify();
+
   let clockRef = useRef(null);
   useEffect(() => {
     setInterval(() => {
@@ -20,6 +22,8 @@ const Head = () => {
   useEffect(() => {
     console.log(auth);
     const getUser = async () => {
+      await verify();
+      console.log(auth);
       const response = await api.get("/api/user", {
         headers: {
           Authorization: `Bearer ${auth.token}`,
