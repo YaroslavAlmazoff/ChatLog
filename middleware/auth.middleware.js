@@ -24,6 +24,9 @@ module.exports = async (req, res, next) => {
       } catch (e) {
         res.json({ verified: false });
       }
+    } else {
+      console.log("token not exists", token);
+      res.json({ message: "else" });
     }
   } catch (e) {
     console.log(e);
