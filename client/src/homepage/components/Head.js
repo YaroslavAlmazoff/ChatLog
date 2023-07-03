@@ -24,6 +24,7 @@ const Head = () => {
         Authorization: `Bearer ${token}`,
       },
     });
+    console.log(response);
     setUser(response.data.user);
   }, [token]);
 
