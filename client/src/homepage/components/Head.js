@@ -28,12 +28,16 @@ const Head = () => {
         },
       });
       console.log("response", response);
-      setUser(response.data.user);
+      if (response.user) {
+        setUser(response.data.user);
+      } else {
+        setUser({ name: "LOADING..." });
+      }
     };
     if (auth.token && auth.userId) {
       getUser();
     }
-  }, []);
+  }, [auth]);
 
   return (
     <div className="head">
