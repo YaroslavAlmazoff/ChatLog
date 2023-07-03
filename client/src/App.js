@@ -91,20 +91,21 @@ function App() {
   const [isVerified, setIsVerified] = useState(false);
   const routes = useRoutes(isVerified);
   const { getCurrentDate } = useDate();
-  // useEffect(() => {
-  //   const setVisit = async () => {
-  //     await api.get("/api/admin/setvisit");
-  //   };
-  //   setVisit();
-  //   const lastVisit = async () => {
-  //     setIsVerified(true);
-  //     const date = getCurrentDate();
-  //     if (localStorage.getItem("user")) {
-  //       await api.post("/api/lastvisit", { date }, { headers: { token } });
-  //     }
-  //   };
-  //   lastVisit();
-  // }, []);
+  useEffect(() => {
+    const setVisit = async () => {
+      await verify();
+      await api.get("/api/admin/setvisit");
+    };
+    setVisit();
+    const lastVisit = async () => {
+      setIsVerified(true);
+      const date = getCurrentDate();
+      if (localStorage.getItem("user")) {
+        await api.post("/api/lastvisit", { date }, { headers: { token } });
+      }
+    };
+    lastVisit();
+  }, []);
 
   return (
     <AuthContext.Provider
