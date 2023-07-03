@@ -30,7 +30,9 @@ const Head = () => {
       console.log("response", response);
       setUser(response.data.user);
     };
-    getUser();
+    if (auth.token && auth.userId) {
+      getUser();
+    }
   }, [auth]);
 
   return (
