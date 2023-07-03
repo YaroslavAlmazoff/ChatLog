@@ -1,11 +1,11 @@
 import "./styles/head.css";
-import { useRef, useEffect, useState, useContext } from "react";
+import { useRef, useEffect, useState, useContext, useCallback } from "react";
 import useDaytime from "../hooks/daytime.hook";
 import api from "../../auth/api/auth";
 import { AuthContext } from "../../context/AuthContext";
 
 const Head = () => {
-  const auth = useContext(AuthContext);
+  const { token } = useContext(AuthContext);
   const { getDaytime } = useDaytime();
   const [user, setUser] = useState({ name: "name" });
   let clockRef = useRef(null);
@@ -16,19 +16,20 @@ const Head = () => {
     }, 1000);
   }, []);
 
+  const getUser = useCallback(async () => {
+    if (!auth.userId) return;
+    console.log(auth.token, auth.userId);
+    const response = await api.get("/api/user", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    setUser(response.data.user);
+  }, [token]);
+
   useEffect(() => {
-    const getUser = async () => {
-      if (!auth.userId) return;
-      console.log(auth.token, auth.userId);
-      const response = await api.get("/api/user", {
-        headers: {
-          Authorization: `Bearer ${auth.token}`,
-        },
-      });
-      setUser(response.data.user);
-    };
     getUser();
-  }, [auth]);
+  }, [getUser]);
 
   return (
     <div className="head">
