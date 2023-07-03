@@ -17,7 +17,7 @@ const Head = () => {
   }, []);
 
   const getUser = useCallback(async () => {
-    if (token) return;
+    if (!token) return;
     console.log(token);
     const response = await api.get("/api/user", {
       headers: {
