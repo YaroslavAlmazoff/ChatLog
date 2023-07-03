@@ -16,6 +16,10 @@ const PublicNews = () => {
           Authorization: `Bearer ${auth.token}`,
         },
       });
+      if (!response.data.verified) {
+        setPosts();
+        return;
+      }
       setPosts(response.data.posts);
     };
     getPosts();
