@@ -9,6 +9,7 @@ const FriendsNews = () => {
 
   useEffect(() => {
     const getPosts = async () => {
+      if (!auth.userId) return;
       const response = await api.get("/api/friendsnews", {
         headers: {
           Authorization: `Bearer ${auth.token}`,

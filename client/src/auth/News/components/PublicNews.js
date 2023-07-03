@@ -9,6 +9,7 @@ const PublicNews = () => {
 
   useEffect(() => {
     const getPosts = async () => {
+      if (!auth.userId) return;
       const response = await api.get("/api/publicnews", {
         headers: {
           Authorization: `Bearer ${auth.token}`,

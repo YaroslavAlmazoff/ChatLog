@@ -18,6 +18,7 @@ const Head = () => {
 
   useEffect(() => {
     const getUser = async () => {
+      if (!auth.userId) return;
       const response = await api.get("/api/user", {
         headers: {
           Authorization: `Bearer ${auth.token}`,

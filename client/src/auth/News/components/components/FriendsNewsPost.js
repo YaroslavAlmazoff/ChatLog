@@ -67,6 +67,7 @@ const FriendsNewsPost = ({ id }) => {
   }, [post]);
 
   useEffect(() => {
+    if (!auth.userId) return;
     if (localStorage.getItem(post._id) === auth.userId) {
       setLike(require("../../../../img/red-like.png"));
     }
