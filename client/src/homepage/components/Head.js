@@ -33,7 +33,7 @@ const Head = () => {
     if (auth.token && auth.userId) {
       getUser();
     }
-  }, [auth]);
+  }, []);
 
   return (
     <div className="head">
