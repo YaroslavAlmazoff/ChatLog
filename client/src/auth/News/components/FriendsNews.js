@@ -17,7 +17,7 @@ const FriendsNews = () => {
         },
       });
       if (!response.data.verified) {
-        setPosts();
+        setPosts([]);
         return;
       }
       setPosts(response.data.posts);
