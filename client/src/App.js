@@ -120,9 +120,9 @@ function App() {
     <AuthContext.Provider
       value={{
         token: verifyData.token,
-        login,
-        logout,
-        userId,
+        login: verifyData.login,
+        logout: verifyData.logout,
+        userId: verifyData.userId,
         isAuthenticated,
       }}
     >

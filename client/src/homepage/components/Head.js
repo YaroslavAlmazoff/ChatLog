@@ -18,16 +18,16 @@ const Head = () => {
   }, []);
 
   useEffect(() => {
-    console.log(auth);
+    console.log("before check", auth.userId, auth.token);
     const getUser = async () => {
       if (!auth.userId || !auth.token) return;
-      console.log(auth);
+      console.log("after check", auth.userId, auth.token);
       const response = await api.get("/api/user", {
         headers: {
           Authorization: `Bearer ${auth.token}`,
         },
       });
-      console.log(response);
+      console.log("response", response);
       setUser(response.data.user);
     };
     getUser();
