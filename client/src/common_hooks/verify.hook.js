@@ -17,13 +17,6 @@ const useVerify = () => {
         window.location = "/login";
       }
       login(response.data.token, response.data.userId);
-      return {
-        token: response.data.token,
-        userId: response.data.userId,
-        login,
-        logout,
-        isAuthenticated: response.data.verified,
-      };
     } catch (e) {
       console.log(e);
       window.location = "/login";

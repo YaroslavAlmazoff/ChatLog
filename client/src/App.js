@@ -87,42 +87,32 @@ function App() {
 
   const { token, login, logout, userId } = useAuth();
 
-  const [verifyData, setVerifyData] = useState({
-    token: null,
-    userId: null,
-    login,
-    logout,
-    isAuthenticated: true,
-  });
-
   const isAuthenticated = !!token;
   const [isVerified, setIsVerified] = useState(false);
   const routes = useRoutes(isVerified);
   const { getCurrentDate } = useDate();
-  useEffect(() => {
-    const setVisit = async () => {
-      await api.get("/api/admin/setvisit");
-    };
-    setVisit();
-    const lastVisit = async () => {
-      const data = await verify();
-      setVerifyData(data);
-      setIsVerified(true);
-      const date = getCurrentDate();
-      if (localStorage.getItem("user")) {
-        await api.post("/api/lastvisit", { date }, { headers: { token } });
-      }
-    };
-    lastVisit();
-  }, []);
+  // useEffect(() => {
+  //   const setVisit = async () => {
+  //     await api.get("/api/admin/setvisit");
+  //   };
+  //   setVisit();
+  //   const lastVisit = async () => {
+  //     setIsVerified(true);
+  //     const date = getCurrentDate();
+  //     if (localStorage.getItem("user")) {
+  //       await api.post("/api/lastvisit", { date }, { headers: { token } });
+  //     }
+  //   };
+  //   lastVisit();
+  // }, []);
 
   return (
     <AuthContext.Provider
       value={{
-        token: verifyData.token,
-        login: verifyData.login,
-        logout: verifyData.logout,
-        userId: verifyData.userId,
+        token,
+        login,
+        logout,
+        userId,
         isAuthenticated,
       }}
     >

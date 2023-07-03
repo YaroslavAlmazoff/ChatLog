@@ -3,11 +3,9 @@ import { useRef, useEffect, useState, useContext } from "react";
 import useDaytime from "../hooks/daytime.hook";
 import api from "../../auth/api/auth";
 import { AuthContext } from "../../context/AuthContext";
-import useVerify from "../../common_hooks/verify.hook";
 
 const Head = () => {
   const auth = useContext(AuthContext);
-  const { verify } = useVerify();
   const { getDaytime } = useDaytime();
   const [user, setUser] = useState({ name: "name" });
   let clockRef = useRef(null);
@@ -20,10 +18,9 @@ const Head = () => {
 
   useEffect(() => {
     const getUser = async () => {
-      const data = await verify();
       const response = await api.get("/api/user", {
         headers: {
-          Authorization: `Bearer ${data.token}`,
+          Authorization: `Bearer ${auth.token}`,
         },
       });
       setUser(response.data.user);

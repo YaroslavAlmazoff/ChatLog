@@ -7,12 +7,10 @@ import { AuthContext } from "../../../../context/AuthContext";
 import PublicCommentField from "../../../../publics/components/components/components/PublicCommentField";
 import PublicCommentItem from "../../../../publics/components/components/components/PublicCommentItem";
 import { LIKE_NOTIFICATION } from "../../../../publicNotificationTypes";
-import useVerify from "../../../../common_hooks/verify.hook";
 
 const PublicNewsPost = ({ id }) => {
   const auth = useContext(AuthContext);
   const [image, setImage] = useState("");
-  const { verify } = useVerify();
   const [post, setPost] = useState({
     images: [],
     title: "",
@@ -75,14 +73,10 @@ const PublicNewsPost = ({ id }) => {
   }, [id]);
 
   useEffect(() => {
-    const check = async () => {
-      const data = await verify();
-      if (localStorage.getItem(post._id) === data.userId) {
-        setLike(require("../../../../img/red-like.png"));
-      }
-    };
-    check();
-  }, [post]);
+    if (localStorage.getItem(post._id) === auth.userId) {
+      setLike(require("../../../../img/red-like.png"));
+    }
+  }, [post, auth]);
 
   const [like, setLike] = useState(require("../../../../img/blue-like.png"));
   const [likesCount, setLikesCount] = useState();

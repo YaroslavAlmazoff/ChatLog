@@ -6,11 +6,9 @@ import Loader from "../../../../common_components/Loader";
 import FriendsPostHead from "./components/FriendsPostHead";
 import Comment from "../../../../common_components/Comment";
 import CommentField from "../../../parts/CommentField";
-import useVerify from "../../../../common_hooks/verify.hook";
 
 const FriendsNewsPost = ({ id }) => {
   const auth = useContext(AuthContext);
-  const { verify } = useVerify();
   const [image, setImage] = useState("");
   const [post, setPost] = useState({ images: [], title: "", date: "" });
   const [error, setError] = useState("");
@@ -69,14 +67,10 @@ const FriendsNewsPost = ({ id }) => {
   }, [post]);
 
   useEffect(() => {
-    const check = async () => {
-      const data = await verify();
-      if (localStorage.getItem(post._id) === data.userId) {
-        setLike(require("../../../../img/red-like.png"));
-      }
-    };
-    check();
-  }, [post]);
+    if (localStorage.getItem(post._id) === auth.userId) {
+      setLike(require("../../../../img/red-like.png"));
+    }
+  }, [post, auth]);
 
   const [like, setLike] = useState(require("../../../../img/blue-like.png"));
   const [likesCount, setLikesCount] = useState();
