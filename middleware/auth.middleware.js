@@ -10,6 +10,7 @@ module.exports = async (req, res, next) => {
 
   try {
     let token = req.headers.authorization.split(" ")[1];
+    console.log(token);
     if (token) {
       try {
         const verified = jwt.verify(token, secret);
