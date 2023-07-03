@@ -6,15 +6,15 @@ import useVerify from "../../../common_hooks/verify.hook";
 
 const FriendsNews = () => {
   const auth = useContext(AuthContext);
+  const { verify } = useVerify();
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
     const getPosts = async () => {
+      const data = await verify();
       const response = await api.get("/api/friendsnews", {
         headers: {
-          Authorization: `Bearer ${
-            JSON.parse(localStorage.getItem("user")).token
-          }`,
+          Authorization: `Bearer ${data.token}`,
         },
       });
       setPosts(response.data.posts);

@@ -10,6 +10,7 @@ import useVerify from "../../../../common_hooks/verify.hook";
 
 const FriendsNewsPost = ({ id }) => {
   const auth = useContext(AuthContext);
+  const { verify } = useVerify();
   const [image, setImage] = useState("");
   const [post, setPost] = useState({ images: [], title: "", date: "" });
   const [error, setError] = useState("");
@@ -68,12 +69,13 @@ const FriendsNewsPost = ({ id }) => {
   }, [post]);
 
   useEffect(() => {
-    if (
-      localStorage.getItem(post._id) ===
-      JSON.parse(localStorage.getItem("user")).userId
-    ) {
-      setLike(require("../../../../img/red-like.png"));
-    }
+    const check = async () => {
+      const data = await verify();
+      if (localStorage.getItem(post._id) === data.userId) {
+        setLike(require("../../../../img/red-like.png"));
+      }
+    };
+    check();
   }, [post]);
 
   const [like, setLike] = useState(require("../../../../img/blue-like.png"));
@@ -89,10 +91,7 @@ const FriendsNewsPost = ({ id }) => {
 
   const mark = async () => {
     if (like === require("../../../../img/blue-like.png")) {
-      localStorage.setItem(
-        post._id,
-        JSON.parse(localStorage.getItem("user")).userId
-      );
+      localStorage.setItem(post._id, auth.userId);
       setLikesCount(likesCount + 1);
       setLike(require("../../../../img/red-like.png"));
       await api.post(
@@ -100,17 +99,12 @@ const FriendsNewsPost = ({ id }) => {
         { id: post._id },
         {
           headers: {
-            Authorization: `Bearer ${
-              JSON.parse(localStorage.getItem("user")).token
-            }`,
+            Authorization: `Bearer ${auth.token}`,
           },
         }
       );
     } else {
-      localStorage.removeItem(
-        post._id,
-        JSON.parse(localStorage.getItem("user")).userId
-      );
+      localStorage.removeItem(post._id, auth.userId);
       setLikesCount(likesCount - 1);
       setLike(require("../../../../img/blue-like.png"));
       await api.post(
@@ -118,9 +112,7 @@ const FriendsNewsPost = ({ id }) => {
         { sub: true, id: post._id },
         {
           headers: {
-            Authorization: `Bearer ${
-              JSON.parse(localStorage.getItem("user")).token
-            }`,
+            Authorization: `Bearer ${auth.token}`,
           },
         }
       );

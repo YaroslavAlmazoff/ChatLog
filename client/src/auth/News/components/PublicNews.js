@@ -7,14 +7,14 @@ import useVerify from "../../../common_hooks/verify.hook";
 const PublicNews = () => {
   const auth = useContext(AuthContext);
   const [posts, setPosts] = useState([]);
+  const { verify } = useVerify();
 
   useEffect(() => {
     const getPosts = async () => {
+      const data = await verify();
       const response = await api.get("/api/publicnews", {
         headers: {
-          Authorization: `Bearer ${
-            JSON.parse(localStorage.getItem("user")).token
-          }`,
+          Authorization: `Bearer ${data.token}`,
         },
       });
       setPosts(response.data.posts);
