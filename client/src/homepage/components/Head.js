@@ -18,9 +18,7 @@ const Head = () => {
   }, []);
 
   useEffect(() => {
-    console.log("before check", auth.userId, auth.token);
     const getUser = async () => {
-      console.log("after check", auth.userId, auth.token);
       const response = await api.get("/api/user", {
         headers: {
           Authorization: `Bearer ${
@@ -30,9 +28,7 @@ const Head = () => {
       });
       setUser(response.data.user);
     };
-    if (auth.token && auth.userId) {
-      getUser();
-    }
+    getUser();
   }, []);
 
   return (
