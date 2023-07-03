@@ -94,11 +94,11 @@ function App() {
   useEffect(() => {
     const setVisit = async () => {
       await verify();
+      setIsVerified(true);
       await api.get("/api/admin/setvisit");
     };
     setVisit();
     const lastVisit = async () => {
-      setIsVerified(true);
       const date = getCurrentDate();
       if (localStorage.getItem("user")) {
         await api.post("/api/lastvisit", { date }, { headers: { token } });
