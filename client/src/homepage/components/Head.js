@@ -7,6 +7,7 @@ import useVerify from "../../common_hooks/verify.hook";
 
 const Head = () => {
   const auth = useContext(AuthContext);
+  const { verify } = useVerify();
   const { getDaytime } = useDaytime();
   const [user, setUser] = useState({ name: "name" });
   let clockRef = useRef(null);
@@ -19,17 +20,16 @@ const Head = () => {
 
   useEffect(() => {
     const getUser = async () => {
+      const data = await verify();
       const response = await api.get("/api/user", {
         headers: {
-          Authorization: `Bearer ${
-            JSON.parse(localStorage.getItem("user")).token
-          }`,
+          Authorization: `Bearer ${data.token}`,
         },
       });
       setUser(response.data.user);
     };
     getUser();
-  }, []);
+  }, [auth]);
 
   return (
     <div className="head">
