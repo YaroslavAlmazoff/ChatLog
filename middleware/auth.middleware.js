@@ -18,10 +18,13 @@ module.exports = async (req, res, next) => {
         if (!verified) {
           res.json({ msg: "Not authorized" });
           return;
+        } else {
+          console.log("verified");
         }
         req.user = verified;
         next();
       } catch (e) {
+        console.log(e);
         res.json({ verified: false });
       }
     } else {
