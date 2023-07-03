@@ -75,10 +75,13 @@ const PublicNewsPost = ({ id }) => {
 
   useEffect(() => {
     if (!auth.userId || !auth.token) return;
-    if (localStorage.getItem(post._id) === auth.userId) {
+    if (
+      localStorage.getItem(post._id) ===
+      JSON.parse(localStorage.getItem("user")).userId
+    ) {
       setLike(require("../../../../img/red-like.png"));
     }
-  }, [post, auth]);
+  }, [post]);
 
   const [like, setLike] = useState(require("../../../../img/blue-like.png"));
   const [likesCount, setLikesCount] = useState();
@@ -90,26 +93,38 @@ const PublicNewsPost = ({ id }) => {
       { type: LIKE_NOTIFICATION },
       {
         headers: {
-          Authorization: `Bearer ${auth.token}`,
+          Authorization: `Bearer ${
+            JSON.parse(localStorage.getItem("user")).token
+          }`,
         },
       }
     );
     if (like === require("../../../../img/blue-like.png")) {
-      localStorage.setItem(post._id, auth.userId);
+      localStorage.setItem(
+        post._id,
+        JSON.parse(localStorage.getItem("user")).userId
+      );
       setLikesCount(likesCount + 1);
       setLike(require("../../../../img/red-like.png"));
       await api.get(`/api/public/likepost/${post._id}`, {
         headers: {
-          Authorization: `Bearer ${auth.token}`,
+          Authorization: `Bearer ${
+            JSON.parse(localStorage.getItem("user")).token
+          }`,
         },
       });
     } else {
-      localStorage.removeItem(post._id, auth.userId);
+      localStorage.removeItem(
+        post._id,
+        JSON.parse(localStorage.getItem("user")).userId
+      );
       setLikesCount(likesCount - 1);
       setLike(require("../../../../img/blue-like.png"));
       await api.get(`/api/public/likepost/${post._id}`, {
         headers: {
-          Authorization: `Bearer ${auth.token}`,
+          Authorization: `Bearer ${
+            JSON.parse(localStorage.getItem("user")).token
+          }`,
         },
       });
     }

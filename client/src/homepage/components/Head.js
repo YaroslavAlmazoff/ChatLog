@@ -20,24 +20,20 @@ const Head = () => {
   useEffect(() => {
     console.log("before check", auth.userId, auth.token);
     const getUser = async () => {
-      if (!auth.userId || !auth.token) return;
       console.log("after check", auth.userId, auth.token);
       const response = await api.get("/api/user", {
         headers: {
-          Authorization: `Bearer ${auth.token}`,
+          Authorization: `Bearer ${
+            JSON.parse(localStorage.getItem("user")).token
+          }`,
         },
       });
-      console.log("response", response);
-      if (response.user) {
-        setUser(response.data.user);
-      } else {
-        setUser({ name: "LOADING..." });
-      }
+      setUser(response.data.user);
     };
     if (auth.token && auth.userId) {
       getUser();
     }
-  }, [auth]);
+  }, []);
 
   return (
     <div className="head">

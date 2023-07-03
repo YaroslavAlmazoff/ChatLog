@@ -9,21 +9,18 @@ const PublicNews = () => {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    if (!auth.userId || !auth.token) return;
     const getPosts = async () => {
       const response = await api.get("/api/publicnews", {
         headers: {
-          Authorization: `Bearer ${auth.token}`,
+          Authorization: `Bearer ${
+            JSON.parse(localStorage.getItem("user")).token
+          }`,
         },
       });
-      if (!response.data.verified) {
-        setPosts([]);
-        return;
-      }
       setPosts(response.data.posts);
     };
     getPosts();
-  }, [auth]);
+  }, []);
 
   return (
     <div className="feed-public-news">
