@@ -4,6 +4,25 @@ import "./index.css";
 import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 
+const colors = [
+  [15, 15, 40],
+  [0, 55, 66],
+  [13, 43, 56],
+  [0, 0, 0],
+  [27, 40, 106],
+  [39, 19, 23],
+  [38, 38, 38],
+  [38, 0, 33],
+  [12, 1, 59],
+  [0, 0, 0],
+  [56, 44, 41],
+  [0, 0, 0],
+];
+
+var step = 0;
+var colorIndices = [0, 1, 2, 3];
+var gradientSpeed = 0.002;
+
 const updateGradient = () => {
   if ($ === undefined) return;
 
