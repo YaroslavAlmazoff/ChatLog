@@ -116,7 +116,7 @@ router.get("/refresh-mobile", async (req, res) => {
     }
 
     const accessToken = jwt.sign({ userId: validated.userId }, secret, {
-      expiresIn: "1h",
+      expiresIn: "1m",
     });
     const newRefreshToken = jwt.sign(
       { userId: validated.userId },

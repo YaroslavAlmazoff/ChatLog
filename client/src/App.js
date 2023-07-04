@@ -89,12 +89,14 @@ function App() {
 
   const isAuthenticated = !!token;
   const [isVerified, setIsVerified] = useState(false);
+  const [isActivated, setIsActivated] = useState(false);
   const routes = useRoutes(isVerified);
   const { getCurrentDate } = useDate();
   useEffect(() => {
     const setVisit = async () => {
       const v = await verify();
       setIsVerified(v.isVerified);
+      setIsActivated(v.isActivated);
       await api.get("/api/admin/setvisit");
     };
     setVisit();
@@ -118,7 +120,7 @@ function App() {
       }}
     >
       <div className="App">
-        <Header isVerified={isVerified} />
+        <Header isVerified={isVerified} isActivated={isActivated} />
         {routes}
       </div>
     </AuthContext.Provider>

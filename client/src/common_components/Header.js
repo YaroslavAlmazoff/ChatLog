@@ -4,24 +4,9 @@ import { useRef } from "react";
 import { AuthContext } from "../context/AuthContext";
 import api from "../auth/api/auth";
 
-const Header = ({ isVerified }) => {
-  const [isActivated, setIsActivated] = useState(false);
-
+const Header = ({ isVerified, isActivated }) => {
   const auth = useContext(AuthContext);
 
-  useEffect(() => {
-    const getIsActivated = async () => {
-      const response = await api.get("/api/user", {
-        headers: {
-          Authorization: `Bearer ${
-            JSON.parse(localStorage.getItem("user")).token
-          }`,
-        },
-      });
-      setIsActivated(response.data.user.isActivated);
-    };
-    getIsActivated();
-  }, []);
   //Компонент верхней части приложения
   //Создание ссылок на ссылки:)
   const linkRef1 = useRef("");
