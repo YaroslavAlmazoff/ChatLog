@@ -6,24 +6,36 @@ const Main = () => {
   const { verify } = useVerify();
   useEffect(() => {
     const navigate = async () => {
-      const { isVerified, isActivated } = await verify();
-      console.log(isVerified);
+      try {
+        const response = await api.get("/api/refresh", {
+          headers: {
+            Authorization: `Bearer ${
+              JSON.parse(localStorage.getItem("user")).token
+            }`,
+          },
+        });
 
-      if (!isVerified) {
-        if (localStorage.getItem("registered")) {
-          window.location = "/login";
+        console.log(response);
+
+        if (!response.data.verified) {
+          if (localStorage.getItem("registered")) {
+            window.location = "/login";
+          } else {
+            window.location = "/greeting";
+          }
         } else {
-          window.location = "/greeting";
+          if (response.data.isActivated) {
+            window.location = "/home";
+          } else {
+            window.location = "/notactivated";
+          }
         }
-      } else {
-        if (isActivated) {
-          window.location = "/home";
-        } else {
-          window.location = "/notactivated";
-        }
+      } catch (e) {
+        console.log(e);
+        window.location = "/login";
       }
-      navigate();
     };
+    navigate();
   }, []);
   return <div></div>;
 };
