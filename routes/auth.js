@@ -95,6 +95,56 @@ router.get("/refresh", async (req, res) => {
     console.log(e);
   }
 });
+router.get("/refresh-mobile", async (req, res) => {
+  try {
+    let refreshToken = req.headers.authorization.split(" ")[1];
+
+    if (!refreshToken) {
+      res.json({ verified: false });
+      return;
+    }
+
+    const validated = jwt.verify(refreshToken, refreshSecret);
+    if (!validated) {
+      res.json({ verified: false });
+      return;
+    }
+
+    const accessToken = jwt.sign({ userId: validated.userId }, secret, {
+      expiresIn: "1h",
+    });
+    const newRefreshToken = jwt.sign(
+      { userId: validated.userId },
+      refreshSecret,
+      {
+        expiresIn: "30d",
+      }
+    );
+
+    const token = await Token.findOne({ user: validated.userId });
+    if (token) {
+      await Token.findByIdAndUpdate(token._id, { token: refreshToken });
+    } else {
+      await Token.create({ user: validated.userId, token: newRefreshToken });
+    }
+
+    const user = await User.findById(validated.userId);
+
+    res.cookie("refreshToken", refreshToken, {
+      maxAge: 30 * 24 * 60 * 60 * 1000,
+      httpOnly: true,
+    });
+    res.json({
+      verified: true,
+      isActivated: user.isActivated,
+      token: accessToken,
+      userId: user._id,
+      refreshToken,
+    });
+  } catch (e) {
+    console.log(e);
+  }
+});
 router.post("/upload-something", (req, res) => {
   try {
     AuthService.uploadImage(req, res);
