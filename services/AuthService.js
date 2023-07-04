@@ -54,9 +54,8 @@ class AuthService {
         password: hashPassword,
       });
 
-      const token = jwt.sign({ userId: user._id }, secret, { expiresIn: "1h" });
-      const refreshToken = jwt.sign({ userId: user._id }, refreshSecret, {
-        expiresIn: "30d",
+      const { token, refreshToken } = TokenService.generateTokens({
+        userId: user._id,
       });
 
       const tokenData = await Token.findOne({ user: user._id });
@@ -166,9 +165,8 @@ class AuthService {
         res.end();
         return;
       }
-      const token = jwt.sign({ userId: user._id }, secret, { expiresIn: "1h" });
-      const refreshToken = jwt.sign({ userId: user._id }, refreshSecret, {
-        expiresIn: "30d",
+      const { token, refreshToken } = TokenService.generateTokens({
+        userId: user._id,
       });
 
       const tokenData = await Token.findOne({ user: user._id });
@@ -208,9 +206,8 @@ class AuthService {
         res.end();
         return;
       }
-      const token = jwt.sign({ userId: user._id }, secret, { expiresIn: "1h" });
-      const refreshToken = jwt.sign({ userId: user._id }, refreshSecret, {
-        expiresIn: "30d",
+      const { token, refreshToken } = TokenService.generateTokens({
+        userId: user._id,
       });
       const tokenData = await Token.findOne({ user: user._id });
       if (tokenData) {

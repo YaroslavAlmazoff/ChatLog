@@ -3,12 +3,12 @@ const config = require("../config");
 
 class TokenService {
   generateTokens(payload) {
-    const accessToken = jwt.sign(payload, config.secret, { expiresIn: "1h" });
-    const refreshToken = jwt.sign(payload, config.refreshSecret, {
+    const token = jwt.sign(payload, secret, { expiresIn: "1h" });
+    const refreshToken = jwt.sign(payload, refreshSecret, {
       expiresIn: "30d",
     });
     return {
-      accessToken,
+      token,
       refreshToken,
     };
   }
