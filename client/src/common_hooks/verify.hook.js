@@ -16,8 +16,19 @@ const useVerify = () => {
       console.log(response);
 
       if (!response.data.verified) {
-        window.location = "/login";
+        if (localStorage.getItem("registered")) {
+          window.location = "/login";
+        } else {
+          window.location = "/greeting";
+        }
+      } else {
+        if (response.data.isActivated) {
+          window.location = "/home";
+        } else {
+          window.location = "/notactivated";
+        }
       }
+
       login(response.data.token, response.data.userId);
     } catch (e) {
       console.log(e);
