@@ -82,8 +82,7 @@ router.get("/refresh", async (req, res) => {
 
     res.cookie("refreshToken", refreshToken, {
       maxAge: 30 * 24 * 60 * 60 * 1000,
-      httpOnly: false,
-      secure: true,
+      httpOnly: true,
     });
     res.json({
       verified: true,
