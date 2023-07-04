@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const config = require("../config");
+const { secret, refreshSecret } = require("../config");
 
 class TokenService {
   generateTokens(payload) {
