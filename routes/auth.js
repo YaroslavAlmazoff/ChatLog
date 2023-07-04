@@ -99,12 +99,17 @@ router.get("/refresh-mobile", async (req, res) => {
   try {
     let refreshToken = req.headers.authorization.split(" ")[1];
 
+    console.log(refreshToken);
+
     if (!refreshToken) {
       res.json({ verified: false });
       return;
     }
 
     const validated = jwt.verify(refreshToken, refreshSecret);
+
+    console.log(validated);
+
     if (!validated) {
       res.json({ verified: false });
       return;
