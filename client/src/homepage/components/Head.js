@@ -31,41 +31,44 @@ const Head = () => {
   useEffect(() => {
     getUser();
   }, [getUser]);
-
-  return (
-    <div className="head">
-      {window.screen.width > 700 ? (
-        <div className="daytime">
-          <h2 className="time">
-            {user.name ? getDaytime(user.name) : ""}&nbsp;&nbsp;&nbsp;&nbsp;
-          </h2>
-          <div ref={clockRef} className="time"></div>
-        </div>
-      ) : (
-        <></>
-      )}
-      {window.screen.width < 700 && window.screen.width > 500 ? (
-        <div className="daytime">
-          <p className="time">
-            {user.name ? getDaytime(user.name) : ""}&nbsp;&nbsp;&nbsp;&nbsp;
-          </p>
-          <div ref={clockRef} className="time"></div>
-        </div>
-      ) : (
-        <></>
-      )}
-      {window.screen.width < 500 ? (
-        <div className="daytime">
-          <p className="time white-glow-text">
-            {user.name ? getDaytime(user.name) : ""}
-          </p>
-          <div ref={clockRef} className="time white-glow-text"></div>
-        </div>
-      ) : (
-        <></>
-      )}
-    </div>
-  );
+  try {
+    return (
+      <div className="head">
+        {window.screen.width > 700 ? (
+          <div className="daytime">
+            <h2 className="time">
+              {user.name ? getDaytime(user.name) : ""}&nbsp;&nbsp;&nbsp;&nbsp;
+            </h2>
+            <div ref={clockRef} className="time"></div>
+          </div>
+        ) : (
+          <></>
+        )}
+        {window.screen.width < 700 && window.screen.width > 500 ? (
+          <div className="daytime">
+            <p className="time">
+              {user.name ? getDaytime(user.name) : ""}&nbsp;&nbsp;&nbsp;&nbsp;
+            </p>
+            <div ref={clockRef} className="time"></div>
+          </div>
+        ) : (
+          <></>
+        )}
+        {window.screen.width < 500 ? (
+          <div className="daytime">
+            <p className="time white-glow-text">
+              {user.name ? getDaytime(user.name) : ""}
+            </p>
+            <div ref={clockRef} className="time white-glow-text"></div>
+          </div>
+        ) : (
+          <></>
+        )}
+      </div>
+    );
+  } catch (e) {
+    window.location.reload();
+  }
 };
 
 export default Head;
