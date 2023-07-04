@@ -3,7 +3,6 @@ import api from "./auth/api/auth";
 import useVerify from "./common_hooks/verify.hook";
 
 const Main = () => {
-  const { verify } = useVerify();
   useEffect(() => {
     const navigate = async () => {
       try {

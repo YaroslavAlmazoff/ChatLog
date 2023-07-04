@@ -9,6 +9,7 @@ const FileService = require("./FileService");
 const ImageService = require("./ImageService");
 const Token = require("../models/Token");
 const MailService = require("./MailService");
+const TokenService = require("./TokenService");
 
 //Сервис авторизации пользователя
 class AuthService {
