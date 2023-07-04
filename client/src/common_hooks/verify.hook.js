@@ -19,6 +19,7 @@ const useVerify = () => {
 
       return {
         isVerified: response.data.isVerified,
+        isActivated: response.data.isActivated,
       };
     } catch (e) {
       console.log(e);
