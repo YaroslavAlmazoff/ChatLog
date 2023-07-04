@@ -130,10 +130,6 @@ router.get("/refresh-mobile", async (req, res) => {
 
     const user = await User.findById(validated.userId);
 
-    res.cookie("refreshToken", refreshToken, {
-      maxAge: 30 * 24 * 60 * 60 * 1000,
-      httpOnly: true,
-    });
     res.json({
       verified: true,
       isActivated: user.isActivated,
