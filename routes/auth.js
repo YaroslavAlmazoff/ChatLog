@@ -90,6 +90,7 @@ router.get("/refresh", async (req, res) => {
       isActivated: user.isActivated,
       token: accessToken,
       userId: user._id,
+      refreshToken,
     });
   } catch (e) {
     console.log(e);
