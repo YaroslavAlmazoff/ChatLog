@@ -6,9 +6,10 @@ const Main = () => {
   const { verify } = useVerify();
   useEffect(() => {
     const navigate = async () => {
-      const { verified, isActivated } = await verify();
+      const { isVerified, isActivated } = await verify();
+      console.log(isVerified);
 
-      if (!verified) {
+      if (!isVerified) {
         if (localStorage.getItem("registered")) {
           window.location = "/login";
         } else {
