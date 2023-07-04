@@ -82,6 +82,7 @@ class AuthService {
         message: "Success register!",
         userId: user._id,
         token,
+        refreshToken,
       });
     } catch (e) {
       console.log(e);
@@ -216,12 +217,7 @@ class AuthService {
         tokenData.token = refreshToken;
         await tokenData.save();
       }
-      console.log("fuck", refreshToken, "fuck");
-      res.cookie("refreshToken", refreshToken, {
-        maxAge: 30 * 24 * 60 * 60 * 1000,
-        httpOnly: false,
-      });
-      res.json({ token, userId: user._id, errors: [] });
+      res.json({ token, refreshToken, userId: user._id, errors: [] });
     } catch (e) {
       console.log(e);
       res.status(400).json({ e });
