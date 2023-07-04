@@ -1,7 +1,29 @@
 import React, { useEffect } from "react";
 import api from "./auth/api/auth";
+import useVerify from "./common_hooks/verify.hook";
 
-const Main = ({ isVerified }) => {
+const Main = () => {
+  const { verify } = useVerify();
+  useEffect(() => {
+    const navigate = async () => {
+      const { verified } = await verify();
+
+      if (!verified) {
+        if (localStorage.getItem("registered")) {
+          window.location = "/login";
+        } else {
+          window.location = "/greeting";
+        }
+      } else {
+        if (response.data.isActivated) {
+          window.location = "/home";
+        } else {
+          window.location = "/notactivated";
+        }
+      }
+      navigate();
+    };
+  }, []);
   return <div></div>;
 };
 

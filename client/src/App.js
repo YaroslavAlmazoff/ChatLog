@@ -93,8 +93,8 @@ function App() {
   const { getCurrentDate } = useDate();
   useEffect(() => {
     const setVisit = async () => {
-      await verify();
-      setIsVerified(true);
+      const v = await verify();
+      setIsVerified(v.isVerified);
       await api.get("/api/admin/setvisit");
     };
     setVisit();
