@@ -80,7 +80,7 @@ export const useRoutes = (isVerified) => {
   return (
     <Routes>
       <Route path="*" element={<Navigate to="/" />} />
-      <Route exact path="/" element={<Main isVerified={isVerified} />} />
+      <Route exact path="/" element={<Main />} />
       <Route exact path="/services" element={<Services />} />
       <Route exact path="/admin/:id" element={<Admin />} />
       <Route exact path="/cloud" element={<FileStorage />} />

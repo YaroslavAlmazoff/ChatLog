@@ -18,7 +18,7 @@ const useVerify = () => {
       login(response.data.token, response.data.userId);
 
       return {
-        isVerified: response.data.isVerified,
+        isVerified: response.data.verified,
         isActivated: response.data.isActivated,
       };
     } catch (e) {
