@@ -25,10 +25,20 @@ export const useAuth = () => {
   }, []);
 
   useEffect(() => {
-    const data = JSON.parse(localStorage.getItem(storageName)); //{token: "ouetbeit", userId: "iopwhpr"}
-    if (data && data.token) {
-      login(data.token, data.userId);
-    }
+    const getData = async () => {
+      const data = JSON.parse(localStorage.getItem(storageName));
+      const response = await api.get("/api/refresh", {
+        headers: {
+          Authorization: `Bearer ${data.token}`,
+        },
+      });
+      setToken(response.data.token);
+      setUserId(response.data.userId);
+      if (response.data && response.data.token) {
+        login(response.data.token, response.data.userId);
+      }
+    };
+    getData();
   }, [login]);
 
   return { login, logout, token, userId };
