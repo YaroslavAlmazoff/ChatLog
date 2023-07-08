@@ -75,7 +75,7 @@ class AuthService {
       });
       res.cookie("refreshToken", refreshToken, {
         maxAge: 30 * 24 * 60 * 60 * 1000,
-        httpOnly: false,
+        httpOnly: true,
       });
       res.json({
         user: userData,
