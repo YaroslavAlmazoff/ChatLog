@@ -180,7 +180,12 @@ class CloudService {
   async getFiles(req, res) {
     const owner = req.user.userId;
     console.log(req.body);
-    const folder = JSON.parse(req.body);
+    let folder;
+    if (req.body.mobile) {
+      folder = req.body.folder;
+    } else {
+      folder = JSON.parse(req.body);
+    }
     console.log(folder);
     if (folder.name == "root") {
       const files = await File.find({ owner, folder: "" });
