@@ -179,8 +179,9 @@ class CloudService {
   }
   async getFiles(req, res) {
     const owner = req.user.userId;
-    console.log(req.body.folder);
-    const folder = JSON.parse(req.body.folder);
+    console.log(req.body);
+    const folder = JSON.parse(req.body);
+    console.log(folder);
     if (folder.name == "root") {
       const files = await File.find({ owner, folder: "" });
       res.json({ files });
