@@ -27,7 +27,7 @@ const FileStorage = () => {
       console.log(JSON.stringify(currentFolder));
       const response = await api.post(
         `/api/cloud/files`,
-        JSON.stringify({ folder: currentFolder }),
+        { folder: JSON.stringify(currentFolder) },
         {
           headers: {
             Authorization: `Bearer ${auth.token}`,
