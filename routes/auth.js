@@ -140,6 +140,7 @@ router.get("/refresh-mobile", async (req, res) => {
       isActivated: user.isActivated,
       token: accessToken,
       userId: user._id,
+      user,
       refreshToken,
     });
   } catch (e) {

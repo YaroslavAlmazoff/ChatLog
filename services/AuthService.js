@@ -78,7 +78,7 @@ class AuthService {
         httpOnly: true,
       });
       res.json({
-        user: userData,
+        user,
         message: "Success register!",
         userId: user._id,
         token,
@@ -215,7 +215,7 @@ class AuthService {
         tokenData.token = refreshToken;
         await tokenData.save();
       }
-      res.json({ token, refreshToken, userId: user._id, errors: [] });
+      res.json({ token, refreshToken, userId: user._id, user, errors: [] });
     } catch (e) {
       console.log(e);
       res.status(400).json({ e });
