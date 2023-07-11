@@ -184,7 +184,7 @@ class CloudService {
     if (req.body.mobile) {
       folder = req.body.folder;
     } else {
-      folder = JSON.parse(req.body);
+      folder = JSON.parse(req.body.folder);
     }
     console.log(folder);
     if (folder.name == "root") {
