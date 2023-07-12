@@ -178,6 +178,7 @@ class CloudService {
     //const file = req.files.file;
     //console.log(file);
     //file.name = this.removeSpaces(req.body.name);
+    console.log(req.body.mobile, req.body.folder, req.body.names);
     let folder;
     if (req.body.mobile) {
       folder = req.body.folder;
