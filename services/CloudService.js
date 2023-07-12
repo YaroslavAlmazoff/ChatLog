@@ -5,7 +5,6 @@ const textract = require("textract");
 const NotificationService = require("./NotificationService");
 const User = require("../models/User");
 const Notification = require("../models/Notification");
-const file = require("file");
 
 //Сервис облачного хранилища
 class CloudService {
@@ -182,7 +181,7 @@ class CloudService {
     const folder = JSON.parse(req.body.folder);
 
     Object.keys(req.files).forEach(async (name, i) => {
-      file = req.files[name];
+      const file = req.files[name];
       if (folder.id) {
         const parent = await File.findById(folder.id);
         let ext = file.name.split(".");
