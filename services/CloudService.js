@@ -182,17 +182,18 @@ class CloudService {
 
     console.log(req.files);
 
-    Object.keys(req.files).forEach(async (name, i) => {
-      let file = req.files[name];
+    Object.keys(req.files).forEach(async (filename, i) => {
+      let file = req.files[filename];
+      let name = JSON.parse(req.body.names)[i];
       console.log(file);
       if (folder.id) {
         const parent = await File.findById(folder.id);
-        let ext = file.name.split(".");
+        let ext = name.split(".");
         ext = ext[ext.length - 1];
         if (parent.path) {
           await File.create({
-            name: file.name,
-            path: `${parent.path}/${file.name}`,
+            name: name,
+            path: `${parent.path}/${name}`,
             ext,
             type: file.mimetype,
             size: file.size,
@@ -200,11 +201,11 @@ class CloudService {
             public: false,
             folder: folder.id,
           });
-          file.mv(`${parent.path}/${file.name}`);
+          file.mv(`${parent.path}/${name}`);
         } else {
           await File.create({
-            name: file.name,
-            path: this.basePath + `${userid}/${parent.name}/${file.name}`,
+            name: name,
+            path: this.basePath + `${userid}/${parent.name}/${name}`,
             ext,
             type: file.mimetype,
             size: file.size,
@@ -212,15 +213,15 @@ class CloudService {
             public: false,
             folder: folder.id,
           });
-          file.mv(this.basePath + `${userid}/${parent.name}/${file.name}`);
+          file.mv(this.basePath + `${userid}/${parent.name}/${name}`);
         }
       } else {
-        const filepath = `${this.basePath}${userid}/${file.name}`;
-        let ext = file.name.split(".");
+        const filepath = `${this.basePath}${userid}/${name}`;
+        let ext = name.split(".");
         ext = ext[ext.length - 1];
-        console.log(ext, file.name);
+        console.log(ext, name);
         await File.create({
-          name: file.name,
+          name: name,
           path: filepath,
           ext,
           type: file.mimetype,
