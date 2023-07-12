@@ -180,8 +180,11 @@ class CloudService {
     //file.name = this.removeSpaces(req.body.name);
     const folder = JSON.parse(req.body.folder);
 
+    console.log(req.files);
+
     Object.keys(req.files).forEach(async (name, i) => {
-      const file = req.files[name];
+      let file = req.files[name];
+      console.log(file);
       if (folder.id) {
         const parent = await File.findById(folder.id);
         let ext = file.name.split(".");
