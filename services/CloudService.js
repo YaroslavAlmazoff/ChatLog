@@ -214,7 +214,6 @@ class CloudService {
           });
           file.mv(this.basePath + `${userid}/${parent.name}/${file.name}`);
         }
-        await this.getFilesInner(res, userid, folder.id);
       } else {
         const filepath = `${this.basePath}${userid}/${file.name}`;
         let ext = file.name.split(".");
@@ -230,7 +229,6 @@ class CloudService {
           public: false,
         });
         file.mv(filepath);
-        await this.getFilesInner(res, userid);
       }
     });
 
