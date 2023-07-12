@@ -180,64 +180,66 @@ class CloudService {
     //file.name = this.removeSpaces(req.body.name);
     const folder = JSON.parse(req.body.folder);
 
-    Object.keys(req.files).forEach(async (filename, i) => {
-      let file = req.files[filename];
-      let name = JSON.parse(req.body.names)[i];
-      console.log(name);
-      if (folder.id) {
-        const parent = await File.findById(folder.id);
-        let ext = name.split(".");
-        ext = ext[ext.length - 1];
-        if (parent.path) {
-          await File.create({
-            name: name,
-            path: `${parent.path}/${name}`,
-            ext,
-            type: file.mimetype,
-            size: file.size,
-            owner: userid,
-            public: false,
-            folder: folder.id,
-          });
-          file.mv(`${parent.path}/${name}`);
+    Object.keys(req.files)
+      .forEach(async (filename, i) => {
+        let file = req.files[filename];
+        let name = JSON.parse(req.body.names)[i];
+        console.log(name);
+        if (folder.id) {
+          const parent = await File.findById(folder.id);
+          let ext = name.split(".");
+          ext = ext[ext.length - 1];
+          if (parent.path) {
+            await File.create({
+              name: name,
+              path: `${parent.path}/${name}`,
+              ext,
+              type: file.mimetype,
+              size: file.size,
+              owner: userid,
+              public: false,
+              folder: folder.id,
+            });
+            file.mv(`${parent.path}/${name}`);
+          } else {
+            await File.create({
+              name: name,
+              path: this.basePath + `${userid}/${parent.name}/${name}`,
+              ext,
+              type: file.mimetype,
+              size: file.size,
+              owner: userid,
+              public: false,
+              folder: folder.id,
+            });
+            file.mv(this.basePath + `${userid}/${parent.name}/${name}`);
+          }
         } else {
+          const filepath = `${this.basePath}${userid}/${name}`;
+          let ext = name.split(".");
+          ext = ext[ext.length - 1];
+          console.log(ext, name);
           await File.create({
             name: name,
-            path: this.basePath + `${userid}/${parent.name}/${name}`,
+            path: filepath,
             ext,
             type: file.mimetype,
             size: file.size,
             owner: userid,
             public: false,
-            folder: folder.id,
           });
-          file.mv(this.basePath + `${userid}/${parent.name}/${name}`);
+          file.mv(filepath);
         }
-      } else {
-        const filepath = `${this.basePath}${userid}/${name}`;
-        let ext = name.split(".");
-        ext = ext[ext.length - 1];
-        console.log(ext, name);
-        await File.create({
-          name: name,
-          path: filepath,
-          ext,
-          type: file.mimetype,
-          size: file.size,
-          owner: userid,
-          public: false,
-        });
-        file.mv(filepath);
-      }
-    });
-
-    console.log("what, ", folder.id);
-    if (folder.id) {
-      await this.getFilesInner(res, userid, folder.id);
-    } else {
-      console.log("что");
-      await this.getFilesInner(res, userid);
-    }
+      })
+      .then(async () => {
+        console.log("what, ", folder.id);
+        if (folder.id) {
+          await this.getFilesInner(res, userid, folder.id);
+        } else {
+          console.log("что");
+          await this.getFilesInner(res, userid);
+        }
+      });
   }
 
   async getFilesInner(res, owner, folder) {
