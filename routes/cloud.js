@@ -11,6 +11,14 @@ router.post("/upload", auth, (req, res) => {
     res.json({ e });
   }
 });
+router.post("/upload-mobile", auth, (req, res) => {
+  try {
+    CloudService.uploadMobile(req, res);
+  } catch (e) {
+    console.log(e);
+    res.json({ e });
+  }
+});
 router.post("/files", auth, (req, res) => {
   try {
     CloudService.getFiles(req, res);

@@ -29,12 +29,24 @@ const Files = ({
     setLoadingUploading(true);
     fileRef.current.click();
   };
+
   const getFile = async (e) => {
-    let file = e.target.files[0];
-    if (!file) return;
+    let files = e.target.files;
+    if (!files.length) return;
+    if (files.length > 5) {
+      alert(
+        "Слишком много загружаемых файлов. Попробуйте выбрать меньше пяти файлов."
+      );
+      return;
+    }
+
+    const filesArray = Array.from(files);
     const formData = new FormData();
-    formData.append("file", file);
-    formData.append("name", file.name);
+
+    filesArray.forEach((el, index) => {
+      formData.append(`file${index}`, el);
+      formData.append(`name${index}`, el.name);
+    });
     formData.append("folder", JSON.stringify(currentFolder));
     //Загрузка файла в состояние
     const response = await api.post("/api/cloud/upload", formData, {
