@@ -255,10 +255,12 @@ class CloudService {
   async getFilesInner(res, owner, folder) {
     if (folder) {
       const files = await File.find({ owner, folder });
-      res.json({ files });
+      //res.json({ files });
+      res.json("");
     } else {
       const files = await File.find({ owner, folder: "" });
-      res.json({ files });
+      //res.json({ files });
+      res.json("");
     }
   }
   async getFiles(req, res) {
