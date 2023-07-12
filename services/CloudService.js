@@ -231,9 +231,11 @@ class CloudService {
       }
     });
 
+    console.log("what, ", folder.id);
     if (folder.id) {
       await this.getFilesInner(res, userid, folder.id);
     } else {
+      console.log("что");
       await this.getFilesInner(res, userid);
     }
   }
