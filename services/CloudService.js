@@ -185,7 +185,7 @@ class CloudService {
     Object.keys(req.files).forEach(async (filename, i) => {
       let file = req.files[filename];
       let name = JSON.parse(req.body.names)[i];
-      console.log(file);
+      console.log(file, name);
       if (folder.id) {
         const parent = await File.findById(folder.id);
         let ext = name.split(".");

@@ -49,6 +49,7 @@ const Files = ({
       formData.append(`file${index}`, el);
       namesArray.add(el.name);
     });
+    console.log(namesArray);
     formData.append("folder", JSON.stringify(currentFolder));
     formData.append("names", JSON.stringify(namesArray));
     //Загрузка файла в состояние
