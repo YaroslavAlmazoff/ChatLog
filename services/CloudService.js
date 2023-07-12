@@ -233,6 +233,12 @@ class CloudService {
         await this.getFilesInner(res, userid);
       }
     });
+
+    if (folder.id) {
+      await this.getFilesInner(res, userid, folder.id);
+    } else {
+      await this.getFilesInner(res, userid);
+    }
   }
 
   async getFilesInner(res, owner, folder) {
