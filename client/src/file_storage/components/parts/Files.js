@@ -50,7 +50,7 @@ const Files = ({
       namesArray.add(el.name);
     });
     formData.append("folder", JSON.stringify(currentFolder));
-    formData.append("names", JSON.stringify(names));
+    formData.append("names", JSON.stringify(namesArray));
     //Загрузка файла в состояние
     const response = await api.post("/api/cloud/upload-mobile", formData, {
       headers: {
