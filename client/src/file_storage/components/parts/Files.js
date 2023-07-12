@@ -138,7 +138,8 @@ const Files = ({
             onChange={getFile}
             ref={fileRef}
             type="file"
-            accept=".png,.jpg,.jpeg,.mp4,.mp3,.gif,.doc,.docx,.pdf,.txt"
+            accept=".png,.jpg,.jpeg,.mp4,.mp3,.gif,.doc,.docx,.pdf,.txt,.apk"
+            multiple
           />
           <button onClick={emitOpen} className="button">
             Загрузить новый файл
