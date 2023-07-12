@@ -49,7 +49,7 @@ const Files = ({
     });
     formData.append("folder", JSON.stringify(currentFolder));
     //Загрузка файла в состояние
-    const response = await api.post("/api/cloud/upload", formData, {
+    const response = await api.post("/api/cloud/upload-mobile", formData, {
       headers: {
         Authorization: `Bearer ${auth.token}`,
       },
