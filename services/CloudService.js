@@ -178,7 +178,12 @@ class CloudService {
     //const file = req.files.file;
     //console.log(file);
     //file.name = this.removeSpaces(req.body.name);
-    const folder = JSON.parse(req.body.folder);
+    let folder;
+    if (req.body.mobile) {
+      folder = req.body.folder;
+    } else {
+      folder = JSON.parse(req.body.folder);
+    }
 
     const fns = Object.keys(req.files).map(async (filename, i) => {
       let file = req.files[filename];
