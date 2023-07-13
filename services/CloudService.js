@@ -178,7 +178,7 @@ class CloudService {
     //const file = req.files.file;
     //console.log(file);
     //file.name = this.removeSpaces(req.body.name);
-    console.log(req.body.mobile, req.body.folder, req.body.names);
+    console.log(req.files);
     let folder;
     if (req.body.mobile) {
       folder = req.body.folder;
@@ -189,7 +189,6 @@ class CloudService {
     const fns = Object.keys(req.files).map(async (filename, i) => {
       let file = req.files[filename];
       let name = file.name; //JSON.parse(req.body.names)[i];
-      console.log(name);
       if (folder.id) {
         const parent = await File.findById(folder.id);
         let ext = name.split(".");
@@ -239,11 +238,9 @@ class CloudService {
     });
     Promise.all(fns)
       .then(async () => {
-        console.log("what, ", folder.id);
         if (folder.id) {
           await this.getFilesInner(res, userid, folder.id);
         } else {
-          console.log("что");
           await this.getFilesInner(res, userid);
         }
       })
