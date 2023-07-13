@@ -64,6 +64,7 @@ const FileItem = ({
       className="file-item"
     >
       {file.ext === "jpg" ||
+      file.ext === "jpeg" ||
       file.ext === "png" ||
       file.ext === "gif" ||
       file.ext === "bmp" ? (
@@ -96,6 +97,7 @@ const FileItem = ({
                 <div>
                   {file.ext !== "mp4" ||
                   file.ext !== "jpg" ||
+                  file.ext !== "jpeg" ||
                   file.ext !== "png" ||
                   file.ext !== "bmp" ||
                   file.ext !== "gif" ? (
