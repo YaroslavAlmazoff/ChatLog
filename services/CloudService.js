@@ -206,7 +206,6 @@ class CloudService {
           });
           file.mv(`${parent.path}/${name}`);
         } else {
-          console.log("here");
           await File.create({
             name: name,
             path: this.basePath + `${userid}/${parent.name}/${name}`,
@@ -220,6 +219,7 @@ class CloudService {
           file.mv(this.basePath + `${userid}/${parent.name}/${name}`);
         }
       } else {
+        console.log("here");
         const filepath = `${this.basePath}${userid}/${name}`;
         let ext = name.split(".");
         ext = ext[ext.length - 1];
