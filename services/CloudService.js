@@ -118,60 +118,60 @@ class CloudService {
     return str.replace(/\s/g, "");
   }
 
-  async upload(req, res) {
-    const userid = req.user.userId;
-    const file = req.files.file;
-    console.log(file);
-    file.name = this.removeSpaces(req.body.name);
-    const folder = JSON.parse(req.body.folder);
-    if (folder.id) {
-      const parent = await File.findById(folder.id);
-      let ext = file.name.split(".");
-      ext = ext[ext.length - 1];
-      if (parent.path) {
-        await File.create({
-          name: file.name,
-          path: `${parent.path}/${file.name}`,
-          ext,
-          type: file.mimetype,
-          size: file.size,
-          owner: userid,
-          public: false,
-          folder: folder.id,
-        });
-        file.mv(`${parent.path}/${file.name}`);
-      } else {
-        await File.create({
-          name: file.name,
-          path: this.basePath + `${userid}/${parent.name}/${file.name}`,
-          ext,
-          type: file.mimetype,
-          size: file.size,
-          owner: userid,
-          public: false,
-          folder: folder.id,
-        });
-        file.mv(this.basePath + `${userid}/${parent.name}/${file.name}`);
-      }
-      await this.getFilesInner(res, userid, folder.id);
-    } else {
-      const filepath = `${this.basePath}${userid}/${file.name}`;
-      let ext = file.name.split(".");
-      ext = ext[ext.length - 1];
-      console.log(ext, file.name);
-      await File.create({
-        name: file.name,
-        path: filepath,
-        ext,
-        type: file.mimetype,
-        size: file.size,
-        owner: userid,
-        public: false,
-      });
-      file.mv(filepath);
-      await this.getFilesInner(res, userid);
-    }
-  }
+  // async upload(req, res) {
+  //   const userid = req.user.userId;
+  //   const file = req.files.file;
+  //   console.log(file);
+  //   file.name = this.removeSpaces(req.body.name);
+  //   const folder = JSON.parse(req.body.folder);
+  //   if (folder.id) {
+  //     const parent = await File.findById(folder.id);
+  //     let ext = file.name.split(".");
+  //     ext = ext[ext.length - 1];
+  //     if (parent.path) {
+  //       await File.create({
+  //         name: file.name,
+  //         path: `${parent.path}/${file.name}`,
+  //         ext,
+  //         type: file.mimetype,
+  //         size: file.size,
+  //         owner: userid,
+  //         public: false,
+  //         folder: folder.id,
+  //       });
+  //       file.mv(`${parent.path}/${file.name}`);
+  //     } else {
+  //       await File.create({
+  //         name: file.name,
+  //         path: this.basePath + `${userid}/${parent.name}/${file.name}`,
+  //         ext,
+  //         type: file.mimetype,
+  //         size: file.size,
+  //         owner: userid,
+  //         public: false,
+  //         folder: folder.id,
+  //       });
+  //       file.mv(this.basePath + `${userid}/${parent.name}/${file.name}`);
+  //     }
+  //     await this.getFilesInner(res, userid, folder.id);
+  //   } else {
+  //     const filepath = `${this.basePath}${userid}/${file.name}`;
+  //     let ext = file.name.split(".");
+  //     ext = ext[ext.length - 1];
+  //     console.log(ext, file.name);
+  //     await File.create({
+  //       name: file.name,
+  //       path: filepath,
+  //       ext,
+  //       type: file.mimetype,
+  //       size: file.size,
+  //       owner: userid,
+  //       public: false,
+  //     });
+  //     file.mv(filepath);
+  //     await this.getFilesInner(res, userid);
+  //   }
+  // }
 
   async uploadMobile(req, res) {
     const userid = req.user.userId;
@@ -185,6 +185,8 @@ class CloudService {
     } else {
       folder = JSON.parse(req.body.folder);
     }
+
+    console.log(folder);
 
     const fns = Object.keys(req.files).map(async (filename, i) => {
       let file = req.files[filename];
