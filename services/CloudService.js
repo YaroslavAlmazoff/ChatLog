@@ -206,6 +206,7 @@ class CloudService {
           });
           file.mv(`${parent.path}/${name}`);
         } else {
+          console.log("here");
           await File.create({
             name: name,
             path: this.basePath + `${userid}/${parent.name}/${name}`,
