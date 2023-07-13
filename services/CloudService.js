@@ -188,7 +188,7 @@ class CloudService {
 
     const fns = Object.keys(req.files).map(async (filename, i) => {
       let file = req.files[filename];
-      let name = JSON.parse(req.body.names)[i];
+      let name = file.name; //JSON.parse(req.body.names)[i];
       console.log(name);
       if (folder.id) {
         const parent = await File.findById(folder.id);
@@ -264,6 +264,7 @@ class CloudService {
       res.json("");
     }
   }
+
   async getFiles(req, res) {
     const owner = req.user.userId;
     console.log(req.body);
