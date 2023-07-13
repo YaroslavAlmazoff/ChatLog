@@ -173,6 +173,10 @@ class CloudService {
   //   }
   // }
 
+  removeBackslash(str) {
+    return str.replace(/\\/g, "");
+  }
+
   async uploadMobile(req, res) {
     const userid = req.user.userId;
     //const file = req.files.file;
@@ -183,9 +187,8 @@ class CloudService {
     if (req.body.mobile) {
       folder = req.body.folder;
     } else {
-      folder = JSON.parse(req.body.folder);
+      folder = JSON.parse(this.removeBackslash(req.body.folder));
     }
-
     console.log(folder);
 
     const fns = Object.keys(req.files).map(async (filename, i) => {
