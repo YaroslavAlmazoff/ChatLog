@@ -246,9 +246,9 @@ class CloudService {
     Promise.all(fns)
       .then(async () => {
         if (folder.id) {
-          await this.getFilesInner(res, userid, folder.id);
+          await this.getFilesInner(res, userid, folder.id, req.body.mobile);
         } else {
-          await this.getFilesInner(res, userid);
+          await this.getFilesInner(res, userid, null, req.body.mobile);
         }
       })
       .catch((e) => {
@@ -257,17 +257,17 @@ class CloudService {
       });
   }
 
-  async getFilesInner(res, owner, folder) {
+  async getFilesInner(res, owner, folder, mobile) {
     if (folder) {
       const files = await File.find({ owner, folder });
-      if (req.body.mobile) {
+      if (mobile) {
         res.json(JSON.stringify({ files }));
       } else {
         res.json({ files });
       }
     } else {
       const files = await File.find({ owner, folder: "" });
-      if (req.body.mobile) {
+      if (mobile) {
         res.json(JSON.stringify({ files }));
       } else {
         res.json({ files });
