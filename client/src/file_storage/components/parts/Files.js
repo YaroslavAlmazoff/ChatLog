@@ -48,6 +48,7 @@ const Files = ({
     filesArray.forEach((el, index) => {
       formData.append(`file${index}`, el);
       namesArray.push(el.name);
+      console.log(el);
     });
     console.log(namesArray);
     formData.append("folder", JSON.stringify(currentFolder));
