@@ -179,21 +179,22 @@ class CloudService {
 
   async uploadMobile(req, res) {
     const userid = req.user.userId;
-    //const file = req.files.file;
-    //console.log(file);
-    //file.name = this.removeSpaces(req.body.name);
+    let names;
     console.log(req.files);
     let folder;
     if (req.body.mobile) {
       folder = this.removeBackslash(req.body.folder);
     } else {
       folder = JSON.parse(req.body.folder);
+      names = JSON.parse(req.body.names);
+      console.log(names);
     }
     console.log(folder);
 
     const fns = Object.keys(req.files).map(async (filename, i) => {
       let file = req.files[filename];
-      let name = file.name; //JSON.parse(req.body.names)[i];
+      let name = file.name;
+      if (req.body.mobile) name = names[i];
       if (folder.id) {
         const parent = await File.findById(folder.id);
         let ext = name.split(".");
