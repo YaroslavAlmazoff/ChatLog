@@ -26,8 +26,6 @@ const useVerify = () => {
         console.log(e);
         window.location = "/login";
       }
-    } else {
-      window.location = "/greeting";
     }
   };
   return { verify };
