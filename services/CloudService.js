@@ -481,6 +481,77 @@ class CloudService {
       //console.log(results)
     });
   }
+
+  async makeFolderMobile(req, res) {
+    const id = req.user.userId;
+    const { folder, folderId, name } = req.body;
+    console.log(id, folderId, folder, name);
+    this.walk(path.resolve("..", "static", "userfiles", id), (err, results) => {
+      if (err) throw err;
+      if (!results.length) {
+        fs.mkdir(
+          path.resolve("..", "static", "userfiles", id, name),
+          async (err) => {
+            console.log(err);
+            if (err) return;
+            const file = await File.create({
+              name,
+              ext: "",
+              type: "folder",
+              size: 0,
+              owner: id,
+              public: false,
+              folder: "",
+            });
+            console.log("success");
+            res.json({ file });
+          }
+        );
+      }
+      results.forEach((item) => {
+        const itemName = item.split("/")[item.split("/").length - 1];
+        if (itemName == folder) {
+          fs.mkdir(`${item}/${name}`, async (err) => {
+            console.log(err);
+            if (err) return;
+            const file = await File.create({
+              name,
+              path: `${item}/${name}`,
+              ext: "",
+              type: "folder",
+              size: 0,
+              owner: id,
+              public: false,
+              folder: folderId,
+            });
+            console.log("success");
+            res.json({ file });
+          });
+        } else if (folder == "root") {
+          fs.mkdir(
+            path.resolve("..", "static", "userfiles", id, name),
+            async (err) => {
+              console.log(err);
+              if (err) return;
+              const file = await File.create({
+                name,
+                ext: "",
+                type: "folder",
+                size: 0,
+                owner: id,
+                public: false,
+                folder: "",
+              });
+              console.log("success");
+              res.json({ file });
+            }
+          );
+        }
+      });
+      //console.log(results)
+    });
+  }
+
   async removeFolder(req, res) {
     const id = req.user.userId;
     const folder = await File.findById(req.params.id);

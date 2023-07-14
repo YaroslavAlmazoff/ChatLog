@@ -96,6 +96,13 @@ router.post("/mkdir", auth, (req, res) => {
     console.log(e);
   }
 });
+router.post("/mkdir-mobile", auth, (req, res) => {
+  try {
+    CloudService.makeFolderMobile(req, res);
+  } catch (e) {
+    console.log(e);
+  }
+});
 router.post("/checkfolder", auth, (req, res) => {
   try {
     CloudService.checkFolder(req, res);
