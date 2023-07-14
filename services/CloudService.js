@@ -194,7 +194,7 @@ class CloudService {
     const fns = Object.keys(req.files).map(async (filename, i) => {
       let file = req.files[filename];
       let name = file.name;
-      if (req.body.mobile) {
+      if (!req.body.mobile) {
         name = names[i];
       }
       if (folder.id) {
