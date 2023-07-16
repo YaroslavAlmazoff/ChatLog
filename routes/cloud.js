@@ -124,6 +124,13 @@ router.get("/getpath/:id", auth, (req, res) => {
     console.log(e);
   }
 });
+router.get("/getpath-mobile/:name", auth, (req, res) => {
+  try {
+    CloudService.getPathMobile(req, res);
+  } catch (e) {
+    console.log(e);
+  }
+});
 router.get("/rootfiles", auth, (req, res) => {
   try {
     CloudService.getRootFile(req, res);
