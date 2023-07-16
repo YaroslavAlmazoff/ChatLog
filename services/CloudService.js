@@ -313,6 +313,20 @@ class CloudService {
       res.json({ files });
     }
   }
+  async getFilesByFolderNameMobile(req, res) {
+    const name = JSON.parse(req.body).name;
+    if (name != "root") {
+      const folder = await File.findOne({
+        owner: req.user.userId,
+        name,
+      });
+      const files = await File.find({ folder: folder._id });
+      res.json({ files });
+    } else {
+      const files = await File.find({ owner: req.user.userId, folder: "" });
+      res.json({ files });
+    }
+  }
   async deleteFile(req, res) {
     const owner = req.user.userId;
     const id = req.params.id;
