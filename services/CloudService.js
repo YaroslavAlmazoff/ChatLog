@@ -654,6 +654,23 @@ class CloudService {
       res.json({ path: [] });
     }
   }
+  async getPathMobile(req, res) {
+    if (req.params.name) {
+      const folder = await File.findOne({
+        owner: req.user.userId,
+        name: req.params.name,
+      });
+      if (!folder.path) {
+        console.log(folder.name);
+        res.json({ path: [folder.name] });
+        return;
+      }
+      const path = folder.path.split("/").slice(6);
+      res.json({ path });
+    } else {
+      res.json({ path: [] });
+    }
+  }
 }
 
 module.exports = new CloudService();
