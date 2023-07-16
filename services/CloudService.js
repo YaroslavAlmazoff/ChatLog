@@ -300,6 +300,7 @@ class CloudService {
     res.json({ files });
   }
   async getFilesByFolderName(req, res) {
+    console.log(req.body.name);
     if (req.body.name != "root") {
       const folder = await File.findOne({
         owner: req.user.userId,
