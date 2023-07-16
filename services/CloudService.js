@@ -655,6 +655,7 @@ class CloudService {
     }
   }
   async getPathMobile(req, res) {
+    console.log("get path mobile");
     if (req.params.name) {
       const folder = await File.findOne({
         owner: req.user.userId,
