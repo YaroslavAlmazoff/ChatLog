@@ -124,7 +124,7 @@ router.get("/getpath/:id", auth, (req, res) => {
     console.log(e);
   }
 });
-router.get("/getpath-mobile/:name", auth, (req, res) => {
+router.post("/getpath-mobile", auth, (req, res) => {
   try {
     CloudService.getPathMobile(req, res);
   } catch (e) {
