@@ -33,7 +33,7 @@ router.get("/delete/:id", auth, (req, res) => {
     console.log(e);
   }
 });
-router.delete("/delete/:id", auth, (req, res) => {
+router.delete("/delete-mobile/:id", auth, (req, res) => {
   try {
     CloudService.deleteFileMobile(req, res);
   } catch (e) {
