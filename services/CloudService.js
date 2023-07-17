@@ -357,6 +357,7 @@ class CloudService {
     fs.readFile(file.path, "utf-8", (err, data) => {
       if (err) {
         console.log(err);
+        res.json({ data: "" });
       } else {
         res.json({ data });
       }
@@ -368,6 +369,7 @@ class CloudService {
     textract.fromFileWithPath(file.path, (err, text) => {
       if (err) {
         console.log(err);
+        res.json({ text: "" });
       } else {
         console.log(text);
         res.json({ text });
