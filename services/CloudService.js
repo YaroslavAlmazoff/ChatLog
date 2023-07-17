@@ -332,12 +332,24 @@ class CloudService {
     const id = req.params.id;
     const file = await File.findById(id);
     await File.deleteOne({ owner, name: file.name });
-    fs.unlink(file.path, (err) => {
+    fs.unlink(file.path, async (err) => {
       if (err) {
         console.log(err);
       }
+      await this.getFilesInner(res, owner);
     });
-    await this.getFilesInner(res, owner);
+  }
+  async deleteFileMobile() {
+    const owner = req.user.userId;
+    const id = req.params.id;
+    const file = await File.findById(id);
+    await File.deleteOne({ owner, name: file.name });
+    fs.unlink(file.path, async (err) => {
+      if (err) {
+        console.log(err);
+      }
+      res.json({ deleted: !!err });
+    });
   }
   async fileText(req, res) {
     const id = req.params.id;

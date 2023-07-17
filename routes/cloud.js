@@ -33,6 +33,13 @@ router.get("/delete/:id", auth, (req, res) => {
     console.log(e);
   }
 });
+router.delete("/delete/:id", auth, (req, res) => {
+  try {
+    CloudService.deleteFileMobile(req, res);
+  } catch (e) {
+    console.log(e);
+  }
+});
 router.delete("/rmdir/:id", auth, (req, res) => {
   try {
     CloudService.removeFolder(req, res);
