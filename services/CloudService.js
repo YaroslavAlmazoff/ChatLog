@@ -5,6 +5,8 @@ const textract = require("textract");
 const NotificationService = require("./NotificationService");
 const User = require("../models/User");
 const Notification = require("../models/Notification");
+const ImageService = require("./ImageService");
+const uuid = require("uuid");
 
 //Сервис облачного хранилища
 class CloudService {
@@ -194,14 +196,28 @@ class CloudService {
     const fns = Object.keys(req.files).map(async (filename, i) => {
       let file = req.files[filename];
       let name = file.name;
+
+      let ext = name.split(".");
+      ext = ext[ext.length - 1];
       if (!req.body.mobile) {
         name = names[i];
       }
+
       if (folder.id) {
         const parent = await File.findById(folder.id);
-        let ext = name.split(".");
-        ext = ext[ext.length - 1];
         if (parent.path) {
+          file.mv(`${parent.path}/${name}`);
+
+          const imageUrl = uuid.v4() + ".jpg";
+
+          if (ext == "mp4") {
+            ImageService.synthesizeFirstFrame(
+              `${parent.path}/${name}`,
+              path.resolve("..", "static", "filepreviews", imageUrl),
+              ImageService.frameTime
+            );
+          }
+
           await File.create({
             name: name,
             path: `${parent.path}/${name}`,
@@ -211,9 +227,19 @@ class CloudService {
             owner: userid,
             public: false,
             folder: folder.id,
+            previewUrl: imageUrl,
           });
-          file.mv(`${parent.path}/${name}`);
         } else {
+          file.mv(this.basePath + `${userid}/${parent.name}/${name}`);
+          const imageUrl = uuid.v4() + ".jpg";
+          if (ext == "mp4") {
+            ImageService.synthesizeFirstFrame(
+              this.basePath + `${userid}/${parent.name}/${name}`,
+              path.resolve("..", "static", "filepreviews", imageUrl),
+              ImageService.frameTime
+            );
+          }
+
           await File.create({
             name: name,
             path: this.basePath + `${userid}/${parent.name}/${name}`,
@@ -223,14 +249,12 @@ class CloudService {
             owner: userid,
             public: false,
             folder: folder.id,
+            previewUrl: imageUrl,
           });
-          file.mv(this.basePath + `${userid}/${parent.name}/${name}`);
         }
       } else {
         console.log("here");
         const filepath = `${this.basePath}${userid}/${name}`;
-        let ext = name.split(".");
-        ext = ext[ext.length - 1];
         console.log(ext, name);
         await File.create({
           name: name,

@@ -2,8 +2,11 @@ const path = require("path");
 const fs = require("fs");
 const ffmpeg = require("ffmpeg");
 
+const { exec } = require("child_process");
+
 //Сервис для взаимодействия с файлами
 class ImageService {
+  frameTime = "00:00:01";
   //Генерация рандомного числа
   random() {
     return Math.round(Math.random() * 10000);
@@ -98,6 +101,22 @@ class ImageService {
     );
     console.log(proc);
     //return proc
+  }
+
+  synthesizeFirstFrame(videoPath, imagePath, frameTime) {
+    const command = `ffmpeg -i ${videoPath} -ss ${frameTime} -vframes 1 ${imagePath}`;
+
+    exec(command, (error, stdout, stderr) => {
+      if (error) {
+        console.error(`Error: ${error.message}`);
+        return;
+      }
+      if (stderr) {
+        console.error(`ffmpeg stderr: ${stderr}`);
+        return;
+      }
+      console.log("First frame synthesized successfully.");
+    });
   }
 }
 
