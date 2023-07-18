@@ -339,7 +339,7 @@ class CloudService {
       await this.getFilesInner(res, owner);
     });
   }
-  async deleteFileMobile() {
+  async deleteFileMobile(req, res) {
     const owner = req.user.userId;
     const id = req.params.id;
     const file = await File.findById(id);
