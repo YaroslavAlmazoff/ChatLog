@@ -255,6 +255,17 @@ class CloudService {
       } else {
         console.log("here");
         const filepath = `${this.basePath}${userid}/${name}`;
+        file.mv(filepath);
+
+        const imageUrl = uuid.v4() + ".jpg";
+        if (ext == "mp4") {
+          ImageService.synthesizeFirstFrame(
+            filepath,
+            path.resolve("..", "static", "filepreviews", imageUrl),
+            ImageService.frameTime
+          );
+        }
+
         console.log(ext, name);
         await File.create({
           name: name,
@@ -264,8 +275,8 @@ class CloudService {
           size: file.size,
           owner: userid,
           public: false,
+          previewUrl: imageUrl,
         });
-        file.mv(filepath);
       }
       return filename;
     });
