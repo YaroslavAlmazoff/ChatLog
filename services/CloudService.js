@@ -331,7 +331,10 @@ class CloudService {
     const owner = req.user.userId;
     const id = req.params.id;
     const file = await File.findById(id);
-    await File.deleteOne({ owner, name: file.name });
+    if (file) {
+      await File.deleteOne({ owner, name: file.name });
+    }
+
     fs.unlink(file.path, async (err) => {
       if (err) {
         console.log(err);
@@ -343,7 +346,9 @@ class CloudService {
     const owner = req.user.userId;
     const id = req.params.id;
     const file = await File.findById(id);
-    await File.deleteOne({ owner, name: file.name });
+    if (file) {
+      await File.deleteOne({ owner, name: file.name });
+    }
     fs.unlink(file.path, async (err) => {
       if (err) {
         console.log(err);
