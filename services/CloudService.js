@@ -353,7 +353,7 @@ class CloudService {
       if (err) {
         console.log(err);
       }
-      res.json({ deleted: !!err });
+      res.json({ deleted: !err });
     });
   }
   async fileText(req, res) {
