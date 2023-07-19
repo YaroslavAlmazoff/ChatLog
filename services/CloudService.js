@@ -399,7 +399,7 @@ class CloudService {
         console.log(err);
         res.json({ text: "", err: true });
       } else {
-        res.json({ text, err: false });
+        res.json({ text: data, err: false });
       }
     });
   }
