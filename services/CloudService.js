@@ -206,6 +206,10 @@ class CloudService {
       if (folder.id) {
         const parent = await File.findById(folder.id);
         if (parent.path) {
+          if (fs.existsSync(`${parent.path}/${name}`)) {
+            fs.unlinkSync(`${parent.path}/${name}`);
+            await File.findOneAndDelete({ path: `${parent.path}/${name}` });
+          }
           file.mv(`${parent.path}/${name}`);
 
           const imageUrl = uuid.v4() + ".jpg";
@@ -230,6 +234,14 @@ class CloudService {
             previewUrl: imageUrl,
           });
         } else {
+          if (
+            fs.existsSync(this.basePath + `${userid}/${parent.name}/${name}`)
+          ) {
+            fs.unlinkSync(this.basePath + `${userid}/${parent.name}/${name}`);
+            await File.findOneAndDelete({
+              path: this.basePath + `${userid}/${parent.name}/${name}`,
+            });
+          }
           file.mv(this.basePath + `${userid}/${parent.name}/${name}`);
           const imageUrl = uuid.v4() + ".jpg";
           if (ext == "mp4") {
@@ -255,6 +267,10 @@ class CloudService {
       } else {
         console.log("here");
         const filepath = `${this.basePath}${userid}/${name}`;
+        if (fs.existsSync(`${this.basePath}${userid}/${name}`)) {
+          fs.unlinkSync(filepath);
+          await File.findOneAndDelete({ path: filepath });
+        }
         file.mv(filepath);
 
         const imageUrl = uuid.v4() + ".jpg";
