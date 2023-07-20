@@ -61,6 +61,13 @@ router.get("/hardfiletext/:id", auth, (req, res) => {
     console.log(e);
   }
 });
+router.get("/excel/:id", auth, (req, res) => {
+  try {
+    CloudService.getExcel(req, res);
+  } catch (e) {
+    console.log(e);
+  }
+});
 router.get("/file/:id", (req, res) => {
   try {
     CloudService.fileById(req, res);
