@@ -7,6 +7,7 @@ const User = require("../models/User");
 const Notification = require("../models/Notification");
 const ImageService = require("./ImageService");
 const uuid = require("uuid");
+const ExcelService = require("./ExcelService");
 
 //Сервис облачного хранилища
 class CloudService {
@@ -431,6 +432,11 @@ class CloudService {
         res.json({ text, err: false });
       }
     });
+  }
+  async getExcel(req, res) {
+    const file = await File.findById(req.params.id);
+    const json = ExcelService.toJSON(file.path);
+    res.json({ data: json });
   }
   async fileById(req, res) {
     const id = req.params.id;
