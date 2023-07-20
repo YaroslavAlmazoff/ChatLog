@@ -436,7 +436,11 @@ class CloudService {
   async getExcel(req, res) {
     const file = await File.findById(req.params.id);
     const json = ExcelService.toJSON(file.path);
-    res.json({ data: json });
+    if (json) {
+      res.json({ data: json, err: false });
+    } else {
+      res.json({ data: "", err: true });
+    }
   }
   async fileById(req, res) {
     const id = req.params.id;
