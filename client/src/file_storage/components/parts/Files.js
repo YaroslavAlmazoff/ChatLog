@@ -143,7 +143,7 @@ const Files = ({
             onChange={getFile}
             ref={fileRef}
             type="file"
-            accept=".png,.jpg,.jpeg,.mp4,.mp3,.gif,.doc,.docx,.pdf,.txt,.apk"
+            accept=".png,.jpg,.jpeg,.mp4,.mp3,.gif,.doc,.docx,.pdf,.txt,.apk,.xls,.xlsx,.ppt,.pptx"
             multiple
           />
           <button onClick={emitOpen} className="button">
