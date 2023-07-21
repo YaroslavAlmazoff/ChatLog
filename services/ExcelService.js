@@ -8,7 +8,7 @@ class ExcelService {
         if (typeof obj[key] === "number") {
           obj[key] = obj[key].toString();
         } else if (typeof obj[key] === "object") {
-          convertNumbersToStrings(obj[key]);
+          this.convertNumbersToStrings(obj[key]);
         }
       }
     } else {
@@ -17,7 +17,7 @@ class ExcelService {
         if (typeof obj[key] === "number") {
           obj[key] = obj[key].toString();
         } else if (typeof obj[key] === "object") {
-          convertNumbersToStrings(obj[key]);
+          this.convertNumbersToStrings(obj[key]);
         }
       }
     }
