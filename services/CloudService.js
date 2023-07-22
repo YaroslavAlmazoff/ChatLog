@@ -768,6 +768,17 @@ class CloudService {
   }
   async downloadFolder(req, res) {
     const folder = await File.findById(req.params.id);
+    let folderPath = folder.path;
+
+    if (!folderPath) {
+      folderPath = path.resolve(
+        "..",
+        "static",
+        "userfiles",
+        req.user.userId,
+        folder.name
+      );
+    }
     const archiveUrl = uuid.v4() + ".zip";
     await ZipService.archiving(
       folder.name,
