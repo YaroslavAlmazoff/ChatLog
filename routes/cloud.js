@@ -167,6 +167,13 @@ router.get("/download-folder/:id", auth, (req, res) => {
     console.log(e);
   }
 });
+router.get("/delete-temp-file/:name", (req, res) => {
+  try {
+    CloudService.removeTempFile(req, res);
+  } catch (e) {
+    console.log(e);
+  }
+});
 
 //Создание роутера для авторизации пользователя
 

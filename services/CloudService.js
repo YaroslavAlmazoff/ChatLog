@@ -787,6 +787,17 @@ class CloudService {
     );
     res.json({ archiveUrl });
   }
+  async removeTempFile(req, res) {
+    fs.unlink(
+      path.resolve("..", "static", "temp", req.params.name),
+      async (err) => {
+        if (err) {
+          console.log(err);
+        }
+        res.json({ message: "Successfully deleted temporary file!" });
+      }
+    );
+  }
 }
 
 module.exports = new CloudService();
