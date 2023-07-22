@@ -131,6 +131,13 @@ router.post("/filesbyfolder", auth, (req, res) => {
     console.log(e);
   }
 });
+router.post("/filesbysearch", auth, (req, res) => {
+  try {
+    CloudService.getFilesBySearch(req, res);
+  } catch (e) {
+    console.log(e);
+  }
+});
 router.get("/getpath/:id", auth, (req, res) => {
   try {
     CloudService.getPath(req, res);

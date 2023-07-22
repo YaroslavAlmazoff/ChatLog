@@ -365,6 +365,19 @@ class CloudService {
       res.json({ files });
     }
   }
+
+  async getFilesBySearch(req, res) {
+    const files = await File.find({ owner: req.user.userId });
+    const results = [];
+
+    files.forEach((item) => {
+      if (item.name.toLowerCase().includes(req.body.search.toLowerCase())) {
+        results.push(item);
+      }
+    });
+    res.json({ results });
+  }
+
   async getFilesByFolderNameMobile(req, res) {
     const name = JSON.parse(req.body).name;
     if (name != "root") {
