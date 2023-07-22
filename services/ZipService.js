@@ -25,7 +25,7 @@ class ZipService {
     await archive.finalize();
   }
   async terminalArchiving(folderPath, archivePath) {
-    const command = `zip -r ${archivePath} ${folderPath}`;
+    const command = `zip -rj ${archivePath} ${folderPath}`;
     exec(command, (error, _, stderr) => {
       if (error) {
         console.error(`Error: ${error.message}`);
