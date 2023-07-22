@@ -780,8 +780,7 @@ class CloudService {
       );
     }
     const archiveUrl = uuid.v4() + ".zip";
-    await ZipService.archiving(
-      folder.name,
+    await ZipService.terminalArchiving(
       folderPath,
       path.resolve("..", "static", "temp", archiveUrl)
     );

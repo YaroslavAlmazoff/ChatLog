@@ -1,5 +1,6 @@
 const archiver = require("archiver");
 const fs = require("fs");
+const { exec } = require("child_process");
 
 class ZipService {
   async archiving(folderName, folderPath, archivePath) {
@@ -22,6 +23,20 @@ class ZipService {
 
     archive.directory(folderPath, folderName);
     await archive.finalize();
+  }
+  async terminalArchiving(folderPath, archivePath) {
+    const command = `zip -r ${archivePath} ${folderPath}`;
+    exec(command, (error, _, stderr) => {
+      if (error) {
+        console.error(`Error: ${error.message}`);
+        return;
+      }
+      if (stderr) {
+        console.error(`zip stderr: ${stderr}`);
+        return;
+      }
+      console.log("Folder zipped successfully.");
+    });
   }
 }
 
