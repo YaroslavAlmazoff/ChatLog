@@ -8,6 +8,7 @@ const Notification = require("../models/Notification");
 const ImageService = require("./ImageService");
 const uuid = require("uuid");
 const ExcelService = require("./ExcelService");
+const ZipService = require("./ZipService");
 
 //Сервис облачного хранилища
 class CloudService {
@@ -764,6 +765,16 @@ class CloudService {
     } else {
       res.json({ path: [] });
     }
+  }
+  async downloadFolder(req, res) {
+    const folder = await File.findById(req.params.id);
+    const archiveUrl = uuid.v4() + ".zip";
+    await ZipService.archiving(
+      folder.name,
+      folder.path,
+      path.resolve("..", "static", "temp", archiveUrl)
+    );
+    res.json({ archiveUrl });
   }
 }
 

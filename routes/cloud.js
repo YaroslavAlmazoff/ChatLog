@@ -138,6 +138,7 @@ router.post("/filesbysearch", auth, (req, res) => {
     console.log(e);
   }
 });
+
 router.get("/getpath/:id", auth, (req, res) => {
   try {
     CloudService.getPath(req, res);
@@ -155,6 +156,13 @@ router.post("/getpath-mobile", auth, (req, res) => {
 router.get("/rootfiles", auth, (req, res) => {
   try {
     CloudService.getRootFile(req, res);
+  } catch (e) {
+    console.log(e);
+  }
+});
+router.get("/download-folder/:id", auth, (req, res) => {
+  try {
+    CloudService.downloadFolder(req, res);
   } catch (e) {
     console.log(e);
   }
