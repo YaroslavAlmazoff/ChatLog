@@ -776,7 +776,8 @@ class CloudService {
         "static",
         "userfiles",
         req.user.userId,
-        folder.name
+        folder.name,
+        "*"
       );
     }
     const archiveUrl = uuid.v4() + ".zip";
