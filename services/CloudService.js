@@ -375,7 +375,7 @@ class CloudService {
         results.push(item);
       }
     });
-    res.json({ results });
+    res.json({ files: results });
   }
 
   async getFilesByFolderNameMobile(req, res) {
