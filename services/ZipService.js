@@ -3,6 +3,7 @@ const fs = require("fs");
 
 class ZipService {
   async archiving(folderName, folderPath, archivePath) {
+    console.log(folderName, folderPath, archivePath);
     const output = fs.createWriteStream(archivePath);
     const archive = archiver("zip", {
       zlib: { level: 9 },
