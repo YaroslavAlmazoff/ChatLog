@@ -1,4 +1,5 @@
 const archiver = require("archiver");
+const fs = require("fs");
 
 class ZipService {
   async archiving(folderName, folderPath, archivePath) {
