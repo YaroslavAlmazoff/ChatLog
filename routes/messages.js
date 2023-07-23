@@ -432,9 +432,10 @@ router.post("/new-messages/:id", auth, async (req, res) => {
   message.isNotReaded = true;
   message.user = user._id;
   message.date = message.date;
-  if (message.fileLink != null || message.fileLink != "null") {
-    message.fileLink = message.fileLink;
-    await File.findByIdAndUpdate(id, { public: true });
+  if (message.fileLink == null || message.fileLink == "null") {
+    message.fileLink = "";
+  } else {
+    await File.findByIdAndUpdate(message.fileLink, { public: true });
   }
   emitter.emit("newMessage", message, req);
   res.status(200);
