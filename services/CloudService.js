@@ -803,7 +803,7 @@ class CloudService {
   async getSortedFiles(req, res) {
     const files = await File.find({ owner: req.user.userId });
     const results = [];
-    const { type } = req.body;
+    const type = req.body.sort;
 
     console.log(type);
     const types = {
