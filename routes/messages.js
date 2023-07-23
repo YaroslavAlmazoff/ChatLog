@@ -4,6 +4,7 @@ const router = Router();
 const auth = require("../middleware/auth.middleware");
 const Message = require("../models/Message");
 const MessengerService = require("../services/MessengerService");
+const File = require("../models/File");
 
 const uuid = require("uuid");
 
@@ -431,6 +432,10 @@ router.post("/new-messages/:id", auth, async (req, res) => {
   message.isNotReaded = true;
   message.user = user._id;
   message.date = message.date;
+  if (message.fileLink != null || message.fileLink != "null") {
+    message.fileLink = message.fileLink;
+    await File.findByIdAndUpdate(id, { public: true });
+  }
   emitter.emit("newMessage", message, req);
   res.status(200);
 });

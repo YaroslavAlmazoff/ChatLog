@@ -10,6 +10,7 @@ const File = new mongoose.Schema({
   public: { type: Boolean, required: true },
   folder: { type: String, default: "" },
   previewUrl: { type: String, default: "" },
+  fileLink: { type: String, default: "" },
 });
 
 module.exports = mongoose.model("File", File);
