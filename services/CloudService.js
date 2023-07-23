@@ -499,7 +499,7 @@ class CloudService {
       "cloud",
       req.params.id
     );
-    res.json({ msg: "да." });
+    res.json({ message: true });
   }
   async getSentFile(req, res) {
     const id = req.params.id;
