@@ -482,6 +482,25 @@ class CloudService {
     );
     res.json({ msg: "да." });
   }
+  async sendFileMobile(req, res) {
+    const user1 = req.user.userId;
+    const user2 = req.params.user;
+    const fullUser1 = await User.findById(user1);
+    const name = fullUser1.name;
+    const surname = fullUser1.surname;
+
+    const file = await File.findById(req.params.id);
+
+    await NotificationService.create(
+      user1,
+      user2,
+      `${name} ${surname} хочет отправить вам файл ${file.name}. Получить файл?`,
+      "file",
+      "cloud",
+      req.params.id
+    );
+    res.json({ msg: "да." });
+  }
   async getSentFile(req, res) {
     const id = req.params.id;
     const notification = await Notification.findById(id);
