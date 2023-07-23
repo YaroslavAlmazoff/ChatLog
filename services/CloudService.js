@@ -804,6 +804,8 @@ class CloudService {
     const files = await File.find({ owner: req.user.userId });
     const results = [];
     const { type } = req.body;
+
+    console.log(type);
     const types = {
       images: ["jpeg", "jpg", "png", "gif", "bmp"],
       videos: ["mp4", "avi"],
