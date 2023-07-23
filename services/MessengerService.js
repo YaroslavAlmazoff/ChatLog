@@ -168,6 +168,7 @@ class MessengerService {
       const message = el.toObject();
       if (!message.message) message.message = "";
       if (!message.to) message.to = "";
+      if (!message.fileLink) message.fileLink = "";
       return message;
     });
     Promise.all(fullMessages)
