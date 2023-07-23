@@ -803,12 +803,13 @@ class CloudService {
   async getSortedFiles(req, res) {
     const files = await File.find({ owner: req.user.userId });
     const results = [];
-    const type = req.params.type;
+    const { type } = req.body;
     const types = {
       images: ["jpeg", "jpg", "png", "gif", "bmp"],
       videos: ["mp4", "avi"],
       audios: ["mp3"],
       documents: ["doc", "docx", "xls", "xlsx", "pdf", "txt", "ppt", "pptx"],
+      other: ["zip", "apk", "ai", "psd", "cdr"],
     };
 
     files.forEach((item) => {

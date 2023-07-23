@@ -174,7 +174,7 @@ router.get("/delete-temp-file/:name", (req, res) => {
     console.log(e);
   }
 });
-router.get("/sortedfiles/:type", auth, (req, res) => {
+router.post("/sortedfiles/:type", auth, (req, res) => {
   try {
     CloudService.getSortedFiles(req, res);
   } catch (e) {
