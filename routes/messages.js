@@ -432,6 +432,9 @@ router.post("/new-messages/:id", auth, async (req, res) => {
   message.isNotReaded = true;
   message.user = user._id;
   message.date = message.date;
+
+  console.log(message.fileLink);
+
   if (message.fileLink == null || message.fileLink == "null") {
     message.fileLink = "";
   } else {
