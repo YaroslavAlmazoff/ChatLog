@@ -207,7 +207,7 @@ class CloudService {
       if (!req.body.mobile) {
         name = names[i];
       } else {
-        console.log(JSON.parse(req.body.names).strings);
+        name = JSON.parse(req.body.names).strings[i];
       }
 
       if (folder.id) {
