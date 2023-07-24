@@ -201,6 +201,9 @@ class CloudService {
 
       let ext = name.split(".");
       ext = ext[ext.length - 1];
+
+      console.log(req.body.names);
+
       if (!req.body.mobile) {
         name = names[i];
       }
@@ -255,7 +258,7 @@ class CloudService {
           }
 
           await File.create({
-            name: name,
+            name,
             path: this.basePath + `${userid}/${parent.name}/${name}`,
             ext,
             type: file.mimetype,
@@ -286,7 +289,7 @@ class CloudService {
 
         console.log(ext, name);
         await File.create({
-          name: name,
+          name,
           path: filepath,
           ext,
           type: file.mimetype,
