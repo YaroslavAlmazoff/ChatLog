@@ -357,13 +357,9 @@ class CloudService {
     const files = await File.find({ owner: req.user.userId, folder: "" });
     res.json({ files });
   }
-  async getFilesByFolderName(req, res) {
-    console.log(req.body.name);
-    if (req.body.name != "root") {
-      const folder = await File.findOne({
-        owner: req.user.userId,
-        name: req.body.name,
-      });
+  async getFilesByFolderId(req, res) {
+    if (req.body.id) {
+      const folder = await File.findById(req.body.id);
       const files = await File.find({ folder: folder._id });
       res.json({ files });
     } else {
@@ -385,12 +381,9 @@ class CloudService {
   }
 
   async getFilesByFolderNameMobile(req, res) {
-    const name = JSON.parse(req.body).name;
-    if (name != "root") {
-      const folder = await File.findOne({
-        owner: req.user.userId,
-        name,
-      });
+    const id = JSON.parse(req.body).id;
+    if (id) {
+      const folder = await File.findById(id);
       const files = await File.find({ folder: folder._id });
       res.json({ files });
     } else {
@@ -403,7 +396,7 @@ class CloudService {
     const id = req.params.id;
     const file = await File.findById(id);
     if (file) {
-      await File.deleteOne({ owner, name: file.name });
+      await File.findByIdAndDelete(id);
     }
 
     fs.unlink(file.path, async (err) => {
@@ -418,7 +411,7 @@ class CloudService {
     const id = req.params.id;
     const file = await File.findById(id);
     if (file) {
-      await File.deleteOne({ owner, name: file.name });
+      await File.findByIdAndDelete(id);
     }
     fs.unlink(file.path, async (err) => {
       if (err) {
@@ -621,6 +614,7 @@ class CloudService {
   async makeFolderMobile(req, res) {
     const id = req.user.userId;
     const { folder, folderId, name } = req.body;
+    const fullFolder = await File.findById(folderId);
     console.log(id, folderId, folder, name);
     this.walk(path.resolve("..", "static", "userfiles", id), (err, results) => {
       if (err) throw err;
@@ -645,8 +639,8 @@ class CloudService {
         );
       }
       results.forEach((item) => {
-        const itemName = item.split("/")[item.split("/").length - 1];
-        if (itemName == folder) {
+        //const itemName = item.split("/")[item.split("/").length - 1];
+        if (item == fullFolder.path) {
           fs.mkdir(`${item}/${name}`, async (err) => {
             console.log(err);
             if (err) return;
@@ -697,8 +691,8 @@ class CloudService {
         (err, results) => {
           if (err) throw err;
           results.forEach((item) => {
-            const itemName = item.split("/")[item.split("/").length - 1];
-            if (itemName == folder.name) {
+            //const itemName = item.split("/")[item.split("/").length - 1];
+            if (item == folder.path) {
               fs.rmdir(item, function (err) {
                 throw err;
               });
@@ -777,11 +771,8 @@ class CloudService {
   }
   async getPathMobile(req, res) {
     console.log("get path mobile");
-    if (req.body.name) {
-      const folder = await File.findOne({
-        owner: req.user.userId,
-        name: req.body.name,
-      });
+    if (req.body.id) {
+      const folder = await File.findById(req.body.id);
       if (!folder.path) {
         console.log(folder.name);
         res.json({ path: [folder.name] });
