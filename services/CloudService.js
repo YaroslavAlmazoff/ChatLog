@@ -749,15 +749,15 @@ class CloudService {
       res.end();
       return;
     }
-    const dir = await File.findOne({ name, owner: id, type: "folder" });
-    if (dir) {
-      res.json({
-        valid: false,
-        error: "Такая папка уже есть в вашем хранилище",
-      });
-    } else {
-      res.json({ valid: true });
-    }
+    // const dir = await File.findOne({ name, owner: id, type: "folder" });
+    // if (dir) {
+    //   res.json({
+    //     valid: false,
+    //     error: "Такая папка уже есть в вашем хранилище",
+    //   });
+    // } else {
+    res.json({ valid: true });
+    // }
   }
   async getPath(req, res) {
     if (req.params.id) {
