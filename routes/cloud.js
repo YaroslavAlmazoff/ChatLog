@@ -189,6 +189,4 @@ router.post("/sortedfiles", auth, (req, res) => {
   }
 });
 
-//Создание роутера для авторизации пользователя
-
 module.exports = router;
