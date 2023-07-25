@@ -548,8 +548,8 @@ class CloudService {
   async makeFolder(req, res) {
     const id = req.user.userId;
     const { folder, folderId, name } = req.body;
-    const folderPath = (await File.findById(folderId)).path;
-    console.log(id, folderId, folder, name);
+    const fullFolder = await File.findById(folderId);
+    console.log(id, folderId, folder, name, fullFolder);
     this.walk(path.resolve("..", "static", "userfiles", id), (err, results) => {
       if (err) throw err;
       if (!results.length) {
@@ -574,8 +574,8 @@ class CloudService {
       }
       results.forEach((item) => {
         //const itemName = item.split("/")[item.split("/").length - 1];
-        console.log(item, folderPath);
-        if (item == folderPath) {
+        console.log(item, fullFolder.path + `${name}`);
+        if (item == fullFolder.path + `/${name}`) {
           fs.mkdir(`${item}/${name}`, async (err) => {
             console.log(err);
             if (err) return;
