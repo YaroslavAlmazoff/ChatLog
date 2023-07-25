@@ -574,6 +574,7 @@ class CloudService {
       }
       results.forEach((item) => {
         //const itemName = item.split("/")[item.split("/").length - 1];
+        console.log(item, folderPath);
         if (item == folderPath) {
           fs.mkdir(`${item}/${name}`, async (err) => {
             console.log(err);
