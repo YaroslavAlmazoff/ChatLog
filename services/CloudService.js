@@ -572,47 +572,49 @@ class CloudService {
           }
         );
       }
-      results.forEach((item) => {
-        //const itemName = item.split("/")[item.split("/").length - 1];
-        console.log(item, fullFolder.path + `${name}`);
-        if (item == fullFolder.path + `/${name}`) {
-          fs.mkdir(`${item}/${name}`, async (err) => {
-            console.log(err);
-            if (err) return;
-            await File.create({
-              name,
-              path: `${item}/${name}`,
-              ext: "",
-              type: "folder",
-              size: 0,
-              owner: id,
-              public: false,
-              folder: folderId,
-            });
-            console.log("success");
-            await this.getFilesInner(res, id, folderId);
-          });
-        } else if (folder == "root") {
-          fs.mkdir(
-            path.resolve("..", "static", "userfiles", id, name),
-            async (err) => {
+      results
+        .filter((value) => value.type == "folder")
+        .forEach((item) => {
+          //const itemName = item.split("/")[item.split("/").length - 1];
+          console.log(item, fullFolder.path + `${name}`);
+          if (item == fullFolder.path + `/${name}`) {
+            fs.mkdir(`${item}/${name}`, async (err) => {
               console.log(err);
               if (err) return;
               await File.create({
                 name,
+                path: `${item}/${name}`,
                 ext: "",
                 type: "folder",
                 size: 0,
                 owner: id,
                 public: false,
-                folder: "",
+                folder: folderId,
               });
               console.log("success");
-              await this.getFilesInner(res, id);
-            }
-          );
-        }
-      });
+              await this.getFilesInner(res, id, folderId);
+            });
+          } else if (folder == "root") {
+            fs.mkdir(
+              path.resolve("..", "static", "userfiles", id, name),
+              async (err) => {
+                console.log(err);
+                if (err) return;
+                await File.create({
+                  name,
+                  ext: "",
+                  type: "folder",
+                  size: 0,
+                  owner: id,
+                  public: false,
+                  folder: "",
+                });
+                console.log("success");
+                await this.getFilesInner(res, id);
+              }
+            );
+          }
+        });
       //console.log(results)
     });
   }
