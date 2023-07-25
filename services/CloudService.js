@@ -576,7 +576,7 @@ class CloudService {
         //const itemName = item.split("/")[item.split("/").length - 1];
         console.log(item, fullFolder.path);
         console.log(item == fullFolder.path);
-        if (item == fullFolder.path + `/${name}`) {
+        if (item == fullFolder.path) {
           fs.mkdir(`${item}/${name}`, async (err) => {
             console.log(err);
             if (err) return;
