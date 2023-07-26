@@ -779,7 +779,16 @@ class CloudService {
         return;
       }
       const path = folder.path.split("/").slice(6);
-      res.json({ path });
+      const pathIds = path.map(async (value, id) => {
+        return (
+          await File.findOne({
+            owner: req.user.userId,
+            path: [...path].slice(0, path.length - (i + 1)).join("/"),
+          })
+        )._id;
+      });
+      console.log(pathIds);
+      res.json({ path, pathIds });
     } else {
       res.json({ path: [] });
     }
