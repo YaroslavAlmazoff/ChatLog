@@ -133,7 +133,7 @@ router.post("/checkfolder", auth, (req, res) => {
 });
 router.post("/filesbyfolder", auth, (req, res) => {
   try {
-    CloudService.getFilesByFolderName(req, res);
+    CloudService.getFilesByFolderNameMobile(req, res);
   } catch (e) {
     console.log(e);
   }
