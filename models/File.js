@@ -9,6 +9,7 @@ const File = new mongoose.Schema({
   owner: { type: mongoose.Types.ObjectId, required: true },
   public: { type: Boolean, required: true },
   folder: { type: String, default: "" },
+  parentId: { type: String, required: true, default: "" },
   previewUrl: { type: String, default: "" },
 });
 

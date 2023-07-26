@@ -239,6 +239,7 @@ class CloudService {
             public: false,
             folder: folder.id,
             previewUrl: imageUrl,
+            parentId: parent._id,
           });
         } else {
           if (
@@ -269,6 +270,7 @@ class CloudService {
             public: false,
             folder: folder.id,
             previewUrl: imageUrl,
+            parentId: parent._id,
           });
         }
       } else {
@@ -644,6 +646,10 @@ class CloudService {
           fs.mkdir(`${item}/${name}`, async (err) => {
             console.log(err);
             if (err) return;
+            const parent = await File.findOne({
+              owner: req.user.userId,
+              path: item,
+            });
             const file = await File.create({
               name,
               path: `${item}/${name}`,
@@ -653,6 +659,7 @@ class CloudService {
               owner: id,
               public: false,
               folder: folderId,
+              parentId: parent._id,
             });
             console.log("success");
             res.json({ file });
@@ -769,6 +776,28 @@ class CloudService {
       res.json({ path: [] });
     }
   }
+
+  async getParentFolderIds(folderId) {
+    let parentFolderIds = [];
+
+    // Ищем родительскую папку по ее id
+    const folder = await File.findById(folderId);
+
+    // Если папка найдена, получаем ее parentId и добавляем его в массив
+    if (folder) {
+      parentFolderIds.push(folder.parentId);
+
+      // Если у папки есть родительская папка, рекурсивно вызываем функцию для получения ее родительских папок
+      if (folder.parentId) {
+        parentFolderIds = parentFolderIds.concat(
+          await getParentFolderIds(folder.parentId)
+        );
+      }
+    }
+
+    return parentFolderIds;
+  }
+
   async getPathMobile(req, res) {
     console.log("get path mobile");
     if (req.body.id) {
@@ -779,14 +808,8 @@ class CloudService {
         return;
       }
       const path = folder.path.split("/").slice(6);
-      const pathIds = path.map(async (value, id) => {
-        return (
-          await File.findOne({
-            owner: req.user.userId,
-            path: [...path].slice(0, path.length - (i + 1)).join("/"),
-          })
-        )._id;
-      });
+      console.log(await this.getParentFolderIds());
+
       console.log(pathIds);
       res.json({ path, pathIds });
     } else {
