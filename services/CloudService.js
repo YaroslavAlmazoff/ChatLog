@@ -782,14 +782,10 @@ class CloudService {
   async getParentFolderIds(folderId) {
     let parentFolderIds = [];
 
-    // Ищем родительскую папку по ее id
     const folder = await File.findById(folderId);
-
-    // Если папка найдена, получаем ее parentId и добавляем его в массив
     if (folder) {
-      parentFolderIds.push(folder.parentId);
+      parentFolderIds.push(folder._id);
 
-      // Если у папки есть родительская папка, рекурсивно вызываем функцию для получения ее родительских папок
       if (folder.parentId) {
         parentFolderIds = parentFolderIds.concat(
           await this.getParentFolderIds(folder.parentId)
