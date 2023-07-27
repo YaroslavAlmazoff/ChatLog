@@ -806,8 +806,12 @@ class CloudService {
         return;
       }
       const path = folder.path.split("/").slice(6);
-      const pathIds = await this.getParentFolderIds(req.body.id);
+      let pathIds = await this.getParentFolderIds(req.body.id);
       pathIds.reverse();
+
+      pathIds = pathIds.map((value, i) => {
+        return { name: path[i], id: value };
+      });
       console.log(path, pathIds);
       res.json({ path: pathIds });
     } else {
