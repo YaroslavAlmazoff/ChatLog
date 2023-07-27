@@ -784,7 +784,7 @@ class CloudService {
 
     const folder = await File.findById(folderId);
     if (folder) {
-      parentFolderIds.push(folder._id);
+      parentFolderIds.push(folder.id);
 
       if (folder.parentId) {
         parentFolderIds = parentFolderIds.concat(
