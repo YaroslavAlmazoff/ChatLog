@@ -215,7 +215,10 @@ class CloudService {
         if (parent.path) {
           if (fs.existsSync(`${parent.path}/${name}`)) {
             fs.unlinkSync(`${parent.path}/${name}`);
-            await File.findOneAndDelete({ path: `${parent.path}/${name}` });
+            await File.findOneAndDelete({
+              owner: req.user.userId,
+              path: `${parent.path}/${name}`,
+            });
           }
           file.mv(`${parent.path}/${name}`);
 
@@ -247,6 +250,7 @@ class CloudService {
           ) {
             fs.unlinkSync(this.basePath + `${userid}/${parent.name}/${name}`);
             await File.findOneAndDelete({
+              owner: req.user.userId,
               path: this.basePath + `${userid}/${parent.name}/${name}`,
             });
           }
@@ -278,7 +282,10 @@ class CloudService {
         const filepath = `${this.basePath}${userid}/${name}`;
         if (fs.existsSync(`${this.basePath}${userid}/${name}`)) {
           fs.unlinkSync(filepath);
-          await File.findOneAndDelete({ path: filepath });
+          await File.findOneAndDelete({
+            owner: req.user.userId,
+            path: filepath,
+          });
         }
         file.mv(filepath);
 
