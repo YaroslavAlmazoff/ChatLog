@@ -184,11 +184,10 @@ class CloudService {
   async uploadMobile(req, res) {
     const userid = req.user.userId;
     let names;
-    console.log(req.files);
     let folder;
     if (req.body.mobile) {
       console.log(req.body.folder, this.removeBackslash(req.body.folder));
-      folder = JSON.parse(req.body.folder);
+      folder = JSON.parse(JSON.stringify(req.body.folder));
     } else {
       folder = JSON.parse(req.body.folder);
       names = JSON.parse(req.body.names);
