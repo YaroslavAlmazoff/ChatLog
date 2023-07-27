@@ -792,7 +792,7 @@ class CloudService {
       // Если у папки есть родительская папка, рекурсивно вызываем функцию для получения ее родительских папок
       if (folder.parentId) {
         parentFolderIds = parentFolderIds.concat(
-          await getParentFolderIds(folder.parentId)
+          await this.getParentFolderIds(folder.parentId)
         );
       }
     }
