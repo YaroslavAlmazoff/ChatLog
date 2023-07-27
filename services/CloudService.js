@@ -806,13 +806,13 @@ class CloudService {
       const folder = await File.findById(req.body.id);
       if (!folder.path) {
         console.log(folder.name);
-        res.json({ path: [folder.name] });
+        res.json({ path: [{ name: folder.name, id: folder._id }] });
         return;
       }
       const path = folder.path.split("/").slice(6);
       const pathIds = await this.getParentFolderIds();
       console.log(pathIds);
-      res.json({ path, pathIds });
+      res.json({ path: pathIds });
     } else {
       res.json({ path: [] });
     }
