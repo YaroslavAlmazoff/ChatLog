@@ -801,7 +801,7 @@ class CloudService {
   }
 
   async getPathMobile(req, res) {
-    console.log("get path mobile");
+    console.log("get path mobile", req.body.id);
     if (req.body.id) {
       const folder = await File.findById(req.body.id);
       if (!folder.path) {
@@ -810,8 +810,7 @@ class CloudService {
         return;
       }
       const path = folder.path.split("/").slice(6);
-      console.log(await this.getParentFolderIds());
-
+      const pathIds = await this.getParentFolderIds();
       console.log(pathIds);
       res.json({ path, pathIds });
     } else {
