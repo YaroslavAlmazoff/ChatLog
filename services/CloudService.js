@@ -811,7 +811,7 @@ class CloudService {
       }
       const path = folder.path.split("/").slice(6);
       const pathIds = await this.getParentFolderIds(req.body.id);
-      console.log(pathIds);
+      console.log(path, pathIds);
       res.json({ path: pathIds });
     } else {
       res.json({ path: [] });
