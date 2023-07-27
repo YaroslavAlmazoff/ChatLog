@@ -360,6 +360,8 @@ class CloudService {
     res.json({ files });
   }
   async getFilesByFolderId(req, res) {
+    console.log(req.body);
+    console.log(req.body.id);
     if (req.body.id) {
       const folder = await File.findById(req.body.id);
       const files = await File.find({ folder: folder._id });
