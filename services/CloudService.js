@@ -184,10 +184,10 @@ class CloudService {
   async uploadMobile(req, res) {
     const userid = req.user.userId;
     let names;
+    console.log(req.files);
     let folder;
     if (req.body.mobile) {
-      console.log(req.body.folder, this.removeBackslash(req.body.folder));
-      folder = JSON.parse(JSON.stringify(req.body.folder));
+      folder = { name: req.body.name, id: req.body.id };
     } else {
       folder = JSON.parse(req.body.folder);
       names = JSON.parse(req.body.names);
@@ -210,11 +210,8 @@ class CloudService {
         name = JSON.parse(req.body.names).strings[i];
       }
 
-      console.log("id", folder.id);
-
       if (folder.id) {
         const parent = await File.findById(folder.id);
-        console.log("parent", parent);
         if (parent.path) {
           if (fs.existsSync(`${parent.path}/${name}`)) {
             fs.unlinkSync(`${parent.path}/${name}`);
@@ -233,7 +230,7 @@ class CloudService {
           }
 
           await File.create({
-            name,
+            name: name,
             path: `${parent.path}/${name}`,
             ext,
             type: file.mimetype,
