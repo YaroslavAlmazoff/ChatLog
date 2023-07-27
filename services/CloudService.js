@@ -187,7 +187,7 @@ class CloudService {
     console.log(req.files);
     let folder;
     if (req.body.mobile) {
-      folder = this.removeBackslash(req.body.folder);
+      folder = JSON.parse(this.removeBackslash(req.body.folder));
     } else {
       folder = JSON.parse(req.body.folder);
       names = JSON.parse(req.body.names);
