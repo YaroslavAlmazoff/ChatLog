@@ -211,8 +211,11 @@ class CloudService {
         name = JSON.parse(req.body.names).strings[i];
       }
 
+      console.log("id", folder.id);
+
       if (folder.id) {
         const parent = await File.findById(folder.id);
+        console.log("parent", parent);
         if (parent.path) {
           if (fs.existsSync(`${parent.path}/${name}`)) {
             fs.unlinkSync(`${parent.path}/${name}`);
@@ -231,7 +234,7 @@ class CloudService {
           }
 
           await File.create({
-            name: name,
+            name,
             path: `${parent.path}/${name}`,
             ext,
             type: file.mimetype,
