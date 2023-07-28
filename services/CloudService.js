@@ -714,13 +714,13 @@ class CloudService {
             //const itemName = item.split("/")[item.split("/").length - 1];
             if (item == folder.path) {
               fs.rmdir(item, function (err) {
-                throw err;
+                res.json({ deleted: !err });
               });
             } else if (folder == "root") {
               fs.rmdir(
                 path.resolve("..", "static", "userfiles", id, folder.name),
                 function (err) {
-                  throw err;
+                  res.json({ deleted: !err });
                 }
               );
             }
@@ -729,9 +729,8 @@ class CloudService {
         }
       );
       await File.findByIdAndDelete(req.params.id);
-      res.json({ message: "Удалено" });
     } else {
-      res.json({ message: "Недостаточно прав" });
+      res.json({ deleted: false });
     }
   }
   async checkFolder(req, res) {
