@@ -211,6 +211,7 @@ class CloudService {
       }
 
       if (folder.id) {
+        console.log("here");
         const parent = await File.findById(folder.id);
         if (parent.path) {
           if (fs.existsSync(`${parent.path}/${name}`)) {
@@ -278,7 +279,7 @@ class CloudService {
           });
         }
       } else {
-        console.log("here");
+        console.log("here2");
         const filepath = `${this.basePath}${userid}/${name}`;
         if (fs.existsSync(`${this.basePath}${userid}/${name}`)) {
           fs.unlinkSync(filepath);
