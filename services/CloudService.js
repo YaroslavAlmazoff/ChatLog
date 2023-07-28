@@ -322,7 +322,11 @@ class CloudService {
       })
       .catch((e) => {
         console.log(e);
-        res.json({ files: [], e: e.message });
+        if (req.body.mobile) {
+          res.json(JSON.stringify({ files: [], e: e.message }));
+        } else {
+          res.json({ files: [], e: e.message });
+        }
       });
   }
 
