@@ -8,8 +8,8 @@ class GamesService {
     const games = await Game.find({});
     const result = games.map((value) => {
       const game = value.toObject();
-      if (!game.rating) game.rating = 0;
-      if (!game.summRating) game.summRating = 0;
+      if (!game.rating || game.rating == Infinity) game.rating = 0;
+      if (!game.summRating || game.summRating == Infinity) game.summRating = 0;
       if (!game.marks) game.marks = 0;
       return game;
     });
