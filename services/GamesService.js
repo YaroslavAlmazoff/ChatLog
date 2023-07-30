@@ -79,6 +79,7 @@ class GamesService {
       user: req.user.userId,
       game: req.params.id,
       avatarUrl: fullUser.avatarUrl,
+      userName: fullUser.name + " " + fullUser.surname,
     })
       .then(async () => {
         const comments = await GameComment.find({ game: req.params.id });

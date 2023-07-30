@@ -6,6 +6,7 @@ const GameComment = new mongoose.Schema({
   game: { type: String, required: true },
   user: { type: mongoose.Types.ObjectId, required: true },
   avatarUrl: { type: String },
+  userName: { type: String, required: true },
   likes: { type: Number, default: 0 },
 });
 
