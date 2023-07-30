@@ -2,6 +2,7 @@ const uuid = require("uuid");
 const Game = require("../models/Game");
 const GameComment = require("../models/GameComment");
 const FileService = require("./FileService");
+const User = require("../models/User");
 
 class GamesService {
   async games(req, res) {
@@ -71,11 +72,13 @@ class GamesService {
   }
   async comment(req, res) {
     const { comment, date } = req.body;
+    const fullUser = await User.findById(req.user.userId);
     GameComment.create({
       comment,
       date,
       user: req.user.userId,
       game: req.params.id,
+      avatarUrl: fullUser.avatarUrl,
     })
       .then(async () => {
         const comments = await GameComment.find({ game: req.params.id });
