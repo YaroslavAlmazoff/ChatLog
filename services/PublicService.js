@@ -25,8 +25,9 @@ class PublicService {
       publicObject.isSubscriber = !!isSubscriber.length;
       return publicObject;
     });
-    Promise.all(finalPublics).then((data) => res.json({ publics: data }));
-    res.json({ publics });
+    Promise.all(finalPublics)
+      .then((data) => res.json({ publics: data }))
+      .catch(() => res.json({ publics: [] }));
   }
   async create(req, res) {
     const admin = req.user.userId;
