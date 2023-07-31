@@ -225,7 +225,7 @@ class PublicService {
   async subscribeListMobile(req, res) {
     const pub = await Public.findById(req.params.id);
     const subscribers = pub.subscribers;
-    const isSubscriber = req.params.isSubscriber;
+    const isSubscriber = req.params.subscribed;
     if (isSubscriber == "1") {
       const index = subscribers.findIndex((el) => {
         return el.toString() == req.user.userId.toString();
