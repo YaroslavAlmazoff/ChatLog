@@ -221,6 +221,24 @@ class PublicService {
       res.json({ isSubscriber: true });
     }
   }
+  async subscribeListMobile(req, res) {
+    const pub = await Public.findById(req.params.id);
+    const subscribers = pub.subscribers;
+    const isSubscriber = req.params.isSubscriber;
+    if (isSubscriber == "1") {
+      const index = subscribers.findIndex((el) => {
+        return el.toString() == req.user.userId.toString();
+      });
+      subscribers.splice(index, 1);
+      await Public.findByIdAndUpdate(req.params.id, { subscribers });
+      res.json({ isSubscriber: false });
+    } else {
+      subscribers.push(req.user.userId);
+      await Public.findByIdAndUpdate(req.params.id, { subscribers });
+      console.log(isSubscriber, false);
+      res.json({ isSubscriber: true });
+    }
+  }
   async isSubscriber(req, res) {
     const pub = await Public.findById(req.params.id);
     const subscribers = pub.subscribers;

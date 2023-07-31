@@ -114,6 +114,13 @@ router.get("/subscribe/:id", auth, (req, res) => {
     console.log(e);
   }
 });
+router.get("/subscribe-list-mobile/:id/:subscribed", auth, (req, res) => {
+  try {
+    PublicService.subscribeListMobile(req, res);
+  } catch (e) {
+    console.log(e);
+  }
+});
 router.get("/issubscriber/:id", auth, (req, res) => {
   try {
     PublicService.isSubscriber(req, res);
