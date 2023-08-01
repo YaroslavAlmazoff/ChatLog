@@ -23,6 +23,8 @@ class PublicService {
         }
       });
       publicObject.isSubscriber = !!isSubscriber.length;
+      if (!publicObject.avatarUrl) publicObject.avatarUrl = "";
+      if (!publicObject.bannerUrl) publicObject.bannerUrl = "";
       return publicObject;
     });
     Promise.all(finalPublics)
