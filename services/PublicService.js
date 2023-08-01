@@ -42,7 +42,7 @@ class PublicService {
     const avatarUrl = uuid.v4() + ".jpg";
     const bannerUrl = uuid.v4() + ".jpg";
 
-    await Public.create({ name, description, admin });
+    const newPublic = await Public.create({ name, description, admin });
 
     if (req.files) {
       if (req.files.avatar) {
@@ -70,7 +70,7 @@ class PublicService {
       await ChatRoom.create({ creator: admin, title: name, members: [admin] });
     }
 
-    res.json({ id: "-_-" });
+    res.json({ public: newPublic });
   }
   async edit(req, res) {
     const { id, name, description, category, admin } = req.body;
