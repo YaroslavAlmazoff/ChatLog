@@ -70,7 +70,7 @@ class PublicService {
       await ChatRoom.create({ creator: admin, title: name, members: [admin] });
     }
 
-    res.json({ public: newPublic });
+    res.json(JSON.stringify({ public: newPublic }));
   }
   async edit(req, res) {
     const { id, name, description, category, admin } = req.body;
