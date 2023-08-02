@@ -12,6 +12,14 @@ router.get("/all/:id", (req, res) => {
   }
 });
 
+router.get("/publics", (req, res) => {
+  try {
+    PublicService.publics(req, res);
+  } catch (e) {
+    console.log(e);
+  }
+});
+
 router.post("/create", auth, (req, res) => {
   try {
     PublicService.create(req, res);

@@ -31,6 +31,10 @@ class PublicService {
       .then((data) => res.json({ publics: data }))
       .catch(() => res.json({ publics: [] }));
   }
+  async publics(req, res) {
+    const publics = await Public.find({});
+    res.json({ publics });
+  }
   async create(req, res) {
     const admin = req.user.userId;
     const { name, description } = req.body;
