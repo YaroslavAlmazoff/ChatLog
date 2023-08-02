@@ -16,7 +16,7 @@ const PublicsPage = () => {
 
   useEffect(() => {
     const getPublics = async () => {
-      const response = await api.get(`/api/public/all/${auth.userId}`);
+      const response = await api.get(`/api/public/publics`);
       setPublics(response.data.publics);
       setLoading(false);
     };
