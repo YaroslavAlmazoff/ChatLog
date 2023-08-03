@@ -115,6 +115,14 @@ router.get("/allsubscribers/:id", (req, res) => {
   }
 });
 
+router.get("/subscribers/:id", (req, res) => {
+  try {
+    PublicService.subscribers(req, res);
+  } catch (e) {
+    console.log(e);
+  }
+});
+
 router.get("/subscribe/:id", auth, (req, res) => {
   try {
     PublicService.subscribe(req, res);

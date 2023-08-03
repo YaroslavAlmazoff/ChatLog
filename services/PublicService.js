@@ -197,6 +197,16 @@ class PublicService {
     const pub = await Public.findById(req.params.id);
     res.json({ subscribers: pub.subscribers });
   }
+  async subscribers(req, res) {
+    const pub = await Public.findById(req.params.id);
+    const finalSubscribers = pub.subscribers.map(async (value) => {
+      const user = await User.findById(value);
+      return user;
+    });
+    Promise.all(finalSubscribers)
+      .then((data) => res.json({ subscribers: data }))
+      .catch(() => res.json({ subscribers: [] }));
+  }
   async subscribe(req, res) {
     const pub = await Public.findById(req.params.id);
     const subscribers = pub.subscribers;
