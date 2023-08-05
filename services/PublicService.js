@@ -287,7 +287,7 @@ class PublicService {
   async likePost(req, res) {
     const userid = req.user.userId;
     const id = req.params.id;
-    const public = req.params.public;
+    const pub = req.params.public;
 
     const like = await Like.findOne({ user: userid, post: id });
 
@@ -328,7 +328,7 @@ class PublicService {
   }
 
   async comment(req, res) {
-    const { text, date, public } = req.body;
+    const { text, date, pub } = req.body;
     Comment.create({
       text,
       date,
