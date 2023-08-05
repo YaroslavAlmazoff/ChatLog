@@ -298,13 +298,13 @@ class PublicService {
       const newLikes = likes - 1;
       await PublicPost.findByIdAndUpdate(id, { likes: newLikes });
       await Like.findOneAndDelete({ user: userid, post: id });
-      await this.notify(types.like, userid, req.params.id, pub);
+      await this.notify(types.like, userid, pub, req.params.id);
       res.json({ liked: false });
     } else {
       const newLikes = 1 + likes;
       await PublicPost.findByIdAndUpdate(id, { likes: newLikes });
       await Like.create({ user: userid, post: id });
-      await this.notify(types.dislike, userid, req.params.id, pub);
+      await this.notify(types.dislike, userid, pub, req.params.id);
       res.json({ liked: true });
     }
   }
@@ -346,8 +346,8 @@ class PublicService {
       await this.notify(
         types.comment,
         req.user.userId,
-        req.params.id,
         pub,
+        req.params.id,
         text
       );
       res.json({ comment: commentObj });
