@@ -390,7 +390,7 @@ class PublicService {
   async notify(type, userId, publicId, postId, message) {
     const post = await PublicPost.findById(postId);
     const user = await User.findById(userId);
-    let text = `${user.name} ${user.surname} ${type} запись ${post.title}`;
+    let text = ``;
     if (type === types.subscribe) {
       text = `${user.name} ${user.surname} ${type} на ваш канал`;
     } else if (type === types.unscribe) {
@@ -399,6 +399,8 @@ class PublicService {
       text = `${user.name} ${user.surname} ${type} с записи ${post.title}`;
     } else if (type === types.comment) {
       text = `${user.name} ${user.surname} ${type} запись ${post.title}: ${message}`;
+    } else {
+      text = `${user.name} ${user.surname} ${type} запись ${post.title}`;
     }
     await PublicNotification.create({ text, public: publicId });
   }
