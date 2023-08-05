@@ -387,7 +387,7 @@ class PublicService {
     });
     res.json({ notifications });
   }
-  async notify(type, userId, publicId, postId, text) {
+  async notify(type, userId, publicId, postId, message) {
     const post = await PublicPost.findById(postId);
     const user = await User.findById(userId);
     let text = `${user.name} ${user.surname} ${type} запись ${post.title}`;
@@ -398,7 +398,7 @@ class PublicService {
     } else if (type === types.dislike) {
       text = `${user.name} ${user.surname} ${type} с записи ${post.title}`;
     } else if (type === types.comment) {
-      text = `${user.name} ${user.surname} ${type} запись ${post.title}: ${text}`;
+      text = `${user.name} ${user.surname} ${type} запись ${post.title}: ${message}`;
     }
     await PublicNotification.create({ text, public: publicId });
   }
