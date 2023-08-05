@@ -10,6 +10,7 @@ const ChatRoom = require("../models/ChatRoom");
 const Like = require("../models/Like");
 const ReactionsService = require("./ReactionsService");
 const PublicComment = require("../models/PublicComment");
+const types = require("./public_notification_types");
 
 class PublicService {
   async all(req, res) {
@@ -230,10 +231,12 @@ class PublicService {
       });
       subscribers.splice(index, 1);
       await Public.findByIdAndUpdate(req.params.id, { subscribers });
+      await this.notify(types.unscribe, req.user.userId, req.params.id, null);
       res.json({ isSubscriber: false });
     } else {
       subscribers.push(req.user.userId);
       await Public.findByIdAndUpdate(req.params.id, { subscribers });
+      await this.notify(types.subscribe, req.user.userId, req.params.id, null);
       console.log(isSubscriber, false);
       res.json({ isSubscriber: true });
     }
@@ -284,6 +287,7 @@ class PublicService {
   async likePost(req, res) {
     const userid = req.user.userId;
     const id = req.params.id;
+    const public = req.params.public;
 
     const like = await Like.findOne({ user: userid, post: id });
 
@@ -294,11 +298,13 @@ class PublicService {
       const newLikes = likes - 1;
       await PublicPost.findByIdAndUpdate(id, { likes: newLikes });
       await Like.findOneAndDelete({ user: userid, post: id });
+      await this.notify(types.like, userid, req.params.id, public);
       res.json({ liked: false });
     } else {
       const newLikes = 1 + likes;
       await PublicPost.findByIdAndUpdate(id, { likes: newLikes });
       await Like.create({ user: userid, post: id });
+      await this.notify(types.dislike, userid, req.params.id, public);
       res.json({ liked: true });
     }
   }
@@ -322,7 +328,7 @@ class PublicService {
   }
 
   async comment(req, res) {
-    const { text, date } = req.body;
+    const { text, date, public } = req.body;
     Comment.create({
       text,
       date,
@@ -336,6 +342,14 @@ class PublicService {
       const commentObj = comment.toObject();
       commentObj.userName = user.name + " " + user.surname;
       commentObj.avatarUrl = user.avatarUrl;
+
+      await this.notify(
+        types.comment,
+        req.user.userId,
+        req.params.id,
+        public,
+        text
+      );
       res.json({ comment: commentObj });
     });
   }
@@ -373,16 +387,20 @@ class PublicService {
     });
     res.json({ notifications });
   }
-  async notify(req, res) {
-    const { type } = req.body;
-    const post = await PublicPost.findById(req.params.post);
-    const user = await User.findById(req.user.userId);
+  async notify(type, userId, publicId, postId, text) {
+    const post = await PublicPost.findById(postId);
+    const user = await User.findById(userId);
     let text = `${user.name} ${user.surname} ${type} запись ${post.title}`;
-    if (type === "подписался(ась)") {
+    if (type === types.subscribe) {
+      text = `${user.name} ${user.surname} ${type} на ваш канал`;
+    } else if (type === types.unscribe) {
       text = `${user.name} ${user.surname} ${type}`;
+    } else if (type === types.dislike) {
+      text = `${user.name} ${user.surname} ${type} с записи ${post.title}`;
+    } else if (type === types.comment) {
+      text = `${user.name} ${user.surname} ${type} запись ${post.title}: ${text}`;
     }
-    await PublicNotification.create({ text, public: req.params.public });
-    res.json({ msg: "success!" });
+    await PublicNotification.create({ text, public: publicId });
   }
 }
 
