@@ -78,7 +78,8 @@ class PublicService {
     res.json(JSON.stringify({ public: newPublic }));
   }
   async edit(req, res) {
-    const { id, name, description, category, admin } = req.body;
+    const { name, description, category, admin } = req.body;
+    const id = req.params.id;
     const pub = await Public.findById(id);
     const exists = await Public.findOne({ name });
     if (exists) {
