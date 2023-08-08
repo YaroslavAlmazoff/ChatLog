@@ -195,6 +195,7 @@ class PublicService {
       });
       const postObj = post.toObject();
       postObj.liked = !!like;
+      return postObj;
     });
 
     Promise.all(finalPosts)
