@@ -293,7 +293,15 @@ class PublicService {
     }
   }
   async deletePost(req, res) {
-    await PublicPost.findByIdAndDelete(req.params.id);
+    const post = await PublicPost.findById(req.params.id);
+    const filepathes = post.images.map((el) =>
+      path.resolve("..", "static", "publicposts", el)
+    );
+
+    filepathes.forEach((el) => {
+      ImageService.deleteFile(el);
+    });
+    await post.delete();
     res.json("deleted");
   }
   async postHead(req, res) {
