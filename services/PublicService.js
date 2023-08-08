@@ -163,7 +163,9 @@ class PublicService {
       });
     }
 
-    res.json("");
+    const pub = await Public.findById(req.params.id);
+
+    res.json(JSON.stringify(pub));
   }
   async public(req, res) {
     const pub = await Public.findById(req.params.id);
