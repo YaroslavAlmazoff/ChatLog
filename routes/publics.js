@@ -92,7 +92,7 @@ router.get("/posts/:id", (req, res) => {
 });
 router.get("/posts-mobile/:id/:user", (req, res) => {
   try {
-    PublicService.posts(req, res);
+    PublicService.postsMobile(req, res);
   } catch (e) {
     console.log(e);
   }
