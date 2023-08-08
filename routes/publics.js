@@ -44,7 +44,7 @@ router.post("/createfoto/:id", (req, res) => {
   }
 });
 
-router.post("/createpost/:id", (req, res) => {
+router.post("/createpost/:id", auth, (req, res) => {
   try {
     PublicService.createPost(req, res);
   } catch (e) {
@@ -61,7 +61,6 @@ router.delete("/deletepost/:id", (req, res) => {
 
 router.get("/public/:id", (req, res) => {
   try {
-    console.log("че за фигня");
     PublicService.public(req, res);
   } catch (e) {
     console.log(e);
@@ -85,6 +84,13 @@ router.get("/allfotos/:id", (req, res) => {
 });
 
 router.get("/posts/:id", (req, res) => {
+  try {
+    PublicService.posts(req, res);
+  } catch (e) {
+    console.log(e);
+  }
+});
+router.get("/posts-mobile/:id/:user", (req, res) => {
   try {
     PublicService.posts(req, res);
   } catch (e) {

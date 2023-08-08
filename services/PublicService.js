@@ -186,6 +186,21 @@ class PublicService {
     const posts = await PublicPost.find({ public: req.params.id });
     res.json({ posts });
   }
+  async postsMobile(req, res) {
+    const posts = await PublicPost.find({ public: req.params.id });
+    const finalPosts = posts.map(async (post) => {
+      const like = await Like.findOne({
+        post: post._id,
+        user: req.params.user,
+      });
+      const postObj = post.toObject();
+      postObj.liked = !!like;
+    });
+
+    Promise.all(finalPosts)
+      .then((data) => res.json({ posts: data }))
+      .catch((err) => res.json({ posts: [], err }));
+  }
   async firstSubscribers(req, res) {
     const pub = await Public.findById(req.params.id);
     const subscribers = pub.subscribers.slice(
