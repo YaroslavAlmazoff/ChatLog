@@ -79,6 +79,7 @@ class PublicService {
   }
   async edit(req, res) {
     const { id, name, description, category, admin } = req.body;
+    const pub = await Public.findById(id);
     const exists = await Public.findOne({ name });
     if (exists) {
       res.json({ error: "Имя группы должно быть уникальным" });
@@ -108,7 +109,7 @@ class PublicService {
         });
       }
     }
-    res.json({ url: "-_-" });
+    res.json(JSON.stringify(pub));
   }
   async createFoto(req, res) {
     const id = req.params.id;
