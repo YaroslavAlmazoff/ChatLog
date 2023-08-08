@@ -82,10 +82,7 @@ class PublicService {
     const id = req.params.id;
     const pub = await Public.findById(id);
     const exists = await Public.findOne({ name });
-    if (exists) {
-      res.json({ error: "Имя группы должно быть уникальным" });
-      return;
-    }
+
     const avatarUrl = uuid.v4() + ".jpg";
     const bannerUrl = uuid.v4() + ".jpg";
     if (req.files) {
