@@ -654,12 +654,13 @@ class CloudService {
             });
             console.log("success");
             res.json({ file });
+            res.end();
             return;
           }
         );
       }
       console.log(fullFolder);
-      results.forEach((item) => {
+      results.forEach(async (item) => {
         //const itemName = item.split("/")[item.split("/").length - 1];
         console.log(item, fullFolder.path);
         if (
@@ -683,6 +684,7 @@ class CloudService {
             });
             console.log("success");
             res.json({ file });
+            res.end();
             return;
           });
         } else if (parent == "root") {
@@ -703,6 +705,7 @@ class CloudService {
               });
               console.log("success");
               res.json({ file });
+              res.end();
               return;
             }
           );
