@@ -631,7 +631,7 @@ class CloudService {
 
   async makeFolderMobile(req, res) {
     const id = req.user.userId;
-    const { folderId, name } = req.body;
+    const { folderId, name, parent } = req.body;
     const fullFolder = folderId != "" ? await File.findById(folderId) : null;
     console.log(id, folderId, name);
     this.walk(path.resolve("..", "static", "userfiles", id), (err, results) => {
@@ -683,7 +683,7 @@ class CloudService {
             console.log("success");
             res.json({ file });
           });
-        } else if (name == "root") {
+        } else if (parent == "root") {
           console.log("here");
           fs.mkdir(
             path.resolve("..", "static", "userfiles", id, name),
