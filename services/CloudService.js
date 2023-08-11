@@ -637,6 +637,7 @@ class CloudService {
     this.walk(path.resolve("..", "static", "userfiles", id), (err, results) => {
       if (err) throw err;
       if (!results.length) {
+        console.log("здесь");
         fs.mkdir(
           path.resolve("..", "static", "userfiles", id, name),
           async (err) => {
@@ -660,6 +661,7 @@ class CloudService {
       results.forEach((item) => {
         //const itemName = item.split("/")[item.split("/").length - 1];
         if (fullFolder != null && fullitem == fullFolder.path) {
+          console.log("тут");
           fs.mkdir(`${item}/${name}`, async (err) => {
             console.log(err);
             if (err) return;
@@ -682,6 +684,7 @@ class CloudService {
             res.json({ file });
           });
         } else if (name == "root") {
+          console.log("here");
           fs.mkdir(
             path.resolve("..", "static", "userfiles", id, name),
             async (err) => {
