@@ -670,10 +670,6 @@ class CloudService {
           fs.mkdir(`${item}/${name}`, async (err) => {
             console.log(err);
             if (err) return;
-            const parent = await File.findOne({
-              owner: req.user.userId,
-              path: item,
-            });
             const file = await File.create({
               name,
               path: `${item}/${name}`,
@@ -683,7 +679,7 @@ class CloudService {
               owner: id,
               public: false,
               folder: folderId,
-              parentId: parent._id,
+              parentId: fullFolder._id,
             });
             console.log("success");
             res.json({ file });
