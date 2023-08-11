@@ -633,7 +633,7 @@ class CloudService {
     const id = req.user.userId;
     const { folderId, name } = req.body;
     const fullFolder = folderId != "" ? await File.findById(folderId) : null;
-    console.log(id, folderId, folder, name);
+    console.log(id, folderId, name);
     this.walk(path.resolve("..", "static", "userfiles", id), (err, results) => {
       if (err) throw err;
       if (!results.length) {
