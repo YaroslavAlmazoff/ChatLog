@@ -561,6 +561,7 @@ class CloudService {
     this.walk(path.resolve("..", "static", "userfiles", id), (err, results) => {
       if (err) throw err;
       if (!results.length) {
+        console.log("здесь");
         fs.mkdir(
           path.resolve("..", "static", "userfiles", id, name),
           async (err) => {
@@ -585,6 +586,7 @@ class CloudService {
         console.log(item, fullFolder.path);
         console.log(item == fullFolder.path);
         if (item == fullFolder.path) {
+          console.log("нет здесь");
           fs.mkdir(`${item}/${name}`, async (err) => {
             console.log(err);
             if (err) return;
@@ -602,6 +604,7 @@ class CloudService {
             await this.getFilesInner(res, id, folderId);
           });
         } else if (folder == "root") {
+          console.log("вот здесь");
           fs.mkdir(
             path.resolve("..", "static", "userfiles", id, name),
             async (err) => {
