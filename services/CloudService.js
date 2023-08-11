@@ -632,7 +632,7 @@ class CloudService {
   async makeFolderMobile(req, res) {
     const id = req.user.userId;
     const { folder, folderId, name } = req.body;
-    const fullFolder = await File.findById(folderId);
+    const fullFolder = folderId != "" ? await File.findById(folderId) : null;
     console.log(id, folderId, folder, name);
     this.walk(path.resolve("..", "static", "userfiles", id), (err, results) => {
       if (err) throw err;
@@ -653,6 +653,7 @@ class CloudService {
             });
             console.log("success");
             res.json({ file });
+            return;
           }
         );
       }
