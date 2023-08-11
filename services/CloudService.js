@@ -683,6 +683,7 @@ class CloudService {
             });
             console.log("success");
             res.json({ file });
+            return;
           });
         } else if (parent == "root") {
           console.log("here");
@@ -702,6 +703,7 @@ class CloudService {
               });
               console.log("success");
               res.json({ file });
+              return;
             }
           );
         }
