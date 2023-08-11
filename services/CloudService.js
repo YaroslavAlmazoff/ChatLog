@@ -660,7 +660,7 @@ class CloudService {
       }
       results.forEach((item) => {
         //const itemName = item.split("/")[item.split("/").length - 1];
-        if (fullFolder != null && fullitem == fullFolder.path) {
+        if (fullFolder != null && item == fullFolder.path) {
           console.log("тут");
           fs.mkdir(`${item}/${name}`, async (err) => {
             console.log(err);
