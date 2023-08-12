@@ -645,6 +645,7 @@ class CloudService {
             if (err) return;
             const file = await File.create({
               name,
+              path: this.basePath + id,
               ext: "",
               type: "folder",
               size: 0,
@@ -660,13 +661,11 @@ class CloudService {
         return;
       }
       console.log(fullFolder);
-      results.forEach(async (item) => {
+
+      results.forEach((item) => {
         //const itemName = item.split("/")[item.split("/").length - 1];
         console.log(item, fullFolder.path);
-        if (
-          fullFolder != null &&
-          (item == fullFolder.path || !fullFolder.path)
-        ) {
+        if (fullFolder != null && item == fullFolder.path) {
           console.log("тут");
           fs.mkdir(`${item}/${name}`, async (err) => {
             console.log(err);
@@ -703,6 +702,7 @@ class CloudService {
                 owner: id,
                 public: false,
                 folder: "",
+                path: this.basePath + id,
               });
               res.json({ file });
               console.log("success");
