@@ -636,39 +636,37 @@ class CloudService {
     console.log(id, folderId, name, parent);
     this.walk(path.resolve("..", "static", "userfiles", id), (err, results) => {
       if (err) throw err;
-      if (!results.length) {
-        console.log("здесь");
-        fs.mkdir(
-          path.resolve("..", "static", "userfiles", id, name),
-          async (err) => {
-            console.log(err);
-            if (err) return;
-            const file = await File.create({
-              name,
-              path: this.basePath + id,
-              ext: "",
-              type: "folder",
-              size: 0,
-              owner: id,
-              public: false,
-              folder: "",
-            });
-            console.log("success");
-            res.json({ file });
-            res.end();
-            return;
-          }
-        );
-      }
+      // if (!results.length) {
+      //   console.log("здесь");
+      //   fs.mkdir(
+      //     path.resolve("..", "static", "userfiles", id, name),
+      //     async (err) => {
+      //       console.log(err);
+      //       if (err) return;
+      //       const file = await File.create({
+      //         name,
+      //         path: this.basePath + id,
+      //         ext: "",
+      //         type: "folder",
+      //         size: 0,
+      //         owner: id,
+      //         public: false,
+      //         folder: "",
+      //       });
+      //       console.log("success");
+      //       res.json({ file });
+      //       res.end();
+      //       return;
+      //     }
+      //   );
+      // }
       console.log(fullFolder);
 
-      results.forEach((item) => {
-        //const itemName = item.split("/")[item.split("/").length - 1];
-        if (fullFolder != null && item == fullFolder.path) {
-          console.log("тут");
-          fs.mkdir(`${item}/${name}`, async (err) => {
+      if (fullFolder != null) {
+        const i = results.findIndex((value) => value == fullFolder.path);
+        if (i != -1) {
+          fs.mkdir(`${value}/${name}`, async (err) => {
             console.log(err);
-            if (err) return;
             const file = await File.create({
               name,
               path: `${item}/${name}`,
@@ -682,34 +680,77 @@ class CloudService {
             });
             console.log("success");
             res.json({ file });
-            res.end();
-            return;
           });
-        } else if (parent == "root") {
-          console.log("here");
-          fs.mkdir(
-            path.resolve("..", "static", "userfiles", id, name),
-            async (err) => {
-              console.log(err);
-              if (err) return;
-              const file = await File.create({
-                name,
-                ext: "",
-                type: "folder",
-                size: 0,
-                owner: id,
-                public: false,
-                folder: "",
-                path: this.basePath + id + "/" + name,
-              });
-              res.json({ file });
-              console.log("success");
-              res.end();
-              return;
-            }
-          );
         }
-      });
+      } else {
+        fs.mkdir(
+          path.resolve("..", "static", "userfiles", id, name),
+          async (err) => {
+            console.log(err);
+            if (err) return;
+            const file = await File.create({
+              name,
+              ext: "",
+              type: "folder",
+              size: 0,
+              owner: id,
+              public: false,
+              folder: "",
+              path: this.basePath + id + "/" + name,
+            });
+            res.json({ file });
+          }
+        );
+      }
+
+      // results.forEach((item) => {
+      //   const itemName = item.split("/")[item.split("/").length - 1];
+      //   if (fullFolder != null && item == fullFolder.path) {
+      //     console.log("тут");
+      //     fs.mkdir(`${item}/${name}`, async (err) => {
+      //       console.log(err);
+      //       if (err) return;
+      //       const file = await File.create({
+      //         name,
+      //         path: `${item}/${name}`,
+      //         ext: "",
+      //         type: "folder",
+      //         size: 0,
+      //         owner: id,
+      //         public: false,
+      //         folder: folderId,
+      //         parentId: fullFolder._id,
+      //       });
+      //       console.log("success");
+      //       res.json({ file });
+      //       res.end();
+      //       return;
+      //     });
+      //   } else if (parent == "root") {
+      //     console.log("here");
+      //     fs.mkdir(
+      //       path.resolve("..", "static", "userfiles", id, name),
+      //       async (err) => {
+      //         console.log(err);
+      //         if (err) return;
+      //         const file = await File.create({
+      //           name,
+      //           ext: "",
+      //           type: "folder",
+      //           size: 0,
+      //           owner: id,
+      //           public: false,
+      //           folder: "",
+      //           path: this.basePath + id + "/" + name,
+      //         });
+      //         res.json({ file });
+      //         console.log("success");
+      //         res.end();
+      //         return;
+      //       }
+      //     );
+      //   }
+      //});
       //console.log(results)
     });
   }
