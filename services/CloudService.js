@@ -665,7 +665,7 @@ class CloudService {
       if (fullFolder != null) {
         const i = results.findIndex((value) => value == fullFolder.path);
         if (i != -1) {
-          fs.mkdir(`${value}/${name}`, async (err) => {
+          fs.mkdir(`${results[i]}/${name}`, async (err) => {
             console.log(err);
             const file = await File.create({
               name,
