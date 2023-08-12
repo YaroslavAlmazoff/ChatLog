@@ -701,7 +701,7 @@ class CloudService {
                 owner: id,
                 public: false,
                 folder: "",
-                path: this.basePath + id,
+                path: this.basePath + id + "/" + name,
               });
               res.json({ file });
               console.log("success");
