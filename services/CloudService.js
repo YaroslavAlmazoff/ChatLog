@@ -669,7 +669,7 @@ class CloudService {
             console.log(err);
             const file = await File.create({
               name,
-              path: `${item}/${name}`,
+              path: `${results[i]}/${name}`,
               ext: "",
               type: "folder",
               size: 0,
