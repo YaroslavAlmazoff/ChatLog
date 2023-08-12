@@ -655,10 +655,10 @@ class CloudService {
             });
             console.log("success");
             res.json({ file });
+            res.end();
+            return;
           }
         );
-        res.end();
-        return;
       }
       console.log(fullFolder);
 
@@ -682,10 +682,9 @@ class CloudService {
             });
             console.log("success");
             res.json({ file });
+            res.end();
+            return;
           });
-
-          res.end();
-          return;
         } else if (parent == "root") {
           console.log("here");
           fs.mkdir(
@@ -705,10 +704,10 @@ class CloudService {
               });
               res.json({ file });
               console.log("success");
+              res.end();
+              return;
             }
           );
-          res.end();
-          return;
         }
       });
       //console.log(results)
