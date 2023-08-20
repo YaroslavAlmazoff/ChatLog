@@ -305,7 +305,7 @@ router.get("/new-token/:token/:user", async (req, res) => {
       },
       (err, response) => {
         if (err) console.log(err);
-        console.log(response);
+        //console.log(response);
       }
     );
 
