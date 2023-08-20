@@ -268,7 +268,7 @@ router.post("/updateprofile", auth, (req, res) => {
   }
 });
 
-router.get("/new-token/:token", async (req, res) => {
+router.get("/new-token/:token/:user", async (req, res) => {
   //Один конкретный пользователь
   try {
     const token = req.params.token;
@@ -282,7 +282,7 @@ router.get("/new-token/:token", async (req, res) => {
       }
     });
     if (!tokenExists) {
-      await NotificationToken.create({ token });
+      await NotificationToken.create({ token, user: req.params.user });
       res.json({ message: "success!" });
     }
   } catch (e) {
