@@ -1,6 +1,7 @@
 {
-    "PORT": 80,
-    "CONNECTION_URL": "mongodb+srv://Yaroslav:woE7w2xqtKLBuV60@cluster0.0sl0p.mongodb.net/?retryWrites=true&w=majority",
-    "STORE_OWNER": "628e5aab0153706a3e18fe79",
-    "WEATHER_API_KEY": "928ba56fdc47f5fe29a01f2ae34f87f3"
+  "PORT": 80,
+  "CONNECTION_URL": "mongodb+srv://Yaroslav:woE7w2xqtKLBuV60@cluster0.0sl0p.mongodb.net/?retryWrites=true&w=majority",
+  "STORE_OWNER": "628e5aab0153706a3e18fe79",
+  "WEATHER_API_KEY": "928ba56fdc47f5fe29a01f2ae34f87f3",
+  "NOTIFICATIONS_TOKEN": ""
 }

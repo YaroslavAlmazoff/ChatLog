@@ -10,6 +10,9 @@ const ImageService = require("./ImageService");
 const Token = require("../models/Token");
 const MailService = require("./MailService");
 const TokenService = require("./TokenService");
+const NotificationToken = require("../models/NotificationToken");
+const request = require("request");
+const config = require("config");
 
 //Сервис авторизации пользователя
 class AuthService {
@@ -215,6 +218,34 @@ class AuthService {
         tokenData.token = refreshToken;
         await tokenData.save();
       }
+
+      const notificationtToken = await NotificationToken.findOne({
+        user: user._id,
+      });
+
+      const message = {
+        to: notificationtToken.token,
+        notification: {
+          title: "Успешный вход в систему!",
+          body: "Посмотрите, какие услуги может представить ChatLog!",
+        },
+      };
+      request(
+        "https://fcm.googleapis.com/fcm/send",
+        {
+          method: "POST",
+          json: true,
+          headers: {
+            Authorization: `key=${config.get("NOTIFICATIONS_TOKEN")}`,
+          },
+          body: message,
+        },
+        (err, response) => {
+          if (err) console.log(err);
+          //console.log(response)
+        }
+      );
+
       res.json({ token, refreshToken, userId: user._id, user, errors: [] });
     } catch (e) {
       console.log(e);
