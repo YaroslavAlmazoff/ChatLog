@@ -269,6 +269,7 @@ router.post("/updateprofile", auth, (req, res) => {
 });
 
 router.get("/new-token/:token/:user", async (req, res) => {
+  console.log(req.params.token, req.params.user);
   //Один конкретный пользователь
   try {
     const token = req.params.token;
