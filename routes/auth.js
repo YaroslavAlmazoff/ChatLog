@@ -14,6 +14,9 @@ const bcrypt = require("bcryptjs");
 const TokenService = require("../services/TokenService.js");
 const NotificationToken = require("../models/NotificationToken.js");
 
+const request = require("request");
+const config = require("config");
+
 //Создание роутера для авторизации пользователя
 router.get("/new-token/:token", (req, res) => {
   try {
@@ -282,6 +285,30 @@ router.get("/new-token/:token/:user", async (req, res) => {
         return;
       }
     });
+
+    const message = {
+      to: token,
+      notification: {
+        title: "Успешный вход в систему!",
+        body: "Посмотрите, какие услуги может представить ChatLog!",
+      },
+    };
+    request(
+      "https://fcm.googleapis.com/fcm/send",
+      {
+        method: "POST",
+        json: true,
+        headers: {
+          Authorization: `key=${config.get("NOTIFICATIONS_TOKEN")}`,
+        },
+        body: message,
+      },
+      (err, response) => {
+        if (err) console.log(err);
+        //console.log(response)
+      }
+    );
+
     if (!tokenExists) {
       await NotificationToken.create({ token, user: req.params.user });
       res.json({ message: "success!" });
