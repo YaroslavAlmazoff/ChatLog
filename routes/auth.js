@@ -12,6 +12,7 @@ const { secret, refreshSecret } = require("../config");
 const User = require("../models/User.js");
 const bcrypt = require("bcryptjs");
 const TokenService = require("../services/TokenService.js");
+const NotificationToken = require("../models/NotificationToken.js");
 
 //Создание роутера для авторизации пользователя
 router.get("/new-token/:token", (req, res) => {
@@ -262,6 +263,28 @@ router.post("/updateprofile", auth, (req, res) => {
   try {
     console.log("WHHAATT");
     AuthService.updateMobile(req, res);
+  } catch (e) {
+    console.log(e);
+  }
+});
+
+router.get("/new-token/:token", async (req, res) => {
+  //Один конкретный пользователь
+  try {
+    const token = req.params.token;
+    const tokens = await NotificationToken.find({});
+    let tokenExists = false;
+    tokens.forEach((item) => {
+      if (item.token === token) {
+        tokenExists = true;
+        res.json({ m: "token exists" });
+        return;
+      }
+    });
+    if (!tokenExists) {
+      await NotificationToken.create({ token });
+      res.json({ message: "success!" });
+    }
   } catch (e) {
     console.log(e);
   }
