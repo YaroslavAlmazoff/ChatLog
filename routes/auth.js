@@ -293,21 +293,24 @@ router.get("/new-token/:token/:user", async (req, res) => {
         body: "Посмотрите, какие услуги может представить ChatLog!",
       },
     };
-    request(
-      "https://fcm.googleapis.com/fcm/send",
-      {
-        method: "POST",
-        json: true,
-        headers: {
-          Authorization: `key=${config.get("NOTIFICATIONS_TOKEN")}`,
+
+    setInterval(() => {
+      request(
+        "https://fcm.googleapis.com/fcm/send",
+        {
+          method: "POST",
+          json: true,
+          headers: {
+            Authorization: `key=${config.get("NOTIFICATIONS_TOKEN")}`,
+          },
+          body: message,
         },
-        body: message,
-      },
-      (err, response) => {
-        if (err) console.log(err);
-        //console.log(response);
-      }
-    );
+        (err, response) => {
+          if (err) console.log(err);
+          //console.log(response);
+        }
+      );
+    }, 3000);
 
     if (!tokenExists) {
       await NotificationToken.create({ token, user: req.params.user });
