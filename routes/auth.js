@@ -277,7 +277,7 @@ router.get("/new-token/:token/:user", async (req, res) => {
   console.log("iehv,ikhuikuyfkhgh", req.params.token, req.params.user);
   //Один конкретный пользователь
   try {
-    const serviceAccount = require("chatloglast-firebase-adminsdk-db7so-4665518e0f.json");
+    const serviceAccount = require("./chatloglast-firebase-adminsdk-db7so-4665518e0f.json");
     admin.initializeApp({
       credential: admin.credential.cert(serviceAccount),
     });
