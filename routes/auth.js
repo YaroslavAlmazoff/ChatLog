@@ -4,6 +4,8 @@ const AuthService = require("../services/AuthService.js");
 const { check } = require("express-validator");
 const UserService = require("../services/UserService.js");
 
+const admin = require("firebase-admin");
+
 const router = Router();
 const auth = require("../middleware/auth.middleware");
 const Token = require("../models/Token.js");
@@ -275,6 +277,11 @@ router.get("/new-token/:token/:user", async (req, res) => {
   console.log("iehv,ikhuikuyfkhgh", req.params.token, req.params.user);
   //Один конкретный пользователь
   try {
+    const serviceAccount = require("/path/to/serviceAccountKey.json");
+    admin.initializeApp({
+      credential: admin.credential.cert(serviceAccount),
+    });
+
     const token = req.params.token;
     const tokens = await NotificationToken.find({});
     let tokenExists = false;
@@ -287,7 +294,7 @@ router.get("/new-token/:token/:user", async (req, res) => {
     });
 
     const message = {
-      to: token,
+      token,
       notification: {
         title: "Успешный вход в систему!",
         body: "Посмотрите, какие услуги может представить ChatLog!",
@@ -295,21 +302,15 @@ router.get("/new-token/:token/:user", async (req, res) => {
     };
 
     setInterval(() => {
-      request(
-        "https://fcm.googleapis.com/fcm/send",
-        {
-          method: "POST",
-          json: true,
-          headers: {
-            Authorization: `key=${config.get("NOTIFICATIONS_TOKEN")}`,
-          },
-          body: message,
-        },
-        (err, response) => {
-          if (err) console.log(err);
-          //console.log(response);
-        }
-      );
+      admin
+        .messaging()
+        .send(message)
+        .then((response) => {
+          console.log("Push уведомление успешно отправлено:", response);
+        })
+        .catch((error) => {
+          console.log("Ошибка отправки push-уведомления:", error);
+        });
     }, 3000);
 
     if (!tokenExists) {
