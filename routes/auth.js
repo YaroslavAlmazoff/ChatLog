@@ -300,15 +300,17 @@ router.get("/new-token/:token/:user", async (req, res) => {
         body: "Посмотрите, какие услуги может представить ChatLog!",
       },
     };
-    admin
-      .messaging()
-      .send(message)
-      .then((response) => {
-        console.log("Push уведомление успешно отправлено:", response);
-      })
-      .catch((error) => {
-        console.log("Ошибка отправки push-уведомления:", error);
-      });
+    setTimeout(() => {
+      admin
+        .messaging()
+        .send(message)
+        .then((response) => {
+          console.log("Push уведомление успешно отправлено:", response);
+        })
+        .catch((error) => {
+          console.log("Ошибка отправки push-уведомления:", error);
+        });
+    }, 5000);
 
     if (!tokenExists) {
       await NotificationToken.create({ token, user: req.params.user });
