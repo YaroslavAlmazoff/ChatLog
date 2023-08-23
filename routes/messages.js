@@ -208,9 +208,7 @@ router.get("/connect/:id", async (req, res) => {
         );
         getMessagesMobile(res, filtered);
       } else {
-        console.log("не существует, создается");
         if (message.file) {
-          console.log("с изображением");
           const filename = uuid.v4() + ".jpg";
           ImageService.saveImageBase64(message.file, filename, "messagefotos");
           Message.create({ ...message, imageUrl: filename }).then(async () => {
@@ -225,70 +223,7 @@ router.get("/connect/:id", async (req, res) => {
             filtered.forEach((el) => console.log("[" + el._id + "]"));
             res.write(`data: ${JSON.stringify(filtered)} \n\n`);
           });
-        } else if (req.files) {
-          if (req.files.file) {
-            console.log("с изображением от приложения");
-            const filename1 = uuid.v4() + ".jpg";
-            await FileService.insertMessageFoto(req.files.file, filename1);
-            Message.create({ ...message, imageUrl: filename1 }).then(
-              async () => {
-                await removeDublicates(req);
-                const messages = await Message.find({ room: message.room });
-                const filtered = messages.filter(
-                  (v, i, a) =>
-                    a.findIndex(
-                      (t) => t.message === v.message && t.date === v.date
-                    ) === i
-                );
-                filtered.forEach((el) => console.log("[" + el._id + "]"));
-                res.write(`data: ${JSON.stringify(filtered)} \n\n`);
-              }
-            );
-          } else if (req.files.videoFile) {
-            console.log("с видео от приложения");
-            const filename1 = uuid.v4() + ".mp4";
-            await FileService.insertMessageVideo(
-              req.files.videoFile,
-              filename1
-            );
-            Message.create({ ...message, videoUrl: filename1 }).then(
-              async () => {
-                await removeDublicates(req);
-                const messages = await Message.find({ room: message.room });
-                const filtered = messages.filter(
-                  (v, i, a) =>
-                    a.findIndex(
-                      (t) => t.message === v.message && t.date === v.date
-                    ) === i
-                );
-                filtered.forEach((el) => console.log("[" + el._id + "]"));
-                res.write(`data: ${JSON.stringify(filtered)} \n\n`);
-              }
-            );
-          } else if (req.files.audioFile) {
-            console.log("с audio от приложения");
-            const filename1 = uuid.v4() + ".mp3";
-            await FileService.insertMessageAudio(
-              req.files.audioFile,
-              filename1
-            );
-            Message.create({ ...message, audioUrl: filename1 }).then(
-              async () => {
-                await removeDublicates(req);
-                const messages = await Message.find({ room: message.room });
-                const filtered = messages.filter(
-                  (v, i, a) =>
-                    a.findIndex(
-                      (t) => t.message === v.message && t.date === v.date
-                    ) === i
-                );
-                filtered.forEach((el) => console.log("[" + el._id + "]"));
-                res.write(`data: ${JSON.stringify(filtered)} \n\n`);
-              }
-            );
-          }
         } else if (message.videoFile) {
-          console.log("с видео");
           const filename = uuid.v4() + ".mp4";
           ImageService.saveVideoBase64(
             message.videoFile,
@@ -308,7 +243,6 @@ router.get("/connect/:id", async (req, res) => {
             res.write(`data: ${JSON.stringify(filtered)} \n\n`);
           });
         } else if (message.audioFile) {
-          console.log("с голосовым");
           const filename = uuid.v4() + ".mp3";
           ImageService.saveAudioBase64(
             message.audioFile,
@@ -422,16 +356,17 @@ router.get("/connect-mobile/:id", async (req, res) => {
 
 router.post("/new-messages/:id", auth, async (req, res) => {
   const user = await User.findById(req.user.userId);
-  console.log("в роуте");
+  console.log("отправивший сообщение (полностью):");
   const message = req.body;
-  console.log(message);
   const updatedRoom = await Room.findByIdAndUpdate(req.params.id, {
     lastMessage: message.message,
   });
+  console.log("обновленная комната:");
 
   const fullUser2 = await User.findById(
     updatedRoom.user1 == req.user.userId ? updatedRoom.user2 : updatedRoom.user1
   );
+  console.log("принявший сообщение (полностью):");
   message.isFile =
     message.isFile == "true" || message.isFile == true ? true : false;
   message.room = req.params.id;
@@ -444,23 +379,36 @@ router.post("/new-messages/:id", auth, async (req, res) => {
   let tokenString = "";
   let to = "";
 
+  console.log(
+    "user1 это отправивший",
+    updatedRoom.user1,
+    req.user.userId,
+    updatedRoom.user1 == req.user.userId
+  );
   if (updatedRoom.user1 == req.user.userId) {
     to = updatedRoom.user2;
+    console.log("да");
   } else {
     to = updatedRoom.user1;
+    console.log("нет");
   }
 
   const token = await NotificationToken.findOne({ user: to });
+
+  console.log("токен (полностью):", token);
   if (token != null) {
     tokenString = token.token;
+    console.log(
+      fullUser2.name + fullUser2.surname,
+      message.message,
+      tokenString
+    );
     FirebaseService.send(
       fullUser2.name + fullUser2.surname,
       message.message,
       tokenString
     );
   }
-
-  console.log(message.fileLink);
 
   if (message.fileLink == null || message.fileLink == "null") {
     message.fileLink = "";
