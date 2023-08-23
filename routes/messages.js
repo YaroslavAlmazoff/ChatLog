@@ -398,11 +398,7 @@ router.post("/new-messages/:id", auth, async (req, res) => {
   console.log("токен (полностью):", token);
   if (token != null) {
     tokenString = token.token;
-    console.log(
-      fullUser2.name + fullUser2.surname,
-      message.message,
-      tokenString
-    );
+    console.log(user.name + " " + user.surname, message.message, tokenString);
     FirebaseService.send(
       fullUser2.name + fullUser2.surname,
       message.message,
