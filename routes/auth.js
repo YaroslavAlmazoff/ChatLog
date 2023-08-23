@@ -274,18 +274,17 @@ router.get("/new-token/:token/:user", async (req, res) => {
   //Один конкретный пользователь
   try {
     const token = req.params.token;
-    const tokens = await NotificationToken.find({});
-    let tokenExists = false;
-    tokens.forEach((item) => {
-      if (item.token === token) {
-        tokenExists = true;
-        res.json({ m: "token exists" });
-        return;
-      }
+
+    const fullToken = await NotificationToken.findOne({
+      user: req.params.user,
     });
-    if (!tokenExists) {
-      await NotificationToken.create({ token, user: req.params.user });
-      res.json({ message: "success!" });
+    if (fullToken) {
+      fullToken.token = token;
+      await fullToken.save();
+      res.json({ message: "successs" });
+    } else {
+      await NotificationToken.create({ token, user: req.user.userId });
+      res.json({ message: "successs" });
     }
   } catch (e) {
     console.log(e);
