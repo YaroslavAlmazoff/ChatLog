@@ -13,11 +13,7 @@ const jwt = require("jsonwebtoken");
 const { secret, refreshSecret } = require("../config");
 const User = require("../models/User.js");
 const bcrypt = require("bcryptjs");
-const TokenService = require("../services/TokenService.js");
 const NotificationToken = require("../models/NotificationToken.js");
-
-const request = require("request");
-const config = require("config");
 
 //Создание роутера для авторизации пользователя
 router.get("/new-token/:token", (req, res) => {
@@ -292,26 +288,6 @@ router.get("/new-token/:token/:user", async (req, res) => {
         return;
       }
     });
-
-    const message = {
-      token,
-      notification: {
-        title: "Успешный вход в систему!",
-        body: "Посмотрите, какие услуги может представить ChatLog!",
-      },
-    };
-    setTimeout(() => {
-      admin
-        .messaging()
-        .send(message)
-        .then((response) => {
-          console.log("Push уведомление успешно отправлено:", response);
-        })
-        .catch((error) => {
-          console.log("Ошибка отправки push-уведомления:", error);
-        });
-    }, 5000);
-
     if (!tokenExists) {
       await NotificationToken.create({ token, user: req.params.user });
       res.json({ message: "success!" });

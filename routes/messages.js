@@ -14,6 +14,8 @@ const FileService = require("../services/FileService");
 const ImageService = require("../services/ImageService");
 const Room = require("../models/Room");
 const ReactionsService = require("../services/ReactionsService");
+const NotificationToken = require("../models/NotificationToken");
+const FirebaseService = require("../services/FirebaseService");
 const emitter = new events.EventEmitter();
 
 events.EventEmitter.defaultMaxListeners = 2;
@@ -423,7 +425,13 @@ router.post("/new-messages/:id", auth, async (req, res) => {
   console.log("в роуте");
   const message = req.body;
   console.log(message);
-  await Room.findByIdAndUpdate(req.params.id, { lastMessage: message.message });
+  const updatedRoom = await Room.findByIdAndUpdate(req.params.id, {
+    lastMessage: message.message,
+  });
+
+  const fullUser2 = await User.findById(
+    updatedRoom.user1 == req.user.userId ? updatedRoom.user2 : updatedRoom.user1
+  );
   message.isFile =
     message.isFile == "true" || message.isFile == true ? true : false;
   message.room = req.params.id;
@@ -432,6 +440,25 @@ router.post("/new-messages/:id", auth, async (req, res) => {
   message.isNotReaded = true;
   message.user = user._id;
   message.date = message.date;
+
+  let tokenString = "";
+  let to = "";
+
+  if (updatedRoom.user1 == req.user.userId) {
+    to = updatedRoom.user2;
+  } else {
+    to = updatedRoom.user1;
+  }
+
+  const token = await NotificationToken.findOne({ user: to });
+  if (token != null) {
+    tokenString = token.token;
+    FirebaseService.send(
+      fullUser2.name + fullUser2.surname,
+      message.message,
+      tokenString
+    );
+  }
 
   console.log(message.fileLink);
 
