@@ -356,7 +356,6 @@ router.get("/connect-mobile/:id", async (req, res) => {
 
 router.post("/new-messages/:id", auth, async (req, res) => {
   const user = await User.findById(req.user.userId);
-  console.log("отправивший сообщение (полностью):", user);
   const message = req.body;
   const updatedRoom = await Room.findByIdAndUpdate(req.params.id, {
     lastMessage: message.message,
@@ -364,9 +363,10 @@ router.post("/new-messages/:id", auth, async (req, res) => {
   console.log("обновленная комната:", updatedRoom);
 
   const fullUser2 = await User.findById(
-    updatedRoom.user1 == req.user.userId ? updatedRoom.user2 : updatedRoom.user1
+    updatedRoom.user1.toString() == req.user.userId
+      ? updatedRoom.user2
+      : updatedRoom.user1
   );
-  console.log("принявший сообщение (полностью):", fullUser2);
   message.isFile =
     message.isFile == "true" || message.isFile == true ? true : false;
   message.room = req.params.id;
@@ -385,7 +385,7 @@ router.post("/new-messages/:id", auth, async (req, res) => {
     req.user.userId,
     updatedRoom.user1 == req.user.userId
   );
-  if (updatedRoom.user1 == req.user.userId) {
+  if (updatedRoom.user1.toString() == req.user.userId) {
     to = updatedRoom.user2;
     console.log("да");
   } else {
