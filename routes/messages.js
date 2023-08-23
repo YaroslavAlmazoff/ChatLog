@@ -356,17 +356,17 @@ router.get("/connect-mobile/:id", async (req, res) => {
 
 router.post("/new-messages/:id", auth, async (req, res) => {
   const user = await User.findById(req.user.userId);
-  console.log("отправивший сообщение (полностью):");
+  console.log("отправивший сообщение (полностью):", user);
   const message = req.body;
   const updatedRoom = await Room.findByIdAndUpdate(req.params.id, {
     lastMessage: message.message,
   });
-  console.log("обновленная комната:");
+  console.log("обновленная комната:", updatedRoom);
 
   const fullUser2 = await User.findById(
     updatedRoom.user1 == req.user.userId ? updatedRoom.user2 : updatedRoom.user1
   );
-  console.log("принявший сообщение (полностью):");
+  console.log("принявший сообщение (полностью):", fullUser2);
   message.isFile =
     message.isFile == "true" || message.isFile == true ? true : false;
   message.room = req.params.id;
