@@ -12,6 +12,8 @@ const subdomain = require("express-subdomain");
 const request = require("request");
 const cookieParser = require("cookie-parser");
 
+const admin = require("firebase-admin");
+
 //Подключение роутеров
 const articlesRouter = require("./routes/articles");
 const authRouter = require("./routes/auth");
@@ -94,6 +96,11 @@ const options = {
   key: fs.readFileSync("../chatlog.key", "utf-8"),
   cert: fs.readFileSync("../chatlog.crt", "utf-8"),
 };
+
+const serviceAccount = require("./chatloglast-firebase-adminsdk-db7so-4665518e0f.json");
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+});
 
 //Запуск сервера
 const start = async () => {

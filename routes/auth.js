@@ -273,11 +273,6 @@ router.get("/new-token/:token/:user", async (req, res) => {
   console.log("iehv,ikhuikuyfkhgh", req.params.token, req.params.user);
   //Один конкретный пользователь
   try {
-    const serviceAccount = require("../chatloglast-firebase-adminsdk-db7so-4665518e0f.json");
-    admin.initializeApp({
-      credential: admin.credential.cert(serviceAccount),
-    });
-
     const token = req.params.token;
     const tokens = await NotificationToken.find({});
     let tokenExists = false;
