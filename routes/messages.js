@@ -402,7 +402,8 @@ router.post("/new-messages/:id", auth, async (req, res) => {
     FirebaseService.send(
       user.name + " " + user.surname,
       message.message,
-      tokenString
+      tokenString,
+      { id: updatedRoom._id }
     );
   }
 
