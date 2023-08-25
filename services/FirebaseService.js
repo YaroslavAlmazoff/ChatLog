@@ -1,13 +1,12 @@
 const admin = require("firebase-admin");
 
 class FirebaseService {
-  send(title, body, token, click_action, data) {
+  send(title, body, token, data) {
     const message = {
       token,
       notification: {
         title,
         body,
-        click_action,
       },
       data,
     };
