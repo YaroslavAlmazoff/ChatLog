@@ -198,7 +198,6 @@ router.get("/connect/:id", async (req, res) => {
       room: message.room,
     }).then(async (data) => {
       if (data) {
-        console.log("уже существует");
         await removeDublicates(req);
         const messages = await Message.find({ room: message.room });
         const filtered = messages.filter(
@@ -220,7 +219,6 @@ router.get("/connect/:id", async (req, res) => {
                   (t) => t.message === v.message && t.date === v.date
                 ) === i
             );
-            filtered.forEach((el) => console.log("[" + el._id + "]"));
             res.write(`data: ${JSON.stringify(filtered)} \n\n`);
           });
         } else if (message.videoFile) {
@@ -239,7 +237,6 @@ router.get("/connect/:id", async (req, res) => {
                   (t) => t.message === v.message && t.date === v.date
                 ) === i
             );
-            filtered.forEach((el) => console.log("[" + el._id + "]"));
             res.write(`data: ${JSON.stringify(filtered)} \n\n`);
           });
         } else if (message.audioFile) {
@@ -258,7 +255,6 @@ router.get("/connect/:id", async (req, res) => {
                   (t) => t.message === v.message && t.date === v.date
                 ) === i
             );
-            filtered.forEach((el) => console.log("[" + el._id + "]"));
             res.write(`data: ${JSON.stringify(filtered)} \n\n`);
           });
         } else {
@@ -272,7 +268,6 @@ router.get("/connect/:id", async (req, res) => {
                   (t) => t.message === v.message && t.date === v.date
                 ) === i
             );
-            filtered.forEach((el) => console.log("[" + el._id + "]"));
             res.write(`data: ${JSON.stringify(filtered)} \n\n`);
           });
         }
@@ -360,13 +355,6 @@ router.post("/new-messages/:id", auth, async (req, res) => {
   const updatedRoom = await Room.findByIdAndUpdate(req.params.id, {
     lastMessage: message.message,
   });
-  console.log("обновленная комната:", updatedRoom);
-
-  const fullUser2 = await User.findById(
-    updatedRoom.user1.toString() == req.user.userId
-      ? updatedRoom.user2
-      : updatedRoom.user1
-  );
   message.isFile =
     message.isFile == "true" || message.isFile == true ? true : false;
   message.room = req.params.id;
@@ -378,13 +366,6 @@ router.post("/new-messages/:id", auth, async (req, res) => {
 
   let tokenString = "";
   let to = "";
-
-  console.log(
-    "user1 это отправивший",
-    updatedRoom.user1,
-    req.user.userId,
-    updatedRoom.user1 == req.user.userId
-  );
   if (updatedRoom.user1.toString() == req.user.userId) {
     to = updatedRoom.user2;
     console.log("да");
@@ -395,7 +376,6 @@ router.post("/new-messages/:id", auth, async (req, res) => {
 
   const token = await NotificationToken.findOne({ user: to });
 
-  console.log("токен (полностью):", token);
   if (token != null) {
     tokenString = token.token;
     console.log(user.name + " " + user.surname, message.message, tokenString);
