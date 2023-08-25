@@ -403,6 +403,7 @@ router.post("/new-messages/:id", auth, async (req, res) => {
       user.name + " " + user.surname,
       message.message,
       tokenString,
+      "MESSENGER",
       {
         id: updatedRoom._id.toString(),
         type: "message",
