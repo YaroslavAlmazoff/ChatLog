@@ -421,7 +421,7 @@ router.post("/new-chat-messages/:id", auth, async (req, res) => {
 
   const tkns = updatedRoom.members.map(async (user) => {
     const token = await NotificationToken.findOne({ user });
-    if (token) tokens.push(token);
+    if (token) tokens.push(token.token);
   });
 
   Promise.all(tkns).then((data) => {
