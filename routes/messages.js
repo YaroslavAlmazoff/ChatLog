@@ -429,7 +429,7 @@ router.post("/new-chat-messages/:id", auth, async (req, res) => {
     FirebaseService.sendMulticast(
       user.name + " " + user.surname,
       message.message,
-      tokens,
+      tokens.filter((value) => value != req.user.userId),
       {
         id: updatedRoom._id.toString(),
         type: "chatmessage",
