@@ -7,9 +7,9 @@ class FirebaseService {
       notification: {
         title,
         body,
-        android: {
-          priority: "high",
-        },
+      },
+      android: {
+        priority: "high",
       },
       data,
     };
