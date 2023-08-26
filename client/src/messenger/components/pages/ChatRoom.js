@@ -378,20 +378,24 @@ const ChatRoom = () => {
     if (!messages.length) {
       return;
     }
-    if (messages[messages.length - 1].user) {
-      console.log(
-        auth.userId,
-        messages[messages.length - 1],
-        messages[messages.length - 1].user
-      );
-      console.log(
-        auth.userId.toString() != messages[messages.length - 1].user.toString()
-      );
-      if (
-        auth.userId.toString() != messages[messages.length - 1].user.toString()
-      ) {
-        console.log("what");
-        readMessage();
+    if (auth.userId) {
+      if (messages[messages.length - 1].user) {
+        console.log(
+          auth.userId,
+          messages[messages.length - 1],
+          messages[messages.length - 1].user
+        );
+        console.log(
+          auth.userId.toString() !=
+            messages[messages.length - 1].user.toString()
+        );
+        if (
+          auth.userId.toString() !=
+          messages[messages.length - 1].user.toString()
+        ) {
+          console.log("what");
+          readMessage();
+        }
       }
     }
   }, [auth, messages, params]);
