@@ -425,6 +425,7 @@ router.post("/new-chat-messages/:id", auth, async (req, res) => {
   });
 
   Promise.all(tkns).then((data) => {
+    console.log(tokens);
     FirebaseService.sendMulticast(
       user.name + " " + user.surname,
       message.message,
