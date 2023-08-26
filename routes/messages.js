@@ -378,7 +378,6 @@ router.post("/new-messages/:id", auth, async (req, res) => {
 
   if (token != null) {
     tokenString = token.token;
-    console.log(user.name + " " + user.surname, message.message, tokenString);
     FirebaseService.send(
       user.name + " " + user.surname,
       message.message,
@@ -387,6 +386,7 @@ router.post("/new-messages/:id", auth, async (req, res) => {
         id: updatedRoom._id.toString(),
         type: "message",
         message: message.message,
+        name: user.name + " " + user.surname,
         click_action: "MESSENGER",
       }
     );
