@@ -3,6 +3,8 @@ const UserFoto = require("../models/UserFoto.js");
 const UserPost = require("../models/UserPost.js");
 const UserVideo = require("../models/UserVideo.js");
 const NotificationService = require("./NotificationService.js");
+const NotificationToken = require("../models/NotificationToken");
+const FirebaseService = require("../services/FirebaseService");
 const Comment = require("../models/Comment");
 const Like = require("../models/Like.js");
 
@@ -40,16 +42,41 @@ class ReactionService {
         delete likers[likers.indexOf(userid)];
         likers = likers.filter((el) => el !== null);
         const newLikes = likes - 1;
-        await UserPost.findByIdAndUpdate(id, { likes: newLikes, likers });
+        const post = await UserPost.findByIdAndUpdate(id, {
+          likes: newLikes,
+          likers,
+        });
         await Like.findOneAndDelete({ user: userid, post: id });
+
+        const text = `Ваша публикация не понравилась пользователю ${user.name} ${user.surname}.`;
+        await NotificationService.create(
+          userid,
+          needArticle.user,
+          text,
+          "like",
+          "article",
+          id
+        );
+
         //Возвращение нового количества лайков
+        const token = await NotificationToken.findOne({ user: post.user });
+        FirebaseService.send("", text, token.token, {
+          id: post._id,
+          type: "like",
+          message: "",
+          name: "",
+          click_action: "POST",
+        });
         res.json({ liked: false });
       } else {
         //Лайк
         likers.push(userid);
         const newLikes = 1 + likes;
-        await UserPost.findByIdAndUpdate(id, { likes: newLikes, likers });
-        const text = `Ваша публикация понравилась полюзователю ${user.name} ${user.surname}.`;
+        const post = await UserPost.findByIdAndUpdate(id, {
+          likes: newLikes,
+          likers,
+        });
+        const text = `Ваша публикация понравилась пользователю ${user.name} ${user.surname}.`;
         await NotificationService.create(
           userid,
           needArticle.user,
@@ -60,6 +87,15 @@ class ReactionService {
         );
         await Like.create({ user: userid, post: id });
         //Возвращение обновлённого количества лайков на клиент
+
+        const token = await NotificationToken.findOne({ user: post.user });
+        FirebaseService.send("", text, token.token, {
+          id: post._id,
+          type: "like",
+          message: "",
+          name: "",
+          click_action: "POST",
+        });
         res.json({ liked: true });
       }
     } catch (e) {
@@ -103,6 +139,14 @@ class ReactionService {
         "article",
         ""
       );
+      const token = await NotificationToken.findOne({ user: post.user });
+      FirebaseService.send("", text, token.token, {
+        id: post._id,
+        type: "comment",
+        message: "",
+        name: "",
+        click_action: "POST",
+      });
       res.json({ comment: commentObj });
     });
   }

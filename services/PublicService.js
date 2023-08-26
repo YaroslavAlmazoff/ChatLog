@@ -10,6 +10,8 @@ const ChatRoom = require("../models/ChatRoom");
 const Like = require("../models/Like");
 const ReactionsService = require("./ReactionsService");
 const PublicComment = require("../models/PublicComment");
+const NotificationToken = require("../models/NotificationToken");
+const FirebaseService = require("../services/FirebaseService");
 const types = require("./public_notification_types");
 
 class PublicService {
@@ -249,6 +251,7 @@ class PublicService {
       subscribers.splice(index, 1);
       await Public.findByIdAndUpdate(req.params.id, { subscribers });
       await this.notify(types.unscribe, req.user.userId, req.params.id, null);
+
       res.json({ isSubscriber: false });
     } else {
       subscribers.push(req.user.userId);
@@ -415,6 +418,7 @@ class PublicService {
   async notify(type, userId, publicId, postId, message) {
     const post = await PublicPost.findById(postId);
     const user = await User.findById(userId);
+    const pub = await Public.findById(publicId);
     let text = ``;
     if (type === types.subscribe) {
       text = `${user.name} ${user.surname} ${type} на ваш канал`;
@@ -427,6 +431,14 @@ class PublicService {
     } else {
       text = `${user.name} ${user.surname} ${type} запись ${post.title}`;
     }
+    const token = await NotificationToken.findOne({ user: pub.admin });
+    FirebaseService.send("", text, token.token, {
+      id: userId,
+      type: "public",
+      message: "",
+      name: "",
+      click_action: "USER",
+    });
     await PublicNotification.create({ text, public: publicId });
   }
 }
