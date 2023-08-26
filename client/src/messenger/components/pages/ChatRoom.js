@@ -307,7 +307,7 @@ const ChatRoom = () => {
       setAudioFile("");
       console.log(imageUrl);
       await api.post(
-        `/api/new-messages/${params.id}`,
+        `/api/new-chat-messages/${params.id}`,
         {
           message: text,
           date: getCurrentDate(),
