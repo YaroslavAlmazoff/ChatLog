@@ -96,7 +96,7 @@ router.get("/sendfile-mobile/:user/:id", auth, (req, res) => {
     console.log(e);
   }
 });
-router.get("/getsentfile/:id", (req, res) => {
+router.get("/getsentfile/:id", auth, (req, res) => {
   try {
     CloudService.getSentFile(req, res);
   } catch (e) {
