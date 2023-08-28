@@ -285,7 +285,7 @@ router.get("/new-token/:token/:user", async (req, res) => {
       res.json({ message: "successs" });
     } else {
       console.log("token does not exists");
-      await NotificationToken.create({ token, user: req.user.userId });
+      await NotificationToken.create({ token, user: req.params.user });
       res.json({ message: "successs" });
     }
   } catch (e) {
