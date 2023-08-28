@@ -279,10 +279,12 @@ router.get("/new-token/:token/:user", async (req, res) => {
       user: req.params.user,
     });
     if (fullToken) {
+      console.log("token exists");
       fullToken.token = token;
       await fullToken.save();
       res.json({ message: "successs" });
     } else {
+      console.log("token does not exists");
       await NotificationToken.create({ token, user: req.user.userId });
       res.json({ message: "successs" });
     }
