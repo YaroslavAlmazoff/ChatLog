@@ -28,6 +28,7 @@ class FriendsService {
     const text = `${user1.name} ${user1.surname} хочет добавить вас в друзья.`;
     NotificationService.create(user1id, user2id, text, "friends", "user");
     const token = await NotificationToken.findOne({ user: user1id });
+    console.log(token);
     if (token) {
       FirebaseService.send("", text, token.token, {
         id: user1id,
