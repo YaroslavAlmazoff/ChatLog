@@ -31,10 +31,10 @@ class FriendsService {
     const token = await NotificationToken.findOne({ user: user2id });
     console.log(token);
     if (token) {
-      FirebaseService.send("", text, token.token, {
+      FirebaseService.send(text, "", token.token, {
         id: user1id,
         type: "mf",
-        message: "",
+        message: text,
         name: "",
         click_action: "USER",
       });
