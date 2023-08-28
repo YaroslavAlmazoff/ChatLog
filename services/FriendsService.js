@@ -28,13 +28,15 @@ class FriendsService {
     const text = `${user1.name} ${user1.surname} хочет добавить вас в друзья.`;
     NotificationService.create(user1id, user2id, text, "friends", "user");
     const token = await NotificationToken.findOne({ user: user2id });
-    FirebaseService.send("", text, token.token, {
-      id: user1id,
-      type: "mf",
-      message: "",
-      name: "",
-      click_action: "USER",
-    });
+    if (token) {
+      FirebaseService.send("", text, token.token, {
+        id: user1id,
+        type: "mf",
+        message: "",
+        name: "",
+        click_action: "USER",
+      });
+    }
     res.json({ msg: "success" });
   }
   async deleteFriend(req, res) {
