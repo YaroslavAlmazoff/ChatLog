@@ -60,10 +60,10 @@ class ReactionService {
 
         //Возвращение нового количества лайков
         const token = await NotificationToken.findOne({ user: post.user });
-        FirebaseService.send("", text, token.token, {
+        FirebaseService.send(text, "", token.token, {
           id: post._id,
           type: "like",
-          message: "",
+          message: text,
           name: "",
           click_action: "POST",
         });
@@ -89,10 +89,10 @@ class ReactionService {
         //Возвращение обновлённого количества лайков на клиент
 
         const token = await NotificationToken.findOne({ user: post.user });
-        FirebaseService.send("", text, token.token, {
+        FirebaseService.send(text, "", token.token, {
           id: post._id,
           type: "like",
-          message: "",
+          message: text,
           name: "",
           click_action: "POST",
         });
@@ -140,10 +140,10 @@ class ReactionService {
         ""
       );
       const token = await NotificationToken.findOne({ user: post.user });
-      FirebaseService.send("", text, token.token, {
+      FirebaseService.send(text, "", token.token, {
         id: post._id,
         type: "comment",
-        message: "",
+        message: text,
         name: "",
         click_action: "POST",
       });

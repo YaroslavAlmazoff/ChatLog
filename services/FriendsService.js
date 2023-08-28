@@ -117,13 +117,15 @@ class FriendsService {
     await Notification.deleteOne({ from: user2id, to: user1id });
 
     const token = await NotificationToken.findOne({ user: user2id });
-    FirebaseService.send("", text, token.token, {
-      id: user1id,
-      type: "reply",
-      message: "",
-      name: "",
-      click_action: "USER",
-    });
+    if (token) {
+      FirebaseService.send(text, "", token.token, {
+        id: user1id,
+        type: "reply",
+        message: text,
+        name: "",
+        click_action: "USER",
+      });
+    }
     res.json({ friends: user1friends });
   }
   async reject(req, res) {

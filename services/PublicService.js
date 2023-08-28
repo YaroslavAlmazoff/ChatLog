@@ -432,10 +432,10 @@ class PublicService {
       text = `${user.name} ${user.surname} ${type} запись ${post.title}`;
     }
     const token = await NotificationToken.findOne({ user: pub.admin });
-    FirebaseService.send("", text, token.token, {
+    FirebaseService.send(text, "", token.token, {
       id: userId,
       type: "public",
-      message: "",
+      message: text,
       name: "",
       click_action: "USER",
     });

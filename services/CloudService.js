@@ -9,6 +9,8 @@ const ImageService = require("./ImageService");
 const uuid = require("uuid");
 const ExcelService = require("./ExcelService");
 const ZipService = require("./ZipService");
+const NotificationToken = require("../models/NotificationToken");
+const FirebaseService = require("../services/FirebaseService");
 
 //Сервис облачного хранилища
 class CloudService {
@@ -485,14 +487,23 @@ class CloudService {
     const fullUser1 = await User.findById(user1);
     const name = fullUser1.name;
     const surname = fullUser1.surname;
+    const text = `${name} ${surname} хочет отправить вам файл ${req.params.filename} Получить файл?`;
     await NotificationService.create(
       user1,
       user2,
-      `${name} ${surname} хочет отправить вам файл ${req.params.filename} Получить файл?`,
+      text,
       "file",
       "cloud",
       req.params.id
     );
+    const token = await NotificationToken.findOne({ user: req.params.user });
+    FirebaseService.send(text, "", token.token, {
+      id: user1,
+      type: "like",
+      message: text,
+      name: "",
+      click_action: "POST",
+    });
     res.json({ msg: "да." });
   }
   async sendFileMobile(req, res) {
@@ -503,15 +514,24 @@ class CloudService {
     const surname = fullUser1.surname;
 
     const file = await File.findById(req.params.id);
+    const text = `${name} ${surname} хочет отправить вам файл ${req.params.filename} Получить файл?`;
 
     await NotificationService.create(
       user1,
       user2,
-      `${name} ${surname} хочет отправить вам файл ${file.name}. Получить файл?`,
+      text,
       "file",
       "cloud",
       req.params.id
     );
+    const token = await NotificationToken.findOne({ user: req.params.user });
+    FirebaseService.send(text, "", token.token, {
+      id: user1,
+      type: "like",
+      message: text,
+      name: "",
+      click_action: "POST",
+    });
     res.json({ message: true });
   }
   async getSentFile(req, res) {
