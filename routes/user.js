@@ -127,6 +127,14 @@ router.delete("/deletenotification/:title", auth, (req, res) => {
     console.log(e);
   }
 });
+router.delete("/deletenotificationbyid/:id", auth, (req, res) => {
+  //Удаление уведомления
+  try {
+    NotificationService.deleteById(req, res);
+  } catch (e) {
+    console.log(e);
+  }
+});
 router.get("/checknotification/:id", auth, (req, res) => {
   //Проверка, отправил ли пользователь заявку в друзья другому пользователю
   try {
