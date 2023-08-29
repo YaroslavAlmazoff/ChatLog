@@ -141,10 +141,10 @@ class FriendsService {
     //Удаление заявки в друзья
     await Notification.deleteOne({ from: user2id, to: user1id });
     const token = await NotificationToken.findOne({ user: user2id });
-    FirebaseService.send("", text, token.token, {
+    FirebaseService.send(text, "", token.token, {
       id: user1id,
       type: "reject",
-      message: "",
+      message: text,
       name: "",
       click_action: "USER",
     });
