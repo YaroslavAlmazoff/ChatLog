@@ -311,8 +311,7 @@ router.post("/delete-profile-mobile", auth, async (req, res) => {
       res.json({ error: "Неверный пароль!" });
       return;
     } else {
-      // await User.findByIdAndDelete(req.user.userId);
-      console.log(req.user.userId, "deletedd.");
+      await User.findByIdAndDelete(req.user.userId);
       res.json({ error: "", message: "Пользователь успешно удален" });
     }
   } catch (e) {
