@@ -313,7 +313,7 @@ router.post("/delete-profile-mobile", auth, async (req, res) => {
     } else {
       // await User.findByIdAndDelete(req.user.userId);
       console.log(req.user.userId, "deletedd.");
-      res.json({ message: "Пользователь успешно удален" });
+      res.json({ error: "", message: "Пользователь успешно удален" });
     }
   } catch (e) {
     console.log(e);
