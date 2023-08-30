@@ -302,4 +302,22 @@ router.post("/change-password", auth, (req, res) => {
   }
 });
 
+router.delete("/delete-profile-mobile", auth, async (req, res) => {
+  try {
+    const { password } = req.body;
+    const user = await User.findById(req.user.userId);
+    const validPassword = bcrypt.compareSync(password, user.password);
+    if (!validPassword) {
+      res.json({ error: "Неверный пароль!" }).status(400);
+      return;
+    } else {
+      // await User.findByIdAndDelete(req.user.userId);
+      console.log(req.user.userId, "deletedd.");
+      res.json({ message: "Пользователь успешно удален" });
+    }
+  } catch (e) {
+    console.log(e);
+  }
+});
+
 module.exports = router;
