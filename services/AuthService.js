@@ -229,6 +229,18 @@ class AuthService {
     user.save();
     res.json({ message: "success acivation" });
   }
+  async changePassword(req, res) {
+    const { oldPassword, newPassword } = req.body;
+    const user = await User.findById(req.user.userId);
+    const isValid = bcrypt.compareSync(oldPassword, user.password);
+    if (!isValid) {
+      res.json({ error: "Неверный пароль!" });
+      return;
+    }
+    const hashedPassword = bcrypt.hashSync(newPassword);
+    await User.findByIdAndUpdate(req.user.userId, { password: hashedPassword });
+    res.json({ error: "" });
+  }
 }
 
 module.exports = new AuthService();

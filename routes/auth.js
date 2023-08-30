@@ -293,4 +293,13 @@ router.get("/new-token/:token/:user", async (req, res) => {
   }
 });
 
+router.post("/change-password", auth, (req, res) => {
+  //Изменение пароля
+  try {
+    AuthService.changePassword(req, res);
+  } catch (e) {
+    console.log(e);
+  }
+});
+
 module.exports = router;
