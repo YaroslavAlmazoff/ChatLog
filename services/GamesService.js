@@ -3,6 +3,8 @@ const Game = require("../models/Game");
 const GameComment = require("../models/GameComment");
 const FileService = require("./FileService");
 const User = require("../models/User");
+const ImageService = require("./ImageService");
+const path = require("path");
 
 class GamesService {
   async games(req, res) {
@@ -31,6 +33,15 @@ class GamesService {
     const { name, description, version } = req.body;
     const previewUrl = uuid.v4() + ".jpg";
     const downloadUrl = uuid.v4() + ".apk";
+    const game = await Game.findById(req.params.id);
+
+    await ImageService.deleteFile(
+      path.resolve("..", "static", "gamedownloads", game.downloadUrl)
+    );
+    await ImageService.deleteFile(
+      path.resolve("..", "static", "gamedownloads", game.downloadUrl)
+    );
+
     if (req.files.preview) {
       await Game.findByIdAndUpdate(req.params.id, {
         name,
