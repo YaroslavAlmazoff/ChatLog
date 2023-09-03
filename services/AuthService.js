@@ -93,6 +93,7 @@ class AuthService {
   //Обновление профиля пользователя
   async update(req, res) {
     try {
+      console.log("in update");
       //Получение результата валидации данных пользователя
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
@@ -101,6 +102,7 @@ class AuthService {
       }
       //Получение данных пользователя из тела запроса
       let { name, surname, age, email, aboutMe } = req.body;
+      console.log(name, surname, age, email, aboutMe);
 
       name = name.replace('"', "");
       surname = surname.replace('"', "");
