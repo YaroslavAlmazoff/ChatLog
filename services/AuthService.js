@@ -101,26 +101,14 @@ class AuthService {
         res.json({ errors }).status(400);
       }
       //Получение данных пользователя из тела запроса
-      let { name, surname, age, email, aboutMe } = req.body;
-      console.log(name, surname, age, email, aboutMe);
-
-      name = name.replace('"', "");
-      surname = surname.replace('"', "");
-      age = age.replace('"', "");
-      email = email.replace('"', "");
-      aboutMe = aboutMe.replace('"', "");
-
-      name = name.replace('"', "");
-      surname = surname.replace('"', "");
-      age = age.replace('"', "");
-      email = email.replace('"', "");
-      aboutMe = aboutMe.replace('"', "");
+      let { name, surname, age, email, aboutMe, city, country } = req.body;
+      console.log(name, surname, age, email, aboutMe, city, country);
       //Получение ID пользователя
       const id = req.user.userId;
       //Обновление профиля пользователя
       await User.findByIdAndUpdate(
         { _id: id },
-        { name, surname, age, email, aboutMe }
+        { name, surname, age, email, aboutMe, city, country }
       );
       //Загрузка или обновление изображений аватарки и баннера
       if (req.files) {
