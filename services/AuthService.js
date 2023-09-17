@@ -232,12 +232,12 @@ class AuthService {
     res.json({ error: "" });
   }
   async sendReturnMail(req, res) {
-    const { id, email } = req.body;
+    const { email } = req.body;
     const link = uuid.v4();
-    await User.findByIdAndUpdate(id, { returnLink: link });
+    const user = await User.findOneAndUpdate({ email }, { returnLink: link });
     await MailService.sendReturnLink(
       email,
-      "https://chatlog.ru/return-password/" + id + "/" + link
+      "https://chatlog.ru/return-password/" + user._id + "/" + link
     );
     res.json("ok");
   }
