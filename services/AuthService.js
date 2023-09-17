@@ -231,6 +231,27 @@ class AuthService {
     await User.findByIdAndUpdate(req.user.userId, { password: hashedPassword });
     res.json({ error: "" });
   }
+  async sendReturnMail(req, res) {
+    const { id, email } = req.body;
+    const link = uuid.v4();
+    await User.findByIdAndUpdate(id, { returnLink: link });
+    await MailService.sendReturnLink(
+      email,
+      "https://chatlog.ru/return-password/" + id + "/" + link
+    );
+    res.json("ok");
+  }
+  async returnPassword(req, res) {
+    const { password, id, link } = req.body;
+    const user = await User.findById(id);
+    if (user.returnLink != link) {
+      res.json({ error: "Доступ запрещен!", ok: false });
+      return;
+    }
+    const hashedPassword = bcrypt.hashSync(password);
+    await User.findByIdAndUpdate(id, { password: hashedPassword });
+    res.json({ error: "", ok: true });
+  }
 }
 
 module.exports = new AuthService();

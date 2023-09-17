@@ -319,4 +319,20 @@ router.post("/delete-profile-mobile", auth, async (req, res) => {
   }
 });
 
+router.post("/send-return-mail/", (req, res) => {
+  try {
+    AuthService.sendReturnMail(req, res);
+  } catch (e) {
+    console.log(e);
+  }
+});
+router.post("/return-password", (req, res) => {
+  //Редактироавние профиля
+  try {
+    AuthService.returnPassword(req, res);
+  } catch (e) {
+    console.log(e);
+  }
+});
+
 module.exports = router;

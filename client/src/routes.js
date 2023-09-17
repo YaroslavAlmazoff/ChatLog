@@ -202,6 +202,7 @@ export const useRoutes = (isVerified) => {
       <Route exact path="/notactivated" element={<NotActivated />} />
       <Route exact path="/deleteprofile" element={<DeleteProfile />} />
       <Route exact path="/settings" element={<Settings />} />
+      <Route path="/return-password/:id/:link" element={<LandingPageV2 />} />
     </Routes>
   );
 };
