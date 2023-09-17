@@ -74,6 +74,7 @@ import UpdateGame from "./games/components/pages/UpdateGame";
 import NotActivated from "./homepage/NotActivated";
 import DeleteProfile from "./common_components/pages/DeleteProfile";
 import Settings from "./Settings";
+import ReturnPassword from "./pages/ReturnPassword";
 
 export const useRoutes = (isVerified) => {
   //Кастомный хук для маршрутизации
@@ -202,7 +203,7 @@ export const useRoutes = (isVerified) => {
       <Route exact path="/notactivated" element={<NotActivated />} />
       <Route exact path="/deleteprofile" element={<DeleteProfile />} />
       <Route exact path="/settings" element={<Settings />} />
-      <Route path="/return-password/:id/:link" element={<LandingPageV2 />} />
+      <Route path="/return-password/:id/:link" element={<ReturnPassword />} />
     </Routes>
   );
 };
