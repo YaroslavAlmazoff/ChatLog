@@ -33,6 +33,7 @@ const ReturnPassword = () => {
         placeholder="Введите новый пароль"
         type="password"
         value={password}
+        className="input"
         onChange={(e) => setPassword(e.target.value)}
       />
       {error != "" ? <p style={{ color: "red" }}>{error}</p> : <></>}
