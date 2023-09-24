@@ -88,7 +88,7 @@ class PublicService {
     const avatarUrl = uuid.v4() + ".jpg";
     const bannerUrl = uuid.v4() + ".jpg";
     if (req.files) {
-      if (req.files.avatar && avatar) {
+      if (req.files.avatar && Number(avatar)) {
         FileService.insertPublicAvatar(req.files.avatar, avatarUrl);
         await Public.findByIdAndUpdate(id, {
           avatarUrl,
@@ -98,7 +98,7 @@ class PublicService {
           admin,
         });
       }
-      if (req.files.banner && banner) {
+      if (req.files.banner && Number(banner)) {
         FileService.insertPublicBanner(req.files.banner, bannerUrl);
         await Public.findByIdAndUpdate(id, {
           bannerUrl,
