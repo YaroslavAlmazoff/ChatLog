@@ -82,8 +82,8 @@ class PublicService {
   async edit(req, res) {
     const { name, description, category, admin } = req.body;
     const id = req.params.id;
-    const pub = await Public.findById(id);
-    const exists = await Public.findOne({ name });
+    const p = await Public.findById(id);
+    const pub = p.toObject();
 
     const avatarUrl = uuid.v4() + ".jpg";
     const bannerUrl = uuid.v4() + ".jpg";
@@ -109,6 +109,12 @@ class PublicService {
         });
       }
     }
+
+    pub.name = name;
+    pub.description = description;
+    pub.avatarUrl = avatarUrl;
+    pub.bannerUrl = bannerUrl;
+
     res.json(JSON.stringify(pub));
   }
   async createFoto(req, res) {
