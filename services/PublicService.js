@@ -81,6 +81,7 @@ class PublicService {
   }
   async edit(req, res) {
     const { name, description, category, admin, avatar, banner } = req.body;
+    console.log(name, description);
     const id = req.params.id;
     const p = await Public.findById(id);
     const pub = p.toObject();
