@@ -108,6 +108,13 @@ class PublicService {
           admin,
         });
       }
+    } else {
+      await Public.findByIdAndUpdate(id, {
+        name,
+        description,
+        category,
+        admin,
+      });
     }
 
     pub.name = name;
