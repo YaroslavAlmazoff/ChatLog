@@ -80,7 +80,7 @@ class PublicService {
     res.json(JSON.stringify({ public: newPublic }));
   }
   async edit(req, res) {
-    const { name, description, category, admin } = req.body;
+    const { name, description, category, admin, avatar, banner } = req.body;
     const id = req.params.id;
     const p = await Public.findById(id);
     const pub = p.toObject();
@@ -88,7 +88,7 @@ class PublicService {
     const avatarUrl = uuid.v4() + ".jpg";
     const bannerUrl = uuid.v4() + ".jpg";
     if (req.files) {
-      if (req.files.avatar) {
+      if (req.files.avatar && avatar) {
         FileService.insertPublicAvatar(req.files.avatar, avatarUrl);
         await Public.findByIdAndUpdate(id, {
           avatarUrl,
@@ -98,7 +98,7 @@ class PublicService {
           admin,
         });
       }
-      if (req.files.banner) {
+      if (req.files.banner && banner) {
         FileService.insertPublicBanner(req.files.banner, bannerUrl);
         await Public.findByIdAndUpdate(id, {
           bannerUrl,
