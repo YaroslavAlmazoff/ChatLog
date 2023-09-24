@@ -120,8 +120,8 @@ class PublicService {
 
     pub.name = name;
     pub.description = description;
-    pub.avatarUrl = avatar ? avatarUrl : pub.avatarUrl;
-    pub.bannerUrl = banner ? bannerUrl : pub.bannerUrl;
+    pub.avatarUrl = Number(avatar) ? avatarUrl : pub.avatarUrl;
+    pub.bannerUrl = Number(banner) ? bannerUrl : pub.bannerUrl;
 
     res.json(JSON.stringify(pub));
   }
