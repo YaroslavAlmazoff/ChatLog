@@ -56,7 +56,7 @@ const LPV2Head = () => {
                   process.env.REACT_APP_API_URL +
                   `/gamedownloads/${downloadUrl}`
                 }
-                download={`ChatLog ${version}`}
+                download={`ChatLog ${version}.apk`}
               >
                 Скачать приложение
               </a>
@@ -73,7 +73,7 @@ const LPV2Head = () => {
                   process.env.REACT_APP_API_URL +
                   `/gamedownloads/${downloadUrl}`
                 }
-                download={`ChatLog ${version}`}
+                download={`ChatLog ${version}.apk`}
               >
                 Скачать приложение
               </a>
