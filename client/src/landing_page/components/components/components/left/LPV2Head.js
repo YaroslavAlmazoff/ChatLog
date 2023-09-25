@@ -9,7 +9,7 @@ const LPV2Head = () => {
       const response = await api.get(`/api/games/game/${process.env.APP_ID}`);
       setDownloadUrl(response.data.game.downloadUrl);
     };
-    getDownloadUrl;
+    getDownloadUrl();
   }, []);
   return (
     <div className="lpv2-block">
