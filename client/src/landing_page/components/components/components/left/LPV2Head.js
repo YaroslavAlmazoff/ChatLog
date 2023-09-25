@@ -4,6 +4,7 @@ import api from "../../../../../auth/api/auth";
 
 const LPV2Head = () => {
   const [downloadUrl, setDownloadUrl] = useState("");
+  const [version, setVersion] = useState("");
   useEffect(() => {
     const getDownloadUrl = async () => {
       const response = await api.get(
@@ -11,6 +12,7 @@ const LPV2Head = () => {
       );
       console.log(response);
       setDownloadUrl(response.data.game.downloadUrl);
+      setVersion(response.data.game.version);
     };
     getDownloadUrl();
   }, []);
@@ -48,7 +50,7 @@ const LPV2Head = () => {
             href={
               process.env.REACT_APP_API_URL + `/gamedownloads/${downloadUrl}`
             }
-            download="ChatLog"
+            download={`ChatLog ${version}`}
           >
             Скачать приложение
           </a>
