@@ -7,6 +7,7 @@ const LPV2Head = () => {
   useEffect(() => {
     const getDownloadUrl = async () => {
       const response = await api.get(`/api/games/game/${process.env.APP_ID}`);
+      console.log(response);
       setDownloadUrl(response.data.game.downloadUrl);
     };
     getDownloadUrl();
