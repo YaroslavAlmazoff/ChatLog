@@ -44,18 +44,41 @@ const LPV2Head = () => {
       <div className="lpv2-buttons">
         <LPV2Button text="Зарегистрироваться" link="/register" />
         <LPV2Button text="Войти" link="/login" />
-        {downloadUrl != "" ? (
-          <a
-            className="button"
-            href={
-              process.env.REACT_APP_API_URL + `/gamedownloads/${downloadUrl}`
-            }
-            download={`ChatLog ${version}`}
-          >
-            Скачать приложение
-          </a>
+        {window.innerWidth <= 500 ? (
+          <>
+            <br />
+            {downloadUrl != "" ? (
+              <a
+                className="button"
+                href={
+                  process.env.REACT_APP_API_URL +
+                  `/gamedownloads/${downloadUrl}`
+                }
+                download={`ChatLog ${version}`}
+              >
+                Скачать приложение
+              </a>
+            ) : (
+              <></>
+            )}
+          </>
         ) : (
-          <></>
+          <>
+            {downloadUrl != "" ? (
+              <a
+                className="button"
+                href={
+                  process.env.REACT_APP_API_URL +
+                  `/gamedownloads/${downloadUrl}`
+                }
+                download={`ChatLog ${version}`}
+              >
+                Скачать приложение
+              </a>
+            ) : (
+              <></>
+            )}
+          </>
         )}
       </div>
     </div>
