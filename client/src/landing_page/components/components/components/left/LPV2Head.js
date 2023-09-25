@@ -50,6 +50,7 @@ const LPV2Head = () => {
             {downloadUrl != "" ? (
               <a
                 className="button"
+                style={{ marginTop: "20px" }}
                 href={
                   process.env.REACT_APP_API_URL +
                   `/gamedownloads/${downloadUrl}`
