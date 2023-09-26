@@ -76,8 +76,8 @@ class PublicService {
     } else {
       await ChatRoom.create({ creator: admin, title: name, members: [admin] });
     }
-
-    res.json(JSON.stringify({ public: newPublic }));
+    const pubObj = newPublic.toObject();
+    res.json(JSON.stringify({ public: { ...pubObj, avatarUrl, bannerUrl } }));
   }
   async edit(req, res) {
     const { name, description, category, admin, avatar, banner } = req.body;
