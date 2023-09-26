@@ -140,6 +140,13 @@ class ReactionService {
         ""
       );
       const token = await NotificationToken.findOne({ user: post.user });
+      console.log(text, "", token.token, {
+        id: post._id,
+        type: "comment",
+        message: text,
+        name: "",
+        click_action: "POST",
+      });
       FirebaseService.send(text, "", token.token, {
         id: post._id,
         type: "comment",
