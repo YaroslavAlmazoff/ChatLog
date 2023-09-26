@@ -148,7 +148,7 @@ class ReactionService {
         click_action: "POST",
       });
       FirebaseService.send(text, "", token.token, {
-        id: post._id,
+        id: post._id.toString(),
         type: "comment",
         message: text,
         name: "",
