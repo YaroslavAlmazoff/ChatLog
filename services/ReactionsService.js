@@ -61,7 +61,7 @@ class ReactionService {
         //Возвращение нового количества лайков
         const token = await NotificationToken.findOne({ user: post.user });
         FirebaseService.send(text, "", token.token, {
-          id: post._id,
+          id: post._id.toString(),
           type: "like",
           message: text,
           name: "",
