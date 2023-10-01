@@ -90,7 +90,7 @@ class ReactionService {
 
         const token = await NotificationToken.findOne({ user: post.user });
         FirebaseService.send(text, "", token.token, {
-          id: post._id,
+          id: post._id.toString(),
           type: "like",
           message: text,
           name: "",
