@@ -120,6 +120,10 @@ class FileService {
     ImageService.saveFile(file, filename, "astronomicalimages");
     return filename;
   }
+  async insertPicture(file, filename) {
+    ImageService.saveFile(file, filename, "pictures");
+    return filename;
+  }
 }
 
 module.exports = new FileService();

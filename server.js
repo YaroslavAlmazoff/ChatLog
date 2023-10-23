@@ -29,6 +29,7 @@ const innerAdRouter = require("./routes/innerAds");
 const adRouter = require("./routes/ads");
 const AEPRouter = require("./routes/astronomical/astronomicalEvents");
 const mobileRouter = require("./routes/mobile/mobile");
+const artShopRouter = require("./routes/artshop");
 
 const videohostChannelsRouter = require("./routes/videohost/channels");
 const videohostVideosRouter = require("./routes/videohost/videos");
@@ -70,6 +71,7 @@ app.use("/api/games", gamesRouter);
 app.use("/api/store", storeRouter);
 app.use("/api/mobile", mobileRouter);
 app.use("/api/aep", AEPRouter);
+app.use("/api/art", artShopRouter);
 
 app.use("/api/videohost/channels", videohostChannelsRouter);
 app.use("/api/videohost/videos", videohostVideosRouter);
