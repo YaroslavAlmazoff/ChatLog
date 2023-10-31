@@ -43,7 +43,7 @@ class ArticleService {
       });
     }
 
-    res.json("");
+    res.json(JSON.stringify({ url: images[0] }));
   }
   //Получение всех постов пользователя
   async getUserPosts(req, res) {
