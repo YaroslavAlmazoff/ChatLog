@@ -105,6 +105,8 @@ class AuthService {
       console.log(name, surname, age, email, aboutMe, city, country);
       //Получение ID пользователя
       const id = req.user.userId;
+      const filename1 = uuid.v4() + ".jpg";
+      const filename2 = uuid.v4() + ".jpg";
       //Обновление профиля пользователя
       await User.findByIdAndUpdate(
         { _id: id },
@@ -114,7 +116,6 @@ class AuthService {
       if (req.files) {
         if (req.files.file) {
           //Генерирование нового имени для файла аватарки
-          const filename1 = uuid.v4() + ".jpg";
           //Загрузка аватарки на сервер
           await FileService.insertUserAvatar(req.files.file, id, filename1);
           //Обновление аватарки
@@ -122,14 +123,34 @@ class AuthService {
         }
         if (req.files.file2) {
           //Генерирование нового имени для файла баннера
-          const filename2 = uuid.v4() + ".jpg";
           //Загрузка баннера на сервер
           await FileService.insertUserBanner(req.files.file2, id, filename2);
           //Обновление баннера
           await User.findByIdAndUpdate({ _id: id }, { bannerUrl: filename2 });
         }
       }
-      res.json("");
+      let avatarExists = false;
+      let bannerExists = false;
+
+      if (req.files) {
+        if (req.files.file) {
+          avatarExists = true;
+        }
+        if (req.files.file2) {
+          bannerExists = true;
+        }
+      }
+      if (avatarExists && bannerExists) {
+        res.json(
+          JSON.stringify({ avatarUrl: filename1, bannerUrl: filename2 })
+        );
+      } else if (avatarExists && !bannerExists) {
+        res.json(JSON.stringify({ avatarUrl: filename1, bannerUrl: "" }));
+      } else if (bannerExists && !avatarExists) {
+        res.json(JSON.stringify({ avatarUrl: "", bannerUrl: filename2 }));
+      } else {
+        res.json(JSON.stringify({ avatarUrl: "", bannerUrl: "" }));
+      }
     } catch (e) {
       console.log(e);
       res.status(400).json({ e });
