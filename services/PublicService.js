@@ -14,6 +14,7 @@ const NotificationToken = require("../models/NotificationToken");
 const FirebaseService = require("../services/FirebaseService");
 const types = require("./public_notification_types");
 const path = require("path");
+const ImageService = require("./ImageService");
 
 class PublicService {
   async all(req, res) {
