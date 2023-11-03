@@ -277,12 +277,16 @@ class AuthService {
   async updateAvatarAndBanner(req, res) {
     try {
       const id = req.user.userId;
+      console.log(id);
       const filename1 = uuid.v4() + ".jpg";
       const filename2 = uuid.v4() + ".jpg";
       const { avatarExists, bannerExists } = req.body;
       console.log(avatarExists, bannerExists);
       //Загрузка или обновление изображений аватарки и баннера
       if (req.files) {
+        console.log(req.files);
+        console.log(req.files.avatar);
+        console.log(req.files.banner);
         if (avatarExists) {
           await FileService.insertUserAvatar(req.files.avatar, id, filename1);
           await User.findByIdAndUpdate(id, { avatarUrl: filename1 });
