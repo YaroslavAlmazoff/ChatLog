@@ -286,8 +286,7 @@ class AuthService {
         if (avatarExists) {
           await FileService.insertUserAvatar(req.files.avatar, id, filename1);
           await User.findByIdAndUpdate(id, { avatarUrl: filename1 });
-        }
-        if (bannerExists) {
+        } else if (bannerExists) {
           await FileService.insertUserBanner(req.files.banner, id, filename2);
           await User.findByIdAndUpdate(id, { bannerUrl: filename2 });
         }
