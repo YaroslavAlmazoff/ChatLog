@@ -268,6 +268,13 @@ router.post("/updateprofile", auth, (req, res) => {
     console.log(e);
   }
 });
+router.post("/update-images", auth, (req, res) => {
+  try {
+    AuthService.updateAvatarAndBanner(req, res);
+  } catch (e) {
+    console.log(e);
+  }
+});
 
 router.get("/new-token/:token/:user", async (req, res) => {
   console.log("iehv,ikhuikuyfkhgh", req.params.token, req.params.user);

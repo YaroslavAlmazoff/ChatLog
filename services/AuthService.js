@@ -273,6 +273,40 @@ class AuthService {
     await User.findByIdAndUpdate(id, { password: hashedPassword });
     res.json({ error: "", ok: true });
   }
+
+  async updateAvatarAndBanner(req, res) {
+    try {
+      const id = req.user.userId;
+      const filename1 = uuid.v4() + ".jpg";
+      const filename2 = uuid.v4() + ".jpg";
+      const { avatarExists, bannerExists } = req.body;
+      //Загрузка или обновление изображений аватарки и баннера
+      if (req.files) {
+        if (avatarExists) {
+          await FileService.insertUserAvatar(req.files.avatar, id, filename1);
+          await User.findByIdAndUpdate(id, { avatarUrl: filename1 });
+        }
+        if (bannerExists) {
+          await FileService.insertUserBanner(req.files.banner, id, filename2);
+          await User.findByIdAndUpdate(id, { bannerUrl: filename2 });
+        }
+      }
+      if (avatarExists && bannerExists) {
+        res.json(
+          JSON.stringify({ avatarUrl: filename1, bannerUrl: filename2 })
+        );
+      } else if (avatarExists && !bannerExists) {
+        res.json(JSON.stringify({ avatarUrl: filename1, bannerUrl: "" }));
+      } else if (bannerExists && !avatarExists) {
+        res.json(JSON.stringify({ avatarUrl: "", bannerUrl: filename2 }));
+      } else {
+        res.json(JSON.stringify({ avatarUrl: "", bannerUrl: "" }));
+      }
+    } catch (e) {
+      console.log(e);
+      res.status(400).json({ e });
+    }
+  }
 }
 
 module.exports = new AuthService();
