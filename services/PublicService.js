@@ -13,6 +13,7 @@ const PublicComment = require("../models/PublicComment");
 const NotificationToken = require("../models/NotificationToken");
 const FirebaseService = require("../services/FirebaseService");
 const types = require("./public_notification_types");
+const path = require("path");
 
 class PublicService {
   async all(req, res) {
