@@ -288,9 +288,11 @@ class AuthService {
         console.log(req.files.avatar);
         console.log(req.files.banner);
         if (avatarExists) {
+          console.log("create avatar");
           await FileService.insertUserAvatar(req.files.avatar, id, filename1);
           await User.findByIdAndUpdate(id, { avatarUrl: filename1 });
         } else if (bannerExists) {
+          console.log("create banner");
           await FileService.insertUserBanner(req.files.banner, id, filename2);
           await User.findByIdAndUpdate(id, { bannerUrl: filename2 });
         }
