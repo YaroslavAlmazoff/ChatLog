@@ -127,7 +127,7 @@ class AuthService {
             );
           }
           user.avatarUrl = filename1;
-          user.save();
+          await user.save();
         }
         if (req.files.file2) {
           //Генерирование нового имени для файла баннера
@@ -313,7 +313,7 @@ class AuthService {
             );
           }
           user.avatarUrl = filename1;
-          user.save();
+          await user.save();
         } else if (bannerExists) {
           console.log("create banner");
           await FileService.insertUserBanner(req.files.banner, id, filename2);
