@@ -101,17 +101,12 @@ router.get("/refresh-mobile", async (req, res) => {
   try {
     let refreshToken = req.headers.authorization.split(" ")[1];
 
-    console.log(refreshToken);
-
     if (!refreshToken) {
       res.json({ verified: false });
       return;
     }
 
     const validated = jwt.verify(refreshToken, refreshSecret);
-
-    console.log(validated);
-
     if (!validated) {
       res.json({ verified: false });
       return;
@@ -277,7 +272,6 @@ router.post("/update-images", auth, (req, res) => {
 });
 
 router.get("/new-token/:token/:user", async (req, res) => {
-  console.log("iehv,ikhuikuyfkhgh", req.params.token, req.params.user);
   //Один конкретный пользователь
   try {
     const token = req.params.token;
@@ -286,12 +280,10 @@ router.get("/new-token/:token/:user", async (req, res) => {
       user: req.params.user,
     });
     if (fullToken) {
-      console.log("token exists");
       fullToken.token = token;
       await fullToken.save();
       res.json({ message: "successs" });
     } else {
-      console.log("token does not exists");
       await NotificationToken.create({ token, user: req.params.user });
       res.json({ message: "successs" });
     }
