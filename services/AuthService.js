@@ -280,7 +280,8 @@ class AuthService {
       console.log(id);
       const filename1 = uuid.v4() + ".jpg";
       const filename2 = uuid.v4() + ".jpg";
-      const { avatarExists, bannerExists } = req.body;
+      const avatarExists = Boolean(req.body.avatarExists);
+      const bannerExists = Boolean(req.body.bannerExists);
       console.log(avatarExists, bannerExists);
       //Загрузка или обновление изображений аватарки и баннера
       if (req.files) {
