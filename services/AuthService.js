@@ -141,7 +141,7 @@ class AuthService {
             );
           }
           user.bannerUrl = filename1;
-          user.save();
+          await user.save();
         }
       }
       let avatarExists = false;
@@ -324,7 +324,7 @@ class AuthService {
             );
           }
           user.bannerUrl = filename1;
-          user.save();
+          await user.save();
         }
       }
       if (avatarExists && bannerExists) {
