@@ -11,6 +11,7 @@ const Token = require("../models/Token");
 const MailService = require("./MailService");
 const TokenService = require("./TokenService");
 const NotificationToken = require("../models/NotificationToken");
+const path = require("path");
 
 //Сервис авторизации пользователя
 class AuthService {
@@ -119,14 +120,28 @@ class AuthService {
           //Загрузка аватарки на сервер
           await FileService.insertUserAvatar(req.files.file, id, filename1);
           //Обновление аватарки
-          await User.findByIdAndUpdate({ _id: id }, { avatarUrl: filename1 });
+          const user = await User.findById(id);
+          if (user.avatarUrl != "user.png" && user.avatarUrl != "") {
+            await ImageService.deleteFile(
+              path.resolve("..", "static", "useravatars", user.avatarUrl)
+            );
+          }
+          user.avatarUrl = filename1;
+          user.save();
         }
         if (req.files.file2) {
           //Генерирование нового имени для файла баннера
           //Загрузка баннера на сервер
           await FileService.insertUserBanner(req.files.file2, id, filename2);
           //Обновление баннера
-          await User.findByIdAndUpdate({ _id: id }, { bannerUrl: filename2 });
+          const user = await User.findById(id);
+          if (user.bannerUrl != "banner.png" && user.bannerUrl != "") {
+            await ImageService.deleteFile(
+              path.resolve("..", "static", "userbanners", user.bannerUrl)
+            );
+          }
+          user.bannerUrl = filename1;
+          user.save();
         }
       }
       let avatarExists = false;
@@ -291,11 +306,25 @@ class AuthService {
         if (avatarExists) {
           console.log("create avatar");
           await FileService.insertUserAvatar(req.files.avatar, id, filename1);
-          await User.findByIdAndUpdate(id, { avatarUrl: filename1 });
+          const user = await User.findById(id);
+          if (user.avatarUrl != "user.png" && user.avatarUrl != "") {
+            await ImageService.deleteFile(
+              path.resolve("..", "static", "useravatars", user.avatarUrl)
+            );
+          }
+          user.avatarUrl = filename1;
+          user.save();
         } else if (bannerExists) {
           console.log("create banner");
           await FileService.insertUserBanner(req.files.banner, id, filename2);
-          await User.findByIdAndUpdate(id, { bannerUrl: filename2 });
+          const user = await User.findById(id);
+          if (user.bannerUrl != "banner.png" && user.bannerUrl != "") {
+            await ImageService.deleteFile(
+              path.resolve("..", "static", "userbanners", user.bannerUrl)
+            );
+          }
+          user.bannerUrl = filename1;
+          user.save();
         }
       }
       if (avatarExists && bannerExists) {
