@@ -285,8 +285,8 @@ class AuthService {
       //Загрузка или обновление изображений аватарки и баннера
       if (req.files) {
         console.log(req.files);
-        console.log(req.files.avatar);
-        console.log(req.files.banner);
+        // console.log(req.files.avatar);
+        // console.log(req.files.banner);
         if (avatarExists) {
           console.log("create avatar");
           await FileService.insertUserAvatar(req.files.avatar, id, filename1);
