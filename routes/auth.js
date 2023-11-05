@@ -222,6 +222,14 @@ router.get("/users", (req, res) => {
     console.log(e);
   }
 });
+router.get("/load-users", (req, res) => {
+  //Все пользователи
+  try {
+    UserService.loadAllUsers(req, res);
+  } catch (e) {
+    console.log(e);
+  }
+});
 router.get("/user", auth, (req, res) => {
   //Один конкретный пользователь
   try {
