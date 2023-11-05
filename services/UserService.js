@@ -39,7 +39,7 @@ class UserService {
     const users = await User.find();
     const filtered = users.filter(
       (a) =>
-        a.name != "dont delete" && a.name != "dont" && a.avatar != "user.png"
+        a.name != "dont delete" && a.name != "dont" && a.avatarUrl != "user.png"
     );
     const sliced = filtered.slice(filtered.length - 8);
     res.json({ users: sliced });
