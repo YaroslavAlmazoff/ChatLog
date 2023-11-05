@@ -122,9 +122,19 @@ class AuthService {
           //Обновление аватарки
           const user = await User.findById(id);
           if (user.avatarUrl != "user.png" && user.avatarUrl != "") {
-            await ImageService.deleteFile(
-              path.resolve("..", "static", "useravatars", user.avatarUrl)
+            const filePath = path.resolve(
+              "..",
+              "static",
+              "useravatars",
+              user.avatarUrl
             );
+            fs.access(filePath, fs.constants.F_OK, async (err) => {
+              if (err) {
+                console.error("Файл не существует");
+              } else {
+                await ImageService.deleteFile(filePath);
+              }
+            });
           }
           user.avatarUrl = filename1;
           await user.save();
@@ -136,9 +146,19 @@ class AuthService {
           //Обновление баннера
           const user = await User.findById(id);
           if (user.bannerUrl != "banner.png" && user.bannerUrl != "") {
-            await ImageService.deleteFile(
-              path.resolve("..", "static", "userbanners", user.bannerUrl)
+            const filePath = path.resolve(
+              "..",
+              "static",
+              "userbanners",
+              user.bannerUrl
             );
+            fs.access(filePath, fs.constants.F_OK, async (err) => {
+              if (err) {
+                console.error("Файл не существует");
+              } else {
+                await ImageService.deleteFile(filePath);
+              }
+            });
           }
           user.bannerUrl = filename1;
           await user.save();
@@ -308,9 +328,19 @@ class AuthService {
           await FileService.insertUserAvatar(req.files.avatar, id, filename1);
           const user = await User.findById(id);
           if (user.avatarUrl != "user.png" && user.avatarUrl != "") {
-            await ImageService.deleteFile(
-              path.resolve("..", "static", "useravatars", user.avatarUrl)
+            const filePath = path.resolve(
+              "..",
+              "static",
+              "useravatars",
+              user.avatarUrl
             );
+            fs.access(filePath, fs.constants.F_OK, async (err) => {
+              if (err) {
+                console.error("Файл не существует");
+              } else {
+                await ImageService.deleteFile(filePath);
+              }
+            });
           }
           user.avatarUrl = filename1;
           await user.save();
@@ -319,9 +349,19 @@ class AuthService {
           await FileService.insertUserBanner(req.files.banner, id, filename2);
           const user = await User.findById(id);
           if (user.bannerUrl != "banner.png" && user.bannerUrl != "") {
-            await ImageService.deleteFile(
-              path.resolve("..", "static", "userbanners", user.bannerUrl)
+            const filePath = path.resolve(
+              "..",
+              "static",
+              "userbanners",
+              user.bannerUrl
             );
+            fs.access(filePath, fs.constants.F_OK, async (err) => {
+              if (err) {
+                console.error("Файл не существует");
+              } else {
+                await ImageService.deleteFile(filePath);
+              }
+            });
           }
           user.bannerUrl = filename1;
           await user.save();
