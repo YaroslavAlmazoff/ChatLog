@@ -160,7 +160,7 @@ class AuthService {
               }
             });
           }
-          user.bannerUrl = filename1;
+          user.bannerUrl = filename2;
           await user.save();
         }
       }
@@ -363,7 +363,7 @@ class AuthService {
               }
             });
           }
-          user.bannerUrl = filename1;
+          user.bannerUrl = filename2;
           await user.save();
         }
       }
