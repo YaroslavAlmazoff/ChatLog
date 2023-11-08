@@ -72,6 +72,21 @@ class AuthService {
         "https://chatlog.ru/api/activate/" + user._id
       );
 
+      const firebaseToken = req.body.token;
+
+      const fullToken = await NotificationToken.findOne({
+        user: user._id,
+      });
+      if (fullToken) {
+        fullToken.token = firebaseToken;
+        await fullToken.save();
+      } else {
+        await NotificationToken.create({
+          token: firebaseToken,
+          user: user._id,
+        });
+      }
+
       fs.mkdir(`../static/userfiles/${user._id}`, (err) => {
         console.log(err);
       });
@@ -261,6 +276,21 @@ class AuthService {
       if (tokenData) {
         tokenData.token = refreshToken;
         await tokenData.save();
+      }
+
+      const firebaseToken = req.body.token;
+
+      const fullToken = await NotificationToken.findOne({
+        user: user._id,
+      });
+      if (fullToken) {
+        fullToken.token = firebaseToken;
+        await fullToken.save();
+      } else {
+        await NotificationToken.create({
+          token: firebaseToken,
+          user: user._id,
+        });
       }
 
       res.json({ token, refreshToken, userId: user._id, user, errors: [] });
