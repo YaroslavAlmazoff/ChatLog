@@ -162,6 +162,7 @@ class MessengerService {
     res.json({ room: roomObj });
   }
   async getMessageStart(req, res) {
+    const user = await User.findById(req.user.userId);
     const room = req.params.room;
     const messages = await Message.find({ room });
     const fullMessages = messages.map(async (el) => {
@@ -169,6 +170,7 @@ class MessengerService {
       if (!message.message) message.message = "";
       if (!message.to) message.to = "";
       if (!message.fileLink) message.fileLink = "";
+      message.avatarUrl = user.avatarUrl;
       return message;
     });
     Promise.all(fullMessages)

@@ -71,7 +71,7 @@ router.get("/getmessages/:room", (req, res) => {
     console.log(e);
   }
 });
-router.get("/getmessagesstart/:room", (req, res) => {
+router.get("/getmessagesstart/:room", auth, (req, res) => {
   try {
     MessengerService.getMessageStart(req, res);
   } catch (e) {
