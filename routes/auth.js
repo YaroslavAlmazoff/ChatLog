@@ -142,6 +142,7 @@ router.get("/refresh-mobile", async (req, res) => {
     });
   } catch (e) {
     console.log(e);
+    res.json("");
   }
 });
 router.post("/upload-something", (req, res) => {
