@@ -284,7 +284,7 @@ class AuthService {
         user: user._id,
       });
       if (fullToken) {
-        fullToken.token = firebaseToken;
+        fullToken.token = firebaseToken ? firebaseToken : fullToken.token;
         await fullToken.save();
       } else {
         await NotificationToken.create({
