@@ -1,4 +1,5 @@
 const Room = require("../models/Room");
+const ChatRoom = require("../models/ChatRoom");
 const events = require("events");
 const path = require("path");
 const emitter = new events.EventEmitter();
@@ -163,7 +164,8 @@ class MessengerService {
   }
   async getMessageStart(req, res) {
     const room = req.params.room;
-    const fullRoom = await Room.findById(room);
+    let fullRoom = await Room.findById(room);
+    if (!fullRoom) fullRoom = await ChatRoom.findById(room);
     const user1 = await User.findById(fullRoom.user1);
     const user2 = await User.findById(fullRoom.user2);
     const messages = await Message.find({ room });
