@@ -499,4 +499,14 @@ const getMessagesMobile = async (res, messages) => {
     });
 };
 
+router.get("/all-messages", auth, async (req, res) => {
+  try {
+    const m1 = await Message.find({ user: req.user.userId });
+    const m2 = await Message.find({ to: req.user.userId });
+    res.json({ messages: m1.concat(m2) });
+  } catch (e) {
+    console.log(e);
+  }
+});
+
 module.exports = router;
