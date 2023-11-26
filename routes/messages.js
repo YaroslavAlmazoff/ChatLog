@@ -503,7 +503,10 @@ router.get("/all-messages", auth, async (req, res) => {
   try {
     const m1 = await Message.find({ user: req.user.userId });
     const m2 = await Message.find({ to: req.user.userId });
-    res.json({ messages: m1.concat(m2) });
+    const all = m1.concat(m2);
+    const result =
+      all.length > 10 ? all.slice(all.length - 11, all.length - 1) : all;
+    res.json({ messages: result });
   } catch (e) {
     console.log(e);
   }
