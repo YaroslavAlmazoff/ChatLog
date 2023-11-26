@@ -499,10 +499,13 @@ const getMessagesMobile = async (res, messages) => {
     });
 };
 
-router.get("/all-messages", auth, async (req, res) => {
+router.get("/all-messages/:id", auth, async (req, res) => {
   try {
-    const m1 = await Message.find({ user: req.user.userId });
-    const m2 = await Message.find({ to: req.user.userId });
+    const m1 = await Message.find({
+      user: req.user.userId,
+      room: req.params.id,
+    });
+    const m2 = await Message.find({ to: req.user.userId, room: req.params.id });
     const all = m1.concat(m2);
 
     Promise.all(all)
