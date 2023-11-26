@@ -504,9 +504,29 @@ router.get("/all-messages", auth, async (req, res) => {
     const m1 = await Message.find({ user: req.user.userId });
     const m2 = await Message.find({ to: req.user.userId });
     const all = m1.concat(m2);
-    const result =
-      all.length > 10 ? all.slice(all.length - 11, all.length - 1) : all;
-    res.json({ messages: result });
+
+    Promise.all(all)
+      .then((data) => {
+        const filtered = data.filter(
+          (v, i, a) =>
+            a.findIndex((t) => t.message === v.message && t.date === v.date) ===
+            i
+        );
+        res.json({
+          messages:
+            filtered.length > 10
+              ? filtered.slice(filtered.length - 11, filtered.length - 1)
+              : filtered,
+        });
+        res.end();
+        return;
+      })
+      .catch((e) => {
+        console.log(e);
+        res.json({ messages: [] });
+        res.end();
+        return;
+      });
   } catch (e) {
     console.log(e);
   }
