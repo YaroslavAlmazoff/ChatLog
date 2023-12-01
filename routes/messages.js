@@ -150,8 +150,8 @@ router.get("/getfulllastmessage/:id", (req, res) => {
   }
 });
 
-const removeDublicates = async (req) => {
-  const message = await Message.findById(req.params.id);
+const removeDublicates = async (id) => {
+  const message = await Message.findById(id);
   if (message) {
     const sameMessages = await Message.find({
       message: message.message,
@@ -294,7 +294,7 @@ router.get("/connect-mobile/:id", async (req, res) => {
     }).then(async (data) => {
       if (data) {
         console.log("уже существует");
-        await removeDublicates(req);
+        //await removeDublicates(req);
         res.write(`data: ${JSON.stringify(data)} \n\n`);
       } else {
         console.log("не существует, создается");
@@ -305,7 +305,7 @@ router.get("/connect-mobile/:id", async (req, res) => {
             await FileService.insertMessageFoto(req.files.file, filename1);
             Message.create({ ...message, imageUrl: filename1 }).then(
               async (data) => {
-                await removeDublicates(req);
+                //await removeDublicates(req);
                 res.write(`data: ${JSON.stringify(data)} \n\n`);
               }
             );
@@ -318,7 +318,7 @@ router.get("/connect-mobile/:id", async (req, res) => {
             );
             Message.create({ ...message, videoUrl: filename1 }).then(
               async (data) => {
-                await removeDublicates(req);
+                //await removeDublicates(req);
                 res.write(`data: ${JSON.stringify(data)} \n\n`);
               }
             );
@@ -331,7 +331,7 @@ router.get("/connect-mobile/:id", async (req, res) => {
             );
             Message.create({ ...message, audioUrl: filename1 }).then(
               async (data) => {
-                await removeDublicates(req);
+                //await removeDublicates(req);
                 res.write(`data: ${JSON.stringify(data)} \n\n`);
               }
             );
@@ -340,7 +340,7 @@ router.get("/connect-mobile/:id", async (req, res) => {
           Message.create({ ...message, isNotReaded: true }).then(
             async (data) => {
               console.log("просто сообщение");
-              await removeDublicates(req);
+              //await removeDublicates(req);
               res.write(`data: ${JSON.stringify(data)} \n\n`);
             }
           );
@@ -363,16 +363,13 @@ router.post("/new-messages/:id", auth, async (req, res) => {
   message.name = user.name;
   message.isNotReaded = true;
   message.user = user._id;
-  message.date = message.date;
 
   let tokenString = "";
   let to = "";
   if (updatedRoom.user1.toString() == req.user.userId) {
     to = updatedRoom.user2;
-    console.log("да");
   } else {
     to = updatedRoom.user1;
-    console.log("нет");
   }
 
   const token = await NotificationToken.findOne({ user: to });
@@ -403,7 +400,7 @@ router.post("/new-messages/:id", auth, async (req, res) => {
 });
 
 router.post("/new-chat-messages/:id", auth, async (req, res) => {
-  const user = await User.findById(req.user.userId);
+  const user = await User.findById(req.user.userId); //id
   const message = req.body;
   const updatedRoom = await ChatRoom.findByIdAndUpdate(req.params.id, {
     lastMessage: message.message,
