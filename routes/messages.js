@@ -527,6 +527,11 @@ router.get("/all-messages", auth, async (req, res) => {
                 (t) => t.message === v.message && t.date === v.date
               ) === i
           );
+        for (let i = 0; i <= filtered.length; i++) {
+          console.log(
+            filtered[i].message.length > 50 ? "многа" : filtered[i].message
+          );
+        }
         res.json({ messages: filtered });
         res.end();
         return;
