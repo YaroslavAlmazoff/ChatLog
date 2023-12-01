@@ -503,35 +503,31 @@ router.get("/all-messages", auth, async (req, res) => {
   try {
     const user = req.user.userId;
 
-    const messages = [];
-
     let rooms1 = await Room.find({ user1: user });
     let rooms2 = await Room.find({ user2: user });
     const rooms = rooms1.concat(rooms2);
 
-    rooms.forEach(async (item) => {
+    const messages = rooms.map(async (item) => {
       const currentMessages = await Message.find({ room: item._id });
-      messages.push([
-        ...currentMessages.slice(
-          currentMessages.length - 11,
-          currentMessages.length - 1
-        ),
-      ]);
+      return currentMessages.length > 10
+        ? currentMessages.slice(
+            currentMessages.length - 11,
+            currentMessages.length - 1
+          )
+        : currentMessages;
     });
 
     Promise.all(messages)
       .then((data) => {
-        const filtered = data.filter(
-          (v, i, a) =>
-            a.findIndex((t) => t.message === v.message && t.date === v.date) ===
-            i
-        );
-        res.json({
-          messages:
-            filtered.length > 10
-              ? filtered.slice(filtered.length - 11, filtered.length - 1)
-              : filtered,
-        });
+        const filtered = data
+          .flat()
+          .filter(
+            (v, i, a) =>
+              a.findIndex(
+                (t) => t.message === v.message && t.date === v.date
+              ) === i
+          );
+        res.json({ messages: filtered });
         res.end();
         return;
       })
