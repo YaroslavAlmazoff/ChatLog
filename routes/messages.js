@@ -507,10 +507,9 @@ router.get("/all-messages", auth, async (req, res) => {
     let rooms2 = await Room.find({ user2: user });
     const rooms = rooms1.concat(rooms2);
 
-    console.log(rooms);
-
     const messages = rooms.map(async (item) => {
       const currentMessages = await Message.find({ room: item._id });
+      console.log(currentMessages);
       return currentMessages.length > 10
         ? currentMessages.slice(
             currentMessages.length - 11,
