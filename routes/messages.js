@@ -529,7 +529,7 @@ router.get("/all-messages", auth, async (req, res) => {
               v != null &&
               v != undefined
           );
-        for (let i = 0; i <= filtered.length; i++) {
+        for (let i = 0; i < filtered.length; i++) {
           console.log(
             filtered[i].message.length > 50 ? "многа" : filtered[i].message
           );
