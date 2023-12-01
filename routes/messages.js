@@ -501,11 +501,13 @@ const getMessagesMobile = async (res, messages) => {
 
 router.get("/all-messages", auth, async (req, res) => {
   try {
-    const user = req.user.userId;
+    const user = req.user.userId; //id
 
     let rooms1 = await Room.find({ user1: user });
     let rooms2 = await Room.find({ user2: user });
     const rooms = rooms1.concat(rooms2);
+
+    console.log(rooms);
 
     const messages = rooms.map(async (item) => {
       const currentMessages = await Message.find({ room: item._id });
