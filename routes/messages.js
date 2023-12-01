@@ -524,8 +524,8 @@ router.get("/all-messages", auth, async (req, res) => {
         const short = filtered.map((el) => {
           return el.message.length > 100 ? null : el;
         });
-
-        const unique = short.filter(
+        const filtered2 = short.filter((el) => el != null && el != undefined);
+        const unique = filtered2.filter(
           (v, i, a) =>
             a.findIndex((t) => t.message === v.message && t.date === v.date) ===
             i
@@ -533,7 +533,7 @@ router.get("/all-messages", auth, async (req, res) => {
         for (let i = 0; i < unique.length; i++) {
           console.log(unique[i].message);
         }
-        res.json({ messages: filtered });
+        res.json({ messages: unique });
         res.end();
         return;
       })
