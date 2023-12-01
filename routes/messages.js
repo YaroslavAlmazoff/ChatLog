@@ -519,21 +519,19 @@ router.get("/all-messages", auth, async (req, res) => {
 
     Promise.all(messages)
       .then((data) => {
-        const filteredData = data.flat().map((el) => {
-          return el ? (el.message.length > 100 ? null : el) : null;
+        const flatten = data.flat();
+        const filtered = flatten.filter((el) => el != null && el != undefined);
+        const short = filtered.map((el) => {
+          return el.message.length > 100 ? null : el;
         });
 
-        const filtered = filteredData.filter(
+        const unique = short.filter(
           (v, i, a) =>
             a.findIndex((t) => t.message === v.message && t.date === v.date) ===
-              i &&
-            v != null &&
-            v != undefined
+            i
         );
-        for (let i = 0; i < filtered.length; i++) {
-          console.log(
-            filtered[i].message.length > 50 ? "многа" : filtered[i].message
-          );
+        for (let i = 0; i < unique.length; i++) {
+          console.log(unique[i].message);
         }
         res.json({ messages: filtered });
         res.end();
