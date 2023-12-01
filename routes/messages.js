@@ -520,7 +520,7 @@ router.get("/all-messages", auth, async (req, res) => {
     Promise.all(messages)
       .then((data) => {
         const filteredData = data.flat().map((el) => {
-          return el.message.length > 100 ? null : el;
+          return el ? (el.message.length > 100 ? null : el) : null;
         });
 
         const filtered = filteredData.filter(
