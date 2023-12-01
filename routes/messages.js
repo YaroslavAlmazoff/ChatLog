@@ -525,7 +525,9 @@ router.get("/all-messages", auth, async (req, res) => {
             (v, i, a) =>
               a.findIndex(
                 (t) => t.message === v.message && t.date === v.date
-              ) === i
+              ) === i &&
+              v != null &&
+              v != undefined
           );
         for (let i = 0; i <= filtered.length; i++) {
           console.log(
