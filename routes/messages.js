@@ -503,7 +503,8 @@ router.get("/all-messages", auth, async (req, res) => {
 
     let rooms1 = await Room.find({ user1: user });
     let rooms2 = await Room.find({ user2: user });
-    const rooms = rooms1.concat(rooms2);
+    let rooms3 = await ChatRoom.find({ members: user });
+    const rooms = rooms1.concat(rooms2, rooms3);
 
     const messages = rooms.map(async (item) => {
       const currentMessages = await Message.find({ room: item._id });
