@@ -344,7 +344,7 @@ class MessengerService {
       return;
     } else {
       res.json({
-        user: { name: "fuck", surname: "fuckович", lastVisit: "сегодня" },
+        user: { name: "", surname: "", lastVisit: "" },
       });
       res.end();
       return;

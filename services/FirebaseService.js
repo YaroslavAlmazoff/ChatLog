@@ -17,10 +17,10 @@ class FirebaseService {
       .messaging()
       .send(message)
       .then((response) => {
-        console.log("Push уведомление успешно отправлено:", response);
+        console.log("Push уведомление успешно отправлено");
       })
       .catch((error) => {
-        console.log("Ошибка отправки push-уведомления:", error);
+        console.log("Ошибка отправки push-уведомления");
       });
   }
 
@@ -41,10 +41,10 @@ class FirebaseService {
         .messaging()
         .send(message)
         .then((response) => {
-          console.log("Push уведомление успешно отправлено:", response);
+          console.log("Push уведомление успешно отправлено");
         })
         .catch((error) => {
-          console.log("Ошибка отправки push-уведомления:", error);
+          console.log("Ошибка отправки push-уведомления");
         });
     });
   }
