@@ -443,7 +443,7 @@ router.post("/new-chat-messages/:id", auth, async (req, res) => {
   } else {
     await File.findByIdAndUpdate(message.fileLink, { public: true });
   }
-  emitter.emit("newMessage", message, req);
+  emitter.emit("newMessageMobile", message, req);
   res.status(200);
 });
 
