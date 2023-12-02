@@ -166,18 +166,12 @@ class MessengerService {
     const room = req.params.room;
     let fullRoom = await Room.findById(room);
     if (!fullRoom) fullRoom = await ChatRoom.findById(room);
-    const user1 = await User.findById(fullRoom.user1);
-    const user2 = await User.findById(fullRoom.user2);
     const messages = await Message.find({ room });
     const fullMessages = messages.map(async (el) => {
       const message = el.toObject();
       if (!message.message) message.message = "";
       if (!message.to) message.to = "";
       if (!message.fileLink) message.fileLink = "";
-      message.avatarUrl =
-        message.user.toString() == fullRoom.user1
-          ? user1.avatarUrl
-          : user2.avatarUrl;
       return message;
     });
     Promise.all(fullMessages)
