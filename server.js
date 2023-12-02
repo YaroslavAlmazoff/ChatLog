@@ -100,6 +100,7 @@ const options = {
 };
 
 const serviceAccount = require("./chatloglast-firebase-adminsdk-db7so-4665518e0f.json");
+const MessengerService = require("./services/MessengerService");
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
 });
@@ -116,6 +117,7 @@ const start = async () => {
     });
     setInterval(() => {
       startNotifications();
+      MessengerService.clear();
     }, 3000000);
   } catch (e) {
     console.log("Server Error: ", e.message);

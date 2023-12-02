@@ -350,6 +350,44 @@ class MessengerService {
       return;
     }
   }
+
+  async clear() {
+    try {
+      const pipeline = [
+        {
+          $group: {
+            _id: {
+              message: "$message",
+              date: "$date",
+              room: "$room",
+              user: "$user",
+            },
+            count: { $sum: 1 },
+          },
+        },
+        {
+          $match: {
+            count: { $gt: 1 },
+          },
+        },
+      ];
+
+      const duplicateMessages = await Message.aggregate(pipeline).exec();
+
+      for (const duplicate of duplicateMessages) {
+        const filter = {
+          message: duplicate._id.message,
+          date: duplicate._id.date,
+          room: duplicate._id.room,
+        };
+        await Message.deleteMany(filter).exec();
+      }
+
+      console.log("Дубли удалены успешно");
+    } catch (err) {
+      console.error("Ошибка при удалении дублей:", err);
+    }
+  }
 }
 
 module.exports = new MessengerService();

@@ -363,6 +363,7 @@ router.post("/new-messages/:id", auth, async (req, res) => {
   message.name = user.name;
   message.isNotReaded = true;
   message.user = user._id;
+  message.message = message.message;
 
   let tokenString = "";
   let to = "";
