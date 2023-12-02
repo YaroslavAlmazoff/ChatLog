@@ -353,7 +353,8 @@ class MessengerService {
 
   async clear() {
     try {
-      const pipeline = [
+      // Находим все уникальные комбинации полей message, date, room и user
+      const uniqueMessages = await Message.aggregate([
         {
           $group: {
             _id: {
@@ -365,24 +366,19 @@ class MessengerService {
             count: { $sum: 1 },
           },
         },
-        {
-          $match: {
-            count: { $gt: 1 },
-          },
-        },
-      ];
+      ]);
 
-      const duplicateMessages = await Message.aggregate(pipeline).exec();
-
-      for (const duplicate of duplicateMessages) {
-        const filter = {
-          message: duplicate._id.message,
-          date: duplicate._id.date,
-          room: duplicate._id.room,
-        };
-        await Message.deleteMany(filter).exec();
-      }
-
+      // Удаляем все дубликаты, оставляя только одну запись для каждой уникальной комбинации полей
+      uniqueMessages.forEach(async (uniqueMessage) => {
+        if (uniqueMessage.count > 1) {
+          await Message.deleteMany({
+            message: uniqueMessage._id.message,
+            date: uniqueMessage._id.date,
+            room: uniqueMessage._id.room,
+            user: uniqueMessage._id.user,
+          });
+        }
+      });
       console.log("Дубли удалены успешно");
     } catch (err) {
       console.error("Ошибка при удалении дублей:", err);
