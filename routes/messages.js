@@ -297,7 +297,7 @@ router.get("/connect-mobile/:id", async (req, res) => {
         //await removeDublicates(req);
         res.write(`data: ${JSON.stringify(data)} \n\n`);
       } else {
-        console.log("не существует, создается");
+        console.log("не существует, создается", req.files);
         if (req.files) {
           if (req.files.file) {
             console.log("с изображением от приложения");
