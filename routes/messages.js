@@ -286,7 +286,7 @@ router.get("/connect-mobile/:id", async (req, res) => {
     "Accept-Ranges": "bytes",
     "Content-Range": "bytes 100-64656926/64656927",
   });
-  emitter.on("newMessageMobile", async (message) => {
+  emitter.on("newMessageMobile", async (message, files) => {
     Message.findOne({
       message: message.message,
       date: message.date,
@@ -297,38 +297,32 @@ router.get("/connect-mobile/:id", async (req, res) => {
         //await removeDublicates(req);
         res.write(`data: ${JSON.stringify(data)} \n\n`);
       } else {
-        console.log("не существует, создается", req.files);
-        if (req.files) {
-          if (req.files.file) {
+        console.log("не существует, создается", files);
+        if (files) {
+          if (files.file) {
             console.log("с изображением от приложения");
             const filename1 = uuid.v4() + ".jpg";
-            await FileService.insertMessageFoto(req.files.file, filename1);
+            await FileService.insertMessageFoto(files.file, filename1);
             Message.create({ ...message, imageUrl: filename1 }).then(
               async (data) => {
                 //await removeDublicates(req);
                 res.write(`data: ${JSON.stringify(data)} \n\n`);
               }
             );
-          } else if (req.files.videoFile) {
+          } else if (files.videoFile) {
             console.log("с видео от приложения");
             const filename1 = uuid.v4() + ".mp4";
-            await FileService.insertMessageVideo(
-              req.files.videoFile,
-              filename1
-            );
+            await FileService.insertMessageVideo(files.videoFile, filename1);
             Message.create({ ...message, videoUrl: filename1 }).then(
               async (data) => {
                 //await removeDublicates(req);
                 res.write(`data: ${JSON.stringify(data)} \n\n`);
               }
             );
-          } else if (req.files.audioFile) {
+          } else if (files.audioFile) {
             console.log("с audio от приложения");
             const filename1 = uuid.v4() + ".mp3";
-            await FileService.insertMessageAudio(
-              req.files.audioFile,
-              filename1
-            );
+            await FileService.insertMessageAudio(files.audioFile, filename1);
             Message.create({ ...message, audioUrl: filename1 }).then(
               async (data) => {
                 //await removeDublicates(req);
@@ -400,7 +394,7 @@ router.post("/new-messages/:id", auth, async (req, res) => {
   } else {
     await File.findByIdAndUpdate(message.fileLink, { public: true });
   }
-  emitter.emit("newMessageMobile", message);
+  emitter.emit("newMessageMobile", message, req.files);
   res.status(200);
 });
 
