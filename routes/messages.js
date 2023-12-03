@@ -391,7 +391,11 @@ router.post("/new-messages/:id", auth, async (req, res) => {
     );
   }
 
-  if (message.fileLink == null || message.fileLink == "null") {
+  if (
+    message.fileLink == null ||
+    message.fileLink == "null" ||
+    message.fileLink == ""
+  ) {
     message.fileLink = "";
   } else {
     await File.findByIdAndUpdate(message.fileLink, { public: true });
