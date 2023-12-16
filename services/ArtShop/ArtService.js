@@ -1,8 +1,9 @@
-const MailService = require("../MailService");
+const ArtMailService = require("../ArtShop/ArtMailService");
 
 class ArtService {
   async sendData(req, res) {
-    MailService.sendArtMail(req.body);
+    ArtMailService.sendArtMail(req.body);
+    res.json("Успешное оформление заказа!");
   }
 }
 
