@@ -29,7 +29,7 @@ const innerAdRouter = require("./routes/innerAds");
 const adRouter = require("./routes/ads");
 const AEPRouter = require("./routes/astronomical/astronomicalEvents");
 const mobileRouter = require("./routes/mobile/mobile");
-const artShopRouter = require("./routes/artshop");
+const artShopRouter = require("./routes/art/art");
 
 const videohostChannelsRouter = require("./routes/videohost/channels");
 const videohostVideosRouter = require("./routes/videohost/videos");
