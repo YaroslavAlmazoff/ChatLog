@@ -78,8 +78,8 @@ class AEPController {
       let date = new Date();
       for (var item of events) {
         if (
-          item.month == getMonth().string &&
-          item.day == date.getDate() &&
+          //   item.month == getMonth().string &&
+          //   item.day == date.getDate() &&
           item.time.split(":")[0] < date.getHours() &&
           item.time.split(":")[1] < date.getMinutes()
         ) {
