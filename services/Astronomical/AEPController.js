@@ -80,8 +80,8 @@ class AEPController {
         if (
           //   item.month == getMonth().string &&
           //   item.day == date.getDate() &&
-          item.time.split(":")[0] <= date.getHours() &&
-          item.time.split(":")[1] < date.getMinutes()
+          Number(item.time.split(":")[0]) <= date.getHours() &&
+          Number(item.time.split(":")[1]) <= date.getMinutes()
         ) {
           console.log("upcoming");
           await AstronomicalEvent.findByIdAndUpdate(item._id, {
