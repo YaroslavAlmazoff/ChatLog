@@ -77,10 +77,20 @@ class AEPController {
       const tokens = await AEPNotificationToken.find({});
       let date = new Date();
       for (var item of events) {
+        console.log(
+          Number(item.time.split(":")[0]),
+          date.getHours(),
+          Number(item.time.split(":")[0]) == date.getHours()
+        );
+        console.log(
+          Number(item.time.split(":")[1]),
+          date.getMinutes(),
+          Number(item.time.split(":")[1]) <= date.getMinutes()
+        );
         if (
           //   item.month == getMonth().string &&
           //   item.day == date.getDate() &&
-          Number(item.time.split(":")[0]) <= date.getHours() &&
+          Number(item.time.split(":")[0]) == date.getHours() &&
           Number(item.time.split(":")[1]) <= date.getMinutes()
         ) {
           console.log("upcoming");
