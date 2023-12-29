@@ -88,8 +88,8 @@ class AEPController {
           Number(item.time.split(":")[1]) <= date.getMinutes()
         );
         if (
-          //   item.month == getMonth().string &&
-          //   item.day == date.getDate() &&
+          item.month == getMonth().string &&
+          item.day == date.getDate() &&
           Number(item.time.split(":")[0]) == date.getHours() &&
           Number(item.time.split(":")[1]) <= date.getMinutes()
         ) {
