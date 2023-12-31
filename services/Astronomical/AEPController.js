@@ -46,7 +46,7 @@ class AEPController {
     const filename = uuid.v4() + ".png";
     await AstronomicalEvent.create({
       text,
-      year: date.getFullYear(),
+      year: 2024,
       month: month.toLowerCase(),
       day,
       time,
@@ -80,22 +80,7 @@ class AEPController {
       const events = await AstronomicalEvent.find({});
       const tokens = await AEPNotificationToken.find({});
       let date = new Date();
-      events.forEach(async (item) => {
-        await AstronomicalEvent.findByIdAndUpdate(item._id, {
-          year: date.getFullYear(),
-        });
-      });
       for (var item of events) {
-        console.log(
-          Number(item.time.split(":")[0]),
-          date.getHours(),
-          Number(item.time.split(":")[0]) == date.getHours()
-        );
-        console.log(
-          Number(item.time.split(":")[1]),
-          date.getMinutes(),
-          Number(item.time.split(":")[1]) <= date.getMinutes()
-        );
         if (
           item.year <= date.getFullYear() &&
           item.month == getMonth().string &&
