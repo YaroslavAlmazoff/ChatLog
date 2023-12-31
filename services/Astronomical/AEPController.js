@@ -46,7 +46,7 @@ class AEPController {
     const filename = uuid.v4() + ".png";
     await AstronomicalEvent.create({
       text,
-      year: 2024,
+      year: date.getFullYear(),
       month: month.toLowerCase(),
       day,
       time,
