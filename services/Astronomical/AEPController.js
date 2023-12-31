@@ -32,6 +32,7 @@ class AEPController {
     res.json({ images });
   }
   async newEvent(req, res) {
+    const date = new Date();
     let { text, month, day, time, interesting, information, sort, visibility } =
       req.body;
     const events = await AstronomicalEvent.find({});
@@ -45,6 +46,7 @@ class AEPController {
     const filename = uuid.v4() + ".png";
     await AstronomicalEvent.create({
       text,
+      year: date.getFullYear(),
       month: month.toLowerCase(),
       day,
       time,
@@ -78,6 +80,11 @@ class AEPController {
       const events = await AstronomicalEvent.find({});
       const tokens = await AEPNotificationToken.find({});
       let date = new Date();
+      events.forEach(async (item) => {
+        await AstronomicalEvent.findByIdAndUpdate(item._id, {
+          year: date.getFullYear(),
+        });
+      });
       for (var item of events) {
         console.log(
           Number(item.time.split(":")[0]),
@@ -90,6 +97,7 @@ class AEPController {
           Number(item.time.split(":")[1]) <= date.getMinutes()
         );
         if (
+          item.year <= date.getFullYear() &&
           item.month == getMonth().string &&
           item.day == date.getDate() &&
           Number(item.time.split(":")[0]) == date.getHours() &&

@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 
 const AstronomicalEvent = new mongoose.Schema({
   text: { type: String, required: true },
+  year: { type: Number, required: true },
   month: { type: String, required: true },
   day: { type: Number, required: true },
   time: { type: String, default: "" },
