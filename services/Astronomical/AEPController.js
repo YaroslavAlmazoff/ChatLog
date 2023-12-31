@@ -32,7 +32,8 @@ class AEPController {
     res.json({ images });
   }
   async newEvent(req, res) {
-    let { text, month, day, time, interesting, information, sort } = req.body;
+    let { text, month, day, time, interesting, information, sort, visibility } =
+      req.body;
     const events = await AstronomicalEvent.find({});
     if (!sort) {
       if (!events.length) {
@@ -51,6 +52,7 @@ class AEPController {
       image: filename,
       information,
       sort,
+      visibility,
     });
     FileService.insertAstronomicalEvent(req.files.file, filename);
     res.json({ message: "OK" });
