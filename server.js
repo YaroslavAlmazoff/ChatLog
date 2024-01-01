@@ -118,7 +118,7 @@ const start = async () => {
     setInterval(() => {
       startNotifications();
       MessengerService.clear();
-    }, 540000);
+    }, 5400); //
   } catch (e) {
     console.log("Server Error: ", e.message);
   }
