@@ -81,6 +81,33 @@ class AEPController {
       const tokens = await AEPNotificationToken.find({});
       let date = new Date();
       for (var item of events) {
+        console.log(
+          item.year,
+          date.getFullYear(),
+          item.year <= date.getFullYear()
+        );
+        console.log(
+          item.month,
+          getMonth().string,
+          item.month == getMonth().string
+        );
+        console.log(
+          Number(item.time.split(":")[0]),
+          date.getHours(),
+          Number(item.time.split(":")[0]) == date.getHours()
+        );
+        console.log(
+          Number(item.time.split(":")[1]),
+          date.getMinutes(),
+          Number(item.time.split(":")[1]) <= date.getMinutes()
+        );
+        console.log(
+          item.year <= date.getFullYear() &&
+            item.month == getMonth().string &&
+            item.day == date.getDate() &&
+            Number(item.time.split(":")[0]) == date.getHours() &&
+            Number(item.time.split(":")[1]) <= date.getMinutes()
+        );
         if (
           item.year <= date.getFullYear() &&
           item.month == getMonth().string &&
