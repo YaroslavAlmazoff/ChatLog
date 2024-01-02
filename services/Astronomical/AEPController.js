@@ -135,8 +135,8 @@ class AEPController {
         //     console.log(item.month == getMonth().next() && item.day == 1 && date.getDate() == is31(getMonth().string))
         // }
         if (
-          //item.upcoming &&
-          (item.year >= date.getFullYear() &&
+          (item.upcoming &&
+            item.year >= date.getFullYear() &&
             item.month == getMonth().string &&
             item.day == date.getDate() + 1) ||
           (item.month == getMonth().next() &&
