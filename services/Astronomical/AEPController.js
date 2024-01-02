@@ -13,6 +13,7 @@ class AEPController {
     const result2 = events.filter((item) => !item.upcoming);
     result.sort((a, b) => parseFloat(a.sort) - parseFloat(b.sort));
     result2.sort((a, b) => parseFloat(b.sort) - parseFloat(a.sort));
+    result2.sort((a, b) => a.year - b.year);
     res.json({ future: result, past: result2 });
   }
   async uploadImage(req, res) {
