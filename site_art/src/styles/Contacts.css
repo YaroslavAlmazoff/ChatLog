@@ -1,0 +1,15 @@
+@font-face {
+    font-family: marck_script;
+    src: url(../fonts/marck_script.ttf);
+}
+
+.contacts-text {
+    font-size: 30pt;
+    font-family: Marck_script;
+    color: white;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    
+}

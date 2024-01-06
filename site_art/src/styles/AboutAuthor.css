@@ -1,0 +1,30 @@
+@font-face {
+    font-family: Marck;
+    src: url(../fonts/marck_script.ttf);
+}
+
+
+@media screen and (width > 500px) {
+    .aboutAuthor-text {
+        font-size: 30pt;
+        font-family: Marck;
+        color: rgb(255, 255, 255);
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        
+    }
+}
+@media screen and (width < 500px) {
+    .aboutAuthor-text {
+        font-size: 18pt;
+        font-family: Marck;
+        color: rgb(255, 255, 255);
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        
+    }
+}

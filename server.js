@@ -83,6 +83,7 @@ app.use((req, res, next) => {
 });
 
 app.use("/", express.static(path.join(__dirname, "client", "build")));
+app.use("/art", express.static(path.join(__dirname, "site_art", "build")));
 app.use(express.static(path.join(__dirname, "..", "static")));
 app.get("/serviceworker.js", (req, res) => {
   res.sendFile(path.resolve(__dirname, "serviceworker.js"));

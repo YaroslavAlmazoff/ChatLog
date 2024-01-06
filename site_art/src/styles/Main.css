@@ -1,0 +1,75 @@
+@font-face {
+    font-family: Marck_Script;
+    src: url(../fonts/marck_script.ttf);
+}
+
+.main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.top {
+    width: 100vw;
+    padding: 15px;
+    background-color: rgba(0, 0, 0, 0.412);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.bottom {
+    width: 100vw;
+    padding: 15px;
+    background-color: rgba(0, 0, 0, 0.412);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+
+
+@media screen and (width < 400px) {
+    .blocks {
+        width: 100%;
+        margin-top: 15px;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    .welcome {
+        font-size: 20pt;
+        color: rgb(255, 255, 255);
+        text-shadow: 1px 1px 2px black;
+        font-family: marck_script; 
+        text-align: center;
+    }
+}
+
+@media screen and (width > 400px) {
+    .blocks {
+        width: 70%;
+        margin-top: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    .welcome {
+        font-size: 35pt;
+        color: rgb(255, 255, 255);
+        text-shadow: 1px 1px 2px black;
+        font-family: marck_script; 
+        text-align: center;
+    }
+}
+.slogan {
+    font-size: 35pt;
+    text-align: center;
+    color: rgb(255, 255, 255);
+    font-family: marck_script;
+    text-shadow: 1px 1px 2px black;
+}
