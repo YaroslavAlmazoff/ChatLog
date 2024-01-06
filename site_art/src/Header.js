@@ -27,9 +27,9 @@ function Header() {
               <Link className="link-mobile" to="/art/about-author">
                 О художнике и картинах
               </Link>
-              <Link className="link-mobile" to="/art/reviews">
+              {/* <Link className="link-mobile" to="/art/reviews">
                 Отзывы
-              </Link>
+              </Link> */}
               <span className="link-mobile"> 8 (904) 539-75-18 </span>
             </div>
             <img className="logo1-mobile" src={require("./img/logo.png")} />
@@ -64,9 +64,9 @@ function Header() {
               <Link className="link" to="/art/about-author">
                 О художнике и картинах
               </Link>
-              <Link className="link" to="/art/reviews">
+              {/* <Link className="link" to="/art/reviews">
                 Отзывы
-              </Link>
+              </Link> */}
               <span className="link"> 8 (904) 539-75-18 </span>
             </div>
             <div className="header-titles">
