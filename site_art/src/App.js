@@ -21,10 +21,9 @@ function App() {
     <div className="page-center">
       <Header number={number} />
       <Routes>
-        {" "}
         {/* Маршруты */}
         <Route
-          path="/art/"
+          path="/art"
           element={<Main number={number} setNumber={setNumber} />}
         />
         <Route path="/art/contacts" element={<Contacts />} />
