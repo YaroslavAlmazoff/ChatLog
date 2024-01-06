@@ -94,7 +94,7 @@ app.get("/manifest.json", (req, res) => {
 // app.get("*", (req, res) => {
 //   res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
 // });
-app.get("*", (req, res) => {
+app.get("/art", (req, res) => {
   res.sendFile(path.resolve(__dirname, "site_art", "build", "index.html"));
 });
 
