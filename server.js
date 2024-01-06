@@ -95,7 +95,7 @@ app.get("/manifest.json", (req, res) => {
 //   res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
 // });
 app.get("*", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "client", "site_art", "index.html"));
+  res.sendFile(path.resolve(__dirname, "site_art", "build", "index.html"));
 });
 
 const options = {
