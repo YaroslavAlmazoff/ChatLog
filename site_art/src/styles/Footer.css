@@ -1,114 +1,108 @@
 @media screen and (width < 400px) {
-    .logo {
-        width: 20%;
-        margin-left: 5px;
-    }
-    .footer {
-        background-color: #241313c5;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 120px;
-        width: 99%;
-        padding: 10px;
-        margin-top: 20px;
-    }
-    .footer-text {
-        font-size: 11pt;
-        font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-        color: rgb(7, 2, 108);
-        text-decoration: none;
-        margin-left: 100px;
-        width: 100%;
-        text-shadow: 1px 1px 2px black;
-        color: rgb(255, 255, 255);
-    }
-    .vkontakte{
-        width: 20%;
-        margin-top: 10px;
-        filter: brightness(300%);  
-    }
-    .icon-viber{
-        width: 15%;
-        margin-top: 10px;
-       
-    }
-    .whatsapp{
-        width: 24%;
-        margin-top: 10px;
-       
-    }
-    .telegram{
-        width: 22%;
-        margin-left: 0px; 
-        margin-top: 10px;
-       
-    }
-    .sdelka {
-        width: 30%;
-        margin-right: 50px;
-        filter: hue-rotate(1200deg); 
-}
+  .logo {
+    width: 20%;
+    margin-left: 5px;
+  }
+  .footer {
+    background-color: #241313c5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 120px;
+    width: 99%;
+    padding: 10px;
+    margin-top: 20px;
+  }
+  .footer-text {
+    font-size: 11pt;
+    font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
+      sans-serif;
+    color: rgb(7, 2, 108);
+    text-decoration: none;
+    margin-left: 100px;
+    width: 100%;
+    text-shadow: 1px 1px 2px black;
+    color: rgb(255, 255, 255);
+  }
+  .vkontakte {
+    width: 20%;
+    margin-top: 10px;
+    filter: brightness(300%);
+  }
+  .icon-viber {
+    width: 15%;
+    margin-top: 10px;
+  }
+  .whatsapp {
+    width: 24%;
+    margin-top: 10px;
+  }
+  .telegram {
+    width: 22%;
+    margin-left: 0px;
+    margin-top: 10px;
+  }
+  .sdelka {
+    width: 30%;
+    margin-right: 50px;
+    filter: hue-rotate(1200deg);
+  }
 }
 @media screen and (width > 400px) {
-    .logo {
-        width: 15%;
-        margin-left: 5px;
-    }
-    .footer {
-        background-color: #241313c5;
-        display: flex;
-        align-items: center;
-        justify-content: flex-start;
-        height: 120px;
-        width: 99%;
-        padding: 10px;
-        margin-top: 20px;
-    }
-    .footer-text {
-        font-size: 16pt;
-        font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-        color: rgb(7, 2, 108);
-        text-decoration: none;
-        margin-left: 100px;
-        width: 100%;
-        text-shadow: 1px 1px 2px black;
-        color: rgb(255, 255, 255);
-    }
-    .vkontakte{
-        width: 5%;
-        margin-left: 10px; 
-        margin-top: 10px;
-        filter: brightness(300%);  
-    }
-    .icon-viber{
-        width: 4%;
-        margin-left: 16px; 
-        margin-top: 10px;
-       
-    }
-    .whatsapp{
-        width: 8%;
-        margin-left: 10px; 
-        margin-top: 10px;
-       
-    }
-    .telegram{
-        width: 7%;
-        margin-left: 0px; 
-        margin-top: 10px;
-       
-    }
-    .sdelka {
-        width: 30%;
-        margin-right: 50px;
-        filter: hue-rotate(1200deg); 
+  .logo {
+    width: 8%;
+    margin-left: 5px;
+  }
+  .footer {
+    background-color: #241313c5;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    height: 120px;
+    width: 99%;
+    padding: 10px;
+    margin-top: 20px;
+  }
+  .footer-text {
+    font-size: 16pt;
+    font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
+      sans-serif;
+    color: rgb(7, 2, 108);
+    text-decoration: none;
+    margin-left: 100px;
+    width: 100%;
+    text-shadow: 1px 1px 2px black;
+    color: rgb(255, 255, 255);
+  }
+  .vkontakte {
+    width: 5%;
+    margin-left: 10px;
+    margin-top: 10px;
+    filter: brightness(300%);
+  }
+  .icon-viber {
+    width: 4%;
+    margin-left: 16px;
+    margin-top: 10px;
+  }
+  .whatsapp {
+    width: 8%;
+    margin-left: 10px;
+    margin-top: 10px;
+  }
+  .telegram {
+    width: 7%;
+    margin-left: 0px;
+    margin-top: 10px;
+  }
+  .sdelka {
+    width: 15%;
+    margin-right: 50px;
+    filter: hue-rotate(1200deg);
+  }
 }
-}
-
 
 .sign {
-    width: 2%;
-   object-position: 0% ;
+  width: 2%;
+  object-position: 0%;
 }
-
