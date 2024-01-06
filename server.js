@@ -94,6 +94,9 @@ app.get("/manifest.json", (req, res) => {
 app.get("*", (req, res) => {
   res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
 });
+app.get("/art", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "client", "site_art", "index.html"));
+});
 
 const options = {
   key: fs.readFileSync("../chatlog.key", "utf-8"),
