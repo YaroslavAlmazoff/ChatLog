@@ -82,8 +82,8 @@ app.use((req, res, next) => {
   req.secure ? next() : res.redirect("https://" + req.headers.host + req.url);
 });
 
-app.use("/", express.static(path.join(__dirname, "client", "build")));
-app.use("/art", express.static(path.join(__dirname, "site_art", "build")));
+//app.use("/", express.static(path.join(__dirname, "client", "build")));
+app.use("/", express.static(path.join(__dirname, "site_art", "build")));
 app.use(express.static(path.join(__dirname, "..", "static")));
 app.get("/serviceworker.js", (req, res) => {
   res.sendFile(path.resolve(__dirname, "serviceworker.js"));
