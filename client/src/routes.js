@@ -70,14 +70,14 @@ import DeleteProfile from "./common_components/pages/DeleteProfile";
 import Settings from "./Settings";
 import ReturnPassword from "./pages/ReturnPassword";
 
-import ArtMain from "./site_art/Main";
-import ArtContacts from "./site_art/Contacts";
-import ArtZakaz from "./site_art/Zakaz";
-import ArtPicture from "./site_art/Picture";
-import ArtBuy from "./site_art/Buy";
-import ArtAnswer from "./site_art/Answer";
-import ArtReviews from "./site_art/Reviews";
-import ArtAboutAuthor from "./site_art/AboutAuthor";
+// import ArtMain from "./site_art/Main";
+// import ArtContacts from "./site_art/Contacts";
+// import ArtZakaz from "./site_art/Zakaz";
+// import ArtPicture from "./site_art/Picture";
+// import ArtBuy from "./site_art/Buy";
+// import ArtAnswer from "./site_art/Answer";
+// import ArtReviews from "./site_art/Reviews";
+// import ArtAboutAuthor from "./site_art/AboutAuthor";
 
 export const useRoutes = (isVerified) => {
   //Кастомный хук для маршрутизации
@@ -202,14 +202,14 @@ export const useRoutes = (isVerified) => {
       <Route exact path="/deleteprofile" element={<DeleteProfile />} />
       <Route exact path="/settings" element={<Settings />} />
       <Route path="/return-password/:id/:link" element={<ReturnPassword />} />
-      <Route path="/art" element={<ArtMain />} />
+      {/* <Route path="/art" element={<ArtMain />} />
       <Route path="/art/contacts" element={<ArtContacts />} />
       <Route path="/art/buy" element={<ArtBuy />} />
       <Route path="/art/about-author" element={<ArtAboutAuthor />} />
       <Route path="/art/reviews" element={<ArtReviews />} />
       <Route path="/art/answer" element={<ArtAnswer />} />
       <Route path="/art/picture/:id" element={<ArtPicture />} />
-      <Route path="/art/zakaz/:id/:i" element={<ArtZakaz />} />
+      <Route path="/art/zakaz/:id/:i" element={<ArtZakaz />} /> */}
     </Routes>
   );
 };
