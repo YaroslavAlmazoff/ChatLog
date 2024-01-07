@@ -187,7 +187,6 @@ export const useRoutes = (isVerified) => {
       <Route exact path="/game/:id" element={<Game />} />
 
       <Route exact path="/v2" element={<LandingPageV2 />} />
-      <Route exact path="/art" element={<App />} />
       <Route exact path="/contacts" element={<Contacts />} />
       <Route exact path="/about" element={<About />} />
 
