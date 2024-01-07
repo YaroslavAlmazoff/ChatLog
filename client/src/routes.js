@@ -25,9 +25,6 @@ import CreatePage from "./publics/components/pages/CreatePage";
 import EditPage from "./publics/components/pages/EditPage";
 import PublicPage from "./publics/components/pages/PublicPage";
 import CreatePostPage from "./publics/components/pages/CreatePostPage";
-import Popular from "./photographer/components/pages/Popular";
-import New from "./photographer/components/pages/New";
-import Photo from "./photographer/components/pages/Photo";
 import Create from "./inner_ad/components/pages/Create";
 import InnerAd from "./inner_ad/components/pages/InnerAd";
 import Cabinet from "./inner_ad/components/pages/Cabinet";
@@ -124,10 +121,6 @@ export const useRoutes = (isVerified) => {
         path="/publicnotifications/:id"
         element={<PublicNotifications />}
       />
-      <Route exact path="/photos/popular" element={<Popular />} />
-      <Route exact path="/photos/new" element={<New />} />
-      <Route exact path="/photo/:id" element={<Photo />} />
-      <Route exact path="/photo/create" element={<Create />} />
       <Route exact path="/innerad/create" element={<Create />} />
       <Route exact path="/innerad/cabinet" element={<Cabinet />} />
       <Route exact path="/innerad/:id" element={<InnerAd />} />
