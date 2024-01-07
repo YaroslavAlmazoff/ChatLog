@@ -121,11 +121,11 @@ function App() {
       }}
     >
       <div className="App">
-        {!window.location.host.toString().includes("/art") ? (
-          <Header isVerified={isVerified} isActivated={isActivated} />
-        ) : (
+        {/* {!window.location.host.toString().includes("/art") ? ( */}
+        <Header isVerified={isVerified} isActivated={isActivated} />
+        {/* ) : (
           <ArtHeader />
-        )}
+        )} */}
         {routes}
       </div>
     </AuthContext.Provider>
