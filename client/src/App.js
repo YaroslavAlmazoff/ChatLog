@@ -10,7 +10,7 @@ import useDate from "./common_hooks/date.hook";
 import $ from "jquery";
 import useVerify from "./common_hooks/verify.hook";
 import auth from "./auth/api/auth";
-import ArtHeader from "./site_art/Header";
+// import ArtHeader from "./site_art/Header";
 
 function App() {
   const { verify } = useVerify();
