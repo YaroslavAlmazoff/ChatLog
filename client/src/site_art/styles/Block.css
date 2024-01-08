@@ -1,92 +1,92 @@
 @font-face {
-    font-family: Marck_Script;
-    src: url(../fonts/marck_script.ttf);
+  font-family: Marck_Script;
+  src: url(../fonts/marck_script.ttf);
 }
 @font-face {
-    font-family: Xenia;
-    src: url(../fonts/Doboto.ttf);
+  font-family: Xenia;
+  src: url(../fonts/Doboto.ttf);
 }
 
 @media screen and (width < 500px) {
-    .block {
-        width: 98%;
-        background-color: #45330b9a;
-        border-radius: 15px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-        padding:10px;
-        margin-top: 20px;
-        padding-top: 20px;
-    
-    }
-}
-@media screen and (width > 400px) {
-    .block {
-        width: 60%;
-        background-color: #45330b9a;
-        border-radius: 15px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-        margin-left: 20px;
-        padding:10px;
-        margin-top: 20px;
-        padding-top: 20px;
-    }
-}
-@media screen and (width > 700px) {
-    .block {
-        width: 30%;
-        background-color: #45330b9a;
-        border-radius: 15px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-        margin-left: 20px;
-        padding:10px;
-        margin-top: 20px;
-        padding-top: 20px;
-    }
-}
-.block-text {
+  .art-block {
+    width: 98%;
+    background-color: #45330b9a;
+    border-radius: 15px;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-}
-.image {
-    width: 90%;
-    height: 360px;
-    object-fit: cover;
-    cursor: pointer;
-    border-radius: 15px;
-    border: 2px solid white;
-}
-.block-description {
-    font-size: 16pt;
-    text-align: center;
-    color: #ffffff;
-    font-family: Xenia;
-    text-shadow: 1px 1px 2px black;
-}
-.title {
-    font-size: 27pt;
-    font-family: Marck_Script;
-    color: rgb(255, 255, 255);
-    text-align: center;
-    text-shadow: 1px 1px 2px black;
-}
-.red {
-    background-color: rgba(255, 0, 0, 0.354);
-    color: white;
-    border-radius: 20px;
-    text-shadow: 1px 1px 2px #FF073A;
-    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     padding: 10px;
-    padding-left: 50px;
-    padding-right: 50px;
+    margin-top: 20px;
+    padding-top: 20px;
+  }
+}
+@media screen and (width > 400px) {
+  .art-block {
+    width: 60%;
+    background-color: #45330b9a;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-left: 20px;
+    padding: 10px;
+    margin-top: 20px;
+    padding-top: 20px;
+  }
+}
+@media screen and (width > 700px) {
+  .art-block {
+    width: 30%;
+    background-color: #45330b9a;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-left: 20px;
+    padding: 10px;
+    margin-top: 20px;
+    padding-top: 20px;
+  }
+}
+.art-block-text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.art-image {
+  width: 90%;
+  height: 360px;
+  object-fit: cover;
+  cursor: pointer;
+  border-radius: 15px;
+  border: 2px solid white;
+}
+.art-block-description {
+  font-size: 16pt;
+  text-align: center;
+  color: #ffffff;
+  font-family: Xenia;
+  text-shadow: 1px 1px 2px black;
+}
+.art-title {
+  font-size: 27pt;
+  font-family: Marck_Script;
+  color: rgb(255, 255, 255);
+  text-align: center;
+  text-shadow: 1px 1px 2px black;
+}
+.art-red {
+  background-color: rgba(255, 0, 0, 0.354);
+  color: white;
+  border-radius: 20px;
+  text-shadow: 1px 1px 2px #ff073a;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  padding: 10px;
+  padding-left: 50px;
+  padding-right: 50px;
 }

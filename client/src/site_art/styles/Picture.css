@@ -1,72 +1,70 @@
 @font-face {
-    font-family: Sweet;
-    src: url(../fonts/sweet_mavka.ttf);
+  font-family: Sweet;
+  src: url(../fonts/sweet_mavka.ttf);
 }
-.page-center  {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
+.art-page-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
 @media screen and (width < 400px) {
-    .picture-description {
-        font-size: 15pt;
-        text-align: center;
-        color: #110235;
-        font-family: Xenia;
-        width: 98%;
-    }
-    .center {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-wrap: wrap;
-    }
-    .picture-frame {
-        border: 2px solid white;
-        border-radius: 15px;
-        width: 90%;
-        margin-top: 10px;
-    }
-}
-@media screen and (width > 400px) {
-    .picture-description {
-        font-size: 15pt;
-        text-align: center;
-        color: #110235;
-        font-family: Xenia;
-        width: 50%;
-    }
-    .center {
-        display: flex;
-        align-items: flex-start;
-        justify-content: center;
-    }
-    .picture-frame {
-        margin-left: 50px;
-        border: 2px solid white;
-        border-radius: 15px;
-    }
-}
-
-
-
-.description {
+  .art-picture-description {
     font-size: 15pt;
     text-align: center;
     color: #110235;
     font-family: Xenia;
+    width: 98%;
+  }
+  .art-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .art-picture-frame {
+    border: 2px solid white;
+    border-radius: 15px;
+    width: 90%;
+    margin-top: 10px;
+  }
+}
+@media screen and (width > 400px) {
+  .art-picture-description {
+    font-size: 15pt;
+    text-align: center;
+    color: #110235;
+    font-family: Xenia;
+    width: 50%;
+  }
+  .art-center {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+  }
+  .art-picture-frame {
+    margin-left: 50px;
+    border: 2px solid white;
+    border-radius: 15px;
+  }
 }
 
-.picture-title {
-    font-size: 24pt;
-    font-family: Sweet;
-    color: rgb(255, 254, 254);
-    text-align: center;
+.art-description {
+  font-size: 15pt;
+  text-align: center;
+  color: #110235;
+  font-family: Xenia;
 }
-.text-title {
-    font-size: 19pt;
-    font-family: Sweet;
-    color: rgb(252, 250, 255);
-    text-align: center; 
+
+.art-picture-title {
+  font-size: 24pt;
+  font-family: Sweet;
+  color: rgb(255, 254, 254);
+  text-align: center;
+}
+.art-text-title {
+  font-size: 19pt;
+  font-family: Sweet;
+  color: rgb(252, 250, 255);
+  text-align: center;
 }

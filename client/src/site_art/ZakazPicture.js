@@ -5,21 +5,21 @@ const ZakazPicture = ({ index }) => {
   const picture = pictures[index];
 
   return (
-    <div className="zakaz-picture-parent">
-      <div className="zakaz-picture">
+    <div className="art-zakaz-picture-parent">
+      <div className="art-zakaz-picture">
         <img
           src={process.env.REACT_APP_API_URL + "/" + picture.image}
-          className="zakaz-image"
+          className="art-zakaz-image"
         />
       </div>
       <span style={{ width: "250%" }}>
-        <p className="buy-text2">Картина: ‹‹{picture.title}››</p>
-        <p className="buy-text2">{picture.technic}</p>
-        <p className="buy-text2">{picture.size}</p>
+        <p className="art-buy-text2">Картина: ‹‹{picture.title}››</p>
+        <p className="art-buy-text2">{picture.technic}</p>
+        <p className="art-buy-text2">{picture.size}</p>
         <br />
         <br />
         <br />
-        <p className="buy-text2">Итого: {picture.price}₽</p>
+        <p className="art-buy-text2">Итого: {picture.price}₽</p>
       </span>
     </div>
   );

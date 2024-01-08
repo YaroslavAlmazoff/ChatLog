@@ -11,12 +11,12 @@ const Zakaz = () => {
 
   return (
     <div
-      className="zakaz"
+      className="art-zakaz"
       style={{ color: "white", textDecoration: "underline" }}
     >
-      <p className="zakaz-text">Оформление заказа</p>
+      <p className="art-zakaz-text">Оформление заказа</p>
       <ZakazPicture index={params.i} />
-      <div className="zakaz-bottom">
+      <div className="art-zakaz-bottom">
         <ZakazDelivery picture={picture.title} price={picture.price} />
       </div>
     </div>

@@ -1,18 +1,18 @@
-body {
+.art-body {
   margin: 0;
   padding: 0;
   background: url(./img/bg.png) no-repeat;
   background-size: cover; /* Современные браузеры */
   background-position: center;
-  background-attachment:fixed;
+  background-attachment: fixed;
   overflow-x: hidden; /* Скрываем scrollbars */
-  -ms-overflow-style: none;  /* IE и Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none; /* IE и Edge */
+  scrollbar-width: none; /* Firefox */
 }
-body::-webkit-scrollbar {
+.art-body::-webkit-scrollbar {
   display: none;
 }
-.button {
+.art-button {
   padding: 10px;
   padding-left: 50px;
   padding-right: 50px;
@@ -20,26 +20,16 @@ body::-webkit-scrollbar {
   border-radius: 20px;
   border: none;
   color: rgb(192, 67, 0);
-  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
   cursor: pointer;
   font-size: 12pt;
 }
-.button:hover {
+.art-button:hover {
   background-color: rgb(192, 67, 0);
   color: white;
 }
-.number {
-  margin-left: 5px;
-  padding-top: 2px;
-  padding-bottom: 2px;
-  padding-left: 6px;
-  padding-right: 6px;
-  background-color: #ff073a;
-  border-radius: 50%;
-  text-shadow: none;
-  font-size: 9pt;
-}
-.bg {
+.art-bg {
   width: 80%;
   background-color: #442f0289;
   border-radius: 15px;

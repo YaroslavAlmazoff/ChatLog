@@ -13,10 +13,10 @@ function Block({ title, technic, size, price, image, sold, index }) {
     window.location = `/art/zakaz/${id}/${index}`;
   };
   return (
-    <div className="block">
+    <div className="art-block">
       <img
         onClick={goToPicture}
-        className="image"
+        className="art-image"
         src={process.env.REACT_APP_API_URL + "/" + image}
       />
       <span className="title" style={{ marginTop: "10px" }}>
@@ -30,12 +30,12 @@ function Block({ title, technic, size, price, image, sold, index }) {
       <span className="block-description" style={{ marginTop: "1px" }}>
         {size} см
       </span>
-      <div className="block-text">
-        <p className="block-description"> {price} руб. </p>
+      <div className="art-block-text">
+        <p className="art-block-description"> {price} руб. </p>
         {sold ? (
-          <p className="red">Продано</p>
+          <p className="art-red">Продано</p>
         ) : (
-          <button className="button" onClick={buy}>
+          <button className="art-button" onClick={buy}>
             Купить
           </button>
         )}

@@ -1,30 +1,29 @@
 @font-face {
-    font-family: Curve;
-    src: url(../fonts/Curve.ttf);
+  font-family: Curve;
+  src: url(../fonts/Curve.ttf);
 }
-.block-new {
-    width: 70%;
-    margin-top: 15px;
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    flex-wrap: wrap;
+.art-block-new {
+  width: 70%;
+  margin-top: 15px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-wrap: wrap;
 }
-
 
 @media screen and (width > 500px) {
-    .buy-text {
-        font-size: 25pt;
-        font-family: Curve;
-        color: rgb(255, 255, 255);
-        text-align: center;
-    }
+  .art-buy-text {
+    font-size: 25pt;
+    font-family: Curve;
+    color: rgb(255, 255, 255);
+    text-align: center;
+  }
 }
 @media screen and (width < 500px) {
-    .buy-text {
-        font-size: 22pt;
-        font-family: Curve;
-        color: rgb(255, 255, 255);
-        text-align: center;
-    }
+  .art-buy-text {
+    font-size: 22pt;
+    font-family: Curve;
+    color: rgb(255, 255, 255);
+    text-align: center;
+  }
 }

@@ -12,70 +12,70 @@ function Header() {
   return (
     <>
       {isMobile ? (
-        <div className="header-mobile">
-          <div className="header-center-mobile">
-            <div className="links-mobile">
-              <Link className="link-mobile" to="/art">
+        <div className="art-header-mobile">
+          <div className="art-header-center-mobile">
+            <div className="art-links-mobile">
+              <Link className="art-link-mobile" to="/art">
                 Галерея
               </Link>
-              <Link className="link-mobile" to="/art/contacts">
+              <Link className="art-link-mobile" to="/art/contacts">
                 Контакты
               </Link>
-              <Link className="link-mobile" to="/art/buy">
+              <Link className="art-link-mobile" to="/art/buy">
                 Как купить
               </Link>
-              <Link className="link-mobile" to="/art/about-author">
+              <Link className="art-link-mobile" to="/art/about-author">
                 О художнике и картинах
               </Link>
               {/* <Link className="link-mobile" to="/art/reviews">
                 Отзывы
               </Link> */}
-              <span className="link-mobile"> 8 (904) 539-75-18 </span>
+              <span className="art-link-mobile"> 8 (904) 539-75-18 </span>
             </div>
-            <img className="logo1-mobile" src={require("./img/logo.png")} />
+            <img className="art-logo1-mobile" src={require("./img/logo.png")} />
           </div>
 
-          <div className="header-titles-mobile">
+          <div className="art-header-titles-mobile">
             <img
-              className="header-title-mobile"
+              className="art-header-title-mobile"
               src={require("./img/header-text1.png")}
             />
             <img
-              className="header-title-mobile"
+              className="art-header-title-mobile"
               width="200"
               src={require("./img/header-text2.png")}
             />
           </div>
         </div>
       ) : (
-        <div className="header">
-          <img className="logo1" src={require("./img/logo.png")} />
-          <div className="header-center">
-            <div className="links">
-              <Link className="link" to="/art">
+        <div className="art-header">
+          <img className="art-logo1" src={require("./img/logo.png")} />
+          <div className="art-header-center">
+            <div className="art-links">
+              <Link className="art-link" to="/art">
                 Галерея
               </Link>
-              <Link className="link" to="/art/contacts">
+              <Link className="art-link" to="/art/contacts">
                 Контакты
               </Link>
-              <Link className="link" to="/art/buy">
+              <Link className="art-link" to="/art/buy">
                 Как купить
               </Link>
-              <Link className="link" to="/art/about-author">
+              <Link className="art-link" to="/art/about-author">
                 О художнике и картинах
               </Link>
               {/* <Link className="link" to="/art/reviews">
                 Отзывы
               </Link> */}
-              <span className="link"> 8 (904) 539-75-18 </span>
+              <span className="art-link"> 8 (904) 539-75-18 </span>
             </div>
-            <div className="header-titles">
+            <div className="art-header-titles">
               <img
-                className="header-title"
+                className="art-header-title"
                 src={require("./img/header-text1.png")}
               />
               <img
-                className="header-title"
+                className="art-header-title"
                 width="200"
                 src={require("./img/header-text2.png")}
               />

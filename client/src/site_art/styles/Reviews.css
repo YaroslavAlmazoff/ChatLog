@@ -1,15 +1,14 @@
 @font-face {
-    font-family: Sweet;
-    src: url(../fonts/sweet_mavka.ttf);
+  font-family: Sweet;
+  src: url(../fonts/sweet_mavka.ttf);
 }
 
-.reviews-text {
-    font-size: 19pt;
-    font-family: Sweet;
-    color: rgb(78, 3, 26);
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    
+.art-reviews-text {
+  font-size: 19pt;
+  font-family: Sweet;
+  color: rgb(78, 3, 26);
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 }
