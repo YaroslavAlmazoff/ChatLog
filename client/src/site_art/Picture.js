@@ -4,19 +4,15 @@ import "./styles/Block.css";
 import { useParams } from "react-router";
 import pictures from "./pictures";
 
-const Picture = ({ number }) => {
+const Picture = () => {
   const params = useParams();
   const [picture, setPicture] = useState({ photos: [] });
   useEffect(() => {
     setPicture(pictures[params.id]);
   }, [params]);
-
-  const goToContacts = () => {
-    window.location = "/contacts";
-  };
   const buy = () => {
     const id = Math.round(Math.random() * 1000000000);
-    window.location = `/zakaz/${id}/${params.id}`;
+    window.location = `/art/zakaz/${id}/${params.id}`;
   };
   return (
     <div className="art-page-center bg">
