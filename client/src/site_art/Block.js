@@ -14,7 +14,11 @@ function Block({ title, technic, size, price, image, sold, index }) {
   };
   return (
     <div className="block">
-      <img onClick={goToPicture} className="image" src={image} />
+      <img
+        onClick={goToPicture}
+        className="image"
+        src={process.env.REACT_APP_API_URL + "/" + image}
+      />
       <span className="title" style={{ marginTop: "10px" }}>
         ‹‹{title}››
       </span>

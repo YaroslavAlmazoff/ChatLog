@@ -202,14 +202,14 @@ export const useRoutes = (isVerified) => {
       <Route exact path="/deleteprofile" element={<DeleteProfile />} />
       <Route exact path="/settings" element={<Settings />} />
       <Route path="/return-password/:id/:link" element={<ReturnPassword />} />
-      {/* <Route path="/art" element={<ArtMain />} />
+      <Route path="/art" element={<ArtMain />} />
       <Route path="/art/contacts" element={<ArtContacts />} />
       <Route path="/art/buy" element={<ArtBuy />} />
       <Route path="/art/about-author" element={<ArtAboutAuthor />} />
       <Route path="/art/reviews" element={<ArtReviews />} />
       <Route path="/art/answer" element={<ArtAnswer />} />
       <Route path="/art/picture/:id" element={<ArtPicture />} />
-      <Route path="/art/zakaz/:id/:i" element={<ArtZakaz />} /> */}
+      <Route path="/art/zakaz/:id/:i" element={<ArtZakaz />} />
     </Routes>
   );
 };
