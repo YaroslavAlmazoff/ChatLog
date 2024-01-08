@@ -26,7 +26,7 @@ function App() {
   useEffect(() => {
     console.log(window.location.toString().includes("/art"));
     if (window.location.toString().includes("/art")) {
-      document.body.style.backgroundImage = "url(./site_art/img/bg.png)";
+      document.body.style.backgroundImage = `url(${require("./site_art/img/bg.png")})`;
     }
     const setVisit = async () => {
       const v = await verify();
