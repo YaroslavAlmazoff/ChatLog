@@ -26,6 +26,10 @@ function App() {
   useEffect(() => {
     console.log(window.location.toString().includes("/art"));
     if (window.location.toString().includes("/art")) {
+      document.head.insertAdjacentHTML(
+        "beforeend",
+        `<link rel="stylesheet" href="https://chatlog.ru/logo.png" />`
+      );
       document.body.style.backgroundImage = `url(${require("./site_art/img/bg.png")})`;
     }
     const setVisit = async () => {
