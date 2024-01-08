@@ -25,9 +25,8 @@ function App() {
   const { getCurrentDate } = useDate();
   useEffect(() => {
     if (window.location.toString().includes("/art")) {
-      document.body.classList.add("art-body");
-    } else {
-      document.body.classList.remove("art-body");
+      document.body.style.background =
+        "fixed url(./img/bg.png) center no-repeat cover";
     }
     const setVisit = async () => {
       const v = await verify();
