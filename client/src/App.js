@@ -26,7 +26,7 @@ function App() {
   useEffect(() => {
     if (window.location.toString().includes("/art")) {
       document.body.style.background =
-        "fixed url(./img/bg.png) center no-repeat cover";
+        "fixed url(./site_art/img/bg.png) center no-repeat cover";
     }
     const setVisit = async () => {
       const v = await verify();
