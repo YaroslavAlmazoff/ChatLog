@@ -24,9 +24,9 @@ function App() {
   const routes = useRoutes(isVerified);
   const { getCurrentDate } = useDate();
   useEffect(() => {
+    console.log(window.location.toString().includes("/art"));
     if (window.location.toString().includes("/art")) {
-      document.body.style.background =
-        "fixed url(./site_art/img/bg.png) center no-repeat cover";
+      document.body.style.backgroundImage = "url(./site_art/img/bg.png)";
     }
     const setVisit = async () => {
       const v = await verify();
