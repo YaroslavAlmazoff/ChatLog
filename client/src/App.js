@@ -11,6 +11,7 @@ import $ from "jquery";
 import useVerify from "./common_hooks/verify.hook";
 import auth from "./auth/api/auth";
 import ArtHeader from "./site_art/Header";
+import Footer from "./site_art/Footer";
 
 function App() {
   const { verify } = useVerify();
@@ -121,12 +122,13 @@ function App() {
       }}
     >
       <div className="App">
-        {!window.location.host.toString().includes("/art") ? (
+        {!window.location.toString().includes("/art") ? (
           <Header isVerified={isVerified} isActivated={isActivated} />
         ) : (
           <ArtHeader />
         )}
         {routes}
+        {window.location.toString().includes("/art") ? <Footer /> : <></>}
       </div>
     </AuthContext.Provider>
   );
