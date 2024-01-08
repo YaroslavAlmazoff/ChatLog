@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./styles/Block.css";
+import "./index.css";
 import pictures from "./pictures";
 
 function Block({ title, technic, size, price, image, sold, index }) {

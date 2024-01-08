@@ -23,7 +23,7 @@ function Footer() {
         <img className="art-telegram" src={require("./img/telegram.png")} />
       </span>
 
-      <img className="sdelka" src={require("./img/sdelka.png")} />
+      <img className="art-sdelka" src={require("./img/sdelka.png")} />
     </div>
   );
 }

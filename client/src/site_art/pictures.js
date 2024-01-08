@@ -4,7 +4,7 @@ const pictures = [
     technic: "акрил, текстурная паста",
     size: "30☓30",
     price: 10000,
-    image: "./img/Sirenevoe-velikolepie.jpg",
+    image: "Sirenevoe-velikolepie.jpg",
     sold: false,
     photos: [
       "Sirenevoe-velikolepie1.jpg",
@@ -24,7 +24,7 @@ const pictures = [
     technic: "акрил, текстурная паста",
     size: "40☓50",
     price: 7000,
-    image: "./img/moon.jpg",
+    image: "moon.jpg",
     sold: false,
     photos: ["moon1.jpg", "moon2.jpg", "moon3.jpg", "moon4.jpg"],
   },
@@ -33,7 +33,7 @@ const pictures = [
     technic: "акрил, текстурная паста",
     size: "40☓50",
     price: 12000,
-    image: "./img/bezmyatezhnost.jpg",
+    image: "bezmyatezhnost.jpg",
     sold: false,
     photos: [
       "bezmyatezhnost.jpg",
@@ -50,7 +50,7 @@ const pictures = [
     technic: "акрил, текстурная паста",
     size: "50☓60",
     price: 16000,
-    image: "./img/dance.jpg",
+    image: "dance.jpg",
     sold: false,
     photos: ["dance.jpg", "dance1.jpg", "dance2.jpg"],
     description: `Картина с полевыми цветами в высокой траве «Танец пробуждения» выполнена текстурной пастой и акриловыми красками, 
@@ -64,7 +64,7 @@ const pictures = [
     technic: "акрил, текстурная паста",
     size: "60☓80",
     price: 32000,
-    image: "./img/morning.jpg",
+    image: "morning.jpg",
     sold: true,
   },
   {
@@ -72,7 +72,7 @@ const pictures = [
     technic: "акрил",
     size: "50☓60",
     price: 10500,
-    image: "./img/zazerkalie.jpg",
+    image: "zazerkalie.jpg",
     sold: false,
     photos: ["zazerkalie.jpg", "zazerkalie1.jpg", "zazerkalie2.jpg"],
     description: `Среди огромного многообразия картин, каждый находит близкую для себя частичку окружающего мира, характера и настроения.
@@ -88,7 +88,7 @@ const pictures = [
     technic: "акрил",
     size: "30☓40",
     price: 9000,
-    image: "./img/angel.jpg",
+    image: "angel.jpg",
     sold: true,
   },
   {
@@ -96,7 +96,7 @@ const pictures = [
     technic: "акрил",
     size: "50☓60",
     price: 18500,
-    image: "./img/A-new-star.jpg",
+    image: "A-new-star.jpg",
     sold: false,
     photos: [
       "A-new-star1.jpg",
@@ -112,7 +112,7 @@ const pictures = [
     technic: "акрил, глина, текстурная паста",
     size: "30☓40",
     price: 15000,
-    image: "./img/feya.png",
+    image: "feya.png",
     sold: false,
     photos: ["feya.png", "feya1.jpg", "feya2.jpg"],
     description: `Художник создал картину! Он вложил в неё душу, свою любовь, можно сказать, вдохнул в неё жизнь. 
@@ -128,7 +128,7 @@ const pictures = [
     technic: "акрил",
     size: "35☓35",
     price: 5000,
-    image: "./img/wave.jpg",
+    image: "wave.jpg",
     sold: true,
   },
   {
@@ -136,7 +136,7 @@ const pictures = [
     technic: "акрил",
     size: "30☓40",
     price: 6500,
-    image: "./img/life.jpg",
+    image: "life.jpg",
     sold: true,
   },
   {
@@ -144,7 +144,7 @@ const pictures = [
     technic: "акрил",
     size: "35☓25",
     price: 5000,
-    image: "./img/zakat.jpg",
+    image: "zakat.jpg",
     sold: false,
     photos: ["zakat.jpg", "zakat1.jpg", "zakat2.jpg"],
     description: `Закат – одно из самых завораживающих явлений природы. Им можно любоваться бесконечно… 
@@ -162,7 +162,7 @@ const pictures = [
     technic: "акрил, глина, текстурная паста",
     size: "30☓40",
     price: 15000,
-    image: "./img/morning-simphony.jpg",
+    image: "morning-simphony.jpg",
     sold: false,
     photos: [
       "morning-simphony.jpg",
@@ -182,7 +182,7 @@ const pictures = [
     technic: "акрил, текстурная паста",
     size: "30☓40",
     price: 7000,
-    image: "./img/naedine.jpg",
+    image: "naedine.jpg",
     sold: false,
     photos: [
       "naedine.jpg",
@@ -197,7 +197,7 @@ const pictures = [
     technic: "акварель",
     size: "30☓40",
     price: 7500,
-    image: "./img/lighthouse.jpg",
+    image: "lighthouse.jpg",
     sold: true,
   },
   {
@@ -205,7 +205,7 @@ const pictures = [
     technic: "акрил",
     size: "40☓50",
     price: 7000,
-    image: "./img/cat.jpg",
+    image: "cat.jpg",
     sold: false,
     photos: ["cat1.jpg", "cat2.jpg", "cat3.jpg", "cat4.jpg"],
   },
@@ -214,7 +214,7 @@ const pictures = [
     technic: "акрил",
     size: "50☓50",
     price: 20000,
-    image: "./img/rusalka.jpg",
+    image: "rusalka.jpg",
     sold: false,
     photos: ["rusalka1.jpg", "rusalka2.jpg", "rusalka3.jpg", "rusalka4.jpg"],
     description: `Хотите больше радости и счастья? 
@@ -229,7 +229,7 @@ const pictures = [
     technic: "акрил,",
     size: "30☓40",
     price: 5500,
-    image: "./img/autumn.jpg",
+    image: "autumn.jpg",
     sold: true,
   },
   {
@@ -237,7 +237,7 @@ const pictures = [
     technic: "акрил",
     size: "40☓50",
     price: 8500,
-    image: "./img/lev.jpg",
+    image: "lev.jpg",
     sold: false,
     photos: ["lev1.jpg", "lev2.jpg", "lev3.jpg", "lev4.jpg"],
     description: `Хотите больше радости и счастья? 
@@ -252,7 +252,7 @@ const pictures = [
     technic: "акрил",
     size: "40☓50",
     price: 8500,
-    image: "./img/red-bird.jpg",
+    image: "red-bird.jpg",
     sold: false,
     photos: [
       "red-bird1.jpg",
@@ -266,7 +266,7 @@ const pictures = [
     technic: "акрил",
     size: "50☓60",
     price: 12000,
-    image: "./img/svidanie.jpg",
+    image: "svidanie.jpg",
     sold: false,
     photos: [
       "svidanie1.jpg",
@@ -280,7 +280,7 @@ const pictures = [
     technic: "акрил",
     size: "50☓60",
     price: 12000,
-    image: "./img/palace.jpg",
+    image: "palace.jpg",
     sold: true,
   },
   {
@@ -288,7 +288,7 @@ const pictures = [
     technic: "акрил, текстурная паста",
     size: "3 модуля 25☓35",
     price: 7500,
-    image: "./img/maki.jpg",
+    image: "maki.jpg",
     sold: false,
     photos: ["maki.jpg", "maki1.jpg", "maki2.jpg", "maki3.jpg", "maki4.jpg"],
     description: `Главное значение цветка в первую очередь – это умиротворение и гармония.
@@ -308,7 +308,7 @@ const pictures = [
     technic: "акрил",
     size: "50☓60",
     price: "8 500",
-    image: "./img/vuoxa1.jpg",
+    image: "vuoxa1.jpg",
     sold: false,
     photos: ["vuoxa1.jpg", "vuoxa2.jpg", "vuoxa3.jpg"],
     description: `Главное значение цветка в первую очередь – это умиротворение и гармония.

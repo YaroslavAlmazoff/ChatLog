@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "./styles/Picture.css";
+import "./styles/Block.css";
 import { useParams } from "react-router";
 import pictures from "./pictures";
 
