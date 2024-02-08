@@ -29,7 +29,7 @@ const Friends = () => {
         },
       });
       console.log(response);
-      setUsers(response.data.users);
+      setUsers(response.data.friends);
     };
     getUsers();
   }, [auth, params]);
