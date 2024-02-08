@@ -105,7 +105,12 @@ const UserRightSide = ({
         {userFotos.map((el) => (
           <div className="foto-div" key={randomKey()}>
             <FotoItem item={el} />
-            <span onClick={() => deleteFoto(el.imageUrl)}>Удалить</span>
+            <span
+              className="delete-foto"
+              onClick={() => deleteFoto(el.imageUrl)}
+            >
+              Удалить
+            </span>
           </div>
         ))}
       </div>
