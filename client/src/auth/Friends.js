@@ -40,7 +40,7 @@ const Friends = () => {
         <Loader ml={"0%"} />
       ) : (
         <div className="users-list">
-          {searchedUsers.map((el) => (
+          {users.map((el) => (
             <UserItem
               key={randomKey()}
               name={el.name}
