@@ -109,6 +109,9 @@ const UserLeftSide = ({
       }
     }
   };
+  const goToFriends = () => {
+    window.location = "/friends/" + params.id;
+  };
 
   return (
     <div className="user-right-side">
@@ -140,10 +143,7 @@ const UserLeftSide = ({
       )}
       <div className="user-lists">
         <div className="user-friends block">
-          <p
-            className="user-friends-title"
-            onClick={(window.location = "/friends/" + params.id)}
-          >
+          <p className="user-friends-title" onClick={goToFriends}>
             Друзья {userFriends.length}
           </p>
           <div className="user-friends-list">
