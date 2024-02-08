@@ -140,7 +140,12 @@ const UserLeftSide = ({
       )}
       <div className="user-lists">
         <div className="user-friends block">
-          <p className="user-friends-title">Друзья {userFriends.length}</p>
+          <p
+            className="user-friends-title"
+            onClick={(window.location = "/friends/" + params.id)}
+          >
+            Друзья {userFriends.length}
+          </p>
           <div className="user-friends-list">
             {userFriends.map((el) => (
               <UserFriendItem

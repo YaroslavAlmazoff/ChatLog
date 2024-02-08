@@ -70,6 +70,13 @@ router.get("/getuservideos/:id", (req, res) => {
   }
 });
 
+router.get("friends/:id", auth, (req, res) => {
+  try {
+    FriendsService.getFriends(req, res);
+  } catch (e) {
+    console.log(e);
+  }
+});
 router.get("/makefriends/:to", auth, (req, res) => {
   //Заявка в друзья
   try {

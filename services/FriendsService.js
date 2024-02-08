@@ -6,6 +6,11 @@ const FirebaseService = require("../services/FirebaseService");
 
 //Сервис для друзей
 class FriendsService {
+  async getFriends(req, res) {
+    const user = await User.findById(req.user.userId);
+    const friends = user.friends.map(async (item) => await User.findById(item));
+    Promise.all(friends).then((data) => res.json({ friends: data }));
+  }
   async makeFriends(req, res) {
     ///Извлечение ID пользователей
     const user1id = req.user.userId;

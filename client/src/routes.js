@@ -78,6 +78,7 @@ import ArtBuy from "./site_art/Buy";
 import ArtAnswer from "./site_art/Answer";
 import ArtReviews from "./site_art/Reviews";
 import ArtAboutAuthor from "./site_art/AboutAuthor";
+import Friends from "./auth/Friends";
 
 export const useRoutes = (isVerified) => {
   //Кастомный хук для маршрутизации
@@ -91,6 +92,7 @@ export const useRoutes = (isVerified) => {
       <Route exact path="/cloud/file/:id" element={<File />} />
       <Route exact path="/home" element={<HomePage />} />
       <Route exact path="/my/:id" element={<User />} />
+      <Route exact path="/friends/:id" element={<Friends />} />
       <Route exact path="/editprofile" element={<EditProfile />} />
       <Route exact path="/createpost" element={<CreatePost />} />
       <Route exact path="/createfoto" element={<CreateFoto />} />

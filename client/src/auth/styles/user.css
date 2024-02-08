@@ -126,6 +126,7 @@
 .user-friends-title {
   margin: 20px;
   color: white;
+  cursor: pointer;
 }
 .user-friend-name {
   font-size: 8px;
