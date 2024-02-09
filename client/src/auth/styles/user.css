@@ -246,6 +246,7 @@
 .delete-friend {
   position: absolute;
   cursor: pointer;
+  color: red;
 }
 .delete-foto {
   margin-left: 15px;
