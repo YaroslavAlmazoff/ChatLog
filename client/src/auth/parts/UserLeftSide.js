@@ -147,7 +147,7 @@ const UserLeftSide = ({
             Друзья {userFriends.length}
           </p>
           <div className="user-friends-list">
-            {userFriends.map((el) => (
+            {userFriends.slice(0, 10).map((el) => (
               <UserFriendItem
                 el={el}
                 setUserFriends={setUserFriends}
