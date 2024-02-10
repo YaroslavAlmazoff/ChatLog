@@ -4,15 +4,17 @@ import Public from "../publics/components/components/components/Public";
 import "../publics/styles/publics.css";
 import Loader from "../common_components/Loader";
 import { AuthContext } from "../context/AuthContext";
+import { useParams } from "react-router";
 
 const Subscribes = () => {
-  const auth = useContext(AuthContext);
+  const params = useParams();
+
   const [publics, setPublics] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const getPublics = async () => {
-      const response = await api.get(`/api/public/subscribes/${auth.token}`);
+      const response = await api.get(`/api/public/subscribes/${params.id}`);
       setPublics(response.data.publics);
       setLoading(false);
     };
