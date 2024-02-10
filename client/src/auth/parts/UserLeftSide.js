@@ -156,6 +156,7 @@ const UserLeftSide = ({
             {userFriends.slice(0, 9).map((el) => (
               <UserFriendItem
                 el={el}
+                isOwner={isOwner}
                 setUserFriends={setUserFriends}
                 userFriends={userFriends}
                 setNoticeDisplay={setNoticeDisplay}
@@ -174,6 +175,7 @@ const UserLeftSide = ({
           {userSubscribes.slice(0, 3).map((el) => (
             <UserSubscribeItem
               el={el}
+              isOwner={isOwner}
               setUserSubscribes={setUserSubscribes}
               userSubscribes={userSubscribes}
               setNoticeDisplay={setNoticeDisplay}
