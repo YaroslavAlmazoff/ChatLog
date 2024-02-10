@@ -42,7 +42,7 @@ const UserSubscribeItem = ({
         className="user-friend-avatar block"
         src={
           el.avatarUrl
-            ? process.env.REACT_APP_API_URL + "/useravatars/" + el.avatarUrl
+            ? process.env.REACT_APP_API_URL + "/publicavatars/" + el.avatarUrl
             : require("../../publics/img/group.png")
         }
         alt="friend"
