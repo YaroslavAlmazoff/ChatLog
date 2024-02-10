@@ -116,10 +116,20 @@
   margin-left: 15px;
   cursor: pointer;
 }
+.user-subscribe {
+  width: 25%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-left: 15px;
+}
+.unscribe {
+  color: #ff073a;
+}
 .user-friend-avatar {
   width: 50px;
   height: 50px;
-  border: 1px solid rgb(0, 140, 255);
+  border: 1px solid #40a4ff;
   border-radius: 50%;
   object-fit: cover;
 }
@@ -133,9 +143,6 @@
   text-align: center;
   text-decoration: none;
   color: white;
-}
-.user-subscribe {
-  display: table;
 }
 .user-subscribe-avatar {
   width: 40px;
@@ -246,7 +253,7 @@
 .delete-friend {
   position: absolute;
   cursor: pointer;
-  color: red;
+  color: #ff073a;
 }
 .delete-foto {
   margin-left: 15px;

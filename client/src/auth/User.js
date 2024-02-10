@@ -196,6 +196,7 @@ const User = () => {
                 divideWord={divideWord}
                 isOwner={isOwner}
                 setUserFriends={setUserFriends}
+                setUserSubscribes={setUserSubscribes}
                 noticeDisplay={noticeDisplay}
                 setNoticeDisplay={setNoticeDisplay}
                 setNoticeText={setNoticeText}

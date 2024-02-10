@@ -4,11 +4,14 @@ import { useParams } from "react-router";
 import api from "../api/auth";
 import { AuthContext } from "../../context/AuthContext";
 import UserFriendItem from "./UserFriendItem";
+import UserSubscribeItem from "./UserSubscribeItem";
 
 const UserLeftSide = ({
   userFriends,
+  userSubscribes,
   isOwner,
   setUserFriends,
+  setUserSubscribes,
   setNoticeDisplay,
   setNoticeText,
   noticeRef,
@@ -112,6 +115,9 @@ const UserLeftSide = ({
   const goToFriends = () => {
     window.location = "/friends/" + params.id;
   };
+  const goToSubscribes = () => {
+    window.location = "/subscribes/" + params.id;
+  };
 
   return (
     <div className="user-right-side">
@@ -158,6 +164,23 @@ const UserLeftSide = ({
               />
             ))}
           </div>
+        </div>
+      </div>
+      <div className="user-friends block">
+        <p className="user-friends-title" onClick={goToSubscribes}>
+          Подписки {userSubscribes.length}
+        </p>
+        <div className="user-friends-list">
+          {userSubscribes.slice(0, 3).map((el) => (
+            <UserSubscribeItem
+              el={el}
+              setUserSubscribes={setUserSubscribes}
+              userSubscribes={userSubscribes}
+              setNoticeDisplay={setNoticeDisplay}
+              setNoticeText={setNoticeText}
+              noticeRef={noticeRef}
+            />
+          ))}
         </div>
       </div>
     </div>

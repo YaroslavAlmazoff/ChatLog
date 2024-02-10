@@ -277,6 +277,47 @@ class PublicService {
       res.json({ isSubscriber: true });
     }
   }
+  async subscribe(req, res) {
+    const pub = await Public.findById(req.params.id);
+    const subscribers = pub.subscribers;
+    const isSubscriber = [];
+    subscribers.forEach((el) => {
+      if (el.toString() == req.user.userId.toString()) {
+        isSubscriber.push(req.user.userId.toString());
+      }
+    });
+    if (isSubscriber.length) {
+      const index = subscribers.findIndex((el) => {
+        console.log(
+          "!!!",
+          el,
+          el.toString(),
+          req.user.userId,
+          req.user.userId.toString(),
+          el.toString() == req.user.userId.toString()
+        );
+        return el.toString() == req.user.userId.toString();
+      });
+      subscribers.splice(index, 1);
+      await Public.findByIdAndUpdate(req.params.id, { subscribers });
+      await this.notify(types.unscribe, req.user.userId, req.params.id, null);
+
+      res.json({ isSubscriber: false });
+    } else {
+      subscribers.push(req.user.userId);
+      await Public.findByIdAndUpdate(req.params.id, { subscribers });
+      await this.notify(types.subscribe, req.user.userId, req.params.id, null);
+      console.log(isSubscriber, false);
+      res.json({ isSubscriber: true });
+    }
+  }
+  async subscribes(req, res) {
+    const { subscribes } = await User.findById(req.params.id);
+    const userSubscribes = subscribes.map(
+      async (item) => await Public.findById(item)
+    );
+    Promise.all(userSubscribes).then(res.json({ subscribes: data }));
+  }
   async subscribeListMobile(req, res) {
     const pub = await Public.findById(req.params.id);
     const subscribers = pub.subscribers;
