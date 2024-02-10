@@ -279,7 +279,10 @@ class PublicService {
   }
   async subscribe(req, res) {
     const pub = await Public.findById(req.params.id);
+    const user = await User.findById(req.user.userId);
+
     const subscribers = pub.subscribers;
+    const subscribes = user.subscribes;
     const isSubscriber = [];
     subscribers.forEach((el) => {
       if (el.toString() == req.user.userId.toString()) {
@@ -288,23 +291,21 @@ class PublicService {
     });
     if (isSubscriber.length) {
       const index = subscribers.findIndex((el) => {
-        console.log(
-          "!!!",
-          el,
-          el.toString(),
-          req.user.userId,
-          req.user.userId.toString(),
-          el.toString() == req.user.userId.toString()
-        );
         return el.toString() == req.user.userId.toString();
       });
+      const subscribeIndex = user.subscribes.findIndex((el) => {
+        return el.toString() == params.id.toString();
+      });
       subscribers.splice(index, 1);
+      subscribes.splice(subscribeIndex, 1);
       await Public.findByIdAndUpdate(req.params.id, { subscribers });
+      await User.findByIdAndUpdate(req.user.userId, { subscribes });
       await this.notify(types.unscribe, req.user.userId, req.params.id, null);
 
       res.json({ isSubscriber: false });
     } else {
       subscribers.push(req.user.userId);
+      subscribes.push(req.params.id);
       await Public.findByIdAndUpdate(req.params.id, { subscribers });
       await this.notify(types.subscribe, req.user.userId, req.params.id, null);
       console.log(isSubscriber, false);
