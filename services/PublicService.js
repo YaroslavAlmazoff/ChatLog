@@ -316,7 +316,7 @@ class PublicService {
     const userSubscribes = subscribes.map(
       async (item) => await Public.findById(item)
     );
-    Promise.all(userSubscribes).then(res.json({ subscribes: data }));
+    Promise.all(userSubscribes).then((data) => res.json({ subscribes: data }));
   }
   async subscribeListMobile(req, res) {
     const pub = await Public.findById(req.params.id);
