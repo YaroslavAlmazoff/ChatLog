@@ -15,7 +15,7 @@ const Subscribes = () => {
   useEffect(() => {
     const getPublics = async () => {
       const response = await api.get(`/api/public/subscribes/${params.id}`);
-      setPublics(response.data.publics);
+      setPublics(response.data.subscribes);
       setLoading(false);
     };
     getPublics();
