@@ -125,7 +125,7 @@
   margin-left: 15px;
 }
 .unscribe {
-  color: #ff073a;
+  color: #40a4ff;
   cursor: pointer;
   margin-left: 20px;
 }
@@ -256,13 +256,13 @@
 .delete-friend {
   position: absolute;
   cursor: pointer;
-  color: #ff073a;
+  color: #40a4ff;
   right: 0;
   top: -20px;
 }
 .delete-foto {
   margin-left: 15px;
-  color: #ff073a;
+  color: #40a4ff;
   cursor: pointer;
 }
 input[type="file"] {
