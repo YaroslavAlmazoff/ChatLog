@@ -149,8 +149,8 @@
   float: left;
 }
 .user-subscribe-name {
-  float: right;
-  margin: 15px;
+  margin-left: 10px;
+  font-size: 10pt;
 }
 .user-center-side {
   width: 70%;

@@ -47,7 +47,7 @@ const UserSubscribeItem = ({
         }
         alt="friend"
       />
-      <p className="user-friend-name">{divideWord(el.name, 25)}</p>
+      <p className="user-subscribe-name">{divideWord(el.name, 25)}</p>
       {isOwner ? (
         <p
           title="Отписаться"
