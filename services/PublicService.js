@@ -312,7 +312,7 @@ class PublicService {
     }
   }
   async subscribes(req, res) {
-    const { subscribes } = await User.findById(req.user.userId);
+    const { subscribes } = await User.findById(req.params.id);
     const userSubscribes = subscribes.map(
       async (item) => await Public.findById(item)
     );

@@ -130,11 +130,9 @@ const User = () => {
       }
       //Помещение друзей пользователя в состояние
       setUserFriends(friends);
-      const subscribesResponse = await api.get("/api/public/subscribes", {
-        headers: {
-          Authorization: `Bearer ${auth.token}`,
-        },
-      });
+      const subscribesResponse = await api.get(
+        "/api/public/subscribes/" + params.id
+      );
       //Todo: Подписки пользователя
       setUserSubscribes(subscribesResponse.data.subscribes);
       //Получение постов пользователя
