@@ -307,6 +307,7 @@ class PublicService {
       subscribers.push(req.user.userId);
       subscribes.push(req.params.id);
       await Public.findByIdAndUpdate(req.params.id, { subscribers });
+      await User.findByIdAndUpdate(req.user.userId, { subscribes });
       await this.notify(types.subscribe, req.user.userId, req.params.id, null);
       console.log(isSubscriber, false);
       res.json({ isSubscriber: true });
