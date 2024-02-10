@@ -8,7 +8,7 @@ import { useContext, useEffect, useState } from "react";
 const UserSubscribeItem = ({
   el,
   isOwner,
-  setSubscribesFriends,
+  setUserSubscribes,
   userSubscribers,
   setNoticeDisplay,
   setNoticeText,
@@ -27,7 +27,7 @@ const UserSubscribeItem = ({
       headers: { Authorization: `Bearer ${auth.token}` },
     });
     console.log(response);
-    setUserFriends((prev) => [...prev].filter((el) => el._id !== id));
+    setUserSubscribes((prev) => [...prev].filter((el) => el._id !== id));
     setNoticeDisplay("block");
     setNoticeText("Вы отписались");
     noticeRef.current.classList.add("notice-animation");
