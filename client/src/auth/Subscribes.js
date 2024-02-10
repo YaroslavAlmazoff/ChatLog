@@ -1,11 +1,9 @@
 import { useContext, useEffect, useState } from "react";
-import api from "../../../auth/api/auth";
-import Public from "../components/components/Public";
-import "../../styles/publics.css";
-import UsersSearchSide from "../components/UsersSearchSide";
-import { useMemo } from "react";
-import Loader from "../../../common_components/Loader";
-import { AuthContext } from "../../../context/AuthContext";
+import api from "./api/auth";
+import Public from "../publics/components/components/components/Public";
+import "../publics/styles/publics.css";
+import Loader from "../common_components/Loader";
+import { AuthContext } from "../context/AuthContext";
 
 const Subscribes = () => {
   const auth = useContext(AuthContext);
