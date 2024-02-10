@@ -136,7 +136,7 @@ router.get("/subscribe/:id", auth, (req, res) => {
     console.log(e);
   }
 });
-router.get("/subscribes/:id", auth, (req, res) => {
+router.get("/subscribes/:id", (req, res) => {
   try {
     PublicService.subscribes(req, res);
   } catch (e) {
