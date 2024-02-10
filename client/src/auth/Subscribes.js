@@ -26,7 +26,7 @@ const Subscribes = () => {
       style={{
         display: "flex",
         alignItems: "flex-start",
-        justifyContent: "flex-start",
+        justifyContent: "center",
       }}
     >
       {!loading ? (
