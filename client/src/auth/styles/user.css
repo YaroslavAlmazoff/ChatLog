@@ -256,7 +256,7 @@
   cursor: pointer;
   color: #ff073a;
   right: 0;
-  top: 0;
+  top: -10px;
 }
 .delete-foto {
   margin-left: 15px;
