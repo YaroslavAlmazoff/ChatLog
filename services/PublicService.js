@@ -294,7 +294,7 @@ class PublicService {
         return el.toString() == req.user.userId.toString();
       });
       const subscribeIndex = user.subscribes.findIndex((el) => {
-        return el.toString() == params.id.toString();
+        return el.toString() == req.params.id.toString();
       });
       subscribers.splice(index, 1);
       subscribes.splice(subscribeIndex, 1);
