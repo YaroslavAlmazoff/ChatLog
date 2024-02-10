@@ -126,6 +126,8 @@
 }
 .unscribe {
   color: #ff073a;
+  cursor: pointer;
+  margin-left: 10px;
 }
 .user-friend-avatar {
   width: 50px;
