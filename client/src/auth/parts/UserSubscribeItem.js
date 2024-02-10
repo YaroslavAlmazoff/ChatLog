@@ -40,7 +40,11 @@ const UserSubscribeItem = ({
     >
       <img
         className="user-friend-avatar block"
-        src={process.env.REACT_APP_API_URL + "/useravatars/" + el.avatarUrl}
+        src={
+          el.avatarUrl
+            ? process.env.REACT_APP_API_URL + "/useravatars/" + el.avatarUrl
+            : require("../../publics/img/group.png")
+        }
         alt="friend"
       />
       <p className="user-friend-name">{divideWord(el.name, 25)}</p>

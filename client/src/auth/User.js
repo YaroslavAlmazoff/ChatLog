@@ -130,19 +130,13 @@ const User = () => {
       }
       //Помещение друзей пользователя в состояние
       setUserFriends(friends);
+      const subscribesResponse = await api.get("/api/public/subscribes", {
+        headers: {
+          Authorization: `Bearer ${auth.token}`,
+        },
+      });
       //Todo: Подписки пользователя
-      setUserSubscribes([
-        { name: "Программирование", avatar: "group.png" },
-        { name: "Космос", avatar: "group.png" },
-        { name: "Фото космос", avatar: "group.png" },
-        { name: "Астрономия", avatar: "group.png" },
-        { name: "PHP", avatar: "group.png" },
-        { name: "JAVASCRIPT", avatar: "group.png" },
-        { name: "HTML", avatar: "group.png" },
-        { name: "Frontend", avatar: "group.png" },
-        { name: "CSS", avatar: "group.png" },
-        { name: "Backend", avatar: "group.png" },
-      ]);
+      setUserSubscribes(subscribesResponse.data.subscribes);
       //Получение постов пользователя
       const response = await api.get(`/api/getuserposts/${params.id}`);
       //Помещение постов пользователя в состояние
