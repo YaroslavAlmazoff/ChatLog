@@ -17,7 +17,10 @@ const Notifications = ({
   return (
     <div className="notifications block">
       <p onClick={showNotifications} className="notifications-title">
-        Уведомления | <span onClick={showNotifications}>Закрыть</span>
+        Уведомления |{" "}
+        <span onClick={showNotifications} className="close-notifications">
+          Закрыть
+        </span>
       </p>
       {notifications[0] !== undefined ? (
         notifications.map((el) => (
