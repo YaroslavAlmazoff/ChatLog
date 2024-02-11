@@ -232,11 +232,12 @@
 }
 .user-add-foto-right {
   border: none;
-  padding: 7px;
+  padding: 15px;
   color: black;
   border-radius: 15px;
   margin: 2px;
   margin-top: 0.6vw;
+  margin-left: 10px;
   width: 48%;
 }
 
