@@ -5,6 +5,7 @@
   height: 60vh;
   overflow-y: scroll;
   padding: 12px;
+  border-radius: 11px;
 }
 .notifications::-webkit-scrollbar {
   width: 5px; /* ширина scrollbar */
