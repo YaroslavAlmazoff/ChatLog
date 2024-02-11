@@ -24,23 +24,25 @@ const UserCenterSide = ({
   //Центральная часть страницы пользователя - список его постов
   return (
     <div className="user-center-side">
-      {isOwner ? (
-        <button
-          className="button margin-top-bottom"
-          onClick={gotoCreatePostPage}
-        >
-          Создать новую запись
-        </button>
-      ) : (
-        <></>
-      )}
-      {isOwner && isAdmin ? (
-        <button className="button margin-top-bottom" onClick={gotoAdmin}>
-          Кабинет администратора
-        </button>
-      ) : (
-        <></>
-      )}
+      <div className="center-side-buttons">
+        {isOwner ? (
+          <button
+            className="button margin-top-bottom center-side-button"
+            onClick={gotoCreatePostPage}
+          >
+            Создать новую запись
+          </button>
+        ) : (
+          <></>
+        )}
+        {isOwner && isAdmin ? (
+          <button className="button margin-top-bottom" onClick={gotoAdmin}>
+            Кабинет администратора
+          </button>
+        ) : (
+          <></>
+        )}
+      </div>
       <div
         className="user-videos"
         style={{ display: !userVideos[0] ? "none" : "block" }}
