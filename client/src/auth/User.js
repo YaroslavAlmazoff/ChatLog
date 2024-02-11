@@ -227,11 +227,13 @@ const User = () => {
                   imagePreviewUrl2={imagePreviewUrl2}
                   imagePreviewDisplay2={imagePreviewDisplay2}
                   setImagePreviewDisplay2={setImagePreviewDisplay2}
+                  setImagePreviewUrl2={setImagePreviewUrl2}
                   sendFoto={sendFoto}
                   userFotos={userFotos}
                   deleteFoto={deleteFoto}
                   params={params}
                   file2={file2}
+                  setFile2={setFile2}
                   getCurrentDate={getCurrentDate}
                   setUserFotos={setUserFotos}
                   isOwner={isOwner}

@@ -14,9 +14,11 @@ const UserRightSide = ({
   imagePreviewUrl2,
   imagePreviewDisplay2,
   setImagePreviewDisplay2,
+  setImagePreviewUrl2,
   sendFoto,
   userFotos,
   file2,
+  setFile2,
   setUserFotos,
   isOwner,
   showNotifications,
@@ -56,6 +58,8 @@ const UserRightSide = ({
   const cancelUploadPhoto = () => {
     setPublishButtonDisplay(false);
     setImagePreviewDisplay2("none");
+    setImagePreviewUrl2("");
+    setFile2("");
   };
   return (
     <div className="user-left-side">
