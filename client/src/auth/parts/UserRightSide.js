@@ -104,6 +104,7 @@ const UserRightSide = ({
               Опубликовать
             </button>
           )}
+          <br />
           <ImagePreview2
             imagePreviewUrl2={imagePreviewUrl2}
             imagePreviewDisplay2={imagePreviewDisplay2}
