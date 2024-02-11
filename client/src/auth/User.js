@@ -105,7 +105,7 @@ const User = () => {
     console.log(file);
     const reader = new FileReader();
     reader.onload = (ev) => {
-      setImagePreviewDisplay2("block");
+      setImagePreviewDisplay2("flex");
       setImagePreviewUrl2(ev.target.result);
     };
     reader.readAsDataURL(file);
@@ -226,6 +226,7 @@ const User = () => {
                   fileRef2={fileRef2}
                   imagePreviewUrl2={imagePreviewUrl2}
                   imagePreviewDisplay2={imagePreviewDisplay2}
+                  setImagePreviewDisplay2={setImagePreviewDisplay2}
                   sendFoto={sendFoto}
                   userFotos={userFotos}
                   deleteFoto={deleteFoto}

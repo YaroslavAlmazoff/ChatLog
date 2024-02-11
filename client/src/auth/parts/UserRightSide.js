@@ -13,6 +13,7 @@ const UserRightSide = ({
   emitOpen2,
   imagePreviewUrl2,
   imagePreviewDisplay2,
+  setImagePreviewDisplay2,
   sendFoto,
   userFotos,
   file2,
@@ -51,6 +52,10 @@ const UserRightSide = ({
   const getPhoto = (e) => {
     getFile2(e);
     setPublishButtonDisplay(true);
+  };
+  const cancelUploadPhoto = () => {
+    setPublishButtonDisplay(false);
+    setImagePreviewDisplay2("none");
   };
   return (
     <div className="user-left-side">
@@ -95,12 +100,20 @@ const UserRightSide = ({
               </button>
             )}
             {publishButtonDisplay && (
-              <button
-                onClick={() => sendFoto(file2, userFotos, setUserFotos)}
-                className="user-add-foto-right button"
-              >
-                Опубликовать
-              </button>
+              <>
+                <button
+                  onClick={() => sendFoto(file2, userFotos, setUserFotos)}
+                  className="user-add-foto-right button"
+                >
+                  Опубликовать
+                </button>
+                <span
+                  className="upload-photo-cancel"
+                  onClick={cancelUploadPhoto}
+                >
+                  Отмена
+                </span>
+              </>
             )}
           </div>
           <input onChange={(e) => getPhoto(e)} ref={fileRef2} type="file" />
