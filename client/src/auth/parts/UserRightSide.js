@@ -26,6 +26,7 @@ const UserRightSide = ({
       checked: false,
     },
   ]);
+  const [publishButtonDisplay, setPublishButtonDisplay] = useState(false);
   const params = useParams();
   const { getCurrentDate } = useDate();
   //Правая часть страницы пользователя - добавление фотографий и список фотографий
@@ -43,6 +44,10 @@ const UserRightSide = ({
   const deleteFoto = async (url) => {
     await api.delete(`/api/deleteuserfoto/${url}`);
     setUserFotos((prev) => prev.filter((foto) => foto.imageUrl !== url));
+  };
+  const uploadPhoto = (e) => {
+    emitOpen2(e);
+    setPublishButtonDisplay(true);
   };
   return (
     <div className="user-left-side">
@@ -80,18 +85,22 @@ const UserRightSide = ({
             />
           </div>
           <input onChange={(e) => getFile2(e)} ref={fileRef2} type="file" />
-          <button
-            onClick={(e) => emitOpen2(e)}
-            className="user-add-foto-right button"
-          >
-            Добавить фотографию
-          </button>
-          <button
-            onClick={() => sendFoto(file2, userFotos, setUserFotos)}
-            className="user-add-foto-right button"
-          >
-            Отправить фотографию
-          </button>
+          {!publishButtonDisplay && (
+            <button
+              onClick={(e) => uploadPhoto(e)}
+              className="user-add-foto-right button"
+            >
+              Добавить фотографию
+            </button>
+          )}
+          {publishButtonDisplay && (
+            <button
+              onClick={() => sendFoto(file2, userFotos, setUserFotos)}
+              className="user-add-foto-right button"
+            >
+              Опубликовать
+            </button>
+          )}
           <ImagePreview2
             imagePreviewUrl2={imagePreviewUrl2}
             imagePreviewDisplay2={imagePreviewDisplay2}
