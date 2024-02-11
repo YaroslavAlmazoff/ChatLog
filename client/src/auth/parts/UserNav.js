@@ -88,7 +88,7 @@ const UserNav = ({
         <div className="user-nav-info">
           <h2 className={`user-name ${randomColor()} navy-text-glow`}>
             {user.name} {user.surname}
-            {user.age && <>, {calculateAge(user.age)}</>}
+            {user.age && <>, {calculateAge(user.age) + " лет"}</>}
           </h2>
           <img
             ref={arrow}
