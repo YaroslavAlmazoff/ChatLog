@@ -86,24 +86,25 @@ const UserRightSide = ({
               src={require("../img/notice.png")}
               alt="notice"
             />
+            {!publishButtonDisplay && (
+              <button
+                onClick={(e) => uploadPhoto(e)}
+                className="user-add-foto-right button"
+              >
+                Добавить фотографию
+              </button>
+            )}
+            {publishButtonDisplay && (
+              <button
+                onClick={() => sendFoto(file2, userFotos, setUserFotos)}
+                className="user-add-foto-right button"
+              >
+                Опубликовать
+              </button>
+            )}
           </div>
           <input onChange={(e) => getPhoto(e)} ref={fileRef2} type="file" />
-          {!publishButtonDisplay && (
-            <button
-              onClick={(e) => uploadPhoto(e)}
-              className="user-add-foto-right button"
-            >
-              Добавить фотографию
-            </button>
-          )}
-          {publishButtonDisplay && (
-            <button
-              onClick={() => sendFoto(file2, userFotos, setUserFotos)}
-              className="user-add-foto-right button"
-            >
-              Опубликовать
-            </button>
-          )}
+
           <br />
           <ImagePreview2
             imagePreviewUrl2={imagePreviewUrl2}
