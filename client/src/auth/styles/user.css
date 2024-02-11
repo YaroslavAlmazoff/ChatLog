@@ -154,6 +154,8 @@
 }
 .user-center-side {
   width: 70%;
+  display: flex;
+  justify-content: center;
 }
 .user-content {
   display: flex;
