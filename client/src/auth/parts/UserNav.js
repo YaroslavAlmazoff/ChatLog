@@ -90,13 +90,16 @@ const UserNav = ({
             {user.name} {user.surname}
             {user.age && <>, {calculateAge(user.age) + " лет"}</>}
           </h2>
-          <img
-            ref={arrow}
-            onClick={openAboutMe}
-            className="user-nav-more-info"
-            src={require("../img/arrow1.png")}
-            alt="arrow"
-          />
+          <div>
+            <span>Информация о пользователе</span>
+            <img
+              ref={arrow}
+              onClick={openAboutMe}
+              className="user-nav-more-info"
+              src={require("../img/arrow1.png")}
+              alt="arrow"
+            />
+          </div>
         </div>
         <div className="about-me" style={{ display: aboutMeDisplay }}>
           {user.aboutMe ? (
