@@ -50,3 +50,9 @@
   color: rgb(0, 140, 255);
   cursor: pointer;
 }
+.notice-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: 10px;
+}

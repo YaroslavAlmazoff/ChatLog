@@ -56,7 +56,7 @@ const UserRightSide = ({
     <div className="user-left-side">
       {isOwner ? (
         <div>
-          <div ref={notificationRef}>
+          <div ref={notificationRef} className="notice-container">
             {notifications.length !== 0 ? (
               <div>
                 {!notifications[notifications.length - 1].checked ? (
@@ -80,7 +80,7 @@ const UserRightSide = ({
               <></>
             )}
             <img
-              className="notice-img"
+              className="button notice-img"
               onClick={showNotifications}
               width="35"
               src={require("../img/notice.png")}
