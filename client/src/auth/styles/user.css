@@ -48,6 +48,10 @@
   width: 30px;
   transform: rotate(-90deg);
 }
+.user-more-info-container {
+  display: flex;
+  align-items: center;
+}
 .user-nav-more-info-forward-animation {
   animation-name: arrow;
   animation-duration: 0.5s;
