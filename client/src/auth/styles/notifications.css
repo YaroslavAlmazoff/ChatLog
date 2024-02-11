@@ -2,7 +2,7 @@
   position: relative;
   margin-top: 10px;
   width: 40%;
-  height: 60vh;
+  height: 65vh;
   overflow-y: scroll;
   padding: 12px;
   border-radius: 11px;
@@ -19,7 +19,7 @@
   border: transparent; /* padding вокруг плашки */
 }
 .notification {
-  background-color: rgb(41, 41, 41);
+  background-color: transparent;
   padding: 1px;
   border-radius: 11px;
   border: 1px double white;
