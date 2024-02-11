@@ -51,6 +51,10 @@
 .user-more-info-container {
   display: flex;
   align-items: center;
+  cursor: pointer;
+}
+.user-more-info-title {
+  color: #40a4ff;
 }
 .user-nav-more-info-forward-animation {
   animation-name: arrow;
