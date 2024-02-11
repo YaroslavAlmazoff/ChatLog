@@ -97,7 +97,7 @@
 }
 .user-friends {
   background-color: rgba(0, 0, 0, 0.5);
-  border-radius: 0px 15px 15px 0px;
+  border-radius: 15px 15px 15px 15px;
   color: white;
   margin-top: 10px;
   overflow: hidden;
