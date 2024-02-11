@@ -94,6 +94,11 @@
 .user-right-side {
   width: 16%;
 }
+.upload-photo-cancel {
+  color: #40a4ff;
+  cursor: pointer;
+  margin-left: 10px;
+}
 .user-action {
   border: none;
   background-color: rgb(0, 140, 255);
