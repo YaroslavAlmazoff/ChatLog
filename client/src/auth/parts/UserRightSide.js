@@ -47,6 +47,9 @@ const UserRightSide = ({
   };
   const uploadPhoto = (e) => {
     emitOpen2(e);
+  };
+  const getPhoto = (e) => {
+    getFile2(e);
     setPublishButtonDisplay(true);
   };
   return (
@@ -84,7 +87,7 @@ const UserRightSide = ({
               alt="notice"
             />
           </div>
-          <input onChange={(e) => getFile2(e)} ref={fileRef2} type="file" />
+          <input onChange={(e) => getPhoto(e)} ref={fileRef2} type="file" />
           {!publishButtonDisplay && (
             <button
               onClick={(e) => uploadPhoto(e)}
