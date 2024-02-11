@@ -15,7 +15,7 @@ const Notifications = ({
   //Блок с уведомлениями
   const { randomKey } = useRandom();
   return (
-    <div className="notifications">
+    <div className="notifications block">
       <p onClick={showNotifications} className="close-notifications">
         &times;
       </p>

@@ -1,11 +1,9 @@
 .notifications {
   position: relative;
   margin-top: 10px;
-  background-color: rgb(0, 140, 255);
   width: 40%;
   height: 60vh;
   overflow-y: scroll;
-  border-radius: 15px 0px 0px 15px;
   padding: 12px;
 }
 .notifications::-webkit-scrollbar {
@@ -15,9 +13,9 @@
   background: transparent; /* цвет дорожки */
 }
 .notifications::-webkit-scrollbar-thumb {
-  background-color: rgb(0, 140, 255); /* цвет плашки */
+  background-color: transparent; /* цвет плашки */
   border-radius: 11px; /* закругления плашки */
-  border: 1px solid rgb(0, 140, 255); /* padding вокруг плашки */
+  border: transparent; /* padding вокруг плашки */
 }
 .notification {
   background-color: rgb(41, 41, 41);
