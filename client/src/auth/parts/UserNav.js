@@ -91,7 +91,9 @@ const UserNav = ({
             {user.age && <>, {calculateAge(user.age) + " лет"}</>}
           </h2>
           <div className="user-more-info-container">
-            <span>Информация о пользователе</span>
+            <span className="user-more-info-title">
+              Информация о пользователе
+            </span>
             <img
               ref={arrow}
               onClick={openAboutMe}
