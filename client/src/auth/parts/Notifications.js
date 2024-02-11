@@ -16,8 +16,8 @@ const Notifications = ({
   const { randomKey } = useRandom();
   return (
     <div className="notifications block">
-      <p onClick={showNotifications} className="close-notifications">
-        &times;
+      <p onClick={showNotifications} className="notifications-title">
+        Уведомления | <span onClick={showNotifications}>Закрыть</span>
       </p>
       {notifications[0] !== undefined ? (
         notifications.map((el) => (

@@ -22,9 +22,14 @@
   background-color: transparent;
   padding: 1px;
   border-radius: 11px;
-  border: 1px double white;
+  border: 1px solid white;
   margin-bottom: 8px;
   color: white;
+}
+.notifications-title {
+  color: white;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 }
 .notice-title {
   font-size: 11pt;
