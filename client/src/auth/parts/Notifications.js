@@ -16,7 +16,7 @@ const Notifications = ({
   const { randomKey } = useRandom();
   return (
     <div className="notifications">
-      <p onClick={showNotifications} className="delete-notification">
+      <p onClick={showNotifications} className="close-notifications">
         &times;
       </p>
       {notifications[0] !== undefined ? (
