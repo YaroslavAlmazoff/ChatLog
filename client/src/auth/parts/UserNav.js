@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect } from "react";
 import "../styles/user.css";
 import Notice from "./Notice";
 import useDate from "../../common_hooks/date.hook";
+import api from "../api/auth";
 
 const UserNav = ({
   user,
@@ -19,23 +20,40 @@ const UserNav = ({
     "color-neon-pink",
     "color-neon-navy",
   ]);
-  const { normalizeBirthDate, calculateAge } = useDate();
+  const { calculateAge } = useDate();
+  const avatarFileRef = useRef();
+  const avatarRef = useRef();
+
+  const openAvatarSelect = () => {
+    avatarFileRef.current.click();
+  };
+
+  //Получение файла фотографии пользователя
+  const getAvatar = async (e) => {
+    let file = e.target.files[0];
+    const formData = new FormData();
+    formData.append("avatar", file);
+    formData.append("avatarExists", true);
+    formData.append("banner", null);
+    formData.append("bannerExists", false);
+    const response = await api.post("update-images", formData, {
+      headers: {
+        Authorization: `Bearer ${auth.token}`,
+      },
+    });
+    avatarRef.current.src =
+      process.env.REACT_APP_API_URL + "/useravatars/" + response.data.avatarUrl;
+  };
 
   const randomColor = () => {
     return colors[Math.round(Math.random() * colors.length)];
   };
-  //Верхняя часть страницы пользователя - информация, редактирование профиля
-  //Создании ссылки на DOM-элемент стрелочки показать подробную информацию для анимации
   const arrow = useRef(null);
-  //Инициализация состояния дисплея текста о пользователе в подробной информации
   const [aboutMeDisplay, setAboutMeDisplay] = useState("none");
-  //Перемещение на страницу редактирования страницы пользователя
   const gotoEdit = () => {
     window.location = `/editprofile`;
   };
-  //Открытие подробной информации - текста о пользователе
   const openAboutMe = () => {
-    //Добавление и удаление классов для анимации
     if (aboutMeDisplay === "none") {
       if (
         arrow.current.classList.value.includes(
@@ -44,7 +62,6 @@ const UserNav = ({
       ) {
         arrow.current.classList.remove("user-nav-more-info-backward-animation");
       }
-      //Показ текста о пользователе в подробной информации
       setAboutMeDisplay("inline");
       arrow.current.classList.add("user-nav-more-info-forward-animation");
     } else {
@@ -55,7 +72,7 @@ const UserNav = ({
       ) {
         arrow.current.classList.remove("user-nav-more-info-forward-animation");
       }
-      //Удаление текста о пользователе в подробной информации
+
       setAboutMeDisplay("none");
       arrow.current.classList.add("user-nav-more-info-backward-animation");
     }
@@ -82,8 +99,10 @@ const UserNav = ({
       <img
         className="user-avatar block"
         src={process.env.REACT_APP_API_URL + "/useravatars/" + user.avatarUrl}
+        onClick={openAvatarSelect}
         alt="useravatar"
       />
+      <input onChange={(e) => getAvatar(e)} ref={avatarFileRef} type="file" />
       <div className="banner">
         <div className="user-nav-info">
           <h2 className={`user-name ${randomColor()} navy-text-glow`}>

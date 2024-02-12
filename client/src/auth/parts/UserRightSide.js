@@ -31,7 +31,6 @@ const UserRightSide = ({
   ]);
   const [publishButtonDisplay, setPublishButtonDisplay] = useState(false);
   const params = useParams();
-  const { getCurrentDate } = useDate();
   //Правая часть страницы пользователя - добавление фотографий и список фотографий
   const { randomKey } = useRandom();
   const showFotography = (img) => {
