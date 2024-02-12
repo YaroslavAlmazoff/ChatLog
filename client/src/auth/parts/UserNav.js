@@ -1,8 +1,9 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useContext } from "react";
 import "../styles/user.css";
 import Notice from "./Notice";
 import useDate from "../../common_hooks/date.hook";
 import api from "../api/auth";
+import { AuthContext } from "../../context/AuthContext";
 
 const UserNav = ({
   user,
