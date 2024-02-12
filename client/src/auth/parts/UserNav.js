@@ -32,14 +32,14 @@ const UserNav = ({
   };
 
   //Получение файла фотографии пользователя
-  const getAvatar = async (e) => {
+  const getAvatar = async (e, type) => {
     let file = e.target.files[0];
     const formData = new FormData();
-    formData.append("avatar", file);
-    formData.append("avatarExists", true);
-    formData.append("banner", null);
-    formData.append("bannerExists", false);
-    const response = await api.post("update-images", formData, {
+    formData.append(type, file);
+    formData.append(`${type}Exists`, true);
+    formData.append(type === "avatar" ? "banner" : "avatar", null);
+    formData.append(`${type === "avatar" ? "banner" : "avatar"}Exists`, false);
+    const response = await api.post("/api/update-images", formData, {
       headers: {
         Authorization: `Bearer ${auth.token}`,
       },
