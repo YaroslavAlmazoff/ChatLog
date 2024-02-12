@@ -24,6 +24,8 @@ const UserNav = ({
   const avatarFileRef = useRef();
   const avatarRef = useRef();
 
+  const auth = useContext(AuthContext);
+
   const openAvatarSelect = () => {
     avatarFileRef.current.click();
   };
