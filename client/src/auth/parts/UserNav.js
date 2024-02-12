@@ -24,6 +24,8 @@ const UserNav = ({
   const { calculateAge } = useDate();
   const avatarFileRef = useRef();
   const avatarRef = useRef();
+  const bannerFileRef = useRef();
+  const bannerRef = useRef();
 
   const auth = useContext(AuthContext);
 
@@ -32,7 +34,7 @@ const UserNav = ({
   };
 
   //Получение файла фотографии пользователя
-  const getAvatar = async (e, type) => {
+  const sendMedia = async (e, type) => {
     let file = e.target.files[0];
     const formData = new FormData();
     formData.append(type, file);
@@ -44,8 +46,18 @@ const UserNav = ({
         Authorization: `Bearer ${auth.token}`,
       },
     });
-    avatarRef.current.src =
-      process.env.REACT_APP_API_URL + "/useravatars/" + response.data.avatarUrl;
+    if (type === "avatar") {
+      avatarRef.current.src =
+        process.env.REACT_APP_API_URL +
+        "/useravatars/" +
+        response.data.avatarUrl;
+    } else if (type === "banner") {
+      bannerRef.current.style.backgroundImage = `url(${
+        process.env.REACT_APP_API_URL +
+        "/userbanners/" +
+        response.data.bannerUrl
+      })`;
+    }
   };
 
   const randomColor = () => {
@@ -83,6 +95,7 @@ const UserNav = ({
   return (
     <div
       className="user-nav block"
+      ref={bannerRef}
       style={
         user.bannerUrl === "banner.jpg"
           ? { backgroundColor: "transparent" }
@@ -105,7 +118,16 @@ const UserNav = ({
         onClick={openAvatarSelect}
         alt="useravatar"
       />
-      <input onChange={(e) => getAvatar(e)} ref={avatarFileRef} type="file" />
+      <input
+        onChange={(e) => sendMedia(e, "avatar")}
+        ref={avatarFileRef}
+        type="file"
+      />
+      <input
+        onChange={(e) => sendMedia(e, "banner")}
+        ref={bannerFileRef}
+        type="file"
+      />
       <div className="banner">
         <div className="user-nav-info">
           <h2 className={`user-name ${randomColor()} navy-text-glow`}>
