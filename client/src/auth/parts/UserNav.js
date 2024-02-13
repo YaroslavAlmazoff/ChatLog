@@ -50,12 +50,12 @@ const UserNav = ({
       avatarRef.current.src =
         process.env.REACT_APP_API_URL +
         "/useravatars/" +
-        response.data.avatarUrl;
+        JSON.parse(response.data).avatarUrl;
     } else if (type === "banner") {
       bannerRef.current.style.backgroundImage = `url(${
         process.env.REACT_APP_API_URL +
         "/userbanners/" +
-        response.data.bannerUrl
+        JSON.parse(response.data).bannerUrl
       })`;
     }
   };
