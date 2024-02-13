@@ -109,9 +109,11 @@ const UserNav = ({
             }
       }
     >
-      <span className="user-change-banner" onClick={openBannerSelect}>
-        Изменить баннер
-      </span>
+      {isOwner && (
+        <span className="user-change-banner" onClick={openBannerSelect}>
+          Изменить баннер
+        </span>
+      )}
       <Notice
         noticeDisplay={noticeDisplay}
         setNoticeDisplay={setNoticeDisplay}
