@@ -114,6 +114,7 @@ const UserNav = ({
       />
       <img
         className="user-avatar block"
+        ref={avatarRef}
         src={process.env.REACT_APP_API_URL + "/useravatars/" + user.avatarUrl}
         onClick={openAvatarSelect}
         alt="useravatar"
