@@ -16,8 +16,9 @@
   color: rgba(255, 255, 255, 0.497);
   text-shadow: black 1px 0 10px;
   position: absolute;
-  top: 0;
-  right: 0;
+  cursor: pointer;
+  top: 5;
+  right: 10;
 }
 .user-avatar {
   object-fit: cover;
