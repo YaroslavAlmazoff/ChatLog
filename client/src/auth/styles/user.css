@@ -10,6 +10,14 @@
   height: 22vh;
   color: white;
   border-radius: 12px;
+  position: relative;
+}
+.user-change-banner {
+  color: rgba(255, 255, 255, 0.497);
+  text-shadow: black 1px 0 10px;
+  position: absolute;
+  top: 0;
+  right: 0;
 }
 .user-avatar {
   object-fit: cover;

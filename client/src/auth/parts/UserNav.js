@@ -32,6 +32,9 @@ const UserNav = ({
   const openAvatarSelect = () => {
     avatarFileRef.current.click();
   };
+  const openBannerSelect = () => {
+    bannerFileRef.current.click();
+  };
 
   //Получение файла фотографии пользователя
   const sendMedia = async (e, type) => {
@@ -106,6 +109,9 @@ const UserNav = ({
             }
       }
     >
+      <span className="user-change-banner" onClick={openBannerSelect}>
+        Изменить баннер
+      </span>
       <Notice
         noticeDisplay={noticeDisplay}
         setNoticeDisplay={setNoticeDisplay}
