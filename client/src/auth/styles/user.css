@@ -17,8 +17,8 @@
   text-shadow: black 1px 0 10px;
   position: absolute;
   cursor: pointer;
-  top: 5;
-  right: 10;
+  top: 5px;
+  right: 10px;
 }
 .user-avatar {
   object-fit: cover;
