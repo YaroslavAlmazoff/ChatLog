@@ -57,7 +57,14 @@ const UserSubscribeItem = ({
       />
       <p className="user-subscribe-name">{divideWord(el.name, 25)}</p>
       {isOwner ? (
-        <p title="Отписаться" className="unscribe" onClick={auth.openWindow}>
+        <p
+          title="Отписаться"
+          className="unscribe"
+          onClick={(e) => {
+            e.stopPropagation();
+            auth.openWindow();
+          }}
+        >
           &times;
         </p>
       ) : (

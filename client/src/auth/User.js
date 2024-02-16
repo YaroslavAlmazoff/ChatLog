@@ -179,7 +179,7 @@ const User = () => {
             noticeText={noticeText}
             noticeRef={noticeRef}
           />
-          {user.name === "unnamed" ? (
+          {!user || user.name === "unnamed" ? (
             <Loader ml={"50%"} />
           ) : (
             <div className="user-content">
