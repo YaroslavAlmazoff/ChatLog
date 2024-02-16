@@ -4,6 +4,7 @@ import api from "../api/auth";
 import { AuthContext } from "../../context/AuthContext";
 import CommentField from "./CommentField";
 import Comment from "../../common_components/Comment";
+import ModalWindow from "../../common_components/modal-window/ModalWindow";
 
 const UserPost = ({
   post,
