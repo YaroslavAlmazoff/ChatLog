@@ -19,29 +19,27 @@ const UserSubscribeItem = ({
   const { divideWord } = useWord();
   const { randomKey } = useRandom();
 
-  const goToPublic = (id) => {
-    window.location = `/user/${id}`;
+  const goToPublic = () => {
+    window.location = `/user/${el._id}`;
   };
   //Удаление из друзей
-  const unscribe = async (id) => {
+  const unscribe = async () => {
     const response = await api.get(`/api/public/subscribe/${el._id}`, {
       headers: { Authorization: `Bearer ${auth.token}` },
     });
     console.log(response);
-    setUserSubscribes((prev) => [...prev].filter((el) => el._id !== id));
+    setUserSubscribes((prev) =>
+      [...prev].filter((item) => item._id !== el._id)
+    );
     setNoticeDisplay("block");
     setNoticeText("Вы отписались");
     noticeRef.current.classList.add("notice-animation");
   };
   const onConfirm = () => {
-    unscribe(el._id);
+    unscribe();
   };
   return (
-    <div
-      key={randomKey()}
-      onClick={() => goToPublic(el._id)}
-      className="user-subscribe"
-    >
+    <div key={randomKey()} onClick={goToPublic} className="user-subscribe">
       <ModalWindow
         isOpen={auth.isOpen}
         onClose={auth.closeWindow}

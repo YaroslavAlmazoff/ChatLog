@@ -101,7 +101,7 @@ const UserPost = ({
   };
 
   const onConfirm = () => {
-    deletePost(post._id);
+    deletePost();
   };
 
   return (
