@@ -14,6 +14,7 @@
 .modal-window-cancel {
   color: #40a4ff;
   cursor: pointer;
+  margin-left: 10px;
 }
 .modal-window-button {
   margin: 10px;
