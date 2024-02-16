@@ -114,7 +114,7 @@ const UserPost = ({
         <div className="user-post-delete">
           <span
             title="Удалить запись?"
-            onClick={() => deletePost(post._id)}
+            onClick={() => /*deletePost(post._id)*/ onConfirm()}
             className="public-post-delete"
           >
             &times;
