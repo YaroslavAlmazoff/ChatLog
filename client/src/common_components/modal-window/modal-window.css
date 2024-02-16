@@ -1,18 +1,23 @@
-.modal-window {
+.modal-window-container {
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: white;
-  padding: 20px;
-  border: 1px solid #ccc;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.75);
+  padding: 15px;
 }
 
 .modal-window-content {
   text-align: center;
 }
 
+.modal-window-cancel {
+  color: #40a4ff;
+  cursor: pointer;
+}
 .modal-window-button {
-  margin: 0 10px;
+  margin: 10px;
+}
+.modal-window-text {
+  color: white;
 }

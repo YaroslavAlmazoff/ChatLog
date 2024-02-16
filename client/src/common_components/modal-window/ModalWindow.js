@@ -7,15 +7,18 @@ const ModalWindow = ({ isOpen, onClose, onConfirm, text }) => {
   }
 
   return (
-    <div className="modal-window">
+    <div className="modal-window-continer block">
       <div className="modal-window-content">
-        <p>{text}</p>
-        <button className="modal-window-button" onClick={onConfirm}>
+        <p className="modal-window-text">{text}</p>
+        <button
+          className="modal-window-button button-neon-red"
+          onClick={onConfirm}
+        >
           Подтвердить
         </button>
-        <button className="modal-window-button" onClick={onClose}>
+        <span className="modal-window-button" onClick={onClose}>
           Отмена
-        </button>
+        </span>
       </div>
     </div>
   );
