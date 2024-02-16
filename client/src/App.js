@@ -13,6 +13,7 @@ import auth from "./auth/api/auth";
 import ArtHeader from "./site_art/Header";
 import Footer from "./site_art/Footer";
 import "./site_art/index.css";
+import "./common_components/modal-window/modal-window.css";
 
 function App() {
   const { verify } = useVerify();
@@ -71,6 +72,7 @@ function App() {
       }}
     >
       <div className="App">
+        {isModalOpen && <div className="modal-window-overlay"></div>}
         {!window.location.toString().includes("/art") ? (
           <Header isVerified={isVerified} isActivated={isActivated} />
         ) : (
