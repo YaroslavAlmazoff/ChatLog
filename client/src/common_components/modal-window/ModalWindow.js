@@ -16,7 +16,7 @@ const ModalWindow = ({ isOpen, onClose, onConfirm, text }) => {
         >
           Подтвердить
         </button>
-        <span className="modal-window-button" onClick={onClose}>
+        <span className="modal-window-cancel" onClick={onClose}>
           Отмена
         </span>
       </div>
