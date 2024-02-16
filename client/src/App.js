@@ -21,6 +21,7 @@ function App() {
   const isAuthenticated = !!token;
   const [isVerified, setIsVerified] = useState(false);
   const [isActivated, setIsActivated] = useState(false);
+  const [isModalOpen, setModalOpen] = useState(false);
   const routes = useRoutes(isVerified);
   const { getCurrentDate } = useDate();
   useEffect(() => {
@@ -48,6 +49,14 @@ function App() {
     lastVisit();
   }, []);
 
+  const openWindow = () => {
+    setModalOpen(true);
+  };
+
+  const closeWindow = () => {
+    setModalOpen(false);
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -56,6 +65,9 @@ function App() {
         logout,
         userId,
         isAuthenticated,
+        openWindow,
+        closeWindow,
+        isOpen: isModalOpen,
       }}
     >
       <div className="App">

@@ -19,6 +19,7 @@ import Actions from "./parts/Mobile/Actions";
 import Fotos from "./parts/Mobile/Fotos";
 import Videos from "./parts/Mobile/Videos";
 import useVerify from "../common_hooks/verify.hook";
+import ModalWindow from "../common_components/modal-window/ModalWindow";
 
 const User = () => {
   //Страница пользователя
