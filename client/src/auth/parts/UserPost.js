@@ -101,7 +101,7 @@ const UserPost = ({
   };
 
   const onConfirm = () => {
-    console.log("confirmed.");
+    deletePost(post._id);
   };
 
   return (
@@ -116,7 +116,7 @@ const UserPost = ({
         <div className="user-post-delete">
           <span
             title="Удалить запись?"
-            onClick={/*() => deletePost(post._id)*/ auth.openWindow}
+            onClick={auth.openWindow}
             className="public-post-delete"
           >
             &times;
