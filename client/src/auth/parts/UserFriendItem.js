@@ -57,7 +57,7 @@ const UserFriendItem = ({
         <p
           title="Удалить из друзей?"
           className="delete-friend"
-          onClick={() => deleteFriend(el._id)}
+          onClick={onConfirm}
         >
           &times;
         </p>
