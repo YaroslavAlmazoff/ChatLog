@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import ImagePreview2 from "./ImagePreview2";
 import useRandom from "../../common_hooks/random.hook";
 import "../styles/user.css";
@@ -6,6 +6,8 @@ import { useParams } from "react-router";
 import FotoItem from "./FotoItem";
 import useDate from "../../common_hooks/date.hook";
 import api from "../api/auth";
+import { AuthContext } from "../../context/AuthContext";
+import ModalWindow from "../../common_components/modal-window/ModalWindow";
 
 const UserRightSide = ({
   getFile2,
@@ -24,6 +26,7 @@ const UserRightSide = ({
   showNotifications,
   notificationRef,
 }) => {
+  const auth = useContext(AuthContext);
   const [notifications, setNotifications] = useState([
     {
       checked: false,
@@ -59,6 +62,9 @@ const UserRightSide = ({
     setImagePreviewDisplay2("none");
     setImagePreviewUrl2("");
     setFile2("");
+  };
+  const onConfirm = (url) => {
+    deleteFoto(url);
   };
   return (
     <div className="user-left-side">
@@ -131,13 +137,19 @@ const UserRightSide = ({
         <></>
       )}
       <div className="user-fotos">
+        <ModalWindow
+          isOpen={auth.isOpen}
+          onClose={auth.closeWindow}
+          onConfirm={onConfirm}
+          text="Вы действительно хотите удалить эту фотографию?"
+        />
         <p className="user-fotos-title">Фотографии {userFotos.length}</p>
         {userFotos.map((el) => (
           <div className="foto-div" key={randomKey()}>
             <FotoItem item={el} />
             <span
               className="delete-foto"
-              onClick={() => deleteFoto(el.imageUrl)}
+              onClick={() => onConfirm(el.imageUrl)}
             >
               Удалить
             </span>
