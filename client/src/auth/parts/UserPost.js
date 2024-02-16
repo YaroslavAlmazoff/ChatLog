@@ -110,6 +110,7 @@ const UserPost = ({
         isOpen={auth.isOpen}
         onClose={auth.closeWindow}
         onConfirm={onConfirm}
+        text="Вы действительно хотите удалить этот пост?"
       />
       {isOwner && (
         <div className="user-post-delete">
