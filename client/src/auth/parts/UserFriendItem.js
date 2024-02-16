@@ -58,7 +58,7 @@ const UserFriendItem = ({
         <p
           title="Удалить из друзей?"
           className="delete-friend"
-          onClick={onConfirm}
+          onClick={auth.openWindow}
         >
           &times;
         </p>

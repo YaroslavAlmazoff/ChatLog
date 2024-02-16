@@ -59,7 +59,7 @@ const UserSubscribeItem = ({
       />
       <p className="user-subscribe-name">{divideWord(el.name, 25)}</p>
       {isOwner ? (
-        <p title="Отписаться" className="unscribe" onClick={onConfirm}>
+        <p title="Отписаться" className="unscribe" onClick={auth.openWindow}>
           &times;
         </p>
       ) : (
