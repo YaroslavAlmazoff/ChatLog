@@ -376,6 +376,9 @@
 .button:hover {
   transform: scale(110%);
 }
+.button-neon-red:hover {
+  transform: scale(110%);
+}
 
 .color-neon-blue {
   color: rgb(64, 164, 255);

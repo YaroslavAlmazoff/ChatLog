@@ -7,7 +7,7 @@ const ModalWindow = ({ isOpen, onClose, onConfirm, text }) => {
   }
 
   return (
-    <div className="modal-window-continer block">
+    <div className="modal-window-container block">
       <div className="modal-window-content">
         <p className="modal-window-text">{text}</p>
         <button
