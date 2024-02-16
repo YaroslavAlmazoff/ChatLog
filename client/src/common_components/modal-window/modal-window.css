@@ -23,7 +23,6 @@
   color: white;
 }
 .modal-window-overlay {
-  display: none;
   position: fixed;
   width: 1000vw;
   height: 1000vh;
