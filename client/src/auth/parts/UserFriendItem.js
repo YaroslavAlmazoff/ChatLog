@@ -4,6 +4,7 @@ import useFiles from "../../common_hooks/files.hook";
 import api from "../api/auth";
 import { AuthContext } from "../../context/AuthContext";
 import { useContext, useEffect, useState } from "react";
+import ModalWindow from "../../common_components/modal-window/ModalWindow";
 
 const UserFriendItem = ({
   el,

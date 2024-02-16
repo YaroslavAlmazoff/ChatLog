@@ -4,6 +4,7 @@ import useFiles from "../../common_hooks/files.hook";
 import api from "../api/auth";
 import { AuthContext } from "../../context/AuthContext";
 import { useContext, useEffect, useState } from "react";
+import ModalWindow from "../../common_components/modal-window/ModalWindow";
 
 const UserSubscribeItem = ({
   el,
@@ -32,12 +33,21 @@ const UserSubscribeItem = ({
     setNoticeText("Вы отписались");
     noticeRef.current.classList.add("notice-animation");
   };
+  const onConfirm = () => {
+    unscribe(el._id);
+  };
   return (
     <div
       key={randomKey()}
       onClick={() => goToPublic(el._id)}
       className="user-subscribe"
     >
+      <ModalWindow
+        isOpen={auth.isOpen}
+        onClose={auth.closeWindow}
+        onConfirm={onConfirm}
+        text={`Вы действительно хотите отписаться от группы ${el.name}?`}
+      />
       <img
         className="user-friend-avatar block"
         src={
@@ -49,11 +59,7 @@ const UserSubscribeItem = ({
       />
       <p className="user-subscribe-name">{divideWord(el.name, 25)}</p>
       {isOwner ? (
-        <p
-          title="Отписаться"
-          className="unscribe"
-          onClick={() => unscribe(el._id)}
-        >
+        <p title="Отписаться" className="unscribe" onClick={onConfirm}>
           &times;
         </p>
       ) : (
