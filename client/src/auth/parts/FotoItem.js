@@ -3,15 +3,21 @@ import ModalWindow from "../../common_components/modal-window/ModalWindow";
 import { useContext } from "react";
 
 const FotoItem = ({ item, deleteFoto }) => {
-  const auth = useContext(AuthContext);
+  const [modal, setModal] = useState(false);
   const onConfirm = () => {
     deleteFoto(item.url);
+  };
+  const openWindow = () => {
+    setModal(true);
+  };
+  const closeWindow = () => {
+    setModal(false);
   };
   return (
     <div>
       <ModalWindow
-        isOpen={auth.isOpen}
-        onClose={auth.closeWindow}
+        isOpen={modal}
+        onClose={closeWindow}
         onConfirm={onConfirm}
         text="Вы действительно хотите удалить эту фотографию?"
       />
@@ -20,7 +26,7 @@ const FotoItem = ({ item, deleteFoto }) => {
         alt=""
         src={process.env.REACT_APP_API_URL + "/userfotos/" + item.imageUrl}
       />
-      <span className="delete-foto" onClick={auth.openWindow}>
+      <span className="delete-foto" onClick={openWindow}>
         Удалить
       </span>
     </div>

@@ -17,6 +17,7 @@ const UserPost = ({
   const [mainImageLoading, setMainImageLoading] = useState(true);
   const [commentsDisplay, setCommentsDisplay] = useState(false);
   const [comments, setComments] = useState([]);
+  const [modal, setModal] = useState(false);
   const [colors] = useState([
     "color-neon-blue",
     "color-neon-orange",
@@ -33,6 +34,13 @@ const UserPost = ({
     "pink-text-glow",
     "navy-text-glow",
   ]);
+
+  const openWindow = () => {
+    setModal(true);
+  };
+  const closeWindow = () => {
+    setModal(false);
+  };
 
   const randomColor = () => {
     return colors[Math.round(Math.random() * colors.length)];
@@ -107,8 +115,8 @@ const UserPost = ({
   return (
     <div className="user-post">
       <ModalWindow
-        isOpen={auth.isOpen}
-        onClose={auth.closeWindow}
+        isOpen={modal}
+        onClose={closeWindow}
         onConfirm={onConfirm}
         text="Вы действительно хотите удалить этот пост?"
       />
@@ -116,7 +124,7 @@ const UserPost = ({
         <div className="user-post-delete">
           <span
             title="Удалить запись?"
-            onClick={auth.openWindow}
+            onClick={openWindow}
             className="public-post-delete"
           >
             &times;

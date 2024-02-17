@@ -18,6 +18,14 @@ const UserSubscribeItem = ({
   const auth = useContext(AuthContext);
   const { divideWord } = useWord();
   const { randomKey } = useRandom();
+  const [modal, setModal] = useState(false);
+
+  const openWindow = () => {
+    setModal(true);
+  };
+  const closeWindow = () => {
+    setModal(false);
+  };
 
   const goToPublic = () => {
     window.location = `/user/${el._id}`;
@@ -41,8 +49,8 @@ const UserSubscribeItem = ({
   return (
     <div key={randomKey()} onClick={goToPublic} className="user-subscribe">
       <ModalWindow
-        isOpen={auth.isOpen}
-        onClose={auth.closeWindow}
+        isOpen={modal}
+        onClose={closeWindow}
         onConfirm={onConfirm}
         text={`Вы действительно хотите отписаться от группы ${el.name}?`}
       />
@@ -62,7 +70,7 @@ const UserSubscribeItem = ({
           className="unscribe"
           onClick={(e) => {
             e.stopPropagation();
-            auth.openWindow();
+            openWindow();
           }}
         >
           &times;

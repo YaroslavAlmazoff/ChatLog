@@ -18,6 +18,14 @@ const UserFriendItem = ({
   const auth = useContext(AuthContext);
   const { divideWord } = useWord();
   const { randomKey } = useRandom();
+  const [modal, setModal] = useState(false);
+
+  const openWindow = () => {
+    setModal(true);
+  };
+  const closeWindow = () => {
+    setModal(false);
+  };
 
   const gotoFriend = (id) => {
     window.location = `/user/${id}`;
@@ -49,8 +57,8 @@ const UserFriendItem = ({
       className="user-friend"
     >
       <ModalWindow
-        isOpen={auth.isOpen}
-        onClose={auth.closeWindow}
+        isOpen={modal}
+        onClose={closeWindow}
         onConfirm={onConfirm}
         text={`Вы действительно хотите удалить пользователя ${el.name} из друзей?`}
       />
@@ -60,7 +68,7 @@ const UserFriendItem = ({
           className="delete-friend"
           onClick={(e) => {
             e.stopPropagation();
-            auth.openWindow();
+            openWindow();
           }}
         >
           &times;
