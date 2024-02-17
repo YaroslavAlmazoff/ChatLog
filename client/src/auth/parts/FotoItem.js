@@ -2,12 +2,9 @@ import { AuthContext } from "../../context/AuthContext";
 import ModalWindow from "../../common_components/modal-window/ModalWindow";
 import { useState, useContext } from "react";
 
-const FotoItem = ({ item, deleteFoto }) => {
+const FotoItem = ({ item, deleteFoto, isOwner }) => {
   const auth = useContext(AuthContext);
   const [modal, setModal] = useState(false);
-  const onConfirm = () => {
-    deleteFoto(item.imageUrl);
-  };
   const openWindow = () => {
     setModal(true);
     auth.darkScreen(true);
@@ -15,6 +12,9 @@ const FotoItem = ({ item, deleteFoto }) => {
   const closeWindow = () => {
     setModal(false);
     auth.darkScreen(false);
+  };
+  const onConfirm = () => {
+    deleteFoto(item.imageUrl);
   };
   return (
     <div className="foto-div">
@@ -29,15 +29,11 @@ const FotoItem = ({ item, deleteFoto }) => {
         alt=""
         src={process.env.REACT_APP_API_URL + "/userfotos/" + item.imageUrl}
       />
-      <span
-        className="delete-foto"
-        onClick={(e) => {
-          e.stopPropagation();
-          openWindow();
-        }}
-      >
-        Удалить
-      </span>
+      {isOwner && (
+        <span className="delete-foto" onClick={openWindow}>
+          Удалить
+        </span>
+      )}
     </div>
   );
 };
