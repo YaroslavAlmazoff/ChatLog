@@ -64,28 +64,6 @@ const UserRightSide = ({
       {isOwner ? (
         <div>
           <div ref={notificationRef} className="notice-container">
-            {notifications.length !== 0 ? (
-              <div>
-                {!notifications[notifications.length - 1].checked ? (
-                  <div
-                    style={{
-                      width: "60px",
-                      backgroundColor: "red",
-                      borderRadius: "15px",
-                      marginBottom: "-30px",
-                      zIndex: "10",
-                      color: "white",
-                    }}
-                  >
-                    <p>Новые</p>
-                  </div>
-                ) : (
-                  <></>
-                )}
-              </div>
-            ) : (
-              <></>
-            )}
             <img
               className={`${
                 notifications.length !== 0 &&
