@@ -29,7 +29,13 @@ const FotoItem = ({ item, deleteFoto }) => {
         alt=""
         src={process.env.REACT_APP_API_URL + "/userfotos/" + item.imageUrl}
       />
-      <span className="delete-foto" onClick={openWindow}>
+      <span
+        className="delete-foto"
+        onClick={(e) => {
+          e.stopPropagation();
+          openWindow();
+        }}
+      >
         Удалить
       </span>
     </div>
