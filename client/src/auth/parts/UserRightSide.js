@@ -87,7 +87,12 @@ const UserRightSide = ({
               <></>
             )}
             <img
-              className="button notice-img"
+              className={`${
+                notifications.length !== 0 &&
+                !notifications[notifications.length - 1].checked
+                  ? "button-neon-red red-block-glow"
+                  : "button blue-block-glow"
+              } notice-img `}
               onClick={showNotifications}
               width="35"
               src={require("../img/notice.png")}
