@@ -6,7 +6,7 @@ const FotoItem = ({ item, deleteFoto }) => {
   const auth = useContext(AuthContext);
   const [modal, setModal] = useState(false);
   const onConfirm = () => {
-    deleteFoto(item.url);
+    deleteFoto(item.imageUrl);
   };
   const openWindow = () => {
     setModal(true);
@@ -17,7 +17,7 @@ const FotoItem = ({ item, deleteFoto }) => {
     auth.darkScreen(false);
   };
   return (
-    <div>
+    <div className="foto-div">
       <ModalWindow
         isOpen={modal}
         onClose={closeWindow}

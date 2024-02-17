@@ -132,9 +132,7 @@ const UserRightSide = ({
       <div className="user-fotos">
         <p className="user-fotos-title">Фотографии {userFotos.length}</p>
         {userFotos.map((el) => (
-          <div className="foto-div" key={randomKey()}>
-            <FotoItem item={el} deleteFoto={deleteFoto} />
-          </div>
+          <FotoItem key={randomKey()} item={el} deleteFoto={deleteFoto} />
         ))}
       </div>
     </div>

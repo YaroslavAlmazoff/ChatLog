@@ -3,6 +3,7 @@ import "./modal-window.css";
 
 const ModalWindow = ({ isOpen, onClose, onConfirm, text }) => {
   if (!isOpen) {
+    console.log("не из опен");
     return null;
   }
 
