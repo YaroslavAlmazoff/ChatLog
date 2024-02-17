@@ -19,7 +19,7 @@ const FotoItem = ({ item, deleteFoto }) => {
   return (
     <div className="foto-div">
       <ModalWindow
-        isOpen={modal}
+        isOpen={true}
         onClose={closeWindow}
         onConfirm={onConfirm}
         text="Вы действительно хотите удалить эту фотографию?"
