@@ -34,6 +34,8 @@
     cursor: pointer;
     filter: brightness(200%);
     border-radius: 50%;
+    transition-property: transform;
+    transition-duration: 0.6s;
   }
 }
 @media screen and (width < 500px) {
@@ -72,7 +74,12 @@
     cursor: pointer;
     filter: brightness(200%);
     border-radius: 50%;
+    transition-property: transform;
+    transition-duration: 0.6s;
   }
+}
+.user-post-like:hover {
+  transform: scale(110%);
 }
 .user-post-title {
   margin-left: 5px;
