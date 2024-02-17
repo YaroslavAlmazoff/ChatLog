@@ -50,14 +50,6 @@ function App() {
     lastVisit();
   }, []);
 
-  const openWindow = () => {
-    setModalOpen(true);
-  };
-
-  const closeWindow = () => {
-    setModalOpen(false);
-  };
-
   return (
     <AuthContext.Provider
       value={{
