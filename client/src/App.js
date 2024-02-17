@@ -22,7 +22,7 @@ function App() {
   const isAuthenticated = !!token;
   const [isVerified, setIsVerified] = useState(false);
   const [isActivated, setIsActivated] = useState(false);
-  const [isModalOpen, setModalOpen] = useState(false);
+  const [modalOverlay, setModalOverlay] = useState(false);
   const routes = useRoutes(isVerified);
   const { getCurrentDate } = useDate();
   useEffect(() => {
@@ -66,13 +66,11 @@ function App() {
         logout,
         userId,
         isAuthenticated,
-        openWindow,
-        closeWindow,
-        isOpen: isModalOpen,
+        darkScreen: setModalOverlay,
       }}
     >
       <div className="App">
-        {isModalOpen && <div className="modal-window-overlay"></div>}
+        {modalOverlay && <div className="modal-window-overlay"></div>}
         {!window.location.toString().includes("/art") ? (
           <Header isVerified={isVerified} isActivated={isActivated} />
         ) : (

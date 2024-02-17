@@ -1,17 +1,20 @@
 import { AuthContext } from "../../context/AuthContext";
 import ModalWindow from "../../common_components/modal-window/ModalWindow";
-import { useState } from "react";
+import { useState, useContext } from "react";
 
 const FotoItem = ({ item, deleteFoto }) => {
+  const auth = useContext(AuthContext);
   const [modal, setModal] = useState(false);
   const onConfirm = () => {
     deleteFoto(item.url);
   };
   const openWindow = () => {
     setModal(true);
+    auth.darkScreen(true);
   };
   const closeWindow = () => {
     setModal(false);
+    auth.darkScreen(false);
   };
   return (
     <div>

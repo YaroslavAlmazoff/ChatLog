@@ -22,9 +22,11 @@ const UserFriendItem = ({
 
   const openWindow = () => {
     setModal(true);
+    auth.darkScreen(true);
   };
   const closeWindow = () => {
     setModal(false);
+    auth.darkScreen(false);
   };
 
   const gotoFriend = (id) => {
