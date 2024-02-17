@@ -16,6 +16,23 @@
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 }
+.dark-button {
+  border-radius: 20px;
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 5px #40a4ff;
+  color: #40a4ff;
+  border: 3px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition-property: transform;
+  transition-duration: 0.6s;
+  animation-name: glow;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
 .button-neon-red {
   border-radius: 20px;
   padding: 10px;
@@ -379,6 +396,9 @@
   animation-iteration-count: infinite;
 }
 .button:hover {
+  transform: scale(110%);
+}
+.fark-button:hover {
   transform: scale(110%);
 }
 .button-neon-red:hover {
