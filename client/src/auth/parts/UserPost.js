@@ -167,7 +167,12 @@ const UserPost = ({
         {likesCount > 0 ? (
           <span style={{ color: "white" }}>{likesCount}</span>
         ) : null}
-        <img onClick={mark} className="user-post-like" src={like} alt="" />
+        <img
+          onClick={mark}
+          className="block user-post-like"
+          src={like}
+          alt=""
+        />
         {comments.length ? (
           <span style={{ color: "white" }}>{comments.length}</span>
         ) : null}

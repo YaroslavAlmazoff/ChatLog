@@ -33,6 +33,7 @@
     object-fit: cover;
     cursor: pointer;
     filter: brightness(200%);
+    border-radius: 50%;
   }
 }
 @media screen and (width < 500px) {
@@ -70,6 +71,7 @@
     object-fit: cover;
     cursor: pointer;
     filter: brightness(200%);
+    border-radius: 50%;
   }
 }
 .user-post-title {
