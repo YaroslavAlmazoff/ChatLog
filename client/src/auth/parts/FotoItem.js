@@ -1,6 +1,6 @@
 import { AuthContext } from "../../context/AuthContext";
 import ModalWindow from "../../common_components/modal-window/ModalWindow";
-import { useContext } from "react";
+import { useState } from "react";
 
 const FotoItem = ({ item, deleteFoto }) => {
   const [modal, setModal] = useState(false);
