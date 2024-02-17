@@ -18,6 +18,7 @@ const UserPost = ({
   const [commentsDisplay, setCommentsDisplay] = useState(false);
   const [comments, setComments] = useState([]);
   const [modal, setModal] = useState(false);
+  const [likeClass, setLikeClass] = useState("blue-block-glow");
   const [colors] = useState([
     "color-neon-blue",
     "color-neon-orange",
@@ -56,18 +57,21 @@ const UserPost = ({
       const response = await api.get(`/api/userpost/comments/${post._id}`);
       setComments(response.data.comments.reverse());
     };
-    getComments();
-  }, [post]);
-
-  useEffect(() => {
+    const checkLike = async () => {
+      const response = await api.get(`/api/check-like/${post._id}`, {
+        headers: {
+          Authorization: `Bearer ${auth.token}`,
+        },
+      });
+      if (response.data.liked) {
+        setLike(require("../../img/red-like.png"));
+        setLikeClass("red-block-glow");
+      }
+      getComments();
+      checkLike();
+    };
     setImage(process.env.REACT_APP_API_URL + "/articles/" + post.images[0]);
     setLikesCount(post.likes);
-  }, [post]);
-
-  useEffect(() => {
-    if (localStorage.getItem(post._id) === auth.userId) {
-      setLike(require("../../img/red-like.png"));
-    }
   }, [post, auth]);
 
   const [like, setLike] = useState(require("../../img/blue-like.png"));

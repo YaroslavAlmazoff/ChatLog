@@ -373,6 +373,11 @@
   animation-duration: 2s;
   animation-iteration-count: infinite;
 }
+.red-block-glow {
+  animation-name: red-block-glow;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
 .button:hover {
   transform: scale(110%);
 }
