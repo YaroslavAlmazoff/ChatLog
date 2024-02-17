@@ -123,7 +123,7 @@ const UserLeftSide = ({
     <div className="user-right-side">
       {!isOwner ? (
         <div className="user-actions">
-          <button onClick={createRoom} className="user-action">
+          <button onClick={createRoom} className="dark-button">
             Написать сообщение
           </button>
           {isFriends ? (
