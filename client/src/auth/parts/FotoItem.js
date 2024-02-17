@@ -18,12 +18,14 @@ const FotoItem = ({ item, deleteFoto, isOwner }) => {
   };
   return (
     <div className="foto-div">
-      <ModalWindow
-        isOpen={modal}
-        onClose={closeWindow}
-        onConfirm={onConfirm}
-        text="Вы действительно хотите удалить эту фотографию?"
-      />
+      {modal && (
+        <ModalWindow
+          isOpen={modal}
+          onClose={closeWindow}
+          onConfirm={onConfirm}
+          text="Вы действительно хотите удалить эту фотографию?"
+        />
+      )}
       <img
         className="user-foto-preview block"
         alt=""

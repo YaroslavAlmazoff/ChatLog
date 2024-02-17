@@ -50,12 +50,14 @@ const UserSubscribeItem = ({
   };
   return (
     <div key={randomKey()} onClick={goToPublic} className="user-subscribe">
-      <ModalWindow
-        isOpen={modal}
-        onClose={closeWindow}
-        onConfirm={onConfirm}
-        text={`Вы действительно хотите отписаться от группы ${el.name}?`}
-      />
+      {modal && (
+        <ModalWindow
+          isOpen={modal}
+          onClose={closeWindow}
+          onConfirm={onConfirm}
+          text={`Вы действительно хотите отписаться от группы ${el.name}?`}
+        />
+      )}
       <img
         className="user-friend-avatar block"
         src={

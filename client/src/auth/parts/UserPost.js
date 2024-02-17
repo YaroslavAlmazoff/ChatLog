@@ -116,12 +116,14 @@ const UserPost = ({
 
   return (
     <div className="user-post">
-      <ModalWindow
-        isOpen={modal}
-        onClose={closeWindow}
-        onConfirm={onConfirm}
-        text="Вы действительно хотите удалить этот пост?"
-      />
+      {modal && (
+        <ModalWindow
+          isOpen={modal}
+          onClose={closeWindow}
+          onConfirm={onConfirm}
+          text="Вы действительно хотите удалить этот пост?"
+        />
+      )}
       {isOwner && (
         <div className="user-post-delete">
           <span

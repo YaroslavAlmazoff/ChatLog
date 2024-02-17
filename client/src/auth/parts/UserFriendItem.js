@@ -58,12 +58,14 @@ const UserFriendItem = ({
       onClick={() => gotoFriend(el._id)}
       className="user-friend"
     >
-      <ModalWindow
-        isOpen={modal}
-        onClose={closeWindow}
-        onConfirm={onConfirm}
-        text={`Вы действительно хотите удалить пользователя ${el.name} из друзей?`}
-      />
+      {modal && (
+        <ModalWindow
+          isOpen={modal}
+          onClose={closeWindow}
+          onConfirm={onConfirm}
+          text={`Вы действительно хотите удалить пользователя ${el.name} из друзей?`}
+        />
+      )}
       {isOwner ? (
         <p
           title="Удалить из друзей?"
