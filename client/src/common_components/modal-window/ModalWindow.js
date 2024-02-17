@@ -12,11 +12,20 @@ const ModalWindow = ({ isOpen, onClose, onConfirm, text }) => {
         <p className="modal-window-text">{text}</p>
         <button
           className="modal-window-button button-neon-red"
-          onClick={onConfirm}
+          onClick={(e) => {
+            e.stopPropagation();
+            onConfirm();
+          }}
         >
           Подтвердить
         </button>
-        <span className="modal-window-cancel" onClick={onClose}>
+        <span
+          className="modal-window-cancel"
+          onClick={(e) => {
+            e.stopPropagation();
+            onClose();
+          }}
+        >
           Отмена
         </span>
       </div>

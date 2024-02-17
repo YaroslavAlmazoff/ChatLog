@@ -28,7 +28,7 @@ const UserSubscribeItem = ({
   };
 
   const goToPublic = () => {
-    window.location = `/user/${el._id}`;
+    window.location = `/public/${el._id}`;
   };
   //Удаление из друзей
   const unscribe = async () => {
