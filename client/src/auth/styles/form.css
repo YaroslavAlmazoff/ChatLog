@@ -46,13 +46,13 @@
   padding: 12px;
   background-color: transparent;
   outline: none;
-  border-bottom: 2px solid rgb(0, 140, 255);
+  border-bottom: 2px solid #40a4ff;
   width: 94%;
   margin-top: 10px;
   color: white;
 }
 .form-area {
-  border: 2px solid rgb(0, 140, 255);
+  border: 2px solid #40a4ff;
   padding: 12px;
   background-color: transparent;
   outline: none;
