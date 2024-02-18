@@ -66,9 +66,6 @@
   width: 100%;
   margin-top: 10px;
 }
-.submit:hover {
-  transform: scale(125%);
-}
 .form-title {
   color: white;
 }
