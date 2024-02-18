@@ -163,7 +163,7 @@ const EditProfile = () => {
             imagePreviewUrl2={imagePreviewUrl2}
             imagePreviewDisplay2={imagePreviewDisplay2}
           />
-          <button onClick={updateHandler} className="button mt">
+          <button onClick={updateHandler} className="button mt ml0">
             Обновить профиль
           </button>
         </>
