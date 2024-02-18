@@ -42,6 +42,11 @@
   flex-direction: column;
   margin-left: 10px;
 }
+.user-name {
+  background-color: rgba(0, 0, 0, 0.349);
+  border-radius: 15px;
+  padding: 10px;
+}
 .user-nav-actions {
   flex-direction: column;
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
