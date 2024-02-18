@@ -274,9 +274,8 @@
   width: 50%;
   margin-left: 25%;
   background-color: rgba(0, 0, 0, 0.349);
-  border: 1px solid rgb(0, 140, 255);
   border-radius: 11px;
-  padding: 5px;
+  padding: 10px;
 }
 .about-me-text {
   text-align: justify;
