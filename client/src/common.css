@@ -398,7 +398,7 @@
 .button:hover {
   transform: scale(110%);
 }
-.fark-button:hover {
+.dark-button:hover {
   transform: scale(110%);
 }
 .button-neon-red:hover {
