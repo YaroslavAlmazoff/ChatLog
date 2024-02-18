@@ -43,9 +43,9 @@
   margin-left: 10px;
 }
 .user-name {
-  background-color: rgba(0, 0, 0, 0.349);
-  border-radius: 15px;
-  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 20px;
+  padding: 7px;
 }
 .user-nav-actions {
   flex-direction: column;
@@ -67,9 +67,9 @@
   display: flex;
   align-items: center;
   cursor: pointer;
-  background-color: rgba(0, 0, 0, 0.349);
-  border-radius: 15px;
-  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 20px;
+  padding: 7px;
 }
 .user-more-info-title {
   color: #40a4ff;
