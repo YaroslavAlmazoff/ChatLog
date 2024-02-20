@@ -14,7 +14,8 @@ const Admin = () => {
   const [visits, setVisits] = useState(0);
 
   useEffect(() => {
-    if (auth && auth.userId !== "628e5aab0153706a3e18fe79") {
+    console.log(auth, auth.userId, auth.userId !== "628e5aab0153706a3e18fe79");
+    if (auth && auth.userId && auth.userId !== "628e5aab0153706a3e18fe79") {
       window.location = "/home";
     }
     verify();
