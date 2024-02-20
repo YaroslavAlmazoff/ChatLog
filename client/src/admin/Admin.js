@@ -2,11 +2,9 @@ import { useContext, useEffect, useState } from "react";
 import api from "../auth/api/auth";
 import Message from "./Message";
 import "./admin.css";
-import { useParams } from "react-router";
 import useVerify from "../common_hooks/verify.hook";
 import AddEvent from "./AddEvent";
 import AddImage from "./AddImage";
-import AddBIN from "./AddBIN";
 import { AuthContext } from "../context/AuthContext";
 
 const Admin = () => {
