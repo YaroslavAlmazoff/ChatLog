@@ -51,7 +51,6 @@ const Admin = () => {
         </span>
         <AddEvent />
         <AddImage />
-        <AddBIN />
       </div>
     </div>
   );
