@@ -103,7 +103,7 @@ const CreatePost = () => {
     <>
       {!loading ? (
         <div className="create-post block">
-          <h2 className="form-title">Обновление профиля</h2>
+          <h2 className="form-title">Создание поста</h2>
           <input
             onChange={(e) => getFile(e)}
             ref={fileRef}
