@@ -135,7 +135,7 @@ const UserLeftSide = ({
               ) : (
                 <button
                   onClick={makeFriends}
-                  className="user-action"
+                  className="user-action dark-button"
                   style={{ display: friendsButtonDisplay }}
                 >
                   Добавить в друзья
