@@ -55,7 +55,7 @@ const AddImage = () => {
         Добавить файл
       </button>
       <button className="button" onClick={send}>
-        Опубликовать
+        Загрузить
       </button>
     </div>
   );

@@ -16,7 +16,7 @@ const Admin = () => {
   const [visits, setVisits] = useState(0);
 
   useEffect(() => {
-    if (auth.userId !== "628e5aab0153706a3e18fe79") {
+    if (auth && auth.userId !== "628e5aab0153706a3e18fe79") {
       window.location = "/home";
     }
     verify();
@@ -30,7 +30,7 @@ const Admin = () => {
     };
     getMessages();
     getVisits();
-  }, []);
+  }, [auth]);
 
   return (
     <div className="admin">
