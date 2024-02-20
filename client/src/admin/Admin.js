@@ -14,7 +14,6 @@ const Admin = () => {
   const [visits, setVisits] = useState(0);
 
   useEffect(() => {
-    console.log(auth, auth.userId, auth.userId !== "628e5aab0153706a3e18fe79");
     if (auth && auth.userId && auth.userId !== "628e5aab0153706a3e18fe79") {
       window.location = "/home";
     }
@@ -40,14 +39,11 @@ const Admin = () => {
           ))}
         </div>
       </div>
-      <div className="admin-visits">
-        <h3 className="admin-visits-text">
+      <div className="admin-forms">
+        {/* <h3 className="admin-visits-text">
           {visits} человек послетило ChatLog.ru за все время существования этой
           чудесной социальной сети.
-        </h3>
-        <span className="text-glow" style={{ color: "white" }}>
-          Астрономические события
-        </span>
+        </h3> */}
         <AddEvent />
         <AddImage />
       </div>
