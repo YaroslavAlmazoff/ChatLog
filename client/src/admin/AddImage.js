@@ -52,7 +52,7 @@ const AddImage = () => {
       />
       <input onChange={(e) => getFile2(e)} ref={fileRef} type="file" />
       <button onClick={(e) => emitOpen2(e)} className="button">
-        Добавить фотографию
+        Добавить файл
       </button>
       <button className="button" onClick={send}>
         Опубликовать
