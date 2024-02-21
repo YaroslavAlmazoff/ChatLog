@@ -223,10 +223,10 @@ router.get("/users", (req, res) => {
     console.log(e);
   }
 });
-router.get("/users", (req, res) => {
+router.get("/allusers", auth, (req, res) => {
   //Все пользователи
   try {
-    UserService.findAllUsers(req, res);
+    UserService.getUsers(req, res);
   } catch (e) {
     console.log(e);
   }

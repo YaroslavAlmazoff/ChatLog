@@ -35,6 +35,19 @@ class UserService {
     const users = await User.find();
     res.json({ users });
   }
+  async getUsers(req, res) {
+    const users = await User.find();
+    const mappedUsers = users.map((user) => {
+      const userObj = user.toObject();
+      if (user.friends.includes(req.user.userId)) {
+        userObj.isFriends = true;
+      } else userObj.isFriends = false;
+      return userObj;
+    });
+    Promise.all(mappedUsers)
+      .then((data) => res.json({ users: data }))
+      .catch((error) => res.json({ users: [] }));
+  }
   async loadAllUsers(req, res) {
     const users = await User.find();
     const filtered = users.filter(
