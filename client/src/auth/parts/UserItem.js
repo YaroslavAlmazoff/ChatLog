@@ -9,9 +9,12 @@ const UserItem = ({
   surname,
   age,
   avatarUrl,
-  id /*, isFriends, friendsButtonText*/,
+  id,
+  isFriends,
+  isRequest,
 }) => {
   const [loading, setLoading] = useState(true);
+  const [friendsRequestSent, setFriendsRequestSent] = useState(isRequest);
   const auth = useContext(AuthContext);
   const { randomColor, randomShadow, randomBlockShadow } = useHighlight();
   //Предпросмотр пользователя на странице со всеми пользователями
@@ -51,6 +54,7 @@ const UserItem = ({
   const makeFriends = async (e) => {
     e.preventDefault();
     e.stopPropagation();
+    setFriendsRequestSent(true);
     // friendsButtonText = 'Вы отправили заявку'
     // isFriends = true
     //Получение ID пользователей
@@ -69,11 +73,6 @@ const UserItem = ({
     //Создание записи в локальном хранилище браузера о том что пользователь и посетитель его страницы - друзья
     localStorage.setItem(user2, user1);
   };
-  // const noop = (e) => {
-  //     e.preventDefault()
-  //     e.stopPropagation()
-  //     console.log('тяжелый случай', e)
-  // }
   return (
     <div
       onClick={() => gotoUser(id)}
@@ -106,12 +105,17 @@ const UserItem = ({
                 Написать сообщение
               </button>
             ) : (
-              <button
-                onClick={!isFriends ? (e) => makeFriends(e) : (e) => noop(e)}
-                className="button"
-              >
-                {friendsButtonText}
-              </button>
+              <>
+                {friendsRequestSent ? (
+                  <span className="user-item-request-sent">
+                    Заявка отправлена
+                  </span>
+                ) : (
+                  <button onClick={(e) => makeFriends(e)} className="button">
+                    Добавить в друзья
+                  </button>
+                )}
+              </>
             )}
           </div>
         ) : (

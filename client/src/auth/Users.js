@@ -86,7 +86,7 @@ const Users = () => {
               avatarUrl={el.avatarUrl}
               id={el._id}
               isFriends={el.isFriends}
-              friendsButtonText={el.friendsButtonText}
+              isRequest={el.isRequest}
             />
           ))}
         </div>

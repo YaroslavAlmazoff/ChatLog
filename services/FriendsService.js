@@ -187,8 +187,13 @@ class FriendsService {
       to: user2id,
       type: "friends",
     });
+    const notice2 = await Notification.findOne({
+      from: user2id,
+      to: user1id,
+      type: "friends",
+    });
     //Проверка есть ли такое уведомление
-    if (notice) {
+    if (notice || notice2) {
       //Если да, возвращение на клиент true
       res.json({ message: true });
     } else {

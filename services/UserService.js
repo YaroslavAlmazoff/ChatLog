@@ -1,5 +1,6 @@
 const fileUpload = require("express-fileupload");
 const User = require("../models/User");
+const Notification = require("../models/Notification");
 
 //Сервис для взаимодействие с пользователями
 class UserService {
@@ -37,16 +38,25 @@ class UserService {
   }
   async getUsers(req, res) {
     const users = await User.find();
-    const mappedUsers = users.map((user) => {
+    const mappedUsers = users.map(async (user) => {
       const userObj = user.toObject();
-      if (user.friends.includes(req.user.userId)) {
-        userObj.isFriends = true;
-      } else userObj.isFriends = false;
+      const notice = await Notification.findOne({
+        from: user._id,
+        to: req.user.userId,
+        type: "friends",
+      });
+      const notice2 = await Notification.findOne({
+        from: req.user.userId,
+        to: user._id,
+        type: "friends",
+      });
+      userObj.isFriends = user.friends.includes(req.user.userId);
+      userObj.isRequest = notice || notice2;
       return userObj;
     });
     Promise.all(mappedUsers)
       .then((data) => res.json({ users: data }))
-      .catch((error) => res.json({ users: [] }));
+      .catch((e) => res.json({ users: [] }));
   }
   async loadAllUsers(req, res) {
     const users = await User.find();
