@@ -28,7 +28,5 @@
 }
 .settings-item {
   width: 100%;
-  padding-bottom: 20px;
-  margin-bottom: 20px;
-  border-bottom: 1px solid rgb(81, 81, 81);
+  margin: 15px;
 }
