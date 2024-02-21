@@ -20,7 +20,7 @@ const UserCenterSide = ({
     window.location = "/createpost";
   };
   const gotoAdmin = () => {
-    window.location = `/admin/${params.id}`;
+    window.location = `/admin`;
   };
   //Центральная часть страницы пользователя - список его постов
   return (

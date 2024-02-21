@@ -88,7 +88,7 @@ export const useRoutes = (isVerified) => {
       <Route path="*" element={<Navigate to="/" />} />
       <Route exact path="/" element={<Main />} />
       <Route exact path="/services" element={<Services />} />
-      <Route exact path="/admin/:id" element={<Admin />} />
+      <Route exact path="/admin" element={<Admin />} />
       <Route exact path="/cloud" element={<FileStorage />} />
       <Route exact path="/cloud/file/:id" element={<File />} />
       <Route exact path="/home" element={<HomePage />} />
