@@ -1,6 +1,7 @@
 import useVerify from "./common_hooks/verify.hook";
 import { useEffect } from "react";
 import "./settings.css";
+import "./auth/styles/form.css";
 
 const Settings = () => {
   const { verify } = useVerify();
@@ -18,6 +19,7 @@ const Settings = () => {
   return (
     <div className="settings-wrapper">
       <div className="settings block">
+        <h2 className="form-title">Создание поста</h2>
         <div className="settings-item">
           <button onClick={logout} className="button">
             Выйти
