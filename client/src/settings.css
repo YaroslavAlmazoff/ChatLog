@@ -12,8 +12,15 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
     padding: 20px;
     width: 30%;
+  }
+  .settings-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
   }
 }
 @media screen and (width < 500px) {
@@ -22,11 +29,18 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
     padding: 20px;
     width: 98%;
-    border-radius: 15px;
+  }
+  .settings-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
   }
 }
+
 .settings-item {
   margin: 15px;
 }
