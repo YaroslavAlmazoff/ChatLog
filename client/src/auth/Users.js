@@ -31,7 +31,7 @@ const Users = () => {
   useEffect(() => {
     if (!auth.userId) return;
     const fetchUsers = async () => {
-      const response = await api.get(`/users/${page}`, {
+      const response = await api.get(`/api/users/${page}`, {
         headers: {
           Authorization: `Bearer ${auth.token}`,
         },
