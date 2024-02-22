@@ -4,6 +4,7 @@ import api from "../api/auth";
 import { AuthContext } from "../../context/AuthContext";
 import useHighlight from "../../common_hooks/highlight.hook";
 import useDate from "../../common_hooks/date.hook";
+import useWord from "../../common_hooks/divideWord.hook";
 
 const UserItem = ({
   name,
@@ -15,7 +16,7 @@ const UserItem = ({
   isRequest,
 }) => {
   const { calculateAge } = useDate();
-  const [loading, setLoading] = useState(true);
+  const { divideWord } = useWord();
   const [friendsRequestSent, setFriendsRequestSent] = useState(isRequest);
   const auth = useContext(AuthContext);
   const { randomColor, randomShadow, randomBlockShadow } = useHighlight();
@@ -81,7 +82,7 @@ const UserItem = ({
         </div>
         <div className="user-item-info">
           <h3 className={`user-item-name ${randomColor()} ${randomShadow()}`}>
-            {name} {surname}
+            {divideWord(name + " " + surname, 25)}
           </h3>
           <p className="user-item-age">{calculateAge(age)}</p>
         </div>
