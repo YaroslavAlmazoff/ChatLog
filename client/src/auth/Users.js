@@ -53,7 +53,7 @@ const Users = () => {
     if (!users.length) {
       fetchUsers();
     }
-  }, [users]);
+  }, [users, auth]);
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
