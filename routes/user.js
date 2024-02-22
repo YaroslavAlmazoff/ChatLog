@@ -112,7 +112,7 @@ router.delete("/deletefriend/:to", auth, (req, res) => {
 router.delete("/cancel-friends-request/:id", auth, (req, res) => {
   //Отмена заявки в друзья
   try {
-    FriendsService.deleteFriend(req, res);
+    FriendsService.cancelFriendsRequest(req, res);
   } catch (e) {
     console.log(e);
   }
