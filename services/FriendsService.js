@@ -99,6 +99,14 @@ class FriendsService {
       res.json({ friends: user1friends });
     }
   }
+  async cancelFriendsRequest(req, res) {
+    await Notification.findOneAndDelete({
+      from: req.user.userId,
+      to: req.params.id,
+      type: "friends",
+    });
+    res.json({ message: "request deleted successfully" });
+  }
   async reply(req, res) {
     //Извлечение ID пользователей
     const user1id = req.user.userId;

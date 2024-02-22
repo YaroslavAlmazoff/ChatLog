@@ -109,6 +109,14 @@ router.delete("/deletefriend/:to", auth, (req, res) => {
     console.log(e);
   }
 });
+router.delete("/cancel-friends-request/:id", auth, (req, res) => {
+  //Отмена заявки в друзья
+  try {
+    FriendsService.deleteFriend(req, res);
+  } catch (e) {
+    console.log(e);
+  }
+});
 
 router.get("/getnotifications/:id", (req, res) => {
   //Получение уведомлений пользователя

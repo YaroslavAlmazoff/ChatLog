@@ -83,4 +83,5 @@
 .user-item-request-sent {
   color: #40a4ff;
   font-size: 10pt;
+  cursor: pointer;
 }

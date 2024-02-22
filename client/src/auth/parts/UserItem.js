@@ -24,7 +24,6 @@ const UserItem = ({
   };
 
   const createRoom = async (e) => {
-    e.preventDefault();
     e.stopPropagation();
     setLoading(true);
     const response = await api.get(`/api/checkrooms/${id}`, {
@@ -52,26 +51,18 @@ const UserItem = ({
     }
   };
   const makeFriends = async (e) => {
-    e.preventDefault();
     e.stopPropagation();
-    setFriendsRequestSent(true);
-    // friendsButtonText = 'Вы отправили заявку'
-    // isFriends = true
-    //Получение ID пользователей
-    const user1 = auth.userId;
-    const user2 = id;
-    //Проверка есть ли пользователь в друзьях у его посетителя
-    if (localStorage.getItem(user2) === user1) {
-      console.log(localStorage.getItem(user2) === user1);
-      return false;
-    }
-    //Отправка заявки в друзья
-    const response = await api.get(`/api/makefriends/${user2}`, {
+    await api.get(`/api/makefriends/${id}`, {
       headers: { Authorization: `Bearer ${auth.token}` },
     });
-    console.log(response);
-    //Создание записи в локальном хранилище браузера о том что пользователь и посетитель его страницы - друзья
-    localStorage.setItem(user2, user1);
+    setFriendsRequestSent(true);
+  };
+  const calcelFriendsRequest = async () => {
+    e.stopPropagation();
+    await api.delete(`/api/cancel-friends-request/${id}`, {
+      headers: { Authorization: `Bearer ${auth.token}` },
+    });
+    setFriendsRequestSent(false);
   };
   return (
     <div
@@ -107,8 +98,11 @@ const UserItem = ({
             ) : (
               <>
                 {friendsRequestSent ? (
-                  <span className="user-item-request-sent">
-                    Заявка отправлена
+                  <span
+                    onClick={calcelFriendsRequest}
+                    className="user-item-request-sent"
+                  >
+                    Отменить заявку
                   </span>
                 ) : (
                   <button onClick={(e) => makeFriends(e)} className="button">
