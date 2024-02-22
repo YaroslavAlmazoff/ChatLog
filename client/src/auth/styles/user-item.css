@@ -26,7 +26,7 @@
   cursor: pointer;
 }
 .user-item-right-side {
-  width: 300px;
+  width: 60%;
   height: 70px;
   display: flex;
   align-items: center;
