@@ -57,7 +57,7 @@ const UserItem = ({
     });
     setFriendsRequestSent(true);
   };
-  const calcelFriendsRequest = async () => {
+  const calcelFriendsRequest = async (e) => {
     e.stopPropagation();
     await api.delete(`/api/cancel-friends-request/${id}`, {
       headers: { Authorization: `Bearer ${auth.token}` },
