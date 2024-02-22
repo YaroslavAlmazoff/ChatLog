@@ -45,10 +45,9 @@ const Users = () => {
       !loading &&
       window.innerHeight + document.documentElement.scrollTop !==
         document.documentElement.offsetHeight
-    )
-      return;
-
-    setPage((prevPage) => prevPage + 1);
+    ) {
+      setPage((prevPage) => prevPage + 1);
+    }
   };
 
   useEffect(() => {
