@@ -43,10 +43,10 @@ const Users = () => {
   const handleScroll = () => {
     if (
       !loading &&
-      window.innerHeight + document.documentElement.scrollTop !==
+      window.innerHeight + document.documentElement.scrollTop ===
         document.documentElement.offsetHeight
     ) {
-      setPage((prevPage) => prevPage + 1);
+      setPage((prevPage) => prevPage + 1); // Увеличиваем номер страницы
     }
   };
 
