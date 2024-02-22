@@ -28,28 +28,24 @@ const UserItem = ({
 
   const createRoom = async (e) => {
     e.stopPropagation();
-    setLoading(true);
     const response = await api.get(`/api/checkrooms/${id}`, {
       headers: {
         Authorization: `Bearer ${auth.token}`,
       },
     });
-    console.log(response.data.room);
     if (response.data.room) {
       window.location = `/messages/${response.data.room}`;
     } else {
-      const response1 = await api.get(`/api/createroom/${id}`, {
+      await api.get(`/api/createroom/${id}`, {
         headers: {
           Authorization: `Bearer ${auth.token}`,
         },
       });
-      console.log(response1);
       const response2 = await api.get(`/api/getroom/${id}`, {
         headers: {
           Authorization: `Bearer ${auth.token}`,
         },
       });
-      console.log(response2);
       window.location = `/messages/${response2.data.room._id}`;
     }
   };
