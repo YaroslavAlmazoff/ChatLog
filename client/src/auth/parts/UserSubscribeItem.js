@@ -47,6 +47,7 @@ const UserSubscribeItem = ({
   };
   const onConfirm = () => {
     unscribe();
+    auth.darkScreen(false);
   };
   return (
     <div key={randomKey()} onClick={goToPublic} className="user-subscribe">

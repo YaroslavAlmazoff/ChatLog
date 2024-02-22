@@ -51,6 +51,7 @@ const UserFriendItem = ({
   };
   const onConfirm = () => {
     deleteFriend(el._id);
+    auth.darkScreen(false);
   };
   return (
     <div

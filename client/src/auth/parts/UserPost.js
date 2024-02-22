@@ -116,6 +116,7 @@ const UserPost = ({
 
   const onConfirm = () => {
     deletePost();
+    auth.darkScreen(false);
   };
 
   return (
