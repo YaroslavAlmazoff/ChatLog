@@ -23,23 +23,40 @@ const Users = () => {
   const [selectAge, setSelectAge] = useState("Выберите возраст");
   const [selectCountry, setSelectCountry] = useState("Выберите страну");
   const [searchValue, setSearchValue] = useState("Поиск...");
+  const [page, setPage] = useState(1);
   //Получение функции рандомного ключа из кстомного хука
   const { randomKey } = useRandom();
   //Инициализация состояния списка пользователей
   const [users, setUsers] = useState([]);
   useEffect(() => {
     if (!auth.userId) return;
-    const getUsers = async () => {
-      const response = await api.get("/api/allusers", {
+    const fetchUsers = async () => {
+      const response = await api.get(`/users/${page}`, {
         headers: {
           Authorization: `Bearer ${auth.token}`,
         },
       });
-      console.log(response);
-      setUsers(response.data.users);
+      setUsers((prevUsers) => [...prevUsers, ...response.data.users]);
     };
-    getUsers();
-  }, [auth]);
+
+    fetchUsers();
+  }, [page, auth]);
+  const handleScroll = () => {
+    if (
+      window.innerHeight + document.documentElement.scrollTop !==
+      document.documentElement.offsetHeight
+    )
+      return;
+    setPage((prevPage) => prevPage + 1);
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   const sortedUsersByAge = useMemo(() => {
     return [...users].filter((el) => {
       return el.age === selectAge || selectAge === "Выберите возраст";

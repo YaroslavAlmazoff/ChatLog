@@ -58,6 +58,36 @@ class UserService {
       .then((data) => res.json({ users: data }))
       .catch((e) => res.json({ users: [] }));
   }
+  async getUsersLazy(req, res) {
+    const users = await User.find();
+    const mappedUsers = users.map(async (user) => {
+      const userObj = user.toObject();
+      const notice = await Notification.findOne({
+        from: user._id,
+        to: req.user.userId,
+        type: "friends",
+      });
+      const notice2 = await Notification.findOne({
+        from: req.user.userId,
+        to: user._id,
+        type: "friends",
+      });
+      userObj.isFriends = user.friends.includes(req.user.userId);
+      userObj.isRequest = notice || notice2;
+      return userObj;
+    });
+    Promise.all(mappedUsers)
+      .then((data) => {
+        const page = parseInt(req.params.page) || 1;
+        const perPage = 10;
+        const startIndex = (page - 1) * perPage;
+        const endIndex = page * perPage;
+
+        const results = data.slice(startIndex, endIndex);
+        res.json({ users: results });
+      })
+      .catch((e) => res.json({ users: [] }));
+  }
   async loadAllUsers(req, res) {
     const users = await User.find();
     const filtered = users.filter(
