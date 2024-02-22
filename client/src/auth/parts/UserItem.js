@@ -3,6 +3,7 @@ import "../styles/user-item.css";
 import api from "../api/auth";
 import { AuthContext } from "../../context/AuthContext";
 import useHighlight from "../../common_hooks/highlight.hook";
+import useDate from "../../common_hooks/date.hook";
 
 const UserItem = ({
   name,
@@ -13,6 +14,7 @@ const UserItem = ({
   isFriends,
   isRequest,
 }) => {
+  const { calculateAge } = useDate();
   const [loading, setLoading] = useState(true);
   const [friendsRequestSent, setFriendsRequestSent] = useState(isRequest);
   const auth = useContext(AuthContext);
@@ -81,7 +83,7 @@ const UserItem = ({
           <h3 className={`user-item-name ${randomColor()} ${randomShadow()}`}>
             {name} {surname}
           </h3>
-          <p className="user-item-age">{age}</p>
+          <p className="user-item-age">{calculateAge(age)}</p>
         </div>
       </div>
       <div>
