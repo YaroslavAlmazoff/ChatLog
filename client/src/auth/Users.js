@@ -24,18 +24,20 @@ const Users = () => {
   const [selectCountry, setSelectCountry] = useState("Выберите страну");
   const [searchValue, setSearchValue] = useState("Поиск...");
   const [page, setPage] = useState(1);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   //Получение функции рандомного ключа из кстомного хука
   const { randomKey } = useRandom();
   //Инициализация состояния списка пользователей
   const [users, setUsers] = useState([]);
   const fetchUsers = async () => {
     if (!auth.userId) return;
+    setLoading(true);
     const response = await api.get(`/api/allusers/${page}`, {
       headers: {
         Authorization: `Bearer ${auth.token}`,
       },
     });
+    setLoading(false);
     setUsers((prevUsers) => [...prevUsers, ...response.data.users]);
   };
   const handleScroll = () => {
@@ -45,7 +47,7 @@ const Users = () => {
         document.documentElement.offsetHeight
     )
       return;
-    setLoading(true);
+
     setPage((prevPage) => prevPage + 1);
   };
 
@@ -60,7 +62,7 @@ const Users = () => {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [loading]);
+  }, [loading, users]);
 
   const sortedUsersByAge = useMemo(() => {
     return [...users].filter((el) => {
