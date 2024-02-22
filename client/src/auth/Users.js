@@ -20,9 +20,9 @@ const Users = () => {
   }, []);
   //Страница всех пользователей и их поиска
 
-  const [selectAge, setSelectAge] = useState("Выберите возраст");
-  const [selectCountry, setSelectCountry] = useState("Выберите страну");
-  const [searchValue, setSearchValue] = useState("Поиск...");
+  // const [selectAge, setSelectAge] = useState("Выберите возраст");
+  // const [selectCountry, setSelectCountry] = useState("Выберите страну");
+  // const [searchValue, setSearchValue] = useState("Поиск...");
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   //Получение функции рандомного ключа из кстомного хука
@@ -63,32 +63,32 @@ const Users = () => {
     };
   }, [loading, users]);
 
-  const sortedUsersByAge = useMemo(() => {
-    return [...users].filter((el) => {
-      return el.age === selectAge || selectAge === "Выберите возраст";
-    });
-  }, [users, selectAge]);
+  // const sortedUsersByAge = useMemo(() => {
+  //   return [...users].filter((el) => {
+  //     return el.age === selectAge || selectAge === "Выберите возраст";
+  //   });
+  // }, [users, selectAge]);
 
-  const sortedUsersByCountry = useMemo(() => {
-    return [...sortedUsersByAge].filter((el) => {
-      return (
-        el.country.toLowerCase() === selectCountry.toLowerCase() ||
-        selectCountry === "Выберите страну"
-      );
-    });
-  }, [sortedUsersByAge, selectCountry]);
+  // const sortedUsersByCountry = useMemo(() => {
+  //   return [...sortedUsersByAge].filter((el) => {
+  //     return (
+  //       el.country.toLowerCase() === selectCountry.toLowerCase() ||
+  //       selectCountry === "Выберите страну"
+  //     );
+  //   });
+  // }, [sortedUsersByAge, selectCountry]);
 
-  const searchedUsers = useMemo(() => {
-    return [...sortedUsersByCountry].filter((el) => {
-      return (
-        el.name.toLowerCase().includes(searchValue.toLowerCase()) ||
-        el.surname.toLowerCase().includes(searchValue.toLowerCase()) ||
-        el.country.toLowerCase().includes(searchValue.toLowerCase()) ||
-        el.city.toLowerCase().includes(searchValue.toLowerCase()) ||
-        searchValue === "Поиск..."
-      );
-    });
-  }, [sortedUsersByCountry, searchValue]);
+  // const searchedUsers = useMemo(() => {
+  //   return [...sortedUsersByCountry].filter((el) => {
+  //     return (
+  //       el.name.toLowerCase().includes(searchValue.toLowerCase()) ||
+  //       el.surname.toLowerCase().includes(searchValue.toLowerCase()) ||
+  //       el.country.toLowerCase().includes(searchValue.toLowerCase()) ||
+  //       el.city.toLowerCase().includes(searchValue.toLowerCase()) ||
+  //       searchValue === "Поиск..."
+  //     );
+  //   });
+  // }, [sortedUsersByCountry, searchValue]);
 
   return (
     <div className="users">
@@ -100,7 +100,7 @@ const Users = () => {
         <Loader ml={"0%"} />
       ) : (
         <div className="users-list">
-          {searchedUsers.map((el) => (
+          {users.map((el) => (
             <UserItem
               key={randomKey()}
               name={el.name}
