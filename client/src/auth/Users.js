@@ -24,38 +24,43 @@ const Users = () => {
   const [selectCountry, setSelectCountry] = useState("Выберите страну");
   const [searchValue, setSearchValue] = useState("Поиск...");
   const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(true);
   //Получение функции рандомного ключа из кстомного хука
   const { randomKey } = useRandom();
   //Инициализация состояния списка пользователей
   const [users, setUsers] = useState([]);
-  useEffect(() => {
+  const fetchUsers = async () => {
     if (!auth.userId) return;
-    const fetchUsers = async () => {
-      const response = await api.get(`/api/allusers/${page}`, {
-        headers: {
-          Authorization: `Bearer ${auth.token}`,
-        },
-      });
-      setUsers((prevUsers) => [...prevUsers, ...response.data.users]);
-    };
-
-    fetchUsers();
-  }, [page, auth]);
+    const response = await api.get(`/api/allusers/${page}`, {
+      headers: {
+        Authorization: `Bearer ${auth.token}`,
+      },
+    });
+    setUsers((prevUsers) => [...prevUsers, ...response.data.users]);
+  };
   const handleScroll = () => {
     if (
+      !loading &&
       window.innerHeight + document.documentElement.scrollTop !==
-      document.documentElement.offsetHeight
+        document.documentElement.offsetHeight
     )
       return;
+    setLoading(true);
     setPage((prevPage) => prevPage + 1);
   };
+
+  useEffect(() => {
+    if (!users.length) {
+      fetchUsers();
+    }
+  }, [users]);
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+  }, [loading]);
 
   const sortedUsersByAge = useMemo(() => {
     return [...users].filter((el) => {
