@@ -15,7 +15,7 @@ const UserItem = ({
   isFriends,
   isRequest,
 }) => {
-  const { calculateAge } = useDate();
+  const { calculateAge, formatAge, catchNaN } = useDate();
   const { divideWord } = useWord();
   const [friendsRequestSent, setFriendsRequestSent] = useState(isRequest);
   const auth = useContext(AuthContext);
@@ -80,7 +80,9 @@ const UserItem = ({
           <h3 className={`user-item-name ${randomColor()} ${randomShadow()}`}>
             {divideWord(name + " " + surname, 25)}
           </h3>
-          <p className="user-item-age">{calculateAge(age)}</p>
+          <p className="user-item-age">
+            {formatAge(catchNaN(calculateAge(age)))}
+          </p>
         </div>
       </div>
       <div>

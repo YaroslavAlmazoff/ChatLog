@@ -31,13 +31,36 @@ const useDate = () => {
     const final = day + "." + month + "." + year;
     return final;
   };
-  function calculateAge(dateOfBirth) {
+  const calculateAge = (dateOfBirth) => {
     const dob = new Date(dateOfBirth);
     const diff = Date.now() - dob.getTime();
     const ageDate = new Date(diff);
     return Math.abs(ageDate.getUTCFullYear() - 1970);
-  }
-  return { getCurrentDate, normalizeBirthDate, calculateAge };
+  };
+  const formatAge = (age) => {
+    if (age === "") return "";
+    if (age % 10 === 1 && age % 100 !== 11) {
+      return age + " год";
+    } else if (
+      (age % 10 === 2 || age % 10 === 3 || age % 10 === 4) &&
+      (age % 100 < 10 || age % 100 >= 20)
+    ) {
+      return age + " года";
+    } else {
+      return age + " лет";
+    }
+  };
+  const catchNaN = (age) => {
+    if (isNaN(age)) return "";
+    else return age;
+  };
+  return {
+    getCurrentDate,
+    normalizeBirthDate,
+    calculateAge,
+    formatAge,
+    catchNaN,
+  };
 };
 
 export default useDate;
