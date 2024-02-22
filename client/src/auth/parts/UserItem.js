@@ -99,7 +99,7 @@ const UserItem = ({
               <>
                 {friendsRequestSent ? (
                   <span
-                    onClick={calcelFriendsRequest}
+                    onClick={(e) => calcelFriendsRequest(e)}
                     className="user-item-request-sent"
                   >
                     Отменить заявку
