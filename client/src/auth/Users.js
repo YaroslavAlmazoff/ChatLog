@@ -40,10 +40,10 @@ const Users = () => {
     setLoading(false);
     setUsers((prevUsers) => [...prevUsers, ...response.data.users]);
   };
-  function onScrollList(event) {
+  function onScrollList() {
     if (
-      event.target.scrollTop + event.target.offsetHeight ==
-      event.target.scrollHeight
+      document.body.scrollTop + document.body.offsetHeight ==
+      document.body.scrollHeight
     ) {
       fetchUsers(page + 1);
       setPage((prev) => prev++);
@@ -52,6 +52,7 @@ const Users = () => {
 
   useEffect(() => {
     if (!users.length) {
+      document.body.addEventListener("scroll", onScrollList);
       fetchUsers(1);
     }
   }, [users, auth]);
@@ -92,7 +93,7 @@ const Users = () => {
       {loading ? (
         <Loader ml={"0%"} />
       ) : (
-        <div className="users-list" onScroll={(e) => onScrollList(e)}>
+        <div className="users-list">
           {users.map((el) => (
             <UserItem
               key={randomKey()}
