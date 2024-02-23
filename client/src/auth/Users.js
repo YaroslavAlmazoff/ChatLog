@@ -36,20 +36,13 @@ const Users = () => {
   };
 
   useEffect(() => {
-    const onScroll = (event) => {
-      const element = event.target;
+    const onScroll = () => {
       const scrollTop = window.scrollY;
-    const windowHeight = window.innerHeight;
-    const pageHeight = document.documentElement.scrollHeight;
-      console.log(
-        window.scrollY,
-        window.,
-        element.clientHeight
-      );
-      if (element.scrollHeight - element.scrollTop === element.clientHeight) {
+      const windowHeight = window.innerHeight;
+      const pageHeight = document.documentElement.scrollHeight;
+      console.log(scrollTop, windowHeight, pageHeight);
+      if (scrollTop + windowHeight >= pageHeight) {
         console.log("end.");
-      } else {
-        console.log("not end.");
       }
     };
     window.addEventListener("scroll", onScroll);
