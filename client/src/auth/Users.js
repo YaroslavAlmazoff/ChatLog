@@ -40,7 +40,8 @@ const Users = () => {
   }, [auth]);
 
   const onScroll = (event) => {
-    var element = event.target;
+    const element = event.target;
+    console.log(element.scrollHeight, element.scrollTop, element.clientHeight);
     if (element.scrollHeight - element.scrollTop === element.clientHeight) {
       console.log("end.");
     } else {
