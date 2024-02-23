@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState, useContext } from "react";
+import React, { useEffect, useMemo, useState, useContext, useRef } from "react";
 import UserItem from "./parts/UserItem";
 import "./styles/users.css";
 import useRandom from "../common_hooks/random.hook";
