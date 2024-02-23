@@ -47,9 +47,10 @@ const Users = () => {
 
   useEffect(() => {
     fetchUsers();
-    userListContainer.current.addEventListener("scroll", handleScroll);
+    const container = userListContainer.current;
+    container.addEventListener("scroll", handleScroll);
     return () => {
-      userListContainer.current.removeEventListener("scroll", handleScroll);
+      container.removeEventListener("scroll", handleScroll);
     };
   }, [auth]);
 
