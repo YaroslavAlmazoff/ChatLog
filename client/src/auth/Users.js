@@ -36,18 +36,22 @@ const Users = () => {
   };
 
   useEffect(() => {
+    const onScroll = (event) => {
+      const element = event.target;
+      console.log(
+        element.scrollHeight,
+        element.scrollTop,
+        element.clientHeight
+      );
+      if (element.scrollHeight - element.scrollTop === element.clientHeight) {
+        console.log("end.");
+      } else {
+        console.log("not end.");
+      }
+    };
+    window.addEventListener("scroll", onScroll);
     fetchUsers(1);
   }, [auth]);
-
-  const onScroll = (event) => {
-    const element = event.target;
-    console.log(element.scrollHeight, element.scrollTop, element.clientHeight);
-    if (element.scrollHeight - element.scrollTop === element.clientHeight) {
-      console.log("end.");
-    } else {
-      console.log("not end.");
-    }
-  };
 
   // const sortedUsersByAge = useMemo(() => {
   //   return [...users].filter((el) => {
@@ -85,7 +89,7 @@ const Users = () => {
       {loading ? (
         <Loader ml={"0%"} />
       ) : (
-        <div className="users-list" onScroll={(event) => onScroll(event)}>
+        <div className="users-list">
           {users.map((el) => (
             <UserItem
               key={randomKey()}
