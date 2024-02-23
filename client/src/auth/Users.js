@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState, useContext, useRef } from "react";
+import React, { useEffect, useMemo, useState, useContext } from "react";
 import UserItem from "./parts/UserItem";
 import "./styles/users.css";
 import useRandom from "../common_hooks/random.hook";
@@ -11,7 +11,6 @@ import ShowAdRight from "../inner_ad/components/components/ShowAdRight";
 import useVerify from "../common_hooks/verify.hook";
 import { AuthContext } from "../context/AuthContext";
 import useArray from "../common_hooks/array.hook";
-import { FixedSizeList as List } from "react-window";
 
 const Users = () => {
   const auth = useContext(AuthContext);
@@ -22,8 +21,6 @@ const Users = () => {
 
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
-  const [isEndOfList, setIsEndOfList] = useState(false);
-  const userListContainer = useRef(null);
 
   const { randomKey } = useRandom();
 
@@ -38,21 +35,16 @@ const Users = () => {
     setUsers((prevUsers) => [...prevUsers, ...response.data.users]);
   };
 
+  useEffect(() => {
+    fetchUsers(1);
+  });
+
   const onScroll = (event) => {
     var element = event.target;
     if (element.scrollHeight - element.scrollTop === element.clientHeight) {
       console.log("end.");
     }
   };
-
-  useEffect(() => {
-    fetchUsers();
-    const container = userListContainer.current;
-    container.addEventListener("scroll", handleScroll);
-    return () => {
-      container.removeEventListener("scroll", handleScroll);
-    };
-  }, [auth]);
 
   // const sortedUsersByAge = useMemo(() => {
   //   return [...users].filter((el) => {
@@ -90,19 +82,19 @@ const Users = () => {
       {loading ? (
         <Loader ml={"0%"} />
       ) : (
-        <div className="users-list" onScroll={onScroll}>
-          <List
-            className="List"
-            height={100}
-            itemCount={dataArrayLength}
-            itemSize={20}
-            width={300}
-            itemData={{
-              users,
-            }}
-          >
-            <UserItem />
-          </List>
+        <div className="users-list" onScroll={(event) => onScroll(event)}>
+          {users.map((el) => (
+            <UserItem
+              key={randomKey()}
+              name={el.name}
+              surname={el.surname}
+              age={el.age}
+              avatarUrl={el.avatarUrl}
+              id={el._id}
+              isFriends={el.isFriends}
+              isRequest={el.isRequest}
+            />
+          ))}
         </div>
       )}
       {/*<div className="users-ads">

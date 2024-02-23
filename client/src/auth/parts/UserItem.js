@@ -6,23 +6,29 @@ import useHighlight from "../../common_hooks/highlight.hook";
 import useDate from "../../common_hooks/date.hook";
 import useWord from "../../common_hooks/divideWord.hook";
 
-const UserItem = ({ index, style, data }) => {
+const UserItem = ({
+  name,
+  surname,
+  age,
+  avatarUrl,
+  id,
+  isFriends,
+  isRequest,
+}) => {
   const { calculateAge, formatAge, catchNaN } = useDate();
   const { divideWord } = useWord();
-  const [friendsRequestSent, setFriendsRequestSent] = useState(
-    data.users[index].isRequest
-  );
+  const [friendsRequestSent, setFriendsRequestSent] = useState(isRequest);
   const auth = useContext(AuthContext);
   const { randomColor, randomShadow, randomBlockShadow } = useHighlight();
   //Предпросмотр пользователя на странице со всеми пользователями
   //Перемещение на страницу пользователя
-  const gotoUser = () => {
-    window.location = `/user/${data.users[index]._id}`;
+  const gotoUser = (id) => {
+    window.location = `/user/${id}`;
   };
 
   const createRoom = async (e) => {
     e.stopPropagation();
-    const response = await api.get(`/api/checkrooms/${data.users[index]._id}`, {
+    const response = await api.get(`/api/checkrooms/${id}`, {
       headers: {
         Authorization: `Bearer ${auth.token}`,
       },
@@ -30,12 +36,12 @@ const UserItem = ({ index, style, data }) => {
     if (response.data.room) {
       window.location = `/messages/${response.data.room}`;
     } else {
-      await api.get(`/api/createroom/${data.users[index]._id}`, {
+      await api.get(`/api/createroom/${id}`, {
         headers: {
           Authorization: `Bearer ${auth.token}`,
         },
       });
-      const response2 = await api.get(`/api/getroom/${data.users[index]._id}`, {
+      const response2 = await api.get(`/api/getroom/${id}`, {
         headers: {
           Authorization: `Bearer ${auth.token}`,
         },
@@ -45,48 +51,44 @@ const UserItem = ({ index, style, data }) => {
   };
   const makeFriends = async (e) => {
     e.stopPropagation();
-    await api.get(`/api/makefriends/${data.users[index]._id}`, {
+    await api.get(`/api/makefriends/${id}`, {
       headers: { Authorization: `Bearer ${auth.token}` },
     });
     setFriendsRequestSent(true);
   };
   const calcelFriendsRequest = async (e) => {
     e.stopPropagation();
-    await api.delete(`/api/cancel-friends-request/${data.users[index]._id}`, {
+    await api.delete(`/api/cancel-friends-request/${id}`, {
       headers: { Authorization: `Bearer ${auth.token}` },
     });
     setFriendsRequestSent(false);
   };
   return (
-    <div onClick={gotoUser} className={`user-item ${randomBlockShadow()}`}>
+    <div
+      onClick={() => gotoUser(id)}
+      className={`user-item ${randomBlockShadow()}`}
+    >
       <div className="user-item-right-side">
         <div>
           <img
             className={`user-item-img ${randomBlockShadow()}`}
-            src={
-              process.env.REACT_APP_API_URL +
-              "/useravatars/" +
-              data.users[index].avatarUrl
-            }
+            src={process.env.REACT_APP_API_URL + "/useravatars/" + avatarUrl}
             alt="user"
           />
         </div>
         <div className="user-item-info">
           <h3 className={`user-item-name ${randomColor()} ${randomShadow()}`}>
-            {divideWord(
-              data.users[index].name + " " + data.users[index].surname,
-              25
-            )}
+            {divideWord(name + " " + surname, 25)}
           </h3>
           <p className="user-item-age">
-            {formatAge(catchNaN(calculateAge(data.users[index].age)))}
+            {formatAge(catchNaN(calculateAge(age)))}
           </p>
         </div>
       </div>
       <div>
-        {data.users[index]._id !== auth.userId ? (
+        {id !== auth.userId ? (
           <div className="user-item-actions">
-            {data.users[index].isFriends ? (
+            {isFriends ? (
               <button
                 onClick={(e) => createRoom(e)}
                 className="button"
