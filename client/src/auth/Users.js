@@ -51,7 +51,7 @@ const Users = () => {
     return () => {
       userListContainer.current.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+  }, [auth]);
 
   // const sortedUsersByAge = useMemo(() => {
   //   return [...users].filter((el) => {
