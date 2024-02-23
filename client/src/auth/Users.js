@@ -46,8 +46,8 @@ const Users = () => {
       }
     };
     window.addEventListener("scroll", onScroll);
-    fetchUsers(1);
-  }, [auth]);
+    if (users.length === 0) fetchUsers(1);
+  }, [auth, users]);
 
   // const sortedUsersByAge = useMemo(() => {
   //   return [...users].filter((el) => {
