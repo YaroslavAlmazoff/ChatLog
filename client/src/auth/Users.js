@@ -38,9 +38,12 @@ const Users = () => {
   useEffect(() => {
     const onScroll = (event) => {
       const element = event.target;
+      const scrollTop = window.scrollY;
+    const windowHeight = window.innerHeight;
+    const pageHeight = document.documentElement.scrollHeight;
       console.log(
-        element.scrollHeight,
-        element.scrollTop,
+        window.scrollY,
+        window.,
         element.clientHeight
       );
       if (element.scrollHeight - element.scrollTop === element.clientHeight) {
