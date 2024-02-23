@@ -32,7 +32,7 @@ const Users = () => {
         Authorization: `Bearer ${auth.token}`,
       },
     });
-    setUsers((prevUsers) => [...prevUsers, ...response.data.users]);
+    setUsers(response.data.users);
   };
 
   useEffect(() => {
