@@ -62,7 +62,7 @@ const Users = () => {
     if (users.length === 0) {
       getFirstUsers();
     }
-  }, [auth, users]);
+  }, [auth]);
 
   // const sortedUsersByAge = useMemo(() => {
   //   return [...users].filter((el) => {
