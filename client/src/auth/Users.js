@@ -31,6 +31,7 @@ const Users = () => {
         Authorization: `Bearer ${auth.token}`,
       },
     });
+    console.log(response.data.users);
     setUsers((prev) => [...prev, ...response.data.users]);
   };
 
@@ -47,7 +48,7 @@ const Users = () => {
     };
     window.addEventListener("scroll", onScroll);
 
-    const getFirsstUsers = async () => {
+    const getFirstUsers = async () => {
       if (!auth.userId) return;
       const response = await api.get(`/api/allusers/${1}`, {
         headers: {
@@ -57,7 +58,7 @@ const Users = () => {
       setUsers(response.data.users);
     };
     if (users.length === 0) {
-      getFirsstUsers();
+      getFirstUsers();
     }
   }, [auth, users]);
 

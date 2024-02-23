@@ -85,6 +85,7 @@ class UserService {
 
         console.log(startIndex, endIndex);
         const results = data.slice(startIndex, endIndex);
+        console.log(results);
         res.json({ users: results });
       })
       .catch((e) => res.json({ users: [] }));
