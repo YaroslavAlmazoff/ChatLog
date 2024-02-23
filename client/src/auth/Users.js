@@ -37,7 +37,7 @@ const Users = () => {
 
   useEffect(() => {
     fetchUsers(1);
-  });
+  }, [auth]);
 
   const onScroll = (event) => {
     var element = event.target;
