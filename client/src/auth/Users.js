@@ -51,8 +51,8 @@ const Users = () => {
   }
 
   useEffect(() => {
+    document.body.addEventListener("scroll", onScrollList);
     if (!users.length) {
-      document.body.addEventListener("scroll", onScrollList);
       fetchUsers(1);
     }
   }, [users, auth]);
