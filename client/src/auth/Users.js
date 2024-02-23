@@ -43,6 +43,8 @@ const Users = () => {
     var element = event.target;
     if (element.scrollHeight - element.scrollTop === element.clientHeight) {
       console.log("end.");
+    } else {
+      console.log("not end.");
     }
   };
 
