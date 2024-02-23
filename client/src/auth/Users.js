@@ -11,6 +11,7 @@ import ShowAdRight from "../inner_ad/components/components/ShowAdRight";
 import useVerify from "../common_hooks/verify.hook";
 import { AuthContext } from "../context/AuthContext";
 import useArray from "../common_hooks/array.hook";
+import { FixedSizeList as List } from "react-window";
 
 const Users = () => {
   const auth = useContext(AuthContext);
@@ -37,11 +38,10 @@ const Users = () => {
     setUsers((prevUsers) => [...prevUsers, ...response.data.users]);
   };
 
-  const handleScroll = () => {
-    const { clientHeight, scrollHeight, scrollTop } = userListContainer.current;
-    if (scrollTop + clientHeight >= scrollHeight) {
-      console.log("end");
-      setIsEndOfList(true);
+  const onScroll = (event) => {
+    var element = event.target;
+    if (element.scrollHeight - element.scrollTop === element.clientHeight) {
+      console.log("end.");
     }
   };
 
@@ -90,19 +90,19 @@ const Users = () => {
       {loading ? (
         <Loader ml={"0%"} />
       ) : (
-        <div className="users-list" ref={userListContainer}>
-          {users.map((el) => (
-            <UserItem
-              key={randomKey()}
-              name={el.name}
-              surname={el.surname}
-              age={el.age}
-              avatarUrl={el.avatarUrl}
-              id={el._id}
-              isFriends={el.isFriends}
-              isRequest={el.isRequest}
-            />
-          ))}
+        <div className="users-list" onScroll={onScroll}>
+          <List
+            className="List"
+            height={100}
+            itemCount={dataArrayLength}
+            itemSize={20}
+            width={300}
+            itemData={{
+              users,
+            }}
+          >
+            <UserItem />
+          </List>
         </div>
       )}
       {/*<div className="users-ads">
