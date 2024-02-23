@@ -32,7 +32,9 @@ const Users = () => {
       },
     });
     console.log(response.data.users);
-    setUsers((prev) => [...prev, ...response.data.users]);
+    setUsers((prev) =>
+      response.data.users ? [...prev, ...response.data.users] : []
+    );
   };
 
   useEffect(() => {
