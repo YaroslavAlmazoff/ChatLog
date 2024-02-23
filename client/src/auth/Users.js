@@ -18,16 +18,14 @@ const Users = () => {
   useEffect(() => {
     verify();
   }, []);
-  //Страница всех пользователей и их поиска
-
   // const [selectAge, setSelectAge] = useState("Выберите возраст");
   // const [selectCountry, setSelectCountry] = useState("Выберите страну");
   // const [searchValue, setSearchValue] = useState("Поиск...");
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
-  //Получение функции рандомного ключа из кстомного хука
+
   const { randomKey } = useRandom();
-  //Инициализация состояния списка пользователей
+
   const [users, setUsers] = useState([]);
   const fetchUsers = async (page) => {
     if (!auth.userId) return;
@@ -41,17 +39,12 @@ const Users = () => {
     setUsers((prevUsers) => [...prevUsers, ...response.data.users]);
   };
   function onScrollList() {
-    if (
-      document.body.scrollTop + document.body.offsetHeight ==
-      document.body.scrollHeight
-    ) {
-      fetchUsers(page + 1);
-      setPage((prev) => prev++);
-    }
+    fetchUsers(page + 1);
+    setPage((prev) => prev++);
   }
 
   useEffect(() => {
-    document.body.addEventListener("scroll", onScrollList);
+    document.body.addEventListener("scrollend", onScrollList);
     if (!users.length) {
       fetchUsers(1);
     }
