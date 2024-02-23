@@ -29,7 +29,7 @@ const Users = () => {
   const { randomKey } = useRandom();
   //Инициализация состояния списка пользователей
   const [users, setUsers] = useState([]);
-  const fetchUsers = async () => {
+  const fetchUsers = async (page) => {
     if (!auth.userId) return;
     setLoading(true);
     const response = await api.get(`/api/allusers/${page}`, {
@@ -40,28 +40,21 @@ const Users = () => {
     setLoading(false);
     setUsers((prevUsers) => [...prevUsers, ...response.data.users]);
   };
-  const handleScroll = () => {
+  function onScrollList(event) {
     if (
-      !loading &&
-      window.innerHeight + document.documentElement.scrollTop ===
-        document.documentElement.offsetHeight
+      event.target.scrollTop + event.target.offsetHeight ==
+      event.target.scrollHeight
     ) {
-      setPage((prevPage) => prevPage + 1); // Увеличиваем номер страницы
+      fetchUsers(page + 1);
+      setPage((prev) => prev++);
     }
-  };
+  }
 
   useEffect(() => {
     if (!users.length) {
-      fetchUsers();
+      fetchUsers(1);
     }
   }, [users, auth]);
-
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [loading, users]);
 
   // const sortedUsersByAge = useMemo(() => {
   //   return [...users].filter((el) => {
@@ -96,10 +89,10 @@ const Users = () => {
                     <UsersFilterSide users={users} setUsers={setUsers} usersReserve={usersReserve} setSelectAge={setSelectAge} setSelectCountry={setSelectCountry} />
                     <ShowAdLeft width={'100%'} />
                 </div>*/}
-      {!users[0] ? (
+      {loading ? (
         <Loader ml={"0%"} />
       ) : (
-        <div className="users-list">
+        <div className="users-list" onScroll={(e) => onScrollList(e)}>
           {users.map((el) => (
             <UserItem
               key={randomKey()}
