@@ -15,6 +15,7 @@ import useArray from "../common_hooks/array.hook";
 const Users = () => {
   const auth = useContext(AuthContext);
   const { verify } = useVerify();
+  const { unique } = useArray();
   useEffect(() => {
     verify();
   }, []);
@@ -33,7 +34,9 @@ const Users = () => {
     });
     console.log(response.data.users);
     setUsers((prev) =>
-      response.data.users ? [...prev, ...response.data.users] : [...prev]
+      response.data.users
+        ? unique([...prev, ...response.data.users])
+        : [...prev]
     );
   };
 
