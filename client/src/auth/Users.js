@@ -18,37 +18,40 @@ const Users = () => {
   useEffect(() => {
     verify();
   }, []);
-  // const [selectAge, setSelectAge] = useState("Выберите возраст");
-  // const [selectCountry, setSelectCountry] = useState("Выберите страну");
-  // const [searchValue, setSearchValue] = useState("Поиск...");
+
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
+  const [isEndOfList, setIsEndOfList] = useState(false);
+  const userListContainer = useRef(null);
 
   const { randomKey } = useRandom();
 
   const [users, setUsers] = useState([]);
   const fetchUsers = async (page) => {
     if (!auth.userId) return;
-    setLoading(true);
     const response = await api.get(`/api/allusers/${page}`, {
       headers: {
         Authorization: `Bearer ${auth.token}`,
       },
     });
-    setLoading(false);
     setUsers((prevUsers) => [...prevUsers, ...response.data.users]);
   };
-  function onScrollList() {
-    fetchUsers(page + 1);
-    setPage((prev) => prev++);
-  }
+
+  const handleScroll = () => {
+    const { clientHeight, scrollHeight, scrollTop } = userListContainer.current;
+    if (scrollTop + clientHeight >= scrollHeight) {
+      console.log("end");
+      setIsEndOfList(true);
+    }
+  };
 
   useEffect(() => {
-    document.body.addEventListener("scrollend", onScrollList);
-    if (!users.length) {
-      fetchUsers(1);
-    }
-  }, [users, auth]);
+    fetchUsers();
+    userListContainer.current.addEventListener("scroll", handleScroll);
+    return () => {
+      userListContainer.current.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   // const sortedUsersByAge = useMemo(() => {
   //   return [...users].filter((el) => {
@@ -86,7 +89,7 @@ const Users = () => {
       {loading ? (
         <Loader ml={"0%"} />
       ) : (
-        <div className="users-list">
+        <div className="users-list" ref={userListContainer}>
           {users.map((el) => (
             <UserItem
               key={randomKey()}
@@ -110,3 +113,7 @@ const Users = () => {
 };
 
 export default Users;
+
+// const [selectAge, setSelectAge] = useState("Выберите возраст");
+// const [selectCountry, setSelectCountry] = useState("Выберите страну");
+// const [searchValue, setSearchValue] = useState("Поиск...");
