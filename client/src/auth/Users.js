@@ -33,7 +33,7 @@ const Users = () => {
     });
     console.log(response.data.users);
     setUsers((prev) =>
-      response.data.users ? [...prev, ...response.data.users] : []
+      response.data.users ? [...prev, ...response.data.users] : [...prev]
     );
   };
 
