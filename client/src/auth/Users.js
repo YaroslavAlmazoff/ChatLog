@@ -26,13 +26,12 @@ const Users = () => {
 
   const [users, setUsers] = useState([]);
   const fetchUsers = async (page) => {
-    if (!auth.userId) return;
     const response = await api.get(`/api/allusers/${page}`, {
       headers: {
         Authorization: `Bearer ${auth.token}`,
       },
     });
-    setUsers(response.data.users);
+    setUsers((prev) => [...prev, ...response.data.users]);
   };
 
   useEffect(() => {
@@ -42,11 +41,24 @@ const Users = () => {
       const pageHeight = document.documentElement.scrollHeight;
       console.log(scrollTop, windowHeight, pageHeight);
       if (scrollTop + windowHeight >= pageHeight) {
-        console.log("end.");
+        fetchUsers(page + 1);
+        setPage((prev) => prev + 1);
       }
     };
     window.addEventListener("scroll", onScroll);
-    if (users.length === 0) fetchUsers(1);
+
+    const getFirsstUsers = async () => {
+      if (!auth.userId) return;
+      const response = await api.get(`/api/allusers/${1}`, {
+        headers: {
+          Authorization: `Bearer ${auth.token}`,
+        },
+      });
+      setUsers(response.data.users);
+    };
+    if (users.length === 0) {
+      getFirsstUsers();
+    }
   }, [auth, users]);
 
   // const sortedUsersByAge = useMemo(() => {
