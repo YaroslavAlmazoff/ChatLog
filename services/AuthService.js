@@ -34,8 +34,8 @@ class AuthService {
       if (!errors.isEmpty()) {
         res.json({ errors }).status(400);
       }
-      const userData = req.body;
-      const { name, surname, age, email, country, city, password } = req.body;
+      const { name, surname, age, email, country, city, password, site } =
+        req.body;
 
       const candidate = await User.findOne({ email });
       if (candidate) {
@@ -72,19 +72,21 @@ class AuthService {
         "https://chatlog.ru/api/activate/" + user._id
       );
 
-      const firebaseToken = req.body.token;
+      if (!site) {
+        const firebaseToken = req.body.token;
 
-      const fullToken = await NotificationToken.findOne({
-        user: user._id,
-      });
-      if (fullToken) {
-        fullToken.token = firebaseToken;
-        await fullToken.save();
-      } else {
-        await NotificationToken.create({
-          token: firebaseToken,
+        const fullToken = await NotificationToken.findOne({
           user: user._id,
         });
+        if (fullToken) {
+          fullToken.token = firebaseToken;
+          await fullToken.save();
+        } else {
+          await NotificationToken.create({
+            token: firebaseToken,
+            user: user._id,
+          });
+        }
       }
 
       fs.mkdir(`../static/userfiles/${user._id}`, (err) => {
