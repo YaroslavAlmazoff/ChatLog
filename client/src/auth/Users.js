@@ -48,6 +48,7 @@ const Users = () => {
       const pageHeight = document.documentElement.scrollHeight;
       console.log(scrollTop, windowHeight, pageHeight);
       if (scrollTop + windowHeight >= pageHeight) {
+        console.log(page, page + 1);
         setPage((prev) => prev + 1);
         fetchUsers(page + 1);
       }
