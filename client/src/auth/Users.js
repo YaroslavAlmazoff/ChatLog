@@ -20,48 +20,63 @@ const Users = () => {
   }, []);
 
   const [page, setPage] = useState(1);
-  const [loading, setLoading] = useState(false);
 
   const { randomKey } = useRandom();
 
   const [users, setUsers] = useState([]);
-  const fetchUsers = async (currentPage) => {
-    try {
-      const response = await api.get(`/api/allusers/${currentPage}`, {
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      const response = await api.get(`/api/allusers/${page}`, {
         headers: {
           Authorization: `Bearer ${auth.token}`,
         },
       });
-
+      console.log(response.data.users);
       setUsers((prev) =>
-        response.data.users ? [...prev, ...response.data.users] : prev
+        response.data.users
+          ? [...prev, ...response.data.users].slice(0, response.data.count - 1)
+          : prev.slice(0, response.data.count)
       );
-    } catch (error) {
-      console.error("Error fetching users:", error);
-    }
-  };
+    };
+    fetchUsers();
+  }, [page]);
 
   useEffect(() => {
-    const handleScroll = () => {
+    const onScroll = () => {
       const scrollTop = window.scrollY;
       const windowHeight = window.innerHeight;
       const pageHeight = document.documentElement.scrollHeight;
-
+      console.log(scrollTop, windowHeight, pageHeight);
       if (scrollTop + windowHeight >= pageHeight) {
+        console.log(page, page + 1);
         setPage((prev) => prev + 1);
       }
     };
+    window.addEventListener("scroll", onScroll);
 
-    window.addEventListener("scroll", handleScroll);
-
-    if (users.length === 0 && auth.userId) {
-      fetchUsers(page);
-    }
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
+    const getFirstUsers = async () => {
+      if (!auth.userId) return;
+      const response = await api.get(`/api/allusers/${1}`, {
+        headers: {
+          Authorization: `Bearer ${auth.token}`,
+        },
+      });
+      setUsers(response.data.users);
     };
-  }, [auth, page, users]);
+    if (users.length === 0) {
+      getFirstUsers();
+    }
+  }, [auth]);
+
+  const speed = 5;
+  const time = 3;
+
+  const result = dist(speed, time);
+
+  function dist(speed, time) {
+    return speed * time;
+  }
 
   // const sortedUsersByAge = useMemo(() => {
   //   return [...users].filter((el) => {
