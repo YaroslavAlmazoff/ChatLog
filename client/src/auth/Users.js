@@ -95,7 +95,16 @@ const Users = () => {
                 </div>*/}
 
       <div className="users-list">
-        {users.map((el) => (
+        <div className="users-search">
+          <input
+            type="search"
+            value={searchValue}
+            onChange={(e) => setSearchValue(e.target.value)}
+            placeholder="Найти людей..."
+            className="users-search-field users-search-width"
+          />
+        </div>
+        {searchedUsers.map((el) => (
           <UserItem
             key={randomKey()}
             name={el.name}
