@@ -51,9 +51,9 @@ const Users = () => {
         console.log(page, page + 1);
         setPage((prev) => {
           console.log(prev);
+          fetchUsers(prev);
           return prev + 1;
         });
-        fetchUsers(page + 1);
       }
     };
     window.addEventListener("scroll", onScroll);
