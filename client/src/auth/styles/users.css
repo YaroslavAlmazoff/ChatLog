@@ -15,7 +15,7 @@
     width: 40%;
     height: 500px;
   }
-  .users-search-width {
+  .users-search-field-width {
     width: 30%;
   }
 }
@@ -27,7 +27,7 @@
   .users-list {
     width: 100%;
   }
-  .users-search-width {
+  .users-search-field-width {
     width: 50%;
   }
 }
@@ -40,12 +40,12 @@
   .users-list {
     width: 93%;
   }
-  .users-search-width {
+  .users-search-field-width {
     width: 98%;
   }
 }
 
-.users-search {
+.users-search-field {
   padding: 15px;
   outline: none;
   border: 1px solid #50c5ff;
@@ -55,12 +55,12 @@
   color: white;
   text-decoration: none;
 }
-.users-search::placeholder {
+.users-search-field::placeholder {
   color: #50c5ff;
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 }
-.users-search::-webkit-search-cancel-button {
+.users-search-field::-webkit-search-cancel-button {
   -webkit-appearance: none;
   appearance: none;
   height: 10px;

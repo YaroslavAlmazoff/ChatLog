@@ -22,24 +22,26 @@ const Users = () => {
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [searchValue, setSearchValue] = useState("");
+  const [last, setLast] = useState(false);
   const { randomKey } = useRandom();
 
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
     const fetchUsers = async () => {
-      setLoading(true);
+      !last && setLoading(true);
       const response = await api.get(`/api/allusers/${page}`, {
         headers: {
           Authorization: `Bearer ${auth.token}`,
         },
       });
-      console.log(response.data.users);
+
       setUsers((prev) =>
         response.data.users
           ? [...prev, ...response.data.users].slice(0, response.data.count)
           : prev.slice(0, response.data.count)
       );
+      setLast(response.data.last);
       setLoading(false);
     };
     fetchUsers();
@@ -101,7 +103,7 @@ const Users = () => {
             value={searchValue}
             onChange={(e) => setSearchValue(e.target.value)}
             placeholder="Найти людей..."
-            className="users-search-field users-search-width"
+            className="users-search-field users-search-field-width"
           />
         </div>
         {searchedUsers.map((el) => (
