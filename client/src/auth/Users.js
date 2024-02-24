@@ -22,14 +22,14 @@ const Users = () => {
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [searchValue, setSearchValue] = useState("");
-  const [last, setLast] = useState(false);
+  const [isLast, setIsLast] = useState(false);
   const { randomKey } = useRandom();
 
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
     const fetchUsers = async () => {
-      !last && setLoading(true);
+      !isLast && setLoading(true);
       const response = await api.get(`/api/allusers/${page}`, {
         headers: {
           Authorization: `Bearer ${auth.token}`,
@@ -41,7 +41,7 @@ const Users = () => {
           ? [...prev, ...response.data.users].slice(0, response.data.count)
           : prev.slice(0, response.data.count)
       );
-      setLast(response.data.last);
+      setIsLast(response.data.isLast);
       setLoading(false);
     };
     fetchUsers();
