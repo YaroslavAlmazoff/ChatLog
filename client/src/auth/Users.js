@@ -27,6 +27,7 @@ const Users = () => {
 
   useEffect(() => {
     const fetchUsers = async () => {
+      setLoading(true);
       const response = await api.get(`/api/allusers/${page}`, {
         headers: {
           Authorization: `Bearer ${auth.token}`,
@@ -38,6 +39,7 @@ const Users = () => {
           ? [...prev, ...response.data.users].slice(0, response.data.count)
           : prev.slice(0, response.data.count)
       );
+      setLoading(false);
     };
     fetchUsers();
   }, [page]);
@@ -56,12 +58,14 @@ const Users = () => {
 
     const getFirstUsers = async () => {
       if (!auth.userId) return;
+      setLoading(true);
       const response = await api.get(`/api/allusers/${1}`, {
         headers: {
           Authorization: `Bearer ${auth.token}`,
         },
       });
       setUsers(response.data.users);
+      setLoading(false);
     };
     if (users.length === 0) {
       getFirstUsers();
@@ -104,24 +108,22 @@ const Users = () => {
                     <UsersFilterSide users={users} setUsers={setUsers} usersReserve={usersReserve} setSelectAge={setSelectAge} setSelectCountry={setSelectCountry} />
                     <ShowAdLeft width={'100%'} />
                 </div>*/}
-      {loading ? (
-        <Loader ml={"0%"} />
-      ) : (
-        <div className="users-list">
-          {users.map((el) => (
-            <UserItem
-              key={randomKey()}
-              name={el.name}
-              surname={el.surname}
-              age={el.age}
-              avatarUrl={el.avatarUrl}
-              id={el._id}
-              isFriends={el.isFriends}
-              isRequest={el.isRequest}
-            />
-          ))}
-        </div>
-      )}
+
+      <div className="users-list">
+        {users.map((el) => (
+          <UserItem
+            key={randomKey()}
+            name={el.name}
+            surname={el.surname}
+            age={el.age}
+            avatarUrl={el.avatarUrl}
+            id={el._id}
+            isFriends={el.isFriends}
+            isRequest={el.isRequest}
+          />
+        ))}
+      </div>
+      {loading ? <Loader ml={"0%"} /> : <></>}
       {/*<div className="users-ads">
                     <UsersSearchSide searchValue={searchValue} setSearchValue={setSearchValue} />  
                     <ShowAdRight width={'100%'} />
