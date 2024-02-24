@@ -35,7 +35,7 @@ const Users = () => {
       console.log(response.data.users);
       setUsers((prev) =>
         response.data.users
-          ? [...prev, ...response.data.users].slice(0, response.data.count - 1)
+          ? [...prev, ...response.data.users].slice(0, response.data.count)
           : prev.slice(0, response.data.count)
       );
     };
@@ -70,15 +70,6 @@ const Users = () => {
       window.removeEventListener("scroll", onScroll);
     };
   }, [auth]);
-
-  const speed = 5;
-  const time = 3;
-
-  const result = dist(speed, time);
-
-  function dist(speed, time) {
-    return speed * time;
-  }
 
   // const sortedUsersByAge = useMemo(() => {
   //   return [...users].filter((el) => {
