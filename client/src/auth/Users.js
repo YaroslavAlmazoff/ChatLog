@@ -20,7 +20,7 @@ const Users = () => {
   }, []);
 
   const [page, setPage] = useState(1);
-
+  const [loading, setLoading] = useState(false);
   const { randomKey } = useRandom();
 
   const [users, setUsers] = useState([]);
