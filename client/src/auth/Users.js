@@ -15,63 +15,53 @@ import useArray from "../common_hooks/array.hook";
 const Users = () => {
   const auth = useContext(AuthContext);
   const { verify } = useVerify();
-  const { unique } = useArray();
   useEffect(() => {
     verify();
   }, []);
 
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
-  const [usersCount, setUsersCount] = useState(0);
 
   const { randomKey } = useRandom();
 
   const [users, setUsers] = useState([]);
-  const fetchUsers = async (page) => {
-    const response = await api.get(`/api/allusers/${page}`, {
-      headers: {
-        Authorization: `Bearer ${auth.token}`,
-      },
-    });
-    console.log(response.data.users);
-    setUsers((prev) =>
-      response.data.users
-        ? [...prev, ...response.data.users].slice(0, response.data.count - 1)
-        : prev.slice(0, response.data.count)
-    );
-  };
-
-  useEffect(() => {
-    const onScroll = () => {
-      const scrollTop = window.scrollY;
-      const windowHeight = window.innerHeight;
-      const pageHeight = document.documentElement.scrollHeight;
-      console.log(scrollTop, windowHeight, pageHeight);
-      if (scrollTop + windowHeight >= pageHeight) {
-        console.log(page, page + 1);
-        setPage(async (prev) => {
-          console.log(prev);
-          await fetchUsers(prev);
-          return prev + 1;
-        });
-      }
-    };
-    window.addEventListener("scroll", onScroll);
-
-    const getFirstUsers = async () => {
-      if (!auth.userId) return;
-      const response = await api.get(`/api/allusers/${1}`, {
+  const fetchUsers = async (currentPage) => {
+    try {
+      const response = await api.get(`/api/allusers/${currentPage}`, {
         headers: {
           Authorization: `Bearer ${auth.token}`,
         },
       });
-      setUsers(response.data.users);
-      setUsersCount(response.data.count);
-    };
-    if (users.length === 0) {
-      getFirstUsers();
+
+      setUsers((prev) =>
+        response.data.users ? [...prev, ...response.data.users] : prev
+      );
+    } catch (error) {
+      console.error("Error fetching users:", error);
     }
-  }, [auth]);
+  };
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.scrollY;
+      const windowHeight = window.innerHeight;
+      const pageHeight = document.documentElement.scrollHeight;
+
+      if (scrollTop + windowHeight >= pageHeight) {
+        setPage((prev) => prev + 1);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    if (users.length === 0 && auth.userId) {
+      fetchUsers(page);
+    }
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [auth, page, users]);
 
   // const sortedUsersByAge = useMemo(() => {
   //   return [...users].filter((el) => {
