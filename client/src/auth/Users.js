@@ -49,7 +49,6 @@ const Users = () => {
       const pageHeight = document.documentElement.scrollHeight;
       console.log(scrollTop, windowHeight, pageHeight);
       if (scrollTop + windowHeight >= pageHeight) {
-        console.log(page, page + 1);
         setPage((prev) => prev + 1);
       }
     };
@@ -67,6 +66,9 @@ const Users = () => {
     if (users.length === 0) {
       getFirstUsers();
     }
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+    };
   }, [auth]);
 
   const speed = 5;
