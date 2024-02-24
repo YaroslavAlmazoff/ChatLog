@@ -37,7 +37,7 @@ const Users = () => {
     setUsers((prev) =>
       response.data.users
         ? [...prev, ...response.data.users]
-        : prev.slice(0, response.data.length)
+        : prev.slice(0, response.data.count)
     );
   };
 
@@ -48,8 +48,8 @@ const Users = () => {
       const pageHeight = document.documentElement.scrollHeight;
       console.log(scrollTop, windowHeight, pageHeight);
       if (scrollTop + windowHeight >= pageHeight) {
-        fetchUsers(page + 1);
         setPage((prev) => prev + 1);
+        fetchUsers(page + 1);
       }
     };
     window.addEventListener("scroll", onScroll);
