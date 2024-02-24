@@ -21,6 +21,7 @@ const Users = () => {
 
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
+  const [searchValue, setSearchValue] = useState("");
   const { randomKey } = useRandom();
 
   const [users, setUsers] = useState([]);
@@ -75,37 +76,21 @@ const Users = () => {
     };
   }, [auth]);
 
-  // const sortedUsersByAge = useMemo(() => {
-  //   return [...users].filter((el) => {
-  //     return el.age === selectAge || selectAge === "Выберите возраст";
-  //   });
-  // }, [users, selectAge]);
-
-  // const sortedUsersByCountry = useMemo(() => {
-  //   return [...sortedUsersByAge].filter((el) => {
-  //     return (
-  //       el.country.toLowerCase() === selectCountry.toLowerCase() ||
-  //       selectCountry === "Выберите страну"
-  //     );
-  //   });
-  // }, [sortedUsersByAge, selectCountry]);
-
-  // const searchedUsers = useMemo(() => {
-  //   return [...sortedUsersByCountry].filter((el) => {
-  //     return (
-  //       el.name.toLowerCase().includes(searchValue.toLowerCase()) ||
-  //       el.surname.toLowerCase().includes(searchValue.toLowerCase()) ||
-  //       el.country.toLowerCase().includes(searchValue.toLowerCase()) ||
-  //       el.city.toLowerCase().includes(searchValue.toLowerCase()) ||
-  //       searchValue === "Поиск..."
-  //     );
-  //   });
-  // }, [sortedUsersByCountry, searchValue]);
+  const searchedUsers = useMemo(() => {
+    return [...users].filter((el) => {
+      return (
+        el.name.toLowerCase().includes(searchValue.toLowerCase()) ||
+        el.surname.toLowerCase().includes(searchValue.toLowerCase()) ||
+        el.country.toLowerCase().includes(searchValue.toLowerCase()) ||
+        el.city.toLowerCase().includes(searchValue.toLowerCase()) ||
+        searchValue === "Поиск..."
+      );
+    });
+  }, [users, searchValue]);
 
   return (
     <div className="users">
       {/*<div className="users-ads">
-                    <UsersFilterSide users={users} setUsers={setUsers} usersReserve={usersReserve} setSelectAge={setSelectAge} setSelectCountry={setSelectCountry} />
                     <ShowAdLeft width={'100%'} />
                 </div>*/}
 
@@ -122,8 +107,8 @@ const Users = () => {
             isRequest={el.isRequest}
           />
         ))}
+        {loading ? <Loader ml={"0%"} /> : <></>}
       </div>
-      {loading ? <Loader ml={"0%"} /> : <></>}
       {/*<div className="users-ads">
                     <UsersSearchSide searchValue={searchValue} setSearchValue={setSearchValue} />  
                     <ShowAdRight width={'100%'} />
