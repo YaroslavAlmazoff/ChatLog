@@ -22,6 +22,7 @@ const Users = () => {
 
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
+  const [usersCount, setUsersCount] = useState(0);
 
   const { randomKey } = useRandom();
 
@@ -34,9 +35,7 @@ const Users = () => {
     });
     console.log(response.data.users);
     setUsers((prev) =>
-      response.data.users
-        ? unique([...prev, ...response.data.users])
-        : [...prev]
+      response.data.users ? [...prev, ...response.data.users] : []
     );
   };
 
@@ -61,6 +60,7 @@ const Users = () => {
         },
       });
       setUsers(response.data.users);
+      setUsersCount(response.data.count);
     };
     if (users.length === 0) {
       getFirstUsers();

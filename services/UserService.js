@@ -85,7 +85,10 @@ class UserService {
 
         console.log(startIndex, endIndex);
         const results = data.slice(startIndex, endIndex);
-        res.json({ users: data.length / perPage > page ? results : [] });
+        res.json({
+          users: data.length / perPage > page ? results : [],
+          count: data.length,
+        });
       })
       .catch((e) => res.json({ users: [] }));
   }
