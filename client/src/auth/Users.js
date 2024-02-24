@@ -49,7 +49,10 @@ const Users = () => {
       console.log(scrollTop, windowHeight, pageHeight);
       if (scrollTop + windowHeight >= pageHeight) {
         console.log(page, page + 1);
-        setPage((prev) => prev + 1);
+        setPage((prev) => {
+          console.log(prev);
+          return prev + 1;
+        });
         fetchUsers(page + 1);
       }
     };
