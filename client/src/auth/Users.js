@@ -35,7 +35,7 @@ const Users = () => {
           Authorization: `Bearer ${auth.token}`,
         },
       });
-
+      console.log(response.data);
       setUsers((prev) =>
         response.data.users
           ? [...prev, ...response.data.users].slice(0, response.data.count)
