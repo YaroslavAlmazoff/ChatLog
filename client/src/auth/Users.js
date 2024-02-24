@@ -49,9 +49,9 @@ const Users = () => {
       console.log(scrollTop, windowHeight, pageHeight);
       if (scrollTop + windowHeight >= pageHeight) {
         console.log(page, page + 1);
-        setPage((prev) => {
+        setPage(async (prev) => {
           console.log(prev);
-          fetchUsers(prev);
+          await fetchUsers(prev);
           return prev + 1;
         });
       }
