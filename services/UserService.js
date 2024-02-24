@@ -83,7 +83,7 @@ class UserService {
         const startIndex = (page - 1) * perPage;
         const endIndex = page * perPage;
 
-        console.log(startIndex, endIndex);
+        console.log(startIndex, endIndex, page);
         const results = data.slice(startIndex, endIndex);
         res.json({
           users: results,
