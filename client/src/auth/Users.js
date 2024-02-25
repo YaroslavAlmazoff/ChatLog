@@ -15,6 +15,7 @@ import useArray from "../common_hooks/array.hook";
 const Users = () => {
   const auth = useContext(AuthContext);
   const { verify } = useVerify();
+  const { uniqueObjects } = useArray();
   useEffect(() => {
     verify();
   }, []);
@@ -42,8 +43,10 @@ const Users = () => {
       console.log(response);
       setUsers((prev) =>
         response.data.users
-          ? [...prev, ...response.data.users].slice(0, response.data.count)
-          : prev.slice(0, response.data.count)
+          ? uniqueObjects(
+              [...prev, ...response.data.users].slice(0, response.data.count)
+            )
+          : uniqueObjects(prev.slice(0, response.data.count))
       );
       setIsLast(response.data.isLast);
       setLoading(false);
@@ -83,6 +86,10 @@ const Users = () => {
     };
   }, [auth]);
 
+  useEffect(() => {
+    if (!value) setSearchValue("");
+  }, [value]);
+
   return (
     <div className="users">
       {/*<div className="users-ads">
@@ -92,13 +99,9 @@ const Users = () => {
       <div className="users-list">
         <div className="users-search">
           <input
-            type="search"
+            type="text"
             value={value}
-            onChange={(e) =>
-              e.target.value.length === 0
-                ? setSearchValue("")
-                : setValue(e.target.value)
-            }
+            onChange={(e) => setValue(e.target.value)}
             placeholder="Найти людей..."
             className="users-search-field users-search-field-width"
           />
