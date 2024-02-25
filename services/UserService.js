@@ -65,18 +65,17 @@ class UserService {
     });
     const searchValue = req.params.search;
     console.log(searchValue, searchValue == "all");
-    const filteredUsers = users.filter(
-      (el) =>
-        el.name.toLowerCase().includes(searchValue.toLowerCase()) ||
-        el.surname.toLowerCase().includes(searchValue.toLowerCase()) ||
-        el.country.toLowerCase().includes(searchValue.toLowerCase()) ||
-        el.city.toLowerCase().includes(searchValue.toLowerCase()) ||
-        el.age
-          .toLowerCase()
-          .includes(
-            searchValue.toLowerCase() || searchValue == "all" || !searchValue
-          )
-    );
+    let filteredUsers = users;
+    if (searchValue && searchValue != "all") {
+      filteredUsers = users.filter(
+        (el) =>
+          el.name.toLowerCase().includes(searchValue.toLowerCase()) ||
+          el.surname.toLowerCase().includes(searchValue.toLowerCase()) ||
+          el.country.toLowerCase().includes(searchValue.toLowerCase()) ||
+          el.city.toLowerCase().includes(searchValue.toLowerCase()) ||
+          el.age.toLowerCase().includes(searchValue.toLowerCase())
+      );
+    }
     const mappedUsers = filteredUsers.map(async (user) => {
       const userObj = user.toObject();
       const notice = await Notification.findOne({
