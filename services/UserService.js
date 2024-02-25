@@ -59,7 +59,10 @@ class UserService {
       .catch((e) => res.json({ users: [] }));
   }
   async getUsersLazy(req, res) {
-    const users = await User.find();
+    const users = await User.find({});
+    users.forEach((user) => {
+      console.log(user.name);
+    });
     const searchValue = req.params.search;
     console.log(searchValue, searchValue == "all");
     const filteredUsers = users.filter(
