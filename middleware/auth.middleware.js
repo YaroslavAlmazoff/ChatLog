@@ -14,7 +14,7 @@ module.exports = async (req, res, next) => {
       try {
         const verified = jwt.verify(token, secret);
         if (!verified) {
-          res.json({ msg: "Not authorized" });
+          res.redirect("https://chatlog.ru/login");
           return;
         } else {
         }
@@ -22,7 +22,7 @@ module.exports = async (req, res, next) => {
         next();
       } catch (e) {
         console.log(e);
-        res.json({ verified: false });
+        res.redirect("https://chatlog.ru/login");
       }
     } else {
       console.log("token not exists", token);

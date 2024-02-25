@@ -61,6 +61,7 @@ class UserService {
   async getUsersLazy(req, res) {
     const users = await User.find();
     const searchValue = req.params.search;
+    console.log(searchValue, searchValue == "all");
     const filteredUsers = users.filter(
       (el) =>
         el.name.toLowerCase().includes(searchValue.toLowerCase()) ||
@@ -69,7 +70,7 @@ class UserService {
         el.city.toLowerCase().includes(searchValue.toLowerCase()) ||
         el.age
           .toLowerCase()
-          .includes(searchValue.toLowerCase() || searchValue === "all")
+          .includes(searchValue.toLowerCase() || searchValue == "all")
     );
     const mappedUsers = filteredUsers.map(async (user) => {
       const userObj = user.toObject();
