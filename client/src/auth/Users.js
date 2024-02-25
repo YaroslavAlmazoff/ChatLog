@@ -38,7 +38,7 @@ const Users = () => {
           },
         }
       );
-      console.log(response.data);
+      console.log(response);
       setUsers((prev) =>
         response.data.users
           ? [...prev, ...response.data.users].slice(0, response.data.count)
@@ -65,7 +65,7 @@ const Users = () => {
     const getFirstUsers = async () => {
       if (!auth.userId) return;
       setLoading(true);
-      const response = await api.get(`/api/allusers/${1}/all`, {
+      const response = await api.get(`/api/allusers/1/all`, {
         headers: {
           Authorization: `Bearer ${auth.token}`,
         },
@@ -88,7 +88,7 @@ const Users = () => {
         el.surname.toLowerCase().includes(searchValue.toLowerCase()) ||
         el.country.toLowerCase().includes(searchValue.toLowerCase()) ||
         el.city.toLowerCase().includes(searchValue.toLowerCase()) ||
-        searchValue === "Поиск..."
+        searchValue === ""
       );
     });
   }, [users, searchValue]);
