@@ -81,18 +81,6 @@ const Users = () => {
     };
   }, [auth]);
 
-  const searchedUsers = useMemo(() => {
-    return [...users].filter((el) => {
-      return (
-        el.name.toLowerCase().includes(searchValue.toLowerCase()) ||
-        el.surname.toLowerCase().includes(searchValue.toLowerCase()) ||
-        el.country.toLowerCase().includes(searchValue.toLowerCase()) ||
-        el.city.toLowerCase().includes(searchValue.toLowerCase()) ||
-        searchValue === ""
-      );
-    });
-  }, [users, searchValue]);
-
   return (
     <div className="users">
       {/*<div className="users-ads">
@@ -109,7 +97,7 @@ const Users = () => {
             className="users-search-field users-search-field-width"
           />
         </div>
-        {searchedUsers.map((el) => (
+        {users.map((el) => (
           <UserItem
             key={randomKey()}
             name={el.name}
