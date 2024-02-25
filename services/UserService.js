@@ -70,7 +70,9 @@ class UserService {
         el.city.toLowerCase().includes(searchValue.toLowerCase()) ||
         el.age
           .toLowerCase()
-          .includes(searchValue.toLowerCase() || searchValue == "all")
+          .includes(
+            searchValue.toLowerCase() || searchValue == "all" || !searchValue
+          )
     );
     const mappedUsers = filteredUsers.map(async (user) => {
       const userObj = user.toObject();
