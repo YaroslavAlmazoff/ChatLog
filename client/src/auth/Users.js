@@ -30,11 +30,14 @@ const Users = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       !isLast && setLoading(true);
-      const response = await api.get(`/api/allusers/${page}/${searchValue}`, {
-        headers: {
-          Authorization: `Bearer ${auth.token}`,
-        },
-      });
+      const response = await api.get(
+        `/api/allusers/${page}/${searchValue ? searchValue : "all"}`,
+        {
+          headers: {
+            Authorization: `Bearer ${auth.token}`,
+          },
+        }
+      );
       console.log(response.data);
       setUsers((prev) =>
         response.data.users
@@ -62,7 +65,7 @@ const Users = () => {
     const getFirstUsers = async () => {
       if (!auth.userId) return;
       setLoading(true);
-      const response = await api.get(`/api/allusers/${1}/`, {
+      const response = await api.get(`/api/allusers/${1}/all`, {
         headers: {
           Authorization: `Bearer ${auth.token}`,
         },
