@@ -43,12 +43,13 @@ const Users = () => {
       console.log(response);
       setUsers((prev) =>
         response.data.users
-          ? uniqueObjects(
-              [...prev, ...response.data.users].slice(
-                0,
-                response.data.count + 1
+          ? searchValue
+            ? uniqueObjects(
+                [...response.data.users].slice(0, response.data.count)
               )
-            )
+            : uniqueObjects(
+                [...prev, ...response.data.users].slice(0, response.data.count)
+              )
           : uniqueObjects(prev.slice(0, response.data.count))
       );
       setIsLast(response.data.isLast);
