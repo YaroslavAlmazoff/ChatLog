@@ -94,9 +94,10 @@ const Users = () => {
           <input
             type="search"
             value={value}
-            onChange={(e) => setValue(e.target.value)}
-            onInput={(e) =>
-              e.target.value.length === 0 ? setSearchValue("") : () => {}
+            onChange={(e) =>
+              e.target.value.length === 0
+                ? setSearchValue("")
+                : setValue(e.target.value)
             }
             placeholder="Найти людей..."
             className="users-search-field users-search-field-width"
