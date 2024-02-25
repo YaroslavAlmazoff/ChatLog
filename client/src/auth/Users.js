@@ -30,7 +30,7 @@ const Users = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       !isLast && setLoading(true);
-      const response = await api.get(`/api/allusers/${page}`, {
+      const response = await api.get(`/api/allusers/${page}/${searchValue}`, {
         headers: {
           Authorization: `Bearer ${auth.token}`,
         },
@@ -45,7 +45,7 @@ const Users = () => {
       setLoading(false);
     };
     fetchUsers();
-  }, [page]);
+  }, [page, searchValue]);
 
   useEffect(() => {
     const onScroll = () => {

@@ -60,7 +60,16 @@ class UserService {
   }
   async getUsersLazy(req, res) {
     const users = await User.find();
-    const mappedUsers = users.map(async (user) => {
+    const searchValue = req.params.search;
+    const filteredUsers = users.filter(
+      (el) =>
+        el.name.toLowerCase().includes(searchValue.toLowerCase()) ||
+        el.surname.toLowerCase().includes(searchValue.toLowerCase()) ||
+        el.country.toLowerCase().includes(searchValue.toLowerCase()) ||
+        el.city.toLowerCase().includes(searchValue.toLowerCase()) ||
+        el.age.toLowerCase().includes(searchValue.toLowerCase() || !searchValue)
+    );
+    const mappedUsers = filteredUsers.map(async (user) => {
       const userObj = user.toObject();
       const notice = await Notification.findOne({
         from: user._id,

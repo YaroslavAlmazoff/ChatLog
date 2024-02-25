@@ -231,7 +231,7 @@ router.get("/allusers", auth, (req, res) => {
     console.log(e);
   }
 });
-router.get("/allusers/:page", auth, (req, res) => {
+router.get("/allusers/:page/:search", auth, (req, res) => {
   //Все пользователи c ленивой загрузкой
   try {
     UserService.getUsersLazy(req, res);
