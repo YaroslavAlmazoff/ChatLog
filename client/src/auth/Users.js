@@ -24,6 +24,7 @@ const Users = () => {
   const [loading, setLoading] = useState(false);
   const [value, setValue] = useState("");
   const [searchValue, setSearchValue] = useState("");
+  const [searchDisplay, setSearchDisplay] = useState(false);
   const [isLast, setIsLast] = useState(false);
   const { randomKey } = useRandom();
 
@@ -81,6 +82,7 @@ const Users = () => {
       console.log(response.data.users);
       setUsers(response.data.users);
       setLoading(false);
+      setSearchDisplay(true);
     };
     if (users.length === 0) {
       getFirstUsers();
@@ -101,24 +103,26 @@ const Users = () => {
                 </div>*/}
 
       <div className="users-list">
-        <div className="users-search">
-          <input
-            type="text"
-            value={value}
-            onChange={(e) => setValue(e.target.value)}
-            placeholder="Найти людей..."
-            className="users-search-field users-search-field-width"
-          />
-          <button
-            className="button"
-            onClick={() => {
-              setSearchValue(value);
-              setPage(1);
-            }}
-          >
-            Поиск
-          </button>
-        </div>
+        {searchDisplay && (
+          <div className="users-search">
+            <input
+              type="text"
+              value={value}
+              onChange={(e) => setValue(e.target.value)}
+              placeholder="Найти людей..."
+              className="users-search-field users-search-field-width"
+            />
+            <button
+              className="button"
+              onClick={() => {
+                setSearchValue(value);
+                setPage(1);
+              }}
+            >
+              Поиск
+            </button>
+          </div>
+        )}
         {users.map((el) => (
           <UserItem
             key={randomKey()}
