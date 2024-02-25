@@ -105,7 +105,13 @@ const Users = () => {
             placeholder="Найти людей..."
             className="users-search-field users-search-field-width"
           />
-          <button className="button" onClick={() => setSearchValue(value)}>
+          <button
+            className="button"
+            onClick={() => {
+              setSearchValue(value);
+              setPage(1);
+            }}
+          >
             Поиск
           </button>
         </div>
