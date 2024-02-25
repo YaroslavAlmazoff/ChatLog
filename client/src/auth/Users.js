@@ -44,7 +44,10 @@ const Users = () => {
       setUsers((prev) =>
         response.data.users
           ? uniqueObjects(
-              [...prev, ...response.data.users].slice(0, response.data.count)
+              [...prev, ...response.data.users].slice(
+                0,
+                response.data.count + 1
+              )
             )
           : uniqueObjects(prev.slice(0, response.data.count))
       );
