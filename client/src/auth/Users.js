@@ -70,6 +70,7 @@ const Users = () => {
           Authorization: `Bearer ${auth.token}`,
         },
       });
+      console.log(response.data.users);
       setUsers(response.data.users);
       setLoading(false);
     };

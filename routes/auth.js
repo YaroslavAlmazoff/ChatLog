@@ -239,22 +239,6 @@ router.get("/allusers/:page/:search", auth, (req, res) => {
     console.log(e);
   }
 });
-router.get("/users-lazy/:limit/:skip", (req, res) => {
-  try {
-    User.find()
-      .limit(parseInt(req.params.limit))
-      .skip(parseInt(req.params.skip))
-      .then((users) => {
-        res.json({ users });
-      })
-      .catch((error) => {
-        console.error("Failed to get users", error);
-        res.status(500).json({ error: "Failed to get users" });
-      });
-  } catch (e) {
-    console.log(e);
-  }
-});
 router.get("/load-users", (req, res) => {
   //Все пользователи
   try {
