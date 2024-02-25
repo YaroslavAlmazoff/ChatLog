@@ -21,6 +21,7 @@ const Users = () => {
 
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
+  const [value, setValue] = useState("");
   const [searchValue, setSearchValue] = useState("");
   const [isLast, setIsLast] = useState(false);
   const { randomKey } = useRandom();
@@ -92,11 +93,14 @@ const Users = () => {
         <div className="users-search">
           <input
             type="search"
-            value={searchValue}
-            onChange={(e) => setSearchValue(e.target.value)}
+            value={value}
+            onChange={(e) => setValue(e.target.value)}
             placeholder="Найти людей..."
             className="users-search-field users-search-field-width"
           />
+          <button className="button" onClick={() => setSearchValue(value)}>
+            Поиск
+          </button>
         </div>
         {users.map((el) => (
           <UserItem
