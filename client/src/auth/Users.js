@@ -62,7 +62,7 @@ const Users = () => {
     const getFirstUsers = async () => {
       if (!auth.userId) return;
       setLoading(true);
-      const response = await api.get(`/api/allusers/${1}`, {
+      const response = await api.get(`/api/allusers/${1}/`, {
         headers: {
           Authorization: `Bearer ${auth.token}`,
         },
