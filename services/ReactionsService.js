@@ -168,16 +168,19 @@ class ReactionService {
 
   async likeComment(req, res) {
     const comment = await Comment.findById(req.params.id);
-    const likes = comment.likes + 1;
-    await Comment.findByIdAndUpdate(req.params.id, { likes });
-    res.json({ msg: "liked" });
-  }
-
-  async dislikeComment(req, res) {
-    const comment = await Comment.findById(req.params.id);
-    const likes = comment.likes - 1;
-    await Comment.findByIdAndUpdate(req.params.id, { likes });
-    res.json({ msg: "disliked" });
+    const like = await Like.findOne({
+      user: req.user.userId,
+      post: comment._id,
+    });
+    if (like) {
+      const likes = comment.likes - 1;
+      await Comment.findByIdAndUpdate(req.params.id, { likes });
+      res.json({ liked: false });
+    } else {
+      const likes = comment.likes + 1;
+      await Comment.findByIdAndUpdate(req.params.id, { likes });
+      res.json({ liked: true });
+    }
   }
   async comments(req, res) {
     const comments = await Comment.find({ articleID: req.params.id });

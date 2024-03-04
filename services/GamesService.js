@@ -5,6 +5,7 @@ const FileService = require("./FileService");
 const User = require("../models/User");
 const ImageService = require("./ImageService");
 const path = require("path");
+const Like = require("../models/Like");
 
 class GamesService {
   async games(req, res) {
@@ -106,15 +107,19 @@ class GamesService {
   }
   async likeComment(req, res) {
     const comment = await GameComment.findById(req.params.id);
-    const likes = comment.likes + 1;
-    await GameComment.findByIdAndUpdate(req.params.id, { likes });
-    res.json({ msg: "" });
-  }
-  async dislikeComment(req, res) {
-    const comment = await GameComment.findById(req.params.id);
-    const likes = comment.likes - 1;
-    await GameComment.findByIdAndUpdate(req.params.id, { likes });
-    res.json({ msg: "disliked" });
+    const like = await Like.findOne({
+      user: req.user.userId,
+      post: comment._id,
+    });
+    if (like) {
+      const likes = comment.likes - 1;
+      await GameComment.findByIdAndUpdate(req.params.id, { likes });
+      res.json({ msg: "disliked" });
+    } else {
+      const likes = comment.likes + 1;
+      await GameComment.findByIdAndUpdate(req.params.id, { likes });
+      res.json({ msg: "liked" });
+    }
   }
 }
 

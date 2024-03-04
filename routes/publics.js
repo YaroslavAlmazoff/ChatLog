@@ -172,7 +172,7 @@ router.get("/likepost/:id/:public", auth, (req, res) => {
     console.log(e);
   }
 });
-router.get("/likecomment/:id", (req, res) => {
+router.get("/likecomment/:id", auth, (req, res) => {
   try {
     PublicService.likeComment(req, res);
   } catch (e) {
