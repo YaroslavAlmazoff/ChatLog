@@ -68,9 +68,9 @@ const UserPost = ({
         setLike(require("../../img/red-like.png"));
         setLikeClass("red-block-glow");
       }
-      getComments();
-      checkLike();
     };
+    getComments();
+    checkLike();
     setImage(process.env.REACT_APP_API_URL + "/articles/" + post.images[0]);
     setLikesCount(post.likes);
   }, [post, auth]);
