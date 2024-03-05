@@ -19,9 +19,17 @@ const PublicCommentItem = ({ item }) => {
     };
     getUser();
     setLikesCount(item.likes);
-    if (localStorage.getItem(item._id) === auth.userId) {
-      setLikeImg(require("../../../../img/red-like.png"));
-    }
+    const checkLike = async () => {
+      const response = await api.get(`/api/check-like/${item._id}`, {
+        headers: {
+          Authorization: `Bearer ${auth.token}`,
+        },
+      });
+      if (response.data.liked) {
+        setLikeImg(require("../../img/red-like.png"));
+      }
+    };
+    checkLike();
   }, [item, auth]);
 
   const like = async () => {
