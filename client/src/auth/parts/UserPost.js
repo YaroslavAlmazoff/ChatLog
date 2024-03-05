@@ -55,6 +55,7 @@ const UserPost = ({
   useEffect(() => {
     const getComments = async () => {
       const response = await api.get(`/api/userpost/comments/${post._id}`);
+      console.log("comments", response);
       setComments(response.data.comments.reverse());
     };
     const checkLike = async () => {
