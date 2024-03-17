@@ -63,12 +63,14 @@ class MessengerService {
     rooms = rooms.map((room) => {
       const roomObj = room.toObject();
       roomObj.isChat = false;
+      console.log(roomObj.isChat);
       return roomObj;
     });
 
     chatRooms = chatRooms.map((room) => {
       const roomObj = room.toObject();
       roomObj.isChat = true;
+      console.log(roomObj.isChat);
       return roomObj;
     });
 
