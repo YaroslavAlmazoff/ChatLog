@@ -44,7 +44,7 @@ export const RoomsList = () => {
         <button onClick={createChat} className="button">
           + Создать беседу
         </button>
-        <div className="rooms-list-wrapper">
+        <div className="rooms-list-wrapper mt">
           {!loading ? (
             rooms.map((el) => <RoomItem key={randomKey()} room={el} />)
           ) : (
