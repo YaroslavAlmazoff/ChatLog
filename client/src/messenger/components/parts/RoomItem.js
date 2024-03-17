@@ -27,7 +27,9 @@ const ChatRoomItem = ({ room }) => {
           width="60"
           src={
             room.avatarUrl
-              ? process.env.REACT_APP_API_URL + "/chatavatars/" + room.avatarUrl
+              ? process.env.REACT_APP_API_URL +
+                `/${room.isChat ? "chat" : "user"}avatars/` +
+                room.avatarUrl
               : require("../../../auth/img/group.png")
           }
           alt="user"
