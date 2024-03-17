@@ -6,7 +6,6 @@ import api from "../../../auth/api/auth";
 import { AuthContext } from "../../../context/AuthContext";
 import Loader from "../../../common_components/Loader";
 import useVerify from "../../../common_hooks/verify.hook";
-import RoomItem from "../parts/RoomItem";
 
 export const RoomsList = () => {
   const auth = useContext(AuthContext);
