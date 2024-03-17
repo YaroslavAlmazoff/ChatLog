@@ -411,13 +411,6 @@ class PublicService {
       res.json({ msg: "liked" });
     }
   }
-  async dislikePost(req, res) {
-    const post = await PublicPost.findById(req.params.id);
-    const likes = post.likes - 1;
-    await PublicPost.findByIdAndUpdate(req.params.id, { likes });
-    res.json({ msg: "disliked" });
-  }
-
   async comment(req, res) {
     const { text, date, pub } = req.body;
     Comment.create({

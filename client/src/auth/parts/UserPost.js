@@ -79,24 +79,19 @@ const UserPost = ({
   const [likesCount, setLikesCount] = useState();
 
   const mark = async () => {
-    if (like === require("../../img/blue-like.png")) {
-      localStorage.setItem(post._id, auth.userId);
+    const response = await api.get(`/api/like/${post._id}`, {
+      headers: {
+        Authorization: `Bearer ${auth.token}`,
+      },
+    });
+    if (response.data.liked) {
       setLikesCount(likesCount + 1);
       setLike(require("../../img/red-like.png"));
-      await api.post(
-        `/api/like`,
-        { id: post._id },
-        { headers: { Authorization: `Bearer ${auth.token}` } }
-      );
+      setLikeClass("red-block-glow");
     } else {
-      localStorage.removeItem(post._id, auth.userId);
       setLikesCount(likesCount - 1);
       setLike(require("../../img/blue-like.png"));
-      await api.post(
-        `/api/like`,
-        { sub: true, id: post._id },
-        { headers: { Authorization: `Bearer ${auth.token}` } }
-      );
+      setLikeClass("blue-block-glow");
     }
   };
   const deletePost = async () => {

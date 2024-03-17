@@ -9,6 +9,7 @@ const FileService = require("./FileService");
 const uuid = require("uuid");
 const RoomsArray = require("../models/RoomsArray");
 const ImageService = require("./ImageService");
+const mongoose = require("mongoose");
 
 class MessengerService {
   async createRoom(req, res) {
@@ -55,9 +56,109 @@ class MessengerService {
 
     let rooms1 = await Room.find({ user1: user });
     let rooms2 = await Room.find({ user2: user });
-    const rooms = rooms1.concat(rooms2);
 
-    res.json({ rooms });
+    let rooms = rooms1.concat(rooms2);
+    let chatRooms = await ChatRoom.find({ members: user });
+
+    rooms = rooms.map((room) => {
+      const roomObj = room.toObject();
+      roomObj.isChat = false;
+      return roomObj;
+    });
+
+    chatRooms = chatRooms.map((room) => {
+      const roomObj = room.toObject();
+      roomObj.isChat = true;
+      return roomObj;
+    });
+
+    const fullRooms = rooms.concat(chatRooms);
+
+    const lastMessages = fullRooms.map(async (el) => {
+      if (el.lastMessageId) {
+        const message = await Message.findOne({ _id: el.lastMessageId });
+        return message;
+      } else {
+        const messages = await Message.find({ room: el._id });
+        return messages[messages.length - 1];
+      }
+    });
+
+    Promise.all(lastMessages)
+      .then((data) => {
+        const sortedMessages = data.sort((a, b) => {
+          if (
+            a.date.split(" ")[0].split(".")[2] ===
+              b.date.split(" ")[0].split(".")[2] &&
+            a.date.split(" ")[0].split(".")[1] ===
+              b.date.split(" ")[0].split(".")[1] &&
+            a.date.split(" ")[0].split(".")[0] ===
+              b.date.split(" ")[0].split(".")[0] &&
+            a.date.split(" ")[1].split(":")[0] ===
+              b.date.split(" ")[1].split(":")[0]
+          ) {
+            return (
+              b.date.split(" ")[1].split(":")[1] -
+              a.date.split(" ")[1].split(":")[1]
+            );
+          } else if (
+            a.date.split(" ")[0].split(".")[2] ===
+              b.date.split(" ")[0].split(".")[2] &&
+            a.date.split(" ")[0].split(".")[1] ===
+              b.date.split(" ")[0].split(".")[1] &&
+            a.date.split(" ")[0].split(".")[0] ===
+              b.date.split(" ")[0].split(".")[0]
+          ) {
+            return (
+              b.date.split(" ")[1].split(":")[0] -
+              a.date.split(" ")[1].split(":")[0]
+            );
+          } else if (
+            a.date.split(" ")[0].split(".")[2] ===
+              b.date.split(" ")[0].split(".")[2] &&
+            a.date.split(" ")[0].split(".")[1] ===
+              b.date.split(" ")[0].split(".")[1]
+          ) {
+            return (
+              b.date.split(" ")[0].split(".")[1] -
+              a.date.split(" ")[0].split(".")[1]
+            );
+          } else
+            return (
+              b.date.split(" ")[0].split(".")[2] -
+              a.date.split(" ")[0].split(".")[2]
+            );
+        });
+        const rooms = sortedMessages.map(async (el) => {
+          const roomObj = fullRooms.find((item) => item._id == item.room);
+          if (roomObj.isChat) {
+            roomObj.isNotReaded = el.readedThisMessage.includes(
+              mongoose.Types.ObjectId(user)
+            );
+          } else {
+            roomObj.isNotReaded = el.isNotReaded;
+            if (roomObj.user1 == user) {
+              const fullUser = await User.findById(roomObj.user2);
+              roomObj.name = fullUser.name;
+              roomObj.surname = fullUser.surname;
+              roomObj.avatarUrl = fullUser.avatarUrl;
+            } else if (roomObj.user2 == user) {
+              const fullUser = await User.findById(roomObj.user1);
+              roomObj.name = fullUser.name;
+              roomObj.surname = fullUser.surname;
+              roomObj.avatarUrl = fullUser.avatarUrl;
+            }
+          }
+          return roomObj;
+        });
+        Promise.all(rooms)
+          .then((sortedRooms) => {
+            const filteredRooms = sortedRooms.filter((el) => el != null);
+            res.json({ rooms: filteredRooms });
+          })
+          .catch((e) => res.json({ rooms: [] }));
+      })
+      .catch((e) => res.json({ rooms: [] }));
   }
   async getNotReadedRooms(req, res) {
     const user = req.user.userId;
