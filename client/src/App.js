@@ -65,7 +65,6 @@ function App() {
 
         <Header isVerified={isVerified} isActivated={isActivated} />
         {routes}
-        {window.location.toString().includes("/art") ? <Footer /> : <></>}
       </div>
     </AuthContext.Provider>
   );
