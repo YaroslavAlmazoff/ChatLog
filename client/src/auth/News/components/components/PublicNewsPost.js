@@ -23,6 +23,7 @@ const PublicNewsPost = ({ id }) => {
   const [mainImageLoading, setMainImageLoading] = useState(true);
   const [commentsDisplay, setCommentsDisplay] = useState(false);
   const [comments, setComments] = useState([]);
+  const [likeClass, setLikeClass] = useState("blue-block-glow");
   const [colors] = useState([
     "color-neon-blue",
     "color-neon-orange",
