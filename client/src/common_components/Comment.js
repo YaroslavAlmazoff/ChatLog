@@ -24,7 +24,7 @@ const Comment = ({ item }) => {
         },
       });
       if (response.data.liked) {
-        setLikeImg(require("../../img/red-like.png"));
+        setLikeImg(require("../img/red-like.png"));
       }
     };
     checkLike();
