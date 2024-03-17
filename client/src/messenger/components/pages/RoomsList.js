@@ -28,6 +28,7 @@ export const RoomsList = () => {
       });
       console.log(response);
       setRooms(response.data.rooms);
+      setLoading(false);
     };
     getRooms();
   }, [auth]);
