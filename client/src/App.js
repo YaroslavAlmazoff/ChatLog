@@ -63,11 +63,8 @@ function App() {
     >
       <div className="App">
         {modalOverlay && <div className="modal-window-overlay"></div>}
-        {!window.location.toString().includes("/art") ? (
-          <Header isVerified={isVerified} isActivated={isActivated} />
-        ) : (
-          <ArtHeader />
-        )}
+
+        <Header isVerified={isVerified} isActivated={isActivated} />
         {routes}
         {window.location.toString().includes("/art") ? <Footer /> : <></>}
       </div>
