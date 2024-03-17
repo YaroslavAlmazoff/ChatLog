@@ -62,7 +62,7 @@ const PublicNewsPost = ({ id }) => {
         },
       });
       if (response.data.liked) {
-        setLike(require("../../img/red-like.png"));
+        setLike(require("../../../../img/red-like.png"));
         setLikeClass("red-block-glow");
       }
     };
