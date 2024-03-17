@@ -132,7 +132,7 @@ class MessengerService {
             );
         });
         const rooms = sortedMessages.map(async (el) => {
-          const roomObj = fullRooms.find((item) => item._id == item.room);
+          const roomObj = fullRooms.find((item) => item._id == el.room);
           if (roomObj.isChat) {
             roomObj.isNotReaded = el.readedThisMessage.includes(
               mongoose.Types.ObjectId(user)
