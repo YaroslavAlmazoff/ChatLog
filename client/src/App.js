@@ -10,7 +10,6 @@ import useDate from "./common_hooks/date.hook";
 import $ from "jquery";
 import useVerify from "./common_hooks/verify.hook";
 import auth from "./auth/api/auth";
-import ArtHeader from "./site_art/Header";
 import Footer from "./site_art/Footer";
 import "./site_art/index.css";
 import "./common_components/modal-window/modal-window.css";
