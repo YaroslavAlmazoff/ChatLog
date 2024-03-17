@@ -88,7 +88,8 @@ class MessengerService {
 
     Promise.all(lastMessages)
       .then((data) => {
-        const sortedMessages = data.sort((a, b) => {
+        const filteredMessages = data.filter((message) => message != null);
+        const sortedMessages = filteredMessages.sort((a, b) => {
           if (
             a.date.split(" ")[0].split(".")[2] ===
               b.date.split(" ")[0].split(".")[2] &&
