@@ -38,7 +38,7 @@ const ChatRoomItem = ({ room }) => {
           <p className={`room-title ${randomColor()} ${randomShadow()}`}>
             {room.isChat ? room.title : `${room.name} ${room.surname}`}
           </p>
-          <p className="room-last-message">
+          <p className="room-last-message ml">
             {divideWord(room.lastMessage, 40)}
           </p>
         </div>
