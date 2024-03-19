@@ -150,132 +150,140 @@ router.get("/getfulllastmessage/:id", (req, res) => {
   }
 });
 
-// const removeDublicates = async (id) => {
-//   const message = await Message.findById(id);
-//   if (message) {
-//     const sameMessages = await Message.find({
-//       message: message.message,
-//       old: message.message,
-//       message: message.old,
-//       old: message.old,
-//       date: message.date,
-//       room: message.room,
-//     });
-//     for await (var i of sameMessages) {
-//       if (sameMessages.length == 1) {
-//         break;
-//       }
-//       if (i.imageUrl != "") {
-//         await ImageService.deleteFile(
-//           path.resolve("..", "static", "messagefotos", i.imageUrl)
-//         );
-//       } else if (i.videoUrl != "") {
-//         await ImageService.deleteFile(
-//           path.resolve("..", "static", "messagevideos", i.videoUrl)
-//         );
-//       } else if (i.audioUrl != "") {
-//         await ImageService.deleteFile(
-//           path.resolve("..", "static", "messageaudios", i.audioUrl)
-//         );
-//       }
-//       await Message.findByIdAndDelete(i._id);
-//     }
-//   }
-// };
+const removeDublicates = async (id) => {
+  const message = await Message.findById(id);
+  if (message) {
+    const sameMessages = await Message.find({
+      message: message.message,
+      old: message.message,
+      message: message.old,
+      old: message.old,
+      date: message.date,
+      room: message.room,
+    });
+    for await (var i of sameMessages) {
+      if (sameMessages.length == 1) {
+        break;
+      }
+      if (i.imageUrl != "") {
+        await ImageService.deleteFile(
+          path.resolve("..", "static", "messagefotos", i.imageUrl)
+        );
+      } else if (i.videoUrl != "") {
+        await ImageService.deleteFile(
+          path.resolve("..", "static", "messagevideos", i.videoUrl)
+        );
+      } else if (i.audioUrl != "") {
+        await ImageService.deleteFile(
+          path.resolve("..", "static", "messageaudios", i.audioUrl)
+        );
+      }
+      await Message.findByIdAndDelete(i._id);
+    }
+  }
+};
 
-// router.get("/connect/:id", async (req, res) => {
-//   console.log("connection");
-//   res.writeHead(200, {
-//     Connection: "keep-alive",
-//     "Content-Type": "text/event-stream",
-//     "Cache-Control": "no-cache",
-//     "Accept-Ranges": "bytes",
-//     "Content-Range": "bytes 100-64656926/64656927",
-//   });
-//   emitter.on("newMessage", async (message, req) => {
-//     Message.findOne({
-//       message: message.message,
-//       date: message.date,
-//       room: message.room,
-//     }).then(async (data) => {
-//       if (data) {
-//         await removeDublicates(req);
-//         const messages = await Message.find({ room: message.room });
-//         const filtered = messages.filter(
-//           (v, i, a) =>
-//             a.findIndex((t) => t.message === v.message && t.date === v.date) ===
-//             i
-//         );
-//         getMessagesMobile(res, filtered);
-//       } else {
-//         if (message.file) {
-//           const filename = uuid.v4() + ".jpg";
-//           ImageService.saveImageBase64(message.file, filename, "messagefotos");
-//           Message.create({ ...message, imageUrl: filename }).then(async () => {
-//             await removeDublicates(req);
-//             const messages = await Message.find({ room: message.room });
-//             const filtered = messages.filter(
-//               (v, i, a) =>
-//                 a.findIndex(
-//                   (t) => t.message === v.message && t.date === v.date
-//                 ) === i
-//             );
-//             res.write(`data: ${JSON.stringify(filtered)} \n\n`);
-//           });
-//         } else if (message.videoFile) {
-//           const filename = uuid.v4() + ".mp4";
-//           ImageService.saveVideoBase64(
-//             message.videoFile,
-//             filename,
-//             "messagevideos"
-//           );
-//           Message.create({ ...message, videoUrl: filename }).then(async () => {
-//             await removeDublicates(req);
-//             const messages = await Message.find({ room: message.room });
-//             const filtered = messages.filter(
-//               (v, i, a) =>
-//                 a.findIndex(
-//                   (t) => t.message === v.message && t.date === v.date
-//                 ) === i
-//             );
-//             res.write(`data: ${JSON.stringify(filtered)} \n\n`);
-//           });
-//         } else if (message.audioFile) {
-//           const filename = uuid.v4() + ".mp3";
-//           ImageService.saveAudioBase64(
-//             message.audioFile,
-//             filename,
-//             "messageaudios"
-//           );
-//           Message.create({ ...message, audioUrl: filename }).then(async () => {
-//             await removeDublicates(req);
-//             const messages = await Message.find({ room: message.room });
-//             const filtered = messages.filter(
-//               (v, i, a) =>
-//                 a.findIndex(
-//                   (t) => t.message === v.message && t.date === v.date
-//                 ) === i
-//             );
-//             res.write(`data: ${JSON.stringify(filtered)} \n\n`);
-//           });
-//         } else {
-//           Message.create({ ...message, isNotReaded: true }).then(async () => {
-//             console.log("просто сообщение");
-//             await removeDublicates(req);
-//             const messages = await Message.find({ room: message.room });
-//             const filtered = messages.filter(
-//               (v, i, a) =>
-//                 a.findIndex(
-//                   (t) => t.message === v.message && t.date === v.date
-//                 ) === i
-//             );
-//             res.write(`data: ${JSON.stringify(filtered)} \n\n`);
-//           });
-//         }
-//       }
-//     });
-//   });
-// });
+router.get("/connect/:id", async (req, res) => {
+  console.log("connection");
+  res.writeHead(200, {
+    Connection: "keep-alive",
+    "Content-Type": "text/event-stream",
+    "Cache-Control": "no-cache",
+    "Accept-Ranges": "bytes",
+    "Content-Range": "bytes 100-64656926/64656927",
+  });
+  emitter.on("newMessage", async (message, req, roomId) => {
+    Message.findOne({
+      message: message.message,
+      date: message.date,
+      room: message.room,
+    }).then(async (data) => {
+      if (data) {
+        const messages = await Message.find({ room: message.room });
+        const filtered = messages.filter(
+          (v, i, a) =>
+            a.findIndex((t) => t.message === v.message && t.date === v.date) ===
+            i
+        );
+        getMessagesMobile(res, filtered);
+      } else {
+        if (message.file) {
+          const filename = uuid.v4() + ".jpg";
+          ImageService.saveImageBase64(message.file, filename, "messagefotos");
+          Message.create({ ...message, imageUrl: filename }).then(async () => {
+            await removeDublicates(req);
+            const messages = await Message.find({ room: message.room });
+            const filtered = messages.filter(
+              (v, i, a) =>
+                a.findIndex(
+                  (t) => t.message === v.message && t.date === v.date
+                ) === i
+            );
+            await Room.findByIdAndUpdate(roomId, {
+              lastMessageId: message._id,
+            });
+            res.write(`data: ${JSON.stringify(filtered)} \n\n`);
+          });
+        } else if (message.videoFile) {
+          const filename = uuid.v4() + ".mp4";
+          ImageService.saveVideoBase64(
+            message.videoFile,
+            filename,
+            "messagevideos"
+          );
+          Message.create({ ...message, videoUrl: filename }).then(async () => {
+            const messages = await Message.find({ room: message.room });
+            const filtered = messages.filter(
+              (v, i, a) =>
+                a.findIndex(
+                  (t) => t.message === v.message && t.date === v.date
+                ) === i
+            );
+            await Room.findByIdAndUpdate(roomId, {
+              lastMessageId: message._id,
+            });
+            res.write(`data: ${JSON.stringify(filtered)} \n\n`);
+          });
+        } else if (message.audioFile) {
+          const filename = uuid.v4() + ".mp3";
+          ImageService.saveAudioBase64(
+            message.audioFile,
+            filename,
+            "messageaudios"
+          );
+          Message.create({ ...message, audioUrl: filename }).then(async () => {
+            const messages = await Message.find({ room: message.room });
+            const filtered = messages.filter(
+              (v, i, a) =>
+                a.findIndex(
+                  (t) => t.message === v.message && t.date === v.date
+                ) === i
+            );
+            await Room.findByIdAndUpdate(roomId, {
+              lastMessageId: message._id,
+            });
+            res.write(`data: ${JSON.stringify(filtered)} \n\n`);
+          });
+        } else {
+          Message.create({ ...message, isNotReaded: true }).then(async () => {
+            console.log("просто сообщение");
+            const messages = await Message.find({ room: message.room });
+            const filtered = messages.filter(
+              (v, i, a) =>
+                a.findIndex(
+                  (t) => t.message === v.message && t.date === v.date
+                ) === i
+            );
+            await Room.findByIdAndUpdate(roomId, {
+              lastMessageId: message._id,
+            });
+            res.write(`data: ${JSON.stringify(filtered)} \n\n`);
+          });
+        }
+      }
+    });
+  });
+});
 
 router.get("/connect-mobile/:id", async (req, res) => {
   console.log("connection");
@@ -394,7 +402,7 @@ router.post("/new-messages/:id", auth, async (req, res) => {
   } else {
     await File.findByIdAndUpdate(message.fileLink, { public: true });
   }
-  emitter.emit("newMessageMobile", message, req.files);
+  emitter.emit("newMessageMobile", message, req.files, req.params.id);
   res.status(200);
 });
 

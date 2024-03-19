@@ -76,7 +76,7 @@ class MessengerService {
 
     const lastMessages = fullRooms.map(async (el) => {
       if (el.lastMessageId) {
-        const message = await Message.findOne({ _id: el.lastMessageId });
+        const message = await Message.findById(el.lastMessageId);
         return message;
       } else {
         const messages = await Message.find({ room: el._id });
