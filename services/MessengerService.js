@@ -164,6 +164,7 @@ class MessengerService {
               mongoose.Types.ObjectId(user)
             );
           } else {
+            console.log(el.isNotReaded);
             roomObj.isNotReaded = el.isNotReaded;
             if (roomObj.user1 == user) {
               const fullUser = await User.findById(roomObj.user2);
