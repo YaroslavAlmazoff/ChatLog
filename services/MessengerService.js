@@ -98,6 +98,12 @@ class MessengerService {
             a.date.split(" ")[1].split(":")[0] ===
               b.date.split(" ")[1].split(":")[0]
           ) {
+            console.log(
+              b.date.split(" ")[1].split(":")[1],
+              a.date.split(" ")[1].split(":")[1],
+              b.date.split(" ")[1].split(":")[1] -
+                a.date.split(" ")[1].split(":")[1]
+            );
             return (
               b.date.split(" ")[1].split(":")[1] -
               a.date.split(" ")[1].split(":")[1]
@@ -110,6 +116,12 @@ class MessengerService {
             a.date.split(" ")[0].split(".")[0] ===
               b.date.split(" ")[0].split(".")[0]
           ) {
+            console.log(
+              b.date.split(" ")[1].split(":")[0],
+              a.date.split(" ")[1].split(":")[0],
+              b.date.split(" ")[1].split(":")[0] -
+                a.date.split(" ")[1].split(":")[0]
+            );
             return (
               b.date.split(" ")[1].split(":")[0] -
               a.date.split(" ")[1].split(":")[0]
@@ -120,15 +132,28 @@ class MessengerService {
             a.date.split(" ")[0].split(".")[1] ===
               b.date.split(" ")[0].split(".")[1]
           ) {
+            console.log(
+              b.date.split(" ")[0].split(".")[1],
+              a.date.split(" ")[0].split(".")[1],
+              b.date.split(" ")[0].split(".")[1] -
+                a.date.split(" ")[0].split(".")[1]
+            );
             return (
               b.date.split(" ")[0].split(".")[1] -
               a.date.split(" ")[0].split(".")[1]
             );
-          } else
+          } else {
+            console.log(
+              b.date.split(" ")[0].split(".")[2],
+              a.date.split(" ")[0].split(".")[2],
+              b.date.split(" ")[0].split(".")[2] -
+                a.date.split(" ")[0].split(".")[2]
+            );
             return (
               b.date.split(" ")[0].split(".")[2] -
               a.date.split(" ")[0].split(".")[2]
             );
+          }
         });
         const rooms = sortedMessages.map(async (el) => {
           const roomObj = fullRooms.find(
