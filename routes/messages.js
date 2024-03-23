@@ -402,7 +402,7 @@ router.post("/new-messages/:id", auth, async (req, res) => {
   } else {
     await File.findByIdAndUpdate(message.fileLink, { public: true });
   }
-  emitter.emit("newMessageMobile", message, req.files, req.params.id);
+  emitter.emit("newMessage", message, req, req.params.id);
   res.status(200);
 });
 
@@ -552,6 +552,60 @@ router.get("/all-messages", auth, async (req, res) => {
   } catch (e) {
     console.log(e);
   }
+});
+
+router.post("/new-messages-mobile/:id", auth, async (req, res) => {
+  const user = await User.findById(req.user.userId);
+  const message = req.body;
+  const updatedRoom = await Room.findByIdAndUpdate(req.params.id, {
+    lastMessage: message.message,
+  });
+  message.isFile =
+    message.isFile == "true" || message.isFile == true ? true : false;
+  message.room = req.params.id;
+  message.avatarUrl = user.avatarUrl;
+  message.name = user.name;
+  message.isNotReaded = true;
+  message.user = user._id;
+  message.message = message.message;
+
+  let tokenString = "";
+  let to = "";
+  if (updatedRoom.user1.toString() == req.user.userId) {
+    to = updatedRoom.user2;
+  } else {
+    to = updatedRoom.user1;
+  }
+
+  const token = await NotificationToken.findOne({ user: to });
+
+  if (token != null) {
+    tokenString = token.token;
+    FirebaseService.send(
+      user.name + " " + user.surname,
+      message.message,
+      tokenString,
+      {
+        id: updatedRoom._id.toString(),
+        type: "message",
+        message: message.message,
+        name: user.name + " " + user.surname,
+        click_action: "MESSENGER",
+      }
+    );
+  }
+
+  if (
+    message.fileLink == null ||
+    message.fileLink == "null" ||
+    message.fileLink == ""
+  ) {
+    message.fileLink = "";
+  } else {
+    await File.findByIdAndUpdate(message.fileLink, { public: true });
+  }
+  emitter.emit("newMessageMobile", message, req.files, req.params.id);
+  res.status(200);
 });
 
 module.exports = router;
