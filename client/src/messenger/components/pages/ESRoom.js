@@ -112,7 +112,11 @@ export const ESRoom = () => {
 
   useEffect(() => {
     const getMessages = async () => {
-      const response = await api.get(`/api/getmessagesstart/${params.id}`);
+      const response = await api.get(`/api/getmessagesstart/${params.id}`, {
+        headers: {
+          Authorization: `Bearer ${auth.token}`,
+        },
+      });
       setMessages(
         response.data.messages.filter(
           (v, i, a) =>
