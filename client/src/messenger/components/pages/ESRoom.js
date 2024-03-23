@@ -20,7 +20,7 @@ export const ESRoom = () => {
   const { verify } = useVerify();
   useEffect(() => {
     verify();
-  }, [verify]);
+  }, []);
   const messageRef = useRef(null);
   const [id, setId] = useState("");
   const { randomColor, randomShadow, randomBlockShadow } = useHighlight();
