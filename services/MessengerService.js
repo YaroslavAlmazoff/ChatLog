@@ -303,6 +303,8 @@ class MessengerService {
     const messages = await Message.find({ room });
     const fullMessages = messages.map(async (el) => {
       const message = el.toObject();
+      const user = await User.findById(message.user);
+      message.avatarUrl = user.avatarUrl;
       if (!message.message) message.message = "";
       if (!message.to) message.to = "";
       if (!message.fileLink) message.fileLink = "";
