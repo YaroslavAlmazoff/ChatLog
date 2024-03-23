@@ -116,10 +116,10 @@ const start = async () => {
     https.createServer(options, app).listen(443, () => {
       console.log(`The Server has been started on port 443...`);
     });
-    setInterval(() => {
-      startNotifications();
-      MessengerService.clear();
-    }, 540000); //
+    // setInterval(() => {
+    //   startNotifications();
+    //   MessengerService.clear();
+    // }, 540000);
   } catch (e) {
     console.log("Server Error: ", e.message);
   }
