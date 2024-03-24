@@ -1,8 +1,11 @@
 import "../styles/room-item.css";
 import useWord from "../../../common_hooks/divideWord.hook";
 import useHighlight from "../../../common_hooks/highlight.hook";
+import { useContext } from "react";
+import { AuthContext } from "../../../context/AuthContext";
 
 const ChatRoomItem = ({ room }) => {
+  const auth = useContext(AuthContext);
   const { divideWord } = useWord();
   const { randomColor, randomShadow, randomBlockShadow } = useHighlight();
 
@@ -16,7 +19,7 @@ const ChatRoomItem = ({ room }) => {
     <div
       onClick={goToRoom}
       className={
-        room.unread
+        room.unread && room.sender != auth.userId
           ? "room-item move-glow-block"
           : `room-item ${randomColor()} ${randomBlockShadow()}`
       }

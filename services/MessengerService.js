@@ -166,6 +166,7 @@ class MessengerService {
           } else {
             console.log(el.isNotReaded);
             roomObj.unread = el.isNotReaded;
+            roomObj.sender = el.user;
             if (roomObj.user1 == user) {
               const fullUser = await User.findById(roomObj.user2);
               roomObj.name = fullUser.name;
