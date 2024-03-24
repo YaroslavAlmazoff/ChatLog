@@ -24,7 +24,7 @@ const Settings = () => {
           <button onClick={logout} className="button">
             Выйти
           </button>
-          <button onClick={deleteProfile} className="button">
+          <button onClick={deleteProfile} className="button ml">
             Удалить профиль
           </button>
         </div>
