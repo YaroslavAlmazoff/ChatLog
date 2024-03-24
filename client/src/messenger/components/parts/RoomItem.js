@@ -17,7 +17,7 @@ const ChatRoomItem = ({ room }) => {
       onClick={goToRoom}
       className={
         room.unread
-          ? "move-glow-block"
+          ? "room-item move-glow-block"
           : `room-item ${randomColor()} ${randomBlockShadow()}`
       }
     >
