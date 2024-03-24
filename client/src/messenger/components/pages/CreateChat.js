@@ -42,11 +42,12 @@ const CreateChat = () => {
       </button>
       <input
         className="form-field"
+        style={{ width: "60%" }}
         value={title}
         onChange={(e) => setTitle(e.target.value)}
         placeholder="Введите название"
       />
-      <button className="button" onClick={create}>
+      <button className="button mt" onClick={create}>
         Создать
       </button>
     </div>
