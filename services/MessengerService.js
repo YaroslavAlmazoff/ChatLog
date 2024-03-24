@@ -160,12 +160,12 @@ class MessengerService {
             (item) => item._id.toString() == el.room.toString()
           );
           if (roomObj.isChat) {
-            roomObj.isNotReaded = el.readedThisMessage.includes(
+            roomObj.unread = el.readedThisMessage.includes(
               mongoose.Types.ObjectId(user)
             );
           } else {
             console.log(el.isNotReaded);
-            roomObj.isNotReaded = el.isNotReaded;
+            roomObj.unread = el.isNotReaded;
             if (roomObj.user1 == user) {
               const fullUser = await User.findById(roomObj.user2);
               roomObj.name = fullUser.name;
