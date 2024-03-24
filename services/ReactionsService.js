@@ -33,9 +33,9 @@ class ReactionService {
 
       const user = await User.findById(userid);
       //Поиск поста
-      // const needArticle = await UserPost.findById(id);
-      // let likes = needArticle.likes;
-      // let likers = needArticle.likers;
+      const needArticle = await UserPost.findById(id);
+      let likes = needArticle.likes;
+      let likers = needArticle.likers;
 
       if (like) {
         //Дизлайк
