@@ -6,7 +6,6 @@ import PublicPostHead from "./components/PublicPostHead";
 import { AuthContext } from "../../../../context/AuthContext";
 import PublicCommentField from "../../../../publics/components/components/components/PublicCommentField";
 import PublicCommentItem from "../../../../publics/components/components/components/PublicCommentItem";
-import { LIKE_NOTIFICATION } from "../../../../publicNotificationTypes";
 
 const PublicNewsPost = ({ id }) => {
   const auth = useContext(AuthContext);
@@ -182,7 +181,7 @@ const PublicNewsPost = ({ id }) => {
               <p className="user-post-date">От {post.date}</p>
             </>
           ) : (
-            <p style={{ color: "white" }}>{error}</p>
+            <></>
           )}
           <>
             {commentsDisplay && (
