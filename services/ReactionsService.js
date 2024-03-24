@@ -25,7 +25,7 @@ class ReactionService {
   async like(req, res) {
     try {
       //Получение ID поста
-      const { id, sub } = req.body;
+      const { id } = req.params;
       //Получение ID пользователя
       const userid = req.user.userId;
 
@@ -33,9 +33,9 @@ class ReactionService {
 
       const user = await User.findById(userid);
       //Поиск поста
-      const needArticle = await UserPost.findById(id);
-      let likes = needArticle.likes;
-      let likers = needArticle.likers;
+      // const needArticle = await UserPost.findById(id);
+      // let likes = needArticle.likes;
+      // let likers = needArticle.likers;
 
       if (like) {
         //Дизлайк

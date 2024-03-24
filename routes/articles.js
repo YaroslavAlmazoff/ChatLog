@@ -91,7 +91,7 @@ router.get("/check-like/:id", auth, async (req, res) => {
     console.log(e);
   }
 });
-router.post("/like", auth, async (req, res) => {
+router.get("/like/:id", auth, async (req, res) => {
   //Увеличение количестива лайков
   try {
     ReactionsService.like(req, res);
