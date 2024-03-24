@@ -37,7 +37,7 @@ const UserCenterSide = ({
           <></>
         )}
         {isOwner && isAdmin ? (
-          <button className="button margin-top-bottom" onClick={gotoAdmin}>
+          <button className="button margin-top-bottom ml" onClick={gotoAdmin}>
             Кабинет администратора
           </button>
         ) : (
