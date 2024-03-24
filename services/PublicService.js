@@ -372,27 +372,42 @@ class PublicService {
   }
 
   async likePost(req, res) {
-    const userid = req.user.userId;
-    const id = req.params.id;
-    const pub = req.params.public;
+    try {
+      //Получение ID поста
+      const { id } = req.params;
+      //Получение ID пользователя
+      const userid = req.user.userId;
 
-    const like = await Like.findOne({ user: userid, post: id });
+      const like = await Like.findOne({ user: userid, post: id });
+      const needArticle = await PublicPost.findById(id);
+      let likes = needArticle.likes;
 
-    const needArticle = await PublicPost.findById(id);
-    let likes = needArticle.likes;
+      if (like) {
+        //Дизлайк
+        const newLikes = likes - 1;
+        const post = await PublicPost.findByIdAndUpdate(id, {
+          likes: newLikes,
+        });
+        await Like.findOneAndDelete({ user: userid, post: id });
 
-    if (like) {
-      const newLikes = likes - 1;
-      await PublicPost.findByIdAndUpdate(id, { likes: newLikes });
-      await Like.findOneAndDelete({ user: userid, post: id });
-      await this.notify(types.like, userid, pub, req.params.id);
-      res.json({ liked: false });
-    } else {
-      const newLikes = 1 + likes;
-      await PublicPost.findByIdAndUpdate(id, { likes: newLikes });
-      await Like.create({ user: userid, post: id });
-      await this.notify(types.dislike, userid, pub, req.params.id);
-      res.json({ liked: true });
+        if (post.user != userid) {
+          await this.notify(types.like, userid, pub, req.params.id);
+        }
+        res.json({ liked: false });
+      } else {
+        //Лайк
+        const newLikes = 1 + likes;
+        const post = await UserPost.findByIdAndUpdate(id, {
+          likes: newLikes,
+        });
+        if (post.user != userid) {
+          await this.notify(types.dislike, userid, pub, req.params.id);
+        }
+        await Like.create({ user: userid, post: id });
+        res.json({ liked: true });
+      }
+    } catch (e) {
+      console.log(e);
     }
   }
   async likeComment(req, res) {

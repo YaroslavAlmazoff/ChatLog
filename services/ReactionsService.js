@@ -106,6 +106,7 @@ class ReactionService {
       console.log(e);
     }
   }
+
   //Увеличение количества комментариев
   async comment(req, res) {
     try {
