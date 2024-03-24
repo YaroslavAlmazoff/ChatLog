@@ -41,7 +41,7 @@ const CreateChat = () => {
         {filename}
       </button>
       <input
-        className="create-chat-input"
+        className="form-field"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
         placeholder="Введите название"
