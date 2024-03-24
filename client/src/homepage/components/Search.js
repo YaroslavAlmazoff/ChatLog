@@ -25,7 +25,7 @@ const Search = () => {
         value={question}
         onChange={(e) => setQuestion(e.target.value)}
       />
-      <button onClick={find} className="button">
+      <button onClick={find} className="button ml">
         Найти
       </button>
     </div>
