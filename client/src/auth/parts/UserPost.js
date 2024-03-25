@@ -5,6 +5,7 @@ import { AuthContext } from "../../context/AuthContext";
 import CommentField from "./CommentField";
 import Comment from "../../common_components/Comment";
 import ModalWindow from "../../common_components/modal-window/ModalWindow";
+import useHighlight from "../../common_hooks/highlight.hook";
 
 const UserPost = ({
   post,

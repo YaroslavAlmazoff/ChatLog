@@ -6,13 +6,14 @@ import PublicPostHead from "./components/PublicPostHead";
 import { AuthContext } from "../../../../context/AuthContext";
 import PublicCommentField from "../../../../publics/components/components/components/PublicCommentField";
 import PublicCommentItem from "../../../../publics/components/components/components/PublicCommentItem";
+import useHighlight from "../../../../common_hooks/highlight.hook";
 
 const PublicNewsPost = ({ post }) => {
   const auth = useContext(AuthContext);
   const { randomColor, randomShadow } = useHighlight();
   const [image, setImage] = useState("");
-  // const [error, setError] = useState("");
-  // const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(true);
   const [mainImageLoading, setMainImageLoading] = useState(true);
   const [commentsDisplay, setCommentsDisplay] = useState(false);
   const [comments, setComments] = useState([]);
