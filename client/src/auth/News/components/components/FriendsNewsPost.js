@@ -26,7 +26,7 @@ const FriendsNewsPost = ({ post }) => {
     }
     setImage(process.env.REACT_APP_API_URL + "/articles/" + post.images[0]);
     setLikesCount(post.likes);
-    setComments(post.comments);
+    setComments(post.comments.reverse());
   }, [post]);
 
   const toggleCommentsDisplay = () => {
