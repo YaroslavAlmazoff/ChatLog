@@ -397,7 +397,7 @@ class PublicService {
       } else {
         //Лайк
         const newLikes = 1 + likes;
-        const post = await UserPost.findByIdAndUpdate(id, {
+        const post = await PublicPost.findByIdAndUpdate(id, {
           likes: newLikes,
         });
         if (post.user != userid) {
