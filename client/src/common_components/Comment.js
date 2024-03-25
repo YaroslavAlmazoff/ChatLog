@@ -68,7 +68,7 @@ const Comment = ({ item }) => {
             {likesCount}
           </span>
           <img
-            className="block user-post-like videohost-comment-item-like-img"
+            className="block videohost-comment-item-like-img"
             src={likeImg}
             alt=""
           />
