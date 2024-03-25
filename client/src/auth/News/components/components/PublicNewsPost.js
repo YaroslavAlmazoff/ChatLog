@@ -9,84 +9,24 @@ import PublicCommentItem from "../../../../publics/components/components/compone
 
 const PublicNewsPost = ({ post }) => {
   const auth = useContext(AuthContext);
+  const { randomColor, randomShadow } = useHighlight();
   const [image, setImage] = useState("");
-  const [post, setPost] = useState({
-    images: [],
-    title: "",
-    text: "",
-    date: "",
-    _id: "630cd7d5be8d2f7728d1e691",
-  });
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(true);
+  // const [error, setError] = useState("");
+  // const [loading, setLoading] = useState(true);
   const [mainImageLoading, setMainImageLoading] = useState(true);
   const [commentsDisplay, setCommentsDisplay] = useState(false);
   const [comments, setComments] = useState([]);
-  const [likeClass, setLikeClass] = useState("blue-block-glow");
-  const [colors] = useState([
-    "color-neon-blue",
-    "color-neon-orange",
-    "color-neon-green",
-    "color-neon-purple",
-    "color-neon-pink",
-    "color-neon-navy",
-  ]);
-  const [shadows] = useState([
-    "blue-text-glow",
-    "orange-text-glow",
-    "green-text-glow",
-    "purple-text-glow",
-    "pink-text-glow",
-    "navy-text-glow",
-  ]);
-
-  const randomColor = () => {
-    return colors[Math.round(Math.random() * colors.length)];
-  };
-  const randomShadow = () => {
-    return shadows[Math.round(Math.random() * colors.length)];
-  };
-
-  useEffect(() => {
-    const getComments = async () => {
-      const response = await api.get(`/api/public/comments/${post._id}`);
-      console.log("comments", response);
-      setComments(response.data.comments.reverse());
-    };
-    const checkLike = async () => {
-      const response = await api.get(`/api/check-like/${post._id}`, {
-        headers: {
-          Authorization: `Bearer ${auth.token}`,
-        },
-      });
-      if (response.data.liked) {
-        setLike(require("../../../../img/red-like.png"));
-        setLikeClass("red-block-glow");
-      }
-    };
-    getComments();
-    checkLike();
-    setImage(process.env.REACT_APP_API_URL + "/publicposts/" + post.images[0]);
-    setLikesCount(post.likes);
-  }, [post, auth]);
-
-  useEffect(() => {
-    const getPost = async () => {
-      const response = await api.get(`/api/publicnewspost/${id}`);
-      console.log(response);
-      if (response.data.post) {
-        setPost(response.data.post);
-        setLoading(false);
-      } else {
-        setError("Запись удалена.");
-        setLoading(false);
-      }
-    };
-    getPost();
-  }, [id]);
-
   const [like, setLike] = useState(require("../../../../img/blue-like.png"));
   const [likesCount, setLikesCount] = useState();
+
+  useEffect(() => {
+    if (post.liked) {
+      setLike(require("../../../../img/red-like.png"));
+    }
+    setImage(process.env.REACT_APP_API_URL + "/publicposts/" + post.images[0]);
+    setLikesCount(post.likes);
+    setComments(post.comments.reverse());
+  }, [post, auth]);
 
   const mark = async () => {
     const response = await api.get(
@@ -113,6 +53,7 @@ const PublicNewsPost = ({ post }) => {
       setCommentsDisplay(true);
     }
   };
+
   return (
     <div className="user-post">
       {!loading ? (

@@ -7,75 +7,26 @@ import FriendsPostHead from "./components/FriendsPostHead";
 import Comment from "../../../../common_components/Comment";
 import CommentField from "../../../parts/CommentField";
 
-const FriendsNewsPost = ({ id }) => {
+const FriendsNewsPost = ({ post }) => {
   const auth = useContext(AuthContext);
+  const { randomColor, randomShadow } = useHighlight();
   const [image, setImage] = useState("");
-  const [post, setPost] = useState({ images: [], title: "", date: "" });
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(true);
+  // const [error, setError] = useState("");
+  // const [loading, setLoading] = useState(true);
   const [mainImageLoading, setMainImageLoading] = useState(true);
   const [commentsDisplay, setCommentsDisplay] = useState(false);
-  const [likeClass, setLikeClass] = useState("blue-block-glow");
   const [comments, setComments] = useState([]);
-  const [colors] = useState([
-    "color-neon-blue",
-    "color-neon-orange",
-    "color-neon-green",
-    "color-neon-purple",
-    "color-neon-pink",
-    "color-neon-navy",
-  ]);
-  const [shadows] = useState([
-    "blue-text-glow",
-    "orange-text-glow",
-    "green-text-glow",
-    "purple-text-glow",
-    "pink-text-glow",
-    "navy-text-glow",
-  ]);
-
-  const randomColor = () => {
-    return colors[Math.round(Math.random() * colors.length)];
-  };
-  const randomShadow = () => {
-    return shadows[Math.round(Math.random() * colors.length)];
-  };
-
-  useEffect(() => {
-    const getPost = async () => {
-      const response = await api.get(`/api/friendsnewspost/${id}`);
-      console.log(response);
-      if (response.data.post) {
-        setPost(response.data.post);
-        setLoading(false);
-      } else {
-        setError("Запись удалена.");
-        setLoading(false);
-      }
-    };
-    getPost();
-    setImage(process.env.REACT_APP_API_URL + "/articles/" + post.images[0]);
-  }, [id]);
-
-  useEffect(() => {
-    setImage(process.env.REACT_APP_API_URL + "/articles/" + post.images[0]);
-    const getComments = async () => {
-      const response = await api.get(`/api/userpost/comments/${post._id}`);
-      setComments(response.data.comments.reverse());
-    };
-    getComments();
-    setLikesCount(post.likes);
-  }, [post]);
-
-  useEffect(() => {
-    if (!auth.userId) return;
-    if (localStorage.getItem(post._id) === auth.userId) {
-      setLike(require("../../../../img/red-like.png"));
-    }
-  }, [post, auth]);
-
   const [like, setLike] = useState(require("../../../../img/blue-like.png"));
   const [likesCount, setLikesCount] = useState();
+
+  useEffect(() => {
+    if (post.liked) {
+      setLike(require("../../../../img/red-like.png"));
+    }
+    setImage(process.env.REACT_APP_API_URL + "/articles/" + post.images[0]);
+    setLikesCount(post.likes);
+    setComments(post.comments);
+  }, [post]);
 
   const toggleCommentsDisplay = () => {
     if (commentsDisplay) {
@@ -94,11 +45,9 @@ const FriendsNewsPost = ({ id }) => {
     if (response.data.liked) {
       setLikesCount(likesCount + 1);
       setLike(require("../../../../img/red-like.png"));
-      setLikeClass("red-block-glow");
     } else {
       setLikesCount(likesCount - 1);
       setLike(require("../../../../img/blue-like.png"));
-      setLikeClass("blue-block-glow");
     }
   };
 

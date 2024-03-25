@@ -22,8 +22,8 @@ const FriendsNews = () => {
 
   return (
     <div className="feed-public-news">
-      {posts.map((id) => (
-        <FriendsNewsPost id={id} />
+      {posts.map((post) => (
+        <FriendsNewsPost post={post} />
       ))}
     </div>
   );

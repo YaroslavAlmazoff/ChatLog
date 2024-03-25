@@ -13,28 +13,12 @@ const UserPost = ({
   setUserPosts = () => {},
 }) => {
   const auth = useContext(AuthContext);
+  const { randomColor, randomShadow } = useHighlight();
   const [image, setImage] = useState("");
   const [mainImageLoading, setMainImageLoading] = useState(true);
   const [commentsDisplay, setCommentsDisplay] = useState(false);
   const [comments, setComments] = useState([]);
   const [modal, setModal] = useState(false);
-  const [likeClass, setLikeClass] = useState("blue-block-glow");
-  const [colors] = useState([
-    "color-neon-blue",
-    "color-neon-orange",
-    "color-neon-green",
-    "color-neon-purple",
-    "color-neon-pink",
-    "color-neon-navy",
-  ]);
-  const [shadows] = useState([
-    "blue-text-glow",
-    "orange-text-glow",
-    "green-text-glow",
-    "purple-text-glow",
-    "pink-text-glow",
-    "navy-text-glow",
-  ]);
 
   const openWindow = () => {
     setModal(true);
@@ -43,13 +27,6 @@ const UserPost = ({
   const closeWindow = () => {
     setModal(false);
     auth.darkScreen(false);
-  };
-
-  const randomColor = () => {
-    return colors[Math.round(Math.random() * colors.length)];
-  };
-  const randomShadow = () => {
-    return shadows[Math.round(Math.random() * colors.length)];
   };
 
   useEffect(() => {
@@ -87,11 +64,9 @@ const UserPost = ({
     if (response.data.liked) {
       setLikesCount(likesCount + 1);
       setLike(require("../../img/red-like.png"));
-      setLikeClass("red-block-glow");
     } else {
       setLikesCount(likesCount - 1);
       setLike(require("../../img/blue-like.png"));
-      setLikeClass("blue-block-glow");
     }
   };
   const deletePost = async () => {

@@ -13,14 +13,7 @@ const UserNav = ({
   noticeText,
   noticeRef,
 }) => {
-  const [colors] = useState([
-    "color-neon-blue",
-    "color-neon-orange",
-    "color-neon-green",
-    "color-neon-purple",
-    "color-neon-pink",
-    "color-neon-navy",
-  ]);
+  const { randomColor } = useHighlight();
   const { calculateAge } = useDate();
   const avatarFileRef = useRef();
   const avatarRef = useRef();
@@ -63,9 +56,6 @@ const UserNav = ({
     }
   };
 
-  const randomColor = () => {
-    return colors[Math.round(Math.random() * colors.length)];
-  };
   const arrow = useRef(null);
   const [aboutMeDisplay, setAboutMeDisplay] = useState("none");
   const gotoEdit = () => {
