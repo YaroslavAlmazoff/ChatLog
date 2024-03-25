@@ -419,10 +419,15 @@ class PublicService {
     if (like) {
       const likes = comment.likes - 1;
       await PublicComment.findByIdAndUpdate(req.params.id, { likes });
+      await Like.findOneAndDelete({
+        user: req.user.userId,
+        post: req.params.id,
+      });
       res.json({ liked: false });
     } else {
       const likes = comment.likes + 1;
       await PublicComment.findByIdAndUpdate(req.params.id, { likes });
+      await Like.create({ user: req.user.userId, post: req.params.id });
       res.json({ liked: true });
     }
   }
