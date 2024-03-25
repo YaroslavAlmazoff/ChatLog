@@ -462,7 +462,7 @@ class PublicService {
   }
   async comments(req, res) {
     const comments = await PublicComment.find({ postID: req.params.id });
-    console.log(comments);
+    comments.length && console.log(comments);
     const fullComments = comments.map(async (el) => {
       const user = await User.findById(el.user);
       if (user == null) return null;
