@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import FriendsNews from "./components/FriendsNews";
 import PublicNews from "./components/PublicNews";
 import "./feed.css";
@@ -43,7 +43,7 @@ const Feed = () => {
         </button>
       </div>
       <div className="feed-content">
-        {publicPostsDisplay && <PublicNews />}
+        <PublicNews />
         {friendsPostsDisplay && <FriendsNews />}
       </div>
     </div>
