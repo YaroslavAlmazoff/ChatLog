@@ -4,20 +4,16 @@ import PublicNews from "./components/PublicNews";
 import "./feed.css";
 
 const Feed = () => {
-  const PUBLIC_NEWS = "public";
-  const FRIENDS_NEWS = "friends";
-
-  const [currentPosts, setCurrentPosts] = useState("friends");
-
-  useEffect(() => {
-    toPublicPosts();
-  }, [posts]);
+  const [publicPostsDisplay, setPublicPostsDisplay] = useState(true);
+  const [friendsPostsDisplay, setFriendsPostsDisplay] = useState(false);
 
   const toPublicPosts = () => {
-    setCurrentPosts(PUBLIC_NEWS);
+    setPublicPostsDisplay(true);
+    setFriendsPostsDisplay(false);
   };
   const toFriendsPosts = () => {
-    setCurrentPosts(FRIENDS_NEWS);
+    setFriendsPostsDisplay(true);
+    setPublicPostsDisplay(false);
   };
 
   return (
@@ -47,8 +43,8 @@ const Feed = () => {
         </button>
       </div>
       <div className="feed-content">
-        {currentPosts === PUBLIC_NEWS ? <PublicNews /> : <></>}
-        {currentPosts === FRIENDS_NEWS ? <FriendsNews /> : <></>}
+        {publicPostsDisplay && <PublicNews />}
+        {friendsPostsDisplay && <FriendsNews />}
       </div>
     </div>
   );
