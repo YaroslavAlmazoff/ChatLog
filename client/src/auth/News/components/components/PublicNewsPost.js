@@ -110,7 +110,7 @@ const PublicNewsPost = ({ post }) => {
                 ) : null}
                 <img
                   onClick={mark}
-                  className="user-post-like"
+                  className="block user-post-like"
                   src={like}
                   alt=""
                 />
