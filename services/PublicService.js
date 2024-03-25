@@ -411,19 +411,19 @@ class PublicService {
     }
   }
   async likeComment(req, res) {
-    const comment = await Comment.findById(req.params.id);
+    const comment = await PublicComment.findById(req.params.id);
     const like = await Like.findOne({
       user: req.user.userId,
       post: comment._id,
     });
     if (like) {
       const likes = comment.likes - 1;
-      await Comment.findByIdAndUpdate(req.params.id, { likes });
-      res.json({ msg: "disliked" });
+      await PublicComment.findByIdAndUpdate(req.params.id, { likes });
+      res.json({ liked: false });
     } else {
       const likes = comment.likes + 1;
-      await Comment.findByIdAndUpdate(req.params.id, { likes });
-      res.json({ msg: "liked" });
+      await PublicComment.findByIdAndUpdate(req.params.id, { likes });
+      res.json({ liked: true });
     }
   }
   async comment(req, res) {
