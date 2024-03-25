@@ -13,7 +13,7 @@ const PublicNewsPost = ({ post }) => {
   const { randomColor, randomShadow } = useHighlight();
   const [image, setImage] = useState("");
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [mainImageLoading, setMainImageLoading] = useState(true);
   const [commentsDisplay, setCommentsDisplay] = useState(false);
   const [comments, setComments] = useState([]);
