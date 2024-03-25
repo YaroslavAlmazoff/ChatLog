@@ -165,7 +165,7 @@ router.get("/posthead/:id", (req, res) => {
   }
 });
 
-router.get("/likepost/:id", auth, (req, res) => {
+router.get("/likepost/:id/:pub", auth, (req, res) => {
   try {
     PublicService.likePost(req, res);
   } catch (e) {

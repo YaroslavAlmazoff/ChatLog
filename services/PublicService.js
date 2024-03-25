@@ -374,7 +374,7 @@ class PublicService {
   async likePost(req, res) {
     try {
       //Получение ID поста
-      const { id } = req.params;
+      const { id, pub } = req.params;
       //Получение ID пользователя
       const userid = req.user.userId;
 

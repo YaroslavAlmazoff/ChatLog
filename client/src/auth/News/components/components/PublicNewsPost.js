@@ -88,11 +88,14 @@ const PublicNewsPost = ({ id }) => {
   const [likesCount, setLikesCount] = useState();
 
   const mark = async () => {
-    const response = await api.get(`/api/public/likepost/${post._id}`, {
-      headers: {
-        Authorization: `Bearer ${auth.token}`,
-      },
-    });
+    const response = await api.get(
+      `/api/public/likepost/${post._id}/${post.public}`,
+      {
+        headers: {
+          Authorization: `Bearer ${auth.token}`,
+        },
+      }
+    );
     if (response.data.liked) {
       setLikesCount(likesCount + 1);
       setLike(require("../../../../img/red-like.png"));
