@@ -38,13 +38,7 @@ const PublicsPage = () => {
   }, [publics, searchValue]);
 
   return (
-    <div
-      style={{
-        display: "flex",
-        alignItems: "flex-start",
-        justifyContent: "flex-start",
-      }}
-    >
+    <div className="center-column">
       <div className="users-ads"></div>
       {!loading ? (
         <div className="publics">
