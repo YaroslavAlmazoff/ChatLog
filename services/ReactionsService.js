@@ -182,7 +182,7 @@ class ReactionService {
       await Comment.findByIdAndUpdate(req.params.id, { likes });
       await Like.findOneAndDelete({
         user: req.user.userId,
-        post: req.params.ids,
+        post: req.params.id,
       });
       res.json({ liked: false });
     } else {
