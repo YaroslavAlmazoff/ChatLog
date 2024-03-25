@@ -57,7 +57,7 @@ const FriendsNewsPost = ({ post }) => {
         <>
           {!error ? (
             <>
-              <FriendsPostHead id={id} />
+              <FriendsPostHead id={post._id} />
               <p
                 className={`user-post-text ${randomColor()} ${randomShadow()}`}
               >

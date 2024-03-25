@@ -61,7 +61,7 @@ const PublicNewsPost = ({ post }) => {
         <>
           {!error ? (
             <>
-              <PublicPostHead id={id} />
+              <PublicPostHead id={post._id} />
               <h2
                 className={`user-post-title ${randomColor()} ${randomShadow()}`}
               >
