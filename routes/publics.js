@@ -165,7 +165,7 @@ router.get("/posthead/:id", (req, res) => {
   }
 });
 
-router.get("/likepost/:id/:public", auth, (req, res) => {
+router.get("/likepost/:id", auth, (req, res) => {
   try {
     PublicService.likePost(req, res);
   } catch (e) {
@@ -175,20 +175,6 @@ router.get("/likepost/:id/:public", auth, (req, res) => {
 router.get("/likecomment/:id", auth, (req, res) => {
   try {
     PublicService.likeComment(req, res);
-  } catch (e) {
-    console.log(e);
-  }
-});
-router.get("/dislikepost/:id", (req, res) => {
-  try {
-    PublicService.dislikePost(req, res);
-  } catch (e) {
-    console.log(e);
-  }
-});
-router.get("/dislikecomment/:id", (req, res) => {
-  try {
-    PublicService.dislikeComment(req, res);
   } catch (e) {
     console.log(e);
   }
