@@ -15,6 +15,7 @@ const FriendsNews = () => {
           Authorization: `Bearer ${auth.token}`,
         },
       });
+      console.log(response);
       setPosts(response.data.posts);
     };
     getPosts();

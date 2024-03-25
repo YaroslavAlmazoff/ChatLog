@@ -27,7 +27,7 @@ const PublicNewsPost = ({ post }) => {
     setImage(process.env.REACT_APP_API_URL + "/publicposts/" + post.images[0]);
     setLikesCount(post.likes);
     setComments(post.comments.reverse());
-  }, [post, auth]);
+  }, [post]);
 
   const mark = async () => {
     const response = await api.get(
