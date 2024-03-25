@@ -38,10 +38,10 @@ const PublicsPage = () => {
   }, [publics, searchValue]);
 
   return (
-    <div className="center-column">
+    <div className="publics center-column">
       <div className="users-ads"></div>
       {!loading ? (
-        <div className="publics">
+        <>
           <button
             onClick={createPublic}
             className="button"
@@ -56,7 +56,7 @@ const PublicsPage = () => {
           {searchedPublics.map((item) => (
             <Public item={item} />
           ))}
-        </div>
+        </>
       ) : (
         <Loader ml={"50%"} />
       )}
