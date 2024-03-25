@@ -8,22 +8,12 @@ import "../../../../videohost/styles/comment-field.css";
 import "../../../../videohost/styles/form.css";
 
 const PublicCommentField = ({ id, comments, setComments, publicID }) => {
-  const params = useParams();
   const auth = useContext(AuthContext);
   const [text, setText] = useState("");
   const { getCurrentDate } = useDate();
 
   const send = async () => {
     const date = getCurrentDate();
-    await api.post(
-      `/api/public/notify/${id}/${publicID}`,
-      { type: COMMENT_NOTIFICATION },
-      {
-        headers: {
-          Authorization: `Bearer ${auth.token}`,
-        },
-      }
-    );
     const response = await api.post(
       `/api/public/comment/${id}`,
       { date, text, pub: publicID },
