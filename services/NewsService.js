@@ -7,7 +7,27 @@ const Like = require("../models/Like");
 class NewsService {
   async getPublicNews(req, res) {
     const user = await User.findById(req.user.userId);
-    res.json({ posts: user.publicNews });
+    const news = user.publicNews;
+    const fullNews = news.map(async (item) => {
+      const post = await PublicPost.findById(item);
+      if (post == null) return null;
+      const pub = await Public.findById(post.public);
+      const liked = await Like.findOne({ user: req.user.userId, post: item });
+      const postObj = post.toObject();
+      postObj.publicName = `${pub.name}`;
+      postObj.avatar = pub.avatarUrl;
+      postObj.liked = !!liked;
+      postObj.admin = pub.admin;
+      return postObj;
+    });
+    Promise.all(fullNews)
+      .then((data) => {
+        const filtered = data.filter((item) => item != null);
+        res.json({ posts: filtered });
+      })
+      .catch(() => {
+        res.json({ posts: [] });
+      });
   }
 
   async getPublicNewsPost(req, res) {
@@ -20,7 +40,26 @@ class NewsService {
   }
   async getFriendsNews(req, res) {
     const user = await User.findById(req.user.userId);
-    res.json({ posts: user.friendsNews });
+    const news = user.friendsNews;
+    const fullNews = news.map(async (item) => {
+      const post = await UserPost.findById(item);
+      if (post == null) return null;
+      const owner = await Public.findById(post.user);
+      const liked = await Like.findOne({ user: req.user.userId, post: item });
+      const postObj = post.toObject();
+      postObj.name = owner.name + " " + owner.surname;
+      postObj.avatar = owner.avatarUrl;
+      postObj.liked = !!liked;
+      return postObj;
+    });
+    Promise.all(fullNews)
+      .then((data) => {
+        const filtered = data.filter((item) => item != null);
+        res.json({ posts: filtered });
+      })
+      .catch(() => {
+        res.json({ posts: [] });
+      });
   }
   async fullUserPublicNews(req, res) {
     const user = await User.findById(req.params.id);

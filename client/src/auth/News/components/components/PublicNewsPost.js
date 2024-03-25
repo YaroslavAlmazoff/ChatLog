@@ -48,14 +48,11 @@ const PublicNewsPost = ({ id }) => {
   };
 
   useEffect(() => {
-    setImage(process.env.REACT_APP_API_URL + "/publicposts/" + post.images[0]);
-    setLikesCount(post.likes);
     const getComments = async () => {
       const response = await api.get(`/api/public/comments/${post._id}`);
-      console.log(response);
+      console.log("comments", response);
       setComments(response.data.comments.reverse());
     };
-    getComments();
     const checkLike = async () => {
       const response = await api.get(`/api/check-like/${post._id}`, {
         headers: {
@@ -67,7 +64,10 @@ const PublicNewsPost = ({ id }) => {
         setLikeClass("red-block-glow");
       }
     };
+    getComments();
     checkLike();
+    setImage(process.env.REACT_APP_API_URL + "/publicposts/" + post.images[0]);
+    setLikesCount(post.likes);
   }, [post, auth]);
 
   useEffect(() => {
