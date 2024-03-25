@@ -7,6 +7,7 @@ const NotificationToken = require("../models/NotificationToken");
 const FirebaseService = require("../services/FirebaseService");
 const Comment = require("../models/Comment");
 const Like = require("../models/Like.js");
+import useHighlight from "../client/src/common_hooks/highlight.hook.js";
 
 //Сервис для количества лайков и комментариев
 class ReactionService {

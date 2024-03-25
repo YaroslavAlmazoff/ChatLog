@@ -4,6 +4,7 @@ import Notice from "./Notice";
 import useDate from "../../common_hooks/date.hook";
 import api from "../api/auth";
 import { AuthContext } from "../../context/AuthContext";
+import useHighlight from "../../common_hooks/highlight.hook";
 
 const UserNav = ({
   user,

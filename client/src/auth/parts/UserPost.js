@@ -33,7 +33,6 @@ const UserPost = ({
   useEffect(() => {
     const getComments = async () => {
       const response = await api.get(`/api/userpost/comments/${post._id}`);
-      console.log("comments", response);
       setComments(response.data.comments.reverse());
     };
     const checkLike = async () => {
@@ -44,7 +43,6 @@ const UserPost = ({
       });
       if (response.data.liked) {
         setLike(require("../../img/red-like.png"));
-        setLikeClass("red-block-glow");
       }
     };
     getComments();
