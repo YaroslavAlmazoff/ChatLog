@@ -48,7 +48,7 @@ class NewsService {
     const fullNews = news.map(async (item) => {
       const post = await UserPost.findById(item);
       if (post == null) return null;
-      const owner = await Public.findById(post.user);
+      const owner = await User.findById(post.user);
       const comments = await Comment.find({ articleID: post._id });
       const liked = await Like.findOne({ user: req.user.userId, post: item });
       const postObj = post.toObject();
