@@ -18,7 +18,7 @@ const PublicNews = () => {
       setPosts(response.data.posts);
     };
     getPosts();
-  }, []);
+  }, [auth]);
 
   return (
     <div className="feed-public-news">

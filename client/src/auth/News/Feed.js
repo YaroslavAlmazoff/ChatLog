@@ -43,7 +43,7 @@ const Feed = () => {
         </button>
       </div>
       <div className="feed-content">
-        <PublicNews />
+        {publicPostsDisplay && <PublicNews />}
         {friendsPostsDisplay && <FriendsNews />}
       </div>
     </div>
