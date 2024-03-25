@@ -3,6 +3,8 @@ const User = require("../models/User");
 const UserPost = require("../models/UserPost");
 const Public = require("../models/Public");
 const Like = require("../models/Like");
+const Comment = require("../models/Comment");
+const PublicComment = require("../models/PublicComment");
 
 class NewsService {
   async getPublicNews(req, res) {
@@ -12,12 +14,14 @@ class NewsService {
       const post = await PublicPost.findById(item);
       if (post == null) return null;
       const pub = await Public.findById(post.public);
+      const comments = await PublicComment.find({ postID: post._id });
       const liked = await Like.findOne({ user: req.user.userId, post: item });
       const postObj = post.toObject();
       postObj.publicName = `${pub.name}`;
       postObj.avatar = pub.avatarUrl;
       postObj.liked = !!liked;
       postObj.admin = pub.admin;
+      postObj.comments = comments;
       return postObj;
     });
     Promise.all(fullNews)
@@ -45,11 +49,13 @@ class NewsService {
       const post = await UserPost.findById(item);
       if (post == null) return null;
       const owner = await Public.findById(post.user);
+      const comments = await Comment.find({ articleID: post._id });
       const liked = await Like.findOne({ user: req.user.userId, post: item });
       const postObj = post.toObject();
       postObj.name = owner.name + " " + owner.surname;
       postObj.avatar = owner.avatarUrl;
       postObj.liked = !!liked;
+      postObj.comments = comments;
       return postObj;
     });
     Promise.all(fullNews)

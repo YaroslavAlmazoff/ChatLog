@@ -7,7 +7,7 @@ import { AuthContext } from "../../../../context/AuthContext";
 import PublicCommentField from "../../../../publics/components/components/components/PublicCommentField";
 import PublicCommentItem from "../../../../publics/components/components/components/PublicCommentItem";
 
-const PublicNewsPost = ({ id }) => {
+const PublicNewsPost = ({ post }) => {
   const auth = useContext(AuthContext);
   const [image, setImage] = useState("");
   const [post, setPost] = useState({
