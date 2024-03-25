@@ -81,6 +81,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
   margin: 10px;
   object-fit: cover;
   cursor: pointer;
