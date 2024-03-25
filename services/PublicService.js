@@ -476,8 +476,8 @@ class PublicService {
         const filtered = cms.filter((item) => item != null);
         res.json({ comments: filtered });
       })
-      .catch(() => {
-        res.json({ comments: [] });
+      .catch((e) => {
+        res.json({ comments: [], error: e });
       });
   }
 
