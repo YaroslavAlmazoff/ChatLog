@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import api from "../auth/api/auth";
 import "../videohost/styles/comment-item.css";
+import "../auth/styles/user-post.css";
 
 const Comment = ({ item }) => {
   const auth = useContext(AuthContext);
@@ -67,7 +68,7 @@ const Comment = ({ item }) => {
             {likesCount}
           </span>
           <img
-            className="videohost-comment-item-like-img"
+            className="block user-post-like videohost-comment-item-like-img"
             src={likeImg}
             alt=""
           />
