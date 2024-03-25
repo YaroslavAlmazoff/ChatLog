@@ -52,6 +52,7 @@ const PublicNewsPost = ({ id }) => {
     setLikesCount(post.likes);
     const getComments = async () => {
       const response = await api.get(`/api/public/comments/${post._id}`);
+      console.log(response);
       setComments(response.data.comments.reverse());
     };
     getComments();
