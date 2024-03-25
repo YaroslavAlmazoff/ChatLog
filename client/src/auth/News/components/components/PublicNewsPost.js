@@ -54,7 +54,6 @@ const PublicNewsPost = ({ id }) => {
       const response = await api.get(`/api/public/comments/${post._id}`);
       console.log(response);
       setComments(response.data.comments.reverse());
-      setCommentsDisplay(true);
     };
     getComments();
     const checkLike = async () => {
