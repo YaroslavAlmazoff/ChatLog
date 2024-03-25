@@ -45,12 +45,7 @@ const PublicsPage = () => {
         justifyContent: "flex-start",
       }}
     >
-      <div className="users-ads">
-        <UsersSearchSide
-          searchValue={searchValue}
-          setSearchValue={setSearchValue}
-        />
-      </div>
+      <div className="users-ads"></div>
       {!loading ? (
         <div className="publics">
           <button
@@ -60,6 +55,10 @@ const PublicsPage = () => {
           >
             Создать группу
           </button>
+          <UsersSearchSide
+            searchValue={searchValue}
+            setSearchValue={setSearchValue}
+          />
           {searchedPublics.map((item) => (
             <Public item={item} />
           ))}
