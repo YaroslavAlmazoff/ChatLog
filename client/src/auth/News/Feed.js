@@ -23,7 +23,7 @@ const Feed = () => {
           onClick={toPublicPosts}
           className="feed-nav-button"
           style={
-            currentPosts === PUBLIC_NEWS
+            publicPostsDisplay
               ? { borderBottom: "2px solid rgb(0, 140, 255)" }
               : { border: "none" }
           }
@@ -34,7 +34,7 @@ const Feed = () => {
           onClick={toFriendsPosts}
           className="feed-nav-button"
           style={
-            currentPosts === FRIENDS_NEWS
+            friendsPostsDisplay
               ? { borderBottom: "2px solid rgb(0, 140, 255)" }
               : { border: "none" }
           }
