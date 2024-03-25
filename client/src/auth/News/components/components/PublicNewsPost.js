@@ -193,7 +193,7 @@ const PublicNewsPost = ({ id }) => {
                   id={post._id}
                   comments={comments}
                   setComments={setComments}
-                  publicID={id}
+                  publicID={post.public}
                 />
                 {comments.map((item) => (
                   <PublicCommentItem item={item} />
