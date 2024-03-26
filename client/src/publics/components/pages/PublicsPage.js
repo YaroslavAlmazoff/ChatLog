@@ -54,26 +54,25 @@ const PublicsPage = () => {
             >
               Создать группу
             </button>
-            <div className="users-search-side">
-              {searchDisplay && (
-                <div className={`search ${randomBlockShadow()}`}>
-                  <input
-                    value={searchValue}
-                    onChange={(e) => setSearchValue(e.target.value)}
-                    type="search"
-                    className="search-field"
-                    placeholder="Поиск..."
-                  />
-                  <button
-                    className="button"
-                    onClick={() => {
-                      setSearchValue(searchValue);
-                      setPage(1);
-                    }}
-                  ></button>
-                </div>
-              )}
-            </div>
+
+            {searchDisplay && (
+              <div className="users-search">
+                <input
+                  value={searchValue}
+                  onChange={(e) => setSearchValue(e.target.value)}
+                  type="search"
+                  className="search-field"
+                  placeholder="Поиск..."
+                />
+                <button
+                  className="button"
+                  onClick={() => {
+                    setSearchValue(searchValue);
+                    setPage(1);
+                  }}
+                ></button>
+              </div>
+            )}
             {searchedPublics.map((item) => (
               <Public item={item} />
             ))}
