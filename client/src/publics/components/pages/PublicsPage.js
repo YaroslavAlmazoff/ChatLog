@@ -67,7 +67,7 @@ const PublicsPage = () => {
                   <button
                     className="button"
                     onClick={() => {
-                      setSearchValue(value);
+                      setSearchValue(searchValue);
                       setPage(1);
                     }}
                   ></button>
