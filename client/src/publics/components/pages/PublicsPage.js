@@ -62,7 +62,7 @@ const PublicsPage = () => {
                   value={searchValue}
                   onChange={(e) => setSearchValue(e.target.value)}
                   type="search"
-                  className="search-field"
+                  className="users-search-field users-search-field-width"
                   placeholder="Поиск..."
                 />
                 <button
