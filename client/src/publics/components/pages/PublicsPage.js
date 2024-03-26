@@ -3,6 +3,7 @@ import api from "../../../auth/api/auth";
 import Public from "../components/components/Public";
 import "../../styles/publics.css";
 import "../../../auth/styles/users.css";
+import "../../../auth/parts/Universal/styles/search.css";
 import ShowAdLeft from "../../../inner_ad/components/components/ShowAdLeft";
 import UsersSearchSide from "../components/UsersSearchSide";
 import { useMemo } from "react";
@@ -70,7 +71,9 @@ const PublicsPage = () => {
                     setSearchValue(searchValue);
                     setPage(1);
                   }}
-                ></button>
+                >
+                  Поиск
+                </button>
               </div>
             )}
             {searchedPublics.map((item) => (
