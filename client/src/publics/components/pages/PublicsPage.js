@@ -13,6 +13,7 @@ import useHighlight from "../../../common_hooks/highlight.hook";
 
 const PublicsPage = () => {
   const { randomBlockShadow } = useHighlight();
+  const auth = useContext(AuthContext);
   const [publics, setPublics] = useState([]);
   const [searchValue, setSearchValue] = useState("");
   const [loading, setLoading] = useState(true);
@@ -21,13 +22,17 @@ const PublicsPage = () => {
 
   useEffect(() => {
     const getPublics = async () => {
-      const response = await api.get(`/api/public/publics`);
+      const response = await api.get(`/api/public/s`, {
+        headers: {
+          Authorization: `Bearer ${auth.token}`,
+        },
+      });
       setPublics(response.data.publics);
       setLoading(false);
       setSearchDisplay(true);
     };
     getPublics();
-  }, []);
+  }, [auth]);
 
   const createPublic = () => {
     window.location = "/createpublic";

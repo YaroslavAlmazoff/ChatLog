@@ -23,8 +23,8 @@ class PublicService {
       const publicObject = value.toObject();
       const isSubscriber = [];
       value.subscribers.forEach((el) => {
-        if (el.toString() == req.params.id.toString()) {
-          isSubscriber.push(req.params.id.toString());
+        if (el.toString() == req.user.userId.toString()) {
+          isSubscriber.push(req.user.userId.toString());
         }
       });
       publicObject.isSubscriber = !!isSubscriber.length;
