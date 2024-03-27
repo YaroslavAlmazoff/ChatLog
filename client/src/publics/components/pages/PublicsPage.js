@@ -27,6 +27,7 @@ const PublicsPage = () => {
           Authorization: `Bearer ${auth.token}`,
         },
       });
+      console.log(response);
       setPublics(response.data.publics);
       setLoading(false);
       setSearchDisplay(true);
