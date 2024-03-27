@@ -22,7 +22,7 @@ const PublicsPage = () => {
 
   useEffect(() => {
     const getPublics = async () => {
-      const response = await api.get(`/api/public/s`, {
+      const response = await api.get(`/api/all`, {
         headers: {
           Authorization: `Bearer ${auth.token}`,
         },
