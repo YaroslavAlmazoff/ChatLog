@@ -34,7 +34,9 @@ class PublicService {
     });
     Promise.all(finalPublics)
       .then((data) => {
-        const sorted = data.sort((a, b) => (a.isSubscriber ? -1 : 1));
+        const sorted = data.sort((a, b) => {
+          return a.isSubscriber ? -1 : 1;
+        });
         res.json({ publics: sorted });
       })
       .catch(() => res.json({ publics: [] }));
