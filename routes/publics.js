@@ -4,7 +4,7 @@ const router = Router();
 
 const auth = require("../middleware/auth.middleware");
 
-router.get("/all", auth, (req, res) => {
+router.get("/all-publics", auth, (req, res) => {
   try {
     PublicService.all(req, res);
   } catch (e) {
