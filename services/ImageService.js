@@ -34,7 +34,6 @@ class ImageService {
   saveImageBase64(base64, name, folder) {
     try {
       const filepath = path.resolve("..", "static", folder, name);
-      console.log(base64);
       const data = base64.replace(/^data:image\/\w+;base64,/, "");
       fs.writeFile(filepath, data, { encoding: "base64" }, (err) => {
         console.log("success");

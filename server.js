@@ -40,7 +40,7 @@ const storeRouter = require("./routes/store");
 const { startNotifications } = require("./services/Astronomical/AEPController");
 
 process.on("uncaughtException", function (err) {
-  console.error(err);
+  //console.error(err);
   console.log("Node NOT Exiting...");
 });
 
