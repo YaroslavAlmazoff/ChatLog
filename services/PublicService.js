@@ -214,12 +214,16 @@ class PublicService {
   async posts(req, res) {
     console.log(req.params.id);
     const posts = await PublicPost.find({ public: req.params.id });
+    console.log(posts);
     const fullPosts = posts.map(async (item) => {
       const post = item;
       if (post == null) return null;
       const pub = await Public.findById(post.public);
       const comments = await PublicComment.find({ postID: post._id });
-      const liked = await Like.findOne({ user: req.user.userId, post: item });
+      const liked = await Like.findOne({
+        user: req.user.userId,
+        post: post._id,
+      });
       const postObj = post.toObject();
       postObj.publicName = `${pub.name}`;
       postObj.avatar = pub.avatarUrl;
