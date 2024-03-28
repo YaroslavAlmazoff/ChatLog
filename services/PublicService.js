@@ -107,7 +107,7 @@ class PublicService {
             admin: req.user.userId,
           });
         }
-        if (req.files.banner && Number(banner)) {
+        if (req.files.banner) {
           FileService.insertPublicBanner(req.files.banner, bannerUrl);
           await Public.findByIdAndUpdate(id, {
             bannerUrl,
