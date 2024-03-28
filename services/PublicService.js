@@ -87,50 +87,55 @@ class PublicService {
     res.json(JSON.stringify({ public: { ...pubObj, avatarUrl, bannerUrl } }));
   }
   async edit(req, res) {
-    const { name, description, category, admin, avatar, banner } = req.body;
-    console.log(name, description);
-    const id = req.params.id;
-    const p = await Public.findById(id);
-    const pub = p.toObject();
+    const p = await Public.findById(req.params.id);
+    if (req.user.userId == editingPublic.admin.toString()) {
+      const { name, description, category, avatar, banner } = req.body;
+      console.log(name, description);
+      const id = req.params.id;
+      const pub = p.toObject();
 
-    const avatarUrl = uuid.v4() + ".jpg";
-    const bannerUrl = uuid.v4() + ".jpg";
-    if (req.files) {
-      if (req.files.avatar && Number(avatar)) {
-        FileService.insertPublicAvatar(req.files.avatar, avatarUrl);
+      const avatarUrl = uuid.v4() + ".jpg";
+      const bannerUrl = uuid.v4() + ".jpg";
+      if (req.files) {
+        if (req.files.avatar) {
+          FileService.insertPublicAvatar(req.files.avatar, avatarUrl);
+          await Public.findByIdAndUpdate(id, {
+            avatarUrl,
+            name,
+            description,
+            category,
+            admin: req.user.userId,
+          });
+        }
+        if (req.files.banner && Number(banner)) {
+          FileService.insertPublicBanner(req.files.banner, bannerUrl);
+          await Public.findByIdAndUpdate(id, {
+            bannerUrl,
+            name,
+            description,
+            category,
+            admin: req.user.userId,
+          });
+        }
+      } else {
         await Public.findByIdAndUpdate(id, {
-          avatarUrl,
           name,
           description,
           category,
-          admin,
+          admin: req.user.userId,
         });
       }
-      if (req.files.banner && Number(banner)) {
-        FileService.insertPublicBanner(req.files.banner, bannerUrl);
-        await Public.findByIdAndUpdate(id, {
-          bannerUrl,
-          name,
-          description,
-          category,
-          admin,
-        });
-      }
+
+      pub.name = name;
+      pub.description = description;
+      pub.avatarUrl = Number(avatar) ? avatarUrl : pub.avatarUrl;
+      pub.bannerUrl = Number(banner) ? bannerUrl : pub.bannerUrl;
+
+      res.json(JSON.stringify(pub));
     } else {
-      await Public.findByIdAndUpdate(id, {
-        name,
-        description,
-        category,
-        admin,
-      });
+      console.log("НЕ админ");
+      res.json({ error: "You are not admin of this group." });
     }
-
-    pub.name = name;
-    pub.description = description;
-    pub.avatarUrl = Number(avatar) ? avatarUrl : pub.avatarUrl;
-    pub.bannerUrl = Number(banner) ? bannerUrl : pub.bannerUrl;
-
-    res.json(JSON.stringify(pub));
   }
   async createFoto(req, res) {
     const id = req.params.id;

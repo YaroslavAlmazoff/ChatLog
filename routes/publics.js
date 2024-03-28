@@ -28,7 +28,7 @@ router.post("/create", auth, (req, res) => {
   }
 });
 
-router.post("/edit/:id", (req, res) => {
+router.post("/edit/:id", auth, (req, res) => {
   try {
     PublicService.edit(req, res);
   } catch (e) {
