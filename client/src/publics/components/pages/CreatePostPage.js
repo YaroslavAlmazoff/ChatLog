@@ -100,7 +100,11 @@ const CreatePostPage = () => {
               <ImagePreview imageUrl={imageUrl} />
             ))}
           </div>
-          <button onClick={send} className="button">
+          <button
+            onClick={send}
+            className="button"
+            style={{ marginLeft: "10px" }}
+          >
             Опубликовать
           </button>
         </>
