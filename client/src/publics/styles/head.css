@@ -54,16 +54,6 @@
   font-family: Arial, Helvetica, sans-serif;
   padding: 5px;
 }
-.public-subscribe {
-  outline: none;
-  border: none;
-  background-color: rgb(0, 140, 255);
-  border-radius: 12px;
-  color: white;
-  font-family: Arial, Helvetica, sans-serif;
-  padding: 12px;
-  cursor: pointer;
-}
 .public-action {
   width: 100%;
   cursor: pointer;

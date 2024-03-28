@@ -88,7 +88,7 @@ const Head = ({
         <div className="public-bottom-info">
           <p className="public-name">{pub.name}</p>
           {!isAdmin ? (
-            <button onClick={subscribe} className="public-subscribe">
+            <button onClick={subscribe} className="button">
               {buttonText}
             </button>
           ) : (
