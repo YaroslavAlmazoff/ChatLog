@@ -158,7 +158,11 @@ const Files = ({
             onChange={(e) => setFolderName(e.target.value)}
             placeholder="Название папки"
           />
-          <button onClick={makeFolder} className="button folder-button">
+          <button
+            onClick={makeFolder}
+            className="button folder-button"
+            style={{ marginLeft: "10px" }}
+          >
             Создать папку
           </button>
         </div>
