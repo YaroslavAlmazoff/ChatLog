@@ -212,6 +212,7 @@ class PublicService {
     res.json({ post });
   }
   async posts(req, res) {
+    console.log(req.params.id);
     const posts = await PublicPost.find({ public: req.params.id });
     const fullPosts = posts.map(async (item) => {
       const post = item;
