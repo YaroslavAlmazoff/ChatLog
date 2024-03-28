@@ -237,8 +237,8 @@ class PublicService {
         const filtered = data.filter((item) => item != null);
         res.json({ posts: filtered });
       })
-      .catch(() => {
-        res.json({ posts: [] });
+      .catch((e) => {
+        res.json({ e, posts: [] });
       });
   }
   async postsMobile(req, res) {
