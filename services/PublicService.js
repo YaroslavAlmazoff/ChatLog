@@ -238,7 +238,7 @@ class PublicService {
         res.json({ posts: filtered });
       })
       .catch((e) => {
-        res.json({ e, posts: [] });
+        res.json({ e: e.message, posts: [] });
       });
   }
   async postsMobile(req, res) {
