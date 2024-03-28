@@ -210,20 +210,22 @@ router.get("/connect/:id", async (req, res) => {
         if (message.file) {
           const filename = uuid.v4() + ".jpg";
           ImageService.saveImageBase64(message.file, filename, "messagefotos");
-          Message.create({ ...message, imageUrl: filename }).then(async () => {
-            await removeDublicates(req);
-            const messages = await Message.find({ room: message.room });
-            const filtered = messages.filter(
-              (v, i, a) =>
-                a.findIndex(
-                  (t) => t.message === v.message && t.date === v.date
-                ) === i
-            );
-            await Room.findByIdAndUpdate(roomId, {
-              lastMessageId: message._id,
-            });
-            res.write(`data: ${JSON.stringify(filtered)} \n\n`);
-          });
+          Message.create({ ...message, imageUrl: filename }).then(
+            async (data) => {
+              await removeDublicates(req);
+              const messages = await Message.find({ room: message.room });
+              const filtered = messages.filter(
+                (v, i, a) =>
+                  a.findIndex(
+                    (t) => t.message === v.message && t.date === v.date
+                  ) === i
+              );
+              await Room.findByIdAndUpdate(roomId, {
+                lastMessageId: data._id,
+              });
+              res.write(`data: ${JSON.stringify(filtered)} \n\n`);
+            }
+          );
         } else if (message.videoFile) {
           const filename = uuid.v4() + ".mp4";
           ImageService.saveVideoBase64(
@@ -231,19 +233,21 @@ router.get("/connect/:id", async (req, res) => {
             filename,
             "messagevideos"
           );
-          Message.create({ ...message, videoUrl: filename }).then(async () => {
-            const messages = await Message.find({ room: message.room });
-            const filtered = messages.filter(
-              (v, i, a) =>
-                a.findIndex(
-                  (t) => t.message === v.message && t.date === v.date
-                ) === i
-            );
-            await Room.findByIdAndUpdate(roomId, {
-              lastMessageId: message._id,
-            });
-            res.write(`data: ${JSON.stringify(filtered)} \n\n`);
-          });
+          Message.create({ ...message, videoUrl: filename }).then(
+            async (data) => {
+              const messages = await Message.find({ room: message.room });
+              const filtered = messages.filter(
+                (v, i, a) =>
+                  a.findIndex(
+                    (t) => t.message === v.message && t.date === v.date
+                  ) === i
+              );
+              await Room.findByIdAndUpdate(roomId, {
+                lastMessageId: data._id,
+              });
+              res.write(`data: ${JSON.stringify(filtered)} \n\n`);
+            }
+          );
         } else if (message.audioFile) {
           const filename = uuid.v4() + ".mp3";
           ImageService.saveAudioBase64(
@@ -251,34 +255,38 @@ router.get("/connect/:id", async (req, res) => {
             filename,
             "messageaudios"
           );
-          Message.create({ ...message, audioUrl: filename }).then(async () => {
-            const messages = await Message.find({ room: message.room });
-            const filtered = messages.filter(
-              (v, i, a) =>
-                a.findIndex(
-                  (t) => t.message === v.message && t.date === v.date
-                ) === i
-            );
-            await Room.findByIdAndUpdate(roomId, {
-              lastMessageId: message._id,
-            });
-            res.write(`data: ${JSON.stringify(filtered)} \n\n`);
-          });
+          Message.create({ ...message, audioUrl: filename }).then(
+            async (data) => {
+              const messages = await Message.find({ room: message.room });
+              const filtered = messages.filter(
+                (v, i, a) =>
+                  a.findIndex(
+                    (t) => t.message === v.message && t.date === v.date
+                  ) === i
+              );
+              await Room.findByIdAndUpdate(roomId, {
+                lastMessageId: data._id,
+              });
+              res.write(`data: ${JSON.stringify(filtered)} \n\n`);
+            }
+          );
         } else {
-          Message.create({ ...message, isNotReaded: true }).then(async () => {
-            console.log("просто сообщение");
-            const messages = await Message.find({ room: message.room });
-            const filtered = messages.filter(
-              (v, i, a) =>
-                a.findIndex(
-                  (t) => t.message === v.message && t.date === v.date
-                ) === i
-            );
-            await Room.findByIdAndUpdate(roomId, {
-              lastMessageId: message._id,
-            });
-            res.write(`data: ${JSON.stringify(filtered)} \n\n`);
-          });
+          Message.create({ ...message, isNotReaded: true }).then(
+            async (data) => {
+              console.log("просто сообщение");
+              const messages = await Message.find({ room: message.room });
+              const filtered = messages.filter(
+                (v, i, a) =>
+                  a.findIndex(
+                    (t) => t.message === v.message && t.date === v.date
+                  ) === i
+              );
+              await Room.findByIdAndUpdate(roomId, {
+                lastMessageId: data._id,
+              });
+              res.write(`data: ${JSON.stringify(filtered)} \n\n`);
+            }
+          );
         }
       }
     });
