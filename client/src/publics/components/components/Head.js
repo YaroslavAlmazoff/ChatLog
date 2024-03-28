@@ -68,7 +68,7 @@ const Head = ({
         <div className="public-top-info">
           {pub.avatarUrl ? (
             <img
-              className="public-avatar"
+              className="public-avatar block"
               src={
                 process.env.REACT_APP_API_URL +
                 `/publicavatars/` +
