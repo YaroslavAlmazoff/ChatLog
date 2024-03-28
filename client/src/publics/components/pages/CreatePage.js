@@ -89,7 +89,7 @@ const CreatePage = () => {
     <div className="create-public">
       {!loading ? (
         <div className="create-public-form block">
-          <p style={{ color: "white" }}>Создать группу</p>
+          <h1 style={{ color: "white" }}>Создать группу</h1>
           <input
             className="create-public-input"
             type="text"

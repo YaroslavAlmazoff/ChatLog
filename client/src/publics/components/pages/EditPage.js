@@ -110,7 +110,7 @@ const EditPage = () => {
     <div className="create-public">
       {!loading ? (
         <div className="create-public-form">
-          <p style={{ color: "white" }}>Редактировать группу</p>
+          <h1 style={{ color: "white" }}>Редактировать группу</h1>
           <input
             className="create-public-input"
             type="text"
@@ -169,7 +169,7 @@ const EditPage = () => {
             )}
           </div>
           <button className="button" onClick={editPublic}>
-            Редактировать
+            Подтвердить изменения
           </button>
           <p style={{ color: "red" }}>{error}</p>
         </div>
