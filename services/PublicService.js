@@ -90,7 +90,6 @@ class PublicService {
     const p = await Public.findById(req.params.id);
     if (req.user.userId == p.admin.toString()) {
       const { name, description, category, avatar, banner } = req.body;
-      console.log(name, description);
       const id = req.params.id;
       const pub = p.toObject();
 
@@ -149,6 +148,7 @@ class PublicService {
   }
   async createPost(req, res) {
     const { title, text, date } = req.body;
+    console.log(title, text, date);
 
     const getImages = () => {
       if (req.files) {
@@ -264,14 +264,6 @@ class PublicService {
     });
     if (isSubscriber.length) {
       const index = subscribers.findIndex((el) => {
-        console.log(
-          "!!!",
-          el,
-          el.toString(),
-          req.user.userId,
-          req.user.userId.toString(),
-          el.toString() == req.user.userId.toString()
-        );
         return el.toString() == req.user.userId.toString();
       });
       subscribers.splice(index, 1);
@@ -283,7 +275,6 @@ class PublicService {
       subscribers.push(req.user.userId);
       await Public.findByIdAndUpdate(req.params.id, { subscribers });
       await this.notify(types.subscribe, req.user.userId, req.params.id, null);
-      console.log(isSubscriber, false);
       res.json({ isSubscriber: true });
     }
   }
@@ -319,7 +310,6 @@ class PublicService {
       await Public.findByIdAndUpdate(req.params.id, { subscribers });
       await User.findByIdAndUpdate(req.user.userId, { subscribes });
       await this.notify(types.subscribe, req.user.userId, req.params.id, null);
-      console.log(isSubscriber, false);
       res.json({ isSubscriber: true });
     }
   }
@@ -344,7 +334,6 @@ class PublicService {
     } else {
       subscribers.push(req.user.userId);
       await Public.findByIdAndUpdate(req.params.id, { subscribers });
-      console.log(isSubscriber, false);
       res.json({ isSubscriber: true });
     }
   }

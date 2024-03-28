@@ -59,7 +59,7 @@ const CreatePostPage = () => {
     });
 
     await api.post(`/api/public/createpost/${params.id}`, formData, {
-      headers: { "Content-Type": "multipart/form-data" },
+      headers: { Authorization: `Bearer ${auth.token}` },
     });
     setLoading(false);
     window.location = `/public/${params.id}`;
