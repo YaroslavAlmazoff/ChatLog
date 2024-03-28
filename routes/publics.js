@@ -83,7 +83,7 @@ router.get("/allfotos/:id", (req, res) => {
   }
 });
 
-router.get("/posts/:id", (req, res) => {
+router.get("/posts/:id", auth, (req, res) => {
   try {
     PublicService.posts(req, res);
   } catch (e) {
