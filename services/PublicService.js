@@ -88,7 +88,7 @@ class PublicService {
   }
   async edit(req, res) {
     const p = await Public.findById(req.params.id);
-    if (req.user.userId == editingPublic.admin.toString()) {
+    if (req.user.userId == p.admin.toString()) {
       const { name, description, category, avatar, banner } = req.body;
       console.log(name, description);
       const id = req.params.id;
