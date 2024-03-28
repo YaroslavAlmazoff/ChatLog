@@ -15,6 +15,7 @@ const Post = ({ item, isAdmin, deletePost }) => {
   const [commentsDisplay, setCommentsDisplay] = useState(false);
   const [like, setLike] = useState(require("../../../../img/blue-like.png"));
   const [likesCount, setLikesCount] = useState();
+  const [comments, setComments] = useState([]);
 
   useEffect(() => {
     if (item.liked) {
