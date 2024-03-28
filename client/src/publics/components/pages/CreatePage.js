@@ -106,7 +106,11 @@ const CreatePage = () => {
           <input onChange={(e) => getFile(e)} ref={fileRef} type="file" />
           <input onChange={(e) => getFile2(e)} ref={fileRef2} type="file" />
           <div className="create-public-upload-field">
-            <button onClick={(e) => emitOpen(e)} className="button">
+            <button
+              onClick={(e) => emitOpen(e)}
+              className="dark-button"
+              style={{ width: "100%" }}
+            >
               Выберите аватарку
             </button>
             <ImagePreview
@@ -115,7 +119,11 @@ const CreatePage = () => {
             />
           </div>
           <div className="create-public-upload-field">
-            <button onClick={(e) => emitOpen2(e)} className="button">
+            <button
+              onClick={(e) => emitOpen2(e)}
+              className="dark-button"
+              style={{ width: "100%" }}
+            >
               Выберите баннер
             </button>
             <ImagePreview
