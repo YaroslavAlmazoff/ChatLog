@@ -235,7 +235,6 @@ class PublicService {
       .catch(() => {
         res.json({ posts: [] });
       });
-    res.json({ posts });
   }
   async postsMobile(req, res) {
     const posts = await PublicPost.find({ public: req.params.id });
