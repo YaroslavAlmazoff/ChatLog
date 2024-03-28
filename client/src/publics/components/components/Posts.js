@@ -17,6 +17,7 @@ const Posts = ({ isAdmin }) => {
           Authorization: `Bearer ${auth.token}`,
         },
       });
+      console.log(response);
       setPosts(response.data.posts.reverse());
     };
     getPosts();
