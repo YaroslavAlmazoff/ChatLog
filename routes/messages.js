@@ -207,6 +207,7 @@ router.get("/connect/:id", async (req, res) => {
         );
         getMessagesMobile(res, filtered);
       } else {
+        console.log("roomId", roomId);
         if (message.file) {
           const filename = uuid.v4() + ".jpg";
           ImageService.saveImageBase64(message.file, filename, "messagefotos");
