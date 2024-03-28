@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useContext } from "react";
 import useDate from "../../../common_hooks/date.hook";
 import ImagePreview from "../components/ImagePreview";
 import api from "../../../auth/api/auth";
@@ -6,9 +6,11 @@ import { useParams } from "react-router";
 import "../../styles/form.css";
 import Loader from "../../../common_components/Loader";
 import useVerify from "../../../common_hooks/verify.hook";
+import { AuthContext } from "../../../context/AuthContext";
 
 const CreatePostPage = () => {
   const { verify } = useVerify();
+  const auth = useContext(AuthContext);
   useEffect(() => {
     verify();
   }, []);
