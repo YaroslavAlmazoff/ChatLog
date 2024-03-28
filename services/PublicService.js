@@ -213,6 +213,28 @@ class PublicService {
   }
   async posts(req, res) {
     const posts = await PublicPost.find({ public: req.params.id });
+    const fullPosts = posts.map(async (item) => {
+      const post = item;
+      if (post == null) return null;
+      const pub = await Public.findById(post.public);
+      const comments = await PublicComment.find({ postID: post._id });
+      const liked = await Like.findOne({ user: req.user.userId, post: item });
+      const postObj = post.toObject();
+      postObj.publicName = `${pub.name}`;
+      postObj.avatar = pub.avatarUrl;
+      postObj.liked = !!liked;
+      postObj.admin = pub.admin;
+      postObj.comments = comments;
+      return postObj;
+    });
+    Promise.all(fullPosts)
+      .then((data) => {
+        const filtered = data.filter((item) => item != null);
+        res.json({ posts: filtered });
+      })
+      .catch(() => {
+        res.json({ posts: [] });
+      });
     res.json({ posts });
   }
   async postsMobile(req, res) {
