@@ -213,7 +213,6 @@ router.get("/connect/:id", async (req, res) => {
           ImageService.saveImageBase64(message.file, filename, "messagefotos");
           Message.create({ ...message, imageUrl: filename }).then(
             async (data) => {
-              await removeDublicates(req);
               const messages = await Message.find({ room: message.room });
               const filtered = messages.filter(
                 (v, i, a) =>
