@@ -6,7 +6,12 @@ const VideoPreview = ({ videoPreviewDisplay, videoPreviewUrl }) => {
   console.log(videoPreviewUrl);
   return (
     <div style={{ display: videoPreviewDisplay }}>
-      <video width="200" controls src={videoPreviewUrl}></video>
+      <video
+        width="200"
+        controls
+        src={videoPreviewUrl}
+        onCanPlay={window.scrollTo(0, document.body.scrollHeight)}
+      ></video>
     </div>
   );
 };
