@@ -8,7 +8,7 @@ const VideoPreview = ({ videoPreviewDisplay, videoPreviewUrl }) => {
     window.scrollTo(0, document.body.scrollHeight);
   };
   return (
-    <div style={{ display: videoPreviewDisplay }}>
+    <div style={{ display: videoPreviewDisplay, marginTop: "15px" }}>
       <video
         width="200"
         controls
