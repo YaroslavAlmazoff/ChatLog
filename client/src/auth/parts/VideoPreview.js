@@ -6,12 +6,12 @@ const VideoPreview = ({ videoPreviewDisplay, videoPreviewUrl }) => {
   console.log(videoPreviewUrl);
   return (
     <div style={{ display: videoPreviewDisplay }}>
-      <ReactPlayer
+      {/* <ReactPlayer
         url={videoPreviewUrl}
         controls={true}
         width="100%"
         height="100%"
-      />
+      /> */}
     </div>
   );
 };
