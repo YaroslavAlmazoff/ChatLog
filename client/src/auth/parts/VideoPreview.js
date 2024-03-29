@@ -3,14 +3,17 @@ import ReactPlayer from "react-player";
 
 const VideoPreview = ({ videoPreviewDisplay, videoPreviewUrl }) => {
   //Предпросмотр изображения для загрузки нового поста
-  console.log(videoPreviewUrl);
+
+  const handleVideoLoad = () => {
+    window.scrollTo(0, document.body.scrollHeight);
+  };
   return (
     <div style={{ display: videoPreviewDisplay }}>
       <video
         width="200"
         controls
         src={videoPreviewUrl}
-        onCanPlay={window.scrollTo(0, document.body.scrollHeight)}
+        onLoadedData={handleVideoLoad}
       ></video>
     </div>
   );
