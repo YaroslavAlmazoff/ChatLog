@@ -224,9 +224,11 @@ export const ESRoom = () => {
       if (file.type === "image/jpeg" || file.type === "image/png") {
         setImagePreviewDisplay1("block");
         setImagePreviewUrl1(ev.target.result);
+        window.scrollTo(0, document.body.scrollHeight);
       } else {
         setVideoPreviewDisplay("block");
         setVideoPreviewUrl(ev.target.result);
+        window.scrollTo(0, document.body.scrollHeight);
       }
     };
     reader.readAsDataURL(file);
