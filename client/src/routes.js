@@ -69,19 +69,11 @@ import NotActivated from "./homepage/NotActivated";
 import DeleteProfile from "./common_components/pages/DeleteProfile";
 import Settings from "./Settings";
 import ReturnPassword from "./pages/ReturnPassword";
-
-// import ArtMain from "./site_art/Main";
-// import ArtContacts from "./site_art/Contacts";
-// import ArtZakaz from "./site_art/Zakaz";
-// import ArtPicture from "./site_art/Picture";
-// import ArtBuy from "./site_art/Buy";
-// import ArtAnswer from "./site_art/Answer";
-// import ArtReviews from "./site_art/Reviews";
-// import ArtAboutAuthor from "./site_art/AboutAuthor";
 import Friends from "./auth/Friends";
 import Subscribes from "./auth/Subscribes";
+import { ESRoomUpdated } from "./messenger/components/pages/ESRoomUpdated";
 
-export const useRoutes = (isVerified) => {
+export const useRoutes = () => {
   //Кастомный хук для маршрутизации
   return (
     <Routes>
@@ -105,7 +97,7 @@ export const useRoutes = (isVerified) => {
       <Route exact path="/cloud" element={<FileStorage />} />
       <Route exact path="/users" element={<Users />} />
       <Route exact path="/user/:id" element={<User />} />
-      <Route exact path="/messages/:id" element={<ESRoom />} />
+      <Route exact path="/messages/:id" element={<ESRoomUpdated />} />
       <Route exact path="/messages/:id/:link" element={<ESRoom />} />
       <Route exact path="/chat/:id" element={<ChatRoom />} />
       <Route exact path="/chat/:id/:link" element={<ChatRoom />} />

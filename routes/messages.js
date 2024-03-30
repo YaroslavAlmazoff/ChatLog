@@ -1,22 +1,25 @@
 const { Router } = require("express");
 
-const router = Router();
+const uuid = require("uuid");
+const multer = require("multer");
+const events = require("events");
+const path = require("path");
+
 const auth = require("../middleware/auth.middleware");
+
+const User = require("../models/User");
+const Room = require("../models/Room");
+const ChatRoom = require("../models/ChatRoom");
+const NotificationToken = require("../models/NotificationToken");
 const Message = require("../models/Message");
-const MessengerService = require("../services/MessengerService");
 const File = require("../models/File");
 
-const uuid = require("uuid");
-
-const events = require("events");
-const User = require("../models/User");
+const MessengerService = require("../services/MessengerService");
 const FileService = require("../services/FileService");
 const ImageService = require("../services/ImageService");
-const Room = require("../models/Room");
-const ReactionsService = require("../services/ReactionsService");
-const NotificationToken = require("../models/NotificationToken");
 const FirebaseService = require("../services/FirebaseService");
-const ChatRoom = require("../models/ChatRoom");
+
+const router = Router();
 const emitter = new events.EventEmitter();
 
 events.EventEmitter.defaultMaxListeners = 2;
@@ -183,6 +186,13 @@ const removeDublicates = async (id) => {
   }
 };
 
+const filterMessages = async (room) => {
+  const messages = await Message.find({ room });
+  messages.filter(
+    (v, i, a) =>
+      a.findIndex((t) => t.message === v.message && t.date === v.date) === i
+  );
+};
 router.get("/connect/:id", async (req, res) => {
   console.log("connection");
   res.writeHead(200, {
@@ -192,102 +202,42 @@ router.get("/connect/:id", async (req, res) => {
     "Accept-Ranges": "bytes",
     "Content-Range": "bytes 100-64656926/64656927",
   });
-  emitter.on("newMessage", async (message, req, roomId) => {
+  emitter.on("newMessage", async (message, req) => {
     Message.findOne({
       message: message.message,
       date: message.date,
       room: message.room,
     }).then(async (data) => {
+      const page = parseInt(req.params.page) || 1;
+      const perPage = 10;
+      const startIndex = (page - 1) * perPage;
+      const endIndex = page * perPage;
       if (data) {
-        const messages = await Message.find({ room: message.room });
-        const filtered = messages.filter(
-          (v, i, a) =>
-            a.findIndex((t) => t.message === v.message && t.date === v.date) ===
-            i
+        const filtered = await filterMessages(message.room);
+        const results = filtered.slice(startIndex, endIndex);
+        res.write(
+          `data: ${JSON.stringify({
+            messages: results,
+            count: filtered.length,
+            isLast: endIndex >= filtered.length,
+          })} \n\n`
         );
-        getMessagesMobile(res, filtered);
       } else {
-        console.log("roomId", roomId);
-        if (message.file) {
-          const filename = uuid.v4() + ".jpg";
-          ImageService.saveImageBase64(message.file, filename, "messagefotos");
-          Message.create({ ...message, imageUrl: filename }).then(
-            async (data) => {
-              const messages = await Message.find({ room: message.room });
-              const filtered = messages.filter(
-                (v, i, a) =>
-                  a.findIndex(
-                    (t) => t.message === v.message && t.date === v.date
-                  ) === i
-              );
-              await Room.findByIdAndUpdate(roomId, {
-                lastMessageId: data._id,
-              });
-              res.write(`data: ${JSON.stringify(filtered)} \n\n`);
-            }
-          );
-        } else if (message.videoFile) {
-          const filename = uuid.v4() + ".mp4";
-          ImageService.saveVideoBase64(
-            message.videoFile,
-            filename,
-            "messagevideos"
-          );
-          Message.create({ ...message, videoUrl: filename }).then(
-            async (data) => {
-              const messages = await Message.find({ room: message.room });
-              const filtered = messages.filter(
-                (v, i, a) =>
-                  a.findIndex(
-                    (t) => t.message === v.message && t.date === v.date
-                  ) === i
-              );
-              await Room.findByIdAndUpdate(roomId, {
-                lastMessageId: data._id,
-              });
-              res.write(`data: ${JSON.stringify(filtered)} \n\n`);
-            }
-          );
-        } else if (message.audioFile) {
-          const filename = uuid.v4() + ".mp3";
-          ImageService.saveAudioBase64(
-            message.audioFile,
-            filename,
-            "messageaudios"
-          );
-          Message.create({ ...message, audioUrl: filename }).then(
-            async (data) => {
-              const messages = await Message.find({ room: message.room });
-              const filtered = messages.filter(
-                (v, i, a) =>
-                  a.findIndex(
-                    (t) => t.message === v.message && t.date === v.date
-                  ) === i
-              );
-              await Room.findByIdAndUpdate(roomId, {
-                lastMessageId: data._id,
-              });
-              res.write(`data: ${JSON.stringify(filtered)} \n\n`);
-            }
-          );
-        } else {
-          Message.create({ ...message, isNotReaded: true }).then(
-            async (data) => {
-              console.log("просто сообщение");
-              const messages = await Message.find({ room: message.room });
-              const filtered = messages.filter(
-                (v, i, a) =>
-                  a.findIndex(
-                    (t) => t.message === v.message && t.date === v.date
-                  ) === i
-              );
-              await Room.findByIdAndUpdate(roomId, {
-                lastMessageId: data._id,
-              });
-              res.write(`data: ${JSON.stringify(filtered)} \n\n`);
-            }
-          );
-        }
+        const created = await Message.create(message);
+        await Room.findByIdAndUpdate(message.room, {
+          lastMessageId: created._id,
+          lastMessage: created.message,
+        });
+        const messages = await Message.find({ room: message.room });
+        const filtered = await filterMessages(messages);
+        const results = filtered.slice(startIndex, endIndex);
+        res.write(
+          `data: ${JSON.stringify({
+            messages: results,
+            count: filtered.length,
+            isLast: endIndex >= filtered.length,
+          })} \n\n`
+        );
       }
     });
   });
@@ -360,59 +310,97 @@ router.get("/connect-mobile/:id", async (req, res) => {
   });
 });
 
-router.post("/new-messages/:id", auth, async (req, res) => {
-  const user = await User.findById(req.user.userId);
-  const message = req.body;
-  const updatedRoom = await Room.findByIdAndUpdate(req.params.id, {
-    lastMessage: message.message,
-  });
-  message.isFile =
-    message.isFile == "true" || message.isFile == true ? true : false;
-  message.room = req.params.id;
-  message.avatarUrl = user.avatarUrl;
-  message.name = user.name;
-  message.isNotReaded = true;
-  message.user = user._id;
-  message.message = message.message;
-
-  let tokenString = "";
-  let to = "";
-  if (updatedRoom.user1.toString() == req.user.userId) {
-    to = updatedRoom.user2;
+const getDestination = (req, file, cb) => {
+  if (file.fieldname === "image") {
+    cb(null, "../static/messagefotos");
+  } else if (file.fieldname === "video") {
+    cb(null, "../static/messagevideos");
+  } else if (file.fieldname === "audio") {
+    cb(null, "../static/messageaudios");
   } else {
-    to = updatedRoom.user1;
+    cb(new Error("Неизвестный тип файла"), false);
   }
+};
 
-  const token = await NotificationToken.findOne({ user: to });
+const filename = (req, file, cb) => {
+  cb(null, uuid.v4() + path.extname(file.originalname));
+};
 
-  if (token != null) {
-    tokenString = token.token;
-    FirebaseService.send(
-      user.name + " " + user.surname,
-      message.message,
-      tokenString,
-      {
-        id: updatedRoom._id.toString(),
+const fileStorage = multer.diskStorage({
+  destination: getDestination,
+  filename,
+});
+
+const upload = multer({ storage: fileStorage });
+
+router.post(
+  "/new-messages/:id/:page",
+  auth,
+  upload.fields([
+    { name: "image", maxCount: 5 },
+    { name: "video", maxCount: 2 },
+    { name: "audio", maxCount: 1 },
+  ]),
+  async (req, res) => {
+    const user = await User.findById(req.user.userId);
+    const room = await Room.findById(req.params.id);
+
+    const message = req.body;
+
+    const imageNames = req.files["image"]
+      ? req.files["image"].map((file) => file.filename)
+      : [];
+    const videoNames = req.files["video"]
+      ? req.files["video"].map((file) => file.filename)
+      : [];
+    const audioNames = req.files["audio"]
+      ? req.files["audio"].map((file) => file.filename)
+      : [];
+
+    message.isFile =
+      message.isFile == "true" || message.isFile == true ? true : false;
+    message.room = req.params.id;
+    message.avatarUrl = user.avatarUrl;
+    message.name = user.name;
+    message.isNotReaded = true;
+    message.user = user._id;
+    message.imageNames = imageNames;
+    message.videoNames = videoNames;
+    message.audioNames = audioNames;
+
+    let to = "";
+    if (room.user1.toString() == req.user.userId) {
+      to = room.user2;
+    } else {
+      to = room.user1;
+    }
+
+    const token = await NotificationToken.findOne({ user: to });
+
+    if (token != null) {
+      const name = user.name + " " + user.surname;
+      FirebaseService.send(name, message.message, token.token, {
+        id: room._id.toString(),
         type: "message",
         message: message.message,
-        name: user.name + " " + user.surname,
+        name,
         click_action: "MESSENGER",
-      }
-    );
-  }
+      });
+    }
 
-  if (
-    message.fileLink == null ||
-    message.fileLink == "null" ||
-    message.fileLink == ""
-  ) {
-    message.fileLink = "";
-  } else {
-    await File.findByIdAndUpdate(message.fileLink, { public: true });
+    if (
+      message.fileLink == null ||
+      message.fileLink == "null" ||
+      message.fileLink == ""
+    ) {
+      message.fileLink = "";
+    } else {
+      await File.findByIdAndUpdate(message.fileLink, { public: true });
+    }
+    emitter.emit("newMessage", message, req);
+    res.status(200);
   }
-  emitter.emit("newMessage", message, req, req.params.id);
-  res.status(200);
-});
+);
 
 router.post("/new-chat-messages/:id", auth, async (req, res) => {
   const user = await User.findById(req.user.userId); //id
