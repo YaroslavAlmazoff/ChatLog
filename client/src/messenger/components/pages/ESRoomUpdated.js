@@ -48,6 +48,8 @@ export const ESRoomUpdated = () => {
   const [videoFiles, setVideoFiles] = useState([]);
   const [audioFile, setAudioFile] = useState(null);
   const [modal, setModal] = useState(false);
+  const [page, setPage] = useState(1);
+  const [isLast, setIsLast] = useState(false);
 
   const openWindow = () => {
     setModal(true);
@@ -102,24 +104,44 @@ export const ESRoomUpdated = () => {
     });
   }, []);
 
+  const getMessages = async () => {
+    const response = await api.get(`/api/messages/${params.id}/${page}`, {
+      headers: {
+        Authorization: `Bearer ${auth.token}`,
+      },
+    });
+    setMessages((prevMessages) => [
+      ...response.data.messages.filter(
+        (v, i, a) =>
+          a.findIndex((t) => t.message === v.message && t.date === v.date) === i
+      ),
+      ...prevMessages,
+    ]);
+    setPage((prevPage) => prevPage + 1);
+    //roomRef.current.scrollTop = roomRef.current.scrollHeight;
+  };
+
+  function handleScroll(event) {
+    const { scrollTop } = event.currentTarget;
+
+    // Если scrollTop приближается к 0, загружаем еще сообщения
+    if (scrollTop === 0) {
+      getMessages();
+    }
+  }
+  const messagesEndRef = useRef(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+  };
+
   useEffect(() => {
-    const getMessages = async () => {
-      const response = await api.get(`/api/getmessagesstart/${params.id}`, {
-        headers: {
-          Authorization: `Bearer ${auth.token}`,
-        },
-      });
-      setMessages(
-        response.data.messages.filter(
-          (v, i, a) =>
-            a.findIndex((t) => t.message === v.message && t.date === v.date) ===
-            i
-        )
-      );
-      roomRef.current.scrollTop = roomRef.current.scrollHeight;
-    };
+    scrollToBottom(); // Прокрутите до нижней части списка при каждом обновлении списка сообщений
+  }, [messages]);
+
+  useEffect(() => {
     getMessages();
-  }, [params]);
+  }, [params, auth]);
 
   const subscribe = async () => {
     if (!params.id) return;
@@ -339,7 +361,11 @@ export const ESRoomUpdated = () => {
             <Smile key={el.code} el={el} addSmile={addSmile} />
           ))}
         </div>
-        <div className="messages">
+        <div
+          className="messages"
+          onScroll={handleScroll}
+          style={{ overflowY: "auto", height: "100vh" }}
+        >
           {!loading ? (
             messages.map((mess) => (
               <Message mess={mess} showMessageActions={showMessageActions} />
@@ -354,6 +380,7 @@ export const ESRoomUpdated = () => {
             alt=""
             title="Установить фон для переписки"
           />
+          <div ref={messagesEndRef} />
         </div>
       </div>
       <div className="message-actions">
