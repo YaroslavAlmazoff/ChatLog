@@ -139,20 +139,15 @@ export const ESRoomUpdated = () => {
     scrollToBottom(); // Прокрутите до нижней части списка при каждом обновлении списка сообщений
   }, [messages]);
 
-  useEffect(() => {
-    getMessages();
-  }, [params, auth]);
-
   const subscribe = async () => {
-    if (!params.id) return;
+    if (!params.id || !auth.userId) return;
     const eventSource = new EventSource(
-      `https://chatlog.ru/api/connect/${params.id}`
+      `${process.env.REACT_APP_API_URL}/api/connect/${params.id}/${page}`
     );
     eventSource.onmessage = function (event) {
       const messagesData = JSON.parse(event.data);
       setMessages(messagesData);
       removeDoubles();
-      roomRef.current.scrollTop = roomRef.current.scrollHeight;
     };
   };
 

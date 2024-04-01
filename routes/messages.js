@@ -22,8 +22,8 @@ const FirebaseService = require("../services/FirebaseService");
 const router = Router();
 const emitter = new events.EventEmitter();
 
-events.EventEmitter.defaultMaxListeners = 2;
-events.EventEmitter.setMaxListeners(2);
+events.EventEmitter.defaultMaxListeners = 4;
+events.EventEmitter.setMaxListeners(4);
 
 router.get("/createroom/:to", auth, (req, res) => {
   try {
@@ -70,13 +70,6 @@ router.get("/getroom/:user2", auth, (req, res) => {
 router.get("/getmessages/:room", (req, res) => {
   try {
     MessengerService.getMessage(req, res);
-  } catch (e) {
-    console.log(e);
-  }
-});
-router.get("/getmessagesstart/:room", auth, (req, res) => {
-  try {
-    MessengerService.getMessageStart(req, res);
   } catch (e) {
     console.log(e);
   }
@@ -153,39 +146,6 @@ router.get("/getfulllastmessage/:id", (req, res) => {
   }
 });
 
-const removeDublicates = async (id) => {
-  const message = await Message.findById(id);
-  if (message) {
-    const sameMessages = await Message.find({
-      message: message.message,
-      old: message.message,
-      message: message.old,
-      old: message.old,
-      date: message.date,
-      room: message.room,
-    });
-    for await (var i of sameMessages) {
-      if (sameMessages.length == 1) {
-        break;
-      }
-      if (i.imageUrl != "") {
-        await ImageService.deleteFile(
-          path.resolve("..", "static", "messagefotos", i.imageUrl)
-        );
-      } else if (i.videoUrl != "") {
-        await ImageService.deleteFile(
-          path.resolve("..", "static", "messagevideos", i.videoUrl)
-        );
-      } else if (i.audioUrl != "") {
-        await ImageService.deleteFile(
-          path.resolve("..", "static", "messageaudios", i.audioUrl)
-        );
-      }
-      await Message.findByIdAndDelete(i._id);
-    }
-  }
-};
-
 const filterMessages = async (room) => {
   const messages = await Message.find({ room });
   messages.filter(
@@ -193,6 +153,29 @@ const filterMessages = async (room) => {
       a.findIndex((t) => t.message === v.message && t.date === v.date) === i
   );
 };
+
+const getMessagesPortion = (page) => {
+  const page = parseInt(page) || 1;
+  const perPage = 10;
+  const startIndex = (page - 1) * perPage;
+  const endIndex = page * perPage;
+  return { startIndex, endIndex };
+};
+
+const sendMessages = async (room, page) => {
+  const messages = await Message.find({ room });
+  const filtered = await filterMessages(messages);
+  const { startIndex, endIndex } = getMessagesPortion(page);
+  const results = filtered.slice(startIndex, endIndex);
+  res.write(
+    `data: ${JSON.stringify({
+      messages: results,
+      count: filtered.length,
+      isLast: endIndex >= filtered.length,
+    })} \n\n`
+  );
+};
+
 router.get("/connect/:id", async (req, res) => {
   console.log("connection");
   res.writeHead(200, {
@@ -202,45 +185,38 @@ router.get("/connect/:id", async (req, res) => {
     "Accept-Ranges": "bytes",
     "Content-Range": "bytes 100-64656926/64656927",
   });
+
+  sendMessages(req.params.id, 1);
+
+  emitter.on("messages", async (page) => {
+    await sendMessages(req.params.id, page);
+  });
   emitter.on("newMessage", async (message, req) => {
     Message.findOne({
       message: message.message,
       date: message.date,
       room: message.room,
     }).then(async (data) => {
-      const page = parseInt(req.params.page) || 1;
-      const perPage = 10;
-      const startIndex = (page - 1) * perPage;
-      const endIndex = page * perPage;
       if (data) {
-        const filtered = await filterMessages(message.room);
-        const results = filtered.slice(startIndex, endIndex);
-        res.write(
-          `data: ${JSON.stringify({
-            messages: results,
-            count: filtered.length,
-            isLast: endIndex >= filtered.length,
-          })} \n\n`
-        );
+        sendMessages(req.params.id, req.params.page);
       } else {
         const created = await Message.create(message);
         await Room.findByIdAndUpdate(message.room, {
           lastMessageId: created._id,
           lastMessage: created.message,
         });
-        const messages = await Message.find({ room: message.room });
-        const filtered = await filterMessages(messages);
-        const results = filtered.slice(startIndex, endIndex);
-        res.write(
-          `data: ${JSON.stringify({
-            messages: results,
-            count: filtered.length,
-            isLast: endIndex >= filtered.length,
-          })} \n\n`
-        );
+        sendMessages(req.params.id, req.params.page);
       }
     });
   });
+});
+
+router.get("/messages/:page", auth, (req, res) => {
+  try {
+    emitter.emit("messages", req.params.page);
+  } catch (e) {
+    console.log(e);
+  }
 });
 
 router.get("/connect-mobile/:id", async (req, res) => {
