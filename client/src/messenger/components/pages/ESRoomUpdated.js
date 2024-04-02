@@ -105,20 +105,17 @@ export const ESRoomUpdated = () => {
   }, []);
 
   const getMessages = async () => {
+    !isLast && setLoading(true);
     const response = await api.get(`/api/messages/${params.id}/${page}`, {
       headers: {
         Authorization: `Bearer ${auth.token}`,
       },
     });
-    setMessages((prevMessages) => [
-      ...response.data.messages.filter(
-        (v, i, a) =>
-          a.findIndex((t) => t.message === v.message && t.date === v.date) === i
-      ),
-      ...prevMessages,
-    ]);
+    setMessages((prevMessages) => [...response.data.messages, ...prevMessages]);
     setPage((prevPage) => prevPage + 1);
     //roomRef.current.scrollTop = roomRef.current.scrollHeight;
+    setLoading(false);
+    setIsLast(response.data.isLast);
   };
 
   function handleScroll(event) {
@@ -140,7 +137,8 @@ export const ESRoomUpdated = () => {
   }, [messages]);
 
   const subscribe = async () => {
-    if (!params.id || !auth.userId) return;
+    if (!params.id) return;
+    setLoading(true);
     const eventSource = new EventSource(
       `${process.env.REACT_APP_API_URL}/api/connect/${params.id}/${page}`
     );
@@ -148,6 +146,7 @@ export const ESRoomUpdated = () => {
       const messagesData = JSON.parse(event.data);
       setMessages(messagesData);
       removeDoubles();
+      setLoading(false);
     };
   };
 
@@ -366,7 +365,7 @@ export const ESRoomUpdated = () => {
               <Message mess={mess} showMessageActions={showMessageActions} />
             ))
           ) : (
-            <Loader ml={"50%"} />
+            <Loader ml="0%" />
           )}
           <img
             onClick={(e) => emitOpenBg(e)}
