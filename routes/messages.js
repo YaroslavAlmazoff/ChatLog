@@ -162,7 +162,7 @@ const getMessagesPortion = (pageNumber) => {
   return { startIndex, endIndex };
 };
 
-const sendMessages = async (room, page) => {
+const sendMessages = async (res, room, page) => {
   const messages = await Message.find({ room });
   const filtered = await filterMessages(messages);
   const { startIndex, endIndex } = getMessagesPortion(page);
@@ -186,7 +186,7 @@ router.get("/connect/:id/:page", async (req, res) => {
     "Content-Range": "bytes 100-64656926/64656927",
   });
 
-  sendMessages(req.params.id, 1);
+  sendMessages(res, req.params.id, 1);
 
   emitter.on("messages", async (page) => {
     await sendMessages(req.params.id, page);
