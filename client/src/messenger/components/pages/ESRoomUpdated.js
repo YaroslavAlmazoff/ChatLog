@@ -145,7 +145,7 @@ export const ESRoomUpdated = () => {
     eventSource.onmessage = function (event) {
       const messagesData = JSON.parse(event.data);
       console.log(messagesData);
-      setMessages(messagesData);
+      setMessages(messagesData.messages);
       removeDoubles();
       setLoading(false);
     };
