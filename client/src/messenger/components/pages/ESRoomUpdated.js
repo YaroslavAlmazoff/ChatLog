@@ -122,9 +122,9 @@ export const ESRoomUpdated = () => {
   }
   const messagesEndRef = useRef(null);
 
-  const scrollToBottom = () => {
-    messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
-  };
+  // const scrollToBottom = () => {
+  //   messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+  // };
 
   // useEffect(() => {
   //   scrollToBottom();
@@ -140,11 +140,15 @@ export const ESRoomUpdated = () => {
       const messagesData = JSON.parse(event.data);
       console.log(messagesData);
       setMessages((prevMessages) => [...messagesData.messages, prevMessages]);
-      if (page === 1) roomRef.current.scrollTop = roomRef.current.scrollHeight;
+      roomRef.current.scrollTop = roomRef.current.scrollHeight;
       setPage((prevPage) => prevPage + 1);
       setIsLast(messagesData.isLast);
       removeDoubles();
       setLoading(false);
+    };
+    eventSource.onerror = function () {
+      // Handle error
+      eventSource.close();
     };
   };
 
