@@ -163,8 +163,7 @@ const getMessagesPortion = (pageNumber) => {
 };
 
 const sendMessages = async (res, room, page) => {
-  const messages = await Message.find({ room });
-  const filtered = await filterMessages(messages);
+  const filtered = await filterMessages(room);
   const { startIndex, endIndex } = getMessagesPortion(page);
   const results = filtered.slice(startIndex, endIndex);
   res.write(
@@ -189,7 +188,7 @@ router.get("/connect/:id/:page", async (req, res) => {
   sendMessages(res, req.params.id, 1);
 
   emitter.on("messages", async (page) => {
-    await sendMessages(req.params.id, page);
+    await sendMessages(res, req.params.id, page);
   });
   emitter.on("newMessage", async (message, req) => {
     Message.findOne({
@@ -198,7 +197,7 @@ router.get("/connect/:id/:page", async (req, res) => {
       room: message.room,
     }).then(async (data) => {
       if (data) {
-        sendMessages(req.params.id, req.params.page);
+        sendMessages(res, req.params.id, req.params.page);
       } else {
         const created = await Message.create(message);
         await Room.findByIdAndUpdate(message.room, {
