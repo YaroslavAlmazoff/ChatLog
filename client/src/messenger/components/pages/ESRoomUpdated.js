@@ -113,9 +113,9 @@ export const ESRoomUpdated = () => {
     });
     setMessages((prevMessages) => [...response.data.messages, ...prevMessages]);
     setPage((prevPage) => prevPage + 1);
-    //roomRef.current.scrollTop = roomRef.current.scrollHeight;
     setLoading(false);
     setIsLast(response.data.isLast);
+    roomRef.current.scrollTop = roomRef.current.scrollHeight;
   };
 
   function handleScroll(event) {
