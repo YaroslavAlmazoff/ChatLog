@@ -106,22 +106,16 @@ export const ESRoomUpdated = () => {
 
   const getMessages = async () => {
     !isLast && setLoading(true);
-    const response = await api.get(`/api/messages/${params.id}/${page}`, {
+    await api.get(`/api/messages/${params.id}/${page}`, {
       headers: {
         Authorization: `Bearer ${auth.token}`,
       },
     });
-    setMessages((prevMessages) => [...response.data.messages, ...prevMessages]);
-    setPage((prevPage) => prevPage + 1);
-    setLoading(false);
-    setIsLast(response.data.isLast);
-    roomRef.current.scrollTop = roomRef.current.scrollHeight;
   };
 
   function handleScroll(event) {
     const { scrollTop } = event.currentTarget;
 
-    // Если scrollTop приближается к 0, загружаем еще сообщения
     if (scrollTop === 0) {
       getMessages();
     }
@@ -133,7 +127,7 @@ export const ESRoomUpdated = () => {
   };
 
   useEffect(() => {
-    scrollToBottom(); // Прокрутите до нижней части списка при каждом обновлении списка сообщений
+    scrollToBottom();
   }, [messages]);
 
   const subscribe = async () => {
@@ -145,7 +139,10 @@ export const ESRoomUpdated = () => {
     eventSource.onmessage = function (event) {
       const messagesData = JSON.parse(event.data);
       console.log(messagesData);
-      setMessages(messagesData.messages);
+      setMessages((prevMessages) => [...messagesData.messages, prevMessages]);
+      if (page === 1) roomRef.current.scrollTop = roomRef.current.scrollHeight;
+      setPage((prevPage) => prevPage + 1);
+      setIsLast(messagesData.isLast);
       removeDoubles();
       setLoading(false);
     };
