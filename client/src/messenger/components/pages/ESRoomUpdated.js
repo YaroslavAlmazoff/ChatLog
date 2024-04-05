@@ -106,7 +106,7 @@ export const ESRoomUpdated = () => {
 
   const getMessages = async () => {
     !isLast && setLoading(true);
-    await api.get(`/api/messages/${params.id}/${page}`, {
+    await api.get(`/api/messages/${page}`, {
       headers: {
         Authorization: `Bearer ${auth.token}`,
       },
