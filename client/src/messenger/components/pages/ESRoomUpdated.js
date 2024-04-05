@@ -123,7 +123,7 @@ export const ESRoomUpdated = () => {
       getMessages();
     }
   }
-  const messagesEndRef = useRef(null);
+  //const messagesEndRef = useRef(null);
 
   // const scrollToBottom = () => {
   //   messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
@@ -375,7 +375,7 @@ export const ESRoomUpdated = () => {
             alt=""
             title="Установить фон для переписки"
           />
-          <div ref={messagesEndRef} />
+          {/*<div ref={messagesEndRef} />*/}
         </div>
       </div>
       <div className="message-actions">
