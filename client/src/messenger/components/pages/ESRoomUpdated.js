@@ -149,10 +149,6 @@ export const ESRoomUpdated = () => {
       removeDoubles();
       setLoading(false);
     };
-    eventSource.onerror = function () {
-      // Handle error
-      eventSource.close();
-    };
   };
 
   const sendMessage = async () => {
