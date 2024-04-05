@@ -360,11 +360,7 @@ export const ESRoomUpdated = () => {
             <Smile key={el.code} el={el} addSmile={addSmile} />
           ))}
         </div>
-        <div
-          className="messages"
-          onScroll={handleScroll}
-          style={{ overflowY: "auto", height: "100vh" }}
-        >
+        <div className="messages" onScroll={handleScroll}>
           {!loading ? (
             messages.map((mess) => (
               <Message mess={mess} showMessageActions={showMessageActions} />
