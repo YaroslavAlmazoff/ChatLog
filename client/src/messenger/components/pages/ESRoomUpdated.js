@@ -139,7 +139,10 @@ export const ESRoomUpdated = () => {
     eventSource.onmessage = function (event) {
       const messagesData = JSON.parse(event.data);
       console.log(messagesData);
-      setMessages((prevMessages) => [...messagesData.messages, prevMessages]);
+      setMessages((prevMessages) => [
+        ...messagesData.messages,
+        ...prevMessages,
+      ]);
       roomRef.current.scrollTop = roomRef.current.scrollHeight;
       setPage((prevPage) => prevPage + 1);
       setIsLast(messagesData.isLast);
