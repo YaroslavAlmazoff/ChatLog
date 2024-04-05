@@ -126,9 +126,9 @@ export const ESRoomUpdated = () => {
     messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
   };
 
-  useEffect(() => {
-    scrollToBottom();
-  }, [messages]);
+  // useEffect(() => {
+  //   scrollToBottom();
+  // }, [messages]);
 
   const subscribe = async () => {
     if (!params.id) return;
