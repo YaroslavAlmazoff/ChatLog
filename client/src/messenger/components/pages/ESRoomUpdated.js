@@ -75,7 +75,7 @@ export const ESRoomUpdated = () => {
     if (localStorage.getItem("file-link")) {
       messageRef.current.value = localStorage.getItem("file-link");
     }
-    subscribe();
+    const es = subscribe();
     navigator.mediaDevices.getUserMedia({ audio: true }).then((stream) => {
       const mediaRecorder = new MediaRecorder(stream);
       let voice = [];
@@ -102,6 +102,9 @@ export const ESRoomUpdated = () => {
         setAudioFile(voiceBlob);
       });
     });
+    return () => {
+      es.close();
+    };
   }, []);
 
   const getMessages = async () => {
@@ -149,6 +152,7 @@ export const ESRoomUpdated = () => {
       removeDoubles();
       setLoading(false);
     };
+    return eventSource;
   };
 
   const sendMessage = async () => {
