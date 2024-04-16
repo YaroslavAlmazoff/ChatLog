@@ -123,7 +123,7 @@ export const ESRoomUpdated = () => {
       getMessages();
     }
   }
-  //const messagesEndRef = useRef(null);
+  const messagesEndRef = useRef(null);
 
   // const scrollToBottom = () => {
   //   messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
@@ -360,7 +360,11 @@ export const ESRoomUpdated = () => {
             <Smile key={el.code} el={el} addSmile={addSmile} />
           ))}
         </div>
-        <div className="messages" onScroll={handleScroll}>
+        <div
+          className="messages"
+          onScroll={handleScroll}
+          style={{ overflowY: "auto", height: "100vh" }}
+        >
           {!loading ? (
             messages.map((mess) => (
               <Message mess={mess} showMessageActions={showMessageActions} />
@@ -375,7 +379,7 @@ export const ESRoomUpdated = () => {
             alt=""
             title="Установить фон для переписки"
           />
-          {/*<div ref={messagesEndRef} />*/}
+          <div ref={messagesEndRef} />
         </div>
       </div>
       <div className="message-actions">

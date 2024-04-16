@@ -114,11 +114,16 @@ class GamesService {
     if (like) {
       const likes = comment.likes - 1;
       await GameComment.findByIdAndUpdate(req.params.id, { likes });
-      res.json({ msg: "disliked" });
+      await Like.findOneAndDelete({
+        user: req.user.userId,
+        post: req.params.id,
+      });
+      res.json({ liked: false });
     } else {
       const likes = comment.likes + 1;
       await GameComment.findByIdAndUpdate(req.params.id, { likes });
-      res.json({ msg: "liked" });
+      await Like.create({ user: req.user.userId, post: req.params.id });
+      res.json({ liked: true });
     }
   }
 }
