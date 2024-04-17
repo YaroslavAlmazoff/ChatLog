@@ -67,7 +67,10 @@ class GamesService {
   }
   async game(req, res) {
     const game = await Game.findById(req.params.id);
-    res.json({ game });
+    const comments = await GameComment.find({ game: game._id });
+    const gameObject = game.toObject();
+    gameObject.comments = comments;
+    res.json({ game: gameObject });
   }
   async rate(req, res) {
     const game = await Game.findById(req.params.id);
