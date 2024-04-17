@@ -18,6 +18,7 @@
     align-items: center;
     justify-content: center;
     height: 30vh;
+    margin-top: 20px;
   }
   .game-top-preview {
     width: 300px;
