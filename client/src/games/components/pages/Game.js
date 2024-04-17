@@ -18,6 +18,7 @@ const Game = () => {
       const response = await api.get(`/api/games/game/${params.id}`);
       console.log(response);
       setGame(response.data.game);
+      setComments(response.data.game.comments);
     };
     getGame();
   }, [params]);
