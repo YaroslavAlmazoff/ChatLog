@@ -26,6 +26,8 @@ export const ESRoomUpdated = () => {
     verify();
   }, []);
 
+  const [messagesLoaded, setMessagesLoaded] = useState(false);
+
   const messageRef = useRef(null);
   const messagesRef = useRef(null);
   const [id, setId] = useState("");
@@ -109,12 +111,15 @@ export const ESRoomUpdated = () => {
   }, []);
 
   const getMessages = async () => {
-    !isLast && setLoading(true);
-    await api.get(`/api/messages/${page}`, {
-      headers: {
-        Authorization: `Bearer ${auth.token}`,
-      },
-    });
+    if (!messagesLoaded) {
+      setMessagesLoaded(true);
+      !isLast && setLoading(true);
+      await api.get(`/api/messages/${page}`, {
+        headers: {
+          Authorization: `Bearer ${auth.token}`,
+        },
+      });
+    }
   };
 
   function handleScroll(event) {
@@ -162,6 +167,7 @@ export const ESRoomUpdated = () => {
         ...messagesData.messages,
         ...prevMessages,
       ]);
+      setMessagesLoaded(true);
       messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
       setPage((prevPage) => prevPage + 1);
       setIsLast(messagesData.isLast);
