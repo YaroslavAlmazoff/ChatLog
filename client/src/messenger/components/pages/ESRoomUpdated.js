@@ -120,7 +120,7 @@ export const ESRoomUpdated = () => {
   function handleScroll(event) {
     const { scrollTop } = event.currentTarget;
 
-    if (scrollTop === 0) {
+    if (scrollTop <= 20) {
       getMessages();
     }
   }
