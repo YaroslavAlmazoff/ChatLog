@@ -27,6 +27,7 @@ export const ESRoomUpdated = () => {
   }, []);
 
   const messageRef = useRef(null);
+  const messagesRef = useRef(null);
   const [id, setId] = useState("");
   const { randomColor, randomShadow, randomBlockShadow } = useHighlight();
   const { getCurrentDate } = useDate();
@@ -146,7 +147,7 @@ export const ESRoomUpdated = () => {
         ...messagesData.messages,
         ...prevMessages,
       ]);
-      roomRef.current.scrollTop = roomRef.current.scrollHeight;
+      messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
       setPage((prevPage) => prevPage + 1);
       setIsLast(messagesData.isLast);
       removeDoubles();
@@ -156,7 +157,7 @@ export const ESRoomUpdated = () => {
   };
 
   useEffect(() => {
-    roomRef.current.scrollTop = roomRef.current.scrollHeight;
+    messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
   }, [messages]);
 
   const sendMessage = async () => {
@@ -366,6 +367,7 @@ export const ESRoomUpdated = () => {
         </div>
         <div
           className="messages"
+          ref={messagesRef}
           onScroll={handleScroll}
           style={{ overflowY: "auto", height: "100vh" }}
         >
