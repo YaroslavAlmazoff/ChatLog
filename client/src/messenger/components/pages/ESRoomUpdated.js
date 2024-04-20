@@ -155,6 +155,10 @@ export const ESRoomUpdated = () => {
     return eventSource;
   };
 
+  useEffect(() => {
+    roomRef.current.scrollTop = roomRef.current.scrollHeight;
+  }, [messages]);
+
   const sendMessage = async () => {
     if (!currentMessage._id) {
       const text = messageRef.current.value;
