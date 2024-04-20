@@ -156,10 +156,6 @@ export const ESRoomUpdated = () => {
     return eventSource;
   };
 
-  useEffect(() => {
-    messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
-  }, [messages]);
-
   const sendMessage = async () => {
     if (!currentMessage._id) {
       const text = messageRef.current.value;
@@ -259,6 +255,7 @@ export const ESRoomUpdated = () => {
   }, [params, auth]);
 
   useEffect(() => {
+    messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
     const readMessage = async () => {
       const res = await api.get(`/api/read/${params.id}`);
     };
