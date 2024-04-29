@@ -256,9 +256,6 @@ export const ESRoomUpdated = () => {
   useEffect(() => {
     if (page === 2) {
       messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
-    } else {
-      messagesRef.current.scrollTop =
-        messagesRef.current.scrollTop - window.innerHeight;
     }
     const currentRef = messagesRef.current;
     currentRef.addEventListener("scroll", handleScroll);
