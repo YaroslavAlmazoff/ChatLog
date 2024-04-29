@@ -254,7 +254,7 @@ export const ESRoomUpdated = () => {
   }, [params, auth]);
 
   useEffect(() => {
-    if (page === 1) {
+    if (page === 2) {
       messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
     } else {
       messagesRef.current.scrollTop =
