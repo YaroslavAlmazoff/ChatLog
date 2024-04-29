@@ -147,8 +147,6 @@ export const ESRoomUpdated = () => {
         ...messagesData.messages,
         ...prevMessages,
       ]);
-      messagesRef.current.scrollTop =
-        messagesRef.current.scrollHeight - (window.innerHeight - 50);
       setPage((prevPage) => prevPage + 1);
       setIsLast(messagesData.isLast);
       removeDoubles();
@@ -256,7 +254,12 @@ export const ESRoomUpdated = () => {
   }, [params, auth]);
 
   useEffect(() => {
-    //messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
+    if (page === 1) {
+      messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
+    } else {
+      messagesRef.current.scrollTop =
+        messagesRef.current.scrollHeight - (window.innerHeight - 50);
+    }
     const currentRef = messagesRef.current;
     currentRef.addEventListener("scroll", handleScroll);
 
