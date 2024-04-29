@@ -263,6 +263,7 @@ export const ESRoomUpdated = () => {
   useEffect(() => {
     messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
     const currentRef = messagesRef.current;
+    currentRef.addEventListener("scroll", handleScroll);
 
     // Не забудьте снять обработчик события при размонтировании компонента
 
