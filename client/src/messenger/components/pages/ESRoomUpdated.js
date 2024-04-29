@@ -281,6 +281,9 @@ export const ESRoomUpdated = () => {
         }
       }
     }
+    return () => {
+      currentRef.removeEventListener("scroll", handleScroll);
+    };
   }, [auth, messages, params]);
 
   const addSmile = (code) => {
