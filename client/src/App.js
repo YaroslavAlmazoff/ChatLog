@@ -23,7 +23,6 @@ function App() {
   const routes = useRoutes(isVerified);
   const { getCurrentDate } = useDate();
   useEffect(() => {
-    console.log(window.location.toString().includes("/art"));
     const setVisit = async () => {
       const v = await verify();
       setIsVerified(v.isVerified);

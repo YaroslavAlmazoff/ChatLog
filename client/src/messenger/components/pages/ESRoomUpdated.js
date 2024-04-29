@@ -131,21 +131,6 @@ export const ESRoomUpdated = () => {
   }
   const messagesEndRef = useRef(null);
 
-  const handleScrollAttempt = (event) => {
-    const { scrollTop, scrollHeight, clientHeight } = messagesRef.current;
-    const wheelDelta = event.deltaY;
-
-    // Проверяем, находимся ли мы в нижнем крае элемента и пытаемся прокрутить вниз,
-    // или находимся ли мы в верхнем крае и пытаемся прокрутить вверх
-    //const atBottom = (scrollTop + clientHeight === scrollHeight) && wheelDelta > 0;
-    const atTop = scrollTop === 0 && wheelDelta < 0;
-
-    if (atTop) {
-      console.log("Попытка прокрутить за пределы возможного");
-      getMessages();
-    }
-  };
-
   // const scrollToBottom = () => {
   //   messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
   // };
@@ -278,7 +263,6 @@ export const ESRoomUpdated = () => {
   useEffect(() => {
     messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
     const currentRef = messagesRef.current;
-    currentRef.addEventListener("wheel", handleScrollAttempt);
 
     // Не забудьте снять обработчик события при размонтировании компонента
 
@@ -298,9 +282,6 @@ export const ESRoomUpdated = () => {
         }
       }
     }
-    return () => {
-      currentRef.removeEventListener("wheel", handleScrollAttempt);
-    };
   }, [auth, messages, params]);
 
   const addSmile = (code) => {
