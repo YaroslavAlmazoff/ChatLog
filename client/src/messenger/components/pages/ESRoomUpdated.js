@@ -147,7 +147,8 @@ export const ESRoomUpdated = () => {
         ...messagesData.messages,
         ...prevMessages,
       ]);
-      messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
+      messagesRef.current.scrollTop =
+        messagesRef.current.scrollHeight - (window.innerHeight - 50);
       setPage((prevPage) => prevPage + 1);
       setIsLast(messagesData.isLast);
       removeDoubles();
