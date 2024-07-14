@@ -11,6 +11,10 @@
       format("svg"); /* Chrome < 4, Legacy iOS */
 }
 
+body::-webkit-scrollbar {
+  width: 0px;
+}
+
 @media screen and (width > 500px) {
   .lpv2 {
     width: 80%;
@@ -18,6 +22,7 @@
     color: white;
     padding: 5% 10%;
     overflow: hidden;
+    scrollbar-width: none;
   }
   .lpv2-top {
     display: flex;
