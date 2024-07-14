@@ -7,28 +7,16 @@ const Header = () => {
   const { userId, authenticated, activated } = useContext(AuthContext);
   const [activeLink, setActiveLink] = useState(null);
 
-  const location = window.location.href;
-
-  console.log(location);
-
   const authorizedLinks = [
-    { name: "Главная", route: "/home", marked: this.route === location },
-    {
-      name: "Мой профиль",
-      route: `/user/${userId}`,
-      marked: this.route === location,
-    },
-    { name: "Сообщения", route: "/messages", marked: this.route === location },
-    { name: "Люди", route: "/users", marked: this.route === location },
-    { name: "Настройки", route: "/settings", marked: this.route === location },
+    { name: "Главная", route: "/home" },
+    { name: "Мой профиль", route: `/user/${userId}` },
+    { name: "Сообщения", route: "/messages" },
+    { name: "Люди", route: "/users" },
+    { name: "Настройки", route: "/settings" },
   ];
   const notAuthorizedLinks = [
-    {
-      name: "Регистрация",
-      route: "/register",
-      marked: this.route === location,
-    },
-    { name: "Вход", route: "/login", marked: this.route === location },
+    { name: "Регистрация", route: "/register" },
+    { name: "Вход", route: "/login" },
   ];
 
   const markLink = (link) => {
@@ -45,11 +33,12 @@ const Header = () => {
               <div className="links">
                 {authorizedLinks.map((link) => (
                   <Link
-                    onClick={markLink}
+                    onClick={() => markLink(link.route)}
                     to={link.route}
                     className="link"
                     style={
-                      activeLink === link.route
+                      activeLink === link.route ||
+                      window.location.pathname === link.route
                         ? { color: "white" }
                         : { color: "black" }
                     }
@@ -66,7 +55,8 @@ const Header = () => {
                     to={link.route}
                     className="link"
                     style={
-                      activeLink === link.route
+                      activeLink === link.route ||
+                      window.location.pathname === link.route
                         ? { color: "white" }
                         : { color: "black" }
                     }
