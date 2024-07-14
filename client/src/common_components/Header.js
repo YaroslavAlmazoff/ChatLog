@@ -4,8 +4,10 @@ import { useRef } from "react";
 import { AuthContext } from "../context/AuthContext";
 import api from "../auth/api/auth";
 
-const Header = ({ isVerified, isActivated }) => {
+const Header = () => {
   const auth = useContext(AuthContext);
+
+  const isActivated = true;
 
   //Компонент верхней части приложения
   //Создание ссылок на ссылки:)
@@ -32,7 +34,7 @@ const Header = ({ isVerified, isActivated }) => {
         <div className="header" id="header">
           <h2 className="logo">CHATLOG.RU</h2>
           <div className="links">
-            {auth.isAuthenticated || isVerified ? (
+            {auth.isAuthenticated ? (
               <div className="links">
                 <button
                   ref={linkRef1}

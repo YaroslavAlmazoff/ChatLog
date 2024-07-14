@@ -12,8 +12,8 @@ import useVerify from "./common_hooks/verify.hook";
 import "./common_components/modal-window/modal-window.css";
 
 function App() {
-  const { verify } = useVerify();
-  const { getCurrentDate } = useDate();
+  // const { verify } = useVerify();
+  // const { getCurrentDate } = useDate();
   const redirect = useRedirect();
   const routes = useRoutes();
 
@@ -23,8 +23,8 @@ function App() {
     isAuthenticated: false,
   });
 
-  const [isVerified, setIsVerified] = useState(false);
-  const [isActivated, setIsActivated] = useState(false);
+  // const [isVerified, setIsVerified] = useState(false);
+  // const [isActivated, setIsActivated] = useState(false);
 
   useEffect(() => {
     // const setVisit = async () => {
@@ -59,7 +59,7 @@ function App() {
   return (
     <AuthContext.Provider value={auth}>
       <div className="App">
-        <Header isVerified={isVerified} isActivated={isActivated} />
+        <Header />
         {routes}
       </div>
     </AuthContext.Provider>
