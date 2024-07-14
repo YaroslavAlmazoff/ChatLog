@@ -20,12 +20,13 @@ const useRedirect = (setAuth) => {
           },
         });
 
-        const { isVerified, isActivated, token, userId } = response.data;
+        const { isVerified, isActivated, greeting, token, userId } =
+          response.data;
 
         console.log(response);
 
         if (!isVerified) {
-          if (localStorage.getItem("registered")) {
+          if (!greeting) {
             navigate("/login");
           } else {
             navigate("/greeting");

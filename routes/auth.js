@@ -52,13 +52,13 @@ router.get("/refresh", async (req, res) => {
     const { refreshToken } = req.cookies;
 
     if (!refreshToken) {
-      res.json({ verified: false });
+      res.json({ verified: false, greeting: true });
       return;
     }
 
     const validated = jwt.verify(refreshToken, refreshSecret);
     if (!validated) {
-      res.json({ verified: false });
+      res.json({ verified: false, greeting: true });
       return;
     }
 
@@ -94,6 +94,7 @@ router.get("/refresh", async (req, res) => {
     });
   } catch (e) {
     console.log(e);
+    res.json({ verified: false });
   }
 });
 router.get("/refresh-mobile", async (req, res) => {
