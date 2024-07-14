@@ -34,11 +34,10 @@ export const useAuth = () => {
   useEffect(() => {
     const getData = async () => {
       const data = JSON.parse(localStorage.getItem(storageName));
-      console.log(window.location);
       if (
         !data &&
-        window.location !== "/greeting" &&
-        window.location !== "/support"
+        window.location.pathname !== "/greeting" &&
+        window.location.pathname !== "/support"
       )
         return navigate("/greeting");
 
@@ -55,7 +54,7 @@ export const useAuth = () => {
       if (!activated) return navigate("/notactivated");
 
       login(token, userId);
-      navigate("/home");
+      //navigate(window.location.pathname);
     };
 
     try {
