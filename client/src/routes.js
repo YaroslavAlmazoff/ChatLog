@@ -16,7 +16,6 @@ import File from "./file_storage/components/pages/File";
 import CreatePost from "./auth/CreatePost";
 import Notifications from "./auth/parts/Mobile/Notifications";
 import CreateFoto from "./auth/parts/Mobile/CreateFoto";
-import LandingPage from "./landing_page/LandingPage";
 import SupportPage from "./landing_page/SupportPage";
 import Admin from "./admin/Admin";
 import Services from "./homepage/Services";
