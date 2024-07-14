@@ -4,6 +4,7 @@ import { useRoutes } from "./routes";
 import Header from "./common_components/Header";
 import React, { useEffect, useState } from "react";
 import { useAuth } from "./common_hooks/auth.hook";
+import useRedirect from "./common_hooks/redirect.hook";
 import { AuthContext } from "./context/AuthContext";
 import api from "./auth/api/auth";
 import useDate from "./common_hooks/date.hook";
@@ -15,6 +16,7 @@ import "./common_components/modal-window/modal-window.css";
 function App() {
   const { verify } = useVerify();
   const { token, login, logout, userId } = useAuth();
+  const redirect = useRedirect();
 
   const isAuthenticated = !!token;
   const [isVerified, setIsVerified] = useState(false);
@@ -37,6 +39,8 @@ function App() {
       }
     };
     lastVisit();
+
+    redirect();
   }, [token]);
 
   return (
