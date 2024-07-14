@@ -37,8 +37,7 @@ const Header = () => {
                     to={link.route}
                     className="link"
                     style={
-                      activeLink === link.route ||
-                      window.location.pathname === link.route
+                      activeLink === link.route
                         ? { color: "white" }
                         : { color: "black" }
                     }
