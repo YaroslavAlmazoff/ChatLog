@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router";
 import api from "../auth/api/auth";
 
-const useRedirect = () => {
+const useRedirect = (setAuth) => {
   const navigate = useNavigate();
 
   const redirect = async () => {
@@ -15,16 +15,19 @@ const useRedirect = () => {
           },
         });
 
+        const { isVerified, isActivated, token, userId } = response.data;
+
         console.log(response);
 
-        if (!response.data.verified) {
+        if (!isVerified) {
           if (localStorage.getItem("registered")) {
             navigate("/login");
           } else {
             navigate("/greeting");
           }
         } else {
-          if (response.data.isActivated) {
+          if (isActivated) {
+            setAuth({ token, userId, isAuthenticated: isVerified });
             navigate("/home");
           } else {
             navigate("/notactivated");
