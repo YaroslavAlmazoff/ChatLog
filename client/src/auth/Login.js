@@ -22,7 +22,10 @@ const Login = () => {
     };
     const response = await api.post("/api/auth/login", user);
     console.log(response.data.token, response.data.userId);
-    auth.login(response.data.token, response.data.userId);
+    localStorage.setItem("user", {
+      token: response.data.token,
+      userId: response.data.userId,
+    });
     setLoading(false);
 
     if (response.data.token && response.data.userId) {

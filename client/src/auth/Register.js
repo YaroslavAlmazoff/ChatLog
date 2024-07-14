@@ -53,7 +53,7 @@ const Register = () => {
     }
     regRef.current.disabled = true;
     setLoading(true);
-    //Создание объекта для отправки на сервер
+
     const user = {
       name,
       surname,
@@ -64,24 +64,20 @@ const Register = () => {
       password,
       site: true,
     };
-    //Отправка запроса на регистрацию пользователя
     const response = await api.post("/api/auth/register", user);
     if (response.data.error) {
       setError(response.data.error);
       return;
     }
-    auth.login(response.data.token, response.data.userId);
+    localStorage.setItem("user", {
+      token: response.data.token,
+      userId: response.data.userId,
+    });
     setLoading(false);
-    //Запись в локальное хранилище браузера ID пользователя
-    //Перемещение на профиль пользователя
     localStorage.setItem("registered", true);
     window.location = `/notactivated`;
   };
-  // const theme = (theme, ref, num) => {
-  //     localStorage.setItem('theme', theme)
-  //     ref.current.className = 'theme-button-wb'
-  //     ref.current.classList.add('theme-button-bg'+num)
-  // }
+
   return (
     <div className="form">
       <h2 className="white-glow-text">Регистрация</h2>
