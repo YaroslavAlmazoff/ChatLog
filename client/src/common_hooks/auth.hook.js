@@ -32,8 +32,13 @@ export const useAuth = () => {
   useEffect(() => {
     const getData = async () => {
       const data = JSON.parse(localStorage.getItem(storageName));
-
-      if (!data) return navigate("/greeting");
+      console.log(window.location);
+      if (
+        !data &&
+        window.location !== "/greeting" &&
+        window.location !== "/support"
+      )
+        return navigate("/greeting");
 
       const response = await api.get("/api/refresh", {
         headers: {

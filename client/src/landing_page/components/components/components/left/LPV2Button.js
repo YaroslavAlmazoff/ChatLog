@@ -1,10 +1,16 @@
-const LPV2Button = ({text, link}) => {
-    const goTo = () => {
-        window.location = link
-    }
-    return (
-        <button className="lpv2-button" onClick={goTo}>{text}</button>
-    )
-}
+import { useNavigate } from "react-router";
 
-export default LPV2Button
+const LPV2Button = ({ text, link }) => {
+  const navigate = useNavigate();
+
+  const goTo = () => {
+    navigate(link);
+  };
+  return (
+    <button className="lpv2-button" onClick={goTo}>
+      {text}
+    </button>
+  );
+};
+
+export default LPV2Button;
