@@ -41,7 +41,7 @@ body::-webkit-scrollbar {
     flex-direction: column;
   }
   .lpv2-top-left {
-    width: 60%;
+    width: auto;
   }
   .lpv2-top-right {
     width: 40%;
