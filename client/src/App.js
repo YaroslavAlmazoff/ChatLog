@@ -27,6 +27,7 @@ function App() {
   // const [isActivated, setIsActivated] = useState(false);
 
   useEffect(() => {
+    console.log("start");
     // const setVisit = async () => {
     //   const verifiedData = await verify();
     //   setIsVerified(verifiedData.isVerified);
