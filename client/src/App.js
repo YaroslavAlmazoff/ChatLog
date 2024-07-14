@@ -8,55 +8,57 @@ import useRedirect from "./common_hooks/redirect.hook";
 import { AuthContext } from "./context/AuthContext";
 import api from "./auth/api/auth";
 import useDate from "./common_hooks/date.hook";
-import $ from "jquery";
 import useVerify from "./common_hooks/verify.hook";
-import auth from "./auth/api/auth";
 import "./common_components/modal-window/modal-window.css";
 
 function App() {
   const { verify } = useVerify();
-  const { token, login, logout, userId } = useAuth();
+  const { getCurrentDate } = useDate();
   const redirect = useRedirect();
+  const routes = useRoutes();
 
-  const isAuthenticated = !!token;
+  const [auth, setAuth] = useState({
+    token: null,
+    userId: null,
+    isAuthenticated: false,
+  });
+
   const [isVerified, setIsVerified] = useState(false);
   const [isActivated, setIsActivated] = useState(false);
-  const [modalOverlay, setModalOverlay] = useState(false);
-  const routes = useRoutes(isVerified);
-  const { getCurrentDate } = useDate();
+
   useEffect(() => {
     const setVisit = async () => {
-      const v = await verify();
-      setIsVerified(v.isVerified);
-      setIsActivated(v.isActivated);
+      const verifiedData = await verify();
+      setIsVerified(verifiedData.isVerified);
+      setIsActivated(verifiedData.isActivated);
       await api.get("/api/admin/setvisit");
     };
-    setVisit();
+
     const lastVisit = async () => {
       const date = getCurrentDate();
       if (localStorage.getItem("user")) {
-        await api.post("/api/lastvisit", { date }, { headers: { token } });
+        await api.post(
+          "/api/lastvisit",
+          { date },
+          {
+            headers: {
+              Authorization: `Bearer ${JSON.parse(
+                localStorage.getItem("user").token
+              )}`,
+            },
+          }
+        );
       }
     };
-    lastVisit();
 
-    redirect();
-  }, [token]);
+    setVisit();
+    lastVisit();
+    redirect(setAuth);
+  }, []);
 
   return (
-    <AuthContext.Provider
-      value={{
-        token,
-        login,
-        logout,
-        userId,
-        isAuthenticated,
-        darkScreen: setModalOverlay,
-      }}
-    >
+    <AuthContext.Provider value={auth}>
       <div className="App">
-        {modalOverlay && <div className="modal-window-overlay"></div>}
-
         <Header isVerified={isVerified} isActivated={isActivated} />
         {routes}
       </div>
