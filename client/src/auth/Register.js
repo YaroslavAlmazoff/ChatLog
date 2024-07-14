@@ -5,22 +5,11 @@ import { AuthContext } from "../context/AuthContext";
 import Loader from "../common_components/Loader";
 
 const Register = () => {
-  // useEffect(() => {
-  //     localStorage.setItem('adblock', true)
-  // }, [])
-  // let ref1 = useRef(null)
-  // let ref2 = useRef(null)
-  // let ref3 = useRef(null)
-  // let ref4 = useRef(null)
-
   const regRef = useRef(null);
+  const auth = useContext(AuthContext);
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  //Страница регистрации пользователя
-  const auth = useContext(AuthContext);
-  //Получение функции навигации
-
-  //Инициализация состояний информации о пользователе
   const [name, setName] = useState("");
   const [surname, setSurName] = useState("");
   const [age, setAge] = useState("");
@@ -29,7 +18,7 @@ const Register = () => {
   const [city, setCity] = useState("");
   const [password, setPassword] = useState("");
   const [password2, setPassword2] = useState("");
-  //Регистрация пользователя
+
   const registerHandler = async () => {
     if (!name) {
       setError("Введите имя");
@@ -54,7 +43,7 @@ const Register = () => {
     regRef.current.disabled = true;
     setLoading(true);
 
-    const user = {
+    const response = await api.post("/api/auth/register", {
       name,
       surname,
       age,
@@ -63,19 +52,17 @@ const Register = () => {
       city,
       password,
       site: true,
-    };
-    const response = await api.post("/api/auth/register", user);
-    if (response.data.error) {
-      setError(response.data.error);
-      return;
-    }
-    localStorage.setItem("user", {
-      token: response.data.token,
-      userId: response.data.userId,
     });
-    setLoading(false);
-    localStorage.setItem("registered", true);
-    window.location = `/notactivated`;
+
+    const { token, userId, errors } = response.data;
+
+    if (!errors.length) {
+      auth.login(token, userId);
+      localStorage.setItem("registered", true);
+      window.location = `/notactivated`;
+    } else {
+      setError(response.data.errors.join(". "));
+    }
   };
 
   return (
@@ -126,11 +113,6 @@ const Register = () => {
             type="text"
             className="input"
           />
-          {/* <p className="theme-title">Выберите тему для домашней страницы</p>
-            <button ref={ref1} onClick={() => theme('city', ref1, 1)} className='theme-button theme-button-bg1'>Ночной Город</button>
-            <button ref={ref2} onClick={() => theme('city', ref2, 2)} className='theme-button theme-button-bg2'>Горы</button>
-            <button ref={ref3} onClick={() => theme('city', ref3, 3)} className='theme-button theme-button-bg3'>Природа</button>
-            <button ref={ref4} onClick={() => theme('city', ref4, 4)} className='theme-button theme-button-bg4'>Космос</button> */}
           <input
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -145,7 +127,6 @@ const Register = () => {
             type="password"
             className="input"
           />
-          {/* <p style={{color: 'yellow', fontSize: '16pt'}}>Если у вас стоит блокировщик рекламы, пожалуйста, отключите его на этом сайте. Он мешает корректной работе соцсети.</p> */}
           {error && <span style={{ color: "red" }}>{error}</span>}
           <button ref={regRef} onClick={registerHandler} className="button">
             Регистрация

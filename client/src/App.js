@@ -14,14 +14,9 @@ import "./common_components/modal-window/modal-window.css";
 function App() {
   // const { verify } = useVerify();
   // const { getCurrentDate } = useDate();
-  const redirect = useRedirect();
   const routes = useRoutes();
 
-  const [auth, setAuth] = useState({
-    token: null,
-    userId: null,
-    isAuthenticated: false,
-  });
+  const { login, logout, token, userId, authenticated } = useAuth();
 
   // const [isVerified, setIsVerified] = useState(false);
   // const [isActivated, setIsActivated] = useState(false);
@@ -54,11 +49,12 @@ function App() {
 
     // setVisit();
     // lastVisit();
-    redirect(setAuth);
   }, []);
 
   return (
-    <AuthContext.Provider value={auth}>
+    <AuthContext.Provider
+      value={{ login, logout, token, userId, authenticated }}
+    >
       <div className="App">
         <Header />
         {routes}

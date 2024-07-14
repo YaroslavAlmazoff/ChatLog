@@ -1,16 +1,14 @@
-import React, { useContext, useState, useRef } from "react";
+import React, { useContext, useState } from "react";
 import "./styles/form.css";
 import api from "./api/auth";
 import { AuthContext } from "../context/AuthContext";
-import Notice from "./parts/Notice";
 import Loader from "../common_components/Loader";
 
 const Login = () => {
-  const [noticeText, setNoticeText] = useState("");
-  const [noticeDisplay, setNoticeDisplay] = useState("none");
-  const [loading, setLoading] = useState(false);
-  const noticeRef = useRef(null);
   const auth = useContext(AuthContext);
+
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -21,28 +19,18 @@ const Login = () => {
       password,
     };
     const response = await api.post("/api/auth/login", user);
-    console.log(response.data.token, response.data.userId);
-    localStorage.setItem("user", {
-      token: response.data.token,
-      userId: response.data.userId,
-    });
-    setLoading(false);
+    const { token, userId, errors } = response.data;
+    auth.login(token, userId);
 
-    if (response.data.token && response.data.userId) {
-      localStorage.setItem("adblock", false);
+    if (!errors.length) {
       window.location = `/home`;
     } else {
-      setNoticeText("Введены некорректные данные");
-      setNoticeDisplay("block");
+      setError(errors.join(". "));
     }
   };
+
   return (
     <div>
-      <Notice
-        noticeText={noticeText}
-        noticeDisplay={noticeDisplay}
-        noticeRef={noticeRef}
-      />
       <div className="form">
         <h2 className="white-glow-text">Вход</h2>
         {!loading ? (
@@ -61,7 +49,7 @@ const Login = () => {
               type="password"
               className="input"
             />
-            {/*localStorage.getItem('adblock') ? <p style={{color: 'yellow', fontSize: '16pt'}}>Если у вас стоит блокировщик рекламы, пожалуйста, отключите его на этом сайте. Он мешает корректной работе соцсети.</p>: <></>*/}
+            {error && <span style={{ color: "red" }}>{error}</span>}
             <button onClick={loginHandler} className="button">
               Войти
             </button>
