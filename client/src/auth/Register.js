@@ -62,6 +62,7 @@ const Register = () => {
       window.location = `/notactivated`;
     } else {
       setError(response.data.errors.join(". "));
+      setLoading(false);
     }
   };
 

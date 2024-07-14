@@ -14,11 +14,10 @@ const Login = () => {
 
   const loginHandler = async () => {
     setLoading(true);
-    const user = {
+    const response = await api.post("/api/auth/login", {
       email,
       password,
-    };
-    const response = await api.post("/api/auth/login", user);
+    });
     const { token, userId, errors } = response.data;
     auth.login(token, userId);
 
@@ -26,6 +25,7 @@ const Login = () => {
       window.location = `/home`;
     } else {
       setError(errors.join(". "));
+      setLoading(false);
     }
   };
 
