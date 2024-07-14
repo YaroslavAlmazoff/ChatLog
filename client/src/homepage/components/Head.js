@@ -10,10 +10,14 @@ const Head = () => {
   const [user, setUser] = useState({ name: "name" });
   let clockRef = useRef(null);
   useEffect(() => {
-    setInterval(() => {
+    const interval = setInterval(() => {
       let now = new Date();
       clockRef.current.innerHTML = now.toLocaleTimeString();
     }, 1000);
+
+    return () => {
+      clearInterval(interval);
+    };
   }, []);
 
   const getUser = useCallback(async () => {
