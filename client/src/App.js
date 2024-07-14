@@ -37,7 +37,7 @@ function App() {
       }
     };
     lastVisit();
-  }, []);
+  }, [token]);
 
   return (
     <AuthContext.Provider
