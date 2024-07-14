@@ -46,7 +46,7 @@ const LPV2Head = () => {
         <LPV2Button text="Войти" link="/login" />
         {downloadUrl ? (
           <a
-            className="lpv2-button"
+            className="button lpv2-button"
             href={
               process.env.REACT_APP_API_URL + `/gamedownloads/${downloadUrl}`
             }

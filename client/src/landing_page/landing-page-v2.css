@@ -305,3 +305,29 @@
     color: rgb(255, 255, 255);
   }
 }
+
+.lpv2 {
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.lpv2::-webkit-scrollbar {
+  width: 0; /* ширина scrollbar */
+}
+.lpv2::-webkit-scrollbar-track {
+  background: transparent; /* цвет дорожки */
+}
+
+.lpv2::-moz-scrollbar {
+  width: 0; /* ширина scrollbar */
+}
+.lpv2::-moz-scrollbar-track {
+  background: transparent; /* цвет дорожки */
+}
+
+.lpv2::-o-scrollbar {
+  width: 0; /* ширина scrollbar */
+}
+.lpv2::-o-scrollbar-track {
+  background: transparent; /* цвет дорожки */
+}
