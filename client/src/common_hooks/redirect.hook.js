@@ -5,7 +5,11 @@ const useRedirect = (setAuth) => {
   const navigate = useNavigate();
 
   const redirect = async () => {
-    console.log(localStorage.getItem("user"));
+    console.log(
+      localStorage.getItem("user"),
+      JSON.parse(localStorage.getItem("user")),
+      !!JSON.parse(localStorage.getItem("user"))
+    );
     if (JSON.parse(localStorage.getItem("user"))) {
       try {
         const response = await api.get("/api/refresh", {
