@@ -42,9 +42,9 @@ function App() {
           { date },
           {
             headers: {
-              Authorization: `Bearer ${JSON.parse(
-                localStorage.getItem("user").token
-              )}`,
+              Authorization: `Bearer ${
+                JSON.parse(localStorage.getItem("user")).token
+              }`,
             },
           }
         );
