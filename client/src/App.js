@@ -27,32 +27,32 @@ function App() {
   const [isActivated, setIsActivated] = useState(false);
 
   useEffect(() => {
-    const setVisit = async () => {
-      const verifiedData = await verify();
-      setIsVerified(verifiedData.isVerified);
-      setIsActivated(verifiedData.isActivated);
-      await api.get("/api/admin/setvisit");
-    };
+    // const setVisit = async () => {
+    //   const verifiedData = await verify();
+    //   setIsVerified(verifiedData.isVerified);
+    //   setIsActivated(verifiedData.isActivated);
+    //   await api.get("/api/admin/setvisit");
+    // };
 
-    const lastVisit = async () => {
-      const date = getCurrentDate();
-      if (localStorage.getItem("user")) {
-        await api.post(
-          "/api/lastvisit",
-          { date },
-          {
-            headers: {
-              Authorization: `Bearer ${
-                JSON.parse(localStorage.getItem("user")).token
-              }`,
-            },
-          }
-        );
-      }
-    };
+    // const lastVisit = async () => {
+    //   const date = getCurrentDate();
+    //   if (localStorage.getItem("user")) {
+    //     await api.post(
+    //       "/api/lastvisit",
+    //       { date },
+    //       {
+    //         headers: {
+    //           Authorization: `Bearer ${
+    //             JSON.parse(localStorage.getItem("user")).token
+    //           }`,
+    //         },
+    //       }
+    //     );
+    //   }
+    // };
 
-    setVisit();
-    lastVisit();
+    // setVisit();
+    // lastVisit();
     redirect(setAuth);
   }, []);
 
