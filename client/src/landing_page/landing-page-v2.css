@@ -17,6 +17,7 @@
     min-height: 100vh;
     color: white;
     padding: 5% 10%;
+    overflow: hidden;
   }
   .lpv2-top {
     display: flex;
@@ -306,11 +307,6 @@
   }
 }
 
-.lpv2 {
-  margin: 0;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
 .lpv2::-webkit-scrollbar {
   width: 0; /* ширина scrollbar */
 }
