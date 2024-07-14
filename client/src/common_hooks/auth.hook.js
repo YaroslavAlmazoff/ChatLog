@@ -9,11 +9,13 @@ export const useAuth = () => {
   const [token, setToken] = useState(null);
   const [userId, setUserId] = useState(null);
   const [authenticated, setAuthenticated] = useState(false);
+  const [activated, setActivated] = useState(false);
 
   const login = useCallback((token, id) => {
     setToken(token);
     setUserId(id);
     setAuthenticated(true);
+    setActivated(true);
     localStorage.setItem(
       storageName,
       JSON.stringify({
@@ -63,5 +65,5 @@ export const useAuth = () => {
     }
   }, [login]);
 
-  return { login, logout, token, userId, authenticated };
+  return { login, logout, token, userId, authenticated, activated };
 };

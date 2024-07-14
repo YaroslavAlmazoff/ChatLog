@@ -16,7 +16,7 @@ function App() {
   // const { getCurrentDate } = useDate();
   const routes = useRoutes();
 
-  const { login, logout, token, userId, authenticated } = useAuth();
+  const { login, logout, token, userId, authenticated, activated } = useAuth();
 
   // const [isVerified, setIsVerified] = useState(false);
   // const [isActivated, setIsActivated] = useState(false);
@@ -53,7 +53,7 @@ function App() {
 
   return (
     <AuthContext.Provider
-      value={{ login, logout, token, userId, authenticated }}
+      value={{ login, logout, token, userId, authenticated, activated }}
     >
       <div className="App">
         <Header />
