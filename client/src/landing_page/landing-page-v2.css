@@ -42,9 +42,11 @@ body::-webkit-scrollbar {
   }
   .lpv2-top-left {
     width: auto;
+    margin-right: 5%;
   }
   .lpv2-top-right {
     width: 40%;
+    margin-left: 5%;
   }
   .lpv2-service-title {
     font-size: 23pt;
