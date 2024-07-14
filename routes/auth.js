@@ -88,7 +88,7 @@ router.get("/refresh", async (req, res) => {
     });
     res.json({
       verified: true,
-      isActivated: user.isActivated,
+      activated: user.isActivated,
       token: accessToken,
       userId: user._id,
     });

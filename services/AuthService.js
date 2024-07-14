@@ -32,17 +32,16 @@ class AuthService {
     try {
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
-        res.json({ errors }).status(400);
+        return res.json({ errors }).status(400);
       }
       const { name, surname, age, email, country, city, password, site } =
         req.body;
 
       const candidate = await User.findOne({ email });
       if (candidate) {
-        res
+        return res
           .status(400)
-          .json({ error: "Пользователь с таким email уже зарегистрирован" });
-        return;
+          .json({ errors: ["Пользователь с таким email уже зарегистрирован"] });
       }
 
       const hashPassword = bcrypt.hashSync(password);
@@ -105,7 +104,7 @@ class AuthService {
       });
     } catch (e) {
       console.log(e);
-      res.status(400).json({ e });
+      res.json({ errors: ["Ошибка"] });
     }
   }
   //Обновление профиля пользователя
@@ -213,22 +212,16 @@ class AuthService {
     try {
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
-        res.json({ errors }).status(400);
-        res.end();
-        return;
+        return res.json({ errors }).status(400);
       }
       const { email, password } = req.body;
       const user = await User.findOne({ email });
       if (!user) {
-        res.json({ errors: ["Такого пользователя не существует"] });
-        res.end();
-        return;
+        return res.json({ errors: ["Такого пользователя не существует"] });
       }
       const validPassword = bcrypt.compareSync(password, user.password);
       if (!validPassword) {
-        res.json({ errors: ["Пароль не верный"] }).status(400);
-        res.end();
-        return;
+        return res.json({ errors: ["Пароль не верный"] }).status(400);
       }
       const { token, refreshToken } = TokenService.generateTokens({
         userId: user._id,
@@ -246,7 +239,7 @@ class AuthService {
       res.json({ user, token, userId: user._id, errors: [] });
     } catch (e) {
       console.log(e);
-      res.status(400).json({ e });
+      res.json({ errors: ["Ошибка"] });
     }
   }
   async loginMobile(req, res) {
