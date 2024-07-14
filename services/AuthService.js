@@ -101,6 +101,7 @@ class AuthService {
         userId: user._id,
         token,
         refreshToken,
+        errors: [],
       });
     } catch (e) {
       console.log(e);
