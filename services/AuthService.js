@@ -300,10 +300,15 @@ class AuthService {
   }
   async activate(req, res) {
     const user = await User.findById(req.params.id);
+    const { refreshToken } = req.cookies;
     if (user.link == req.params.link) {
       user.isActivated = true;
       user.save();
-      res.json({ message: "Успешная Активация" });
+      if (refreshToken) {
+        res.redirect("/home");
+      } else {
+        res.json({ message: "Успешная Активация" });
+      }
     } else {
       res.json({ message: "Ошибка: ссылка не совпадает." });
     }
