@@ -243,10 +243,11 @@ export const ESRoomUpdated = () => {
         user = user1;
       }
       const userResponse = await api.get(`/api/user/${user}`);
-      setFullPenFriend(userResponse.data.user);
+
       const name = userResponse.data.user.name;
       const surname = userResponse.data.user.surname;
       const fullName = name + " " + surname;
+      setFullPenFriend(userResponse.data.user);
       setPenFriend(fullName);
       setLoading(false);
     };

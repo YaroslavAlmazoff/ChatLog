@@ -50,7 +50,13 @@ export const RoomsList = () => {
         </button>
         <div className="rooms-list-wrapper mt">
           {!loading ? (
-            rooms.map((el) => <RoomItem key={randomKey()} room={el} />)
+            <>
+              {rooms.length ? (
+                rooms.map((el) => <RoomItem key={randomKey()} room={el} />)
+              ) : (
+                <span>У Вас нет переписок</span>
+              )}
+            </>
           ) : (
             <Loader ml={"50%"} />
           )}

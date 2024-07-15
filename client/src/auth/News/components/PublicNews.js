@@ -22,9 +22,11 @@ const PublicNews = () => {
 
   return (
     <div className="feed-public-news">
-      {posts.map((post) => (
-        <PublicNewsPost post={post} />
-      ))}
+      {posts.length ? (
+        posts.map((post) => <PublicNewsPost post={post} />)
+      ) : (
+        <span>У Вас нет новостей</span>
+      )}
     </div>
   );
 };
