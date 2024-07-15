@@ -303,7 +303,7 @@ class AuthService {
     if (user.link == req.params.link) {
       user.isActivated = true;
       user.save();
-      res.json({ message: "Успешная Активация" });
+      res.json({ message: "Успешная Активация" }).redirect("/home");
     } else {
       res.json({ message: "Ошибка: ссылка не совпадает." });
     }
