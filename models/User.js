@@ -23,6 +23,7 @@ const User = new mongoose.Schema({
   refreshToken: { type: mongoose.Types.ObjectId },
   isActivated: { type: Boolean, default: false },
   returnLink: { type: String, default: "" },
+  link: { type: String, default: "" },
 });
 
 module.exports = mongoose.model("User", User);

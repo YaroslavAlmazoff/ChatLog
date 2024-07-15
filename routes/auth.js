@@ -23,7 +23,7 @@ router.get("/new-token/:token", (req, res) => {
     console.log(e);
   }
 });
-router.get("/activate/:link", (req, res) => {
+router.get("/activate/:id/:link", (req, res) => {
   try {
     AuthService.activate(req, res);
   } catch (e) {

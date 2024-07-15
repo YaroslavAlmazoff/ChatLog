@@ -26,8 +26,6 @@ class AuthService {
     await ImageService.saveBINFile(req.files.file, req.files.file.name);
     res.json({ message: "yra" });
   }
-
-  //Регистрация пользователя
   async register(req, res) {
     try {
       const errors = validationResult(req);
@@ -66,10 +64,15 @@ class AuthService {
         await tokenData.save();
       }
 
+      const link = uuid.v4();
+
       await MailService.sendActivationLink(
         email,
-        "https://chatlog.ru/api/activate/" + user._id
+        `https://chatlog.ru/api/activate/${user._id}/${link}`
       );
+
+      user.link = link;
+      await user.save();
 
       if (!site) {
         const firebaseToken = req.body.token;
@@ -296,10 +299,14 @@ class AuthService {
     }
   }
   async activate(req, res) {
-    const user = await User.findById(req.params.link);
-    user.isActivated = true;
-    user.save();
-    res.json({ message: "success acivation" });
+    const user = await User.findById(req.params.id);
+    if (user.link == req.params.link) {
+      user.isActivated = true;
+      user.save();
+      res.json({ message: "Успешная Активация" });
+    } else {
+      res.json({ message: "Ошибка: ссылка не совпадает." });
+    }
   }
   async changePassword(req, res) {
     const { oldPassword, newPassword } = req.body;
