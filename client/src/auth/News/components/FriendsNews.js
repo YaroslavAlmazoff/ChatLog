@@ -23,9 +23,11 @@ const FriendsNews = () => {
 
   return (
     <div className="feed-public-news">
-      {posts.map((post) => (
-        <FriendsNewsPost post={post} />
-      ))}
+      {posts.length ? (
+        posts.map((post) => <FriendsNewsPost post={post} />)
+      ) : (
+        <span>У Вас нет новостей</span>
+      )}
     </div>
   );
 };
