@@ -74,6 +74,10 @@ export const ESRoomUpdated = () => {
 
   const [isRecording, setIsRecording] = useState(false);
 
+  useEffect(() => {
+    roomRef.current.scrollTop = roomRef.current.scrollHeight;
+  }, []);
+
   const removeDoubles = () => {
     setMessages((prev) =>
       prev.filter(
@@ -99,7 +103,6 @@ export const ESRoomUpdated = () => {
       setIsLast(messagesData.isLast);
       removeDoubles();
       setLoading(false);
-      roomRef.current.scrollTop = roomRef.current.scrollHeight;
     };
     return eventSource;
   }, []);
