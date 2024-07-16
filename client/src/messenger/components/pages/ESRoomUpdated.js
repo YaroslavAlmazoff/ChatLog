@@ -1,4 +1,10 @@
-import React, { useContext, useEffect, useState, useRef } from "react";
+import React, {
+  useContext,
+  useEffect,
+  useState,
+  useRef,
+  useCallback,
+} from "react";
 import "../styles/room.css";
 import api from "../../../auth/api/auth";
 import { useParams } from "react-router-dom";
@@ -19,6 +25,8 @@ import uuid from "uuid";
 import MessengerImagePreview from "../parts/MessengerImagePreview";
 import MessengerVideoPreview from "../parts/MessengerVideoPreview";
 import ModalWindow from "../../../common_components/modal-window/ModalWindow";
+import Preview from "./components/Preview";
+import { useObserver } from "../../../common_hooks/observer.hook";
 
 export const ESRoomUpdated = () => {
   const { verify } = useVerify();
@@ -52,6 +60,9 @@ export const ESRoomUpdated = () => {
   const [page, setPage] = useState(1);
   const [isLast, setIsLast] = useState(false);
 
+  const trigger = useRef();
+  const rootRef = useRef();
+
   const openWindow = () => {
     setModal(true);
     auth.darkScreen(true);
@@ -71,6 +82,48 @@ export const ESRoomUpdated = () => {
       )
     );
   };
+
+  const subscribe = useCallback(async () => {
+    if (!params.id) return;
+    setLoading(true);
+    const eventSource = new EventSource(
+      `${process.env.REACT_APP_API_URL}/api/connect/${params.id}/${page}`
+    );
+    eventSource.onmessage = function (event) {
+      const messagesData = JSON.parse(event.data);
+      console.log(messagesData);
+      setMessages((prevMessages) => [
+        ...messagesData.messages,
+        ...prevMessages,
+      ]);
+      setIsLast(messagesData.isLast);
+      removeDoubles();
+      setLoading(false);
+    };
+    return eventSource;
+  }, []);
+
+  useEffect(() => {
+    const getMessages = async () => {
+      !isLast && setLoading(true);
+      await api.get(`/api/messages/${page}`, {
+        headers: {
+          Authorization: `Bearer ${auth.token}`,
+        },
+      });
+    };
+    getMessages();
+  }, [page]);
+
+  useObserver(
+    trigger,
+    !isLast,
+    loading,
+    () => {
+      setPage(page + 1);
+    },
+    messagesRef
+  );
 
   useEffect(() => {
     if (localStorage.getItem("file-link")) {
@@ -106,54 +159,7 @@ export const ESRoomUpdated = () => {
     return () => {
       es.close();
     };
-  }, []);
-
-  const getMessages = async () => {
-    !isLast && setLoading(true);
-    await api.get(`/api/messages/${page}`, {
-      headers: {
-        Authorization: `Bearer ${auth.token}`,
-      },
-    });
-  };
-
-  function handleScroll(event) {
-    const { scrollTop } = event.currentTarget;
-
-    if (scrollTop === 0) {
-      getMessages();
-    }
-  }
-  const messagesEndRef = useRef(null);
-
-  // const scrollToBottom = () => {
-  //   messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
-  // };
-
-  // useEffect(() => {
-  //   scrollToBottom();
-  // }, [messages]);
-
-  const subscribe = async () => {
-    if (!params.id) return;
-    setLoading(true);
-    const eventSource = new EventSource(
-      `${process.env.REACT_APP_API_URL}/api/connect/${params.id}/${page}`
-    );
-    eventSource.onmessage = function (event) {
-      const messagesData = JSON.parse(event.data);
-      console.log(messagesData);
-      setMessages((prevMessages) => [
-        ...messagesData.messages,
-        ...prevMessages,
-      ]);
-      setPage((prevPage) => prevPage + 1);
-      setIsLast(messagesData.isLast);
-      removeDoubles();
-      setLoading(false);
-    };
-    return eventSource;
-  };
+  }, [subscribe]);
 
   const sendMessage = async () => {
     if (!currentMessage._id) {
@@ -225,7 +231,7 @@ export const ESRoomUpdated = () => {
   };
 
   useEffect(() => {
-    const dialog = async () => {
+    const getDialog = async () => {
       const response = await api.get(`/api/roombyid/${params.id}`, {
         headers: {
           Authorization: `Bearer ${auth.token}`,
@@ -251,20 +257,12 @@ export const ESRoomUpdated = () => {
       setPenFriend(fullName);
       setLoading(false);
     };
-    dialog();
+    getDialog();
   }, [params, auth]);
 
   useEffect(() => {
-    if (page === 2) {
-      messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
-    }
-    const currentRef = messagesRef.current;
-    currentRef.addEventListener("scroll", handleScroll);
-
-    // Не забудьте снять обработчик события при размонтировании компонента
-
     const readMessage = async () => {
-      const res = await api.get(`/api/read/${params.id}`);
+      await api.get(`/api/read/${params.id}`);
     };
     if (!messages.length) {
       return;
@@ -279,15 +277,13 @@ export const ESRoomUpdated = () => {
         }
       }
     }
-    return () => {
-      currentRef.removeEventListener("scroll", handleScroll);
-    };
   }, [auth, messages, params]);
 
   const addSmile = (code) => {
     setSmilesDisplay("none");
     messageRef.current.value = messageRef.current.value + code;
   };
+
   const showSmiles = () => {
     if (smilesDisplay === "none") {
       setSmilesDisplay("block");
@@ -300,7 +296,7 @@ export const ESRoomUpdated = () => {
   };
 
   const deleteMessage = async () => {
-    const res = await api.get(`/api/deletemessage/${currentMessage._id}`);
+    await api.get(`/api/deletemessage/${currentMessage._id}`);
     setMessages([...messages].filter((el) => el._id !== currentMessage._id));
     setMessageActionsDisplay("none");
     setCurrentMessage({});
@@ -319,9 +315,7 @@ export const ESRoomUpdated = () => {
     }
   };
 
-  const onConfirm = () => {
-    auth.darkScreen(false);
-  };
+  const onConfirm = () => {};
 
   return (
     <div className="room-wrapper">
@@ -372,12 +366,11 @@ export const ESRoomUpdated = () => {
             <Smile key={el.code} el={el} addSmile={addSmile} />
           ))}
         </div>
-        <div
-          className="messages"
-          ref={messagesRef}
-          onScroll={handleScroll}
-          style={{ overflowY: "auto", height: "100vh" }}
-        >
+        <div className="messages" ref={messagesRef}>
+          <div
+            ref={trigger}
+            style={{ height: "100px", backgroundColor: "#40a4ff" }}
+          ></div>
           {!loading ? (
             messages.map((mess) => (
               <Message mess={mess} showMessageActions={showMessageActions} />
@@ -392,7 +385,6 @@ export const ESRoomUpdated = () => {
             alt=""
             title="Установить фон для переписки"
           />
-          <div ref={messagesEndRef} />
         </div>
       </div>
       <div className="message-actions">
@@ -464,14 +456,7 @@ export const ESRoomUpdated = () => {
           accept=".jpg,.jpeg,.png,.gif"
         />
       </div>
-      {imageFiles.length &&
-        imageFiles.map((imageFile) => (
-          <MessengerImagePreview imageFile={imageFile} />
-        ))}
-      {videoFiles.length &&
-        imageFiles.map((videoFile) => (
-          <MessengerVideoPreview videoFile={videoFile} />
-        ))}
+      <Preview imageFiles={imageFiles} videoFiles={videoFiles} />
     </div>
   );
 };
