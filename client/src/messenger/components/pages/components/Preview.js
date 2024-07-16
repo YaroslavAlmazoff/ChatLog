@@ -1,5 +1,5 @@
-import MessengerImagePreview from "../parts/MessengerImagePreview";
-import MessengerVideoPreview from "../parts/MessengerVideoPreview";
+import MessengerImagePreview from "../../parts/MessengerImagePreview";
+import MessengerVideoPreview from "../../parts/MessengerVideoPreview";
 
 const Preview = ({ imageFiles, videoFiles }) => {
   return (
