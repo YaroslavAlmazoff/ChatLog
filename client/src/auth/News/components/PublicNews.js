@@ -25,7 +25,7 @@ const PublicNews = () => {
       {posts.length ? (
         posts.map((post) => <PublicNewsPost post={post} />)
       ) : (
-        <span style={{ margin: "20px" }}>У Вас нет новостей</span>
+        <span style={{ marginBottom: "20px" }}>У Вас нет новостей</span>
       )}
     </div>
   );

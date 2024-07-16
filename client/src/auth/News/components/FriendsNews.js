@@ -26,7 +26,7 @@ const FriendsNews = () => {
       {posts.length ? (
         posts.map((post) => <FriendsNewsPost post={post} />)
       ) : (
-        <span>У Вас нет новостей</span>
+        <span style={{ marginBottom: "20px" }}>У Вас нет новостей</span>
       )}
     </div>
   );
