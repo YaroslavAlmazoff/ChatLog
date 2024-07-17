@@ -1,43 +1,63 @@
 * {
-  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 }
 body {
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+
+h1 {
+  color: white;
+}
+
+h3 {
+  color: white;
+}
+span {
+  color: white;
+}
+
 body::-webkit-scrollbar {
-  width: 20px;               /* ширина scrollbar */
+  width: 20px; /* ширина scrollbar */
 }
 body::-webkit-scrollbar-track {
-  background: transparent;        /* цвет дорожки */
+  background: transparent; /* цвет дорожки */
 }
 body::-webkit-scrollbar-thumb {
-  background-color: rgb(20, 20, 32);    /* цвет плашки */
-  border-radius: 11px;       /* закругления плашки */
-  border: 1px solid rgb(0, 140, 255);  /* padding вокруг плашки */
+  background-color: rgb(20, 20, 32); /* цвет плашки */
+  border-radius: 11px; /* закругления плашки */
+  border: 1px solid rgb(0, 140, 255); /* padding вокруг плашки */
 }
 
 body::-moz-scrollbar {
-  width: 20px;               /* ширина scrollbar */
+  width: 20px; /* ширина scrollbar */
 }
 body::-moz-scrollbar-track {
-  background: transparent;        /* цвет дорожки */
+  background: transparent; /* цвет дорожки */
 }
 body::-moz-scrollbar-thumb {
-  background-color: rgb(20, 20, 32);    /* цвет плашки */
-  border-radius: 11px;       /* закругления плашки */
-  border: 1px solid rgb(0, 140, 255);  /* padding вокруг плашки */
+  background-color: rgb(20, 20, 32); /* цвет плашки */
+  border-radius: 11px; /* закругления плашки */
+  border: 1px solid rgb(0, 140, 255); /* padding вокруг плашки */
 }
 
 body::-o-scrollbar {
-  width: 20px;               /* ширина scrollbar */
+  width: 20px; /* ширина scrollbar */
 }
 body::-o-scrollbar-track {
-  background: transparent;        /* цвет дорожки */
+  background: transparent; /* цвет дорожки */
 }
 body::-o-scrollbar-thumb {
-  background-color: rgb(20, 20, 32);    /* цвет плашки */
-  border-radius: 11px;       /* закругления плашки */
-  border: 1px solid rgb(0, 140, 255);  /* padding вокруг плашки */
+  background-color: rgb(20, 20, 32); /* цвет плашки */
+  border-radius: 11px; /* закругления плашки */
+  border: 1px solid rgb(0, 140, 255); /* padding вокруг плашки */
 }
