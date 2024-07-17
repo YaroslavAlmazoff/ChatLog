@@ -74,12 +74,6 @@ export const ESRoomUpdated = () => {
 
   const [isRecording, setIsRecording] = useState(false);
 
-  useEffect(() => {
-    if (scrollToRef.current) {
-      scrollToRef.current.scrollIntoView({ behavior: "instant", block: "end" });
-    }
-  }, []);
-
   const removeDoubles = () => {
     setMessages((prev) =>
       prev.filter(
@@ -92,6 +86,7 @@ export const ESRoomUpdated = () => {
   const subscribe = useCallback(async () => {
     if (!params.id) return;
     setLoading(true);
+    scrollToRef.current.scrollIntoView({ behavior: "smooth", block: "end" });
     const eventSource = new EventSource(
       `${process.env.REACT_APP_API_URL}/api/connect/${params.id}/${page}`
     );
