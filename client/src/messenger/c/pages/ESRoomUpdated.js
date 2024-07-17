@@ -121,7 +121,7 @@ export const ESRoomUpdated = () => {
     !isLast,
     loading,
     () => {
-      setPage(page + 1);
+      setPage((prev) => prev + 1);
     },
     messagesRef
   );
