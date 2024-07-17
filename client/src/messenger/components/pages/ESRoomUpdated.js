@@ -61,6 +61,7 @@ export const ESRoomUpdated = () => {
   const [isLast, setIsLast] = useState(false);
 
   const trigger = useRef();
+  const scrollToRef = useRef();
 
   const openWindow = () => {
     setModal(true);
@@ -74,8 +75,8 @@ export const ESRoomUpdated = () => {
   const [isRecording, setIsRecording] = useState(false);
 
   useEffect(() => {
-    if (messagesRef.current) {
-      messagesRef.current.scrollIntoView({ behavior: "smooth" });
+    if (scrollToRef.current) {
+      scrollToRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }, []);
 
@@ -385,6 +386,7 @@ export const ESRoomUpdated = () => {
             <Loader ml="0%" />
           )}
           <img
+            ref={scrollToRef}
             onClick={(e) => emitOpenBg(e)}
             className="upload-bg"
             src={require("../../img/upload-bg.png")}
