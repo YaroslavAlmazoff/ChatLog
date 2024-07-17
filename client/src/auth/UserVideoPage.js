@@ -1,179 +1,239 @@
-import React, {useState, useEffect, useContext, useRef} from "react"
-import { useParams } from "react-router"
-import useDate from "../common_hooks/date.hook"
-import api from "./api/auth"
-import "./styles/article.css"
-import "./styles/fotography.css"
-import UserVideoComment from "./parts/UserVideoComment"
-import Likers from "./parts/Likers"
-import Loader from "../common_components/Loader"
-import { AuthContext } from "../context/AuthContext"
-import Smile from "../messenger/components/parts/Smile"
-import { smiles } from "../messenger/components/pages/smiles"
-import useVerify from "../common_hooks/verify.hook"
+import React, { useState, useEffect, useContext, useRef } from "react";
+import { useParams } from "react-router";
+import useDate from "../common_hooks/date.hook";
+import api from "./api/auth";
+import "./styles/article.css";
+import "./styles/fotography.css";
+import UserVideoComment from "./parts/UserVideoComment";
+import Likers from "./parts/Likers";
+import Loader from "../common_components/Loader";
+import { AuthContext } from "../context/AuthContext";
+import Smile from "../messenger/c/parts/Smile";
+import { smiles } from "../messenger/c/pages/smiles";
+import useVerify from "../common_hooks/verify.hook";
 
 const UserVideoPage = () => {
-    const {verify} = useVerify()
-    useEffect(() => {
-        verify()
-    }, [])
-    //Страница поста пользователя
-    const auth = useContext(AuthContext)
-    //Получение параметров
-    const params = useParams()
-    //Подключение иконки комментария
-    const commentIcon = require('./img/comment_white.png') 
-    //Получение функции для увеличивания количества лайков и комментариев и получения даты из кастомных хуков
-    const {getCurrentDate} = useDate()
-    //Инициализация состояний для названия поста, его текста, даты, url изображения, поля комментирования, комментария, и всех комментариев
-    const [articleTitle, setArticleTitle] = useState('')
-    const [articleText, setArticleText] = useState('')
-    const [articleDate, setArticleDate] = useState('')
-    const [imageUrl, setImageUrl] = useState('user.png')
-    const [commentField, setCommentField] = useState(null)
-    const commentRef = useRef('')
-    const [comments, setComments] = useState([])
-    const [articleLikes, setArticleLikes] = useState('')
-    const [articleComments, setArticleComments] = useState('')
-    const [like, setLike] = useState(require('./img/like_hollow_white.png'))
-    const [likers, setLikers] = useState([])
-    const [likersDisplay, setLikersDisplay] = useState('block')
-    const [smilesDisplay, setSmilesDisplay] = useState('none')
+  const { verify } = useVerify();
+  useEffect(() => {
+    verify();
+  }, []);
+  //Страница поста пользователя
+  const auth = useContext(AuthContext);
+  //Получение параметров
+  const params = useParams();
+  //Подключение иконки комментария
+  const commentIcon = require("./img/comment_white.png");
+  //Получение функции для увеличивания количества лайков и комментариев и получения даты из кастомных хуков
+  const { getCurrentDate } = useDate();
+  //Инициализация состояний для названия поста, его текста, даты, url изображения, поля комментирования, комментария, и всех комментариев
+  const [articleTitle, setArticleTitle] = useState("");
+  const [articleText, setArticleText] = useState("");
+  const [articleDate, setArticleDate] = useState("");
+  const [imageUrl, setImageUrl] = useState("user.png");
+  const [commentField, setCommentField] = useState(null);
+  const commentRef = useRef("");
+  const [comments, setComments] = useState([]);
+  const [articleLikes, setArticleLikes] = useState("");
+  const [articleComments, setArticleComments] = useState("");
+  const [like, setLike] = useState(require("./img/like_hollow_white.png"));
+  const [likers, setLikers] = useState([]);
+  const [likersDisplay, setLikersDisplay] = useState("block");
+  const [smilesDisplay, setSmilesDisplay] = useState("none");
 
-    useEffect(() => {
-        likers.forEach(el => {
-            if(el._id === auth.userId) {
-                setLike(require('./img/like_cover_white.png'))
-            }
-        })
-    }, [likers, auth])
-    const comm = (e, obj) => {
-        e.stopPropagation()
-        setArticleComments(articleComments + 1)
-        window.location = `/video/${obj.id}/comment`
+  useEffect(() => {
+    likers.forEach((el) => {
+      if (el._id === auth.userId) {
+        setLike(require("./img/like_cover_white.png"));
+      }
+    });
+  }, [likers, auth]);
+  const comm = (e, obj) => {
+    e.stopPropagation();
+    setArticleComments(articleComments + 1);
+    window.location = `/video/${obj.id}/comment`;
+  };
+  const showLikers = async () => {
+    const response = await api.get(`/api/video/${params.id}`);
+    let likersID = [];
+    likersID = response.data.video.likers;
+    let likersArr = [];
+    for (let i = 0; i < likersID.length; i++) {
+      const data = await api.get(`/api/user/${likersID[i]}`);
+      likersArr.push(data.data.user);
     }
-    const showLikers = async () => {
-        const response = await api.get(`/api/video/${params.id}`)
-        let likersID = []
-        likersID = response.data.video.likers
-        let likersArr = []
-        for(let i = 0; i < likersID.length; i++) {
-            const data = await api.get(`/api/user/${likersID[i]}`)
-            likersArr.push(data.data.user)
-        }
-        //Помещение друзей пользователя в состояние
-        setLikers([...likersArr].reverse())
+    //Помещение друзей пользователя в состояние
+    setLikers([...likersArr].reverse());
+  };
+  const obj = {
+    articleTitle,
+    articleDate,
+    imageUrl,
+    articleLikes,
+    articleComments,
+    comments,
+    id: params.id,
+  };
+  const sendComment = async () => {
+    const currentDate = getCurrentDate();
+    await api.post(
+      `/api/commentvideo/${params.id}`,
+      {
+        comment: commentRef.current.value,
+        date: currentDate,
+        articleID: params.id,
+      },
+      { headers: { Authorization: `Bearer ${auth.token}` } }
+    );
+    window.location = `/video/${params.id}`;
+  };
+  const mark = async (e) => {
+    e.stopPropagation();
+    likers.forEach((el) => {
+      if (el._id === auth.userId) {
+        return;
+      }
+    });
+    if (like === require("./img/like_cover_white.png")) {
+      setLike(require("./img/like_hollow_white.png"));
+      await api.post(
+        `/api/likevideo`,
+        { sub: true, id: params.id },
+        { headers: { Authorization: `Bearer ${auth.token}` } }
+      );
+      setArticleLikes(articleLikes - 1);
+    } else {
+      setLike(require("./img/like_cover_white.png"));
+      await api.post(
+        `/api/likevideo`,
+        { id: params.id },
+        { headers: { Authorization: `Bearer ${auth.token}` } }
+      );
+      setArticleLikes(articleLikes + 1);
     }
-    const obj = {articleTitle, articleDate, imageUrl, articleLikes, articleComments, comments, id: params.id}
-    const sendComment = async () => {
-        const currentDate = getCurrentDate()
-        await api.post(`/api/commentvideo/${params.id}`, {
-            comment: commentRef.current.value, 
-            date: currentDate, 
-            articleID: params.id, 
-        }, {headers: 
-            {Authorization: `Bearer ${auth.token}`}
-        })
-        window.location = `/video/${params.id}`
+  };
+  const addSmile = (code) => {
+    commentRef.current.value = commentRef.current.value + code;
+  };
+  const showSmiles = () => {
+    if (smilesDisplay === "none") {
+      setSmilesDisplay("block");
+      setTimeout(() => {
+        setSmilesDisplay("none");
+      }, 10000);
+    } else {
+      setSmilesDisplay("none");
     }
-    const mark = async (e) => {
-        e.stopPropagation()
-        likers.forEach(el => {
-            if(el._id === auth.userId) {
-                return
-            }
-        })
-        if(like === require('./img/like_cover_white.png')) {
-            setLike(require('./img/like_hollow_white.png'))
-            await api.post(`/api/likevideo`, {sub: true, id: params.id}, {headers: 
-                {Authorization: `Bearer ${auth.token}`}
-            })
-            setArticleLikes(articleLikes - 1)
-        } else {
-            setLike(require('./img/like_cover_white.png'))
-            await api.post(`/api/likevideo`, {id: params.id}, {headers: 
-                {Authorization: `Bearer ${auth.token}`}
-            })
-            setArticleLikes(articleLikes + 1)
-        }   
-    } 
-    const addSmile = (code) => {
-        commentRef.current.value = commentRef.current.value + code
-    }
-    const showSmiles = () => {
-        if(smilesDisplay === 'none') {
-            setSmilesDisplay('block')
-            setTimeout(() => {
-                setSmilesDisplay('none')
-            }, 10000)
-        } else {
-            setSmilesDisplay('none')
-        }
-        console.log('sesh')
-    }   
-    useEffect(() => {
-        const getArticle = async () => {
-            const response1 = await api.get(`/api/video/${params.id}`)
-            setArticleTitle(response1.data.video.title)
-            setArticleText(response1.data.video.text)
-            setArticleDate(response1.data.video.date)
-            setArticleLikes(response1.data.video.likes)
-            setArticleComments(response1.data.video.comments)
-            setImageUrl(response1.data.video.imageUrl)
-            const response2 = await api.get(`/api/videocomments/${params.id}`)
-            setComments([...response2.data.comments].reverse())
-        }
-        getArticle()
-        
-        const visitVideo = async () => {
-            await api.get(`/api/visitvideo/${params.id}`, {headers: 
-                {Authorization: `Bearer ${auth.token}`}
-            })
-        }
-        visitVideo()
+    console.log("sesh");
+  };
+  useEffect(() => {
+    const getArticle = async () => {
+      const response1 = await api.get(`/api/video/${params.id}`);
+      setArticleTitle(response1.data.video.title);
+      setArticleText(response1.data.video.text);
+      setArticleDate(response1.data.video.date);
+      setArticleLikes(response1.data.video.likes);
+      setArticleComments(response1.data.video.comments);
+      setImageUrl(response1.data.video.imageUrl);
+      const response2 = await api.get(`/api/videocomments/${params.id}`);
+      setComments([...response2.data.comments].reverse());
+    };
+    getArticle();
 
-        showLikers()
-        const articleComment = () => {
-            setCommentField(
-            <div className="comment-field">
-                <div className="room-smiles" style={{display: smilesDisplay}}>
-                        {smiles.map(el => <Smile key={el.code} el={el} addSmile={addSmile} />)}
-                </div>
-                <h2 className="comment-title">Ваш комментарий...</h2>
-                <textarea className="comment-area" ref={commentRef}></textarea>
-                <img onClick={showSmiles} className="upload-image" src={require(`../messenger/img/smile.png`)} alt='img'/>
-                <button onClick={sendComment} className="send-comment">Отправить</button>
-            </div>)
-        }
-        articleComment()
-    }, [params, auth])
+    const visitVideo = async () => {
+      await api.get(`/api/visitvideo/${params.id}`, {
+        headers: { Authorization: `Bearer ${auth.token}` },
+      });
+    };
+    visitVideo();
 
-    return (
-        <div className="article-post" style={imageUrl === 'user.png' ? {backgroundColor: 'rgb(20, 20, 32)'} : {backgroundColor: 'white'}}>
-            {imageUrl === 'user.png' ? <Loader ml={'0%'} />
-            : <div>
-                <div className="ahead">
-                    <h1 className="atitle">{articleTitle}</h1>
-                    <p className="adate">{articleDate}</p>
-                </div>
-                {imageUrl !== 'none.png' ? <video width="480" height="360" controls style={{borderRadius: '11px'}} src={process.env.REACT_APP_API_URL + '/uservideos/' + imageUrl}>
-                </video> : <></>}
-                
-                <p className="atext">{articleText}</p>
-                <div className="like-div">
-                    <div className="l_and_c_foto">
-                            <p className="foto-likes" onClick={(e) => mark(e)}><img width="30" src={like} alt="like"/>{articleLikes}</p>
-                            <p className="foto-likes" onClick={(e) => comm(e, obj)}><img width="26" src={commentIcon} alt="comment"/>{articleComments}</p>
-                    </div>
-                    <Likers likers={likers} likersDisplay={likersDisplay} />
-                </div>
-                
-                {commentField}
-                {comments.map((el) => <UserVideoComment key={Date.now().toString() - Math.random()} comment={el.comment} date={el.date} user={el.user} id={el._id} articleComments={articleComments} setArticleComments={setArticleComments} comments={comments} setComments={setComments} />)}
-            </div> }
-            
+    showLikers();
+    const articleComment = () => {
+      setCommentField(
+        <div className="comment-field">
+          <div className="room-smiles" style={{ display: smilesDisplay }}>
+            {smiles.map((el) => (
+              <Smile key={el.code} el={el} addSmile={addSmile} />
+            ))}
+          </div>
+          <h2 className="comment-title">Ваш комментарий...</h2>
+          <textarea className="comment-area" ref={commentRef}></textarea>
+          <img
+            onClick={showSmiles}
+            className="upload-image"
+            src={require(`../messenger/img/smile.png`)}
+            alt="img"
+          />
+          <button onClick={sendComment} className="send-comment">
+            Отправить
+          </button>
         </div>
-    )
-}
+      );
+    };
+    articleComment();
+  }, [params, auth]);
 
-export default UserVideoPage
+  return (
+    <div
+      className="article-post"
+      style={
+        imageUrl === "user.png"
+          ? { backgroundColor: "rgb(20, 20, 32)" }
+          : { backgroundColor: "white" }
+      }
+    >
+      {imageUrl === "user.png" ? (
+        <Loader ml={"0%"} />
+      ) : (
+        <div>
+          <div className="ahead">
+            <h1 className="atitle">{articleTitle}</h1>
+            <p className="adate">{articleDate}</p>
+          </div>
+          {imageUrl !== "none.png" ? (
+            <video
+              width="480"
+              height="360"
+              controls
+              style={{ borderRadius: "11px" }}
+              src={process.env.REACT_APP_API_URL + "/uservideos/" + imageUrl}
+            ></video>
+          ) : (
+            <></>
+          )}
+
+          <p className="atext">{articleText}</p>
+          <div className="like-div">
+            <div className="l_and_c_foto">
+              <p className="foto-likes" onClick={(e) => mark(e)}>
+                <img width="30" src={like} alt="like" />
+                {articleLikes}
+              </p>
+              <p className="foto-likes" onClick={(e) => comm(e, obj)}>
+                <img width="26" src={commentIcon} alt="comment" />
+                {articleComments}
+              </p>
+            </div>
+            <Likers likers={likers} likersDisplay={likersDisplay} />
+          </div>
+
+          {commentField}
+          {comments.map((el) => (
+            <UserVideoComment
+              key={Date.now().toString() - Math.random()}
+              comment={el.comment}
+              date={el.date}
+              user={el.user}
+              id={el._id}
+              articleComments={articleComments}
+              setArticleComments={setArticleComments}
+              comments={comments}
+              setComments={setComments}
+            />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default UserVideoPage;
