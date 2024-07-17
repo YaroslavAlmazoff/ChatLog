@@ -76,7 +76,7 @@ export const ESRoomUpdated = () => {
 
   useEffect(() => {
     if (scrollToRef.current) {
-      scrollToRef.current.scrollIntoView({ behavior: "smooth", block: "end" });
+      scrollToRef.current.scrollIntoView({ behavior: "instant", block: "end" });
     }
   }, []);
 
