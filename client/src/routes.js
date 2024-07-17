@@ -99,10 +99,10 @@ export const useRoutes = () => {
       <Route exact path="/user/:id" element={<User />} />
       {/* <Route exact path="/messages/:id" element={<ESRoomUpdated />} /> */}
       {/* <Route exact path="/messages/:id/:link" element={<ESRoom />} /> */}
-      <Route exact path="/messages/:id/:link" element={<Room />} />
-      <Route exact path="/chat/:id" element={<ChatRoom />} />
+      <Route exact path="/messages/:id" element={<Room />} />
+      {/* <Route exact path="/chat/:id" element={<ChatRoom />} />
       <Route exact path="/chat/:id/:link" element={<ChatRoom />} />
-      <Route exact path="/createchat" element={<CreateChat />} />
+      <Route exact path="/createchat" element={<CreateChat />} /> */}
       <Route exact path="/article/:id" element={<UserArticle />} />
       <Route path="/greeting" element={<LandingPageV2 />} />
       <Route path="/support" element={<SupportPage />} />
