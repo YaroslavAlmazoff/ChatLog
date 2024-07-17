@@ -109,6 +109,7 @@ export const ESRoomUpdated = () => {
 
   useEffect(() => {
     const getMessages = async () => {
+      console.log("messages", page);
       !isLast && setLoading(true);
       await api.get(`/api/messages/${page}`, {
         headers: {
