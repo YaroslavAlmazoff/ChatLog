@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
-import { RoomsList } from "./messenger/components/pages/RoomsList";
+import { RoomsList } from "./messenger/c/pages/RoomsList";
 import Register from "./auth/Register";
 import Login from "./auth/Login";
 import Users from "./auth/Users";
@@ -61,7 +61,7 @@ import AdminPanel from "./store/components/pages/AdminPanel";
 import CreateProduct from "./store/components/pages/CreateProduct";
 import UpdateProduct from "./store/components/pages/UpdateProduct";
 import Product from "./store/components/pages/Product";
-import { ESRoom } from "./messenger/components/pages/ESRoom";
+//import { ESRoom } from "./messenger/components/pages/ESRoom";
 import LandingPageV2 from "./landing_page/LandingPageV2";
 import UpdateGame from "./games/components/pages/UpdateGame";
 import NotActivated from "./homepage/NotActivated";
@@ -70,7 +70,8 @@ import Settings from "./Settings";
 import ReturnPassword from "./pages/ReturnPassword";
 import Friends from "./auth/Friends";
 import Subscribes from "./auth/Subscribes";
-import { ESRoomUpdated } from "./messenger/components/pages/ESRoomUpdated";
+import Room from "./messenger/components/pages/Room";
+//import { ESRoomUpdated } from "./messenger/components/pages/ESRoomUpdated";
 
 export const useRoutes = () => {
   //Кастомный хук для маршрутизации
@@ -96,8 +97,9 @@ export const useRoutes = () => {
       <Route exact path="/cloud" element={<FileStorage />} />
       <Route exact path="/users" element={<Users />} />
       <Route exact path="/user/:id" element={<User />} />
-      <Route exact path="/messages/:id" element={<ESRoomUpdated />} />
-      <Route exact path="/messages/:id/:link" element={<ESRoom />} />
+      {/* <Route exact path="/messages/:id" element={<ESRoomUpdated />} /> */}
+      {/* <Route exact path="/messages/:id/:link" element={<ESRoom />} /> */}
+      <Route exact path="/messages/:id/:link" element={<Room />} />
       <Route exact path="/chat/:id" element={<ChatRoom />} />
       <Route exact path="/chat/:id/:link" element={<ChatRoom />} />
       <Route exact path="/createchat" element={<CreateChat />} />
