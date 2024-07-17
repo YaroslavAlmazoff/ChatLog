@@ -61,7 +61,6 @@ export const ESRoomUpdated = () => {
   const [isLast, setIsLast] = useState(false);
 
   const trigger = useRef();
-  const rootRef = useRef();
 
   const openWindow = () => {
     setModal(true);
@@ -75,7 +74,9 @@ export const ESRoomUpdated = () => {
   const [isRecording, setIsRecording] = useState(false);
 
   useEffect(() => {
-    messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
+    if (messagesRef.current) {
+      messagesRef.current.scrollIntoView({ behavior: "smooth" });
+    }
   }, []);
 
   const removeDoubles = () => {
