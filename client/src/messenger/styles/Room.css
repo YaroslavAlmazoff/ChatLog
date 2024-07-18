@@ -22,7 +22,7 @@
 
 .room {
   position: relative;
-  background-color: rgba(0, 0, 0, 0.5);
-  border: 1px solid var(--blue-neon);
+  background-color: rgba(0, 0, 0, 0.25);
+  border: 0.5px solid var(--blue-neon);
   border-radius: 15px;
 }
