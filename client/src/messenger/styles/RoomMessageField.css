@@ -39,7 +39,8 @@
 .message-field-input {
   height: 100%;
   width: 92%;
-  margin: 10px;
+  margin-right: 10px;
   margin-bottom: 0;
   border-bottom: none;
+  border-radius: 15px;
 }
