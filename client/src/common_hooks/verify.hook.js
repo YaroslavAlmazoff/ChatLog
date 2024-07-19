@@ -1,16 +1,17 @@
+import { useContext } from "react";
 import api from "../auth/api/auth";
 import { useAuth } from "./auth.hook";
+import { AuthContext } from "../context/AuthContext";
 
 const useVerify = () => {
-  const { login, logout } = useAuth();
+  const { login } = useAuth();
+  const { token } = useContext(AuthContext);
   const verify = async () => {
     if (JSON.parse(localStorage.getItem("user"))) {
       try {
         const response = await api.get("/api/refresh", {
           headers: {
-            Authorization: `Bearer ${
-              JSON.parse(localStorage.getItem("user")).token
-            }`,
+            Authorization: `Bearer ${token}`,
           },
         });
 
