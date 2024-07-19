@@ -74,7 +74,7 @@ export default function RoomMessageField() {
         <input
           type="text"
           ref={messageFieldRef}
-          className="input message-field-input"
+          className="message-field-input"
         />
         <img
           onClick={handleSend}

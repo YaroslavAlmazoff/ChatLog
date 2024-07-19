@@ -41,10 +41,12 @@
 .message-field-input {
   height: 100%;
   width: 92%;
+  padding: 12px;
+  outline: none;
+  color: white;
   margin-right: 10px;
   margin-bottom: 0;
   border-bottom: none;
   border-radius: 15px;
-  box-shadow: none;
   border: 0.5px solid var(--blue-neon);
 }
