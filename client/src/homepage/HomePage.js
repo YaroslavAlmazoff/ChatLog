@@ -8,6 +8,12 @@ import { useEffect } from "react";
 import useVerify from "../common_hooks/verify.hook";
 
 const HomePage = () => {
+  const { verify } = useVerify();
+
+  useEffect(() => {
+    verify();
+  }, []);
+
   return (
     <div className="homepage">
       <Links />
