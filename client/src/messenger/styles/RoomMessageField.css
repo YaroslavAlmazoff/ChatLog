@@ -33,7 +33,7 @@
 
 .message-field-send {
   height: 30px;
-  margin-top: 5px;
+  margin-top: 8px;
   margin-right: 10px;
   margin-bottom: 0;
 }
@@ -45,4 +45,5 @@
   margin-bottom: 0;
   border-bottom: none;
   border-radius: 15px;
+  box-shadow: none;
 }
