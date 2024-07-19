@@ -1,0 +1,29 @@
+@import url("../colors.css");
+
+.message-selected-files {
+  height: 75px;
+  width: 100%;
+}
+
+.message-field-actions {
+  height: 20px;
+  width: 100%;
+}
+
+.message-field-actions span {
+  color: var(--blue-neon);
+  cursor: pointer;
+  margin: 5px;
+}
+
+.message-field-wrapper {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.message-field-send {
+  height: 100%;
+  margin: 10px;
+}

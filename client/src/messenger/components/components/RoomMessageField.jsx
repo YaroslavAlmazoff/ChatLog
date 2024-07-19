@@ -1,10 +1,11 @@
 import { useRef, useState } from "react";
+import { useParams } from "react-router";
 import sendMessageIcon from "../../img/send-message.png";
 import useAPI from "../../hooks/useAPI";
 import useFile from "../../hooks/useFile";
 import RoomImagePreview from "./RoomImagePreview";
 import RoomVideoPreview from "./RoomImagePreview";
-import { useParams } from "react-router";
+import "../../styles/RoomMessageField.css";
 
 export default function RoomMessageField() {
   const { sendMessage } = useAPI();
@@ -31,23 +32,27 @@ export default function RoomMessageField() {
     setFiles((prev) => ({ ...prev, ...result }));
   };
 
-  const handleOpenImageSelect = (e) => {
+  const handleOpenImageSelect = () => {
     selectImageRef.current.click();
   };
-  const handleOpenVideoSelect = (e) => {
+  const handleOpenVideoSelect = () => {
     selectVideoRef.current.click();
   };
 
   return (
     <div className="message-field-area">
-      <div>
-        {files.imageFiles.map((file) => (
-          <RoomImagePreview url={file.url} />
-        ))}
-        {files.videoFiles.map((file) => (
-          <RoomVideoPreview url={file.url} />
-        ))}
-      </div>
+      {files.imageFiles.length || files.videoFiles.length ? (
+        <div className="message-selected-files">
+          {files.imageFiles.map((file) => (
+            <RoomImagePreview url={file.url} />
+          ))}
+          {files.videoFiles.map((file) => (
+            <RoomVideoPreview url={file.url} />
+          ))}
+        </div>
+      ) : (
+        <></>
+      )}
       <div className="message-field-actions">
         <span onClick={handleOpenImageSelect}>Фотография</span>
         <span onClick={handleOpenVideoSelect}>Видео</span>
@@ -65,9 +70,18 @@ export default function RoomMessageField() {
           accept=".mp4"
         />
       </div>
-      <div>
-        <input type="text" ref={messageFieldRef} />
-        <img onClick={handleSend} src={sendMessageIcon} alt="Отправить" />
+      <div className="message-field-wrapper">
+        <input
+          type="text"
+          ref={messageFieldRef}
+          className="input message-field-input"
+        />
+        <img
+          onClick={handleSend}
+          src={sendMessageIcon}
+          alt="Отправить"
+          className="message-field-send"
+        />
       </div>
     </div>
   );
