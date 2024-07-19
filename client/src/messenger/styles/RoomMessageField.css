@@ -32,8 +32,8 @@
 }
 
 .message-field-send {
-  height: 40px;
-  margin: 10px;
+  height: 100%;
+  margin-right: 10px;
 }
 
 .message-field-input {
