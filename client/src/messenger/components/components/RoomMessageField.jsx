@@ -74,6 +74,7 @@ export default function RoomMessageField() {
         <input
           type="text"
           ref={messageFieldRef}
+          placeholder="Напишите сообщение..."
           className="message-field-input"
         />
         <img
