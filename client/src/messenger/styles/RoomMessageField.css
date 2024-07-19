@@ -24,6 +24,7 @@
 }
 
 .message-field-wrapper {
+  position: static;
   width: 50px;
   display: flex;
   align-items: center;
