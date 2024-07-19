@@ -192,21 +192,23 @@ router.get("/connect/:id/:page", async (req, res) => {
   emitter.on("messages", async (page) => {
     await sendMessages(res, req.params.id, page);
   });
-  emitter.on("newMessage", async (message, req) => {
+  emitter.on("newMessage", async (message) => {
     Message.findOne({
       message: message.message,
       date: message.date,
       room: message.room,
     }).then(async (data) => {
-      if (data) {
-        sendMessages(res, req.params.id, req.params.page);
-      } else {
+      if (!data) {
         const created = await Message.create(message);
         await Room.findByIdAndUpdate(message.room, {
           lastMessageId: created._id,
           lastMessage: created.message,
         });
-        sendMessages(req.params.id, req.params.page);
+        res.write(
+          `data: ${JSON.stringify({
+            messages: [created],
+          })} \n\n`
+        );
       }
     });
   });
@@ -311,7 +313,7 @@ const fileStorage = multer.diskStorage({
 const upload = multer({ storage: fileStorage });
 
 router.post(
-  "/new-messages/:id/:page",
+  "/new-messages/:id",
   auth,
   upload.fields([
     { name: "image", maxCount: 5 },
@@ -374,7 +376,7 @@ router.post(
     } else {
       await File.findByIdAndUpdate(message.fileLink, { public: true });
     }
-    emitter.emit("newMessage", message, req);
+    emitter.emit("newMessage", message);
     res.status(200);
   }
 );
