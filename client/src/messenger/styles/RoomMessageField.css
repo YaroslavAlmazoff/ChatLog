@@ -15,6 +15,9 @@
 .message-field-actions {
   height: 20px;
   width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
 }
 
 .message-field-actions span {
