@@ -73,6 +73,17 @@ export default function RoomMessageField() {
       );
       messageFieldRef.current.style.setProperty("--placeholder-opacity", "1");
       messageFieldRef.current.placeholder = error;
+      setTimeout(() => {
+        messageFieldRef.current.style.setProperty(
+          "--placeholder-color",
+          "white"
+        );
+        messageFieldRef.current.style.setProperty(
+          "--placeholder-opacity",
+          "0.5"
+        );
+        messageFieldRef.current.placeholder = messageFieldPlaceholder;
+      }, 5000);
     } else {
       messageFieldRef.current.style.setProperty("--placeholder-color", "white");
       messageFieldRef.current.style.setProperty("--placeholder-opacity", "0.5");
