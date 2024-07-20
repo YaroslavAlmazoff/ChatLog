@@ -43,10 +43,6 @@ export default function RoomMessageField() {
     selectVideoRef.current.click();
   };
 
-  useEffect(() => {
-    console.log(files);
-  }, [files]);
-
   return (
     <div className="message-field-area">
       <div className="message-field-actions">
@@ -81,7 +77,11 @@ export default function RoomMessageField() {
           className="message-field-send"
         />
       </div>
-      <RoomFilesPreview files={files} filesVisible={filesVisible} />
+      <RoomFilesPreview
+        files={files}
+        setFiles={setFiles}
+        filesVisible={filesVisible}
+      />
     </div>
   );
 }
