@@ -57,8 +57,17 @@ export default function RoomFilesPreview({
       setCanChooseVideo(false);
     } else {
       setError(null);
+      setCanChooseImage(true);
+      setCanChooseVideo(true);
     }
-  }, [files, setError, fileTypes, slicePreviews]);
+  }, [
+    files,
+    setError,
+    fileTypes,
+    slicePreviews,
+    setCanChooseImage,
+    setCanChooseVideo,
+  ]);
 
   return filesVisible ? (
     <div className="message-selected-files">
