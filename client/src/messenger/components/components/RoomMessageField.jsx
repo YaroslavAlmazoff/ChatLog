@@ -22,8 +22,11 @@ export default function RoomMessageField() {
     audioFile: null,
   });
 
+  const [filesVisible, setFilesVisible] = useState(false);
+
   const handleSend = async () => {
     sendMessage(id, messageFieldRef.current.value, files);
+    setFilesVisible(false);
   };
 
   const getFiles = (e, type) => {
@@ -31,6 +34,7 @@ export default function RoomMessageField() {
     const result =
       type === fileTypes.images ? { imageFiles: files } : { videoFiles: files };
     setFiles((prev) => ({ ...prev, ...result }));
+    setFilesVisible(true);
   };
 
   const handleOpenImageSelect = () => {
@@ -46,7 +50,7 @@ export default function RoomMessageField() {
 
   return (
     <div className="message-field-area">
-      {files.imageFiles.length || files.videoFiles.length ? (
+      {filesVisible ? (
         <div className="message-selected-files">
           {files.imageFiles.map((file) => (
             <RoomImagePreview url={file.url} />
