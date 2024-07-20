@@ -43,6 +43,7 @@
   height: 30px;
   margin-right: 11px;
   margin-bottom: 0;
+  cursor: pointer;
 }
 
 .message-field-input {

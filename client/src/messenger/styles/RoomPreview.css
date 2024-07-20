@@ -1,6 +1,7 @@
 @import url("../colors.css");
 
 .room-preview {
+  position: relative;
   height: 8vh;
   margin: 5px;
   border: 0.5px solid var(--blue-neon);
