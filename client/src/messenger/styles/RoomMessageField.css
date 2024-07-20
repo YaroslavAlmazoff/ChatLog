@@ -30,6 +30,10 @@
   font-size: 11pt;
 }
 
+.message-field-smile {
+  height: 15px;
+}
+
 .message-field-wrapper {
   width: 100%;
   position: static;
