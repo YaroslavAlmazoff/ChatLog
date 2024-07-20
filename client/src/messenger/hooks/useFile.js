@@ -5,18 +5,27 @@ export default function useFile() {
   };
 
   const readFile = (event) => {
-    const resultFiles = [];
-    Array.from(event.target.files).forEach((file, index) => {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        resultFiles.push({
-          file: event.target.files[index],
-          url: e.target.result,
-        });
-      };
-      reader.readAsDataURL(file);
+    return new Promise((resolve) => {
+      const resultFiles = [];
+      const files = Array.from(event.target.files);
+      let filesRead = 0;
+
+      files.forEach((file, index) => {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          resultFiles.push({
+            file: file,
+            url: e.target.result,
+          });
+
+          filesRead += 1;
+          if (filesRead === files.length) {
+            resolve(resultFiles);
+          }
+        };
+        reader.readAsDataURL(file);
+      });
     });
-    return resultFiles;
   };
 
   return { readFile, fileTypes };
