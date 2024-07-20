@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import { useParams } from "react-router";
 import sendMessageIcon from "../../img/send-message.png";
+import smile from "../../img/smile.png";
 import useAPI from "../../hooks/useAPI";
 import useFile from "../../hooks/useFile";
 import RoomImagePreview from "./RoomImagePreview";
@@ -57,6 +58,7 @@ export default function RoomMessageField() {
         <span onClick={handleOpenImageSelect}>Фотография</span>
         <span onClick={handleOpenVideoSelect}>Видео</span>
         <span>Голосовое сообщение</span>
+        <img src={smile} alt="Эмодзи" className="message-field-smile" />
         <input
           onChange={(e) => getFiles(e, fileTypes.images)}
           ref={selectImageRef}
