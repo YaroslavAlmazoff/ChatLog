@@ -10,7 +10,7 @@ export default function useFile() {
       const reader = new FileReader();
       reader.onload = (e) => {
         resultFiles.push({
-          file: event.target.file[index],
+          file: event.target.files[index],
           url: e.target.result,
         });
       };
