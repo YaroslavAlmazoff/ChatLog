@@ -31,7 +31,8 @@
 }
 
 .message-field-smile {
-  height: 15px;
+  height: 10px;
+  cursor: pointer;
 }
 
 .message-field-wrapper {
