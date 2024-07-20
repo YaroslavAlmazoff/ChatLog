@@ -4,13 +4,14 @@ export default function useFile() {
     videos: "videos",
   };
 
-  const readFiles = (event) => {
+  const readFiles = (event, limit) => {
     return new Promise((resolve) => {
       const resultFiles = [];
       const files = Array.from(event.target.files);
+      const filesToRead = Math.min(files.length, limit - resultFiles.length);
       let filesRead = 0;
 
-      files.forEach((file) => {
+      files.slice(0, filesToRead).forEach((file) => {
         const reader = new FileReader();
         reader.onload = (e) => {
           resultFiles.push({
@@ -20,7 +21,7 @@ export default function useFile() {
 
           filesRead += 1;
           if (filesRead === files.length) {
-            resolve(resultFiles);
+            resolve({ files: resultFiles, error: files.length > filesToRead });
           }
         };
         reader.readAsDataURL(file);

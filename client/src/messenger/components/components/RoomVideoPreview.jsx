@@ -6,7 +6,6 @@ export default function RoomImagePreview({ url, deletePreview }) {
   return (
     <div className="room-preview-wrapper">
       <video
-        controls
         autoPlay
         loop
         src={url}

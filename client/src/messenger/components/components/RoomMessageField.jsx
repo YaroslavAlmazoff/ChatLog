@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router";
 import sendMessageIcon from "../../img/send-message.png";
 import smile from "../../img/smile.png";
@@ -6,6 +6,11 @@ import useAPI from "../../hooks/useAPI";
 import useFile from "../../hooks/useFile";
 import "../../styles/RoomMessageField.css";
 import RoomFilesPreview from "./RoomFilesPreview";
+import { errors } from "../../data/errors";
+
+const imagesLimit = 6;
+const videosLimit = 2;
+const messageFieldPlaceholder = "Напишите сообщение...";
 
 export default function RoomMessageField() {
   const { sendMessage } = useAPI();
@@ -22,6 +27,7 @@ export default function RoomMessageField() {
   });
 
   const [filesVisible, setFilesVisible] = useState(false);
+  const [error, setError] = useState(null);
 
   const handleSend = async () => {
     sendMessage(id, messageFieldRef.current.value, files);
@@ -29,11 +35,21 @@ export default function RoomMessageField() {
   };
 
   const getFiles = async (e, type) => {
-    const files = await readFiles(e);
+    const isImages = type === fileTypes.images;
+
+    const { files, error } = await readFiles(e, isImages ? 6 : 2);
+
+    if (error) {
+      setError(
+        isImages
+          ? errors.imagesCount(imagesLimit)
+          : errors.videosCount(videosLimit)
+      );
+    }
 
     setFiles((prev) => ({
       ...prev,
-      ...(type === fileTypes.images
+      ...(isImages
         ? { imageFiles: [...prev.imageFiles, ...files] }
         : { videoFiles: [...prev.videoFiles, ...files] }),
     }));
@@ -46,6 +62,19 @@ export default function RoomMessageField() {
   const handleOpenVideoSelect = () => {
     selectVideoRef.current.click();
   };
+
+  useEffect(() => {
+    if (error) {
+      messageFieldRef.current.style.setProperty(
+        "--placeholder-color",
+        "#ff073a"
+      );
+      messageFieldRef.current.placeholder = error;
+    } else {
+      messageFieldRef.current.style.setProperty("--placeholder-color", "grey");
+      messageFieldRef.current.placeholder = messageFieldPlaceholder;
+    }
+  }, [error]);
 
   return (
     <div className="message-field-area">
@@ -71,7 +100,7 @@ export default function RoomMessageField() {
         <input
           type="text"
           ref={messageFieldRef}
-          placeholder="Напишите сообщение..."
+          placeholder={messageFieldPlaceholder}
           className="message-field-input"
         />
         <img

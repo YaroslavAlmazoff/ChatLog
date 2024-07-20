@@ -1,6 +1,7 @@
 import RoomImagePreview from "./RoomImagePreview";
 import RoomVideoPreview from "./RoomVideoPreview";
 import "../../styles/RoomPreview.css";
+import { useEffect } from "react";
 
 export default function RoomFilesPreview({ files, setFiles, filesVisible }) {
   const filterPreviews = (filterable, url) =>
@@ -14,6 +15,9 @@ export default function RoomFilesPreview({ files, setFiles, filesVisible }) {
         : { videoFiles: filterPreviews(prev.videoFiles, url) }),
     }));
   };
+
+  useEffect(() => {}, [files]);
+
   return filesVisible ? (
     <div className="message-selected-files">
       {files.imageFiles.map((file) => (
