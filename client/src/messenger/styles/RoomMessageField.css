@@ -67,12 +67,12 @@
 
 @keyframes glow {
   0% {
-    box-shadow: 0 0 7px #40a4ff;
+    box-shadow: 7px -7px 7px var(--blue-neon);
   }
   50% {
-    box-shadow: 0 0 16px #40a4ff;
+    box-shadow: 7px -7px 16px var(--blue-neon);
   }
   100% {
-    box-shadow: 0 0 8px #40a4ff;
+    box-shadow: 7px -7px 8px var(--blue-neon);
   }
 }
