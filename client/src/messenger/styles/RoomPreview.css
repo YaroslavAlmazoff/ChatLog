@@ -1,7 +1,7 @@
 @import url("../colors.css");
 
 .room-preview {
-  height: 3vh;
+  height: 7vh;
   margin: 5px;
   border: 0.5px dashed var(--blue-neon);
   border-radius: 20px;
@@ -9,7 +9,7 @@
 
 .message-selected-files {
   position: absolute;
-  bottom: -7vh;
+  bottom: -10vh;
   right: 0;
   left: 0;
   display: flex;
