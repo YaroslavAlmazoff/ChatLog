@@ -23,6 +23,7 @@
 .message-field-actions span {
   color: var(--blue-neon);
   cursor: pointer;
+  color: white;
   margin-left: 2px;
   margin-right: 8px;
   font-weight: 100;
