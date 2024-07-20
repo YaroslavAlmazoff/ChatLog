@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import useFile from "./useFile";
-import { errors } from "../../data/errors";
-import { limits } from "../../data/messengerConfiguration";
+import { errors } from "../data/errors";
+import { limits } from "../data/messengerConfiguration";
 
 const initialState = {
   imageFiles: [],
