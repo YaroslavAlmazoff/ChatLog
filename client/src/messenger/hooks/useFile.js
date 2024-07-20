@@ -20,12 +20,15 @@ export default function useFile() {
           });
 
           filesRead += 1;
-          if (filesRead === files.length) {
+          if (filesRead === filesToRead) {
             resolve({ files: resultFiles, error: files.length > filesToRead });
           }
         };
         reader.readAsDataURL(file);
       });
+      if (filesToRead === 0) {
+        resolve(resultFiles);
+      }
     });
   };
 
