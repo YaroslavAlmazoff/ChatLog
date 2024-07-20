@@ -4,9 +4,8 @@ import sendMessageIcon from "../../img/send-message.png";
 import smile from "../../img/smile.png";
 import useAPI from "../../hooks/useAPI";
 import useFile from "../../hooks/useFile";
-import RoomImagePreview from "./RoomImagePreview";
-import RoomVideoPreview from "./RoomImagePreview";
 import "../../styles/RoomMessageField.css";
+import RoomFilesPreview from "./RoomFilesPreview";
 
 export default function RoomMessageField() {
   const { sendMessage } = useAPI();
@@ -50,18 +49,6 @@ export default function RoomMessageField() {
 
   return (
     <div className="message-field-area">
-      {filesVisible ? (
-        <div className="message-selected-files">
-          {files.imageFiles.map((file) => (
-            <RoomImagePreview url={file.url} />
-          ))}
-          {files.videoFiles.map((file) => (
-            <RoomVideoPreview url={file.url} />
-          ))}
-        </div>
-      ) : (
-        <></>
-      )}
       <div className="message-field-actions">
         <span onClick={handleOpenImageSelect}>Фотография</span>
         <span onClick={handleOpenVideoSelect}>Видео</span>
@@ -94,6 +81,7 @@ export default function RoomMessageField() {
           className="message-field-send"
         />
       </div>
+      <RoomFilesPreview files={files} filesVisible={filesVisible} />
     </div>
   );
 }
