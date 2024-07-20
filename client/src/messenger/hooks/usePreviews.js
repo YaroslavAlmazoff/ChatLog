@@ -80,15 +80,19 @@ export default function usePreviews(
     }
   }, [error, messageFieldRef]);
 
-  useEffect(() => {
-    const slicePreviews = (type) => {
+  const slicePreviews = useCallback(
+    (type) => {
       setFiles((prev) => ({
         ...prev,
         ...(type === fileTypes.images
           ? { imageFiles: prev.imageFiles.slice(0, limits.images) }
           : { videoFiles: prev.videoFiles.slice(0, limits.videos) }),
       }));
-    };
+    },
+    [fileTypes, setFiles]
+  );
+
+  useEffect(() => {
     if (files.imageFiles.length > limits.images) {
       setError(errors.imagesCount);
       slicePreviews(fileTypes.images);
@@ -110,6 +114,7 @@ export default function usePreviews(
     setCanChooseImage,
     setCanChooseVideo,
     clearPreviews,
+    slicePreviews,
   ]);
 
   return {
