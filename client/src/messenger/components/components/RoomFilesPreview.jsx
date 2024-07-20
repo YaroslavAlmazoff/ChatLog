@@ -11,6 +11,8 @@ export default function RoomFilesPreview({
   setFiles,
   setError,
   filesVisible,
+  setCanChooseImage,
+  setCanChooseVideo,
 }) {
   const { fileTypes } = useFile();
   const filterPreviews = (filterable, url) =>
@@ -46,9 +48,13 @@ export default function RoomFilesPreview({
     if (files.imageFiles.length > limits.images) {
       setError(errors.imagesCount);
       slicePreviews(fileTypes.images);
+    } else if (files.imageFiles.length === limits.images) {
+      setCanChooseImage(false);
     } else if (files.videoFiles.length > limits.videos) {
       setError(errors.videosCount);
       slicePreviews(fileTypes.videos);
+    } else if (files.videoFiles.length === limits.videos) {
+      setCanChooseVideo(false);
     } else {
       setError(null);
     }

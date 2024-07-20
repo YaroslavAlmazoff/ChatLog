@@ -15,6 +15,7 @@ export default function RoomMessageField() {
   const { sendMessage } = useAPI();
   const { readFiles, fileTypes } = useFile();
   const { id } = useParams();
+
   const messageFieldRef = useRef();
   const selectImageRef = useRef();
   const selectVideoRef = useRef();
@@ -28,6 +29,8 @@ export default function RoomMessageField() {
   const [files, setFiles] = useState(initialState);
 
   const [filesVisible, setFilesVisible] = useState(false);
+  const [canChooseImage, setCanChooseImage] = useState(true);
+  const [canChooseVideo, setCanChooseVideo] = useState(true);
   const [error, setError] = useState(null);
 
   const handleSend = async () => {
@@ -80,8 +83,10 @@ export default function RoomMessageField() {
   return (
     <div className="message-field-area">
       <div className="message-field-actions">
-        <span onClick={handleOpenImageSelect}>Фотография</span>
-        <span onClick={handleOpenVideoSelect}>Видео</span>
+        {canChooseImage && (
+          <span onClick={handleOpenImageSelect}>Фотография</span>
+        )}
+        {canChooseVideo && <span onClick={handleOpenVideoSelect}>Видео</span>}
         <span>Голосовое сообщение</span>
         <img src={smile} alt="Эмодзи" className="message-field-smile" />
         <input
@@ -118,6 +123,8 @@ export default function RoomMessageField() {
         setFiles={setFiles}
         setError={setError}
         filesVisible={filesVisible}
+        setCanChooseImage={setCanChooseImage}
+        setCanChooseVideo={setCanChooseVideo}
       />
     </div>
   );
