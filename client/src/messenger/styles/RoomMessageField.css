@@ -70,15 +70,3 @@
 .message-field-input:focus {
   box-shadow: 0px -4px 15px var(--blue-neon), 4px 0px 15px var(--blue-neon);
 }
-
-@keyframes glowing {
-  0% {
-    box-shadow: 0 0 5px var(--blue-neon), 0 0 10px var(--blue-neon);
-  }
-  50% {
-    box-shadow: 0 0 15px var(--blue-neon), 0 0 20px var(--blue-neon);
-  }
-  100% {
-    box-shadow: 0 0 5px var(--blue-neon), 0 0 10px var(--blue-neon);
-  }
-}
