@@ -4,13 +4,13 @@ export default function useFile() {
     videos: "videos",
   };
 
-  const readFile = (event) => {
+  const readFiles = (event) => {
     return new Promise((resolve) => {
       const resultFiles = [];
       const files = Array.from(event.target.files);
       let filesRead = 0;
 
-      files.forEach((file, index) => {
+      files.forEach((file) => {
         const reader = new FileReader();
         reader.onload = (e) => {
           resultFiles.push({
@@ -28,5 +28,5 @@ export default function useFile() {
     });
   };
 
-  return { readFile, fileTypes };
+  return { readFiles, fileTypes };
 }

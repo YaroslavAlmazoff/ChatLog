@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useParams } from "react-router";
 import sendMessageIcon from "../../img/send-message.png";
 import smile from "../../img/smile.png";
@@ -9,7 +9,7 @@ import RoomFilesPreview from "./RoomFilesPreview";
 
 export default function RoomMessageField() {
   const { sendMessage } = useAPI();
-  const { readFile, fileTypes } = useFile();
+  const { readFiles, fileTypes } = useFile();
   const { id } = useParams();
   const messageFieldRef = useRef();
   const selectImageRef = useRef();
@@ -29,10 +29,14 @@ export default function RoomMessageField() {
   };
 
   const getFiles = async (e, type) => {
-    const files = await readFile(e);
-    const result =
-      type === fileTypes.images ? { imageFiles: files } : { videoFiles: files };
-    setFiles((prev) => ({ ...prev, ...result }));
+    const files = await readFiles(e);
+
+    setFiles((prev) => ({
+      ...prev,
+      ...(type === fileTypes.images
+        ? { imageFiles: [...prev.imageFiles, ...files] }
+        : { videoFiles: [...prev.videoFiles, ...files] }),
+    }));
     setFilesVisible(true);
   };
 
