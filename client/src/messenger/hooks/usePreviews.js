@@ -3,25 +3,23 @@ import useFile from "./useFile";
 import { errors } from "../data/errors";
 import { limits } from "../data/messengerConfiguration";
 
-const initialState = {
-  imageFiles: [],
-  videoFiles: [],
-  audioFile: null,
-};
 const placeholderText = "Напишите сообщение...";
 const placeholderColor = "--placeholder-color";
 const placeholderOpacity = "--placeholder-opacity";
 
-export default function usePreviews() {
+export default function usePreviews(
+  files,
+  setFiles,
+  initialState,
+  setCanChooseImage,
+  setCanChooseVideo
+) {
   const { readFiles, fileTypes } = useFile();
 
   const messageFieldRef = useRef();
 
-  const [files, setFiles] = useState(initialState);
   const [error, setError] = useState(null);
   const [filesVisible, setFilesVisible] = useState(false);
-  const [canChooseImage, setCanChooseImage] = useState(true);
-  const [canChooseVideo, setCanChooseVideo] = useState(true);
 
   const filterPreviews = (filterable, url) =>
     [...filterable].filter((item) => item.url !== url);
@@ -59,7 +57,7 @@ export default function usePreviews() {
     setCanChooseImage(true);
     setCanChooseVideo(true);
     setError(null);
-  }, []);
+  }, [setFiles, initialState, setCanChooseImage, setCanChooseVideo]);
 
   useEffect(() => {
     const changePlaceholder = (color, opacity, text) => {
@@ -102,6 +100,7 @@ export default function usePreviews() {
   }, [
     files,
     setError,
+    setFiles,
     fileTypes,
     setCanChooseImage,
     setCanChooseVideo,
@@ -109,10 +108,7 @@ export default function usePreviews() {
   ]);
 
   return {
-    files,
     messageFieldRef,
-    canChooseImage,
-    canChooseVideo,
     filesVisible,
     messageFieldPlaceholder: placeholderText,
     getFiles,

@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useState, useRef } from "react";
 import { useParams } from "react-router";
 import sendMessageIcon from "../../img/send-message.png";
 import smile from "../../img/smile.png";
@@ -8,6 +8,12 @@ import "../../styles/RoomMessageField.css";
 import RoomFilesPreview from "./RoomFilesPreview";
 import usePreviews from "../../hooks/usePreviews";
 
+const initialState = {
+  imageFiles: [],
+  videoFiles: [],
+  audioFile: null,
+};
+
 export default function RoomMessageField() {
   const { sendMessage } = useAPI();
   const { fileTypes } = useFile();
@@ -16,23 +22,29 @@ export default function RoomMessageField() {
   const selectImageRef = useRef();
   const selectVideoRef = useRef();
 
+  const [files, setFiles] = useState(initialState);
+  const [canChooseImage, setCanChooseImage] = useState(true);
+  const [canChooseVideo, setCanChooseVideo] = useState(true);
+
   const {
-    files,
     messageFieldRef,
-    canChooseImage,
-    canChooseVideo,
     filesVisible,
     messageFieldPlaceholder,
     getFiles,
     deletePreview,
     clearPreviews,
-  } = usePreviews();
+  } = usePreviews(
+    files,
+    setFiles,
+    initialState,
+    setCanChooseImage,
+    setCanChooseVideo
+  );
 
   const handleSend = async () => {
     sendMessage(id, messageFieldRef.current.value, files);
     clearPreviews();
   };
-
   const handleOpenImageSelect = () => {
     selectImageRef.current.click();
   };
