@@ -29,8 +29,8 @@ export default function RoomMessageField() {
     setFilesVisible(false);
   };
 
-  const getFiles = (e, type) => {
-    const files = readFile(e);
+  const getFiles = async (e, type) => {
+    const files = await readFile(e);
     const result =
       type === fileTypes.images ? { imageFiles: files } : { videoFiles: files };
     setFiles((prev) => ({ ...prev, ...result }));
