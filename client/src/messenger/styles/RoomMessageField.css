@@ -23,7 +23,8 @@
 .message-field-actions span {
   color: var(--blue-neon);
   cursor: pointer;
-  margin-left: 10px;
+  margin-left: 2px;
+  margin-right: 8px;
 }
 
 .message-field-wrapper {
