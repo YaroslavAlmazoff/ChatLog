@@ -99,7 +99,7 @@ export default function RoomMessageField() {
     } else if (files.videoFiles.length === limits.videos) {
       setCanChooseVideo(false);
     } else {
-      clearPreviews();
+      //clearPreviews();
     }
   }, [files, fileTypes, clearPreviews, slicePreviews]);
 
