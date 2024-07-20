@@ -41,10 +41,11 @@ export default function RoomFilesPreview({
     if (files.imageFiles.length > limits.images) {
       setError(errors.imagesCount);
       slicePreviews(fileTypes.images);
-    }
-    if (files.videoFiles.length > limits.videos) {
+    } else if (files.videoFiles.length > limits.videos) {
       setError(errors.videosCount);
       slicePreviews(fileTypes.videos);
+    } else {
+      setError(null);
     }
   }, [files, setError, fileTypes, slicePreviews]);
 
