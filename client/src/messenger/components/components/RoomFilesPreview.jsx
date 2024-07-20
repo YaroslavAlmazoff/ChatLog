@@ -38,6 +38,11 @@ export default function RoomFilesPreview({
   );
 
   useEffect(() => {
+    console.log(
+      files.imageFiles.length,
+      limits.images,
+      files.imageFiles.length > limits.images
+    );
     if (files.imageFiles.length > limits.images) {
       setError(errors.imagesCount);
       slicePreviews(fileTypes.images);
