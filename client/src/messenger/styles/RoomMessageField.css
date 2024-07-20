@@ -25,6 +25,8 @@
   cursor: pointer;
   margin-left: 2px;
   margin-right: 8px;
+  font-weight: 100;
+  font-size: 11pt;
 }
 
 .message-field-wrapper {
