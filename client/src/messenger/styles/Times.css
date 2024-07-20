@@ -3,8 +3,13 @@
   color: white;
   border-radius: 50%;
   background-color: rgb(0, 0, 0, 0.5);
+  width: 15px;
+  height: 15px;
   top: 5px;
   right: 10px;
-  padding: 5px 5px 5px 5px;
+  padding: 0;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
