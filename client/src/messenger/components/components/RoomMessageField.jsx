@@ -37,23 +37,23 @@ export default function RoomMessageField() {
   const getFiles = async (e, type) => {
     const isImages = type === fileTypes.images;
 
-    const { files, error } = await readFiles(e, isImages ? 6 : 2);
-
-    if (error) {
+    const result = await readFiles(e, isImages ? 6 : 2);
+    console.log(result.files, result.error);
+    if (result.error) {
       setError(
         isImages
           ? errors.imagesCount(imagesLimit)
           : errors.videosCount(videosLimit)
       );
+    } else {
+      setFiles((prev) => ({
+        ...prev,
+        ...(isImages
+          ? { imageFiles: [...prev.imageFiles, ...result.files] }
+          : { videoFiles: [...prev.videoFiles, ...result.files] }),
+      }));
+      setFilesVisible(true);
     }
-
-    setFiles((prev) => ({
-      ...prev,
-      ...(isImages
-        ? { imageFiles: [...prev.imageFiles, ...files] }
-        : { videoFiles: [...prev.videoFiles, ...files] }),
-    }));
-    setFilesVisible(true);
   };
 
   const handleOpenImageSelect = () => {
