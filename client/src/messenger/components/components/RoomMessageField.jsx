@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { useParams } from "react-router";
 import sendMessageIcon from "../../img/send-message.png";
 import smile from "../../img/smile.png";
@@ -6,17 +6,21 @@ import useAPI from "../../hooks/useAPI";
 import useFile from "../../hooks/useFile";
 import "../../styles/RoomMessageField.css";
 import RoomFilesPreview from "./RoomFilesPreview";
-import usePreviews from "../../hooks/usePreviews";
+import { errors } from "../../data/errors";
+import { limits } from "../../data/messengerConfiguration";
 
 const initialState = {
   imageFiles: [],
   videoFiles: [],
   audioFile: null,
 };
+const placeholderText = "Напишите сообщение...";
+const placeholderColor = "--placeholder-color";
+const placeholderOpacity = "--placeholder-opacity";
 
 export default function RoomMessageField() {
   const { sendMessage } = useAPI();
-  const { fileTypes } = useFile();
+  const { readFiles, fileTypes } = useFile();
   const { id } = useParams();
 
   const messageFieldRef = useRef();
@@ -27,17 +31,89 @@ export default function RoomMessageField() {
   const [canChooseImage, setCanChooseImage] = useState(true);
   const [canChooseVideo, setCanChooseVideo] = useState(true);
   const [filesVisible, setFilesVisible] = useState(false);
+  const [error, setError] = useState(null);
 
-  const { messageFieldPlaceholder, getFiles, deletePreview, clearPreviews } =
-    usePreviews(
-      files,
-      setFiles,
-      initialState,
-      messageFieldRef,
-      setCanChooseImage,
-      setCanChooseVideo,
-      setFilesVisible
-    );
+  const getFiles = async (e, type) => {
+    if (!e.target.files[0]) return;
+    const isImages = type === fileTypes.images;
+    const result = await readFiles(e, isImages ? limits.images : limits.videos);
+    console.log(result.files, result.error);
+    if (result.error) {
+      setError(isImages ? errors.imagesCount : errors.videosCount);
+    } else {
+      setFiles((prev) => ({
+        ...prev,
+        ...(isImages
+          ? { imageFiles: [...prev.imageFiles, ...result.files] }
+          : { videoFiles: [...prev.videoFiles, ...result.files] }),
+      }));
+      setFilesVisible(true);
+    }
+  };
+
+  useEffect(() => {
+    const changePlaceholder = (color, opacity, text) => {
+      messageFieldRef.current.style.setProperty(placeholderColor, color);
+      messageFieldRef.current.style.setProperty(placeholderOpacity, opacity);
+      messageFieldRef.current.placeholder = text;
+    };
+    if (error) {
+      changePlaceholder("#ff073a", 1, error);
+      setTimeout(() => {
+        changePlaceholder("#fff", 0.5, placeholderText);
+      }, 5000);
+    } else {
+      changePlaceholder("#fff", 0.5, placeholderText);
+    }
+  }, [error]);
+
+  const slicePreviews = useCallback(
+    (type) => {
+      setFiles((prev) => ({
+        ...prev,
+        ...(type === fileTypes.images
+          ? { imageFiles: prev.imageFiles.slice(0, limits.images) }
+          : { videoFiles: prev.videoFiles.slice(0, limits.videos) }),
+      }));
+    },
+    [fileTypes]
+  );
+
+  const clearPreviews = useCallback(() => {
+    setFiles(initialState);
+    setFilesVisible(false);
+    setCanChooseImage(true);
+    setCanChooseVideo(true);
+    setError(null);
+  }, []);
+
+  useEffect(() => {
+    if (files.imageFiles.length > limits.images) {
+      setError(errors.imagesCount);
+      slicePreviews(fileTypes.images);
+    } else if (files.imageFiles.length === limits.images) {
+      setCanChooseImage(false);
+    } else if (files.videoFiles.length > limits.videos) {
+      setError(errors.videosCount);
+      slicePreviews(fileTypes.videos);
+    } else if (files.videoFiles.length === limits.videos) {
+      setCanChooseVideo(false);
+    } else {
+      clearPreviews();
+    }
+  }, [files, fileTypes, clearPreviews, slicePreviews]);
+
+  const filterPreviews = (filterable, url) =>
+    [...filterable].filter((item) => item.url !== url);
+
+  const deletePreview = (url) => {
+    setFiles((prev) => ({
+      ...prev,
+      ...(url.includes("image")
+        ? { imageFiles: filterPreviews(prev.imageFiles, url) }
+        : { videoFiles: filterPreviews(prev.videoFiles, url) }),
+    }));
+  };
 
   const handleSend = async () => {
     sendMessage(id, messageFieldRef.current.value, files);
@@ -80,7 +156,7 @@ export default function RoomMessageField() {
         <input
           type="text"
           ref={messageFieldRef}
-          placeholder={messageFieldPlaceholder}
+          placeholder={placeholderText}
           className="message-field-input"
         />
         <img
