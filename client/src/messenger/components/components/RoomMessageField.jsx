@@ -7,9 +7,8 @@ import useFile from "../../hooks/useFile";
 import "../../styles/RoomMessageField.css";
 import RoomFilesPreview from "./RoomFilesPreview";
 import { errors } from "../../data/errors";
+import { limits } from "../../data/messengerConfiguration";
 
-const imagesLimit = 6;
-const videosLimit = 2;
 const messageFieldPlaceholder = "Напишите сообщение...";
 
 export default function RoomMessageField() {
@@ -37,14 +36,10 @@ export default function RoomMessageField() {
   const getFiles = async (e, type) => {
     const isImages = type === fileTypes.images;
 
-    const result = await readFiles(e, isImages ? 6 : 2);
+    const result = await readFiles(e, isImages ? limits.images : limits.videos);
     console.log(result.files, result.error);
     if (result.error) {
-      setError(
-        isImages
-          ? errors.imagesCount(imagesLimit)
-          : errors.videosCount(videosLimit)
-      );
+      setError(isImages ? errors.imagesCount : errors.videosCount);
     } else {
       setFiles((prev) => ({
         ...prev,
@@ -115,6 +110,7 @@ export default function RoomMessageField() {
       <RoomFilesPreview
         files={files}
         setFiles={setFiles}
+        setError={setError}
         filesVisible={filesVisible}
       />
     </div>
