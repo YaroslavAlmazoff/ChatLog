@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router";
 import sendMessageIcon from "../../img/send-message.png";
 import smile from "../../img/smile.png";
@@ -39,6 +39,10 @@ export default function RoomMessageField() {
   const handleOpenVideoSelect = () => {
     selectVideoRef.current.click();
   };
+
+  useEffect(() => {
+    console.log(files);
+  }, [files]);
 
   return (
     <div className="message-field-area">
