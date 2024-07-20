@@ -6,7 +6,7 @@ export default function useFile() {
 
   const readFile = (event) => {
     const resultFiles = [];
-    event.target.files.forEach((file, index) => {
+    Array.from(event.target.files).forEach((file, index) => {
       const reader = new FileReader();
       reader.onload = (e) => {
         resultFiles.push({
