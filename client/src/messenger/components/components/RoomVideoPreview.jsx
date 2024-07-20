@@ -7,7 +7,8 @@ export default function RoomImagePreview({ url, deletePreview }) {
     <div className="room-preview-wrapper">
       <video
         controls
-        width="200"
+        autoPlay
+        loop
         src={url}
         onLoadedData={handleLoaded}
         className="room-preview"
