@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import useFile from "./useFile";
 import { errors } from "../data/errors";
 import { limits } from "../data/messengerConfiguration";
@@ -12,8 +12,10 @@ const placeholderText = "Напишите сообщение...";
 const placeholderColor = "--placeholder-color";
 const placeholderOpacity = "--placeholder-opacity";
 
-export default function usePreviews(messageFieldRef) {
+export default function usePreviews() {
   const { readFiles, fileTypes } = useFile();
+
+  const messageFieldRef = useRef();
 
   const [files, setFiles] = useState(initialState);
   const [error, setError] = useState(null);
@@ -34,6 +36,7 @@ export default function usePreviews(messageFieldRef) {
   };
 
   const getFiles = async (e, type) => {
+    if (!e.target.files[0]) return;
     const isImages = type === fileTypes.images;
     const result = await readFiles(e, isImages ? limits.images : limits.videos);
     console.log(result.files, result.error);
@@ -107,6 +110,7 @@ export default function usePreviews(messageFieldRef) {
 
   return {
     files,
+    messageFieldRef,
     canChooseImage,
     canChooseVideo,
     filesVisible,
