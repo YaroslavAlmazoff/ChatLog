@@ -62,8 +62,12 @@
   transition: box-shadow 0.3s ease;
 }
 
+.message-field-input::placeholder {
+  opacity: var(--placeholder-opacity, 0.5);
+  color: var(--placeholder-color, white);
+}
+
 .message-field-input:focus {
-  /* animation: glowing 2s infinite; */
   box-shadow: 0px -4px 15px var(--blue-neon), 4px 0px 15px var(--blue-neon);
 }
 

@@ -19,18 +19,22 @@ export default function RoomMessageField() {
   const selectImageRef = useRef();
   const selectVideoRef = useRef();
 
-  const [files, setFiles] = useState({
+  const initialState = {
     imageFiles: [],
     videoFiles: [],
     audioFile: null,
-  });
+  };
+
+  const [files, setFiles] = useState(initialState);
 
   const [filesVisible, setFilesVisible] = useState(false);
   const [error, setError] = useState(null);
 
   const handleSend = async () => {
     sendMessage(id, messageFieldRef.current.value, files);
+    setFiles(initialState);
     setFilesVisible(false);
+    setError(null);
   };
 
   const getFiles = async (e, type) => {
@@ -64,9 +68,11 @@ export default function RoomMessageField() {
         "--placeholder-color",
         "#ff073a"
       );
+      messageFieldRef.current.style.setProperty("--placeholder-opacity", "1");
       messageFieldRef.current.placeholder = error;
     } else {
-      messageFieldRef.current.style.setProperty("--placeholder-color", "grey");
+      messageFieldRef.current.style.setProperty("--placeholder-color", "white");
+      messageFieldRef.current.style.setProperty("--placeholder-opacity", "0.5");
       messageFieldRef.current.placeholder = messageFieldPlaceholder;
     }
   }, [error]);
