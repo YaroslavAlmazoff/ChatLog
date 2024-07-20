@@ -1,9 +1,14 @@
 @import url("../colors.css");
 
-.room-preview {
+.room-preview-wrapper {
   position: relative;
   height: 8vh;
   margin: 5px;
+  width: fit-content;
+}
+
+.room-preview {
+  height: 8vh;
   border: 0.5px solid var(--blue-neon);
   border-radius: 15px;
 }
