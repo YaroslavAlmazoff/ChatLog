@@ -26,7 +26,8 @@
 }
 
 .message-field-smile {
-  height: 10px;
+  height: 15px;
+  margin-bottom: -5px;
   cursor: pointer;
 }
 
