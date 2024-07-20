@@ -1,9 +1,18 @@
+import { useCallback, useEffect } from "react";
 import RoomImagePreview from "./RoomImagePreview";
 import RoomVideoPreview from "./RoomVideoPreview";
 import "../../styles/RoomPreview.css";
-import { useEffect } from "react";
+import { errors } from "../../data/errors";
+import { limits } from "../../data/messengerConfiguration";
+import useFile from "../../hooks/useFile";
 
-export default function RoomFilesPreview({ files, setFiles, filesVisible }) {
+export default function RoomFilesPreview({
+  files,
+  setFiles,
+  setError,
+  filesVisible,
+}) {
+  const { fileTypes } = useFile();
   const filterPreviews = (filterable, url) =>
     [...filterable].filter((item) => item.url !== url);
 
@@ -16,7 +25,28 @@ export default function RoomFilesPreview({ files, setFiles, filesVisible }) {
     }));
   };
 
-  useEffect(() => {}, [files]);
+  const slicePreviews = useCallback(
+    (type) => {
+      setFiles((prev) => ({
+        ...prev,
+        ...(type === fileTypes.images
+          ? { imageFiles: prev.imageFiles.slice(0, limits.images) }
+          : { videoFiles: prev.videoFiles.slice(0, limits.videos) }),
+      }));
+    },
+    [setFiles, fileTypes]
+  );
+
+  useEffect(() => {
+    if (files.imageFiles.length > limits.images) {
+      setError(errors.imagesCount);
+      slicePreviews(fileTypes.images);
+    }
+    if (files.videoFiles.length > limits.videos) {
+      setError(errors.videosCount);
+      slicePreviews(fileTypes.videos);
+    }
+  }, [files, setError, fileTypes, slicePreviews]);
 
   return filesVisible ? (
     <div className="message-selected-files">
