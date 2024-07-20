@@ -1,5 +1,4 @@
 import useWindow from "../../hooks/useWindow";
-import "../../styles/RoomPreview.css";
 
 export default function RoomImagePreview({ url }) {
   const { handleLoaded } = useWindow();

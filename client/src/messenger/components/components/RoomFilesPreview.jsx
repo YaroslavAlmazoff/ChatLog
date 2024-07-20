@@ -1,5 +1,6 @@
 import RoomImagePreview from "./RoomImagePreview";
 import RoomVideoPreview from "./RoomImagePreview";
+import "../../styles/RoomPreview.css";
 
 export default function RoomFilesPreview({ files, filesVisible }) {
   return filesVisible ? (
