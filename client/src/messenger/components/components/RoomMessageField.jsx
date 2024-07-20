@@ -88,12 +88,14 @@ export default function RoomMessageField() {
           ref={selectImageRef}
           type="file"
           accept=".jpg,.jpeg,.png,.gif"
+          multiple
         />
         <input
           onChange={(e) => getFiles(e, fileTypes.videos)}
           ref={selectVideoRef}
           type="file"
           accept=".mp4"
+          multiple
         />
       </div>
       <div className="message-field-wrapper">
