@@ -63,7 +63,7 @@
 }
 
 .message-field-input:focus {
-  animation: glowing 2s infinite;
+  /* animation: glowing 2s infinite; */
   box-shadow: 0px -4px 15px var(--blue-neon), 4px 0px 15px var(--blue-neon);
 }
 
