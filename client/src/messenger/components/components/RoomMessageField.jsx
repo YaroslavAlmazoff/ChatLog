@@ -128,9 +128,6 @@ export default function RoomMessageField() {
     selectVideoRef.current.click();
   };
 
-<<<<<<< HEAD
-=======
->>>>>>> d94c85c (8)
   return (
     <div className="message-field-area">
       <div className="message-field-actions">
