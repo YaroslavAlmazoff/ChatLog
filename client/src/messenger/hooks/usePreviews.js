@@ -12,14 +12,14 @@ export default function usePreviews(
   setFiles,
   initialState,
   setCanChooseImage,
-  setCanChooseVideo
+  setCanChooseVideo,
+  setFilesVisible
 ) {
   const { readFiles, fileTypes } = useFile();
 
   const messageFieldRef = useRef();
 
   const [error, setError] = useState(null);
-  const [filesVisible, setFilesVisible] = useState(false);
 
   const filterPreviews = (filterable, url) =>
     [...filterable].filter((item) => item.url !== url);
@@ -57,7 +57,13 @@ export default function usePreviews(
     setCanChooseImage(true);
     setCanChooseVideo(true);
     setError(null);
-  }, [setFiles, initialState, setCanChooseImage, setCanChooseVideo]);
+  }, [
+    setFiles,
+    initialState,
+    setCanChooseImage,
+    setCanChooseVideo,
+    setFilesVisible,
+  ]);
 
   useEffect(() => {
     const changePlaceholder = (color, opacity, text) => {
@@ -109,7 +115,6 @@ export default function usePreviews(
 
   return {
     messageFieldRef,
-    filesVisible,
     messageFieldPlaceholder: placeholderText,
     getFiles,
     deletePreview,
