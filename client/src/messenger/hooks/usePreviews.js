@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useCallback } from "react";
 import useFile from "./useFile";
 import { errors } from "../data/errors";
 import { limits } from "../data/messengerConfiguration";
@@ -11,13 +11,12 @@ export default function usePreviews(
   files,
   setFiles,
   initialState,
+  messageFieldRef,
   setCanChooseImage,
   setCanChooseVideo,
   setFilesVisible
 ) {
   const { readFiles, fileTypes } = useFile();
-
-  const messageFieldRef = useRef();
 
   const [error, setError] = useState(null);
 

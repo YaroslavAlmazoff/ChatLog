@@ -19,6 +19,7 @@ export default function RoomMessageField() {
   const { fileTypes } = useFile();
   const { id } = useParams();
 
+  const messageFieldRef = useRef();
   const selectImageRef = useRef();
   const selectVideoRef = useRef();
 
@@ -27,20 +28,16 @@ export default function RoomMessageField() {
   const [canChooseVideo, setCanChooseVideo] = useState(true);
   const [filesVisible, setFilesVisible] = useState(false);
 
-  const {
-    messageFieldRef,
-    messageFieldPlaceholder,
-    getFiles,
-    deletePreview,
-    clearPreviews,
-  } = usePreviews(
-    files,
-    setFiles,
-    initialState,
-    setCanChooseImage,
-    setCanChooseVideo,
-    setFilesVisible
-  );
+  const { messageFieldPlaceholder, getFiles, deletePreview, clearPreviews } =
+    usePreviews(
+      files,
+      setFiles,
+      initialState,
+      messageFieldRef,
+      setCanChooseImage,
+      setCanChooseVideo,
+      setFilesVisible
+    );
 
   const handleSend = async () => {
     sendMessage(id, messageFieldRef.current.value, files);
