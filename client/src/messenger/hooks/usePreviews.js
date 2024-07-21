@@ -24,12 +24,14 @@ export default function usePreviews(
     [...filterable].filter((item) => item.url !== url);
 
   const deletePreview = (url) => {
+    const isImages = url.includes("image");
     setFiles((prev) => ({
       ...prev,
-      ...(url.includes("image")
+      ...(isImages
         ? { imageFiles: filterPreviews(prev.imageFiles, url) }
         : { videoFiles: filterPreviews(prev.videoFiles, url) }),
     }));
+    isImages ? setCanChooseImage(true) : setCanChooseVideo(true);
   };
 
   const slicePreviews = (oldPreviews, newPreviews, isImages) => {
@@ -108,7 +110,7 @@ export default function usePreviews(
   }, [error, messageFieldRef]);
 
   return {
-    messageFieldPlaceholder: placeholderText,
+    placeholderText,
     getFiles,
     deletePreview,
     clearPreviews,
