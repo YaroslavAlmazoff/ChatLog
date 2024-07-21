@@ -59,7 +59,7 @@ export default function usePreviews(
 
   const previewsOverflow = (result, isImages) => {
     setFiles((prev) => slicePreviews(prev, result.files, isImages));
-    isImages ? setCanChooseImage(false) : setCanChooseVideo(false);
+    toggleCanChoose(false, isImages);
   };
 
   const getFiles = async (e, type) => {
