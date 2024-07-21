@@ -66,14 +66,18 @@ export default function usePreviews(
     if (!e.target.files[0]) return;
     const isImages = type === fileTypes.images;
     const result = await readFiles(e, isImages ? limits.images : limits.videos);
-    console.log(result.files, result.error);
+
     const currentLength =
       result.files.length +
       (isImages ? files.imageFiles.length : files.videoFiles.length);
     const currentLimits = isImages ? limits.images : limits.videos;
-    if (result.error || currentLength > currentLimits) {
+    const currentError = isImages ? errors.imagesCount : errors.videosCount;
+
+    if (result.error) {
+      setError(currentError);
+    } else if (currentLength > currentLimits) {
       previewsOverflow(result, isImages);
-      setError(isImages ? errors.imagesCount : errors.videosCount);
+      setError(currentError);
     } else if (currentLength === currentLimits) {
       previewsOverflow(result, isImages);
     } else {
@@ -84,6 +88,7 @@ export default function usePreviews(
           : { videoFiles: [...prev.videoFiles, ...result.files] }),
       }));
       setFilesVisible(true);
+      toggleCanChoose(true, isImages);
     }
   };
 
