@@ -70,14 +70,18 @@ export default function usePreviews(
       messageFieldRef.current.style.setProperty(placeholderOpacity, opacity);
       messageFieldRef.current.placeholder = text;
     };
+    let timeout = null;
     if (error) {
       changePlaceholder("#ff073a", 1, error);
-      setTimeout(() => {
+      timeout = setTimeout(() => {
         changePlaceholder("#fff", 0.5, placeholderText);
       }, 5000);
     } else {
       changePlaceholder("#fff", 0.5, placeholderText);
     }
+    return () => {
+      clearTimeout(timeout);
+    };
   }, [error, messageFieldRef]);
 
   useEffect(() => {
