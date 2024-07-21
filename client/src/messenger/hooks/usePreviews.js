@@ -112,6 +112,7 @@ export default function usePreviews(
       changePlaceholder("#ff073a", 1, error);
       setTimeout(() => {
         changePlaceholder("#fff", 0.5, placeholderText);
+        setError(null);
       }, 5000);
     } else {
       changePlaceholder("#fff", 0.5, placeholderText);
