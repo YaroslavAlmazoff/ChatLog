@@ -32,13 +32,40 @@ export default function usePreviews(
     }));
   };
 
+  const slicePreviews = (oldPreviews, newPreviews, isImages) => {
+    return {
+      ...oldPreviews,
+      ...(isImages
+        ? {
+            imageFiles: [...oldPreviews.imageFiles, ...newPreviews].slice(
+              0,
+              limits.images
+            ),
+          }
+        : {
+            videoFiles: [...oldPreviews.videoFiles, ...newPreviews].slice(
+              0,
+              limits.videos
+            ),
+          }),
+    };
+  };
+
   const getFiles = async (e, type) => {
     if (!e.target.files[0]) return;
     const isImages = type === fileTypes.images;
     const result = await readFiles(e, isImages ? limits.images : limits.videos);
     console.log(result.files, result.error);
-    if (result.error) {
+    const currentLength =
+      result.files.length +
+      (isImages ? files.imageFiles.length : files.videoFiles.length);
+    const currentLimits = isImages ? limits.images : limits.videos;
+    if (result.error || currentLength > currentLimits) {
+      setFiles((prev) => slicePreviews(prev, result.files, isImages));
       setError(isImages ? errors.imagesCount : errors.videosCount);
+    } else if (currentLength === currentLimits) {
+      setFiles((prev) => slicePreviews(prev, result.files, isImages));
+      isImages ? setCanChooseImage(false) : setCanChooseVideo(false);
     } else {
       setFiles((prev) => ({
         ...prev,
@@ -70,52 +97,15 @@ export default function usePreviews(
       messageFieldRef.current.style.setProperty(placeholderOpacity, opacity);
       messageFieldRef.current.placeholder = text;
     };
-    let timeout = null;
     if (error) {
       changePlaceholder("#ff073a", 1, error);
-      timeout = setTimeout(() => {
+      setTimeout(() => {
         changePlaceholder("#fff", 0.5, placeholderText);
       }, 5000);
     } else {
       changePlaceholder("#fff", 0.5, placeholderText);
     }
-    return () => {
-      clearTimeout(timeout);
-    };
   }, [error, messageFieldRef]);
-
-  useEffect(() => {
-    const slicePreviews = (type) => {
-      setFiles((prev) => ({
-        ...prev,
-        ...(type === fileTypes.images
-          ? { imageFiles: prev.imageFiles.slice(0, limits.images) }
-          : { videoFiles: prev.videoFiles.slice(0, limits.videos) }),
-      }));
-    };
-    if (files.imageFiles.length > limits.images) {
-      setError(errors.imagesCount);
-      slicePreviews(fileTypes.images);
-    } else if (files.imageFiles.length === limits.images) {
-      setCanChooseImage(false);
-    } else if (files.videoFiles.length > limits.videos) {
-      setError(errors.videosCount);
-      slicePreviews(fileTypes.videos);
-    } else if (files.videoFiles.length === limits.videos) {
-      setCanChooseVideo(false);
-    } else {
-      setCanChooseImage(true);
-      setCanChooseVideo(true);
-    }
-  }, [
-    files,
-    setError,
-    setFiles,
-    fileTypes,
-    setCanChooseImage,
-    setCanChooseVideo,
-    clearPreviews,
-  ]);
 
   return {
     messageFieldPlaceholder: placeholderText,
