@@ -23,6 +23,10 @@ export default function usePreviews(
   const filterPreviews = (filterable, url) =>
     [...filterable].filter((item) => item.url !== url);
 
+  const toggleCanChoose = (can, isImages) => {
+    isImages ? setCanChooseImage(can) : setCanChooseVideo(can);
+  };
+
   const deletePreview = (url) => {
     const isImages = url.includes("image");
     setFiles((prev) => ({
@@ -31,7 +35,7 @@ export default function usePreviews(
         ? { imageFiles: filterPreviews(prev.imageFiles, url) }
         : { videoFiles: filterPreviews(prev.videoFiles, url) }),
     }));
-    isImages ? setCanChooseImage(true) : setCanChooseVideo(true);
+    toggleCanChoose(true, isImages);
   };
 
   const slicePreviews = (oldPreviews, newPreviews, isImages) => {
@@ -53,6 +57,11 @@ export default function usePreviews(
     };
   };
 
+  const previewsOverflow = (result, isImages) => {
+    setFiles((prev) => slicePreviews(prev, result.files, isImages));
+    isImages ? setCanChooseImage(false) : setCanChooseVideo(false);
+  };
+
   const getFiles = async (e, type) => {
     if (!e.target.files[0]) return;
     const isImages = type === fileTypes.images;
@@ -62,19 +71,11 @@ export default function usePreviews(
       result.files.length +
       (isImages ? files.imageFiles.length : files.videoFiles.length);
     const currentLimits = isImages ? limits.images : limits.videos;
-    console.log(
-      currentLength,
-      currentLimits,
-      result.error,
-      currentLength > currentLimits,
-      result.error || currentLength > currentLimits
-    );
     if (result.error || currentLength > currentLimits) {
-      setFiles((prev) => slicePreviews(prev, result.files, isImages));
+      previewsOverflow(result, isImages);
       setError(isImages ? errors.imagesCount : errors.videosCount);
     } else if (currentLength === currentLimits) {
-      setFiles((prev) => slicePreviews(prev, result.files, isImages));
-      isImages ? setCanChooseImage(false) : setCanChooseVideo(false);
+      previewsOverflow(result, isImages);
     } else {
       setFiles((prev) => ({
         ...prev,
@@ -119,10 +120,5 @@ export default function usePreviews(
     }
   }, [error, messageFieldRef]);
 
-  return {
-    placeholderText,
-    getFiles,
-    deletePreview,
-    clearPreviews,
-  };
+  return { placeholderText, getFiles, deletePreview, clearPreviews };
 }
