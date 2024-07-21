@@ -8,6 +8,7 @@ export default function RoomImagePreview({ url, deletePreview }) {
       <video
         autoPlay
         loop
+        muted
         src={url}
         onLoadedData={handleLoaded}
         className="room-preview"
