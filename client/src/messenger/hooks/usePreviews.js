@@ -62,6 +62,13 @@ export default function usePreviews(
       result.files.length +
       (isImages ? files.imageFiles.length : files.videoFiles.length);
     const currentLimits = isImages ? limits.images : limits.videos;
+    console.log(
+      currentLength,
+      currentLimits,
+      result.error,
+      currentLength > currentLimits,
+      result.error || currentLength > currentLimits
+    );
     if (result.error || currentLength > currentLimits) {
       setFiles((prev) => slicePreviews(prev, result.files, isImages));
       setError(isImages ? errors.imagesCount : errors.videosCount);
