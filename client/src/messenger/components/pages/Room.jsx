@@ -1,8 +1,8 @@
 import { useState } from "react";
-import "../../styles/Room.css";
 import RoomHead from "../components/RoomHead";
 import RoomMessageField from "../components/RoomMessageField";
 import RoomMessages from "../components/RoomMessages";
+import "../../styles/Room.css";
 
 export default function Room() {
   const [messages, setMessages] = useState([
