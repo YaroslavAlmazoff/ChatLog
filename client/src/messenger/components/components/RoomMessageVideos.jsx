@@ -5,15 +5,19 @@ export default function RoomMessageVideos({ videos }) {
 
   return (
     <div className="room-message-videos">
-      {videos.map((video) => (
-        <div className="room-message-video-container">
-          <video
-            controls
-            src={fileFromServer("messagevideos", video)}
-            className="room-message-video"
-          />
-        </div>
-      ))}
+      {videos ? (
+        videos.map((video) => (
+          <div className="room-message-video-container">
+            <video
+              controls
+              src={fileFromServer("messagevideos", video)}
+              className="room-message-video"
+            />
+          </div>
+        ))
+      ) : (
+        <></>
+      )}
     </div>
   );
 }

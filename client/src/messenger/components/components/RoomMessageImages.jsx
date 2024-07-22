@@ -5,13 +5,17 @@ export default function RoomMessageImages({ images }) {
 
   return (
     <div className="room-message-images">
-      {images.map((image) => (
-        <img
-          src={fileFromServer("messageimages", image)}
-          alt={image}
-          className="room-message-image"
-        />
-      ))}
+      {images ? (
+        images.map((image) => (
+          <img
+            src={fileFromServer("messageimages", image)}
+            alt={image}
+            className="room-message-image"
+          />
+        ))
+      ) : (
+        <></>
+      )}
     </div>
   );
 }
