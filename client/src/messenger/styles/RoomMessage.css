@@ -1,9 +1,37 @@
+@import url("../colors.css");
+
 .room-message {
+  width: 80%;
+  background-color: rgba(0, 0, 0, 0.5);
+  border: 0.5px solid var(--blue-neon);
+  border-radius: 15px;
+}
+
+.room-message-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.room-message-actions-list {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.room-message-action {
+  height: 20px;
+  margin-right: 5px;
 }
 
 .room-message-avatar {
+  width: 30px;
+  height: 30px;
   float: left;
+  object-fit: cover;
   margin-right: 10px;
+  border: 0.5px solid var(--blue-neon);
+  border-radius: 50%;
 }
 
 .room-message-images {
