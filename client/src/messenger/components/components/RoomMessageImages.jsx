@@ -1,4 +1,5 @@
 import useFile from "../../hooks/useFile";
+import { folders } from "../../data/messengerConfiguration";
 
 export default function RoomMessageImages({ images }) {
   const { fileFromServer } = useFile();
@@ -8,7 +9,7 @@ export default function RoomMessageImages({ images }) {
       {images ? (
         images.map((image) => (
           <img
-            src={fileFromServer("messageimages", image)}
+            src={fileFromServer(folders.images, image)}
             alt={image}
             className="room-message-image"
           />

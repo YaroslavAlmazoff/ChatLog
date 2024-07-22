@@ -1,4 +1,5 @@
 import useFile from "../../hooks/useFile";
+import { folders } from "../../data/messengerConfiguration";
 
 export default function RoomMessageVideos({ videos }) {
   const { fileFromServer } = useFile();
@@ -10,7 +11,7 @@ export default function RoomMessageVideos({ videos }) {
           <div className="room-message-video-container">
             <video
               controls
-              src={fileFromServer("messagevideos", video)}
+              src={fileFromServer(folders.videos, video)}
               className="room-message-video"
             />
           </div>
