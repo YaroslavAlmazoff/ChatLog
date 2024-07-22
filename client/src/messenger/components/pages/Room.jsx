@@ -14,6 +14,7 @@ export default function Room() {
         "37d5055a-aea0-4397-b640-6d06b8d8a497.jpg",
         "3ff98630-d038-4093-878f-69232741e273.jpg",
       ],
+      videos: [],
     },
   ]);
 
