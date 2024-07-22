@@ -5,7 +5,7 @@ import { useContext } from "react";
 
 export default function useAPI() {
   const { getCurrentDate } = useDate();
-  const auth = useContext(AuthContext);
+  const { token } = useContext(AuthContext);
 
   const sendMessage = async (id, text, files) => {
     const filesObject = files;
@@ -25,11 +25,16 @@ export default function useAPI() {
     formData.append("isFile", !!localStorage.getItem("file-link"));
 
     await api.post(`/api/new-messages/${id}`, formData, {
-      headers: `Bearer ${auth.token}`,
+      headers: `Bearer ${token}`,
     });
+  };
+
+  const deleteMessage = async (message) => {
+    await api.delete(`/api/message/${message._id}`);
   };
 
   return {
     sendMessage,
+    deleteMessage,
   };
 }

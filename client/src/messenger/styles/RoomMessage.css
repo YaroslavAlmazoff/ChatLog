@@ -1,0 +1,31 @@
+.room-message {
+}
+
+.room-message-avatar {
+  float: left;
+  margin-right: 10px;
+}
+
+.room-message-images {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.room-message-image {
+  flex: 1 0 0;
+}
+
+.room-message-videos {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.room-message-video-container {
+  flex: 1 0 0;
+  position: relative;
+}
+
+.room-message-video {
+  width: 100%;
+  height: auto;
+}

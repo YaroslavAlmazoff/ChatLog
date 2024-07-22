@@ -107,14 +107,12 @@ export default function usePreviews(
   ]);
 
   useEffect(() => {
-    console.log("error changed");
     const changePlaceholder = (color, opacity, text) => {
       messageFieldRef.current.style.setProperty(placeholderColor, color);
       messageFieldRef.current.style.setProperty(placeholderOpacity, opacity);
       messageFieldRef.current.placeholder = text;
     };
     if (error) {
-      console.log("error is true", error);
       changePlaceholder("#ff073a", 1, error);
       setTimeout(() => {
         changePlaceholder("#fff", 0.5, placeholderText);

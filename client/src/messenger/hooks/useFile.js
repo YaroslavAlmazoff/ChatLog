@@ -32,5 +32,9 @@ export default function useFile() {
     });
   };
 
+  const fileFromServer = (folder, name) => {
+    return `${process.env.REACT_APP_API_URL}/${folder}/${name}`;
+  };
+
   return { readFiles, fileTypes };
 }
