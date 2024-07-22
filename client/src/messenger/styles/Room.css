@@ -26,3 +26,10 @@
   border: 0.5px solid var(--blue-neon);
   border-radius: 15px;
 }
+
+.room-messages {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  flex-direction: column;
+}
