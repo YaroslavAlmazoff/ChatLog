@@ -36,5 +36,5 @@ export default function useFile() {
     return `${process.env.REACT_APP_API_URL}/${folder}/${name}`;
   };
 
-  return { readFiles, fileTypes };
+  return { readFiles, fileFromServer, fileTypes };
 }
