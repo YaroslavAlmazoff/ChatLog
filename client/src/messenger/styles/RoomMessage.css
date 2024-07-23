@@ -35,9 +35,14 @@
   border-radius: 50%;
 }
 
-.room-message-text {
+.room-message-name {
   text-align: left;
   font-size: 14pt;
+}
+
+.room-message-text {
+  text-align: left;
+  font-size: 12pt;
 }
 
 .room-message-images {
