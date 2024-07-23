@@ -3,13 +3,19 @@ import RoomMessageActions from "./RoomMessageActions";
 import RoomMessageImages from "./RoomMessageImages";
 import RoomMessageVideos from "./RoomMessageVideos";
 import "../../styles/RoomMessage.css";
+import { useState } from "react";
 
 export default function RoomMessage({ message }) {
   const { fileFromServer } = useFile();
+  const [showActions, setShowActions] = useState(false);
 
   return (
     <div className="room-message-wrapper">
-      <div className="room-message">
+      <div
+        className="room-message"
+        onMouseOver={() => setShowActions(true)}
+        onMouseOut={() => setShowActions(false)}
+      >
         <div className="room-message-top">
           <img
             src={fileFromServer("useravatars", message.avatar)}
@@ -22,7 +28,7 @@ export default function RoomMessage({ message }) {
         <RoomMessageImages images={message.images} />
         <RoomMessageVideos videos={message.videos} />
       </div>
-      <RoomMessageActions message={message} />
+      {showActions && <RoomMessageActions message={message} />}
     </div>
   );
 }
