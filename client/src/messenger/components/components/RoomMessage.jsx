@@ -8,7 +8,7 @@ export default function RoomMessage({ message }) {
   const { fileFromServer } = useFile();
 
   return (
-    <>
+    <div className="room-message-wrapper">
       <div className="room-message">
         <img
           src={fileFromServer("useravatars", message.avatar)}
@@ -20,6 +20,6 @@ export default function RoomMessage({ message }) {
         <RoomMessageVideos videos={message.videos} />
       </div>
       <RoomMessageActions message={message} />
-    </>
+    </div>
   );
 }
