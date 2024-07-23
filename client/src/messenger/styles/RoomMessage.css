@@ -92,7 +92,7 @@
   text-align: left;
   color: rgb(200, 200, 200);
   padding: 0;
-  margin: 0;
+  margin-left: -5px;
 }
 
 .room-message-actions-list {
