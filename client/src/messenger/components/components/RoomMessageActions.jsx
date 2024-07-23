@@ -5,11 +5,7 @@ import editIcon from "../../img/edit.png";
 import replyIcon from "../../img/reply.png";
 import shareIcon from "../../img/share.png";
 
-export default function RoomMessageActions({
-  message,
-  showActions,
-  animation,
-}) {
+export default function RoomMessageActions({ message, animation }) {
   const { userId } = useContext(AuthContext);
   const isMyMessage = message.user === userId;
 
