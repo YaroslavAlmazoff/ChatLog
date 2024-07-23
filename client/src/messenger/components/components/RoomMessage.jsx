@@ -11,13 +11,13 @@ export default function RoomMessage({ message }) {
   const [showActions, setShowActions] = useState(false);
 
   return (
-    <div className="room-message-wrapper">
-      <div
-        className="room-message"
-        onMouseOver={() => setShowActions(true)}
-        onMouseOut={() => setShowActions(false)}
-        onClick={() => setShowActions((prev) => !prev)}
-      >
+    <div
+      className="room-message-wrapper"
+      onMouseOver={() => setShowActions(true)}
+      onMouseOut={() => setShowActions(false)}
+      onClick={() => setShowActions((prev) => !prev)}
+    >
+      <div className="room-message">
         <div className="room-message-top">
           <img
             src={fileFromServer("useravatars", message.avatar)}
@@ -30,7 +30,12 @@ export default function RoomMessage({ message }) {
         <RoomMessageImages images={message.images} />
         <RoomMessageVideos videos={message.videos} />
       </div>
-      <CSSTransition in={showActions} classNames="fade" unmountOnExit>
+      <CSSTransition
+        in={showActions}
+        timeout={1000}
+        classNames="fade"
+        unmountOnExit
+      >
         <RoomMessageActions message={message} />
       </CSSTransition>
     </div>
