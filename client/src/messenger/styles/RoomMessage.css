@@ -92,4 +92,5 @@
 .room-message-action {
   height: 20px;
   margin-right: 5px;
+  cursor: pointer;
 }
