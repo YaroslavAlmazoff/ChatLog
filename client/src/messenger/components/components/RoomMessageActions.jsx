@@ -21,10 +21,7 @@ export default function RoomMessageActions({
   ];
 
   return (
-    <div
-      className={`room-message-actions ${animation}`}
-      style={{ display: showActions ? "block" : "none" }}
-    >
+    <div className={`room-message-actions ${animation}`}>
       <span className="room-message-date">{message.date}</span>
       <div className="room-message-actions-list">
         {messageActions.map((action) => (
