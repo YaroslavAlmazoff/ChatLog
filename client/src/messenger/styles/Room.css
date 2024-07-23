@@ -32,4 +32,5 @@
   align-items: flex-start;
   justify-content: flex-end;
   flex-direction: column;
+  height: 90%;
 }
