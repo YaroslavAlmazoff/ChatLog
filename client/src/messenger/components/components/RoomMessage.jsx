@@ -15,9 +15,13 @@ export default function RoomMessage({ message }) {
       className="room-message-wrapper"
       onMouseEnter={() => setShowActions(true)}
       onMouseLeave={() => setShowActions(false)}
-      onClick={() => setShowActions((prev) => !prev)}
     >
-      <div className="room-message">
+      <div
+        className="room-message"
+        onMouseEnter={() => setShowActions(true)}
+        onMouseLeave={() => setShowActions(false)}
+        onClick={() => setShowActions((prev) => !prev)}
+      >
         <div className="room-message-top">
           <img
             src={fileFromServer("useravatars", message.avatar)}
