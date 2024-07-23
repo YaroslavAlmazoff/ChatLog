@@ -7,11 +7,13 @@ export default function RoomMessageImages({ images }) {
   return (
     <div className="room-message-images">
       {images ? (
-        images.map((image) => (
+        images.map((image, index) => (
           <img
             src={fileFromServer(folders.images, image)}
             alt={image}
-            className="room-message-image"
+            className={`room-message-image${
+              index !== images.length - 1 ? "room-message-image-margin" : ""
+            }`}
           />
         ))
       ) : (
