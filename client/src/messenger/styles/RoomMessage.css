@@ -57,6 +57,9 @@
 .room-message-image {
   flex: 1 0 0;
   border-radius: 15px;
+}
+
+.room-message-image-margin {
   margin-right: 10px;
 }
 
