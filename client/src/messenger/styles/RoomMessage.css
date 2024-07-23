@@ -43,17 +43,19 @@
 
 .room-message-text {
   text-align: left;
-  font-size: 12pt;
+  font-size: 13pt;
+  margin-top: 10px;
 }
 
 .room-message-images {
   display: flex;
+  padding: 10px;
 }
 
 .room-message-image {
   flex: 1 0 0;
   border-radius: 15px;
-  margin: 10px;
+  margin-right: 10px;
 }
 
 .room-message-videos {
