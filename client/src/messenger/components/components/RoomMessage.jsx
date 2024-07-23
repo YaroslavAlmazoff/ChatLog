@@ -28,7 +28,9 @@ export default function RoomMessage({ message }) {
         <RoomMessageImages images={message.images} />
         <RoomMessageVideos videos={message.videos} />
       </div>
-      {showActions && <RoomMessageActions message={message} />}
+      {showActions && (
+        <RoomMessageActions message={message} showActions={showActions} />
+      )}
     </div>
   );
 }
