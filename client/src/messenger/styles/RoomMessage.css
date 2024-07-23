@@ -1,6 +1,9 @@
 @import url("../colors.css");
 
 .room-message-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
 }
 
 .room-message {
