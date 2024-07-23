@@ -13,8 +13,8 @@ export default function RoomMessage({ message }) {
   return (
     <div
       className="room-message-wrapper"
-      onMouseOver={() => setShowActions(true)}
-      onMouseOut={() => setShowActions(false)}
+      onMouseEnter={() => setShowActions(true)}
+      onMouseLeave={() => setShowActions(false)}
       onClick={() => setShowActions((prev) => !prev)}
     >
       <div className="room-message">
