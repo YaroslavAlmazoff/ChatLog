@@ -32,7 +32,7 @@ export default function RoomMessage({ message }) {
       </div>
       <CSSTransition
         in={showActions}
-        timeout={1000}
+        timeout={100}
         classNames="fade"
         unmountOnExit
       >
