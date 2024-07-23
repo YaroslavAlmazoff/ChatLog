@@ -107,3 +107,27 @@
   margin-right: 5px;
   cursor: pointer;
 }
+
+.room-message-actions-show {
+  animation-name: actions;
+  animation-duration: 500ms;
+  animation-delay: 200ms;
+  animation-timing-function: ease-out;
+}
+
+.room-message-actions-hide {
+  animation-name: actions;
+  animation-duration: 500ms;
+  animation-delay: 200ms;
+  animation-timing-function: ease-out;
+  animation-fill-mode: backwards;
+}
+
+@keyframes actions {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
