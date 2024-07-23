@@ -9,6 +9,7 @@ export default function Room() {
     {
       message: "Привет",
       user: "628e5aab0153706a3e18fe79",
+      name: "Yaroslav Almazoff",
       avatar: "907d4938-52fa-4c48-a421-6245c7f2d453.jpg",
       images: [
         "37d5055a-aea0-4397-b640-6d06b8d8a497.jpg",
