@@ -10,11 +10,15 @@ export default function RoomMessage({ message }) {
   return (
     <div className="room-message-wrapper">
       <div className="room-message">
-        <img
-          src={fileFromServer("useravatars", message.avatar)}
-          alt="Avatar"
-          className="room-message-avatar"
-        />
+        <div className="room-message-top">
+          <img
+            src={fileFromServer("useravatars", message.avatar)}
+            alt="Avatar"
+            className="room-message-avatar"
+          />
+          <span className="room-message-text">{message.name}</span>
+        </div>
+
         <span className="room-message-text">{message.message}</span>
         <RoomMessageImages images={message.images} />
         <RoomMessageVideos videos={message.videos} />
