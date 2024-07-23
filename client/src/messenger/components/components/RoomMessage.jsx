@@ -30,12 +30,7 @@ export default function RoomMessage({ message }) {
         <RoomMessageImages images={message.images} />
         <RoomMessageVideos videos={message.videos} />
       </div>
-      <CSSTransition
-        in={showActions}
-        timeout={300}
-        classNames="fade"
-        unmountOnExit
-      >
+      <CSSTransition in={showActions} classNames="fade" unmountOnExit>
         <RoomMessageActions message={message} />
       </CSSTransition>
     </div>
