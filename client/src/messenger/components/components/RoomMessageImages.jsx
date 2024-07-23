@@ -12,7 +12,7 @@ export default function RoomMessageImages({ images }) {
             src={fileFromServer(folders.images, image)}
             alt={image}
             className={`room-message-image${
-              index !== images.length - 1 ? "room-message-image-margin" : ""
+              index !== images.length - 1 ? " room-message-image-margin" : ""
             }`}
           />
         ))
