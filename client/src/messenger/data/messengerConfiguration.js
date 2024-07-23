@@ -4,6 +4,6 @@ export const limits = {
 };
 
 export const folders = {
-  images: "messagephotos",
+  images: "messagefotos",
   videos: "messagevideos",
 };
