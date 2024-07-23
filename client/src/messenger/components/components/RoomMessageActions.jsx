@@ -1,15 +1,17 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { AuthContext } from "../../../context/AuthContext";
 import deleteIcon from "../../img/delete.png";
 import editIcon from "../../img/edit.png";
 import replyIcon from "../../img/reply.png";
 import shareIcon from "../../img/share.png";
 
-export default function RoomMessageActions({ message, showActions }) {
+export default function RoomMessageActions({
+  message,
+  showActions,
+  animation,
+}) {
   const { userId } = useContext(AuthContext);
   const isMyMessage = message.user === userId;
-
-  const [animation, setAnimation] = useState(null);
 
   const messageActions = [
     { icon: deleteIcon, available: isMyMessage, onClick: () => {} },
@@ -18,18 +20,11 @@ export default function RoomMessageActions({ message, showActions }) {
     { icon: shareIcon, available: true, onClick: () => {} },
   ];
 
-  useEffect(() => {
-    if (showActions) {
-      setAnimation("room-message-actions-show");
-    } else {
-      setAnimation("room-message-actions-hide");
-    }
-
-    return () => setAnimation(null);
-  }, [showActions]);
-
   return (
-    <div className={`room-message-actions ${animation}`}>
+    <div
+      className={`room-message-actions ${animation}`}
+      style={{ display: showActions ? "block" : "none" }}
+    >
       <span className="room-message-date">{message.date}</span>
       <div className="room-message-actions-list">
         {messageActions.map((action) => (

@@ -126,8 +126,10 @@
 @keyframes actions {
   0% {
     opacity: 0;
+    display: flex;
   }
   100% {
     opacity: 1;
+    display: none;
   }
 }
