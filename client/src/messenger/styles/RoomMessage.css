@@ -50,6 +50,7 @@
 .room-message-images {
   display: flex;
   padding: 5x;
+  margin-top: 10px;
 }
 
 .room-message-image {
