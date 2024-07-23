@@ -16,7 +16,7 @@ export default function RoomMessage({ message }) {
             alt="Avatar"
             className="room-message-avatar"
           />
-          <span className="room-message-text">{message.name}</span>
+          <span className="room-message-name">{message.name}</span>
         </div>
 
         <span className="room-message-text">{message.message}</span>
