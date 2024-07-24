@@ -32,6 +32,7 @@ export default function useAPI() {
   };
 
   const getRoom = async (id) => {
+    console.log(token);
     const response = await api.get(`${prefix}/room-by-id/${id}`, {
       headers: {
         Authorization: `Bearer ${token}`,
