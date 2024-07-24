@@ -1,11 +1,16 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import RoomHead from "../components/RoomHead";
 import RoomMessageField from "../components/RoomMessageField";
 import RoomMessages from "../components/RoomMessages";
+import useAPI from "../../hooks/useAPI";
 import "../../styles/Room.css";
+import { useParams } from "react-router";
 
 export default function Room() {
-  const [room, setroom] = useState({
+  const { id } = useParams();
+  const { getRoom } = useAPI();
+
+  const [room, setRoom] = useState({
     name: "",
     date: "",
   });
@@ -24,12 +29,21 @@ export default function Room() {
     },
   ]);
 
+  useEffect(() => {
+    const getData = async () => {
+      const { room } = await getRoom(id);
+      setRoom(room);
+    };
+    getData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <div className="block room-size room">
       <RoomHead
-        name="Yaroslav Almazoff"
-        onlineDate="16.07.2024 18:00"
-        isOnline={false}
+        name={room.name}
+        onlineDate={room.date}
+        isOnline={room.isOnline}
       />
       <RoomMessages messages={messages} />
       <RoomMessageField />
