@@ -7,7 +7,7 @@ import "../../styles/Room.css";
 import { useParams } from "react-router";
 import useFile from "../../hooks/useFile";
 import { AuthContext } from "../../../context/AuthContext";
-import useVerify from "../../../common_hooks/useVerify.hook";
+import useVerify from "../../../common_hooks/verify.hook";
 
 export default function Room() {
   const { id } = useParams();
@@ -39,6 +39,7 @@ export default function Room() {
 
   useEffect(() => {
     const getData = async () => {
+      await verify();
       const { room } = await getRoom(id);
       console.log(room);
       setRoom(room);
