@@ -5,6 +5,10 @@ import RoomMessages from "../components/RoomMessages";
 import "../../styles/Room.css";
 
 export default function Room() {
+  const [room, setroom] = useState({
+    name: "",
+    date: "",
+  });
   const [messages, setMessages] = useState([
     {
       message: "Привет",
@@ -12,10 +16,10 @@ export default function Room() {
       name: "Yaroslav Almazoff",
       date: "23.07.2024 12:00",
       avatar: "907d4938-52fa-4c48-a421-6245c7f2d453.jpg",
-      // images: [
-      //   "37d5055a-aea0-4397-b640-6d06b8d8a497.jpg",
-      //   "3ff98630-d038-4093-878f-69232741e273.jpg",
-      // ],
+      images: [
+        "37d5055a-aea0-4397-b640-6d06b8d8a497.jpg",
+        "3ff98630-d038-4093-878f-69232741e273.jpg",
+      ],
       videos: ["video1.mp4", "video2.mp4"],
     },
   ]);
