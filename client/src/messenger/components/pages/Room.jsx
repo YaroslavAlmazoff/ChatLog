@@ -35,6 +35,7 @@ export default function Room() {
   useEffect(() => {
     const getData = async () => {
       const { room } = await getRoom(id);
+      console.log(room);
       setRoom(room);
     };
     getData();
