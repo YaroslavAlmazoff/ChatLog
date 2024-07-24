@@ -95,7 +95,7 @@ router.post("/editmessage/:id", (req, res) => {
     console.log(e);
   }
 });
-router.get("/roombyid/:id", (req, res) => {
+router.get("/room-by-id/:id", auth, (req, res) => {
   try {
     MessengerService.getRoomById(req, res);
   } catch (e) {

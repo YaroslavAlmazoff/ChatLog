@@ -3,6 +3,8 @@ import api from "../../auth/api/auth";
 import { AuthContext } from "../../context/AuthContext";
 import { useContext } from "react";
 
+const prefix = "/api";
+
 export default function useAPI() {
   const { getCurrentDate } = useDate();
   const { token } = useContext(AuthContext);
@@ -24,17 +26,23 @@ export default function useAPI() {
     }
     formData.append("isFile", !!localStorage.getItem("file-link"));
 
-    await api.post(`/api/new-messages/${id}`, formData, {
+    await api.post(`${prefix}/new-messages/${id}`, formData, {
       headers: `Bearer ${token}`,
     });
   };
 
+  const getRoom = async (id) => {
+    const response = await api.get(`${prefix}/room-by-id/${id}`);
+    return response.data;
+  };
+
   const deleteMessage = async (message) => {
-    await api.delete(`/api/message/${message._id}`);
+    await api.delete(`${prefix}/message/${message._id}`);
   };
 
   return {
     sendMessage,
+    getRoom,
     deleteMessage,
   };
 }
