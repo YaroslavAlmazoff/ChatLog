@@ -67,12 +67,12 @@
 .room-message-video-container {
   flex: 1 0 0;
   position: relative;
-  border-radius: 15px;
 }
 
 .room-message-video {
   width: 100%;
   height: auto;
+  border-radius: 15px;
 }
 
 .room-message-media-margin {
