@@ -59,10 +59,6 @@
   border-radius: 15px;
 }
 
-.room-message-image-margin {
-  margin-right: 10px;
-}
-
 .room-message-videos {
   display: flex;
   flex-wrap: wrap;
@@ -76,6 +72,10 @@
 .room-message-video {
   width: 100%;
   height: auto;
+}
+
+.room-message-media-margin {
+  margin-right: 10px;
 }
 
 .room-message-actions {
