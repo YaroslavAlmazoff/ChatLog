@@ -5,14 +5,17 @@ import RoomMessages from "../components/RoomMessages";
 import useAPI from "../../hooks/useAPI";
 import "../../styles/Room.css";
 import { useParams } from "react-router";
+import useFile from "../../hooks/useFile";
 
 export default function Room() {
   const { id } = useParams();
   const { getRoom } = useAPI();
+  const { fileFromServer } = useFile();
 
   const [room, setRoom] = useState({
     name: "",
     date: "",
+    bg: "",
   });
   const [messages, setMessages] = useState([
     {
@@ -39,7 +42,12 @@ export default function Room() {
   }, []);
 
   return (
-    <div className="block room-size room">
+    <div
+      className="block room-size room"
+      style={{
+        backgroundImage: room.bg ? `url(${fileFromServer(room.bg)})` : "",
+      }}
+    >
       <RoomHead
         name={room.name}
         onlineDate={room.date}
