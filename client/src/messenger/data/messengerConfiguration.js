@@ -5,7 +5,7 @@ export const limits = {
 
 export const folders = {
   images: "messagefotos",
-  videos: "messagevideos",
+  videos: "messagefotos",
 };
 
 export const actionsAnimationClasses = {
