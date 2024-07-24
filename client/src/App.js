@@ -12,7 +12,6 @@ import useVerify from "./common_hooks/verify.hook";
 import "./common_components/modal-window/modal-window.css";
 
 function App() {
-  const redirect = useRedirect();
   // const { verify } = useVerify();
   // const { getCurrentDate } = useDate();
   const routes = useRoutes();
@@ -24,7 +23,6 @@ function App() {
 
   useEffect(() => {
     console.log("start");
-    redirect();
     // const setVisit = async () => {
     //   const verifiedData = await verify();
     //   setIsVerified(verifiedData.isVerified);

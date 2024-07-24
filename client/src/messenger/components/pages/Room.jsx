@@ -7,9 +7,11 @@ import "../../styles/Room.css";
 import { useParams } from "react-router";
 import useFile from "../../hooks/useFile";
 import { AuthContext } from "../../../context/AuthContext";
+import useVerify from "../../../common_hooks/useVerify.hook";
 
 export default function Room() {
   const { id } = useParams();
+  const { verify } = useVerify();
   const { getRoom } = useAPI();
   const { fileFromServer } = useFile();
 

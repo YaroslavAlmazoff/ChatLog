@@ -2,8 +2,10 @@ import { useContext } from "react";
 import api from "../auth/api/auth";
 import { useAuth } from "./auth.hook";
 import { AuthContext } from "../context/AuthContext";
+import { useNavigate } from "react-router";
 
 const useVerify = () => {
+  const navigate = useNavigate();
   const { login } = useAuth();
   const { token } = useContext(AuthContext);
   const verify = async () => {
@@ -25,8 +27,10 @@ const useVerify = () => {
         };
       } catch (e) {
         console.log(e);
-        window.location = "/login";
+        navigate("/login");
       }
+    } else {
+      navigate("/greeting");
     }
   };
   return { verify };
