@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import RoomHead from "../components/RoomHead";
 import RoomMessageField from "../components/RoomMessageField";
 import RoomMessages from "../components/RoomMessages";
@@ -6,11 +6,14 @@ import useAPI from "../../hooks/useAPI";
 import "../../styles/Room.css";
 import { useParams } from "react-router";
 import useFile from "../../hooks/useFile";
+import { AuthContext } from "../../../context/AuthContext";
 
 export default function Room() {
   const { id } = useParams();
   const { getRoom } = useAPI();
   const { fileFromServer } = useFile();
+
+  const auth = useContext(AuthContext);
 
   const [room, setRoom] = useState({
     name: "",
@@ -39,6 +42,7 @@ export default function Room() {
       setRoom(room);
     };
     getData();
+    console.log(auth);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
