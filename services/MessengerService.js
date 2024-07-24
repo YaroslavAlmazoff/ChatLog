@@ -292,6 +292,15 @@ class MessengerService {
     const id = req.params.id;
     const room = await Room.findById(id);
     const roomObj = room.toObject();
+    if (req.user.userId == room.user1.toString()) {
+      const user = await User.findById(room.user2);
+      roomObj.name = user.name + " " + user.surname;
+      roomObj.date = user.lastVisit;
+    } else {
+      const user = await User.findById(room.user1);
+      roomObj.name = user.name + " " + user.surname;
+      roomObj.date = user.lastVisit;
+    }
     if (!roomObj.bg) {
       roomObj.bg = "";
     }
