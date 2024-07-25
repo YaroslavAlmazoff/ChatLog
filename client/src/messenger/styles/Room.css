@@ -16,7 +16,7 @@
 @media screen and (width > 1000px) {
   .room-size {
     width: 40vw;
-    height: 80vh;
+    height: 500px;
   }
 }
 
@@ -32,7 +32,6 @@
   align-items: flex-start;
   justify-content: flex-end;
   flex-direction: column;
-  height: 90%;
   overflow-y: scroll;
   overflow-x: hidden;
 }
