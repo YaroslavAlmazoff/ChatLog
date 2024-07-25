@@ -28,7 +28,11 @@ function App() {
 
   return (
     <>
-      {token && userId ? (
+      {(token && userId) ||
+      window.location.pathname === "/greeting" ||
+      window.location.pathname === "/login" ||
+      window.location.pathname === "/register" ||
+      window.location.pathname === "/support" ? (
         <AuthContext.Provider
           value={{ login, logout, token, userId, authenticated, activated }}
         >
