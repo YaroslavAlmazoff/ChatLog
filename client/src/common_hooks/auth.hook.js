@@ -64,7 +64,7 @@ export const useAuth = () => {
       navigate("/login");
     }
 
-    const expirationTime = 1000 * 60;
+    const expirationTime = 1000 * 60 * 10;
 
     const intervalId = setInterval(() => {
       const now = new Date().getTime();
