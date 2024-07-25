@@ -1,4 +1,4 @@
-.message-input {
+/* .message-input {
     width: 60%;
     outline: none;
     margin-left: 8px;
@@ -61,39 +61,38 @@
     margin-top: 10px;
 }
 .room-window::-webkit-scrollbar {
-    width: 20px;               /* ширина scrollbar */
+    width: 20px;          
 }
 .room-window::-webkit-scrollbar-track {
-    background: transparent;        /* цвет дорожки */
-}
+    background: transparent;   
 .room-window::-webkit-scrollbar-thumb {
-    background-color: rgb(20, 20, 32);    /* цвет плашки */
-    border-radius: 11px;       /* закругления плашки */
-    border: 1px solid rgb(0, 140, 255);  /* padding вокруг плашки */
+    background-color: rgb(20, 20, 32); 
+    border-radius: 11px;    
+    border: 1px solid rgb(0, 140, 255); 
 }
 
 .room-window::-moz-scrollbar {
-    width: 20px;               /* ширина scrollbar */
+    width: 20px;         
 }
 .room-window::-moz-scrollbar-track {
-    background: transparent;        /* цвет дорожки */
+    background: transparent; 
 }
 .room-window::-moz-scrollbar-thumb {
-    background-color: rgb(20, 20, 32);    /* цвет плашки */
-    border-radius: 11px;       /* закругления плашки */
-    border: 1px solid rgb(0, 140, 255);  /* padding вокруг плашки */
+    background-color: rgb(20, 20, 32); 
+    border-radius: 11px;  
+    border: 1px solid rgb(0, 140, 255); 
 }
 
 .room-window::-o-scrollbar {
-    width: 20px;               /* ширина scrollbar */
+    width: 20px;    
 }
 .room-window::-o-scrollbar-track {
-    background: transparent;        /* цвет дорожки */
+    background: transparent;    
 }
 .room-window::-o-scrollbar-thumb {
-    background-color: rgb(20, 20, 32);    /* цвет плашки */
-    border-radius: 11px;       /* закругления плашки */
-    border: 1px solid rgb(0, 140, 255);  /* padding вокруг плашки */
+    background-color: rgb(20, 20, 32);    
+    border-radius: 11px;   
+    border: 1px solid rgb(0, 140, 255); 
 }
 
 .messages {
@@ -230,4 +229,4 @@
     z-index: 1000;
     margin-left: 95%;
     cursor: pointer;
-}
+} */
