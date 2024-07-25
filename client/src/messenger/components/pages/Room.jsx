@@ -11,7 +11,7 @@ import useVerify from "../../../common_hooks/verify.hook";
 
 export default function Room() {
   const { id } = useParams();
-  const { verify } = useVerify();
+  //const { verify } = useVerify();
   const { getRoom } = useAPI();
   const { fileFromServer } = useFile();
 
@@ -38,8 +38,9 @@ export default function Room() {
   ]);
 
   useEffect(() => {
+    console.log(auth);
     const getData = async () => {
-      await verify();
+      //const { token } = await verify();
       const { room } = await getRoom(id);
       console.log(room);
       setRoom(room);

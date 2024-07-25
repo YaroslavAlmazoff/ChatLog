@@ -47,6 +47,8 @@ export const useAuth = () => {
         },
       });
 
+      console.log(response);
+
       const { verified, activated, greeting, token, userId } = response.data;
 
       if (greeting) return navigate("/greeting");

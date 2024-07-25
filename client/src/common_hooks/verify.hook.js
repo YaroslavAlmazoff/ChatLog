@@ -17,13 +17,15 @@ const useVerify = () => {
           },
         });
 
-        console.log(response);
+        //console.log(response);
 
         login(response.data.token, response.data.userId);
 
         return {
           isVerified: response.data.verified,
           isActivated: response.data.isActivated,
+          token: response.data.token,
+          userId: response.data.userId,
         };
       } catch (e) {
         console.log(e);
