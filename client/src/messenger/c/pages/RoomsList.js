@@ -6,10 +6,12 @@ import api from "../../../auth/api/auth";
 import { AuthContext } from "../../../context/AuthContext";
 import Loader from "../../../common_components/Loader";
 import useVerify from "../../../common_hooks/verify.hook";
+import { useNavigate } from "react-router";
 
 export const RoomsList = () => {
   const auth = useContext(AuthContext);
   const { verify } = useVerify();
+  const navigate = useNavigate();
   useEffect(() => {
     verify();
   }, []);
@@ -34,7 +36,7 @@ export const RoomsList = () => {
   }, [auth]);
 
   const createChat = () => {
-    window.location = "/createchat";
+    navigate("/createchat");
   };
 
   return (

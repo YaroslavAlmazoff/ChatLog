@@ -3,16 +3,16 @@ import useWord from "../../../common_hooks/divideWord.hook";
 import useHighlight from "../../../common_hooks/highlight.hook";
 import { useContext } from "react";
 import { AuthContext } from "../../../context/AuthContext";
+import { useNavigate } from "react-router";
 
 const ChatRoomItem = ({ room }) => {
   const auth = useContext(AuthContext);
+  const navigate = useNavigate();
   const { divideWord } = useWord();
   const { randomColor, randomShadow, randomBlockShadow } = useHighlight();
 
   const goToRoom = () => {
-    window.location = room.isChat
-      ? `/chat/${room._id}`
-      : `/messages/${room._id}`;
+    navigate(room.isChat ? `/chat/${room._id}` : `/messages/${room._id}`);
   };
 
   return (
