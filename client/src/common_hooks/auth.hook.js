@@ -56,7 +56,6 @@ export const useAuth = () => {
       if (!activated) return navigate("/notactivated");
 
       login(token, userId);
-      //navigate(window.location.pathname);
     };
 
     try {
@@ -64,6 +63,18 @@ export const useAuth = () => {
     } catch {
       navigate("/login");
     }
+
+    const expirationTime = 1000 * 60;
+
+    const intervalId = setInterval(() => {
+      const now = new Date().getTime();
+      const timeRemaining = expirationTime - now;
+      if (timeRemaining < 15000) {
+        getData();
+      }
+    }, 15000);
+
+    return () => clearInterval(intervalId);
   }, [login]);
 
   return { login, logout, token, userId, authenticated, activated };
