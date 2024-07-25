@@ -1,6 +1,6 @@
 @import url("../colors.css");
 
-@media screen and (width <= 600px) {
+/* @media screen and (width <= 600px) {
   .room-size {
     width: 100vw;
     height: 100vh;
@@ -12,7 +12,7 @@
     width: 60vw;
     height: 80vh;
   }
-}
+} */
 @media screen and (width > 1000px) {
   .room-size {
     width: 40vw;
