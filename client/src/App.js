@@ -10,6 +10,7 @@ import api from "./auth/api/auth";
 import useDate from "./common_hooks/date.hook";
 import useVerify from "./common_hooks/verify.hook";
 import "./common_components/modal-window/modal-window.css";
+import Loader from "./common_components/Loader";
 
 function App() {
   // const { verify } = useVerify();
@@ -52,14 +53,20 @@ function App() {
   }, []);
 
   return (
-    <AuthContext.Provider
-      value={{ login, logout, token, userId, authenticated, activated }}
-    >
-      <div className="App">
-        <Header />
-        {routes}
-      </div>
-    </AuthContext.Provider>
+    <>
+      {token && userId ? (
+        <AuthContext.Provider
+          value={{ login, logout, token, userId, authenticated, activated }}
+        >
+          <div className="App">
+            <Header />
+            {routes}
+          </div>
+        </AuthContext.Provider>
+      ) : (
+        <Loader />
+      )}
+    </>
   );
 }
 
