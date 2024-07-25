@@ -10,11 +10,8 @@ import { useNavigate } from "react-router";
 
 export const RoomsList = () => {
   const auth = useContext(AuthContext);
-  const { verify } = useVerify();
   const navigate = useNavigate();
-  useEffect(() => {
-    verify();
-  }, []);
+
   const { randomKey } = useRandom();
   const [rooms, setRooms] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -33,7 +30,7 @@ export const RoomsList = () => {
       setLoading(false);
     };
     getRooms();
-  }, [auth]);
+  }, []);
 
   const createChat = () => {
     navigate("/createchat");
