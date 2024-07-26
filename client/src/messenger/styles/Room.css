@@ -33,3 +33,39 @@
   overflow-x: hidden;
   margin-bottom: 50px;
 }
+
+.room-window::-webkit-scrollbar {
+  width: 20px;
+}
+.room-window::-webkit-scrollbar-track {
+  background: transparent;
+}
+.room-window::-webkit-scrollbar-thumb {
+  background-color: rgb(20, 20, 32);
+  border-radius: 11px;
+  border: 1px solid rgb(0, 140, 255);
+}
+
+.room-messages::-moz-scrollbar {
+  width: 20px;
+}
+.room-messages::-moz-scrollbar-track {
+  background: transparent;
+}
+.room-messages::-moz-scrollbar-thumb {
+  background-color: rgb(20, 20, 32);
+  border-radius: 11px;
+  border: 1px solid var(--blue-neon);
+}
+
+.room-messages::-o-scrollbar {
+  width: 20px;
+}
+.room-messages::-o-scrollbar-track {
+  background: transparent;
+}
+.room-messages::-o-scrollbar-thumb {
+  background-color: rgb(20, 20, 32);
+  border-radius: 11px;
+  border: 1px solid var(--blue-neon);
+}
