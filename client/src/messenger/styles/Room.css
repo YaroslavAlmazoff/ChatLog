@@ -28,7 +28,7 @@
 }
 
 .room-messages {
-  height: calc(100% - 100px);
+  height: calc(100% - 100px - 1px);
   overflow-y: scroll;
   overflow-x: hidden;
   padding-top: 50px;
