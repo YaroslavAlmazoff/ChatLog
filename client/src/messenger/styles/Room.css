@@ -32,6 +32,7 @@
   align-items: flex-start;
   justify-content: flex-end;
   flex-direction: column;
+  flex-wrap: wrap;
   height: 500px;
   overflow: scroll;
 }
