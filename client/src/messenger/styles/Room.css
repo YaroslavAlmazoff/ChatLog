@@ -16,7 +16,7 @@
 @media screen and (width > 1000px) {
   .room-size {
     width: 40vw;
-    height: 500px;
+    height: 70vh;
   }
 }
 
@@ -33,6 +33,6 @@
   justify-content: flex-end;
   flex-direction: column;
   flex-wrap: wrap;
-  height: 500px;
+  height: 90%;
   overflow: scroll;
 }
