@@ -34,13 +34,13 @@
   margin-bottom: 50px;
 }
 
-.room-window::-webkit-scrollbar {
+.room-messages::-webkit-scrollbar {
   width: 20px;
 }
-.room-window::-webkit-scrollbar-track {
+.room-messages::-webkit-scrollbar-track {
   background: transparent;
 }
-.room-window::-webkit-scrollbar-thumb {
+.room-messages::-webkit-scrollbar-thumb {
   background-color: rgb(20, 20, 32);
   border-radius: 11px;
   border: 1px solid var(--blue-neon);
