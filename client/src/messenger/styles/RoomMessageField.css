@@ -14,6 +14,7 @@
   align-items: center;
   justify-content: flex-start;
   background-color: rgba(0, 0, 0, 0.75);
+  border-radius: 0 15px 0 15px;
 }
 
 .message-field-actions span {
