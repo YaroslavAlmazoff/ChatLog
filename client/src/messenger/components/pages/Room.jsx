@@ -68,14 +68,13 @@ export default function Room() {
         backgroundImage: room.bg ? `url(${fileFromServer(room.bg)})` : "",
       }}
     >
-      <RoomHead
+      {/* <RoomHead
         name={room.name}
         onlineDate={room.date}
         isOnline={room.isOnline}
-      />
-      <button onClick={() => navigate("/testpage")}></button>
+      /> */}
       <RoomMessages messages={messages} />
-      <RoomMessageField />
+      {/* <RoomMessageField /> */}
     </div>
   );
 }
