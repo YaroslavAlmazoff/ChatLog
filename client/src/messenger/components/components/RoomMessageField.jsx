@@ -56,7 +56,7 @@ export default function RoomMessageField() {
     <div className="message-field-area">
       <div className="message-field-actions">
         {canChooseImage && (
-          <span onClick={handleOpenImageSelect}>Фотография</span>
+          <span onClick={handleOpenImageSelect}>&nbsp;Фотография</span>
         )}
         {canChooseVideo && <span onClick={handleOpenVideoSelect}>Видео</span>}
         <span>Голосовое сообщение</span>
