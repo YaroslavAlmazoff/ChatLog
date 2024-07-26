@@ -9,7 +9,7 @@
 
 .message-field-actions {
   height: 20px;
-  width: 80%;
+  width: fit-content;
   display: flex;
   align-items: center;
   justify-content: flex-start;
