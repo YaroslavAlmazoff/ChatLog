@@ -28,11 +28,6 @@
 }
 
 .room-messages {
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-end;
-  flex-direction: column;
-  flex-wrap: wrap;
   height: 90%;
   overflow: scroll;
 }
