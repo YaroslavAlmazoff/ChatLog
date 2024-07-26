@@ -36,7 +36,7 @@
 }
 
 .room-messages::-webkit-scrollbar {
-  width: 20px;
+  width: 10px;
 }
 .room-messages::-webkit-scrollbar-track {
   background: transparent;
@@ -48,7 +48,7 @@
 }
 
 .room-messages::-moz-scrollbar {
-  width: 20px;
+  width: 10px;
 }
 .room-messages::-moz-scrollbar-track {
   background: transparent;
@@ -60,7 +60,7 @@
 }
 
 .room-messages::-o-scrollbar {
-  width: 20px;
+  width: 10px;
 }
 .room-messages::-o-scrollbar-track {
   background: transparent;
