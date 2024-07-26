@@ -200,7 +200,7 @@ export const useRoutes = () => {
       <Route exact path="/deleteprofile" element={<DeleteProfile />} />
       <Route exact path="/settings" element={<Settings />} />
       <Route path="/return-password/:id/:link" element={<ReturnPassword />} />
-      <Route path="/test-page" element={TestPage} />
+      <Route path="/test-page" element={<TestPage />} />
     </Routes>
   );
 };
