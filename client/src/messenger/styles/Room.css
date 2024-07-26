@@ -28,10 +28,10 @@
 }
 
 .room-messages {
-  /* display: flex;
+  display: flex;
   align-items: flex-start;
   justify-content: flex-end;
-  flex-direction: column; */
+  flex-direction: column;
   height: 500px;
   overflow: scroll;
 }
