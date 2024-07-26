@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import RoomHead from "../components/RoomHead";
 import RoomMessageField from "../components/RoomMessageField";
 import RoomMessages from "../components/RoomMessages";
@@ -12,6 +12,7 @@ export default function Room() {
   const { id } = useParams();
   const { getRoom } = useAPI();
   const { fileFromServer } = useFile();
+  const navigate = useNavigate();
 
   const auth = useContext(AuthContext);
 
@@ -72,6 +73,7 @@ export default function Room() {
         onlineDate={room.date}
         isOnline={room.isOnline}
       />
+      <button onClick={() => navigate("/testpage")}></button>
       <RoomMessages messages={messages} />
       <RoomMessageField />
     </div>
