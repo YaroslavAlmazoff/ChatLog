@@ -2,11 +2,11 @@ import { useEffect, useRef } from "react";
 import RoomMessage from "./RoomMessage";
 
 export default function RoomMessages({ messages }) {
-  const messagesListRef = useRef();
+  const messagesListRef = useRef(null);
 
   useEffect(() => {
     if (messagesListRef.current) {
-      messagesListRef.current.scrollTop = messagesListRef.current.scrollHeight;
+      messagesListRef.current.scrollTo(0, messagesListRef.current.scrollHeight);
     }
   }, []);
 
