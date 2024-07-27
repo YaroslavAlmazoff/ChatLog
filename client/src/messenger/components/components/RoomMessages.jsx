@@ -7,7 +7,7 @@ export default function RoomMessages({ messages }) {
 
   useEffect(() => {
     if (messagesEndRef.current) {
-      messagesEndRef.scrollIntoView({ behavior: "smooth" });
+      messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }, [messages]);
 
