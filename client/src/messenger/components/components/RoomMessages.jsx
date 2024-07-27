@@ -2,17 +2,22 @@ import { useEffect, useRef } from "react";
 import RoomMessage from "./RoomMessage";
 
 export default function RoomMessages({ messages }) {
-  const messagesListRef = useRef(null);
+  const messagesEndRef = useRef(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
 
   useEffect(() => {
-    messagesListRef.current.scrollTop = 10000;
+    scrollToBottom();
   }, [messages]);
 
   return (
-    <div className="room-messages" ref={messagesListRef}>
+    <div className="room-messages">
       {messages.map((message) => (
         <RoomMessage message={message} />
       ))}
+      <div ref={messagesEndRef} />
     </div>
   );
 }
