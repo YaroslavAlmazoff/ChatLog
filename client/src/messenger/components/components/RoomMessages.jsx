@@ -1,8 +1,10 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import RoomMessage from "./RoomMessage";
 
 export default function RoomMessages({ messages }) {
   const messagesListRef = useRef(null);
+
+  const [scrollState, setScrollState] = useState(false);
 
   useEffect(() => {
     if (messagesListRef.current) {
@@ -16,14 +18,19 @@ export default function RoomMessages({ messages }) {
         messagesListRef.current.scrollTop,
         messagesListRef.current.scrollHeight
       );
+      setScrollState(true);
     }
   }, [messages]);
 
   return (
-    <div className="room-messages" ref={messagesListRef}>
-      {messages.map((message) => (
-        <RoomMessage message={message} />
-      ))}
-    </div>
+    <>
+      {scrollState && (
+        <div className="room-messages" ref={messagesListRef}>
+          {messages.map((message) => (
+            <RoomMessage message={message} />
+          ))}
+        </div>
+      )}
+    </>
   );
 }
