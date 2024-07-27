@@ -1,7 +1,15 @@
+import { useEffect, useRef } from "react";
+
 export default function TestPage() {
+  const ref = useRef(null);
+
+  useEffect(() => {
+    ref.current.scrollTop = ref.current.scrollHeight;
+  }, []);
+
   return (
     <div style={{ height: "500px" }}>
-      <div style={{ height: "500px", overflow: "scroll" }}>
+      <div style={{ height: "500px", overflow: "scroll" }} ref={ref}>
         <p style={{ fontSize: "16pt" }}>
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Id dolores
           facilis delectus quibusdam, nam illo nostrum quae accusamus quo
