@@ -5,8 +5,10 @@ export default function RoomMessages({ messages }) {
   const messagesListRef = useRef();
 
   useEffect(() => {
-    messagesListRef.current.scrollTop = messagesListRef.current.scrollHeight;
-  }, [messages]);
+    if (messagesListRef.current) {
+      messagesListRef.current.scrollTop = messagesListRef.current.scrollHeight;
+    }
+  }, []);
 
   return (
     <div className="room-messages" ref={messagesListRef}>
