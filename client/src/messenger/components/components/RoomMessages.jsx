@@ -6,7 +6,7 @@ export default function RoomMessages({ messages }) {
 
   useEffect(() => {
     messagesListRef.current.scrollTop = 10000;
-  }, []);
+  }, [messages]);
 
   return (
     <div className="room-messages" ref={messagesListRef}>
