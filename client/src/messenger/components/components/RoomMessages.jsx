@@ -4,10 +4,12 @@ import RoomMessage from "./RoomMessage";
 
 export default function RoomMessages({ messages }) {
   return (
-    <ScrollableFeed className="room-messages" forceScroll={true}>
-      {messages.map((message) => (
-        <RoomMessage message={message} />
-      ))}
-    </ScrollableFeed>
+    <div className="room-messages-wrapper">
+      <ScrollableFeed className="room-messages" forceScroll={true}>
+        {messages.map((message) => (
+          <RoomMessage message={message} />
+        ))}
+      </ScrollableFeed>
+    </div>
   );
 }

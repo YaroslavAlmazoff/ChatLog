@@ -27,9 +27,11 @@
   border-radius: 15px;
 }
 
-.room-messages {
+.room-messages-wrapper {
   height: calc(100% - 100px - 1px);
-  overflow-y: scroll;
+}
+
+.room-messages {
   overflow-x: hidden;
   padding-top: 50px;
   padding-bottom: 50px;
