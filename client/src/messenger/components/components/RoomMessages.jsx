@@ -3,13 +3,11 @@ import RoomMessage from "./RoomMessage";
 
 export default function RoomMessages({ messages }) {
   const messagesListRef = useRef(null);
+  const messagesEndRef = useRef(null);
 
   useEffect(() => {
-    if (messagesListRef.current) {
-      setTimeout(() => {
-        messagesListRef.current.scrollTop =
-          messagesListRef.current.scrollHeight;
-      }, 10); // Добавьте небольшую задержку
+    if (messagesEndRef.current) {
+      messagesEndRef.scrollIntoView({ behavior: "smooth" });
     }
   }, [messages]);
 
@@ -18,6 +16,7 @@ export default function RoomMessages({ messages }) {
       {messages.map((message) => (
         <RoomMessage message={message} />
       ))}
+      <div style={{ height: "1px" }} ref={messagesEndRef}></div>
     </div>
   );
 }
