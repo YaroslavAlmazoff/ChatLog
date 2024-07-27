@@ -63,7 +63,7 @@ router.get("/refresh", async (req, res) => {
     }
 
     const accessToken = jwt.sign({ userId: validated.userId }, secret, {
-      expiresIn: "10m",
+      expiresIn: "1h",
     });
     const newRefreshToken = jwt.sign(
       { userId: validated.userId },
