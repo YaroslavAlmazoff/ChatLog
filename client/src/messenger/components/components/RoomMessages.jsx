@@ -1,25 +1,17 @@
-import { useRef, useState, useEffect } from "react";
+import { useEffect, useRef } from "react";
 import RoomMessage from "./RoomMessage";
 
 export default function RoomMessages({ messages }) {
   const messagesListRef = useRef(null);
-  const [scrollBottom, setScrollBottom] = useState(false);
 
   useEffect(() => {
-    if (scrollBottom && messagesListRef.current) {
-      messagesListRef.current.scrollTop = messagesListRef.current.scrollHeight;
-      setScrollBottom(false);
+    if (messagesListRef.current) {
+      setTimeout(() => {
+        messagesListRef.current.scrollTop =
+          messagesListRef.current.scrollHeight;
+      }, 10); // Добавьте небольшую задержку
     }
-  }, [messages, scrollBottom]);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setScrollBottom(true);
-    };
-
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  }, [messages]);
 
   return (
     <div className="room-messages" ref={messagesListRef}>
