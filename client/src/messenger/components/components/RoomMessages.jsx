@@ -3,20 +3,16 @@ import RoomMessage from "./RoomMessage";
 
 export default function RoomMessages({ messages }) {
   const messagesListRef = useRef(null);
-  const messagesEndRef = useRef(null);
 
   useEffect(() => {
-    if (messagesEndRef.current) {
-      messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
-    }
-  }, [messages]);
+    messagesListRef.current.scrollTop = 10000;
+  }, []);
 
   return (
     <div className="room-messages" ref={messagesListRef}>
       {messages.map((message) => (
         <RoomMessage message={message} />
       ))}
-      <div style={{ height: "1px" }} ref={messagesEndRef}></div>
     </div>
   );
 }
