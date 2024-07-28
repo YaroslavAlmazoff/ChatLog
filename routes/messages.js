@@ -312,71 +312,90 @@ const fileStorage = multer.diskStorage({
 
 const upload = multer({ storage: fileStorage });
 
-router.post(
-  "/new-messages/:id",
-  auth,
+router.post("/new-messages/:id", auth, async (req, res) => {
+  const user = await User.findById(req.user.userId);
+  const room = await Room.findById(req.params.id);
 
-  async (req, res) => {
-    const user = await User.findById(req.user.userId);
-    const room = await Room.findById(req.params.id);
+  const message = req.body;
+  console.log(req.files);
 
-    const message = req.body;
-    console.log(message);
+  const images = req.files
+    ? req.files["image"]
+      ? req.files["image"].map((file) => {
+          const filename = uuid.v4() + file.ext;
+          file.mv(path.resolve("..", "static", "message-images", filename));
+          return filename;
+        })
+      : []
+    : [];
 
-    const imageNames = req.files["image"]
-      ? req.files["image"].map((file) => file.filename)
-      : [];
-    const videoNames = req.files["video"]
-      ? req.files["video"].map((file) => file.filename)
-      : [];
-    const audioNames = req.files["audio"]
-      ? req.files["audio"].map((file) => file.filename)
-      : [];
+  const videos = req.files
+    ? req.files["video"]
+      ? req.files["video"].map((file) => {
+          const filename = uuid.v4() + file.ext;
+          file.mv(path.resolve("..", "static", "message-videos", filename));
+          return filename;
+        })
+      : []
+    : [];
 
-    message.isFile =
-      message.isFile == "true" || message.isFile == true ? true : false;
-    message.room = req.params.id;
-    message.avatarUrl = user.avatarUrl;
-    message.name = user.name;
-    message.isNotReaded = true;
-    message.user = user._id;
-    message.images = imageNames;
-    message.videos = videoNames;
-    message.audios = audioNames;
-
-    let to = "";
-    if (room.user1.toString() == req.user.userId) {
-      to = room.user2;
+  function getAudio() {
+    if (req.files && req.files.audio) {
+      const filename = uuid.v4() + req.files.file.ext;
+      req.files.audio.mv(
+        path.resolve("..", "static", "message-audios", filename)
+      );
+      return filename;
     } else {
-      to = room.user1;
+      return "";
     }
-
-    const token = await NotificationToken.findOne({ user: to });
-
-    if (token != null) {
-      const name = user.name + " " + user.surname;
-      FirebaseService.send(name, message.message, token.token, {
-        id: room._id.toString(),
-        type: "message",
-        message: message.message,
-        name,
-        click_action: "MESSENGER",
-      });
-    }
-
-    if (
-      message.fileLink == null ||
-      message.fileLink == "null" ||
-      message.fileLink == ""
-    ) {
-      message.fileLink = "";
-    } else {
-      await File.findByIdAndUpdate(message.fileLink, { public: true });
-    }
-    emitter.emit("newMessage", message);
-    res.status(200);
   }
-);
+
+  const audio = getAudio();
+
+  message.isFile =
+    message.isFile == "true" || message.isFile == true ? true : false;
+  message.room = req.params.id;
+  message.avatarUrl = user.avatarUrl;
+  message.name = user.name;
+  message.isNotReaded = true;
+  message.user = user._id;
+  message.images = images;
+  message.videos = videos;
+  message.audios = audio;
+
+  let to = "";
+  if (room.user1.toString() == req.user.userId) {
+    to = room.user2;
+  } else {
+    to = room.user1;
+  }
+
+  const token = await NotificationToken.findOne({ user: to });
+
+  if (token != null) {
+    const name = user.name + " " + user.surname;
+    FirebaseService.send(name, message.message, token.token, {
+      id: room._id.toString(),
+      type: "message",
+      message: message.message,
+      name,
+      click_action: "MESSENGER",
+    });
+  }
+
+  if (
+    message.fileLink == null ||
+    message.fileLink == "null" ||
+    message.fileLink == ""
+  ) {
+    message.fileLink = "";
+  } else {
+    await File.findByIdAndUpdate(message.fileLink, { public: true });
+  }
+  emitter.emit("newMessage", message);
+  res.status(200);
+});
 
 router.post("/new-chat-messages/:id", auth, async (req, res) => {
   const user = await User.findById(req.user.userId); //id
