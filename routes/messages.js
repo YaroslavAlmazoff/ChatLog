@@ -177,7 +177,7 @@ const sendMessages = async (res, room, page) => {
   );
 };
 
-router.get("/connect/:id/:page", async (req, res) => {
+router.get("/connect/:id", async (req, res) => {
   console.log("connection");
   res.writeHead(200, {
     Connection: "keep-alive",
