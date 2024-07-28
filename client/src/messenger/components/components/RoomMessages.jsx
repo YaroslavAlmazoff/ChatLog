@@ -5,8 +5,12 @@ import RoomMessage from "./RoomMessage";
 
 export default function RoomMessages({ messages }) {
   const messagesEndRef = useRef(null);
+
+  const [state, setState] = useState(null);
+
   useObserver(messagesEndRef, true, false, () => {
     console.log("афигеть, работает!!!");
+    setState(1);
   });
 
   return (
