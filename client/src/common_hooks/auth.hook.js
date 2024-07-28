@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import { useNavigate } from "react-router";
 import api from "../auth/api/auth";
 
@@ -6,16 +6,24 @@ const storageName = "user";
 
 export const useAuth = () => {
   const navigate = useNavigate();
-  const [token, setToken] = useState(null);
-  const [userId, setUserId] = useState(null);
-  const [authenticated, setAuthenticated] = useState(false);
-  const [activated, setActivated] = useState(false);
+  // const [token, setToken] = useState(null);
+  // const [userId, setUserId] = useState(null);
+  // const [authenticated, setAuthenticated] = useState(false);
+  // const [activated, setActivated] = useState(false);
+  const token = useRef(null);
+  const userId = useRef(null);
+  const authenticated = useRef(null);
+  const activated = useRef(null);
 
   const login = useCallback((token, id) => {
-    setToken(token);
-    setUserId(id);
-    setAuthenticated(true);
-    setActivated(true);
+    // setToken(token);
+    // setUserId(id);
+    // setAuthenticated(true);
+    // setActivated(true);
+    token.current = token;
+    userId.current = id;
+    authenticated.current = true;
+    activated.current = true;
     localStorage.setItem(
       storageName,
       JSON.stringify({
@@ -26,8 +34,10 @@ export const useAuth = () => {
   }, []);
 
   const logout = useCallback(() => {
-    setToken(null);
-    setUserId(null);
+    token.current = null;
+    userId.current = null;
+    authenticated.current = false;
+    activated.current = false;
     localStorage.removeItem(storageName);
   }, []);
 
