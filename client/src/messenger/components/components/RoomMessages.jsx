@@ -15,17 +15,15 @@ export default function RoomMessages({ messages }) {
 
   return (
     <div className="room-messages-wrapper">
-      {state && (
-        <ScrollableFeed className="room-messages" forceScroll={true}>
-          <div
-            ref={messagesEndRef}
-            style={{ height: "10px", backgroundColor: "#40a4ff" }}
-          />
-          {messages.map((message) => (
-            <RoomMessage message={message} />
-          ))}
-        </ScrollableFeed>
-      )}
+      <ScrollableFeed className="room-messages" forceScroll={true}>
+        <div
+          ref={messagesEndRef}
+          style={{ height: "10px", backgroundColor: "#40a4ff" }}
+        />
+        {messages.map((message) => (
+          <RoomMessage message={message} />
+        ))}
+      </ScrollableFeed>
     </div>
   );
 }
