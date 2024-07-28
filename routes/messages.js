@@ -358,7 +358,7 @@ router.post(
 
     if (token != null) {
       const name = user.name + " " + user.surname;
-      console(name, message.message, token.token, room._id.toString());
+      console.log(name, message.message, token.token, room._id.toString());
       FirebaseService.send(name, message.message, token.token, {
         id: room._id.toString(),
         type: "message",
