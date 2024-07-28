@@ -58,6 +58,7 @@ export default function Room() {
       eventSource.onmessage = function (event) {
         const messagesData = JSON.parse(event.data);
         setMessages(messagesData.messages);
+        console.log(messagesData.messages);
       };
     };
 
