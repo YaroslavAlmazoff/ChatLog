@@ -315,11 +315,7 @@ const upload = multer({ storage: fileStorage });
 router.post(
   "/new-messages/:id",
   auth,
-  upload.fields([
-    { name: "image", maxCount: 5 },
-    { name: "video", maxCount: 2 },
-    { name: "audio", maxCount: 1 },
-  ]),
+
   async (req, res) => {
     const user = await User.findById(req.user.userId);
     const room = await Room.findById(req.params.id);
