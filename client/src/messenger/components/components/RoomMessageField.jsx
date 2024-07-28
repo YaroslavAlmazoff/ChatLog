@@ -40,6 +40,7 @@ export default function RoomMessageField() {
     );
 
   const handleSend = async () => {
+    console.log(messageFieldRef.current.value);
     sendMessage(id, messageFieldRef.current.value, files);
     clearPreviews();
   };
