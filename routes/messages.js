@@ -325,6 +325,7 @@ router.post(
     const room = await Room.findById(req.params.id);
 
     const message = req.body;
+    console.log(message);
 
     const imageNames = req.files["image"]
       ? req.files["image"].map((file) => file.filename)
@@ -343,9 +344,9 @@ router.post(
     message.name = user.name;
     message.isNotReaded = true;
     message.user = user._id;
-    message.imageNames = imageNames;
-    message.videoNames = videoNames;
-    message.audioNames = audioNames;
+    message.images = imageNames;
+    message.videos = videoNames;
+    message.audios = audioNames;
 
     let to = "";
     if (room.user1.toString() == req.user.userId) {
@@ -358,7 +359,6 @@ router.post(
 
     if (token != null) {
       const name = user.name + " " + user.surname;
-      console.log(name, message.message, token.token, room._id.toString());
       FirebaseService.send(name, message.message, token.token, {
         id: room._id.toString(),
         type: "message",
