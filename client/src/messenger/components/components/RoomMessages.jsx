@@ -1,39 +1,21 @@
 import { useState, useEffect, useRef } from "react";
 import ScrollableFeed from "react-scrollable-feed";
+import { useIntersectionObserver } from "react-intersection-observer";
 import RoomMessage from "./RoomMessage";
 
 export default function RoomMessages({ messages }) {
-  const messagesRef = useRef(null);
+  const { ref, isIntersecting } = useIntersectionObserver({
+    threshold: 0.5,
+    rootMargin: "0px 0px -50% 0px",
+  });
 
-  const [atTop, setAtTop] = useState(true);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (messagesRef.current) {
-        const isAtTop = messagesRef.current.scrollTop === 0;
-        setAtTop(isAtTop);
-        console.log("at the top");
-      }
-    };
-
-    if (messagesRef.current) {
-      messagesRef.current.addEventListener("scroll", handleScroll);
-    }
-
-    return () => {
-      if (messagesRef.current) {
-        messagesRef.current.removeEventListener("scroll", handleScroll);
-      }
-    };
-  }, []);
+  if (isIntersecting) {
+    console.log("ScrollableFeed прокручен в начало!");
+  }
 
   return (
     <div className="room-messages-wrapper">
-      <ScrollableFeed
-        className="room-messages"
-        forceScroll={true}
-        ref={messagesRef}
-      >
+      <ScrollableFeed className="room-messages" forceScroll={true} ref={ref}>
         {messages.map((message) => (
           <RoomMessage message={message} />
         ))}
