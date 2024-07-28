@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 
-export const useObserver = (ref, canLoad, isLoading, root, callback) => {
+export const useObserver = (ref, canLoad, isLoading, callback) => {
   const observer = useRef();
 
   useEffect(() => {
@@ -13,7 +13,7 @@ export const useObserver = (ref, canLoad, isLoading, root, callback) => {
       }
     };
     const options = {
-      root: root.current,
+      root: ref.current.parentElement,
     };
     observer.current = new IntersectionObserver(cb, options);
     observer.current.observe(ref.current);

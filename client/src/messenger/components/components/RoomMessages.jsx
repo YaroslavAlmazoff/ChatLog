@@ -1,21 +1,21 @@
 import { useState, useEffect, useRef } from "react";
 import ScrollableFeed from "react-scrollable-feed";
-import { useIntersectionObserver } from "react-intersection-observer";
+import { useObserver } from "../../../common_hooks/observer.hook";
 import RoomMessage from "./RoomMessage";
 
 export default function RoomMessages({ messages }) {
-  const { ref, isIntersecting } = useIntersectionObserver({
-    threshold: 0.5,
-    rootMargin: "0px 0px -50% 0px",
+  const messagesEndRef = useRef(null);
+  useObserver(messagesEndRef, true, false, () => {
+    console.log("афигеть, работает!!!");
   });
-
-  if (isIntersecting) {
-    console.log("ScrollableFeed прокручен в начало!");
-  }
 
   return (
     <div className="room-messages-wrapper">
-      <ScrollableFeed className="room-messages" forceScroll={true} ref={ref}>
+      <ScrollableFeed className="room-messages" forceScroll={true}>
+        <div
+          ref={messagesEndRef}
+          style={{ height: "10px", backgroundColor: "#40a4ff" }}
+        />
         {messages.map((message) => (
           <RoomMessage message={message} />
         ))}
