@@ -87,5 +87,12 @@ export const useAuth = () => {
     return () => clearInterval(intervalId);
   }, [login]);
 
-  return { login, logout, token, userId, authenticated, activated };
+  return {
+    login,
+    logout,
+    token: token.current,
+    userId: userId.current,
+    authenticated: authenticated.current,
+    activated: activated.current,
+  };
 };
