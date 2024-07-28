@@ -14,7 +14,7 @@ const initialState = {
   audioFile: null,
 };
 
-export default function RoomMessageField() {
+export default function RoomMessageField({ setOffset }) {
   const { sendMessage } = useAPI();
   const { fileTypes } = useFile();
   const { id } = useParams();
@@ -42,6 +42,7 @@ export default function RoomMessageField() {
   const handleSend = async () => {
     console.log(messageFieldRef.current.value);
     sendMessage(id, messageFieldRef.current.value, files);
+    setOffset((prev) => prev++);
     clearPreviews();
   };
 
