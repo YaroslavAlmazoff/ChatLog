@@ -13,12 +13,13 @@ export default function useAPI() {
     return new EventSource(`https://chatlog.ru/api/connect/${id}`);
   };
 
-  const sendMessage = async (id, text, files) => {
+  const sendMessage = async (id, text, files, offset) => {
     const filesObject = files;
     const formData = new FormData();
 
     formData.append("message", text);
     formData.append("date", getCurrentDate());
+    formData.append("offset", offset);
     filesObject.imageFiles.forEach((file, i) => {
       formData.append("image", file, `image${i}.jpg`);
     });
