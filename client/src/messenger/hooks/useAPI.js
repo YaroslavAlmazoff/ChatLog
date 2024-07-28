@@ -9,6 +9,10 @@ export default function useAPI() {
   const { getCurrentDate } = useDate();
   const { token } = useContext(AuthContext);
 
+  const createEventSource = (id) => {
+    return new EventSource(`https://chatlog.ru/api/connect/${id}`);
+  };
+
   const sendMessage = async (id, text, files) => {
     const filesObject = files;
     const formData = new FormData();
@@ -47,6 +51,7 @@ export default function useAPI() {
   };
 
   return {
+    createEventSource,
     sendMessage,
     getRoom,
     deleteMessage,

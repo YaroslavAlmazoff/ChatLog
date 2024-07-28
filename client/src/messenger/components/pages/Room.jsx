@@ -10,7 +10,7 @@ import "../../styles/Room.css";
 
 export default function Room() {
   const { id } = useParams();
-  const { getRoom } = useAPI();
+  const { getRoom, createEventSource } = useAPI();
   const { fileFromServer } = useFile();
   const navigate = useNavigate();
 
@@ -49,15 +49,20 @@ export default function Room() {
   ]);
 
   useEffect(() => {
-    console.log(auth);
     const getData = async () => {
-      //const { token } = await verify();
       const { room } = await getRoom(id);
-      console.log(room);
       setRoom(room);
     };
+    const startEventSource = () => {
+      const eventSource = createEventSource(id);
+      eventSource.onmessage = function (event) {
+        const messagesData = JSON.parse(event.data);
+        setMessages(messagesData);
+      };
+    };
+
     getData();
-    console.log(auth);
+    startEventSource();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
