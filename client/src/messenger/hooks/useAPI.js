@@ -31,7 +31,7 @@ export default function useAPI() {
     formData.append("isFile", !!localStorage.getItem("file-link"));
 
     await api.post(`${prefix}/new-messages/${id}`, formData, {
-      headers: `Bearer ${token}`,
+      headers: { Authorization: `Bearer ${token}` },
     });
   };
 

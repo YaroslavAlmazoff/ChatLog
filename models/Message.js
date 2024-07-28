@@ -2,7 +2,6 @@ const mongoose = require("mongoose");
 
 const Message = new mongoose.Schema({
   message: { type: String, default: "" },
-  old: { type: String, default: "" },
   name: { type: String, required: true },
   avatarUrl: { type: String, required: true },
   date: { type: String, required: true },
@@ -12,12 +11,9 @@ const Message = new mongoose.Schema({
   isNotReaded: { type: Boolean, required: true, default: true },
   isFile: { type: Boolean, required: true, default: false },
   id: { type: Number, required: true, default: 0 },
-  imageUrl: { type: String, default: "" },
-  videoUrl: { type: String, default: "" },
-  audioUrl: { type: String, default: "" },
-  imageNames: [{ type: String, default: [] }],
-  videoNames: [{ type: String, default: [] }],
-  audioNames: [{ type: String, default: [] }],
+  images: [{ type: String, default: [] }],
+  videos: [{ type: String, default: [] }],
+  audios: [{ type: String, default: [] }],
   screenshotUrl: { type: String, default: "" },
   readedThisMessage: [{ type: mongoose.Types.ObjectId, default: [] }],
   fileLink: { type: String, default: "" },
