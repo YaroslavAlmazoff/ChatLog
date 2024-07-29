@@ -44,7 +44,11 @@ export default function useAPI() {
   };
 
   const getMessages = async (page, offset) => {
-    await api.get(`${prefix}/messages/${page}/${offset}`, options);
+    const response = await api.get(
+      `${prefix}/messages/${page}/${offset}`,
+      options
+    );
+    console.log(response);
   };
 
   const deleteMessage = async (message) => {
