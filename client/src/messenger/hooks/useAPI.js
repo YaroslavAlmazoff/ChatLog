@@ -9,6 +9,10 @@ export default function useAPI() {
   const { getCurrentDate } = useDate();
   const { token } = useContext(AuthContext);
 
+  const options = {
+    headers: { Authorization: `Bearer ${token}` },
+  };
+
   const createEventSource = (id) => {
     return new EventSource(`https://chatlog.ru/api/connect/${id}`);
   };
@@ -31,20 +35,16 @@ export default function useAPI() {
     }
     formData.append("isFile", !!localStorage.getItem("file-link"));
 
-    await api.post(`${prefix}/new-messages/${id}`, formData, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+    await api.post(`${prefix}/new-messages/${id}`, formData, options);
   };
 
   const getRoom = async (id) => {
-    console.log(token);
-    const response = await api.get(`${prefix}/room-by-id/${id}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    console.log(response);
+    const response = await api.get(`${prefix}/room-by-id/${id}`, options);
     return response.data;
+  };
+
+  const getMessages = async (id, page, offset) => {
+    await api.get(`${prefix}/messages/${page}/${offset}`, options);
   };
 
   const deleteMessage = async (message) => {
@@ -55,6 +55,7 @@ export default function useAPI() {
     createEventSource,
     sendMessage,
     getRoom,
+    getMessages,
     deleteMessage,
   };
 }
