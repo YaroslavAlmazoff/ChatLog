@@ -15,7 +15,7 @@ export default function RoomMessages({ messages, offset }) {
 
   useObserver(messagesEndRef, true, false, () => {
     console.log("афигеть, работает!!!");
-    setPage((prev) => prev++);
+    setPage(page + 1);
   });
 
   useEffect(() => {
