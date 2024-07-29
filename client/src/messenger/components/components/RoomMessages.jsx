@@ -19,6 +19,7 @@ export default function RoomMessages({ messages, offset }) {
   });
 
   useEffect(() => {
+    console.log(id, page, offset);
     getMessages(id, page, offset);
   }, [page]);
 
