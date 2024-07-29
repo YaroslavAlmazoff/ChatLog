@@ -6,7 +6,6 @@ import useAPI from "../../hooks/useAPI";
 import { useParams } from "react-router";
 
 export default function RoomMessages({ messages, offset }) {
-  const { id } = useParams();
   const { getMessages } = useAPI();
 
   const messagesEndRef = useRef(null);
@@ -15,13 +14,9 @@ export default function RoomMessages({ messages, offset }) {
 
   useObserver(messagesEndRef, true, false, () => {
     console.log("афигеть, работает!!!");
-    setPage(page + 1);
+    getMessages(page, offset);
+    setPage((prev) => prev++);
   });
-
-  useEffect(() => {
-    console.log(id, page, offset);
-    getMessages(id, page, offset);
-  }, [page]);
 
   return (
     <div className="room-messages-wrapper">
