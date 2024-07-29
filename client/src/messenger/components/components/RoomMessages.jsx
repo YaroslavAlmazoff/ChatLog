@@ -20,7 +20,7 @@ export default function RoomMessages({ messages, offset }) {
 
   return (
     <div className="room-messages-wrapper">
-      <ScrollableFeed className="room-messages" forceScroll={true}>
+      <ScrollableFeed className="room-messages">
         <div
           ref={messagesEndRef}
           style={{ height: "10px", backgroundColor: "#40a4ff" }}
