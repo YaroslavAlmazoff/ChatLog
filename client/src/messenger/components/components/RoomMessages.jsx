@@ -21,7 +21,7 @@ export default function RoomMessages({ messages, offset }) {
 
   useEffect(() => {
     feedRef.current.scrollToBottom();
-  }, []);
+  }, [messages]);
 
   return (
     <div className="room-messages-wrapper">
