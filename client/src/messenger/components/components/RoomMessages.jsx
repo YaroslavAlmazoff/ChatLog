@@ -9,6 +9,7 @@ export default function RoomMessages({ messages, offset }) {
   const { getMessages } = useAPI();
 
   const messagesEndRef = useRef(null);
+  const feedRef = useRef(null);
 
   const [page, setPage] = useState(1);
 
@@ -18,9 +19,13 @@ export default function RoomMessages({ messages, offset }) {
     setPage((prev) => prev++);
   });
 
+  useEffect(() => {
+    feedRef.current.scrollToBottom();
+  }, []);
+
   return (
     <div className="room-messages-wrapper">
-      <ScrollableFeed className="room-messages">
+      <ScrollableFeed ref={feedRef} className="room-messages">
         <div
           ref={messagesEndRef}
           style={{ height: "10px", backgroundColor: "#40a4ff" }}
