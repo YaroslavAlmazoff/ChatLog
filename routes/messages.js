@@ -197,24 +197,17 @@ router.get("/connect/:id", async (req, res) => {
     await sendMessages(res, req.params.id, page, offset);
   });
   emitter.on("newMessage", async (message) => {
-    Message.findOne({
-      message: message.message,
-      date: message.date,
-      room: message.room,
-    }).then(async (data) => {
-      if (!data) {
-        const created = await Message.create(message);
-        await Room.findByIdAndUpdate(message.room, {
-          lastMessageId: created._id,
-          lastMessage: created.message,
-        });
-        res.write(
-          `data: ${JSON.stringify({
-            messages: [created],
-          })} \n\n`
-        );
-      }
+    const created = await Message.create(message, { upsert: true });
+
+    await Room.findByIdAndUpdate(message.room, {
+      lastMessageId: created._id,
+      lastMessage: created.message,
     });
+    res.write(
+      `data: ${JSON.stringify({
+        messages: [created],
+      })} \n\n`
+    );
   });
 });
 
