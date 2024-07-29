@@ -215,6 +215,7 @@ router.get("/messages/:page/:offset", auth, (req, res) => {
   try {
     console.log("В роуте");
     emitter.emit("messages", req.params.page, req.params.offset);
+    res.json({ message: "да ну тебя" });
   } catch (e) {
     console.log(e);
   }
