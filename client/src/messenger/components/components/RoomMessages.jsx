@@ -5,11 +5,10 @@ import RoomMessage from "./RoomMessage";
 import useAPI from "../../hooks/useAPI";
 import { useParams } from "react-router";
 
-export default function RoomMessages({ messages, offset }) {
+export default function RoomMessages({ messages, offset, feedRef }) {
   const { getMessages } = useAPI();
 
   const messagesEndRef = useRef(null);
-  const feedRef = useRef(null);
 
   const [page, setPage] = useState(1);
 
@@ -18,10 +17,6 @@ export default function RoomMessages({ messages, offset }) {
     getMessages(page, offset);
     setPage((prev) => prev++);
   });
-
-  useEffect(() => {
-    feedRef.current.scrollToBottom();
-  }, [messages]);
 
   return (
     <div className="room-messages-wrapper">

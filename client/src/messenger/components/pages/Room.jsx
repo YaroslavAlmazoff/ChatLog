@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router";
 import RoomHead from "../components/RoomHead";
 import RoomMessageField from "../components/RoomMessageField";
@@ -11,6 +11,8 @@ export default function Room() {
   const { id } = useParams();
   const { getRoom, createEventSource } = useAPI();
   const { fileFromServer } = useFile();
+
+  const feedRef = useRef(null);
 
   const [room, setRoom] = useState({
     name: "",
@@ -61,6 +63,7 @@ export default function Room() {
 
     getData();
     startEventSource();
+    feedRef.current.scrollToBottom();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -76,7 +79,7 @@ export default function Room() {
         onlineDate={room.date}
         isOnline={room.isOnline}
       />
-      <RoomMessages messages={messages} offset={offset} />
+      <RoomMessages messages={messages} offset={offset} feedRef={feedRef} />
       <RoomMessageField setOffset={setOffset} />
     </div>
   );
