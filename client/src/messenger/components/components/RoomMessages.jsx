@@ -2,16 +2,25 @@ import { useState, useEffect, useRef } from "react";
 import ScrollableFeed from "react-scrollable-feed";
 import { useObserver } from "../../../common_hooks/observer.hook";
 import RoomMessage from "./RoomMessage";
+import useAPI from "../../hooks/useAPI";
+import { useParams } from "react-router";
 
-export default function RoomMessages({ messages }) {
+export default function RoomMessages({ messages, offset }) {
+  const { id } = useParams();
+  const { getMessages } = useAPI();
+
   const messagesEndRef = useRef(null);
 
-  const [state, setState] = useState(null);
+  const [page, setPage] = useState(1);
 
   useObserver(messagesEndRef, true, false, () => {
     console.log("афигеть, работает!!!");
-    setState(1);
+    setPage((prev) => prev++);
   });
+
+  useEffect(() => {
+    getMessages(id, page, offset);
+  }, [page]);
 
   return (
     <div className="room-messages-wrapper">

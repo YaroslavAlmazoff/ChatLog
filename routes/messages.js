@@ -156,23 +156,24 @@ const filterMessages = async (room) => {
     .reverse();
 };
 
-const getMessagesPortion = (pageNumber) => {
-  const page = parseInt(pageNumber) || 1;
+const getMessagesPortion = (page, offset) => {
+  const pageNumber = parseInt(page) || 1;
+  const offsetNumber = parseInt(offset) || 0;
   const perPage = 10;
-  const startIndex = (page - 1) * perPage;
-  const endIndex = page * perPage;
+  const startIndex = (pageNumber - 1) * perPage + offsetNumber;
+  const endIndex = pageNumber * perPage;
   return { startIndex, endIndex };
 };
 
-const sendMessages = async (res, room, page) => {
+const sendMessages = async (res, room, page, offset) => {
   const filtered = await filterMessages(room);
-  const { startIndex, endIndex } = getMessagesPortion(page);
+  const { startIndex, endIndex } = getMessagesPortion(page, offset);
   const results = filtered.slice(startIndex, endIndex);
   res.write(
     `data: ${JSON.stringify({
       messages: results,
       count: filtered.length,
-      isLast: endIndex >= filtered.length,
+      canLoad: !(endIndex >= filtered.length),
     })} \n\n`
   );
 };
@@ -189,8 +190,8 @@ router.get("/connect/:id", async (req, res) => {
 
   sendMessages(res, req.params.id, 1);
 
-  emitter.on("messages", async (page) => {
-    await sendMessages(res, req.params.id, page);
+  emitter.on("messages", async (page, offset) => {
+    await sendMessages(res, req.params.id, page, offset);
   });
   emitter.on("newMessage", async (message) => {
     Message.findOne({
@@ -214,9 +215,9 @@ router.get("/connect/:id", async (req, res) => {
   });
 });
 
-router.get("/messages/:page", auth, (req, res) => {
+router.get("/messages/:page/:offset", auth, (req, res) => {
   try {
-    emitter.emit("messages", req.params.page);
+    emitter.emit("messages", req.params.page, req.params.offset);
   } catch (e) {
     console.log(e);
   }
