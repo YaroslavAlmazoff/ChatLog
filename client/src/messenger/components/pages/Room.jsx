@@ -53,7 +53,6 @@ export default function Room() {
     const startEventSource = () => {
       const eventSource = createEventSource(id);
       eventSource.onmessage = function (event) {
-        console.log("дата ебать");
         const messagesData = JSON.parse(event.data);
         setMessages((prev) => [...prev, messagesData.messages]);
         console.log(messagesData.messages);
