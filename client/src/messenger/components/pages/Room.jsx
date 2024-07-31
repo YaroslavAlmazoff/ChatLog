@@ -68,6 +68,7 @@ export default function Room() {
 
   useEffect(() => {
     feedRef.current.scrollToBottom();
+    console.log(feedRef);
   }, [feedRef]);
 
   return (
