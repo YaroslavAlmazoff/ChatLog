@@ -1,11 +1,10 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef, forwardRef } from "react";
 import ScrollableFeed from "react-scrollable-feed";
 import { useObserver } from "../../../common_hooks/observer.hook";
 import RoomMessage from "./RoomMessage";
 import useAPI from "../../hooks/useAPI";
-import { useParams } from "react-router";
 
-export default function RoomMessages({ messages, offset, feedRef }) {
+export default forwardRef(function RoomMessages({ messages, offset }, ref) {
   const { getMessages } = useAPI();
 
   const messagesEndRef = useRef(null);
@@ -20,7 +19,7 @@ export default function RoomMessages({ messages, offset, feedRef }) {
 
   return (
     <div className="room-messages-wrapper">
-      <ScrollableFeed ref={feedRef} className="room-messages">
+      <ScrollableFeed ref={ref} className="room-messages">
         <div
           ref={messagesEndRef}
           style={{ height: "10px", backgroundColor: "#40a4ff" }}
@@ -31,4 +30,4 @@ export default function RoomMessages({ messages, offset, feedRef }) {
       </ScrollableFeed>
     </div>
   );
-}
+});

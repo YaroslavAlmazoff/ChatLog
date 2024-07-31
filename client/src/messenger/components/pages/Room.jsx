@@ -79,7 +79,7 @@ export default function Room() {
         onlineDate={room.date}
         isOnline={room.isOnline}
       />
-      <RoomMessages messages={messages} offset={offset} feedRef={feedRef} />
+      <RoomMessages messages={messages} offset={offset} ref={feedRef} />
       <RoomMessageField setOffset={setOffset} />
     </div>
   );
