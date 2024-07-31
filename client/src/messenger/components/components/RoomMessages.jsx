@@ -7,6 +7,8 @@ import useAPI from "../../hooks/useAPI";
 export default forwardRef(function RoomMessages({ messages, offset }, ref) {
   const { getMessages } = useAPI();
 
+  console.log(ref);
+
   const messagesEndRef = useRef(null);
 
   const [page, setPage] = useState(1);
