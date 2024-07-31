@@ -63,9 +63,12 @@ export default function Room() {
 
     getData();
     startEventSource();
-    feedRef.current.scrollToBottom();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    feedRef.current.scrollToBottom();
+  }, [feedRef]);
 
   return (
     <div
