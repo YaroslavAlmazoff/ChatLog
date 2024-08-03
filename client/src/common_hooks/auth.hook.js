@@ -34,29 +34,31 @@ export const useAuth = () => {
   useEffect(() => {
     const getData = async () => {
       const data = JSON.parse(localStorage.getItem(storageName));
-      if (
-        !data &&
-        window.location.pathname !== "/greeting" &&
-        window.location.pathname !== "/support" &&
+      if (data) {
+        const response = await api.get("/api/refresh", {
+          headers: {
+            Authorization: `Bearer ${data.token}`,
+          },
+        });
+
+        console.log(response);
+
+        const { verified, activated, greeting, token, userId } = response.data;
+
+        if (greeting) return navigate("/greeting");
+        if (!verified) return navigate("/login");
+        if (!activated) return navigate("/notactivated");
+
+        login(token, userId);
+      } else if (
+        window.location.pathname === "/greeting" ||
+        window.location.pathname === "/support" ||
         !window.location.pathname.includes("store")
-      )
+      ) {
+        return;
+      } else {
         return navigate("/greeting");
-
-      const response = await api.get("/api/refresh", {
-        headers: {
-          Authorization: `Bearer ${data.token}`,
-        },
-      });
-
-      console.log(response);
-
-      const { verified, activated, greeting, token, userId } = response.data;
-
-      if (greeting) return navigate("/greeting");
-      if (!verified) return navigate("/login");
-      if (!activated) return navigate("/notactivated");
-
-      login(token, userId);
+      }
     };
 
     try {
