@@ -38,7 +38,7 @@ export const useAuth = () => {
         !data &&
         window.location.pathname !== "/greeting" &&
         window.location.pathname !== "/support" &&
-        !window.location.pathname.includes("game")
+        !window.location.pathname.includes("store")
       )
         return navigate("/greeting");
 
