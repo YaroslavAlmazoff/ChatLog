@@ -37,7 +37,8 @@ export const useAuth = () => {
       if (
         !data &&
         window.location.pathname !== "/greeting" &&
-        window.location.pathname !== "/support"
+        window.location.pathname !== "/support" &&
+        !window.location.pathname.includes("game")
       )
         return navigate("/greeting");
 
