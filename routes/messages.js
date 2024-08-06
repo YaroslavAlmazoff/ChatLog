@@ -165,7 +165,7 @@ const getMessagesPortion = (page, offset) => {
   return { startIndex, endIndex };
 };
 
-const sendMessages = async (res, room, page, offset) => {
+const sendMessages = async (res, room, page, offset, type) => {
   console.log("В sendMessages");
   const filtered = await filterMessages(room);
   const { startIndex, endIndex } = getMessagesPortion(page, offset);
@@ -176,6 +176,7 @@ const sendMessages = async (res, room, page, offset) => {
       messages: results,
       count: filtered.length,
       canLoad: !(endIndex >= filtered.length),
+      type,
     })} \n\n`
   );
 };
@@ -190,11 +191,11 @@ router.get("/connect/:id", async (req, res) => {
     "Content-Range": "bytes 100-64656926/64656927",
   });
 
-  sendMessages(res, req.params.id, 1);
+  sendMessages(res, req.params.id, 1, "init");
 
   emitter.on("messages", async (page, offset) => {
     console.log("В эмиттере");
-    await sendMessages(res, req.params.id, page, offset);
+    await sendMessages(res, req.params.id, page, offset, "load");
   });
   emitter.on("newMessage", async (message) => {
     const created = await Message.create(message, { upsert: true });
@@ -206,6 +207,7 @@ router.get("/connect/:id", async (req, res) => {
     res.write(
       `data: ${JSON.stringify({
         messages: [created],
+        type: "create",
       })} \n\n`
     );
   });

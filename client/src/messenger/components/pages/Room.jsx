@@ -5,6 +5,7 @@ import RoomMessageField from "../components/RoomMessageField";
 import RoomMessages from "../components/RoomMessages";
 import useAPI from "../../hooks/useAPI";
 import useFile from "../../hooks/useFile";
+import { messagesDataTypes } from "../../data/messengerConfiguration";
 import "../../styles/Room.css";
 
 export default function Room() {
@@ -58,7 +59,12 @@ export default function Room() {
         const messagesData = JSON.parse(event.data);
         setMessages((prev) => [...prev, messagesData.messages]);
         console.log(messagesData.messages);
-        feedRef.current.scrollToBottom();
+        if (
+          messagesData.type === messagesDataTypes.init ||
+          messagesData.type === messagesDataTypes.create
+        ) {
+          feedRef.current.scrollToBottom();
+        }
       };
     };
 
