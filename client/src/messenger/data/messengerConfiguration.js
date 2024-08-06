@@ -12,3 +12,9 @@ export const actionsAnimationClasses = {
   show: "room-message-actions-show",
   hide: "room-message-actions-hide",
 };
+
+export const messagesDataTypes = {
+  init: "init",
+  load: "load",
+  create: "create",
+};
