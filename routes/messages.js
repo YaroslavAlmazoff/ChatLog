@@ -191,7 +191,7 @@ router.get("/connect/:id", async (req, res) => {
     "Content-Range": "bytes 100-64656926/64656927",
   });
 
-  sendMessages(res, req.params.id, 1, "init");
+  sendMessages(res, req.params.id, 1, 0, "init");
 
   emitter.on("messages", async (page, offset) => {
     console.log("В эмиттере");
