@@ -58,6 +58,7 @@ export default function Room() {
         const messagesData = JSON.parse(event.data);
         setMessages((prev) => [...prev, messagesData.messages]);
         console.log(messagesData.messages);
+        feedRef.current.scrollToBottom();
       };
     };
 
