@@ -23,7 +23,7 @@ export default function RoomMessage({ message }) {
       >
         <div className="room-message-top">
           <img
-            src={fileFromServer("useravatars", message.avatar)}
+            src={fileFromServer("useravatars", message.avatarUrl)}
             alt="Avatar"
             className="room-message-avatar"
           />

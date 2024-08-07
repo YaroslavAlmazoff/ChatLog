@@ -4,7 +4,10 @@ import { useObserver } from "../../../common_hooks/observer.hook";
 import RoomMessage from "./RoomMessage";
 import useAPI from "../../hooks/useAPI";
 
-export default forwardRef(function RoomMessages({ messages, offset }, ref) {
+export default forwardRef(function RoomMessages(
+  { messages, offset, loading },
+  ref
+) {
   const { getMessages } = useAPI();
 
   const messagesEndRef = useRef(null);
@@ -12,8 +15,10 @@ export default forwardRef(function RoomMessages({ messages, offset }, ref) {
   const [page, setPage] = useState(1);
 
   useObserver(messagesEndRef, true, false, () => {
-    getMessages(page, offset);
-    setPage((prev) => prev++);
+    if (!loading) {
+      getMessages(page, offset);
+      setPage((prev) => prev++);
+    }
   });
 
   return (
