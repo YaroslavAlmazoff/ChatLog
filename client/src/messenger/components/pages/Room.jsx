@@ -21,6 +21,7 @@ export default function Room() {
   const [room, setRoom] = useState({ name: "", date: "", bg: "" });
   const [messages, setMessages] = useState(testMessages);
   const [offset, setOffset] = useState(0);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const getData = async () => {
@@ -32,6 +33,7 @@ export default function Room() {
       eventSource.onmessage = function (event) {
         const messagesData = JSON.parse(event.data);
         setMessages((prev) => [...messagesData.messages, ...prev]);
+        setLoading(false);
         console.log(messagesData.messages, messagesData.type);
         if (
           messagesData.type === messagesDataTypes.init ||
@@ -59,7 +61,12 @@ export default function Room() {
         onlineDate={room.date}
         isOnline={room.isOnline}
       />
-      <RoomMessages messages={messages} offset={offset} ref={feedRef} />
+      <RoomMessages
+        messages={messages}
+        offset={offset}
+        ref={feedRef}
+        loading={loading}
+      />
       <RoomMessageField setOffset={setOffset} />
     </div>
   );
