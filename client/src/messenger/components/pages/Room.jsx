@@ -32,13 +32,26 @@ export default function Room() {
       const eventSource = createEventSource(id);
       eventSource.onmessage = function (event) {
         const messagesData = JSON.parse(event.data);
+
+        const anchorElement = document.querySelector(
+          ".your-message-classname:first-child"
+        );
+        const anchorTop = anchorElement?.getBoundingClientRect().top;
+
         setMessages((prev) => [...messagesData.messages, ...prev]);
         console.log(messagesData.messages, messagesData.type);
         if (
           messagesData.type === messagesDataTypes.init ||
           messagesData.type === messagesDataTypes.create
         ) {
-          feedRef.current.scrollToBottom();
+          //feedRef.current.scrollToBottom();
+
+          requestAnimationFrame(() => {
+            const newAnchorTop = anchorElement?.getBoundingClientRect().top;
+            if (anchorTop && newAnchorTop) {
+              feedRef.current.scrollTop = newAnchorTop - anchorTop;
+            }
+          });
         }
         setLoading(false);
       };
