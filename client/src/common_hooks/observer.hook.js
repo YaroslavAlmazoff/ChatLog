@@ -1,10 +1,10 @@
 import { useEffect, useRef } from "react";
 
-export const useObserver = (ref, canLoad, isLoading, callback) => {
+export const useObserver = (ref, canLoad, loading, callback) => {
   const observer = useRef();
 
   useEffect(() => {
-    if (isLoading) return;
+    if (loading) return;
     if (observer.current) observer.current.disconnect();
 
     var cb = function (entries) {
@@ -18,5 +18,5 @@ export const useObserver = (ref, canLoad, isLoading, callback) => {
     observer.current = new IntersectionObserver(cb, options);
     observer.current.observe(ref.current);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLoading]);
+  }, [loading]);
 };
