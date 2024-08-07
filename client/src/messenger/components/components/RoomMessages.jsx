@@ -14,11 +14,10 @@ export default forwardRef(function RoomMessages(
 
   const [page, setPage] = useState(1);
 
-  useObserver(messagesEndRef, true, false, () => {
-    if (!loading) {
-      getMessages(page, offset);
-      setPage((prev) => prev++);
-    }
+  useObserver(messagesEndRef, true, loading, () => {
+    console.log(loading);
+    getMessages(page, offset);
+    setPage((prev) => prev++);
   });
 
   return (
