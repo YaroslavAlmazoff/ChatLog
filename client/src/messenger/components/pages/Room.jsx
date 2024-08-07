@@ -5,7 +5,10 @@ import RoomMessageField from "../components/RoomMessageField";
 import RoomMessages from "../components/RoomMessages";
 import useAPI from "../../hooks/useAPI";
 import useFile from "../../hooks/useFile";
-import { messagesDataTypes } from "../../data/messengerConfiguration";
+import {
+  testMessages,
+  messagesDataTypes,
+} from "../../data/messengerConfiguration";
 import "../../styles/Room.css";
 
 export default function Room() {
@@ -15,37 +18,8 @@ export default function Room() {
 
   const feedRef = useRef(null);
 
-  const [room, setRoom] = useState({
-    name: "",
-    date: "",
-    bg: "",
-  });
-  const [messages, setMessages] = useState([
-    {
-      message: "Привет",
-      user: "628e5aab0153706a3e18fe79",
-      name: "Yaroslav Almazoff",
-      date: "23.07.2024 12:00",
-      avatar: "907d4938-52fa-4c48-a421-6245c7f2d453.jpg",
-      images: [
-        "37d5055a-aea0-4397-b640-6d06b8d8a497.jpg",
-        "3ff98630-d038-4093-878f-69232741e273.jpg",
-      ],
-      videos: ["video1.mp4", "video2.mp4"],
-    },
-    {
-      message: "Привет",
-      user: "628e5aab0153706a3e18fe79",
-      name: "Yaroslav Almazoff",
-      date: "23.07.2024 12:00",
-      avatar: "907d4938-52fa-4c48-a421-6245c7f2d453.jpg",
-      images: [
-        "37d5055a-aea0-4397-b640-6d06b8d8a497.jpg",
-        "3ff98630-d038-4093-878f-69232741e273.jpg",
-      ],
-      videos: ["video1.mp4", "video2.mp4"],
-    },
-  ]);
+  const [room, setRoom] = useState({ name: "", date: "", bg: "" });
+  const [messages, setMessages] = useState(testMessages);
   const [offset, setOffset] = useState(0);
 
   useEffect(() => {
@@ -57,7 +31,7 @@ export default function Room() {
       const eventSource = createEventSource(id);
       eventSource.onmessage = function (event) {
         const messagesData = JSON.parse(event.data);
-        setMessages((prev) => [...prev, messagesData.messages]);
+        setMessages((prev) => [messagesData.messages, ...prev]);
         console.log(messagesData.messages, messagesData.type);
         if (
           messagesData.type === messagesDataTypes.init ||
@@ -72,11 +46,6 @@ export default function Room() {
     startEventSource();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  useEffect(() => {
-    feedRef.current.scrollToBottom();
-    console.log(feedRef);
-  }, [feedRef]);
 
   return (
     <div
