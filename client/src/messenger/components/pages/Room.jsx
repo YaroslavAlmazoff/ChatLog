@@ -31,7 +31,7 @@ export default function Room() {
       const eventSource = createEventSource(id);
       eventSource.onmessage = function (event) {
         const messagesData = JSON.parse(event.data);
-        setMessages((prev) => [messagesData.messages, ...prev]);
+        setMessages((prev) => [...messagesData.messages, ...prev]);
         console.log(messagesData.messages, messagesData.type);
         if (
           messagesData.type === messagesDataTypes.init ||
