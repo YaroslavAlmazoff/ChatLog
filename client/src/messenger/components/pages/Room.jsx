@@ -52,6 +52,8 @@ export default function Room() {
               feedRef.current.scrollTop = newAnchorTop - anchorTop;
             }
           });
+        } else {
+          feedRef.current.scrollTop = feedRef.current.scrollHeight;
         }
         setLoading(false);
       };
