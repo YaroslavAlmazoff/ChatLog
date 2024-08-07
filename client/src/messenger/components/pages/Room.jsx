@@ -33,7 +33,6 @@ export default function Room() {
       eventSource.onmessage = function (event) {
         const messagesData = JSON.parse(event.data);
         setMessages((prev) => [...messagesData.messages, ...prev]);
-        setLoading(false);
         console.log(messagesData.messages, messagesData.type);
         if (
           messagesData.type === messagesDataTypes.init ||
@@ -41,6 +40,7 @@ export default function Room() {
         ) {
           feedRef.current.scrollToBottom();
         }
+        setLoading(false);
       };
     };
 
