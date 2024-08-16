@@ -37,11 +37,16 @@ export default function Room() {
 
         messages.toReversed().forEach((item) => {
           if (item.isVisible) {
+            console.log(item.isVisible);
             anchorElement = document.querySelector(`#message-${item._id}`);
           }
         });
 
+        console.log(anchorElement);
+
         const anchorTop = anchorElement?.getBoundingClientRect().top;
+
+        console.log(anchorTop);
 
         setMessages((prev) => [...messagesData.messages, ...prev]);
         console.log(messagesData.messages, messagesData.type);
@@ -53,6 +58,8 @@ export default function Room() {
 
           requestAnimationFrame(() => {
             const newAnchorTop = anchorElement?.getBoundingClientRect().top;
+            console.log(newAnchorTop);
+            console.log(newAnchorTop - anchorTop);
             if (anchorTop && newAnchorTop) {
               feedRef.current.scrollTop = newAnchorTop - anchorTop;
             }
