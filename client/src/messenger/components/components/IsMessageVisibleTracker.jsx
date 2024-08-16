@@ -12,7 +12,7 @@ export default function IsVisibleMessageTracker({
       setMessages((prev) => {
         const messages = [...prev];
         const index = messages.findIndex((item) => item._id === message._id);
-        messages[index] = { ...message[index], isVisible };
+        messages[index] = { ...message, isVisible };
         return messages;
       });
     };

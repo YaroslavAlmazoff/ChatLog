@@ -54,8 +54,6 @@ export default function Room() {
           messagesData.type === messagesDataTypes.init ||
           messagesData.type === messagesDataTypes.create
         ) {
-          //feedRef.current.scrollToBottom();
-
           requestAnimationFrame(() => {
             const newAnchorTop = anchorElement?.getBoundingClientRect().top;
             console.log(newAnchorTop);
