@@ -35,7 +35,7 @@ export default function IsVisibleMessageTracker({
     return () => {
       observer.disconnect();
     };
-  }, [setMessages, message]);
+  }, [message]);
 
   return (
     <div
