@@ -20,6 +20,7 @@ export default function IsVisibleMessageTracker({
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
+          console.log("intersecting: ", message);
           onVisibilityChange(true);
         } else {
           onVisibilityChange(false);
