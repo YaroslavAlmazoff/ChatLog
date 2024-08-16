@@ -33,9 +33,14 @@ export default function Room() {
       eventSource.onmessage = function (event) {
         const messagesData = JSON.parse(event.data);
 
-        const anchorElement = document.querySelector(
-          ".your-message-classname:first-child"
-        );
+        let anchorElement = null;
+
+        messages.toReversed().forEach((item) => {
+          if (item.isVisible) {
+            anchorElement = document.querySelector(`#message-${item._id}`);
+          }
+        });
+
         const anchorTop = anchorElement?.getBoundingClientRect().top;
 
         setMessages((prev) => [...messagesData.messages, ...prev]);
@@ -78,6 +83,7 @@ export default function Room() {
       />
       <RoomMessages
         messages={messages}
+        setMessages={setMessages}
         offset={offset}
         ref={feedRef}
         loading={loading}
