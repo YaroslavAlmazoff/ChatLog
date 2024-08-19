@@ -82,6 +82,7 @@ export default function Room() {
   }, []);
 
   useEffect(() => {
+    setCanChangeVisibility(true);
     messages.toReversed().forEach((item) => {
       if (item.isVisible) {
         anchorElement.current = document.querySelector(`#message-${item._id}`);
@@ -89,7 +90,6 @@ export default function Room() {
     });
 
     console.log("Anchor element: ", anchorElement);
-    setCanChangeVisibility(true);
   }, [messages]);
 
   return (
