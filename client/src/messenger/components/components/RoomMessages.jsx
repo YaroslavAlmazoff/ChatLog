@@ -2,7 +2,6 @@ import { useState, useRef, forwardRef } from "react";
 import { useObserver } from "../../../common_hooks/observer.hook";
 import RoomMessage from "./RoomMessage";
 import useAPI from "../../hooks/useAPI";
-import IsVisibleMessageTracker from "./IsMessageVisibleTracker";
 
 export default forwardRef(function RoomMessages(
   { messages, setMessages, offset, loading, canChangeVisibility },
@@ -28,13 +27,7 @@ export default forwardRef(function RoomMessages(
           style={{ height: "10px", backgroundColor: "#40a4ff" }}
         />
         {messages.map((message) => (
-          <IsVisibleMessageTracker
-            setMessages={setMessages}
-            message={message}
-            canChangeVisibility={canChangeVisibility}
-          >
-            <RoomMessage message={message} />
-          </IsVisibleMessageTracker>
+          <RoomMessage message={message} />
         ))}
       </div>
     </div>
