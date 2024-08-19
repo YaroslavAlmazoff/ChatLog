@@ -58,6 +58,8 @@ export default function Room() {
 
         const { rect, anchorValue } = getRectAndAnchorValue(messagesData);
 
+        const scrollPosition = feedRef.current.scrollTop;
+
         setMessages((prev) => [...messagesData.messages, ...prev]);
         if (
           messagesData.type === messagesDataTypes.init ||
@@ -66,10 +68,11 @@ export default function Room() {
           feedRef.current.scrollTop = feedRef.current.scrollHeight;
         } else {
           requestAnimationFrame(() => {
-            const newAnchorTop = rect.top;
-            if (anchorValue && newAnchorTop) {
-              feedRef.current.scrollTop = newAnchorTop - anchorValue;
-            }
+            // const newAnchorTop = rect.top;
+            // if (anchorValue && newAnchorTop) {
+            //   feedRef.current.scrollTop = newAnchorTop - anchorValue;
+            // }
+            feedRef.current.scrollTop = scrollPosition;
           });
         }
         setLoading(false);
