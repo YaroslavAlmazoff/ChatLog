@@ -25,6 +25,24 @@ export default function Room() {
 
   const anchorElement = useRef(null);
 
+  const getRectAndAnchorValue = (messagesData) => {
+    if (!messagesData.type === messagesDataTypes.init) {
+      let anchor = null;
+      let isBegin = messagesData.messages.length;
+
+      if (!anchorElement.current) {
+        anchor = document.querySelector(
+          `#message-${messages[messages.length - 1]._id}`
+        );
+      } else {
+        anchor = anchorElement.current;
+      }
+
+      const rect = anchor.getBoundingClientRect();
+      return { rect, anchorValue: isBegin ? rect.bottom : rect.top };
+    }
+  };
+
   useEffect(() => {
     const getData = async () => {
       const { room } = await getRoom(id);
@@ -35,19 +53,7 @@ export default function Room() {
       eventSource.onmessage = function (event) {
         const messagesData = JSON.parse(event.data);
 
-        let anchor = null;
-        let isBegin = messagesData.messages.length && !messages.length;
-
-        if (!anchorElement.current) {
-          anchor = document.querySelector(
-            `#message-${messages[messages.length - 1]._id}`
-          );
-        } else {
-          anchor = anchorElement.current;
-        }
-
-        const rect = anchor.getBoundingClientRect();
-        const anchorTop = isBegin ? rect.bottom : rect.top;
+        const { rect, anchorValue } = getRectAndAnchorValue(messagesData);
 
         setMessages((prev) => [...messagesData.messages, ...prev]);
         if (
@@ -58,8 +64,8 @@ export default function Room() {
         } else {
           requestAnimationFrame(() => {
             const newAnchorTop = rect.top;
-            if (anchorTop && newAnchorTop) {
-              feedRef.current.scrollTop = newAnchorTop - anchorTop;
+            if (anchorValue && newAnchorTop) {
+              feedRef.current.scrollTop = newAnchorTop - anchorValue;
             }
           });
         }
