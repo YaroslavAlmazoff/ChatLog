@@ -20,7 +20,7 @@ export default function Room() {
   const [offset, setOffset] = useState(0);
   const [loading, setLoading] = useState(true);
 
-  const [canChangeVisibility, setCanChangeVisibility] = useState(false);
+  const [canChangeVisibility, setCanChangeVisibility] = useState(true);
 
   const anchorElement = useRef(null);
 
