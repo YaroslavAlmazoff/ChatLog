@@ -40,6 +40,8 @@ export default function Room() {
 
       const rect = anchor.getBoundingClientRect();
       return { rect, anchorValue: isBegin ? rect.bottom : rect.top };
+    } else {
+      return { rect: { top: 0, bottom: 0 }, anchorValue: 0 };
     }
   };
 
