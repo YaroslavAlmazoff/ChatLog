@@ -31,6 +31,7 @@ export default function Room() {
         const messagesData = JSON.parse(event.data);
 
         const scrollPosition = feedRef.current.scrollTop;
+        console.log(feedRef.current.scrollTop, scrollPosition);
 
         setMessages((prev) => [...messagesData.messages, ...prev]);
         if (
@@ -40,6 +41,7 @@ export default function Room() {
           feedRef.current.scrollTop = feedRef.current.scrollHeight;
         } else {
           feedRef.current.scrollTop = scrollPosition;
+          console.log(feedRef.current.scrollTop, scrollPosition);
         }
         setLoading(false);
       };
