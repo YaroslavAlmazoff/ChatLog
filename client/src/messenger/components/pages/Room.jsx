@@ -34,7 +34,18 @@ export default function Room() {
       const eventSource = createEventSource(id);
       eventSource.onmessage = function (event) {
         const messagesData = JSON.parse(event.data);
-        const anchorTop = anchorElement?.getBoundingClientRect().top;
+
+        let anchor = null;
+
+        if (!anchorElement.current) {
+          anchor = document.querySelector(
+            `#message-${messages[messages.length - 1]._id}`
+          );
+        } else {
+          anchor = anchorElement.current;
+        }
+
+        const anchorTop = anchor.getBoundingClientRect().top;
 
         console.log(anchorTop);
 
@@ -45,7 +56,8 @@ export default function Room() {
           messagesData.type === messagesDataTypes.create
         ) {
           requestAnimationFrame(() => {
-            const newAnchorTop = anchorElement?.getBoundingClientRect().top;
+            const newAnchorTop =
+              anchorElement?.current?.getBoundingClientRect().top;
             console.log(newAnchorTop);
             console.log(newAnchorTop - anchorTop);
             if (anchorTop && newAnchorTop) {
