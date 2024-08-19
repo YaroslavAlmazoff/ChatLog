@@ -54,14 +54,14 @@ export default function Room() {
           messagesData.type === messagesDataTypes.init ||
           messagesData.type === messagesDataTypes.create
         ) {
+          feedRef.current.scrollTop = feedRef.current.scrollHeight;
+        } else {
           requestAnimationFrame(() => {
             const newAnchorTop = rect.top;
             if (anchorTop && newAnchorTop) {
               feedRef.current.scrollTop = newAnchorTop - anchorTop;
             }
           });
-        } else {
-          feedRef.current.scrollTop = feedRef.current.scrollHeight;
         }
         setLoading(false);
       };
