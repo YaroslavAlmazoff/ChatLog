@@ -3,6 +3,7 @@ import React, { useEffect, useRef } from "react";
 export default function IsVisibleMessageTracker({
   setMessages,
   message,
+  canChangeVisibility,
   children,
 }) {
   const messageRef = useRef(null);
@@ -20,8 +21,10 @@ export default function IsVisibleMessageTracker({
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          console.log("intersecting: ", message);
-          onVisibilityChange(true);
+          if (canChangeVisibility) {
+            console.log("intersecting: ", message);
+            onVisibilityChange(true);
+          }
         } else {
           onVisibilityChange(false);
         }
