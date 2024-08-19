@@ -5,7 +5,7 @@ import useAPI from "../../hooks/useAPI";
 import IsVisibleMessageTracker from "./IsMessageVisibleTracker";
 
 export default forwardRef(function RoomMessages(
-  { messages, setMessages, offset, loading },
+  { messages, setMessages, offset, loading, canChangeVisibility },
   ref
 ) {
   const { getMessages } = useAPI();
@@ -28,7 +28,11 @@ export default forwardRef(function RoomMessages(
           style={{ height: "10px", backgroundColor: "#40a4ff" }}
         />
         {messages.map((message) => (
-          <IsVisibleMessageTracker setMessages={setMessages} message={message}>
+          <IsVisibleMessageTracker
+            setMessages={setMessages}
+            message={message}
+            canChangeVisibility={canChangeVisibility}
+          >
             <RoomMessage message={message} />
           </IsVisibleMessageTracker>
         ))}

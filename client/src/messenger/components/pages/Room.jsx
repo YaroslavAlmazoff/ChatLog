@@ -5,10 +5,7 @@ import RoomMessageField from "../components/RoomMessageField";
 import RoomMessages from "../components/RoomMessages";
 import useAPI from "../../hooks/useAPI";
 import useFile from "../../hooks/useFile";
-import {
-  testMessages,
-  messagesDataTypes,
-} from "../../data/messengerConfiguration";
+import { messagesDataTypes } from "../../data/messengerConfiguration";
 import "../../styles/Room.css";
 
 export default function Room() {
@@ -22,6 +19,8 @@ export default function Room() {
   const [messages, setMessages] = useState([]);
   const [offset, setOffset] = useState(0);
   const [loading, setLoading] = useState(true);
+
+  const [canChangeVisibility, setCanChangeVisibility] = useState(false);
 
   const anchorElement = useRef(null);
 
@@ -55,6 +54,8 @@ export default function Room() {
       eventSource.onmessage = function (event) {
         const messagesData = JSON.parse(event.data);
 
+        setCanChangeVisibility(false);
+
         const { rect, anchorValue } = getRectAndAnchorValue(messagesData);
 
         setMessages((prev) => [...messagesData.messages, ...prev]);
@@ -83,12 +84,12 @@ export default function Room() {
   useEffect(() => {
     messages.toReversed().forEach((item) => {
       if (item.isVisible) {
-        console.log(item.isVisible);
         anchorElement.current = document.querySelector(`#message-${item._id}`);
       }
     });
 
     console.log("Anchor element: ", anchorElement);
+    setCanChangeVisibility(true);
   }, [messages]);
 
   return (
@@ -109,6 +110,7 @@ export default function Room() {
         offset={offset}
         ref={feedRef}
         loading={loading}
+        canChangeVisibility={canChangeVisibility}
       />
       <RoomMessageField setOffset={setOffset} />
     </div>
