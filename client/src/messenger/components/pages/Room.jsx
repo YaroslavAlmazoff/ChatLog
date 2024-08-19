@@ -20,30 +20,6 @@ export default function Room() {
   const [offset, setOffset] = useState(0);
   const [loading, setLoading] = useState(true);
 
-  const [canChangeVisibility, setCanChangeVisibility] = useState(true);
-
-  const anchorElement = useRef(null);
-
-  const getRectAndAnchorValue = (messagesData) => {
-    if (!messagesData.type === messagesDataTypes.init) {
-      let anchor = null;
-      let isBegin = messagesData.messages.length;
-
-      if (!anchorElement.current) {
-        anchor = document.querySelector(
-          `#message-${messages[messages.length - 1]._id}`
-        );
-      } else {
-        anchor = anchorElement.current;
-      }
-
-      const rect = anchor.getBoundingClientRect();
-      return { rect, anchorValue: isBegin ? rect.bottom : rect.top };
-    } else {
-      return { rect: { top: 0, bottom: 0 }, anchorValue: 0 };
-    }
-  };
-
   useEffect(() => {
     const getData = async () => {
       const { room } = await getRoom(id);
@@ -54,10 +30,6 @@ export default function Room() {
       eventSource.onmessage = function (event) {
         const messagesData = JSON.parse(event.data);
 
-        setCanChangeVisibility(false);
-
-        const { rect, anchorValue } = getRectAndAnchorValue(messagesData);
-
         const scrollPosition = feedRef.current.scrollTop;
 
         setMessages((prev) => [...messagesData.messages, ...prev]);
@@ -67,13 +39,7 @@ export default function Room() {
         ) {
           feedRef.current.scrollTop = feedRef.current.scrollHeight;
         } else {
-          requestAnimationFrame(() => {
-            // const newAnchorTop = rect.top;
-            // if (anchorValue && newAnchorTop) {
-            //   feedRef.current.scrollTop = newAnchorTop - anchorValue;
-            // }
-            feedRef.current.scrollTop = scrollPosition;
-          });
+          feedRef.current.scrollTop = scrollPosition;
         }
         setLoading(false);
       };
@@ -83,19 +49,6 @@ export default function Room() {
     startEventSource();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  useEffect(() => {
-    setCanChangeVisibility(true);
-    console.log(messages.toReversed());
-    messages.toReversed().forEach((item) => {
-      if (item.isVisible) {
-        console.log(item.isVisible);
-        anchorElement.current = document.querySelector(`#message-${item._id}`);
-      }
-    });
-
-    console.log("Anchor element: ", anchorElement);
-  }, [messages]);
 
   return (
     <div
@@ -115,7 +68,6 @@ export default function Room() {
         offset={offset}
         ref={feedRef}
         loading={loading}
-        canChangeVisibility={canChangeVisibility}
       />
       <RoomMessageField setOffset={setOffset} />
     </div>
