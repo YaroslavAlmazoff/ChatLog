@@ -23,6 +23,8 @@ export default function Room() {
   const [offset, setOffset] = useState(0);
   const [loading, setLoading] = useState(true);
 
+  const anchorElement = useRef(null);
+
   useEffect(() => {
     const getData = async () => {
       const { room } = await getRoom(id);
@@ -32,18 +34,6 @@ export default function Room() {
       const eventSource = createEventSource(id);
       eventSource.onmessage = function (event) {
         const messagesData = JSON.parse(event.data);
-
-        let anchorElement = null;
-
-        messages.toReversed().forEach((item) => {
-          if (item.isVisible) {
-            console.log(item.isVisible);
-            anchorElement = document.querySelector(`#message-${item._id}`);
-          }
-        });
-
-        console.log(anchorElement);
-
         const anchorTop = anchorElement?.getBoundingClientRect().top;
 
         console.log(anchorTop);
@@ -73,6 +63,17 @@ export default function Room() {
     startEventSource();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    messages.toReversed().forEach((item) => {
+      if (item.isVisible) {
+        console.log(item.isVisible);
+        anchorElement.current = document.querySelector(`#message-${item._id}`);
+      }
+    });
+
+    console.log(anchorElement);
+  }, [messages]);
 
   return (
     <div
