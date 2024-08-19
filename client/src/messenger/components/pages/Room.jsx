@@ -36,6 +36,7 @@ export default function Room() {
         const messagesData = JSON.parse(event.data);
 
         let anchor = null;
+        let isBegin = messagesData.messages.length && !messages.length;
 
         if (!anchorElement.current) {
           anchor = document.querySelector(
@@ -45,21 +46,16 @@ export default function Room() {
           anchor = anchorElement.current;
         }
 
-        const anchorTop = anchor.getBoundingClientRect().top;
-
-        console.log(anchorTop);
+        const rect = anchor.getBoundingClientRect();
+        const anchorTop = isBegin ? rect.bottom : rect.top;
 
         setMessages((prev) => [...messagesData.messages, ...prev]);
-        console.log(messagesData.messages, messagesData.type);
         if (
           messagesData.type === messagesDataTypes.init ||
           messagesData.type === messagesDataTypes.create
         ) {
           requestAnimationFrame(() => {
-            const newAnchorTop =
-              anchorElement?.current?.getBoundingClientRect().top;
-            console.log(newAnchorTop);
-            console.log(newAnchorTop - anchorTop);
+            const newAnchorTop = rect.top;
             if (anchorTop && newAnchorTop) {
               feedRef.current.scrollTop = newAnchorTop - anchorTop;
             }
@@ -84,7 +80,7 @@ export default function Room() {
       }
     });
 
-    console.log(anchorElement);
+    console.log("Anchor element: ", anchorElement);
   }, [messages]);
 
   return (
