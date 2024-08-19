@@ -19,7 +19,7 @@ export default function Room() {
   const feedRef = useRef(null);
 
   const [room, setRoom] = useState({ name: "", date: "", bg: "" });
-  const [messages, setMessages] = useState(testMessages);
+  const [messages, setMessages] = useState([]);
   const [offset, setOffset] = useState(0);
   const [loading, setLoading] = useState(true);
 
