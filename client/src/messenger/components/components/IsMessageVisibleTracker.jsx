@@ -35,6 +35,7 @@ export default function IsVisibleMessageTracker({
     return () => {
       observer.disconnect();
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
