@@ -83,8 +83,10 @@ export default function Room() {
 
   useEffect(() => {
     setCanChangeVisibility(true);
+    console.log(messages.toReversed());
     messages.toReversed().forEach((item) => {
       if (item.isVisible) {
+        console.log(item.isVisible);
         anchorElement.current = document.querySelector(`#message-${item._id}`);
       }
     });
