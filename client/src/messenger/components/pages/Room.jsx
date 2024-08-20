@@ -22,28 +22,6 @@ export default function Room() {
 
   const [canChangeVisibility, setCanChangeVisibility] = useState(false);
 
-  // const anchorElement = useRef(null);
-
-  // const getRectAndAnchorValue = (messagesData) => {
-  //   if (!messagesData.type === messagesDataTypes.init) {
-  //     let anchor = null;
-  //     let isBegin = messagesData.messages.length;
-
-  //     if (!anchorElement.current) {
-  //       anchor = document.querySelector(
-  //         `#message-${messages[messages.length - 1]._id}`
-  //       );
-  //     } else {
-  //       anchor = anchorElement.current;
-  //     }
-
-  //     const rect = anchor.getBoundingClientRect();
-  //     return { rect, anchorValue: isBegin ? rect.bottom : rect.top };
-  //   } else {
-  //     return { rect: { top: 0, bottom: 0 }, anchorValue: 0 };
-  //   }
-  // };
-
   useEffect(() => {
     const getData = async () => {
       const { room } = await getRoom(id);
@@ -53,9 +31,16 @@ export default function Room() {
       const eventSource = createEventSource(id);
       eventSource.onmessage = function (event) {
         const messagesData = JSON.parse(event.data);
+        const currentHeight = feedRef.current.scrollHeight;
 
         setMessages((prev) => [...messagesData.messages, ...prev]);
         setCanChangeVisibility(false);
+
+        setTimeout(() => {
+          // Устанавливаем scrollTop обратно, чтобы пользователь оставался на месте
+          feedRef.current.scrollTop =
+            feedRef.current.scrollHeight - currentHeight;
+        }, 0);
         if (
           messagesData.type === messagesDataTypes.init ||
           messagesData.type === messagesDataTypes.create
@@ -70,34 +55,6 @@ export default function Room() {
     startEventSource();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  // useEffect(() => {
-  //   let anchor = null;
-  //   if (!anchorElement.current) {
-  //     anchor = document.querySelector(
-  //       `#message-${messages[messages.length - 1]._id}`
-  //     );
-  //   } else {
-  //     anchor = anchorElement.current;
-  //   }
-
-  //   const rect = anchor.getBoundingClientRect();
-
-  //   requestAnimationFrame(() => {
-  //     const newAnchorTop = rect.top;
-  //     if (anchorValue && newAnchorTop) {
-  //       feedRef.current.scrollTop = newAnchorTop - anchorValue;
-  //     }
-  //   });
-
-  //   messages.toReversed().forEach((item) => {
-  //     if (item.isVisible) {
-  //       anchorElement.current = document.querySelector(`#message-${item._id}`);
-  //     }
-  //   });
-
-  //   console.log("Anchor element: ", anchorElement);
-  // }, [messages]);
 
   return (
     <div
