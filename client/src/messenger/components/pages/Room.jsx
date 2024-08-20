@@ -10,7 +10,7 @@ import "../../styles/Room.css";
 
 export default function Room() {
   const { id } = useParams();
-  const { getRoom, createEventSource, getMessages } = useAPI();
+  const { getRoom, createEventSource } = useAPI();
   const { fileFromServer } = useFile();
 
   const feedRef = useRef(null);
@@ -40,12 +40,10 @@ export default function Room() {
           feedRef.current.scrollTop =
             feedRef.current.scrollHeight - currentHeight;
         }, 0);
-
-        const isInit = messagesData.type === messagesDataTypes.init;
-        const isCreate = messagesData.type === messagesDataTypes.create;
-
-        if (isInit || isCreate) {
-          isCreate && setOffset((prev) => prev++);
+        if (
+          messagesData.type === messagesDataTypes.init ||
+          messagesData.type === messagesDataTypes.create
+        ) {
           feedRef.current.scrollTop = feedRef.current.scrollHeight;
         }
         setLoading(false);
@@ -56,12 +54,6 @@ export default function Room() {
     startEventSource();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  useEffect(() => {
-    console.log("page use effect");
-    getMessages(page, offset);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page]);
 
   return (
     <div
@@ -77,8 +69,11 @@ export default function Room() {
       />
       <RoomMessages
         messages={messages}
+        setMessages={setMessages}
+        offset={offset}
         ref={feedRef}
         loading={loading}
+        page={page}
         setPage={setPage}
       />
       <RoomMessageField setOffset={setOffset} />
