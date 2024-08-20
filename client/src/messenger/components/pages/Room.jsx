@@ -17,10 +17,9 @@ export default function Room() {
 
   const [room, setRoom] = useState({ name: "", date: "", bg: "" });
   const [messages, setMessages] = useState([]);
+  const [page, setPage] = useState(1);
   const [offset, setOffset] = useState(0);
   const [loading, setLoading] = useState(true);
-
-  const [canChangeVisibility, setCanChangeVisibility] = useState(false);
 
   useEffect(() => {
     const getData = async () => {
@@ -33,11 +32,11 @@ export default function Room() {
         const messagesData = JSON.parse(event.data);
         const currentHeight = feedRef.current.scrollHeight;
 
+        console.log(page);
+
         setMessages((prev) => [...messagesData.messages, ...prev]);
-        setCanChangeVisibility(false);
 
         setTimeout(() => {
-          // Устанавливаем scrollTop обратно, чтобы пользователь оставался на месте
           feedRef.current.scrollTop =
             feedRef.current.scrollHeight - currentHeight;
         }, 0);
@@ -74,7 +73,8 @@ export default function Room() {
         offset={offset}
         ref={feedRef}
         loading={loading}
-        canChangeVisibility={canChangeVisibility}
+        page={page}
+        setPage={setPage}
       />
       <RoomMessageField setOffset={setOffset} />
     </div>

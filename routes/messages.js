@@ -166,7 +166,6 @@ const getMessagesPortion = (page, offset) => {
 };
 
 const sendMessages = async (res, room, page, offset, type) => {
-  console.log("В sendMessages");
   const filtered = await filterMessages(room);
   const { startIndex, endIndex } = getMessagesPortion(page, offset);
   const results = filtered.slice(startIndex, endIndex);
@@ -193,7 +192,6 @@ router.get("/connect/:id", async (req, res) => {
   sendMessages(res, req.params.id, 1, 0, "init");
 
   emitter.on("messages", async (page, offset) => {
-    console.log("В эмиттере");
     await sendMessages(res, req.params.id, page, offset, "load");
   });
   emitter.on("newMessage", async (message) => {
@@ -214,7 +212,6 @@ router.get("/connect/:id", async (req, res) => {
 
 router.get("/messages/:page/:offset", auth, (req, res) => {
   try {
-    console.log("В роуте");
     emitter.emit("messages", req.params.page, req.params.offset);
     res.json({ message: "да ну тебя" });
   } catch (e) {
