@@ -1,18 +1,14 @@
 import { useRef, forwardRef } from "react";
 import { useObserver } from "../../../common_hooks/observer.hook";
 import RoomMessage from "./RoomMessage";
-import useAPI from "../../hooks/useAPI";
 
 export default forwardRef(function RoomMessages(
-  { messages, offset, loading, page, setPage },
+  { messages, loading, setPage },
   ref
 ) {
-  const { getMessages } = useAPI();
-
   const messagesEndRef = useRef(null);
 
   useObserver(messagesEndRef, true, loading, () => {
-    getMessages(page, offset);
     setPage((prev) => prev++);
   });
 
