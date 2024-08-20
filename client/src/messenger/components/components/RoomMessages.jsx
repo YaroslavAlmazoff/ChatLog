@@ -2,6 +2,7 @@ import { useState, useRef, forwardRef } from "react";
 import { useObserver } from "../../../common_hooks/observer.hook";
 import RoomMessage from "./RoomMessage";
 import useAPI from "../../hooks/useAPI";
+import IsVisibleMessageTracker from "./IsMessageVisibleTracker";
 
 export default forwardRef(function RoomMessages(
   { messages, setMessages, offset, loading, canChangeVisibility },
