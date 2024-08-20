@@ -20,6 +20,30 @@ export default function Room() {
   const [offset, setOffset] = useState(0);
   const [loading, setLoading] = useState(true);
 
+  const [canChangeVisibility, setCanChangeVisibility] = useState(false);
+
+  // const anchorElement = useRef(null);
+
+  // const getRectAndAnchorValue = (messagesData) => {
+  //   if (!messagesData.type === messagesDataTypes.init) {
+  //     let anchor = null;
+  //     let isBegin = messagesData.messages.length;
+
+  //     if (!anchorElement.current) {
+  //       anchor = document.querySelector(
+  //         `#message-${messages[messages.length - 1]._id}`
+  //       );
+  //     } else {
+  //       anchor = anchorElement.current;
+  //     }
+
+  //     const rect = anchor.getBoundingClientRect();
+  //     return { rect, anchorValue: isBegin ? rect.bottom : rect.top };
+  //   } else {
+  //     return { rect: { top: 0, bottom: 0 }, anchorValue: 0 };
+  //   }
+  // };
+
   useEffect(() => {
     const getData = async () => {
       const { room } = await getRoom(id);
@@ -30,18 +54,13 @@ export default function Room() {
       eventSource.onmessage = function (event) {
         const messagesData = JSON.parse(event.data);
 
-        const scrollPosition = feedRef.current.scrollTop;
-        console.log(feedRef.current.scrollTop, scrollPosition);
-
         setMessages((prev) => [...messagesData.messages, ...prev]);
+        setCanChangeVisibility(false);
         if (
           messagesData.type === messagesDataTypes.init ||
           messagesData.type === messagesDataTypes.create
         ) {
           feedRef.current.scrollTop = feedRef.current.scrollHeight;
-        } else {
-          feedRef.current.scrollTop = scrollPosition;
-          console.log(feedRef.current.scrollTop, scrollPosition);
         }
         setLoading(false);
       };
@@ -51,6 +70,34 @@ export default function Room() {
     startEventSource();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // useEffect(() => {
+  //   let anchor = null;
+  //   if (!anchorElement.current) {
+  //     anchor = document.querySelector(
+  //       `#message-${messages[messages.length - 1]._id}`
+  //     );
+  //   } else {
+  //     anchor = anchorElement.current;
+  //   }
+
+  //   const rect = anchor.getBoundingClientRect();
+
+  //   requestAnimationFrame(() => {
+  //     const newAnchorTop = rect.top;
+  //     if (anchorValue && newAnchorTop) {
+  //       feedRef.current.scrollTop = newAnchorTop - anchorValue;
+  //     }
+  //   });
+
+  //   messages.toReversed().forEach((item) => {
+  //     if (item.isVisible) {
+  //       anchorElement.current = document.querySelector(`#message-${item._id}`);
+  //     }
+  //   });
+
+  //   console.log("Anchor element: ", anchorElement);
+  // }, [messages]);
 
   return (
     <div
@@ -70,6 +117,7 @@ export default function Room() {
         offset={offset}
         ref={feedRef}
         loading={loading}
+        canChangeVisibility={canChangeVisibility}
       />
       <RoomMessageField setOffset={setOffset} />
     </div>
