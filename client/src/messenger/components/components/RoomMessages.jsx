@@ -10,6 +10,7 @@ export default forwardRef(function RoomMessages(
 
   useObserver(messagesEndRef, true, loading, () => {
     setPage((prev) => prev++);
+    console.log("observed");
   });
 
   return (

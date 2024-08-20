@@ -44,6 +44,7 @@ export default function useAPI() {
   };
 
   const getMessages = async (page, offset) => {
+    console.log("get messages");
     const response = await api.get(
       `${prefix}/messages/${page}/${offset}`,
       options
