@@ -58,6 +58,7 @@ export default function Room() {
   }, []);
 
   useEffect(() => {
+    console.log("page use effect");
     getMessages(page, offset);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
