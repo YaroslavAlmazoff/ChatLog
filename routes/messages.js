@@ -148,12 +148,10 @@ router.get("/getfulllastmessage/:id", (req, res) => {
 
 const filterMessages = async (room) => {
   const messages = await Message.find({ room });
-  return messages
-    .filter(
-      (v, i, a) =>
-        a.findIndex((t) => t.message === v.message && t.date === v.date) === i
-    )
-    .reverse();
+  return messages.filter(
+    (v, i, a) =>
+      a.findIndex((t) => t.message === v.message && t.date === v.date) === i
+  );
 };
 
 const getMessagesPortion = (page, offset) => {
