@@ -213,13 +213,7 @@ router.get("/connect/:id", async (req, res) => {
     });
     if (!existingMessage) {
       const created = new Message(message);
-
-      // emitter.once("save", async () => {
       await created.save();
-      // });
-
-      // emitter.emit("save");
-
       await Room.findByIdAndUpdate(message.room, {
         lastMessageId: created._id,
         lastMessage: created.message,
