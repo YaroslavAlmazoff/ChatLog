@@ -32,6 +32,7 @@ export default function useAPI() {
       formData.append("message", text);
       formData.append("date", getCurrentDate());
       filesObject.imageFiles.forEach((file, i) => {
+        console.log(file);
         formData.append("image", file, `image${i}.jpg`);
       });
       filesObject.videoFiles.forEach((file, i) => {
