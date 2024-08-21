@@ -40,6 +40,7 @@ export default function RoomMessageField({ setOffset }) {
     );
 
   const handleSend = async () => {
+    console.log(files);
     sendMessage(id, messageFieldRef.current.value, files);
     setOffset((prev) => prev + 1);
     messageFieldRef.current.value = "";
