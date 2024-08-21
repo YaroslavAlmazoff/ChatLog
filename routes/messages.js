@@ -254,45 +254,47 @@ router.get("/messages/:page/:offset", auth, (req, res) => {
   }
 });
 
+const fileTypes = {
+  image: "image",
+  video: "video",
+  audio: "audio",
+};
+
+const processAudio = (files) => {
+  if (Object.keys(files).length !== 0 && files.audio) {
+    const audio = files.audio;
+    const filename = uuid.v4() + audio.ext;
+    audio.mv(
+      path.resolve("..", "static", `message-${fileTypes.audio}s`, filename)
+    );
+    return filename;
+  } else {
+    return "";
+  }
+};
+
+const processFiles = (files, type) =>
+  Object.keys(files).length !== 0
+    ? Object.keys(files).some((key) => key.includes(type))
+      ? Object.keys(files).map((key) => {
+          const file = files[key];
+          const filename = uuid.v4() + file.ext;
+          file.mv(path.resolve("..", "static", `message-${type}s`, filename));
+          return filename;
+        })
+      : []
+    : [];
+
 router.post("/new-messages/:id", auth, async (req, res) => {
   const user = await User.findById(req.user.userId);
   const room = await Room.findById(req.params.id);
 
   const message = req.body;
 
-  const images = req.files
-    ? req.files["image"]
-      ? req.files["image"].map((file) => {
-          const filename = uuid.v4() + file.ext;
-          file.mv(path.resolve("..", "static", "message-images", filename));
-          return filename;
-        })
-      : []
-    : [];
+  processFiles(req.files, fileTypes.image);
+  processFiles(req.files, fileTypes.video);
 
-  const videos = req.files
-    ? req.files["video"]
-      ? req.files["video"].map((file) => {
-          const filename = uuid.v4() + file.ext;
-          file.mv(path.resolve("..", "static", "message-videos", filename));
-          return filename;
-        })
-      : []
-    : [];
-
-  function getAudio() {
-    if (req.files && req.files.audio) {
-      const filename = uuid.v4() + req.files.file.ext;
-      req.files.audio.mv(
-        path.resolve("..", "static", "message-audios", filename)
-      );
-      return filename;
-    } else {
-      return "";
-    }
-  }
-
-  const audio = getAudio();
+  const audio = processAudio(req.files);
 
   message.isFile =
     message.isFile == "true" || message.isFile == true ? true : false;

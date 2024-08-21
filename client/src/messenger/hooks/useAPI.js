@@ -33,10 +33,10 @@ export default function useAPI() {
       formData.append("date", getCurrentDate());
       filesObject.imageFiles.forEach((file, i) => {
         console.log(file);
-        formData.append("image", file.file, `image${i}.jpg`);
+        formData.append(`image${i}`, file.file, `image${i}.jpg`);
       });
       filesObject.videoFiles.forEach((file, i) => {
-        formData.append("video", file.file, `video${i}.mp4`);
+        formData.append(`video${i}`, file.file, `video${i}.mp4`);
       });
       if (filesObject.audioFile) {
         formData.append("audio", filesObject.audioFile.file, "audio.mp3");
