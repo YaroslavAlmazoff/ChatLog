@@ -4,8 +4,9 @@ export const limits = {
 };
 
 export const folders = {
-  images: "messagefotos",
-  videos: "messagefotos",
+  images: "message-images",
+  videos: "message-videos",
+  audios: "message-audios",
 };
 
 export const actionsAnimationClasses = {
