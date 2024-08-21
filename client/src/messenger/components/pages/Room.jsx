@@ -47,6 +47,7 @@ export default function Room() {
           feedRef.current.scrollTop = feedRef.current.scrollHeight;
         }
         setLoading(false);
+        setPage((prev) => prev++);
       };
     };
 
@@ -69,12 +70,10 @@ export default function Room() {
       />
       <RoomMessages
         messages={messages}
-        setMessages={setMessages}
         offset={offset}
         ref={feedRef}
         loading={loading}
         page={page}
-        setPage={setPage}
       />
       <RoomMessageField setOffset={setOffset} />
     </div>
