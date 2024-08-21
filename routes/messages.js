@@ -195,7 +195,8 @@ router.get("/connect/:id", async (req, res) => {
     await sendMessages(res, req.params.id, page, offset, "load");
   });
   emitter.on("newMessage", async (message) => {
-    const created = await Message.create(message, { upsert: true });
+    console.log(message);
+    const created = await Message.create({ ...message }, { upsert: true });
 
     await Room.findByIdAndUpdate(message.room, {
       lastMessageId: created._id,
