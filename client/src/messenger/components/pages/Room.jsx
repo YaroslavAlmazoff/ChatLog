@@ -45,13 +45,15 @@ export default function Room() {
             : [...prev, ...newMessages]
         );
 
-        if (isInit || isCreate) {
-          feedRef.current.scrollTop = feedRef.current.scrollHeight;
-        } else {
-          setTimeout(() => {
-            feedRef.current.scrollTop =
-              feedRef.current.scrollHeight - currentHeight;
-          }, 0);
+        if (feedRef.current) {
+          if (isInit || isCreate) {
+            feedRef.current.scrollTop = feedRef.current.scrollHeight;
+          } else {
+            setTimeout(() => {
+              feedRef.current.scrollTop =
+                feedRef.current.scrollHeight - currentHeight;
+            }, 0);
+          }
         }
         setLoading(false);
       };
