@@ -298,6 +298,8 @@ router.post("/new-messages/:id", auth, async (req, res) => {
 
   const audio = processAudio(req.files);
 
+  console.log(message, images, videos);
+
   message.isFile =
     message.isFile == "true" || message.isFile == true ? true : false;
   message.room = req.params.id;
