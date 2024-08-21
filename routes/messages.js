@@ -196,12 +196,13 @@ router.get("/connect/:id", async (req, res) => {
     await sendMessages(res, req.params.id, page, offset, "load");
   });
   emitter.on("newMessage", async (message) => {
-    console.log(message);
+    console.log("newMessage");
     const existingMessage = await Message.findOne({
       message: message.message,
       date: message.date,
     });
     if (!existingMessage) {
+      console.log("в условии");
       const created = await Message.create({ ...message }, { upsert: true });
 
       await Room.findByIdAndUpdate(message.room, {
