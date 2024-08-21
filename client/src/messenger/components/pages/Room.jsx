@@ -39,23 +39,25 @@ export default function Room() {
         const isCreate = messagesData.type === messagesDataTypes.create;
         const isLoad = messagesData.type === messagesDataTypes.load;
 
-        setMessages((prev) =>
-          isInit || isLoad
-            ? [...newMessages, ...prev]
-            : [...prev, ...newMessages]
-        );
+        if (isCreate) {
+          setMessages((prev) =>
+            isInit || isLoad
+              ? [...newMessages, ...prev]
+              : [...prev, ...newMessages]
+          );
 
-        if (feedRef.current) {
-          if (isInit || isCreate) {
-            feedRef.current.scrollTop = feedRef.current.scrollHeight;
-          } else {
-            setTimeout(() => {
-              feedRef.current.scrollTop =
-                feedRef.current.scrollHeight - currentHeight;
-            }, 0);
+          if (feedRef.current) {
+            if (isInit) {
+              feedRef.current.scrollTop = feedRef.current.scrollHeight;
+            } else {
+              setTimeout(() => {
+                feedRef.current.scrollTop =
+                  feedRef.current.scrollHeight - currentHeight;
+              }, 0);
+            }
           }
+          setLoading(false);
         }
-        setLoading(false);
       };
     };
 

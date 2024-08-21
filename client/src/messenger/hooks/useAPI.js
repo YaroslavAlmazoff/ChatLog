@@ -7,7 +7,7 @@ const prefix = "/api";
 
 export default function useAPI() {
   const { getCurrentDate } = useDate();
-  const { token } = useContext(AuthContext);
+  const { token, userId } = useContext(AuthContext);
 
   const options = useMemo(
     () => ({
@@ -16,9 +16,12 @@ export default function useAPI() {
     [token]
   );
 
-  const createEventSource = useCallback((id) => {
-    return new EventSource(`https://chatlog.ru/api/connect/${id}`);
-  }, []);
+  const createEventSource = useCallback(
+    (id) => {
+      return new EventSource(`https://chatlog.ru/api/connect/${id}/${userId}`);
+    },
+    [userId]
+  );
 
   const sendMessage = useCallback(
     async (id, text, files) => {
