@@ -232,7 +232,7 @@ router.get("/connect/:id", async (req, res) => {
   emitter.on("newMessage", newMessage);
 
   req.on("close", () => {
-    emitter.off("messages");
+    emitter.off("messages", messages);
     emitter.off("newMessage", newMessage);
   });
 });
