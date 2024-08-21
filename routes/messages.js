@@ -260,7 +260,7 @@ const fileTypes = {
   audio: "audio",
 };
 
-const generateFileName = (file) => uuid.v4() + `.${path.extname(file.name)}`;
+const generateFileName = (file) => uuid.v4() + `${path.extname(file.name)}`;
 
 const processAudio = (files) => {
   if (Object.keys(files).length !== 0 && files.audio) {
