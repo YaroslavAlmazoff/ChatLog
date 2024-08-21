@@ -10,7 +10,7 @@ import "../../styles/Room.css";
 
 export default function Room() {
   const { id } = useParams();
-  const { getRoom, createEventSource } = useAPI();
+  const { getRoom, createEventSource, getMessages } = useAPI();
   const { fileFromServer } = useFile();
 
   const feedRef = useRef(null);
@@ -47,7 +47,6 @@ export default function Room() {
           feedRef.current.scrollTop = feedRef.current.scrollHeight;
         }
         setLoading(false);
-        setPage((prev) => prev + 1);
       };
     };
 
@@ -58,6 +57,8 @@ export default function Room() {
 
   useEffect(() => {
     console.log(page);
+    getMessages(page, offset);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
 
   return (
@@ -74,10 +75,9 @@ export default function Room() {
       />
       <RoomMessages
         messages={messages}
-        offset={offset}
         ref={feedRef}
         loading={loading}
-        page={page}
+        setPage={setPage}
       />
       <RoomMessageField setOffset={setOffset} />
     </div>
