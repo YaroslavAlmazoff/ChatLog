@@ -177,7 +177,7 @@ const getMessagesPortion = (page, offset) => {
   return { startIndex, endIndex };
 };
 
-const sendMessages = async (res, room, page, offset, type) => {
+const sendMessages = async (res, user, room, page, offset, type) => {
   const filtered = await filterMessages(room);
   const { startIndex, endIndex } = getMessagesPortion(page, offset);
   const results = filtered.slice(startIndex, endIndex).reverse();
@@ -186,12 +186,13 @@ const sendMessages = async (res, room, page, offset, type) => {
       messages: results,
       count: filtered.length,
       canLoad: !(endIndex >= filtered.length),
+      user,
       type,
     })} \n\n`
   );
 };
 
-router.get("/connect/:id", async (req, res) => {
+router.get("/connect/:id/:user", async (req, res) => {
   console.log("connection");
   res.writeHead(200, {
     Connection: "keep-alive",
@@ -201,10 +202,10 @@ router.get("/connect/:id", async (req, res) => {
     "Content-Range": "bytes 100-64656926/64656927",
   });
 
-  sendMessages(res, req.params.id, 1, 0, "init");
+  sendMessages(res, req.params.user, req.params.id, 1, 0, "init");
 
-  const messages = async (page, offset) => {
-    await sendMessages(res, req.params.id, page, offset, "load");
+  const messages = async (page, offset, user) => {
+    await sendMessages(res, user, req.params.id, page, offset, "load");
   };
 
   const newMessage = () => async (message) => {
@@ -222,6 +223,7 @@ router.get("/connect/:id", async (req, res) => {
       res.write(
         `data: ${JSON.stringify({
           messages: [created],
+          user: created.user,
           type: "create",
         })} \n\n`
       );
@@ -239,7 +241,7 @@ router.get("/connect/:id", async (req, res) => {
 
 router.get("/messages/:page/:offset", auth, (req, res) => {
   try {
-    emitter.emit("messages", req.params.page, req.params.offset);
+    emitter.emit("messages", req.params.page, req.params.offset, auth.userId);
     res.json({ message: "да ну тебя" });
   } catch (e) {
     console.log(e);
