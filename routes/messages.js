@@ -203,7 +203,14 @@ router.get("/connect/:id", async (req, res) => {
     });
     if (!existingMessage) {
       console.log("в условии");
-      const created = await Message.create({ ...message }, { upsert: true });
+      // const created = await Message.create({ ...message }, { upsert: true });
+      const created = new Message(message);
+
+      emitter.once("save", async () => {
+        await created.save();
+      });
+
+      emitter.emit("save");
 
       await Room.findByIdAndUpdate(message.room, {
         lastMessageId: created._id,
