@@ -35,7 +35,12 @@ export default function useAPI() {
     }
     formData.append("isFile", !!localStorage.getItem("file-link"));
 
-    await api.post(`${prefix}/new-messages/${id}`, formData, options);
+    const response = await api.post(
+      `${prefix}/new-messages/${id}`,
+      formData,
+      options
+    );
+    console.log(response);
   };
 
   const getRoom = async (id) => {
