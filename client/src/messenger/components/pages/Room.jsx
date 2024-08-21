@@ -6,13 +6,16 @@ import RoomMessages from "../components/RoomMessages";
 import useAPI from "../../hooks/useAPI";
 import useFile from "../../hooks/useFile";
 import { messagesDataTypes } from "../../data/messengerConfiguration";
-import "../../styles/Room.css";
 import { AuthContext } from "../../../context/AuthContext";
+import messageSound from "../../audio/message.mp3";
+import "../../styles/Room.css";
+import useAudio from "../../hooks/useAudio";
 
 export default function Room() {
   const params = useParams();
   const { getRoom, createEventSource, getMessages } = useAPI();
   const { fileFromServer } = useFile();
+  const { playAudio, stopAudio } = useAudio(messageSound);
   const { userId } = useContext(AuthContext);
 
   const feedRef = useRef(null);
@@ -43,11 +46,12 @@ export default function Room() {
         const isCreate = messagesData.type === messagesDataTypes.create;
         const isLoad = messagesData.type === messagesDataTypes.load;
 
-        const isMyMessage = messagesData.user === userId;
+        const isMyAction = messagesData.user === userId;
 
         if (isCreate) {
           setMessages((prev) => [...prev, ...newMessages]);
-        } else if ((isInit || isLoad) && isMyMessage) {
+          if (isCreate && !isMyAction) playAudio();
+        } else if ((isInit || isLoad) && isMyAction) {
           setMessages((prev) => [...newMessages, ...prev]);
 
           if (isLoad && feedRef.current) {
@@ -60,11 +64,11 @@ export default function Room() {
           setLoading(false);
         }
 
-        if ((!isLoad && isMyMessage) || isCreate) {
+        if ((!isLoad && isMyAction) || isCreate) {
           feedRef.current.scrollTop = feedRef.current.scrollHeight;
         }
 
-        if (isCreate && isMyMessage) {
+        if (isCreate && isMyAction) {
           setLoading(false);
         }
       };
