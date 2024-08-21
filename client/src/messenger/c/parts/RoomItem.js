@@ -12,7 +12,9 @@ const ChatRoomItem = ({ room }) => {
   const { randomColor, randomShadow, randomBlockShadow } = useHighlight();
 
   const goToRoom = () => {
-    navigate(room.isChat ? `/chat/${room._id}` : `/messages/${room._id}`);
+    window.location = room.isChat
+      ? `/chat/${room._id}`
+      : `/messages/${room._id}`;
   };
 
   return (
