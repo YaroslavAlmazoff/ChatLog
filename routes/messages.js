@@ -153,7 +153,7 @@ const filterMessages = async (room) => {
       (v, i, a) =>
         a.findIndex((t) => t.message === v.message && t.date === v.date) === i
     )
-    .toReversed();
+    .reverse();
 };
 
 const getMessagesPortion = (page, offset) => {
