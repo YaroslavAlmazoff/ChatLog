@@ -293,8 +293,8 @@ router.post("/new-messages/:id", auth, async (req, res) => {
 
   const message = req.body;
 
-  processFiles(req.files, fileTypes.image);
-  processFiles(req.files, fileTypes.video);
+  const images = processFiles(req.files, fileTypes.image);
+  const videos = processFiles(req.files, fileTypes.video);
 
   const audio = processAudio(req.files);
 
