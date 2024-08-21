@@ -8,7 +8,7 @@ export default function RoomMessageImages({ images }) {
 
   return (
     <div className="room-message-images">
-      {images ? (
+      {images.length ? (
         images.map((image, index) => (
           <img
             onClick={() => openInNewTab(folders.images, image)}
