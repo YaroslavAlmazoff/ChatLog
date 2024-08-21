@@ -30,21 +30,26 @@ export default function Room() {
       const eventSource = createEventSource(id);
       eventSource.onmessage = function (event) {
         const messagesData = JSON.parse(event.data);
+        const newMessages = messagesData.messages;
         const currentHeight = feedRef.current.scrollHeight;
 
-        console.log(page);
+        const isInit = messagesData.type === messagesDataTypes.init;
+        const isCreate = messagesData.type === messagesDataTypes.create;
+        const isLoad = messagesData.type === messagesDataTypes.load;
 
-        setMessages((prev) => [...messagesData.messages, ...prev]);
+        setMessages((prev) =>
+          isInit || isLoad
+            ? [...newMessages, ...prev]
+            : [...prev, ...newMessages]
+        );
 
-        setTimeout(() => {
-          feedRef.current.scrollTop =
-            feedRef.current.scrollHeight - currentHeight;
-        }, 0);
-        if (
-          messagesData.type === messagesDataTypes.init ||
-          messagesData.type === messagesDataTypes.create
-        ) {
+        if (isInit || isCreate) {
           feedRef.current.scrollTop = feedRef.current.scrollHeight;
+        } else {
+          setTimeout(() => {
+            feedRef.current.scrollTop =
+              feedRef.current.scrollHeight - currentHeight;
+          }, 0);
         }
         setLoading(false);
       };
