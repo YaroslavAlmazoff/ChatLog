@@ -162,6 +162,7 @@ const getMessagesPortion = (page, offset) => {
   const perPage = 10;
   const startIndex = (pageNumber - 1) * perPage + offsetNumber;
   const endIndex = pageNumber * perPage + offsetNumber;
+  console.log(startIndex, endIndex);
   return { startIndex, endIndex };
 };
 
