@@ -208,7 +208,7 @@ router.get("/connect/:id/:user", async (req, res) => {
     await sendMessages(res, user, req.params.id, page, offset, "load");
   };
 
-  const newMessage = () => async (message) => {
+  const newMessage = async (message) => {
     console.log("после перехода");
     const existingMessage = await Message.findOne({
       message: message.message,
