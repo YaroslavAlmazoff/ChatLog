@@ -314,7 +314,6 @@ router.post("/new-messages/:id", auth, async (req, res) => {
   const room = await Room.findById(req.params.id);
 
   const message = req.body;
-  console.log(message);
 
   const images = req.files
     ? req.files["image"]
@@ -391,7 +390,7 @@ router.post("/new-messages/:id", auth, async (req, res) => {
     await File.findByIdAndUpdate(message.fileLink, { public: true });
   }
   emitter.emit("newMessage", message);
-  res.json({ message });
+  res.json({ message, user, room });
 });
 
 router.post("/new-chat-messages/:id", auth, async (req, res) => {

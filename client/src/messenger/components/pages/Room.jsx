@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useMemo } from "react";
 import { useParams } from "react-router";
 import RoomHead from "../components/RoomHead";
 import RoomMessageField from "../components/RoomMessageField";
@@ -9,7 +9,7 @@ import { messagesDataTypes } from "../../data/messengerConfiguration";
 import "../../styles/Room.css";
 
 export default function Room() {
-  const { id } = useParams();
+  const params = useParams();
   const { getRoom, createEventSource, getMessages } = useAPI();
   const { fileFromServer } = useFile();
 
@@ -20,6 +20,8 @@ export default function Room() {
   const [page, setPage] = useState(1);
   const [offset, setOffset] = useState(0);
   const [loading, setLoading] = useState(true);
+
+  const id = useMemo(() => params.id, [params]);
 
   useEffect(() => {
     const getData = async () => {
@@ -57,14 +59,12 @@ export default function Room() {
 
     getData();
     startEventSource();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [createEventSource, getRoom, id]);
 
   useEffect(() => {
-    console.log(page);
     getMessages(page, offset);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page]);
+  }, [page, getMessages]);
 
   return (
     <div
