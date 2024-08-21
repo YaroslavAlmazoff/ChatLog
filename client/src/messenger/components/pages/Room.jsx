@@ -56,6 +56,10 @@ export default function Room() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    console.log(page);
+  }, [page]);
+
   return (
     <div
       className="block room-size room"
