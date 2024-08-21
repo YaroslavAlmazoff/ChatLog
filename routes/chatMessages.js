@@ -170,7 +170,7 @@ router.get("/chatconnect/:id", async (req, res) => {
     "Accept-Ranges": "bytes",
     "Content-Range": "bytes 100-64656926/64656927",
   });
-  emitter.on("newMessage", async (message) => {
+  emitter.on("newChatMessage", async (message) => {
     Message.findOne({
       message: message.message,
       date: message.date,
@@ -240,7 +240,7 @@ router.post("/new-chatmessages/:id", auth, async (req, res) => {
   message.avatarUrl = user.avatarUrl;
   message.name = user.name;
   message.user = user._id;
-  emitter.emit("newMessage", message);
+  emitter.emit("newChatMessage", message);
   res.status(200);
 });
 router.post("/new-chatmessages-mobile/:id", auth, async (req, res) => {
@@ -259,7 +259,7 @@ router.post("/new-chatmessages-mobile/:id", auth, async (req, res) => {
   message.isNotReaded = true;
   message.user = user._id;
   message.date = message.date;
-  emitter.emit("newMessage", message, req);
+  emitter.emit("newChatMessage", message, req);
   res.status(200);
 });
 
