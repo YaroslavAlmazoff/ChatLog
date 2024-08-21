@@ -22,6 +22,7 @@ export default function useAPI() {
 
   const sendMessage = useCallback(
     async (id, text, files) => {
+      console.log("sendMessage");
       const filesObject = files;
       const formData = new FormData();
 
