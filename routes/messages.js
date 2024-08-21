@@ -197,18 +197,29 @@ router.get("/connect/:id", async (req, res) => {
   });
   emitter.on("newMessage", async (message) => {
     console.log(message);
-    const created = await Message.create({ ...message }, { upsert: true });
-
-    await Room.findByIdAndUpdate(message.room, {
-      lastMessageId: created._id,
-      lastMessage: created.message,
+    const existingMessage = await Message.findOne({
+      message: message.message,
+      date: message.date,
     });
-    res.write(
-      `data: ${JSON.stringify({
-        messages: [created],
-        type: "create",
-      })} \n\n`
-    );
+    if (!existingMessage) {
+      const created = await Message.create({ ...message }, { upsert: true });
+
+      await Room.findByIdAndUpdate(message.room, {
+        lastMessageId: created._id,
+        lastMessage: created.message,
+      });
+      res.write(
+        `data: ${JSON.stringify({
+          messages: [created],
+          type: "create",
+        })} \n\n`
+      );
+    }
+  });
+
+  req.on("close", () => {
+    emitter.off("messages");
+    emitter.off("newMessage");
   });
 });
 
