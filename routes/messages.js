@@ -260,10 +260,12 @@ const fileTypes = {
   audio: "audio",
 };
 
+const generateFileName = (file) => uuid.v4() + `.${path.extname(file.name)}`;
+
 const processAudio = (files) => {
   if (Object.keys(files).length !== 0 && files.audio) {
     const audio = files.audio;
-    const filename = uuid.v4() + audio.ext;
+    const filename = generateFileName(audio);
     audio.mv(
       path.resolve("..", "static", `message-${fileTypes.audio}s`, filename)
     );
@@ -278,7 +280,7 @@ const processFiles = (files, type) =>
     ? Object.keys(files).some((key) => key.includes(type))
       ? Object.keys(files).map((key) => {
           const file = files[key];
-          const filename = uuid.v4() + file.ext;
+          const filename = generateFileName(file);
           file.mv(path.resolve("..", "static", `message-${type}s`, filename));
           return filename;
         })
