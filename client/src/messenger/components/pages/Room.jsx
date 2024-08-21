@@ -37,6 +37,8 @@ export default function Room() {
         const newMessages = messagesData.messages;
         const currentHeight = feedRef.current.scrollHeight;
 
+        console.log(newMessages);
+
         const isInit = messagesData.type === messagesDataTypes.init;
         const isCreate = messagesData.type === messagesDataTypes.create;
         const isLoad = messagesData.type === messagesDataTypes.load;
