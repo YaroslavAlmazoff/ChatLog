@@ -47,7 +47,7 @@ export default function Room() {
           feedRef.current.scrollTop = feedRef.current.scrollHeight;
         }
         setLoading(false);
-        setPage((prev) => prev++);
+        setPage(2);
       };
     };
 
