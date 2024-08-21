@@ -209,7 +209,6 @@ router.get("/connect/:id/:user", async (req, res) => {
   };
 
   const newMessage = async (message) => {
-    console.log("после перехода");
     const existingMessage = await Message.findOne({
       message: message.message,
       date: message.date,
@@ -235,7 +234,6 @@ router.get("/connect/:id/:user", async (req, res) => {
         })} \n\n`
       );
     }
-    console.log("конец");
   };
 
   emitter.on("messages", messages);
@@ -336,7 +334,6 @@ router.post("/new-messages/:id", auth, async (req, res) => {
   } else {
     await File.findByIdAndUpdate(message.fileLink, { public: true });
   }
-  console.log("Перед переходом");
   emitter.emit("newMessage", message);
   res.json({ message, user, room });
 });
