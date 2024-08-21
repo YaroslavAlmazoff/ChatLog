@@ -391,6 +391,7 @@ router.post("/new-messages/:id", auth, async (req, res) => {
   } else {
     await File.findByIdAndUpdate(message.fileLink, { public: true });
   }
+  console.log("new message выполнился");
   emitter.emit("newMessage", message);
   res.json({ message, user, room });
 });
