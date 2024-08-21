@@ -188,7 +188,7 @@ class ChatRoomService {
     res.json({ messages });
   }
   async getMessage(req, res) {
-    emitter.once("newMessage", async (message) => {
+    emitter.once("newChatMessage", async (message) => {
       const room = req.params.room;
       const messages = await Message.find({ room });
       res.json({ messages });
@@ -242,7 +242,7 @@ class ChatRoomService {
       });
     });
 
-    emitter.emit("newMessage", message);
+    emitter.emit("newChatMessage", message);
     res.status(200);
   }
 
