@@ -203,10 +203,11 @@ router.get("/connect/:id", async (req, res) => {
 
   sendMessages(res, req.params.id, 1, 0, "init");
 
-  emitter.on("messages", async (page, offset) => {
+  const messages = async (page, offset) => {
     await sendMessages(res, req.params.id, page, offset, "load");
-  });
-  emitter.on("newMessage", async (message) => {
+  };
+
+  const newMessage = () => async (message) => {
     const existingMessage = await Message.findOne({
       message: message.message,
       date: message.date,
@@ -225,11 +226,14 @@ router.get("/connect/:id", async (req, res) => {
         })} \n\n`
       );
     }
-  });
+  };
+
+  emitter.on("messages", messages);
+  emitter.on("newMessage", newMessage);
 
   req.on("close", () => {
     emitter.off("messages");
-    emitter.off("newMessage");
+    emitter.off("newMessage", newMessage);
   });
 });
 
