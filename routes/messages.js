@@ -146,6 +146,18 @@ router.get("/getfulllastmessage/:id", (req, res) => {
   }
 });
 
+////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////
+
 const filterMessages = async (room) => {
   const messages = await Message.find({ room });
   return messages
@@ -162,7 +174,6 @@ const getMessagesPortion = (page, offset) => {
   const perPage = 10;
   const startIndex = (pageNumber - 1) * perPage + offsetNumber;
   const endIndex = pageNumber * perPage + offsetNumber;
-  console.log(startIndex, endIndex);
   return { startIndex, endIndex };
 };
 
@@ -196,21 +207,18 @@ router.get("/connect/:id", async (req, res) => {
     await sendMessages(res, req.params.id, page, offset, "load");
   });
   emitter.on("newMessage", async (message) => {
-    console.log("newMessage");
     const existingMessage = await Message.findOne({
       message: message.message,
       date: message.date,
     });
     if (!existingMessage) {
-      console.log("в условии");
-      // const created = await Message.create({ ...message }, { upsert: true });
       const created = new Message(message);
 
-      emitter.once("save", async () => {
-        await created.save();
-      });
+      // emitter.once("save", async () => {
+      await created.save();
+      // });
 
-      emitter.emit("save");
+      // emitter.emit("save");
 
       await Room.findByIdAndUpdate(message.room, {
         lastMessageId: created._id,
@@ -239,6 +247,102 @@ router.get("/messages/:page/:offset", auth, (req, res) => {
     console.log(e);
   }
 });
+
+router.post("/new-messages/:id", auth, async (req, res) => {
+  const user = await User.findById(req.user.userId);
+  const room = await Room.findById(req.params.id);
+
+  const message = req.body;
+
+  const images = req.files
+    ? req.files["image"]
+      ? req.files["image"].map((file) => {
+          const filename = uuid.v4() + file.ext;
+          file.mv(path.resolve("..", "static", "message-images", filename));
+          return filename;
+        })
+      : []
+    : [];
+
+  const videos = req.files
+    ? req.files["video"]
+      ? req.files["video"].map((file) => {
+          const filename = uuid.v4() + file.ext;
+          file.mv(path.resolve("..", "static", "message-videos", filename));
+          return filename;
+        })
+      : []
+    : [];
+
+  function getAudio() {
+    if (req.files && req.files.audio) {
+      const filename = uuid.v4() + req.files.file.ext;
+      req.files.audio.mv(
+        path.resolve("..", "static", "message-audios", filename)
+      );
+      return filename;
+    } else {
+      return "";
+    }
+  }
+
+  const audio = getAudio();
+
+  message.isFile =
+    message.isFile == "true" || message.isFile == true ? true : false;
+  message.room = req.params.id;
+  message.avatarUrl = user.avatarUrl;
+  message.name = user.name;
+  message.isNotReaded = true;
+  message.user = user._id;
+  message.images = images;
+  message.videos = videos;
+  message.audios = audio;
+
+  let to = "";
+  if (room.user1.toString() == req.user.userId) {
+    to = room.user2;
+  } else {
+    to = room.user1;
+  }
+
+  const token = await NotificationToken.findOne({ user: to });
+
+  if (token != null) {
+    const name = user.name + " " + user.surname;
+    FirebaseService.send(name, message.message, token.token, {
+      id: room._id.toString(),
+      type: "message",
+      message: message.message,
+      name,
+      click_action: "MESSENGER",
+    });
+  }
+
+  if (
+    message.fileLink == null ||
+    message.fileLink == "null" ||
+    message.fileLink == ""
+  ) {
+    message.fileLink = "";
+  } else {
+    await File.findByIdAndUpdate(message.fileLink, { public: true });
+  }
+  emitter.emit("newMessage", message);
+  res.json({ message, user, room });
+});
+
+////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////
 
 router.get("/connect-mobile/:id", async (req, res) => {
   console.log("connection");
@@ -329,91 +433,6 @@ const fileStorage = multer.diskStorage({
 });
 
 const upload = multer({ storage: fileStorage });
-
-router.post("/new-messages/:id", auth, async (req, res) => {
-  const user = await User.findById(req.user.userId);
-  const room = await Room.findById(req.params.id);
-
-  const message = req.body;
-
-  const images = req.files
-    ? req.files["image"]
-      ? req.files["image"].map((file) => {
-          const filename = uuid.v4() + file.ext;
-          file.mv(path.resolve("..", "static", "message-images", filename));
-          return filename;
-        })
-      : []
-    : [];
-
-  const videos = req.files
-    ? req.files["video"]
-      ? req.files["video"].map((file) => {
-          const filename = uuid.v4() + file.ext;
-          file.mv(path.resolve("..", "static", "message-videos", filename));
-          return filename;
-        })
-      : []
-    : [];
-
-  function getAudio() {
-    if (req.files && req.files.audio) {
-      const filename = uuid.v4() + req.files.file.ext;
-      req.files.audio.mv(
-        path.resolve("..", "static", "message-audios", filename)
-      );
-      return filename;
-    } else {
-      return "";
-    }
-  }
-
-  const audio = getAudio();
-
-  message.isFile =
-    message.isFile == "true" || message.isFile == true ? true : false;
-  message.room = req.params.id;
-  message.avatarUrl = user.avatarUrl;
-  message.name = user.name;
-  message.isNotReaded = true;
-  message.user = user._id;
-  message.images = images;
-  message.videos = videos;
-  message.audios = audio;
-
-  let to = "";
-  if (room.user1.toString() == req.user.userId) {
-    to = room.user2;
-  } else {
-    to = room.user1;
-  }
-
-  const token = await NotificationToken.findOne({ user: to });
-
-  if (token != null) {
-    const name = user.name + " " + user.surname;
-    FirebaseService.send(name, message.message, token.token, {
-      id: room._id.toString(),
-      type: "message",
-      message: message.message,
-      name,
-      click_action: "MESSENGER",
-    });
-  }
-
-  if (
-    message.fileLink == null ||
-    message.fileLink == "null" ||
-    message.fileLink == ""
-  ) {
-    message.fileLink = "";
-  } else {
-    await File.findByIdAndUpdate(message.fileLink, { public: true });
-  }
-  console.log("new message выполнился");
-  emitter.emit("newMessage", message);
-  res.json({ message, user, room });
-});
 
 router.post("/new-chat-messages/:id", auth, async (req, res) => {
   const user = await User.findById(req.user.userId); //id
