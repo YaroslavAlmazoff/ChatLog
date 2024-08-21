@@ -15,7 +15,7 @@ export default function Room() {
   const params = useParams();
   const { getRoom, createEventSource, getMessages } = useAPI();
   const { fileFromServer } = useFile();
-  const { playAudio, stopAudio } = useAudio(messageSound);
+  const { playAudio } = useAudio(messageSound);
   const { userId } = useContext(AuthContext);
 
   const feedRef = useRef(null);
@@ -76,7 +76,7 @@ export default function Room() {
 
     getData();
     startEventSource();
-  }, [createEventSource, getRoom, id, userId]);
+  }, [createEventSource, getRoom, playAudio, id, userId]);
 
   useEffect(() => {
     getMessages(page, offset);
