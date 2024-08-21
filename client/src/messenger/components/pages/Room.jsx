@@ -60,7 +60,7 @@ export default function Room() {
           setLoading(false);
         }
 
-        if (!isLoad && isMyMessage) {
+        if ((!isLoad && isMyMessage) || isCreate) {
           feedRef.current.scrollTop = feedRef.current.scrollHeight;
         }
 
