@@ -1,7 +1,8 @@
 export default function useFile() {
   const fileTypes = {
-    images: "images",
-    videos: "videos",
+    images: "message-images",
+    videos: "message-videos",
+    audios: "message-audios",
   };
 
   const readFiles = (event, limit) => {
