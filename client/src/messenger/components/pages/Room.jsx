@@ -39,14 +39,9 @@ export default function Room() {
         const messagesData = JSON.parse(event.data);
         const newMessages = messagesData.messages;
         const currentHeight = feedRef.current.scrollHeight;
-
-        feedRef.current &&
-          console.log(feedRef.current.scrollTop, feedRef.current.scrollHeight);
-
         const isInit = messagesData.type === messagesDataTypes.init;
         const isCreate = messagesData.type === messagesDataTypes.create;
         const isLoad = messagesData.type === messagesDataTypes.load;
-
         const isMyAction = messagesData.user === userId;
 
         if (isCreate) {
@@ -64,26 +59,14 @@ export default function Room() {
 
           setLoading(false);
         }
-
-        feedRef.current &&
-          console.log(feedRef.current.scrollTop, feedRef.current.scrollHeight);
-
         if ((!isLoad && isMyAction) || isCreate) {
           feedRef.current.scrollTop = feedRef.current.scrollHeight;
         }
-
-        feedRef.current &&
-          console.log(feedRef.current.scrollTop, feedRef.current.scrollHeight);
-
         if (isCreate && isMyAction) {
           setLoading(false);
         }
-
-        feedRef.current &&
-          console.log(feedRef.current.scrollTop, feedRef.current.scrollHeight);
       };
     };
-
     getData();
     startEventSource();
   }, [createEventSource, getRoom, playAudio, id, userId]);
