@@ -27,7 +27,9 @@ export default forwardRef(function RoomMessages(
   const allImagesLoaded = totalImages === 0 || loadedImages === totalImages;
 
   useEffect(() => {
+    console.log("allImagesLoaded", allImagesLoaded);
     ref.current.scrollTop = ref.current.scrollHeight;
+    console.log(ref.current.scrollTop, ref.current.scrollHeight);
   }, [allImagesLoaded, ref]);
 
   return (
