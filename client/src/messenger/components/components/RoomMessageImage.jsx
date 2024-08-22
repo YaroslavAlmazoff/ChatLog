@@ -20,7 +20,7 @@ const RoomMessageImage = ({ image, index, count }) => {
       onClick={() => openInNewTab(folders.images, image)}
       src={fileFromServer(folders.images, image)}
       alt={image}
-      onLoadedData={handleImageLoad}
+      onLoad={() => console.log(image + "loadead")}
       onError={handleImageLoad}
       className={`${
         count === 1 ? "room-message-single-image" : "room-message-image"
