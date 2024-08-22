@@ -1,16 +1,13 @@
 import useDate from "../../common_hooks/date.hook";
 import api from "../../auth/api/auth";
 import { AuthContext } from "../../context/AuthContext";
-import { useModalContext } from "../context/ModalContext";
 import { useCallback, useContext, useMemo } from "react";
 
 const prefix = "/api";
 
-export default function useAPI() {
+export default function useAPI(openModal) {
   const { getCurrentDate } = useDate();
   const { token, userId } = useContext(AuthContext);
-
-  const { openModal } = useModalContext();
 
   const options = useMemo(
     () => ({

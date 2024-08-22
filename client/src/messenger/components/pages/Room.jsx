@@ -3,19 +3,23 @@ import { useParams } from "react-router";
 import RoomHead from "../components/RoomHead";
 import RoomMessageField from "../components/RoomMessageField";
 import RoomMessages from "../components/RoomMessages";
+import Modal from "../components/Modal";
 import useAPI from "../../hooks/useAPI";
 import useFile from "../../hooks/useFile";
 import useAudio from "../../hooks/useAudio";
 import { messagesDataTypes } from "../../data/messengerConfiguration";
 import { AuthContext } from "../../../context/AuthContext";
-import { ModalProvider } from "../../context/ModalContext";
 import messageSound from "../../audio/message.mp3";
 import "../../styles/Room.css";
-import ModalWrapper from "../components/ModalWrapper";
 
 export default function Room() {
   const params = useParams();
-  const { getRoom, createEventSource, getMessages } = useAPI();
+
+  const toggleModal = (content) => {
+    setModalContent(content);
+  };
+
+  const { getRoom, createEventSource, getMessages } = useAPI(toggleModal);
   const { fileFromServer } = useFile();
   const { playAudio } = useAudio(messageSound);
   const { userId } = useContext(AuthContext);
@@ -27,6 +31,8 @@ export default function Room() {
   const [page, setPage] = useState(1);
   const [offset, setOffset] = useState(0);
   const [loading, setLoading] = useState(true);
+  //const [error, setError] = useState(null);
+  const [modalContent, setModalContent] = useState(null);
 
   const id = useMemo(() => params.id, [params]);
 
@@ -47,18 +53,6 @@ export default function Room() {
         const isCreate = messagesData.type === messagesDataTypes.create;
         const isLoad = messagesData.type === messagesDataTypes.load;
         const isMyAction = messagesData.user === userId;
-
-        console.log(newMessages);
-
-        console.log(
-          isCreate,
-          isInit,
-          isLoad,
-          isInit || isLoad,
-          isMyAction,
-          (isInit || isLoad) && isMyAction,
-          messagesData.user
-        );
 
         if (isCreate) {
           setMessages((prev) => [...prev, ...newMessages]);
@@ -99,22 +93,22 @@ export default function Room() {
         backgroundImage: room.bg ? `url(${fileFromServer(room.bg)})` : "",
       }}
     >
-      <ModalProvider>
-        <RoomHead
-          name={room.name}
-          onlineDate={room.date}
-          isOnline={room.isOnline}
-        />
-        <RoomMessages
-          messages={messages}
-          ref={feedRef}
-          loading={loading}
-          page={page}
-          setPage={setPage}
-        />
-        <RoomMessageField setOffset={setOffset} />
-        <ModalWrapper />
-      </ModalProvider>
+      <RoomHead
+        name={room.name}
+        onlineDate={room.date}
+        isOnline={room.isOnline}
+      />
+      <RoomMessages
+        messages={messages}
+        ref={feedRef}
+        loading={loading}
+        page={page}
+        setPage={setPage}
+      />
+      <RoomMessageField setOffset={setOffset} />
+      <Modal show={!!modalContent} onClose={() => toggleModal(null)}>
+        {modalContent}
+      </Modal>
     </div>
   );
 }
