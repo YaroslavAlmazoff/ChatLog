@@ -3,6 +3,8 @@ export const limits = {
   videos: 2,
 };
 
+export const sizeLimitInMb = 50;
+
 export const folders = {
   images: "message-images",
   videos: "message-videos",
