@@ -5,7 +5,7 @@ import { ImageLoadContext } from "../../context/ImageLoadContext";
 import useLoad from "../../hooks/useLoad";
 
 export default forwardRef(function RoomMessages(
-  { messages, loading, setPage },
+  { messages, loading, page, setPage },
   ref
 ) {
   const messagesEndRef = useRef(null);
@@ -16,10 +16,10 @@ export default forwardRef(function RoomMessages(
   });
 
   useEffect(() => {
-    if (allImagesLoaded) {
+    if (allImagesLoaded && page === 1) {
       ref.current.scrollTop = ref.current.scrollHeight;
     }
-  }, [allImagesLoaded, ref]);
+  }, [allImagesLoaded, page, ref]);
 
   return (
     <div className="room-messages-wrapper">
