@@ -182,6 +182,8 @@ const sendMessages = async (res, user, room, page, offset, type) => {
   const filtered = await filterMessages(room);
   const { startIndex, endIndex } = getMessagesPortion(page, offset);
   const results = filtered.slice(startIndex, endIndex).reverse();
+
+  console.log(results);
   res.write(
     `data: ${JSON.stringify({
       messages: results,
