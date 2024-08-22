@@ -30,6 +30,12 @@ export default forwardRef(function RoomMessages(
     console.log("allImagesLoaded", allImagesLoaded);
     ref.current.scrollTop = ref.current.scrollHeight;
     console.log(ref.current.scrollTop, ref.current.scrollHeight);
+    console.log(
+      totalImages,
+      loadedImages,
+      totalImages === 0,
+      totalImages === 0 || loadedImages === totalImages
+    );
   }, [allImagesLoaded, ref]);
 
   return (
