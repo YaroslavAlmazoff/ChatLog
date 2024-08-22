@@ -2,12 +2,15 @@ import useDate from "../../common_hooks/date.hook";
 import api from "../../auth/api/auth";
 import { AuthContext } from "../../context/AuthContext";
 import { useCallback, useContext, useMemo } from "react";
+import { messengerErrors } from "../data/messengerConfiguration";
+import useFile from "./useFile";
 
 const prefix = "/api";
 
 export default function useAPI(toggleModal) {
   const { getCurrentDate } = useDate();
   const { token, userId } = useContext(AuthContext);
+  const { checkErrorWhileSendingFiles } = useFile();
 
   const options = useMemo(
     () => ({
@@ -25,6 +28,12 @@ export default function useAPI(toggleModal) {
 
   const sendMessage = useCallback(
     async (id, text, files) => {
+      const checkingSizeError = checkErrorWhileSendingFiles(files);
+      if (checkingSizeError.isError) {
+        toggleModal(checkingSizeError.text);
+        return;
+      }
+
       const filesObject = files;
       const formData = new FormData();
 
@@ -42,13 +51,13 @@ export default function useAPI(toggleModal) {
       }
       formData.append("isFile", !!localStorage.getItem("file-link"));
 
-      // try {
-      //   await api.post(`${prefix}/new-messages/${id}`, formData, options);
-      // } catch (e) {
-      toggleModal(<p>Вы загрузили слишком большой файл</p>);
-      // }
+      try {
+        await api.post(`${prefix}/new-messages/${id}`, formData, options);
+      } catch (e) {
+        toggleModal(messengerErrors.sendError);
+      }
     },
-    [getCurrentDate, toggleModal, options]
+    [getCurrentDate, checkErrorWhileSendingFiles, toggleModal, options]
   );
 
   const getRoom = useCallback(

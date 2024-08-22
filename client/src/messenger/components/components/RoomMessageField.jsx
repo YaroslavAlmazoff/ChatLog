@@ -4,10 +4,11 @@ import sendMessageIcon from "../../img/send-message.png";
 import smile from "../../img/smile.png";
 import useAPI from "../../hooks/useAPI";
 import useFile from "../../hooks/useFile";
-import "../../styles/RoomMessageField.css";
 import RoomFilesPreview from "./RoomFilesPreview";
 import usePreviews from "../../hooks/usePreviews";
 import Modal from "./Modal";
+import { modalTypes } from "../../data/messengerConfiguration";
+import "../../styles/RoomMessageField.css";
 
 const initialState = {
   imageFiles: [],
@@ -104,7 +105,11 @@ export default function RoomMessageField({ setOffset }) {
         filesVisible={filesVisible}
         deletePreview={deletePreview}
       />
-      <Modal show={!!modalContent} onClose={() => toggleModal(null)}>
+      <Modal
+        show={!!modalContent}
+        onClose={() => toggleModal(null)}
+        type={modalTypes.error}
+      >
         {modalContent}
       </Modal>
     </div>
