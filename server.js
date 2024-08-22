@@ -48,7 +48,11 @@ process.on("uncaughtException", function (err) {
 const app = express();
 //Подключение необходимых middlewares
 app.use(cors());
-app.use(fileUpload());
+app.use(
+  fileUpload({
+    limits: { fileSize: 50 * 1024 * 1024 }, // 50 MB
+  })
+);
 app.use(express.json({ extended: true, limit: "50mb" }));
 app.use(cookieParser());
 app.use(

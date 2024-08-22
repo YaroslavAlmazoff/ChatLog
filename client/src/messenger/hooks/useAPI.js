@@ -1,6 +1,7 @@
 import useDate from "../../common_hooks/date.hook";
 import api from "../../auth/api/auth";
 import { AuthContext } from "../../context/AuthContext";
+import { useModalContext } from "../context/ModalContext";
 import { useCallback, useContext, useMemo } from "react";
 
 const prefix = "/api";
@@ -8,6 +9,8 @@ const prefix = "/api";
 export default function useAPI() {
   const { getCurrentDate } = useDate();
   const { token, userId } = useContext(AuthContext);
+
+  const { openModal } = useModalContext();
 
   const options = useMemo(
     () => ({
@@ -25,7 +28,6 @@ export default function useAPI() {
 
   const sendMessage = useCallback(
     async (id, text, files) => {
-      console.log("sendMessage");
       const filesObject = files;
       const formData = new FormData();
 
@@ -43,14 +45,13 @@ export default function useAPI() {
       }
       formData.append("isFile", !!localStorage.getItem("file-link"));
 
-      const response = await api.post(
-        `${prefix}/new-messages/${id}`,
-        formData,
-        options
-      );
-      console.log(response);
+      try {
+        await api.post(`${prefix}/new-messages/${id}`, formData, options);
+      } catch (e) {
+        openModal(<p>Вы загрузили слишком большой файл</p>);
+      }
     },
-    [getCurrentDate, options]
+    [getCurrentDate, openModal, options]
   );
 
   const getRoom = useCallback(
