@@ -54,7 +54,8 @@ export default function Room() {
           isLoad,
           isInit || isLoad,
           isMyAction,
-          (isInit || isLoad) && isMyAction
+          (isInit || isLoad) && isMyAction,
+          messagesData.user
         );
 
         if (isCreate) {
