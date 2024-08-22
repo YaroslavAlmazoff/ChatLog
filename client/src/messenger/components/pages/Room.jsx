@@ -8,8 +8,10 @@ import useFile from "../../hooks/useFile";
 import useAudio from "../../hooks/useAudio";
 import { messagesDataTypes } from "../../data/messengerConfiguration";
 import { AuthContext } from "../../../context/AuthContext";
+import { ModalProvider } from "../../context/ModalContext";
 import messageSound from "../../audio/message.mp3";
 import "../../styles/Room.css";
+import ModalWrapper from "../components/ModalWrapper";
 
 export default function Room() {
   const params = useParams();
@@ -97,19 +99,22 @@ export default function Room() {
         backgroundImage: room.bg ? `url(${fileFromServer(room.bg)})` : "",
       }}
     >
-      <RoomHead
-        name={room.name}
-        onlineDate={room.date}
-        isOnline={room.isOnline}
-      />
-      <RoomMessages
-        messages={messages}
-        ref={feedRef}
-        loading={loading}
-        page={page}
-        setPage={setPage}
-      />
-      <RoomMessageField setOffset={setOffset} />
+      <ModalProvider>
+        <RoomHead
+          name={room.name}
+          onlineDate={room.date}
+          isOnline={room.isOnline}
+        />
+        <RoomMessages
+          messages={messages}
+          ref={feedRef}
+          loading={loading}
+          page={page}
+          setPage={setPage}
+        />
+        <RoomMessageField setOffset={setOffset} />
+        <ModalWrapper />
+      </ModalProvider>
     </div>
   );
 }
