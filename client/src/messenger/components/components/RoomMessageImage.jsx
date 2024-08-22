@@ -1,14 +1,14 @@
 import useFile from "../../hooks/useFile";
 import useWindow from "../../hooks/useWindow";
 import { useEffect } from "react";
-import { useImageLoad } from "../../context/ImageLoadContext";
+import { useContext } from "react";
 import { folders } from "../../data/messengerConfiguration";
 
 const RoomMessageImage = ({ image, index, count }) => {
   const { fileFromServer } = useFile();
   const { openInNewTab } = useWindow();
 
-  const { registerImage, handleImageLoad } = useImageLoad();
+  const { registerImage, handleImageLoad } = useContext();
 
   useEffect(() => {
     registerImage();
