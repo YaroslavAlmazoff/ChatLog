@@ -256,7 +256,7 @@ router.get("/messages/:page/:offset", auth, (req, res) => {
       "messages",
       req.params.page,
       req.params.offset,
-      auth.user.userId
+      req.user.userId
     );
     res.json({ message: "да ну тебя" });
   } catch (e) {
