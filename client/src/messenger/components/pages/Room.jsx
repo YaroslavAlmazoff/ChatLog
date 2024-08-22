@@ -14,12 +14,6 @@ import "../../styles/Room.css";
 
 export default function Room() {
   const params = useParams();
-
-  const toggleModal = (content) => {
-    setModalContent(content);
-  };
-
-  const { getRoom, createEventSource, getMessages } = useAPI(toggleModal);
   const { fileFromServer } = useFile();
   const { playAudio } = useAudio(messageSound);
   const { userId } = useContext(AuthContext);
@@ -35,6 +29,12 @@ export default function Room() {
   const [modalContent, setModalContent] = useState(null);
 
   const id = useMemo(() => params.id, [params]);
+
+  const toggleModal = (content) => {
+    setModalContent(content);
+  };
+
+  const { getRoom, createEventSource, getMessages } = useAPI(toggleModal);
 
   useEffect(() => {
     const getData = async () => {

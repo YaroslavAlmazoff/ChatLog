@@ -5,7 +5,7 @@ import { useCallback, useContext, useMemo } from "react";
 
 const prefix = "/api";
 
-export default function useAPI(openModal) {
+export default function useAPI(toggleModal) {
   const { getCurrentDate } = useDate();
   const { token, userId } = useContext(AuthContext);
 
@@ -45,10 +45,10 @@ export default function useAPI(openModal) {
       // try {
       //   await api.post(`${prefix}/new-messages/${id}`, formData, options);
       // } catch (e) {
-      openModal(<p>Вы загрузили слишком большой файл</p>);
+      toggleModal(<p>Вы загрузили слишком большой файл</p>);
       // }
     },
-    [getCurrentDate, openModal, options]
+    [getCurrentDate, toggleModal, options]
   );
 
   const getRoom = useCallback(
