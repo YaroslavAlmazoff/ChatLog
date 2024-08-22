@@ -14,7 +14,11 @@ export default function RoomMessageImages({ images }) {
             onClick={() => openInNewTab(folders.images, image)}
             src={fileFromServer(folders.images, image)}
             alt={image}
-            className={`room-message-image${
+            className={`${
+              images.length === 1
+                ? "room-message-single-image"
+                : "room-message-image"
+            }${
               index !== images.length - 1 ? " room-message-media-margin" : ""
             }`}
           />
