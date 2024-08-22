@@ -1,7 +1,7 @@
 import useFile from "../../hooks/useFile";
 import useWindow from "../../hooks/useWindow";
 import { useEffect } from "react";
-import { useImageLoad } from "./ImageLoadContext";
+import { useImageLoad } from "../../context/ImageLoadContext";
 import { folders } from "../../data/messengerConfiguration";
 
 const RoomMessageImage = ({ image, index, count }) => {
