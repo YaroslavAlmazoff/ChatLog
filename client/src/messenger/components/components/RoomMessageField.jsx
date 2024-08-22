@@ -7,6 +7,7 @@ import useFile from "../../hooks/useFile";
 import "../../styles/RoomMessageField.css";
 import RoomFilesPreview from "./RoomFilesPreview";
 import usePreviews from "../../hooks/usePreviews";
+import Modal from "./Modal";
 
 const initialState = {
   imageFiles: [],
@@ -15,7 +16,13 @@ const initialState = {
 };
 
 export default function RoomMessageField({ setOffset }) {
-  const { sendMessage } = useAPI();
+  const [modalContent, setModalContent] = useState(null);
+
+  const toggleModal = (content) => {
+    setModalContent(content);
+  };
+
+  const { sendMessage } = useAPI(toggleModal);
   const { fileTypes } = useFile();
   const { id } = useParams();
 
@@ -97,6 +104,9 @@ export default function RoomMessageField({ setOffset }) {
         filesVisible={filesVisible}
         deletePreview={deletePreview}
       />
+      <Modal show={!!modalContent} onClose={() => toggleModal(null)}>
+        {modalContent}
+      </Modal>
     </div>
   );
 }
