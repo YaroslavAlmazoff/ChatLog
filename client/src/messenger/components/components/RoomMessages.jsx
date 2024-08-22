@@ -17,10 +17,12 @@ export default forwardRef(function RoomMessages(
   });
 
   const registerImage = () => {
+    console.log("Image registered");
     setTotalImages((prevTotal) => prevTotal + 1);
   };
 
   const handleImageLoad = () => {
+    console.log("Image loaded");
     setLoadedImages((prevLoaded) => prevLoaded + 1);
   };
 
@@ -36,7 +38,7 @@ export default forwardRef(function RoomMessages(
       totalImages === 0,
       totalImages === 0 || loadedImages === totalImages
     );
-  }, [allImagesLoaded, ref]);
+  }, [allImagesLoaded]);
 
   return (
     <div className="room-messages-wrapper">
