@@ -1,3 +1,6 @@
+import { useCallback } from "react";
+import { fileSendErrors } from "../data/messengerConfiguration";
+
 export default function useFile() {
   const fileTypes = {
     images: "images",
@@ -32,7 +35,7 @@ export default function useFile() {
     });
   };
 
-  const checkFilesSizeLimit = (files, limitMB = 50) => {
+  const checkFilesSizeLimit = (files, limitMB = 1) => {
     const imageFiles = files.imageFiles || [];
     const videoFiles = files.videoFiles || [];
 
@@ -50,5 +53,30 @@ export default function useFile() {
     return `${process.env.REACT_APP_API_URL}/${folder}/${name}`;
   };
 
-  return { readFiles, fileFromServer, checkFilesSizeLimit, fileTypes };
+  const checkErrorWhileSendingFiles = useCallback((files) => {
+    const imagesLength = files.imageFiles.length;
+    const videosLength = files.videoFiles.length;
+    const isError = !checkFilesSizeLimit(files);
+    let text = "";
+    if (isError) {
+      text += fileSendErrors.sizeError;
+      if (imagesLength > 0 && videosLength > 0) {
+        text += fileSendErrors.tryToLoadSingleFile;
+      } else if (
+        (imagesLength === 0 && videosLength !== 0) ||
+        (videosLength === 0 && imagesLength !== 0)
+      ) {
+        text += fileSendErrors.singleFileError;
+      }
+    }
+    return { isError, text };
+  }, []);
+
+  return {
+    readFiles,
+    fileFromServer,
+    checkFilesSizeLimit,
+    checkErrorWhileSendingFiles,
+    fileTypes,
+  };
 }

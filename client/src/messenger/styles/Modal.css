@@ -1,3 +1,5 @@
+@import url("../colors.css");
+
 .room-modal {
   display: flex;
   justify-content: center;
@@ -12,11 +14,11 @@
 }
 
 .room-modal-content {
-  background-color: #fefefe;
+  background-color: rgba(0, 0, 0, 0.75);
   padding: 20px;
-  border-radius: 5px;
   width: 500px;
   max-width: 100%;
+  border-radius: 15px;
   position: relative;
 }
 
@@ -31,4 +33,19 @@
 
 .room-modal-body {
   margin-top: 20px;
+}
+
+.room-modal-neutral {
+  border: 0.5px solid var(--blue-neon);
+  color: var(--blue-neon);
+}
+
+.room-modal-success {
+  border: 0.5px solid var(--green-neon);
+  color: var(--green-neon);
+}
+
+.room-modal-error {
+  border: 0.5px solid var(--red-neon);
+  color: var(--red-neon);
 }
