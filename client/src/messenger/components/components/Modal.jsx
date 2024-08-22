@@ -7,7 +7,7 @@ const Modal = ({ show, onClose, children, type }) => {
   return (
     <div className="room-modal" onClick={onClose}>
       <div
-        className={`room-modal-content room-modal-${type}`}
+        className={`room-modal-content room-modal-content-width room-modal-${type}`}
         onClick={(e) => e.stopPropagation()}
       >
         <span className="room-modal-close" onClick={onClose}>

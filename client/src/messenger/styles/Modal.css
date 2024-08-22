@@ -19,7 +19,6 @@
   justify-content: center;
   background-color: rgba(0, 0, 0, 0.75);
   padding: 20px;
-  width: 500px;
   max-width: 100%;
   border-radius: 15px;
   position: relative;
@@ -27,7 +26,7 @@
 
 .room-modal-close {
   position: absolute;
-  top: 10px;
+  top: 5px;
   right: 10px;
   font-size: 28px;
   font-weight: bold;
@@ -35,7 +34,7 @@
 }
 
 .room-modal-body {
-  margin-top: 20px;
+  width: 80%;
 }
 
 .room-modal-neutral {
@@ -51,4 +50,34 @@
 .room-modal-error {
   border: 0.5px solid var(--red-neon);
   color: var(--red-neon);
+}
+
+@media screen and (max-width: 1920px) {
+  .room-modal-content-width {
+    width: 500px;
+  }
+}
+
+@media screen and (max-width: 1080px) {
+  .room-modal-content-width {
+    width: 50%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .room-modal-content-width {
+    width: 75%;
+  }
+}
+
+@media screen and (max-width: 512px) {
+  .room-modal-content-width {
+    width: 90%;
+  }
+}
+
+@media screen and (min-width: 512px) {
+  .room-modal-content-width {
+    width: 98%;
+  }
 }
