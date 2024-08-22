@@ -36,6 +36,8 @@ export default function Room() {
     const startEventSource = () => {
       const eventSource = createEventSource(id);
       eventSource.onmessage = function (event) {
+        console.log(" едрить его в корень");
+
         const messagesData = JSON.parse(event.data);
         const newMessages = messagesData.messages;
         const currentHeight = feedRef.current.scrollHeight;
