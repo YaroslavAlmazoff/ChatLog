@@ -106,6 +106,7 @@ export default function Room() {
         messages={messages}
         ref={feedRef}
         loading={loading}
+        page={page}
         setPage={setPage}
       />
       <RoomMessageField setOffset={setOffset} />
