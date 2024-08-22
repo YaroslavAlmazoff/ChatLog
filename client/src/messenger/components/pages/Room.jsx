@@ -5,11 +5,11 @@ import RoomMessageField from "../components/RoomMessageField";
 import RoomMessages from "../components/RoomMessages";
 import useAPI from "../../hooks/useAPI";
 import useFile from "../../hooks/useFile";
+import useAudio from "../../hooks/useAudio";
 import { messagesDataTypes } from "../../data/messengerConfiguration";
 import { AuthContext } from "../../../context/AuthContext";
 import messageSound from "../../audio/message.mp3";
 import "../../styles/Room.css";
-import useAudio from "../../hooks/useAudio";
 
 export default function Room() {
   const params = useParams();
