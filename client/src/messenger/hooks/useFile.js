@@ -32,9 +32,23 @@ export default function useFile() {
     });
   };
 
+  const checkFilesSizeLimit = (files, limitMB = 50) => {
+    const imageFiles = files.imageFiles || [];
+    const videoFiles = files.videoFiles || [];
+
+    const totalSizeInBytes = [...imageFiles, ...videoFiles].reduce(
+      (total, { file }) => {
+        return total + file.size;
+      },
+      0
+    );
+    const totalSizeInMB = totalSizeInBytes / (1024 * 1024);
+    return totalSizeInMB <= limitMB;
+  };
+
   const fileFromServer = (folder, name) => {
     return `${process.env.REACT_APP_API_URL}/${folder}/${name}`;
   };
 
-  return { readFiles, fileFromServer, fileTypes };
+  return { readFiles, fileFromServer, checkFilesSizeLimit, fileTypes };
 }
