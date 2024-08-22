@@ -1,7 +1,7 @@
-import React, { createContext, useContext, useState, useEffect } from "react";
+import React, { createContext, useState } from "react";
 
 // Создаем контекст
-const ImageLoadContext = createContext();
+export const ImageLoadContext = createContext();
 
 // Провайдер контекста
 export const ImageLoadProvider = ({ children }) => {
@@ -26,6 +26,3 @@ export const ImageLoadProvider = ({ children }) => {
     </ImageLoadContext.Provider>
   );
 };
-
-// Хук для использования контекста
-export const useImageLoad = () => useContext(ImageLoadContext);
