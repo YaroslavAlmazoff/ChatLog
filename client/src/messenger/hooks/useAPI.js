@@ -42,11 +42,11 @@ export default function useAPI(openModal) {
       }
       formData.append("isFile", !!localStorage.getItem("file-link"));
 
-      try {
-        await api.post(`${prefix}/new-messages/${id}`, formData, options);
-      } catch (e) {
-        openModal(<p>Вы загрузили слишком большой файл</p>);
-      }
+      // try {
+      //   await api.post(`${prefix}/new-messages/${id}`, formData, options);
+      // } catch (e) {
+      openModal(<p>Вы загрузили слишком большой файл</p>);
+      // }
     },
     [getCurrentDate, openModal, options]
   );
