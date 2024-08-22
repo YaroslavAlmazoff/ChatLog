@@ -36,7 +36,7 @@ export default function Room() {
     const startEventSource = () => {
       const eventSource = createEventSource(id);
       eventSource.onmessage = function (event) {
-        console.log(" едрить его в корень");
+        console.log(" едрить его в корень ");
 
         const messagesData = JSON.parse(event.data);
         const newMessages = messagesData.messages;
@@ -45,6 +45,15 @@ export default function Room() {
         const isCreate = messagesData.type === messagesDataTypes.create;
         const isLoad = messagesData.type === messagesDataTypes.load;
         const isMyAction = messagesData.user === userId;
+
+        console.log(
+          isCreate,
+          isInit,
+          isLoad,
+          isInit || isLoad,
+          isMyAction,
+          (isInit || isLoad) && isMyAction
+        );
 
         if (isCreate) {
           setMessages((prev) => [...prev, ...newMessages]);
