@@ -3,7 +3,6 @@ import { useParams } from "react-router";
 import RoomHead from "../components/RoomHead";
 import RoomMessageField from "../components/RoomMessageField";
 import RoomMessages from "../components/RoomMessages";
-import Modal from "../components/Modal";
 import useAPI from "../../hooks/useAPI";
 import useFile from "../../hooks/useFile";
 import useAudio from "../../hooks/useAudio";
@@ -14,6 +13,7 @@ import "../../styles/Room.css";
 
 export default function Room() {
   const params = useParams();
+  const { getRoom, createEventSource, getMessages } = useAPI();
   const { fileFromServer } = useFile();
   const { playAudio } = useAudio(messageSound);
   const { userId } = useContext(AuthContext);
@@ -26,15 +26,8 @@ export default function Room() {
   const [offset, setOffset] = useState(0);
   const [loading, setLoading] = useState(true);
   //const [error, setError] = useState(null);
-  const [modalContent, setModalContent] = useState(null);
 
   const id = useMemo(() => params.id, [params]);
-
-  const toggleModal = (content) => {
-    setModalContent(content);
-  };
-
-  const { getRoom, createEventSource, getMessages } = useAPI(toggleModal);
 
   useEffect(() => {
     const getData = async () => {
@@ -44,8 +37,6 @@ export default function Room() {
     const startEventSource = () => {
       const eventSource = createEventSource(id);
       eventSource.onmessage = function (event) {
-        console.log(" едрить его в корень ", userId);
-
         const messagesData = JSON.parse(event.data);
         const newMessages = messagesData.messages;
         const currentHeight = feedRef.current.scrollHeight;
@@ -53,20 +44,17 @@ export default function Room() {
         const isCreate = messagesData.type === messagesDataTypes.create;
         const isLoad = messagesData.type === messagesDataTypes.load;
         const isMyAction = messagesData.user === userId;
-
         if (isCreate) {
           setMessages((prev) => [...prev, ...newMessages]);
           if (isCreate && !isMyAction) playAudio();
         } else if ((isInit || isLoad) && isMyAction) {
           setMessages((prev) => [...newMessages, ...prev]);
-
           if (isLoad && feedRef.current) {
             setTimeout(() => {
               feedRef.current.scrollTop =
                 feedRef.current.scrollHeight - currentHeight;
             }, 0);
           }
-
           setLoading(false);
         }
         if ((!isLoad && isMyAction) || isCreate) {
@@ -106,9 +94,6 @@ export default function Room() {
         setPage={setPage}
       />
       <RoomMessageField setOffset={setOffset} />
-      <Modal show={!!modalContent} onClose={() => toggleModal(null)}>
-        {modalContent}
-      </Modal>
     </div>
   );
 }
