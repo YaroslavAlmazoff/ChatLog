@@ -52,32 +52,32 @@
   color: var(--red-neon);
 }
 
-@media screen and (max-width: 1920px) {
+@media screen and (width <= 500) {
   .room-modal-content-width {
-    width: 500px;
+    width: 98%;
   }
 }
 
-@media screen and (max-width: 1080px) {
+@media screen and (width <= 768px) {
+  .room-modal-content-width {
+    width: 60%;
+  }
+}
+
+@media screen and (width < 1080px) {
   .room-modal-content-width {
     width: 50%;
   }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (width >= 1080px) {
   .room-modal-content-width {
-    width: 75%;
+    width: 50%;
   }
 }
 
-@media screen and (max-width: 512px) {
+@media screen and (width >= 1920px) {
   .room-modal-content-width {
-    width: 90%;
-  }
-}
-
-@media screen and (min-width: 512px) {
-  .room-modal-content-width {
-    width: 98%;
+    width: 500px;
   }
 }
