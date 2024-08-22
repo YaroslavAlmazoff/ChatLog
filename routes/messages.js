@@ -252,7 +252,12 @@ router.get("/connect/:id/:user", async (req, res) => {
 router.get("/messages/:page/:offset", auth, (req, res) => {
   try {
     console.log("внутри роута");
-    emitter.emit("messages", req.params.page, req.params.offset, auth.userId);
+    emitter.emit(
+      "messages",
+      req.params.page,
+      req.params.offset,
+      auth.user.userId
+    );
     res.json({ message: "да ну тебя" });
   } catch (e) {
     console.log(e);
