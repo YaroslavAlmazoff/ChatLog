@@ -40,7 +40,8 @@ export default function Room() {
         const newMessages = messagesData.messages;
         const currentHeight = feedRef.current.scrollHeight;
 
-        console.log(newMessages);
+        feedRef.current &&
+          console.log(feedRef.current.scrollTop, feedRef.current.scrollHeight);
 
         const isInit = messagesData.type === messagesDataTypes.init;
         const isCreate = messagesData.type === messagesDataTypes.create;
@@ -64,13 +65,22 @@ export default function Room() {
           setLoading(false);
         }
 
+        feedRef.current &&
+          console.log(feedRef.current.scrollTop, feedRef.current.scrollHeight);
+
         if ((!isLoad && isMyAction) || isCreate) {
           feedRef.current.scrollTop = feedRef.current.scrollHeight;
         }
 
+        feedRef.current &&
+          console.log(feedRef.current.scrollTop, feedRef.current.scrollHeight);
+
         if (isCreate && isMyAction) {
           setLoading(false);
         }
+
+        feedRef.current &&
+          console.log(feedRef.current.scrollTop, feedRef.current.scrollHeight);
       };
     };
 
