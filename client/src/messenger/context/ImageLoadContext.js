@@ -1,7 +1,11 @@
-import React, { createContext, useState } from "react";
+import { createContext, useState } from "react";
 
 // Создаем контекст
-export const ImageLoadContext = createContext();
+export const ImageLoadContext = createContext({
+  registerImage: () => {},
+  handleImageLoad: () => {},
+  allImagesLoaded: false,
+});
 
 // Провайдер контекста
 export const ImageLoadProvider = ({ children }) => {
