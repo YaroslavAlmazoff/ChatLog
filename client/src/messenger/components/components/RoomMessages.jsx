@@ -1,44 +1,25 @@
-import { useRef, forwardRef, useEffect, useState } from "react";
+import { useRef, forwardRef, useEffect } from "react";
 import RoomMessage from "./RoomMessage";
 import { useObserver } from "../../../common_hooks/observer.hook";
 import { ImageLoadContext } from "../../context/ImageLoadContext";
+import useLoad from "../../hooks/useLoad";
 
 export default forwardRef(function RoomMessages(
   { messages, loading, setPage },
   ref
 ) {
   const messagesEndRef = useRef(null);
-
-  const [totalImages, setTotalImages] = useState(0);
-  const [loadedImages, setLoadedImages] = useState(0);
+  const { allImagesLoaded, registerImage, handleImageLoad } = useLoad();
 
   useObserver(messagesEndRef, true, loading, () => {
     setPage((prev) => prev + 1);
   });
 
-  const registerImage = () => {
-    console.log("Image registered");
-    setTotalImages((prevTotal) => prevTotal + 1);
-  };
-
-  const handleImageLoad = () => {
-    console.log("Image loaded");
-    setLoadedImages((prevLoaded) => prevLoaded + 1);
-  };
-
-  const allImagesLoaded = totalImages === 0 || loadedImages === totalImages;
-
   useEffect(() => {
-    console.log("allImagesLoaded", allImagesLoaded);
-    ref.current.scrollTop = ref.current.scrollHeight;
-    console.log(ref.current.scrollTop, ref.current.scrollHeight);
-    console.log(
-      totalImages,
-      loadedImages,
-      totalImages === 0,
-      totalImages === 0 || loadedImages === totalImages
-    );
-  }, [allImagesLoaded]);
+    if (allImagesLoaded) {
+      ref.current.scrollTop = ref.current.scrollHeight;
+    }
+  }, [allImagesLoaded, ref]);
 
   return (
     <div className="room-messages-wrapper">
