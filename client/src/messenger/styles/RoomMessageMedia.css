@@ -50,7 +50,7 @@
 .room-message-videos-line {
   display: flex;
   flex-wrap: wrap;
-  margin-top: 10px;
+  margin-top: 5px;
 }
 
 .room-message-video-container {
