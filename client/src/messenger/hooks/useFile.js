@@ -58,7 +58,7 @@ export default function useFile() {
   const checkErrorWhileSendingFiles = useCallback((files) => {
     const imagesLength = files.imageFiles.length;
     const videosLength = files.videoFiles.length;
-    const isError = !checkFilesSizeLimit(files, sizeLimit);
+    const isError = !checkFilesSizeLimit(files, sizeLimit.limit);
     let text = "";
     if (isError) {
       text += fileSendErrors.sizeError;
