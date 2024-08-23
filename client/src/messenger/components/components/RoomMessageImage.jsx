@@ -22,9 +22,9 @@ const RoomMessageImage = ({ image, index, count }) => {
       alt={image}
       onLoad={handleImageLoad}
       onError={handleImageLoad}
-      className={`${
-        count === 1 ? "room-message-single-image" : "room-message-image"
-      }${index !== count - 1 ? " room-message-media-margin" : ""}`}
+      className={`room-message-image ${
+        index !== count - 1 ? " room-message-media-margin" : ""
+      }`}
     />
   );
 };
