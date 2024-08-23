@@ -1,5 +1,5 @@
 import useWindow from "../../hooks/useWindow";
-import Times from "./RoomPreviewTimes";
+import RoomPreviewTimes from "./RoomPreviewTimes";
 
 export default function RoomVideoPreview({ url, deletePreview }) {
   const { handleLoaded } = useWindow();
@@ -11,7 +11,7 @@ export default function RoomVideoPreview({ url, deletePreview }) {
         onLoadedData={handleLoaded}
         className="room-preview"
       />
-      <Times
+      <RoomPreviewTimes
         onClick={deletePreview}
         className="room-preview-delete"
         item={url}

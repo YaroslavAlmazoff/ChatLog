@@ -1,6 +1,6 @@
 import RoomImagePreview from "./RoomImagePreview";
 import RoomVideoPreview from "./RoomVideoPreview";
-import "../../styles/RoomPreview.css";
+import "../../styles/RoomFilesPreview.css";
 
 export default function RoomFilesPreview({
   files,
