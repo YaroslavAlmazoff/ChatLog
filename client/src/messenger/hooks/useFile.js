@@ -47,7 +47,6 @@ export default function useFile() {
       0
     );
     const totalSizeInMB = totalSizeInBytes / (1024 * 1024);
-    console.log(totalSizeInMB, limitMB);
     return totalSizeInMB <= limitMB;
   };
 
