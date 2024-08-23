@@ -6,9 +6,9 @@ export default function RoomMessageImages({ images }) {
 
   const firstLineImages = images.slice(0, length >= 2 ? 2 : length);
   const secondLineImages =
-    length > 4 ? images.slice(4, length === 4 ? 4 : length) : [];
+    length > 2 ? images.slice(2, length === 4 ? 4 : length) : [];
   const thirdLineImages =
-    length > 6 ? images.slice(6, length === 6 ? 6 : length) : [];
+    length > 4 ? images.slice(4, length === 6 ? 6 : length) : [];
 
   return (
     <>
