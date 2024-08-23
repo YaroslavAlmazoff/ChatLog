@@ -49,16 +49,20 @@
 }
 
 .room-message-images {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(0, 1fr));
+  display: flex;
+  justify-content: center; /* Центрирует изображения */
+  align-items: center;
   width: 100%;
-  height: 300px;
+  height: 300px; /* Фиксированная высота контейнера */
+  overflow: hidden; /* Скрывает переполнение, если оно случится */
 }
 
 .room-message-image {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
+  height: 100%; /* Изображение занимает всю высоту контейнера */
+  flex-shrink: 0; /* Предотвращает сжатие изображения */
+  min-width: 0; /* Сбрасывает минимальную ширину по умолчанию */
+  object-fit: contain; /* Сохраняет пропорции изображения */
+  border-radius: 15px;
 }
 .room-message-single-image {
   max-width: 50%;
