@@ -7,6 +7,9 @@ import { ImageLoadContext } from "../../context/ImageLoadContext";
 import useImage from "../../hooks/useImage";
 
 const RoomMessageImage = ({ image, index, count }) => {
+  const singleImage = count === 1;
+  const isNotLast = index !== count - 1;
+
   const { fileFromServer } = useFile();
   const { openInNewTab } = useWindow();
   const { determineImageFormat } = useImage();
@@ -20,9 +23,11 @@ const RoomMessageImage = ({ image, index, count }) => {
   }, [registerImage]);
 
   const onImageLoad = () => {
-    imageRef.current.classList.add(
-      `room-message-single-image-${determineImageFormat(imageRef.current)}`
-    );
+    if (singleImage) {
+      imageRef.current.classList.add(
+        `room-message-single-image-${determineImageFormat(imageRef.current)}`
+      );
+    }
     handleImageLoad();
   };
 
@@ -34,9 +39,10 @@ const RoomMessageImage = ({ image, index, count }) => {
       ref={imageRef}
       onLoad={onImageLoad}
       onError={handleImageLoad}
-      className={`room-message-image${
-        count === 1 ? ` room-message-single-image` : ""
-      }${index !== count - 1 ? " room-message-media-margin" : ""}`}
+      className={`room-message-image
+        ${singleImage ? " room-message-single-image" : ""}
+        ${isNotLast ? " room-message-media-margin" : ""}
+        `}
     />
   );
 };
