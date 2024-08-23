@@ -182,8 +182,6 @@ const sendMessages = async (res, user, room, page, offset, type) => {
   const filtered = await filterMessages(room);
   const { startIndex, endIndex } = getMessagesPortion(page, offset);
   const results = filtered.slice(startIndex, endIndex).reverse();
-
-  console.log(results);
   res.write(
     `data: ${JSON.stringify({
       messages: results,
@@ -208,7 +206,6 @@ router.get("/connect/:id/:user", async (req, res) => {
   sendMessages(res, req.params.user, req.params.id, 1, 0, "init");
 
   const messages = async (page, offset, user) => {
-    console.log("внутри messages");
     await sendMessages(res, user, req.params.id, page, offset, "load");
   };
 
@@ -251,7 +248,6 @@ router.get("/connect/:id/:user", async (req, res) => {
 
 router.get("/messages/:page/:offset", auth, (req, res) => {
   try {
-    console.log("внутри роута");
     emitter.emit(
       "messages",
       req.params.page,
