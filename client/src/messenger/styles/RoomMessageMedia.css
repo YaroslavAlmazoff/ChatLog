@@ -7,7 +7,7 @@
 }
 
 .room-message-images-height-single {
-  min-height: 300px;
+  min-height: 100px;
 }
 
 .room-message-images-height {
@@ -24,6 +24,15 @@
 
 .room-message-single-image {
   max-width: 100%;
+}
+
+.room-message-single-image-horizontal {
+  min-width: 100%;
+}
+.room-message-single-image-square {
+  min-width: 75%;
+}
+.room-message-single-image-vertical {
   min-width: 50%;
 }
 
