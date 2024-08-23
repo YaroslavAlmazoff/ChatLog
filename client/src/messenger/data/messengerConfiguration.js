@@ -25,6 +25,12 @@ export const messagesDataTypes = {
   create: "create",
 };
 
+export const imageFormats = {
+  horizontal: "horizontal",
+  vertical: "vertical",
+  square: "square",
+};
+
 export const modalTypes = {
   neutral: "neutral",
   success: "success",
