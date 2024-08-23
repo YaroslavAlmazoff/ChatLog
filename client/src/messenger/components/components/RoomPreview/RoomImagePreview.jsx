@@ -1,4 +1,4 @@
-import useWindow from "../../hooks/useWindow";
+import useWindow from "../../../hooks/useWindow";
 import RoomPreviewTimes from "./RoomPreviewTimes";
 
 export default function RoomVideoPreview({ url, deletePreview }) {

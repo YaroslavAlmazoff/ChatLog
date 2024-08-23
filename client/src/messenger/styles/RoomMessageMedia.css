@@ -9,6 +9,10 @@
   width: 100%;
 }
 
+.room-message-images-margin-bottom {
+  margin-bottom: 10px;
+}
+
 .room-message-images-line-height {
   height: 300px;
 }

@@ -1,28 +1,29 @@
-import useFile from "../../hooks/useFile";
-import useWindow from "../../hooks/useWindow";
+import useFile from "../../../hooks/useFile";
+import useWindow from "../../../hooks/useWindow";
 import { useEffect, useRef, useContext } from "react";
-import { folders } from "../../data/messengerConfiguration";
-import { ImageLoadContext } from "../../context/ImageLoadContext";
-import useImage from "../../hooks/useImage";
+import { folders } from "../../../data/messengerConfiguration";
+import { ImageLoadContext } from "../../../context/ImageLoadContext";
+import useImage from "../../../hooks/useImage";
+import useList from "../../../hooks/useList";
 
 export default function RoomMessageImage({ image, index, count }) {
-  const singleImage = count === 1;
-  const isNotLast = index !== count - 1;
-
+  const { getIsLast, getIsSingle } = useList();
   const { fileFromServer } = useFile();
   const { openInNewTab } = useWindow();
   const { determineImageFormat } = useImage();
 
   const { registerMedia, handleMediaLoad } = useContext(ImageLoadContext);
-
   const imageRef = useRef(null);
+
+  const isSingle = getIsSingle(count);
+  const isLast = getIsLast(index, count);
 
   useEffect(() => {
     registerMedia();
   }, [registerMedia]);
 
   const onImageLoad = () => {
-    if (singleImage) {
+    if (isSingle) {
       imageRef.current.classList.add(
         `room-message-single-image-${determineImageFormat(imageRef.current)}`
       );
@@ -39,8 +40,8 @@ export default function RoomMessageImage({ image, index, count }) {
       onLoad={onImageLoad}
       onError={handleMediaLoad}
       className={`room-message-image
-        ${singleImage ? " room-message-single-image" : ""}
-        ${isNotLast ? " room-message-media-margin" : ""}
+        ${isSingle ? " room-message-single-image" : ""}
+        ${!isLast ? " room-message-media-margin" : ""}
         `}
     />
   );

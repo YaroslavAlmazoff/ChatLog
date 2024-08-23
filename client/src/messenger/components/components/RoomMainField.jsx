@@ -4,7 +4,7 @@ import sendMessageIcon from "../../img/send-message.png";
 import smile from "../../img/smile.png";
 import useAPI from "../../hooks/useAPI";
 import useFile from "../../hooks/useFile";
-import RoomFilesPreview from "./RoomFilesPreview";
+import RoomFilesPreview from "./RoomPreview/RoomFilesPreview";
 import usePreviews from "../../hooks/usePreviews";
 import RoomModal from "./RoomModal/RoomModal";
 import { modalTypes } from "../../data/messengerConfiguration";
@@ -16,7 +16,7 @@ const initialState = {
   audioFile: null,
 };
 
-export default function RoomMessageField({ setOffset }) {
+export default function RoomMainField({ setOffset }) {
   const [modalContent, setModalContent] = useState(null);
 
   const toggleModal = (content) => {
