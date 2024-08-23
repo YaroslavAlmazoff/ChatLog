@@ -13,7 +13,7 @@ export default function RoomMessageVideo({ video, index, count }) {
 
   const { registerMedia, handleMediaLoad } = useContext(ImageLoadContext);
 
-  const isLast = getIsLast();
+  const isLast = getIsLast(index, count);
 
   useEffect(() => {
     registerMedia();
