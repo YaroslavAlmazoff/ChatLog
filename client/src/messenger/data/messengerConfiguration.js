@@ -35,6 +35,8 @@ export const modalTypes = {
   neutral: "neutral",
   success: "success",
   error: "error",
+  image: "image",
+  video: "video",
 };
 
 export const fileSendErrors = {

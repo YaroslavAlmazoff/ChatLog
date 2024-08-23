@@ -6,7 +6,7 @@ import useAPI from "../../hooks/useAPI";
 import useFile from "../../hooks/useFile";
 import RoomFilesPreview from "./RoomFilesPreview";
 import usePreviews from "../../hooks/usePreviews";
-import Modal from "./Modal";
+import RoomModal from "./RoomModal/RoomModal";
 import { modalTypes } from "../../data/messengerConfiguration";
 import "../../styles/RoomMessageField.css";
 
@@ -105,13 +105,13 @@ export default function RoomMessageField({ setOffset }) {
         filesVisible={filesVisible}
         deletePreview={deletePreview}
       />
-      <Modal
+      <RoomModal
         show={!!modalContent}
         onClose={() => toggleModal(null)}
         type={modalTypes.error}
       >
         {modalContent}
-      </Modal>
+      </RoomModal>
     </div>
   );
 }
