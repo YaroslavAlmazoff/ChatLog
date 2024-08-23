@@ -1,5 +1,6 @@
 import { useCallback } from "react";
 import { fileSendErrors } from "../data/errors";
+import { sizeLimit } from "../data/messengerConfiguration";
 
 export default function useFile() {
   const fileTypes = {
@@ -56,7 +57,7 @@ export default function useFile() {
   const checkErrorWhileSendingFiles = useCallback((files) => {
     const imagesLength = files.imageFiles.length;
     const videosLength = files.videoFiles.length;
-    const isError = !checkFilesSizeLimit(files);
+    const isError = !checkFilesSizeLimit(files, sizeLimit);
     let text = "";
     if (isError) {
       text += fileSendErrors.sizeError;
