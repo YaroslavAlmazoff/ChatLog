@@ -28,7 +28,7 @@ export default function RoomMessageVideo({ video, index, count }) {
     >
       <video
         controls
-        onLoadedData={handleMediaLoad}
+        onLoad={handleMediaLoad}
         onError={handleMediaLoad}
         src={fileFromServer(folders.videos, video)}
         className="room-message-video"
