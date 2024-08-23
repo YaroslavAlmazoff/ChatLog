@@ -85,8 +85,10 @@ export default function usePreviews(
     } else if (currentLength > currentLimits) {
       previewsOverflow(result, isImages);
       setError(currentError);
+      setFilesVisible(true);
     } else if (currentLength === currentLimits) {
       previewsOverflow(result, isImages);
+      setFilesVisible(true);
     } else {
       setFiles((prev) => ({
         ...prev,
