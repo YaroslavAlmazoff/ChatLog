@@ -30,6 +30,8 @@ export const imageFormats = {
   vertical: "vertical",
   square: "square",
 };
+export const imagesInLine = 2;
+export const videosInLine = 2;
 
 export const modalTypes = {
   neutral: "neutral",
