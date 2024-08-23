@@ -274,7 +274,7 @@ const processAudio = (files) => {
     audio.mv(
       path.resolve("..", "static", `message-${fileTypes.audio}s`, filename)
     );
-    return filename;
+    return [filename];
   } else {
     return "";
   }
@@ -287,7 +287,7 @@ const processFiles = (files, type) =>
           const file = files[key];
           const filename = generateFileName(file);
           file.mv(path.resolve("..", "static", `message-${type}s`, filename));
-          return [filename];
+          return filename;
         })
       : []
     : [];
@@ -303,7 +303,7 @@ router.post("/new-messages/:id", auth, async (req, res) => {
 
   const audios = processAudio(req.files);
 
-  console.log(message, images, videos);
+  console.log(images, videos);
 
   message.isFile =
     message.isFile == "true" || message.isFile == true ? true : false;
