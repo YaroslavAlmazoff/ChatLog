@@ -283,12 +283,14 @@ const processAudio = (files) => {
 const processFiles = (files, type) =>
   Object.keys(files).length !== 0
     ? Object.keys(files).some((key) => key.includes(type))
-      ? Object.keys(files).map((key) => {
-          const file = files[key];
-          const filename = generateFileName(file);
-          file.mv(path.resolve("..", "static", `message-${type}s`, filename));
-          return filename;
-        })
+      ? Object.keys(files)
+          .filter((key) => key.includes(type))
+          .map((key) => {
+            const file = files[key];
+            const filename = generateFileName(file);
+            file.mv(path.resolve("..", "static", `message-${type}s`, filename));
+            return filename;
+          })
       : []
     : [];
 
