@@ -2,7 +2,7 @@ import useDate from "../../common_hooks/date.hook";
 import api from "../../auth/api/auth";
 import { AuthContext } from "../../context/AuthContext";
 import { useCallback, useContext, useMemo } from "react";
-import { messengerErrors } from "../data/messengerConfiguration";
+import { messengerErrors, sizeLimit } from "../data/messengerConfiguration";
 import useFile from "./useFile";
 
 const prefix = "/api";
@@ -28,7 +28,10 @@ export default function useAPI(toggleModal) {
 
   const sendMessage = useCallback(
     async (id, text, files) => {
-      const checkingSizeError = checkErrorWhileSendingFiles(files);
+      const checkingSizeError = checkErrorWhileSendingFiles(
+        files,
+        sizeLimit.limit
+      );
       if (checkingSizeError.isError) {
         toggleModal(checkingSizeError.text);
         return;
