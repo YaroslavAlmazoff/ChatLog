@@ -6,6 +6,8 @@ export default function RoomMessageVideos({ videos }) {
   const { fileFromServer } = useFile();
   const { openInNewTab } = useWindow();
 
+  if (!videos.length) return null;
+
   return (
     <div className="room-message-videos">
       {videos ? (
