@@ -35,6 +35,8 @@ export default function useAPI(toggleModal) {
       }
 
       const filesObject = files;
+
+      console.log(filesObject);
       const formData = new FormData();
 
       formData.append("message", text);
