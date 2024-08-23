@@ -59,7 +59,10 @@ export default function usePreviews(
 
   const previewsOverflow = (result, isImages) => {
     console.log(result, isImages);
-    setFiles((prev) => slicePreviews(prev, result.files, isImages));
+    setFiles((prev) => {
+      console.log(slicePreviews(prev, result.files, isImages));
+      return slicePreviews(prev, result.files, isImages);
+    });
     toggleCanChoose(false, isImages);
   };
 
