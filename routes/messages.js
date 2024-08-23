@@ -287,7 +287,7 @@ const processFiles = (files, type) =>
           const file = files[key];
           const filename = generateFileName(file);
           file.mv(path.resolve("..", "static", `message-${type}s`, filename));
-          return filename;
+          return [filename];
         })
       : []
     : [];
@@ -301,7 +301,7 @@ router.post("/new-messages/:id", auth, async (req, res) => {
   const images = processFiles(req.files, fileTypes.image);
   const videos = processFiles(req.files, fileTypes.video);
 
-  const audio = processAudio(req.files);
+  const audios = processAudio(req.files);
 
   console.log(message, images, videos);
 
@@ -314,7 +314,7 @@ router.post("/new-messages/:id", auth, async (req, res) => {
   message.user = user._id;
   message.images = images;
   message.videos = videos;
-  message.audios = audio;
+  message.audios = audios;
 
   let to = "";
   if (room.user1.toString() == req.user.userId) {
