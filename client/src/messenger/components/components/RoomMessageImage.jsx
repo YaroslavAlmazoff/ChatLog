@@ -6,7 +6,7 @@ import { folders } from "../../data/messengerConfiguration";
 import { ImageLoadContext } from "../../context/ImageLoadContext";
 import useImage from "../../hooks/useImage";
 
-const RoomMessageImage = ({ image, index, count }) => {
+export default function RoomMessageImage({ image, index, count }) {
   const singleImage = count === 1;
   const isNotLast = index !== count - 1;
 
@@ -45,6 +45,4 @@ const RoomMessageImage = ({ image, index, count }) => {
         `}
     />
   );
-};
-
-export default RoomMessageImage;
+}
