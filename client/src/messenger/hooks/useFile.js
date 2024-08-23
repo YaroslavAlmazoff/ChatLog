@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-import { fileSendErrors } from "../data/messengerConfiguration";
+import { fileSendErrors } from "../data/errors";
 
 export default function useFile() {
   const fileTypes = {

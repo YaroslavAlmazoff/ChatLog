@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import useFile from "./useFile";
-import { errors } from "../data/errors";
+import { filesCountErrors } from "../data/errors";
 import { limits } from "../data/messengerConfiguration";
 
 const placeholderText = "Напишите сообщение...";
@@ -71,7 +71,9 @@ export default function usePreviews(
       result.files.length +
       (isImages ? files.imageFiles.length : files.videoFiles.length);
     const currentLimits = isImages ? limits.images : limits.videos;
-    const currentError = isImages ? errors.imagesCount : errors.videosCount;
+    const currentError = isImages
+      ? filesCountErrors.imagesCount
+      : filesCountErrors.videosCount;
 
     if (result.error) {
       setError(currentError);
