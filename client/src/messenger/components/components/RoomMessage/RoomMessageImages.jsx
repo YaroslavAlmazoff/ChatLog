@@ -9,6 +9,7 @@ export default function RoomMessageImages({ images }) {
 
   for (let i = 0; i < length / imagesInLine; i++) {
     lines.push(images.slice(i * imagesInLine, (i + 1) * imagesInLine));
+    console.log("pushed");
   }
 
   return (
@@ -16,7 +17,8 @@ export default function RoomMessageImages({ images }) {
       {lines.map((line, index) => (
         <RoomMessageImagesLine
           imagesLine={line}
-          index={lines.length === index - 1}
+          index={index}
+          key={JSON.stringify(line)}
         />
       ))}
     </div>
