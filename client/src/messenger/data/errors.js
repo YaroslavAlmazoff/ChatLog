@@ -13,5 +13,6 @@ export const fileSendErrors = {
 };
 
 export const messengerErrors = {
-  sendError: "Не удалось отправить сообщение.",
+  sendError:
+    "Не удалось отправить сообщение. Возможно, проблема во включенном VPN.",
 };
