@@ -2,7 +2,8 @@ import useDate from "../../common_hooks/date.hook";
 import api from "../../auth/api/auth";
 import { AuthContext } from "../../context/AuthContext";
 import { useCallback, useContext, useMemo } from "react";
-import { messengerErrors, sizeLimit } from "../data/messengerConfiguration";
+import { sizeLimit } from "../data/messengerConfiguration";
+import { messengerErrors } from "../data/errors";
 import useFile from "./useFile";
 
 const prefix = "/api";
