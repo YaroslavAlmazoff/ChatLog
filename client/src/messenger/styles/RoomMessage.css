@@ -50,20 +50,18 @@
 
 .room-message-images {
   display: flex;
-  justify-content: center; /* Центрирует изображения */
   align-items: center;
-  width: 100%;
-  height: 300px; /* Фиксированная высота контейнера */
-  overflow: hidden; /* Скрывает переполнение, если оно случится */
+  justify-content: center;
 }
 
 .room-message-image {
-  height: 100%; /* Изображение занимает всю высоту контейнера */
-  flex-shrink: 0; /* Предотвращает сжатие изображения */
-  min-width: 0; /* Сбрасывает минимальную ширину по умолчанию */
-  object-fit: contain; /* Сохраняет пропорции изображения */
   border-radius: 15px;
+  width: 50%;
+  height: auto;
+  max-height: 500px;
+  object-fit: cover;
 }
+
 .room-message-single-image {
   max-width: 50%;
   max-height: 100%;
