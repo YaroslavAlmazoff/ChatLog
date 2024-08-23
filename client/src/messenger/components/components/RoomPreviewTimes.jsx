@@ -1,6 +1,6 @@
 import "../../styles/Times.css";
 
-export default function Times({ item, onClick, className }) {
+export default function RoomPreviewTimes({ item, onClick, className }) {
   return (
     <span onClick={() => onClick(item)} className={`times ${className}`}>
       &times;

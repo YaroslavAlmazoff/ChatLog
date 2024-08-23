@@ -1,8 +1,7 @@
-import React, { useRef } from "react";
-import "../../styles/Modal.css";
 import { modalTypes } from "../../../data/messengerConfiguration";
 import RoomModalImage from "./RoomModalImage";
 import RoomModalVideo from "./RoomModalVideo";
+import "../../../styles/Modal.css";
 
 const RoomModal = ({
   show = false,
@@ -11,8 +10,6 @@ const RoomModal = ({
   type = modalTypes.neutral,
   url = "",
 }) => {
-  const modalRef = useRef(null);
-
   if (!show) return null;
 
   const isSuccess = type === modalTypes.success;
@@ -22,7 +19,7 @@ const RoomModal = ({
   const isVideo = type === modalTypes.video;
 
   return (
-    <div className="room-modal" onClick={onClose} ref={modalRef}>
+    <div className="room-modal" onClick={onClose}>
       <span className="room-modal-close" onClick={onClose}>
         &times;
       </span>
