@@ -1,0 +1,49 @@
+.room-message-images {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 10px;
+}
+
+.room-message-images-height-single {
+  min-height: 300px;
+}
+
+.room-message-images-height {
+  height: 300px;
+}
+
+.room-message-image {
+  border-radius: 15px;
+  width: 50%;
+  height: 100%;
+  max-height: 500px;
+  object-fit: cover;
+}
+
+.room-message-single-image {
+  max-width: 100%;
+  min-width: 50%;
+}
+
+.room-message-videos {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.room-message-video-container {
+  flex: 1 0 0;
+  position: relative;
+}
+
+.room-message-video {
+  width: 100%;
+  height: auto;
+  border-radius: 15px;
+}
+
+.room-message-media-margin {
+  margin-right: 7px;
+}
