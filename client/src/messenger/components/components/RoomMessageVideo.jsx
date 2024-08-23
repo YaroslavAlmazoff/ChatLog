@@ -1,9 +1,8 @@
 import useFile from "../../hooks/useFile";
 import useWindow from "../../hooks/useWindow";
-// import { useEffect } from "react";
-// import { useContext } from "react";
+import { useEffect, useContext } from "react";
 import { folders } from "../../data/messengerConfiguration";
-// import { ImageLoadContext } from "../../context/ImageLoadContext";
+import { ImageLoadContext } from "../../context/ImageLoadContext";
 
 export default function RoomMessageVideo({ video, index, count }) {
   const isLast = index !== count - 1;
@@ -11,15 +10,11 @@ export default function RoomMessageVideo({ video, index, count }) {
   const { fileFromServer } = useFile();
   const { openInNewTab } = useWindow();
 
-  //   const { registerImage, handleImageLoad } = useContext(ImageLoadContext);
+  const { registerMedia, handleMediaLoad } = useContext(ImageLoadContext);
 
-  //   useEffect(() => {
-  //     registerImage();
-  //   }, [registerImage]);
-
-  //   const onImageLoad = () => {
-  //     handleImageLoad();
-  //   };
+  useEffect(() => {
+    registerMedia();
+  }, [registerMedia]);
 
   return (
     <div
@@ -30,6 +25,8 @@ export default function RoomMessageVideo({ video, index, count }) {
     >
       <video
         controls
+        onLoadedData={handleMediaLoad}
+        onError={handleMediaLoad}
         src={fileFromServer(folders.videos, video)}
         className="room-message-video"
       />

@@ -4,10 +4,10 @@ export default function RoomMessageImagesLine({ imagesLine }) {
   if (!imagesLine.length) return null;
   return (
     <div
-      className={`room-message-images${
+      className={`room-message-images-line${
         imagesLine.length === 1
-          ? " room-message-images-height-single"
-          : " room-message-images-height"
+          ? " room-message-images-line-height-single"
+          : " room-message-images-line-height"
       }`}
     >
       {imagesLine.map((image, index) => (

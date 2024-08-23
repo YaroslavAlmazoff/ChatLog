@@ -9,17 +9,17 @@ export default forwardRef(function RoomMessages(
   ref
 ) {
   const messagesEndRef = useRef(null);
-  const { allImagesLoaded, registerImage, handleImageLoad } = useLoad();
+  const { allMediaLoaded, registerMedia, handleMediaLoad } = useLoad();
 
   useObserver(messagesEndRef, true, loading, () => {
     setPage((prev) => prev + 1);
   });
 
   useEffect(() => {
-    if (allImagesLoaded && page === 1) {
+    if (allMediaLoaded && page === 1) {
       ref.current.scrollTop = ref.current.scrollHeight;
     }
-  }, [allImagesLoaded, page, ref]);
+  }, [allMediaLoaded, page, ref]);
 
   return (
     <div className="room-messages-wrapper">
@@ -28,7 +28,7 @@ export default forwardRef(function RoomMessages(
           ref={messagesEndRef}
           style={{ height: "10px", backgroundColor: "#40a4ff" }}
         />
-        <ImageLoadContext.Provider value={{ registerImage, handleImageLoad }}>
+        <ImageLoadContext.Provider value={{ registerMedia, handleMediaLoad }}>
           {messages.map((message) => (
             <RoomMessage message={message} />
           ))}

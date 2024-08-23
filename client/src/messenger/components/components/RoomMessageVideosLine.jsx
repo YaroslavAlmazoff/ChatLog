@@ -5,7 +5,7 @@ export default function RoomMessageVideosLine({ videosLine }) {
   if (!length) return null;
 
   return (
-    <div className="room-message-videos">
+    <div className="room-message-videos-line">
       {videosLine.map((video, index) => (
         <RoomMessageVideo video={video} index={index} count={length} />
       ))}

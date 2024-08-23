@@ -11,14 +11,11 @@ export default function RoomMessageVideos({ videos }) {
     lines.push(videos.slice(i * videosInLine, (i + 1) * videosInLine));
   }
 
-  //const videosLine = videos.slice(0, length === 2 ? 2 : length);
-
   return (
-    <>
+    <div className="room-message-videos">
       {lines.map((line) => (
         <RoomMessageVideosLine videosLine={line} />
       ))}
-      {/* <RoomMessageVideosLine videosLine={videosLine} /> */}
-    </>
+    </div>
   );
 }
