@@ -295,6 +295,7 @@ const processFiles = (files, type) =>
     : [];
 
 router.post("/new-messages/:id", auth, async (req, res) => {
+  req.setTimeout(60 * 1000);
   const user = await User.findById(req.user.userId);
   const room = await Room.findById(req.params.id);
 
