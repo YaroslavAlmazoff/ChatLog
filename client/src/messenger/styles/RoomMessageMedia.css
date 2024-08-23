@@ -5,7 +5,7 @@
 .room-message-images-line {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   width: 100%;
 }
 
