@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { AuthContext } from "../../../context/AuthContext";
+import { AuthContext } from "../../../../context/AuthContext";
 import deleteIcon from "../../img/delete.png";
 import editIcon from "../../img/edit.png";
 import replyIcon from "../../img/reply.png";

@@ -1,5 +1,5 @@
 import RoomMessageImagesLine from "./RoomMessageImagesLine";
-import { imagesInLine } from "../../data/messengerConfiguration";
+import { imagesInLine } from "../../../data/messengerConfiguration";
 
 export default function RoomMessageImages({ images }) {
   const length = images.length;
@@ -13,8 +13,11 @@ export default function RoomMessageImages({ images }) {
 
   return (
     <div className="room-message-images">
-      {lines.map((line) => (
-        <RoomMessageImagesLine imagesLine={line} />
+      {lines.map((line, index) => (
+        <RoomMessageImagesLine
+          imagesLine={line}
+          index={lines.length === index - 1}
+        />
       ))}
     </div>
   );

@@ -1,4 +1,4 @@
-import { videosInLine } from "../../data/messengerConfiguration";
+import { videosInLine } from "../../../data/messengerConfiguration";
 import RoomMessageVideosLine from "./RoomMessageVideosLine";
 
 export default function RoomMessageVideos({ videos }) {

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { CSSTransition } from "react-transition-group";
-import useFile from "../../hooks/useFile";
+import useFile from "../../../hooks/useFile";
 import RoomMessageActions from "./RoomMessageActions";
 import RoomMessageImages from "./RoomMessageImages";
 import RoomMessageVideos from "./RoomMessageVideos";

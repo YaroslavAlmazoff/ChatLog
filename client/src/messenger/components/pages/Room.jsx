@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef, useMemo, useContext } from "react";
 import { useParams } from "react-router";
 import RoomHead from "../components/RoomHead";
-import RoomMessageField from "../components/RoomMessageField";
+import RoomMainField from "../components/RoomMainField";
 import RoomMessages from "../components/RoomMessages";
 import useAPI from "../../hooks/useAPI";
 import useFile from "../../hooks/useFile";
@@ -93,7 +93,7 @@ export default function Room() {
         page={page}
         setPage={setPage}
       />
-      <RoomMessageField setOffset={setOffset} />
+      <RoomMainField setOffset={setOffset} />
     </div>
   );
 }
