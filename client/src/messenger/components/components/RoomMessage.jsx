@@ -5,6 +5,7 @@ import RoomMessageActions from "./RoomMessageActions";
 import RoomMessageImages from "./RoomMessageImages";
 import RoomMessageVideos from "./RoomMessageVideos";
 import "../../styles/RoomMessage.css";
+import "../../styles/RoomMessageMedia.css";
 
 export default function RoomMessage({ message }) {
   const { fileFromServer } = useFile();

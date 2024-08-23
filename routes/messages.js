@@ -178,7 +178,6 @@ const getMessagesPortion = (page, offset) => {
 };
 
 const sendMessages = async (res, user, room, page, offset, type) => {
-  console.log("внутри sendMessages");
   const filtered = await filterMessages(room);
   const { startIndex, endIndex } = getMessagesPortion(page, offset);
   const results = filtered.slice(startIndex, endIndex).reverse();
