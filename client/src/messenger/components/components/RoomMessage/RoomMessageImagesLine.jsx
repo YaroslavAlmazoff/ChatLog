@@ -6,7 +6,7 @@ export default function RoomMessageImagesLine({ imagesLine, index, count }) {
 
   if (!imagesLine.length) return null;
 
-  const isLast = getIsLast();
+  const isLast = getIsLast(index, count);
 
   return (
     <div
