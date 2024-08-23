@@ -1,5 +1,5 @@
 import useWindow from "../../hooks/useWindow";
-import Times from "./Times";
+import Times from "./RoomPreviewTimes";
 
 export default function RoomVideoPreview({ url, deletePreview }) {
   const { handleLoaded } = useWindow();
