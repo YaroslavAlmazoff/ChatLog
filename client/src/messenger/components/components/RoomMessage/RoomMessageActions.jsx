@@ -1,9 +1,9 @@
 import { useContext } from "react";
 import { AuthContext } from "../../../../context/AuthContext";
-import deleteIcon from "../../img/delete.png";
-import editIcon from "../../img/edit.png";
-import replyIcon from "../../img/reply.png";
-import shareIcon from "../../img/share.png";
+import deleteIcon from "../../../img/delete.png";
+import editIcon from "../../../img/edit.png";
+import replyIcon from "../../../img/reply.png";
+import shareIcon from "../../../img/share.png";
 
 export default function RoomMessageActions({ message, animation }) {
   const { userId } = useContext(AuthContext);

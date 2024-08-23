@@ -1,4 +1,4 @@
-import "../../styles/Times.css";
+import "../../../styles/RoomPreviewTimes.css";
 
 export default function RoomPreviewTimes({ item, onClick, className }) {
   return (
