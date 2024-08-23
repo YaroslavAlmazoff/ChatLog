@@ -8,7 +8,7 @@ import RoomFilesPreview from "./RoomPreview/RoomFilesPreview";
 import usePreviews from "../../hooks/usePreviews";
 import RoomModal from "./RoomModal/RoomModal";
 import { modalTypes } from "../../data/messengerConfiguration";
-import "../../styles/RoomMessageField.css";
+import "../../styles/RoomMainField.css";
 
 const initialState = {
   imageFiles: [],
