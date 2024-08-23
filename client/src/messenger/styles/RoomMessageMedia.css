@@ -1,16 +1,20 @@
 .room-message-images {
+  row-gap: 5px;
+}
+
+.room-message-images-line {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
 }
 
-.room-message-images-height-single {
-  min-height: 100px;
+.room-message-images-line-height {
+  height: 300px;
 }
 
-.room-message-images-height {
-  height: 300px;
+.room-message-images-line-height-single {
+  min-height: 100px;
 }
 
 .room-message-image {
@@ -36,6 +40,10 @@
 }
 
 .room-message-videos {
+  row-gap: 5px;
+}
+
+.room-message-videos-line {
   display: flex;
   flex-wrap: wrap;
   margin-top: 10px;

@@ -1,7 +1,6 @@
 import useFile from "../../hooks/useFile";
 import useWindow from "../../hooks/useWindow";
-import { useEffect, useRef } from "react";
-import { useContext } from "react";
+import { useEffect, useRef, useContext } from "react";
 import { folders } from "../../data/messengerConfiguration";
 import { ImageLoadContext } from "../../context/ImageLoadContext";
 import useImage from "../../hooks/useImage";
@@ -14,13 +13,13 @@ export default function RoomMessageImage({ image, index, count }) {
   const { openInNewTab } = useWindow();
   const { determineImageFormat } = useImage();
 
-  const { registerImage, handleImageLoad } = useContext(ImageLoadContext);
+  const { registerMedia, handleMediaLoad } = useContext(ImageLoadContext);
 
   const imageRef = useRef(null);
 
   useEffect(() => {
-    registerImage();
-  }, [registerImage]);
+    registerMedia();
+  }, [registerMedia]);
 
   const onImageLoad = () => {
     if (singleImage) {
@@ -28,7 +27,7 @@ export default function RoomMessageImage({ image, index, count }) {
         `room-message-single-image-${determineImageFormat(imageRef.current)}`
       );
     }
-    handleImageLoad();
+    handleMediaLoad();
   };
 
   return (
@@ -38,7 +37,7 @@ export default function RoomMessageImage({ image, index, count }) {
       alt={image}
       ref={imageRef}
       onLoad={onImageLoad}
-      onError={handleImageLoad}
+      onError={handleMediaLoad}
       className={`room-message-image
         ${singleImage ? " room-message-single-image" : ""}
         ${isNotLast ? " room-message-media-margin" : ""}
