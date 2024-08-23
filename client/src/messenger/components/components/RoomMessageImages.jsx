@@ -1,15 +1,17 @@
-import RoomMessageImage from "./RoomMessageImage";
+import RoomMessageImagesLine from "./RoomMessageImagesLine";
 
 export default function RoomMessageImages({ images }) {
+  const length = images.length;
+  if (!length) return;
+
+  const firstLineImages = images.slice(0, length >= 3 ? 3 : length);
+  const secondLineImages =
+    length > 3 ? images.slice(3, length === 6 ? 6 : length) : [];
+
   return (
-    <div className="room-message-images">
-      {images.length ? (
-        images.map((image, index) => (
-          <RoomMessageImage image={image} index={index} count={images.length} />
-        ))
-      ) : (
-        <></>
-      )}
-    </div>
+    <>
+      <RoomMessageImagesLine imagesLine={firstLineImages} />
+      <RoomMessageImagesLine imagesLine={secondLineImages} />
+    </>
   );
 }
