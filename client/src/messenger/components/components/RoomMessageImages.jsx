@@ -2,7 +2,7 @@ import RoomMessageImagesLine from "./RoomMessageImagesLine";
 
 export default function RoomMessageImages({ images }) {
   const length = images.length;
-  if (!length) return;
+  if (!length) return null;
 
   const firstLineImages = images.slice(0, length >= 3 ? 3 : length);
   const secondLineImages =
