@@ -62,6 +62,7 @@
   border-left: none;
   background-color: rgba(0, 0, 0, 0.75);
   color: white;
+  z-index: 100000;
   transition: box-shadow 0.3s ease;
 }
 
