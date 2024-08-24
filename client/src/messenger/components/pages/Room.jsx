@@ -53,6 +53,7 @@ export default function Room() {
       eventSource.onmessage = function (event) {
         const messagesData = JSON.parse(event.data);
         const newMessages = messagesData.messages;
+        const currentScrollHeight = feedRef.current.scrollHeight;
         const isInit = messagesData.type === messagesDataTypes.init;
         const isLoad = messagesData.type === messagesDataTypes.load;
         const isCreate = messagesData.type === messagesDataTypes.create;
@@ -73,6 +74,12 @@ export default function Room() {
           setOffset((prev) => prev - 1);
         } else if ((isInit || isLoad) && isMyAction) {
           setMessages((prev) => [...newMessages, ...prev]);
+          if (isLoad && feedRef.current) {
+            setTimeout(() => {
+              feedRef.current.scrollTop =
+                feedRef.current.scrollHeight - currentScrollHeight;
+            }, 0);
+          }
           setLoading(false);
         }
         if ((!isLoad && isMyAction) || isCreate) {
@@ -92,14 +99,14 @@ export default function Room() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, getMessages]);
 
-  useEffect(() => {
-    if (actionType === messagesDataTypes.load && feedRef.current) {
-      setTimeout(() => {
-        feedRef.current.scrollTop =
-          feedRef.current.scrollHeight - currentHeight.current;
-      }, 0);
-    }
-  }, [messages]);
+  // useEffect(() => {
+  //   if (actionType === messagesDataTypes.load && feedRef.current) {
+  //     setTimeout(() => {
+  //       feedRef.current.scrollTop =
+  //         feedRef.current.scrollHeight - currentHeight.current;
+  //     }, 0);
+  //   }
+  // }, [messages]);
 
   return (
     <div
