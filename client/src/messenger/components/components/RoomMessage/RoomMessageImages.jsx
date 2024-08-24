@@ -17,6 +17,7 @@ export default function RoomMessageImages({ images }) {
         <RoomMessageImagesLine
           imagesLine={line}
           index={index}
+          count={length}
           key={JSON.stringify(line)}
         />
       ))}
