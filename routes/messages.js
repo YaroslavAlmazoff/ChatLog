@@ -280,19 +280,27 @@ const processAudio = (files) => {
   }
 };
 
-const processFiles = (files, type) =>
-  Object.keys(files).length !== 0
-    ? Object.keys(files).some((key) => key.includes(type))
-      ? Object.keys(files)
-          .filter((key) => key.includes(type))
-          .map((key) => {
-            const file = files[key];
-            const filename = generateFileName(file);
-            file.mv(path.resolve("..", "static", `message-${type}s`, filename));
-            return filename;
-          })
-      : []
-    : [];
+const processFiles = (files, type) => {
+  if (req.files) {
+    const keys = Object.keys(files);
+    return keys.length !== 0
+      ? keys.some((key) => key.includes(type))
+        ? keys
+            .filter((key) => key.includes(type))
+            .map((key) => {
+              const file = files[key];
+              const filename = generateFileName(file);
+              file.mv(
+                path.resolve("..", "static", `message-${type}s`, filename)
+              );
+              return filename;
+            })
+        : []
+      : [];
+  } else {
+    return [];
+  }
+};
 
 router.post("/new-messages/:id", auth, async (req, res) => {
   req.setTimeout(60 * 1000);
