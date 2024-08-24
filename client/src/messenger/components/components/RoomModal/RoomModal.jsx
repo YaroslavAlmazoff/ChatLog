@@ -25,7 +25,7 @@ const RoomModal = ({
       </span>
       {isSuccess || isNeutral || isError ? (
         <div
-          className={`room-modal-content room-modal-content-width room-modal-${type}`}
+          className={`room-modal-content room-modal-content-width room-modal-${type} block-${type}`}
           onClick={(e) => e.stopPropagation()}
         >
           <div className="room-modal-body">{children}</div>

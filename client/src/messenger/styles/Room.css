@@ -1,4 +1,4 @@
-@import url("../colors.css");
+@import url("./colors.css");
 
 @media screen and (width <= 600px) {
   .room-size {
