@@ -8,7 +8,9 @@ import RoomFilesPreview from "./RoomPreview/RoomFilesPreview";
 import usePreviews from "../../hooks/usePreviews";
 import RoomModal from "./RoomModal/RoomModal";
 import { modalTypes } from "../../data/messengerConfiguration";
+import RoomSmilesSelectingList from "./RoomSmiles/RoomSmilesSelectingList";
 import "../../styles/RoomMainField.css";
+import "../../styles/RoomSmiles.css";
 
 const initialState = {
   imageFiles: [],
@@ -62,6 +64,14 @@ export default function RoomMainField({ setOffset }) {
     selectVideoRef.current.click();
   };
 
+  const addSmile = (code) => {
+    messageFieldRef.current.value = messageFieldRef.current.value + code;
+  };
+
+  const openSmiles = () => {
+    toggleModal(<RoomSmilesSelectingList onSmileClick={addSmile} />);
+  };
+
   return (
     <div className="message-field-area">
       <div className="message-field-actions">
@@ -70,7 +80,12 @@ export default function RoomMainField({ setOffset }) {
         )}
         {canChooseVideo && <span onClick={handleOpenVideoSelect}>Видео</span>}
         <span>Голосовое сообщение</span>
-        <img src={smile} alt="Эмодзи" className="message-field-smile" />
+        <img
+          onClick={openSmiles}
+          src={smile}
+          alt="Эмодзи"
+          className="message-field-smile"
+        />
         <input
           onChange={(e) => getFiles(e, fileTypes.images)}
           ref={selectImageRef}

@@ -1,7 +1,7 @@
 import { modalTypes } from "../../../data/messengerConfiguration";
 import RoomModalImage from "./RoomModalImage";
 import RoomModalVideo from "./RoomModalVideo";
-import "../../../styles/Modal.css";
+import "../../../styles/RoomModal.css";
 
 const RoomModal = ({
   show = false,

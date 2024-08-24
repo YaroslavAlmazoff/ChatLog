@@ -1,0 +1,26 @@
+@import url("../colors.css");
+
+.room-smiles {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.smile-wrapper {
+  display: inline-block;
+  margin: 3px;
+}
+.smile {
+  width: 20px;
+  cursor: pointer;
+}
+.smile:hover {
+  background-color: var(--neon-blue);
+  border-radius: 50%;
+}
+.smile-image {
+  cursor: pointer;
+}
+.smile-image:hover {
+  border-bottom: 2px solid var(--neon-blue);
+}
