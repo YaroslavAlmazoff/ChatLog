@@ -1,5 +1,6 @@
 import RoomSmileItem from "./RoomSmileItem";
 import { smiles } from "../../../data/smiles";
+import "../../../styles/Room.css";
 
 export default function RoomSmilesSelectingList({ onSmileClick }) {
   return (

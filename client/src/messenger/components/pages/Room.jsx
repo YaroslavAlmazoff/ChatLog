@@ -1,4 +1,11 @@
-import { useEffect, useState, useRef, useMemo, useContext } from "react";
+import {
+  useEffect,
+  useState,
+  useRef,
+  useMemo,
+  useContext,
+  useCallback,
+} from "react";
 import { useParams } from "react-router";
 import RoomHead from "../components/RoomHead";
 import RoomMainField from "../components/RoomMainField";
@@ -9,7 +16,6 @@ import useAudio from "../../hooks/useAudio";
 import { messagesDataTypes } from "../../data/messengerConfiguration";
 import { AuthContext } from "../../../context/AuthContext";
 import messageSound from "../../audio/message.mp3";
-import "../../styles/Room.css";
 
 export default function Room() {
   const params = useParams();
@@ -25,7 +31,11 @@ export default function Room() {
   const [page, setPage] = useState(1);
   const [offset, setOffset] = useState(0);
   const [loading, setLoading] = useState(true);
-  //const [error, setError] = useState(null);
+  const [error, setError] = useState(false);
+
+  const setErrorCallback = useCallback((err) => {
+    setError(err);
+  }, []);
 
   const id = useMemo(() => params.id, [params]);
 
@@ -93,7 +103,11 @@ export default function Room() {
         page={page}
         setPage={setPage}
       />
-      <RoomMainField setOffset={setOffset} />
+      <RoomMainField
+        setOffset={setOffset}
+        error={error}
+        setErrorCallback={setErrorCallback}
+      />
     </div>
   );
 }

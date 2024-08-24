@@ -1,7 +1,6 @@
 import { useState, useRef } from "react";
 import { useParams } from "react-router";
 import sendMessageIcon from "../../img/send-message.png";
-import smile from "../../img/smile.png";
 import useAPI from "../../hooks/useAPI";
 import useFile from "../../hooks/useFile";
 import RoomFilesPreview from "./RoomPreview/RoomFilesPreview";
@@ -9,6 +8,7 @@ import usePreviews from "../../hooks/usePreviews";
 import RoomModal from "./RoomModal/RoomModal";
 import { modalTypes } from "../../data/messengerConfiguration";
 import RoomSmilesSelectingList from "./RoomSmiles/RoomSmilesSelectingList";
+import smile from "../../img/smile.png";
 import "../../styles/RoomMainField.css";
 import "../../styles/RoomSmiles.css";
 
@@ -18,14 +18,19 @@ const initialState = {
   audioFile: null,
 };
 
-export default function RoomMainField({ setOffset }) {
+export default function RoomMainField({ setOffset, error, setErrorCallback }) {
   const [modalContent, setModalContent] = useState(null);
 
-  const toggleModal = (content) => {
+  const openModal = (content) => {
     setModalContent(content);
   };
 
-  const { sendMessage } = useAPI(toggleModal);
+  const closeModal = () => {
+    setErrorCallback(false);
+    setModalContent(null);
+  };
+
+  const { sendMessage } = useAPI(openModal, setErrorCallback);
   const { fileTypes } = useFile();
   const { id } = useParams();
 
@@ -69,7 +74,7 @@ export default function RoomMainField({ setOffset }) {
   };
 
   const openSmiles = () => {
-    toggleModal(<RoomSmilesSelectingList onSmileClick={addSmile} />);
+    openModal(<RoomSmilesSelectingList onSmileClick={addSmile} />);
   };
 
   return (
@@ -122,8 +127,8 @@ export default function RoomMainField({ setOffset }) {
       />
       <RoomModal
         show={!!modalContent}
-        onClose={() => toggleModal(null)}
-        type={modalTypes.error}
+        onClose={closeModal}
+        type={error ? modalTypes.error : modalTypes.neutral}
       >
         {modalContent}
       </RoomModal>

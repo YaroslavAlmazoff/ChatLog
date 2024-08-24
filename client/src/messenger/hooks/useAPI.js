@@ -7,7 +7,7 @@ import useFile from "./useFile";
 
 const prefix = "/api";
 
-export default function useAPI(toggleModal) {
+export default function useAPI(openModal, setErrorCallback) {
   const { getCurrentDate } = useDate();
   const { token, userId } = useContext(AuthContext);
   const { checkErrorWhileSendingFiles } = useFile();
@@ -30,7 +30,8 @@ export default function useAPI(toggleModal) {
     async (id, text, files) => {
       const checkingSizeError = checkErrorWhileSendingFiles(files);
       if (checkingSizeError.isError) {
-        toggleModal(checkingSizeError.text);
+        setErrorCallback(true);
+        openModal(checkingSizeError.text);
         return;
       }
 
@@ -56,10 +57,17 @@ export default function useAPI(toggleModal) {
       try {
         await api.post(`${prefix}/new-messages/${id}`, formData, options);
       } catch (e) {
-        toggleModal(messengerErrors.sendError);
+        setErrorCallback(true);
+        openModal(messengerErrors.sendError);
       }
     },
-    [getCurrentDate, checkErrorWhileSendingFiles, toggleModal, options]
+    [
+      getCurrentDate,
+      checkErrorWhileSendingFiles,
+      openModal,
+      setErrorCallback,
+      options,
+    ]
   );
 
   const getRoom = useCallback(
