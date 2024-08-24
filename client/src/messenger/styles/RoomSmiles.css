@@ -21,7 +21,7 @@
 }
 
 .smile-wrapper:hover .smile-image {
-  filter: brightness(200%);
+  filter: brightness(175%);
   box-shadow: 0 0 16px var(--neon-blue);
   box-shadow: 0 0 20px 5px var(--neon-blue);
 }
