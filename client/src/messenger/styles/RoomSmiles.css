@@ -17,11 +17,9 @@
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
-  transition: box-shadow 0.3s ease, filter 0.3s ease;
+  transition: filter 0.3s ease;
 }
 
 .smile-wrapper:hover .smile-image {
-  filter: brightness(175%);
-  box-shadow: 0 0 16px var(--neon-blue);
-  box-shadow: 0 0 20px 5px var(--neon-blue);
+  filter: brightness(170%);
 }
