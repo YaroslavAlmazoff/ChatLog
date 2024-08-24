@@ -66,6 +66,7 @@ export default function Room() {
           setOffset((prev) => prev - 1);
         } else if ((isInit || isLoad) && isMyAction) {
           setMessages((prev) => [...newMessages, ...prev]);
+          console.log(newMessages, isLoad, feedRef);
           if (isLoad && feedRef.current) {
             setTimeout(() => {
               feedRef.current.scrollTop =
