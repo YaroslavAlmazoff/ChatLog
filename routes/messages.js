@@ -370,7 +370,7 @@ router.post("/new-messages/:id", auth, async (req, res) => {
   res.json({ message, user, room });
 });
 
-router.delete("/deletemessage/:id", auth, async (req, res) => {
+router.delete("/message/:id", auth, async (req, res) => {
   try {
     const id = req.params.id;
     const message = await Message.findById(id);

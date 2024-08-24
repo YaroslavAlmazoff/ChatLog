@@ -4,13 +4,21 @@ import deleteIcon from "../../../img/delete.png";
 import editIcon from "../../../img/edit.png";
 import replyIcon from "../../../img/reply.png";
 import shareIcon from "../../../img/share.png";
+import useAPI from "../../../hooks/useAPI";
 
 export default function RoomMessageActions({ message, animation }) {
   const { userId } = useContext(AuthContext);
+  const { deleteMessage } = useAPI();
   const isMyMessage = message.user === userId;
 
   const messageActions = [
-    { icon: deleteIcon, available: isMyMessage, onClick: () => {} },
+    {
+      icon: deleteIcon,
+      available: isMyMessage,
+      onClick: async () => {
+        await deleteMessage(message);
+      },
+    },
     { icon: editIcon, available: isMyMessage, onClick: () => {} },
     { icon: replyIcon, available: true, onClick: () => {} },
     { icon: shareIcon, available: true, onClick: () => {} },
