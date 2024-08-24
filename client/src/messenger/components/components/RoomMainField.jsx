@@ -71,6 +71,7 @@ export default function RoomMainField({ setOffset, error, setErrorCallback }) {
 
   const addSmile = (code) => {
     messageFieldRef.current.value = messageFieldRef.current.value + code;
+    messageFieldRef.current.focus();
   };
 
   const openSmiles = () => {
