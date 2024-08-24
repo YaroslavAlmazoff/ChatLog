@@ -85,7 +85,7 @@ export default function Room() {
     };
     getData();
     startEventSource();
-  }, [createEventSource, getRoom, playAudio, id, userId]);
+  }, [createEventSource, getRoom, id, userId]);
 
   useEffect(() => {
     getMessages(page, offset);
