@@ -281,25 +281,19 @@ const processAudio = (files) => {
 };
 
 const processFiles = (files, type) => {
-  if (files) {
-    const keys = Object.keys(files);
-    return keys.length !== 0
-      ? keys.some((key) => key.includes(type))
-        ? keys
-            .filter((key) => key.includes(type))
-            .map((key) => {
-              const file = files[key];
-              const filename = generateFileName(file);
-              file.mv(
-                path.resolve("..", "static", `message-${type}s`, filename)
-              );
-              return filename;
-            })
-        : []
-      : [];
-  } else {
-    return [];
-  }
+  const keys = Object.keys(files);
+  return keys.length !== 0
+    ? keys.some((key) => key.includes(type))
+      ? keys
+          .filter((key) => key.includes(type))
+          .map((key) => {
+            const file = files[key];
+            const filename = generateFileName(file);
+            file.mv(path.resolve("..", "static", `message-${type}s`, filename));
+            return filename;
+          })
+      : []
+    : [];
 };
 
 router.post("/new-messages/:id", auth, async (req, res) => {
@@ -309,10 +303,14 @@ router.post("/new-messages/:id", auth, async (req, res) => {
 
   const message = req.body;
 
-  const images = processFiles(req.files, fileTypes.image);
-  const videos = processFiles(req.files, fileTypes.video);
+  const imageExists = JSON.parse(req.body.imageExists);
+  const videoExists = JSON.parse(req.body.videoExists);
+  const audioExists = JSON.parse(req.body.audioExists);
 
-  const audios = processAudio(req.files);
+  const images = imageExists ? processFiles(req.files, fileTypes.image) : [];
+  const videos = videoExists ? processFiles(req.files, fileTypes.video) : [];
+
+  const audios = audioExists ? processAudio(req.files) : "";
 
   console.log(images, videos);
 

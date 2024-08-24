@@ -37,7 +37,6 @@ export default function useAPI(openModal, setErrorCallback) {
 
       const filesObject = files;
 
-      console.log(filesObject);
       const formData = new FormData();
 
       formData.append("message", text);
@@ -52,6 +51,9 @@ export default function useAPI(openModal, setErrorCallback) {
       if (filesObject.audioFile) {
         formData.append("audio", filesObject.audioFile.file, "audio.mp3");
       }
+      formData.append("imageExists", !!filesObject.imageFiles.length);
+      formData.append("videoExists", !!filesObject.videoFiles.length);
+      formData.append("audioExists", !!filesObject.audioFile);
       formData.append("isFile", !!localStorage.getItem("file-link"));
 
       try {
