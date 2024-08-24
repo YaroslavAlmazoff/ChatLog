@@ -13,6 +13,10 @@
 .smile-image {
   cursor: pointer;
   border-radius: 50%;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
   transition: box-shadow 0.3s ease, filter 0.3s ease;
 }
 
