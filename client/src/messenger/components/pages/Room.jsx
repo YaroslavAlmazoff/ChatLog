@@ -33,6 +33,9 @@ export default function Room() {
   const [offset, setOffset] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+  const [actionType, setActionType] = useState(messagesDataTypes.init);
+
+  const currentHeight = useRef(0);
 
   const setErrorCallback = useCallback((err) => {
     setError(err);
@@ -50,12 +53,16 @@ export default function Room() {
       eventSource.onmessage = function (event) {
         const messagesData = JSON.parse(event.data);
         const newMessages = messagesData.messages;
-        const currentHeight = feedRef.current.scrollHeight;
         const isInit = messagesData.type === messagesDataTypes.init;
         const isLoad = messagesData.type === messagesDataTypes.load;
         const isCreate = messagesData.type === messagesDataTypes.create;
         const isDelete = messagesData.type === messagesDataTypes.delete;
         const isMyAction = messagesData.user === userId;
+
+        setActionType(messagesData.type);
+
+        currentHeight.current = feedRef.current.scrollHeight;
+
         if (isCreate) {
           setMessages((prev) => [...prev, ...newMessages]);
           if (isCreate && !isMyAction) playAudio();
@@ -66,13 +73,6 @@ export default function Room() {
           setOffset((prev) => prev - 1);
         } else if ((isInit || isLoad) && isMyAction) {
           setMessages((prev) => [...newMessages, ...prev]);
-          console.log(newMessages, isLoad, feedRef);
-          if (isLoad && feedRef.current) {
-            setTimeout(() => {
-              feedRef.current.scrollTop =
-                feedRef.current.scrollHeight - currentHeight;
-            }, 1);
-          }
           setLoading(false);
         }
         if ((!isLoad && isMyAction) || isCreate) {
@@ -91,6 +91,15 @@ export default function Room() {
     getMessages(page, offset);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, getMessages]);
+
+  useEffect(() => {
+    if (actionType === messagesDataTypes.load && feedRef.current) {
+      setTimeout(() => {
+        feedRef.current.scrollTop =
+          feedRef.current.scrollHeight - currentHeight;
+      }, 0);
+    }
+  }, [messages]);
 
   return (
     <div
