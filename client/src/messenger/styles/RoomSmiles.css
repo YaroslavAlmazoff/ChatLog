@@ -13,9 +13,11 @@
 .smile-image {
   cursor: pointer;
   border-radius: 50%;
+  transition: box-shadow 0.3s ease, filter 0.3s ease;
 }
-.smile-image:hover {
-  /* border-bottom: 2px solid var(--neon-blue); */
+
+.smile-wrapper:hover .smile-image {
   filter: brightness(200%);
   box-shadow: 0 0 16px var(--neon-blue);
+  box-shadow: 0 0 20px 5px var(--neon-blue);
 }
