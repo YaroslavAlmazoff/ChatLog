@@ -281,7 +281,7 @@ const processAudio = (files) => {
 };
 
 const processFiles = (files, type) => {
-  if (req.files) {
+  if (files) {
     const keys = Object.keys(files);
     return keys.length !== 0
       ? keys.some((key) => key.includes(type))
