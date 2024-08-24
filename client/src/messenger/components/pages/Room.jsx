@@ -96,7 +96,7 @@ export default function Room() {
     if (actionType === messagesDataTypes.load && feedRef.current) {
       setTimeout(() => {
         feedRef.current.scrollTop =
-          feedRef.current.scrollHeight - currentHeight;
+          feedRef.current.scrollHeight - currentHeight.current;
       }, 0);
     }
   }, [messages]);
