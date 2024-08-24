@@ -16,6 +16,7 @@ import useAudio from "../../hooks/useAudio";
 import { messagesDataTypes } from "../../data/messengerConfiguration";
 import { AuthContext } from "../../../context/AuthContext";
 import messageSound from "../../audio/message.mp3";
+import "../../styles/global.css";
 
 export default function Room() {
   const params = useParams();
