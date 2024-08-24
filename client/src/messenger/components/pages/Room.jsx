@@ -71,7 +71,7 @@ export default function Room() {
             setTimeout(() => {
               feedRef.current.scrollTop =
                 feedRef.current.scrollHeight - currentHeight;
-            }, 0);
+            }, 1);
           }
           setLoading(false);
         }
@@ -85,7 +85,7 @@ export default function Room() {
     };
     getData();
     startEventSource();
-  }, [createEventSource, getRoom, id, userId]);
+  }, [createEventSource, getRoom, playAudio, id, userId]);
 
   useEffect(() => {
     getMessages(page, offset);
