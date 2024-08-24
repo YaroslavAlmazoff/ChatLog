@@ -81,20 +81,20 @@ router.post("/sendmessage/:room", auth, (req, res) => {
     console.log(e);
   }
 });
-router.get("/deletemessage/:id", (req, res) => {
-  try {
-    MessengerService.deleteMessage(req, res);
-  } catch (e) {
-    console.log(e);
-  }
-});
-router.post("/editmessage/:id", (req, res) => {
-  try {
-    MessengerService.editMessage(req, res);
-  } catch (e) {
-    console.log(e);
-  }
-});
+// router.get("/deletemessage/:id", (req, res) => {
+//   try {
+//     MessengerService.deleteMessage(req, res);
+//   } catch (e) {
+//     console.log(e);
+//   }
+// });
+// router.post("/editmessage/:id", (req, res) => {
+//   try {
+//     MessengerService.editMessage(req, res);
+//   } catch (e) {
+//     console.log(e);
+//   }
+// });
 router.get("/room-by-id/:id", auth, (req, res) => {
   try {
     MessengerService.getRoomById(req, res);
@@ -236,12 +236,24 @@ router.get("/connect/:id/:user", async (req, res) => {
     }
   };
 
+  const deleteMessage = async (deleted) => {
+    res.write(
+      `data: ${JSON.stringify({
+        messages: [deleted],
+        user: deleted.user,
+        type: "delete",
+      })} \n\n`
+    );
+  };
+
   emitter.on("messages", messages);
   emitter.on("newMessage", newMessage);
+  emitter.on("deleteMessage", deleteMessage);
 
   req.on("close", () => {
     emitter.off("messages", messages);
     emitter.off("newMessage", newMessage);
+    emitter.off("deleteMessage", deleteMessage);
   });
 });
 
@@ -356,6 +368,21 @@ router.post("/new-messages/:id", auth, async (req, res) => {
   }
   emitter.emit("newMessage", message);
   res.json({ message, user, room });
+});
+
+router.delete("/deletemessage/:id", auth, async (req, res) => {
+  try {
+    const id = req.params.id;
+    const message = await Message.findById(id);
+    const messageCopy = message.toObject();
+    if (message.user === req.user.userId) {
+      await message.delete();
+      emitter.emit("deleteMessage", messageCopy);
+    }
+    res.json({ id });
+  } catch (e) {
+    console.log(e);
+  }
 });
 
 ////////////////////////////////////////////////////////////

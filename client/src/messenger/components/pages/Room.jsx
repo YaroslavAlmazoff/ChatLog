@@ -52,12 +52,18 @@ export default function Room() {
         const newMessages = messagesData.messages;
         const currentHeight = feedRef.current.scrollHeight;
         const isInit = messagesData.type === messagesDataTypes.init;
-        const isCreate = messagesData.type === messagesDataTypes.create;
         const isLoad = messagesData.type === messagesDataTypes.load;
+        const isCreate = messagesData.type === messagesDataTypes.create;
+        const isDelete = messagesData.type === messagesDataTypes.delete;
         const isMyAction = messagesData.user === userId;
         if (isCreate) {
           setMessages((prev) => [...prev, ...newMessages]);
           if (isCreate && !isMyAction) playAudio();
+        } else if (isDelete) {
+          setMessages((prev) =>
+            prev.filter((message) => message._id !== newMessages[0]._id)
+          );
+          setOffset((prev) => prev - 1);
         } else if ((isInit || isLoad) && isMyAction) {
           setMessages((prev) => [...newMessages, ...prev]);
           if (isLoad && feedRef.current) {
