@@ -10,17 +10,12 @@
   display: inline-block;
   margin: 3px;
 }
-.smile {
-  width: 20px;
-  cursor: pointer;
-}
-.smile:hover {
-  background-color: var(--neon-blue);
-  border-radius: 50%;
-}
 .smile-image {
   cursor: pointer;
+  border-radius: 50%;
 }
 .smile-image:hover {
-  border-bottom: 2px solid var(--neon-blue);
+  /* border-bottom: 2px solid var(--neon-blue); */
+  filter: brightness(200%);
+  box-shadow: 0 0 16px var(--neon-blue);
 }
