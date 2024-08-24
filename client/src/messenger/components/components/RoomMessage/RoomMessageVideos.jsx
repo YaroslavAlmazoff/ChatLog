@@ -7,8 +7,6 @@ export default function RoomMessageVideos({ videos }) {
 
   const lines = [];
 
-  console.log(videos);
-
   for (let i = 0; i < length / videosInLine; i++) {
     lines.push(videos.slice(i * videosInLine, (i + 1) * videosInLine));
   }

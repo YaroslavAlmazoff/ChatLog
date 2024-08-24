@@ -7,8 +7,6 @@ export default function RoomMessageImages({ images }) {
 
   const lines = [];
 
-  console.log(images);
-
   for (let i = 0; i < length / imagesInLine; i++) {
     lines.push(images.slice(i * imagesInLine, (i + 1) * imagesInLine));
   }
