@@ -16,6 +16,7 @@ export default function RoomMessageActions({ message, animation }) {
       icon: deleteIcon,
       available: isMyMessage,
       onClick: async () => {
+        console.log("в on click: " + message);
         await deleteMessage(message);
       },
     },

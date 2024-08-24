@@ -5,12 +5,10 @@ export default function useLoad() {
   const [loadedMedia, setLoadedMedia] = useState(0);
 
   const registerMedia = useCallback(() => {
-    console.log("Media registered");
     setTotalMedia((prevTotal) => prevTotal + 1);
   }, []);
 
   const handleMediaLoad = useCallback(() => {
-    console.log("Media loaded");
     setLoadedMedia((prevLoaded) => prevLoaded + 1);
   }, []);
 
