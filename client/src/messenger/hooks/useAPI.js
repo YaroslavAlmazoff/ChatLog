@@ -94,7 +94,12 @@ export default function useAPI(openModal, setErrorCallback) {
 
   const deleteMessage = useCallback(
     async (message) => {
-      await api.delete(`${prefix}/message/${message._id}`, options);
+      console.log("в delete message: " + message);
+      const response = await api.delete(
+        `${prefix}/message/${message._id}`,
+        options
+      );
+      console.log(response);
     },
     [options]
   );
