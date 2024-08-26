@@ -47,7 +47,7 @@ export default function Room() {
   const { registerMedia, loadMedia } = useLoad((totalMediaHeight) => {
     if (!feedRef.current) return;
     if (actionType === messagesDataTypes.init) {
-      ref.current.scrollTop = ref.current.scrollHeight;
+      feedRef.current.scrollTop = feedRef.current.scrollHeight;
     } else if (actionType === messagesDataTypes.load) {
       setTimeout(() => {
         feedRef.current.scrollTop =
