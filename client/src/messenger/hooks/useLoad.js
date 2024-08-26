@@ -10,6 +10,7 @@ export default function useLoad(onAllMessagesLoaded) {
   }, []);
 
   const loadMedia = useCallback((height) => {
+    console.log("loading ");
     setLoadedMediaHeights((prev) => [...prev, height]);
   }, []);
 
