@@ -16,7 +16,7 @@ export default function useLoad(onAllMessagesLoaded) {
   useEffect(() => {
     if (
       registeredMedia === 0 ||
-      loadedMediaHeights.length === registeredMedia
+      loadedMediaHeights.length === registeredMedia + 1
     ) {
       setTotalMediaHeight(
         loadedMediaHeights.reduce((acc, currentHeight) => {
