@@ -1,6 +1,6 @@
 import RoomMessageVideo from "./RoomMessageVideo";
 
-export default function RoomMessageVideosLine({ videosLine, isNew }) {
+export default function RoomMessageVideosLine({ videosLine }) {
   const length = videosLine.length;
   if (!length) return null;
 
@@ -11,7 +11,6 @@ export default function RoomMessageVideosLine({ videosLine, isNew }) {
           video={video}
           index={index}
           count={length}
-          isNew={isNew}
           key={video}
         />
       ))}

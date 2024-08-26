@@ -44,7 +44,12 @@ export default function Room() {
 
   const id = useMemo(() => params.id, [params]);
 
-  const { registerMedia, loadMedia } = useLoad((totalMediaHeight) => {
+  const {
+    registerMedia,
+    loadMedia,
+    setJustSentMediaLoaded,
+    justSentMediaLoaded,
+  } = useLoad((totalMediaHeight) => {
     if (!feedRef.current) return;
     if (actionType === messagesDataTypes.init) {
       feedRef.current.scrollTop = feedRef.current.scrollHeight;
@@ -84,6 +89,7 @@ export default function Room() {
         currentHeight.current = feedRef.current.scrollHeight;
 
         if (isCreate) {
+          newMessages[0].isJustSent = true;
           setMessages((prev) => [...prev, ...newMessages]);
           if (isMyAction) setLoading(false);
           else playAudio();
@@ -100,9 +106,6 @@ export default function Room() {
           setMessages((prev) => [...newMessagesWithNewFlag, ...prev]);
           setLoading(false);
         }
-        if ((!isLoad && isMyAction) || isCreate) {
-          feedRef.current.scrollTop = feedRef.current.scrollHeight + 1000;
-        }
       };
     };
     getData();
@@ -113,6 +116,13 @@ export default function Room() {
     getMessages(page, offset);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, getMessages]);
+
+  useEffect(() => {
+    if (justSentMediaLoaded) {
+      feedRef.current.scrollTop = feedRef.current.scrollHeight;
+      setJustSentMediaLoaded(false);
+    }
+  }, [justSentMediaLoaded]);
 
   return (
     <div
@@ -126,7 +136,9 @@ export default function Room() {
         onlineDate={room.date}
         isOnline={room.isOnline}
       />
-      <ImageLoadContext.Provider value={{ registerMedia, loadMedia }}>
+      <ImageLoadContext.Provider
+        value={{ registerMedia, loadMedia, setJustSentMediaLoaded }}
+      >
         <RoomMessages
           messages={messages}
           ref={feedRef}
