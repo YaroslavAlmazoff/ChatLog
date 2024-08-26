@@ -7,6 +7,7 @@ import RoomMessageVideos from "./RoomMessageVideos";
 import "../../../styles/RoomMessage.css";
 import "../../../styles/RoomMessageMedia.css";
 import { ImageLoadContext } from "../../../context/ImageLoadContext";
+import { MessageContext } from "../../../context/MessageContext";
 
 export default function RoomMessage({ message, index }) {
   const { fileFromServer } = useFile();
@@ -15,50 +16,44 @@ export default function RoomMessage({ message, index }) {
   const { loadMedia } = useContext(ImageLoadContext);
 
   useEffect(() => {
-    console.log(
-      message.isNew,
-      index,
-      index % 10,
-      index % 10 === 0,
-      message.isNew && index % 10 === 0
-    );
-
     if (message.isNew && index % 10 === 0) {
       loadMedia(0);
     }
   }, []);
 
   return (
-    <div
-      className="room-message-wrapper"
-      onMouseEnter={() => setShowActions(true)}
-      onMouseLeave={() => setShowActions(false)}
-    >
+    <MessageContext.Provider value={{ message }}>
       <div
-        className="room-message"
+        className="room-message-wrapper"
         onMouseEnter={() => setShowActions(true)}
-        onClick={() => setShowActions((prev) => !prev)}
+        onMouseLeave={() => setShowActions(false)}
       >
-        <div className="room-message-top">
-          <img
-            src={fileFromServer("useravatars", message.avatarUrl)}
-            alt="Avatar"
-            className="room-message-avatar"
-          />
-          <span className="room-message-name">{message.name}</span>
+        <div
+          className="room-message"
+          onMouseEnter={() => setShowActions(true)}
+          onClick={() => setShowActions((prev) => !prev)}
+        >
+          <div className="room-message-top">
+            <img
+              src={fileFromServer("useravatars", message.avatarUrl)}
+              alt="Avatar"
+              className="room-message-avatar"
+            />
+            <span className="room-message-name">{message.name}</span>
+          </div>
+          <span className="room-message-text">{message.message}</span>
+          <RoomMessageImages images={message.images} />
+          <RoomMessageVideos videos={message.videos} />
         </div>
-        <span className="room-message-text">{message.message}</span>
-        <RoomMessageImages images={message.images} isNew={message.isNew} />
-        <RoomMessageVideos videos={message.videos} isNew={message.isNew} />
+        <CSSTransition
+          in={showActions}
+          timeout={100}
+          classNames="fade"
+          unmountOnExit
+        >
+          <RoomMessageActions message={message} />
+        </CSSTransition>
       </div>
-      <CSSTransition
-        in={showActions}
-        timeout={100}
-        classNames="fade"
-        unmountOnExit
-      >
-        <RoomMessageActions message={message} />
-      </CSSTransition>
-    </div>
+    </MessageContext.Provider>
   );
 }

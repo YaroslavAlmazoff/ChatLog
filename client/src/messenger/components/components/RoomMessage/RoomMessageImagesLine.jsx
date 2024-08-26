@@ -1,12 +1,7 @@
 import useList from "../../../hooks/useList";
 import RoomMessageImage from "./RoomMessageImage";
 
-export default function RoomMessageImagesLine({
-  imagesLine,
-  index,
-  count,
-  isNew,
-}) {
+export default function RoomMessageImagesLine({ imagesLine, index, count }) {
   const { getIsLast, getIsSingle } = useList();
 
   if (!imagesLine.length) return null;
@@ -27,7 +22,6 @@ export default function RoomMessageImagesLine({
           image={image}
           index={index}
           count={imagesLine.length}
-          isNew={isNew}
           key={image}
         />
       ))}
