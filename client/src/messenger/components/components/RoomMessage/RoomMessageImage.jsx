@@ -40,7 +40,7 @@ export default function RoomMessageImage({ image, index, count, isNew }) {
       alt={image}
       ref={imageRef}
       onLoad={onImageLoad}
-      onError={handleMediaLoad}
+      onError={onImageLoad}
       className={`room-message-image
         ${isSingle ? " room-message-single-image" : ""}
         ${!isLast ? " room-message-media-margin" : ""}
