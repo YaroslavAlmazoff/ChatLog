@@ -37,6 +37,7 @@ export default function Room() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [actionType, setActionType] = useState(messagesDataTypes.init);
+  const [mediaExists, setMediaExists] = useState(false);
 
   const setErrorCallback = useCallback((err) => {
     setError(err);
@@ -49,25 +50,28 @@ export default function Room() {
     loadMedia,
     setJustSentMediaLoaded,
     justSentMediaLoaded,
-  } = useLoad((totalMediaHeight) => {
-    if (!feedRef.current) return;
-    if (actionType === messagesDataTypes.init) {
-      console.log(undefined);
-      feedRef.current.scrollTop = feedRef.current.scrollHeight;
-    } else if (actionType === messagesDataTypes.load) {
-      setTimeout(() => {
-        feedRef.current.scrollTop =
-          feedRef.current.scrollHeight -
-          (currentHeight.current + totalMediaHeight);
-      }, 0);
-    }
-    setMessages((prev) =>
-      prev.map((message) => {
-        message.isNew = false;
-        return message;
-      })
-    );
-  });
+  } = useLoad(
+    (totalMediaHeight) => {
+      if (!feedRef.current) return;
+      if (actionType === messagesDataTypes.init) {
+        console.log(undefined);
+        feedRef.current.scrollTop = feedRef.current.scrollHeight;
+      } else if (actionType === messagesDataTypes.load) {
+        setTimeout(() => {
+          feedRef.current.scrollTop =
+            feedRef.current.scrollHeight -
+            (currentHeight.current + totalMediaHeight);
+        }, 0);
+      }
+      setMessages((prev) =>
+        prev.map((message) => {
+          message.isNew = false;
+          return message;
+        })
+      );
+    },
+    () => mediaExists
+  );
 
   useEffect(() => {
     const getData = async () => {
@@ -88,6 +92,12 @@ export default function Room() {
         setActionType(messagesData.type);
 
         currentHeight.current = feedRef.current.scrollHeight;
+
+        newMessages.forEach((message) => {
+          if (message.images.length || message.videos.length) {
+            setMediaExists(true);
+          }
+        });
 
         if (isCreate) {
           newMessages[0].isJustSent = true;

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 
-export default function useLoad(onAllMessagesLoaded) {
+export default function useLoad(onAllMessagesLoaded, getMediaExists) {
   const [registeredMedia, setRegisteredMedia] = useState(0);
   const [loadedMediaHeights, setLoadedMediaHeights] = useState([]);
   const [justSentMediaLoaded, setJustSentMediaLoaded] = useState(false);
@@ -15,7 +15,7 @@ export default function useLoad(onAllMessagesLoaded) {
 
   useEffect(() => {
     if (
-      registeredMedia === 0 ||
+      !getMediaExists() ||
       loadedMediaHeights.length === registeredMedia + 1
     ) {
       onAllMessagesLoaded(
