@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { CSSTransition } from "react-transition-group";
 import useFile from "../../../hooks/useFile";
 import RoomMessageActions from "./RoomMessageActions";
@@ -6,10 +6,17 @@ import RoomMessageImages from "./RoomMessageImages";
 import RoomMessageVideos from "./RoomMessageVideos";
 import "../../../styles/RoomMessage.css";
 import "../../../styles/RoomMessageMedia.css";
+import { ImageLoadContext } from "../../../context/ImageLoadContext";
 
-export default function RoomMessage({ message }) {
+export default function RoomMessage({ message, index }) {
   const { fileFromServer } = useFile();
   const [showActions, setShowActions] = useState(false);
+
+  const { loadMedia } = useContext(ImageLoadContext);
+
+  if (isNew && index % 10 === 0) {
+    loadMedia(0);
+  }
 
   return (
     <div
