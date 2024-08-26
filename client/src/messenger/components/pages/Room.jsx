@@ -47,9 +47,9 @@ export default function Room() {
   const {
     registerMedia,
     loadMedia,
-    setMediaExists,
     setJustSentMediaLoaded,
     justSentMediaLoaded,
+    allMediaLoaded,
   } = useLoad((totalMediaHeight) => {
     if (!feedRef.current) return;
     if (actionType === messagesDataTypes.init) {
@@ -68,7 +68,6 @@ export default function Room() {
         return message;
       })
     );
-    setMediaExists(false);
   });
 
   useEffect(() => {
@@ -90,16 +89,6 @@ export default function Room() {
         setActionType(messagesData.type);
 
         currentHeight.current = feedRef.current.scrollHeight;
-
-        let mediaExists = false;
-
-        newMessages.forEach((message) => {
-          if (message.images.length || message.videos.length) {
-            mediaExists = true;
-          }
-        });
-
-        setMediaExists(mediaExists);
 
         if (isCreate) {
           newMessages[0].isJustSent = true;
@@ -150,7 +139,12 @@ export default function Room() {
         isOnline={room.isOnline}
       />
       <ImageLoadContext.Provider
-        value={{ registerMedia, loadMedia, setJustSentMediaLoaded }}
+        value={{
+          registerMedia,
+          loadMedia,
+          setJustSentMediaLoaded,
+          allMediaLoaded,
+        }}
       >
         <RoomMessages
           messages={messages}
