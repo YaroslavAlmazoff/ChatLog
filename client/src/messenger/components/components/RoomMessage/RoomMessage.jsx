@@ -31,8 +31,8 @@ export default function RoomMessage({ message }) {
           <span className="room-message-name">{message.name}</span>
         </div>
         <span className="room-message-text">{message.message}</span>
-        <RoomMessageImages images={message.images} />
-        <RoomMessageVideos videos={message.videos} />
+        <RoomMessageImages images={message.images} isNew={isNew} />
+        <RoomMessageVideos videos={message.videos} isNew={isNew} />
       </div>
       <CSSTransition
         in={showActions}

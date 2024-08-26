@@ -6,13 +6,13 @@ import { useEffect, useRef, useContext } from "react";
 import { folders } from "../../../data/messengerConfiguration";
 import { ImageLoadContext } from "../../../context/ImageLoadContext";
 
-export default function RoomMessageImage({ image, index, count }) {
+export default function RoomMessageImage({ image, index, count, isNew }) {
   const { getIsLast, getIsSingle } = useList();
   const { fileFromServer } = useFile();
   const { openInNewTab } = useWindow();
   const { determineImageFormat } = useImage();
 
-  const { registerMedia, handleMediaLoad } = useContext(ImageLoadContext);
+  const { registerMedia, loadMedia } = useContext(ImageLoadContext);
   const imageRef = useRef(null);
 
   const isSingle = getIsSingle(count);
@@ -22,13 +22,15 @@ export default function RoomMessageImage({ image, index, count }) {
     registerMedia();
   }, [registerMedia]);
 
-  const onImageLoad = () => {
+  const onImageLoad = (e) => {
     if (isSingle) {
       imageRef.current.classList.add(
         `room-message-single-image-${determineImageFormat(imageRef.current)}`
       );
     }
-    handleMediaLoad();
+    if (isNew) {
+      loadMedia(e.target.clientHeight);
+    }
   };
 
   return (

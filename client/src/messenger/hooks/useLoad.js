@@ -1,17 +1,37 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
-export default function useLoad() {
-  const [totalMedia, setTotalMedia] = useState(0);
-  const [loadedMedia, setLoadedMedia] = useState(0);
+export default function useLoad(onAllMessagesLoaded) {
+  const [registeredMedia, setRegisteredMedia] = useState(0);
+  const [loadedMediaHeights, setLoadedMediaHeights] = useState([]);
+  const [totalMediaHeight, setTotalMediaHeight] = useState(0);
 
   const registerMedia = useCallback(() => {
-    setTotalMedia((prevTotal) => prevTotal + 1);
+    setRegisteredMedia((prev) => prev + 1);
   }, []);
 
-  const handleMediaLoad = useCallback(() => {
-    setLoadedMedia((prevLoaded) => prevLoaded + 1);
+  const loadMedia = useCallback((height) => {
+    setLoadedMediaHeights((prev) => [...prev, height]);
   }, []);
 
-  const allMediaLoaded = totalMedia === 0 || loadedMedia === totalMedia;
-  return { allMediaLoaded, registerMedia, handleMediaLoad };
+  useEffect(() => {
+    if (
+      registeredMedia === 0 ||
+      loadedMediaHeights.length === registeredMedia
+    ) {
+      setTotalMediaHeight(
+        loadedMediaHeights.reduce((acc, currentHeight) => {
+          return acc + currentHeight;
+        }, 0)
+      );
+    }
+  }, [loadedMediaHeights]);
+
+  useEffect(() => {
+    onAllMessagesLoaded(totalMediaHeight);
+  }, [totalMediaHeight]);
+
+  return {
+    registerMedia,
+    loadMedia,
+  };
 }

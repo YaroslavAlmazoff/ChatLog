@@ -12,9 +12,11 @@ import RoomMainField from "../components/RoomMainField";
 import RoomMessages from "../components/RoomMessages";
 import useAPI from "../../hooks/useAPI";
 import useFile from "../../hooks/useFile";
+import useLoad from "../../hooks/useLoad";
 import useAudio from "../../hooks/useAudio";
 import { messagesDataTypes } from "../../data/messengerConfiguration";
 import { AuthContext } from "../../../context/AuthContext";
+import { ImageLoadContext } from "../../../context/ImageLoadContext";
 import messageSound from "../../audio/message.mp3";
 import "../../styles/global.css";
 
@@ -26,6 +28,7 @@ export default function Room() {
   const { userId } = useContext(AuthContext);
 
   const feedRef = useRef(null);
+  const currentHeight = useRef(0);
 
   const [room, setRoom] = useState({ name: "", date: "", bg: "" });
   const [messages, setMessages] = useState([]);
@@ -35,13 +38,30 @@ export default function Room() {
   const [error, setError] = useState(false);
   const [actionType, setActionType] = useState(messagesDataTypes.init);
 
-  const currentHeight = useRef(0);
-
   const setErrorCallback = useCallback((err) => {
     setError(err);
   }, []);
 
   const id = useMemo(() => params.id, [params]);
+
+  const { registerMedia, loadMedia } = useLoad((totalMediaHeight) => {
+    if (!feedRef.current) return;
+    if (actionType === messagesDataTypes.init) {
+      ref.current.scrollTop = ref.current.scrollHeight;
+    } else if (actionType === messagesDataTypes.load) {
+      setTimeout(() => {
+        feedRef.current.scrollTop =
+          feedRef.current.scrollHeight -
+          (currentHeight.current + totalMediaHeight);
+      }, 0);
+    }
+    setMessages((prev) =>
+      prev.map((message) => {
+        message.isNew = false;
+        return message;
+      })
+    );
+  });
 
   useEffect(() => {
     const getData = async () => {
@@ -53,7 +73,6 @@ export default function Room() {
       eventSource.onmessage = function (event) {
         const messagesData = JSON.parse(event.data);
         const newMessages = messagesData.messages;
-        const currentScrollHeight = feedRef.current.scrollHeight;
         const isInit = messagesData.type === messagesDataTypes.init;
         const isLoad = messagesData.type === messagesDataTypes.load;
         const isCreate = messagesData.type === messagesDataTypes.create;
@@ -66,27 +85,23 @@ export default function Room() {
 
         if (isCreate) {
           setMessages((prev) => [...prev, ...newMessages]);
-          if (isCreate && !isMyAction) playAudio();
+          if (isMyAction) setLoading(false);
+          else playAudio();
         } else if (isDelete) {
           setMessages((prev) =>
             prev.filter((message) => message._id !== newMessages[0]._id)
           );
           setOffset((prev) => prev - 1);
         } else if ((isInit || isLoad) && isMyAction) {
-          setMessages((prev) => [...newMessages, ...prev]);
-          if (isLoad && feedRef.current) {
-            setTimeout(() => {
-              feedRef.current.scrollTop =
-                feedRef.current.scrollHeight - currentScrollHeight;
-            }, 0);
-          }
+          const newMessagesWithNewFlag = newMessages.map((message) => {
+            message.isNew = true;
+            return message;
+          });
+          setMessages((prev) => [...newMessagesWithNewFlag, ...prev]);
           setLoading(false);
         }
         if ((!isLoad && isMyAction) || isCreate) {
           feedRef.current.scrollTop = feedRef.current.scrollHeight;
-        }
-        if (isCreate && isMyAction) {
-          setLoading(false);
         }
       };
     };
@@ -98,15 +113,6 @@ export default function Room() {
     getMessages(page, offset);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, getMessages]);
-
-  // useEffect(() => {
-  //   if (actionType === messagesDataTypes.load && feedRef.current) {
-  //     setTimeout(() => {
-  //       feedRef.current.scrollTop =
-  //         feedRef.current.scrollHeight - currentHeight.current;
-  //     }, 0);
-  //   }
-  // }, [messages]);
 
   return (
     <div
@@ -120,13 +126,14 @@ export default function Room() {
         onlineDate={room.date}
         isOnline={room.isOnline}
       />
-      <RoomMessages
-        messages={messages}
-        ref={feedRef}
-        loading={loading}
-        page={page}
-        setPage={setPage}
-      />
+      <ImageLoadContext.Provider value={{ registerMedia, loadMedia }}>
+        <RoomMessages
+          messages={messages}
+          ref={feedRef}
+          loading={loading}
+          setPage={setPage}
+        />
+      </ImageLoadContext.Provider>
       <RoomMainField
         setOffset={setOffset}
         error={error}

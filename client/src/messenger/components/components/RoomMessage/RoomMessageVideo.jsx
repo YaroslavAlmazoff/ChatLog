@@ -5,13 +5,13 @@ import { useEffect, useContext } from "react";
 import { folders } from "../../../data/messengerConfiguration";
 import { ImageLoadContext } from "../../../context/ImageLoadContext";
 
-export default function RoomMessageVideo({ video, index, count }) {
+export default function RoomMessageVideo({ video, index, count, isNew }) {
   const { getIsLast } = useList();
 
   const { fileFromServer } = useFile();
   const { openInNewTab } = useWindow();
 
-  const { registerMedia, handleMediaLoad } = useContext(ImageLoadContext);
+  const { registerMedia, loadMedia } = useContext(ImageLoadContext);
 
   const isLast = getIsLast(index, count);
 
@@ -28,8 +28,8 @@ export default function RoomMessageVideo({ video, index, count }) {
     >
       <video
         controls
-        onLoadedData={handleMediaLoad}
-        onError={handleMediaLoad}
+        onLoadedData={isNew ? loadMedia : () => {}}
+        onError={isNew ? loadMedia : () => {}}
         src={fileFromServer(folders.videos, video)}
         className="room-message-video"
       />
