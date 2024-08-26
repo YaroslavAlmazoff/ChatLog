@@ -1,7 +1,6 @@
 import { useRef, forwardRef } from "react";
 import RoomMessage from "./RoomMessage/RoomMessage";
 import { useObserver } from "../../../common_hooks/observer.hook";
-import { ImageLoadContext } from "../../context/ImageLoadContext";
 
 export default forwardRef(function RoomMessages(
   { messages, loading, setPage },

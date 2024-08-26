@@ -45,6 +45,7 @@ export default function RoomMessageImage({ image, index, count, isNew }) {
         ${isSingle ? " room-message-single-image" : ""}
         ${!isLast ? " room-message-media-margin" : ""}
         `}
+      id={image}
     />
   );
 }
