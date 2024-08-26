@@ -48,7 +48,7 @@ export default function Room() {
     console.log("callback");
     if (!feedRef.current) return;
     console.log(
-      "after feed ref chack",
+      "after feed ref check",
       actionType,
       currentHeight.current,
       totalMediaHeight
