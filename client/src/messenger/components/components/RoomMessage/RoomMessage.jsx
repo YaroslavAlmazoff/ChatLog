@@ -13,14 +13,6 @@ export default function RoomMessage({ message, index }) {
   const { fileFromServer } = useFile();
   const [showActions, setShowActions] = useState(false);
 
-  const { loadMedia } = useContext(ImageLoadContext);
-
-  useEffect(() => {
-    if (message.isNew && index % 10 === 0) {
-      loadMedia(0);
-    }
-  }, []);
-
   return (
     <MessageContext.Provider value={{ message }}>
       <div
