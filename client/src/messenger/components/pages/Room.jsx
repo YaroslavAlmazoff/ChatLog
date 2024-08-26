@@ -37,7 +37,6 @@ export default function Room() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [actionType, setActionType] = useState(messagesDataTypes.init);
-  const [mediaExists, setMediaExists] = useState(false);
 
   const setErrorCallback = useCallback((err) => {
     setError(err);
@@ -48,33 +47,29 @@ export default function Room() {
   const {
     registerMedia,
     loadMedia,
+    setMediaExists,
     setJustSentMediaLoaded,
     justSentMediaLoaded,
-  } = useLoad(
-    (totalMediaHeight) => {
-      if (!feedRef.current) return;
-      if (actionType === messagesDataTypes.init) {
-        console.log(undefined);
-        feedRef.current.scrollTop = feedRef.current.scrollHeight;
-      } else if (actionType === messagesDataTypes.load) {
-        setTimeout(() => {
-          feedRef.current.scrollTop =
-            feedRef.current.scrollHeight -
-            (currentHeight.current + totalMediaHeight);
-        }, 0);
-      }
-      setMessages((prev) =>
-        prev.map((message) => {
-          message.isNew = false;
-          return message;
-        })
-      );
-    },
-    () => {
-      setMediaExists(false);
-      return mediaExists;
+  } = useLoad((totalMediaHeight) => {
+    if (!feedRef.current) return;
+    if (actionType === messagesDataTypes.init) {
+      console.log(undefined);
+      feedRef.current.scrollTop = feedRef.current.scrollHeight;
+    } else if (actionType === messagesDataTypes.load) {
+      setTimeout(() => {
+        feedRef.current.scrollTop =
+          feedRef.current.scrollHeight -
+          (currentHeight.current + totalMediaHeight);
+      }, 0);
     }
-  );
+    setMessages((prev) =>
+      prev.map((message) => {
+        message.isNew = false;
+        return message;
+      })
+    );
+    setMediaExists(false);
+  });
 
   useEffect(() => {
     const getData = async () => {

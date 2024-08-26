@@ -1,9 +1,10 @@
 import { useCallback, useEffect, useState } from "react";
 
-export default function useLoad(onAllMessagesLoaded, getMediaExists) {
+export default function useLoad(onAllMessagesLoaded) {
   const [registeredMedia, setRegisteredMedia] = useState(0);
   const [loadedMediaHeights, setLoadedMediaHeights] = useState([]);
   const [justSentMediaLoaded, setJustSentMediaLoaded] = useState(false);
+  const [mediaExists, setMediaExists] = useState(false);
 
   const registerMedia = useCallback(() => {
     setRegisteredMedia((prev) => prev + 1);
@@ -15,8 +16,8 @@ export default function useLoad(onAllMessagesLoaded, getMediaExists) {
 
   useEffect(() => {
     if (
-      !getMediaExists() ||
-      loadedMediaHeights.length === registeredMedia + 1
+      (!loadedMediaHeights.length && !mediaExists) ||
+      loadedMediaHeights.length === registeredMedia
     ) {
       onAllMessagesLoaded(
         loadedMediaHeights.reduce((acc, currentHeight) => {
@@ -24,11 +25,12 @@ export default function useLoad(onAllMessagesLoaded, getMediaExists) {
         }, 0)
       );
     }
-  }, [loadedMediaHeights]);
+  }, [loadedMediaHeights, mediaExists]);
 
   return {
     registerMedia,
     loadMedia,
+    setMediaExists,
     setJustSentMediaLoaded,
     justSentMediaLoaded,
   };
