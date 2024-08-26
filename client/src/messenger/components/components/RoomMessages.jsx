@@ -21,8 +21,12 @@ export default forwardRef(function RoomMessages(
           style={{ height: "10px", backgroundColor: "#40a4ff" }}
         />
 
-        {messages.map((message) => (
-          <RoomMessage message={message} />
+        {messages.map((message, index) => (
+          <RoomMessage
+            message={message}
+            index={index}
+            key={`${message.message}${message.date}-${index}`}
+          />
         ))}
       </div>
     </div>
