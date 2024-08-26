@@ -28,6 +28,7 @@ export default function useLoad(onAllMessagesLoaded) {
   }, [loadedMediaHeights]);
 
   useEffect(() => {
+    console.log("total media height use effect");
     onAllMessagesLoaded(totalMediaHeight);
   }, [totalMediaHeight]);
 

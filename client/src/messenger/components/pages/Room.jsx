@@ -45,7 +45,14 @@ export default function Room() {
   const id = useMemo(() => params.id, [params]);
 
   const { registerMedia, loadMedia } = useLoad((totalMediaHeight) => {
+    console.log("callback");
     if (!feedRef.current) return;
+    console.log(
+      "after feed ref chack",
+      actionType,
+      currentHeight.current,
+      totalMediaHeight
+    );
     if (actionType === messagesDataTypes.init) {
       feedRef.current.scrollTop = feedRef.current.scrollHeight;
     } else if (actionType === messagesDataTypes.load) {
