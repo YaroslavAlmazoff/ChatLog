@@ -14,6 +14,14 @@ export default function RoomMessage({ message, index }) {
 
   const { loadMedia } = useContext(ImageLoadContext);
 
+  console.log(
+    message.isNew,
+    index,
+    index % 10,
+    index % 10 === 0,
+    message.isNew && index % 10 === 0
+  );
+
   if (message.isNew && index % 10 === 0) {
     loadMedia(0);
   }
