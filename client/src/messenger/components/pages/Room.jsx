@@ -70,7 +70,10 @@ export default function Room() {
         })
       );
     },
-    () => mediaExists
+    () => {
+      setMediaExists(false);
+      return mediaExists;
+    }
   );
 
   useEffect(() => {
