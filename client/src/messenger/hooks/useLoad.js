@@ -18,11 +18,11 @@ export default function useLoad(onAllMessagesLoaded) {
       registeredMedia === 0 ||
       loadedMediaHeights.length === registeredMedia + 1
     ) {
-      setTotalMediaHeight(
-        loadedMediaHeights.reduce((acc, currentHeight) => {
-          return acc + currentHeight;
-        }, 0)
-      );
+      const sum = loadedMediaHeights.reduce((acc, currentHeight) => {
+        return acc + currentHeight;
+      }, 0);
+      console.log(sum);
+      setTotalMediaHeight(sum);
     }
   }, [loadedMediaHeights]);
 
