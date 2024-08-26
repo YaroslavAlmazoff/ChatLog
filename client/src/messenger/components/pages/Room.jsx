@@ -16,7 +16,7 @@ import useLoad from "../../hooks/useLoad";
 import useAudio from "../../hooks/useAudio";
 import { messagesDataTypes } from "../../data/messengerConfiguration";
 import { AuthContext } from "../../../context/AuthContext";
-import { ImageLoadContext } from "../../../context/ImageLoadContext";
+import { ImageLoadContext } from "../../context/ImageLoadContext";
 import messageSound from "../../audio/message.mp3";
 import "../../styles/global.css";
 
