@@ -4,7 +4,6 @@ export default function useLoad(onAllMessagesLoaded) {
   const [registeredMedia, setRegisteredMedia] = useState(0);
   const [loadedMediaHeights, setLoadedMediaHeights] = useState([]);
   const [justSentMediaLoaded, setJustSentMediaLoaded] = useState(false);
-  const [mediaExists, setMediaExists] = useState(null);
 
   const registerMedia = useCallback(() => {
     setRegisteredMedia((prev) => prev + 1);
@@ -15,23 +14,23 @@ export default function useLoad(onAllMessagesLoaded) {
   }, []);
 
   useEffect(() => {
-    if (
-      (!loadedMediaHeights.length && mediaExists === false) ||
-      loadedMediaHeights.length === registeredMedia
-    ) {
+    if (!registeredMedia || loadedMediaHeights.length === registeredMedia) {
       onAllMessagesLoaded(
         loadedMediaHeights.reduce((acc, currentHeight) => {
           return acc + currentHeight;
         }, 0)
       );
     }
-  }, [loadedMediaHeights, mediaExists]);
+  }, [loadedMediaHeights]);
+
+  const allMediaLoaded =
+    registeredMedia === 0 || loadedMediaHeights.length === registeredMedia;
 
   return {
     registerMedia,
     loadMedia,
-    setMediaExists,
     setJustSentMediaLoaded,
     justSentMediaLoaded,
+    allMediaLoaded,
   };
 }
