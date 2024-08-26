@@ -91,11 +91,15 @@ export default function Room() {
 
         currentHeight.current = feedRef.current.scrollHeight;
 
+        let mediaExists = false;
+
         newMessages.forEach((message) => {
           if (message.images.length || message.videos.length) {
-            setMediaExists(true);
+            mediaExists = true;
           }
         });
+
+        setMediaExists(mediaExists);
 
         if (isCreate) {
           newMessages[0].isJustSent = true;
