@@ -15,6 +15,7 @@ export default function useLoad(onAllMessagesLoaded) {
 
   useEffect(() => {
     if (!registeredMedia || loadedMediaHeights.length === registeredMedia) {
+      console.log("all loaded");
       onAllMessagesLoaded(
         loadedMediaHeights.reduce((acc, currentHeight) => {
           return acc + currentHeight;
