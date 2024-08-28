@@ -19,12 +19,16 @@ import { AuthContext } from "../../../context/AuthContext";
 import { ImageLoadContext } from "../../context/ImageLoadContext";
 import messageSound from "../../audio/message.mp3";
 import "../../styles/global.css";
+import useMessage from "../../hooks/useMessage";
+import useScroll from "../../hooks/useScroll";
 
 export default function Room() {
   const params = useParams();
   const { getRoom, createEventSource, getMessages } = useAPI();
   const { fileFromServer } = useFile();
   const { playAudio } = useAudio(messageSound);
+  const { getMediaExists } = useMessage();
+  const { loadScroll } = useScroll();
   const { userId } = useContext(AuthContext);
 
   const feedRef = useRef(null);
@@ -37,6 +41,7 @@ export default function Room() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [actionType, setActionType] = useState(messagesDataTypes.init);
+  const [heightsSum, setHeightsSum] = useState(0);
 
   const setErrorCallback = useCallback((err) => {
     setError(err);
@@ -53,6 +58,7 @@ export default function Room() {
   } = useLoad((totalMediaHeight) => {
     console.log("callback");
     if (!feedRef.current) return;
+    setHeightsSum((prev) => prev + totalMediaHeight);
     if (actionType === messagesDataTypes.init) {
       feedRef.current.scrollTop = feedRef.current.scrollHeight;
     } else if (actionType === messagesDataTypes.load) {
@@ -61,11 +67,12 @@ export default function Room() {
         totalMediaHeight,
         currentHeight.current + totalMediaHeight
       );
-      setTimeout(() => {
-        feedRef.current.scrollTop =
-          feedRef.current.scrollHeight -
-          (currentHeight.current + totalMediaHeight);
-      }, 0);
+      loadScroll(feedRef, currentHeight.current + totalMediaHeight);
+      // setTimeout(() => {
+      //   feedRef.current.scrollTop =
+      //     feedRef.current.scrollHeight -
+      //     (currentHeight.current + totalMediaHeight);
+      // }, 0);
     }
     setMessages((prev) =>
       prev.map((message) => {
@@ -110,6 +117,9 @@ export default function Room() {
             message.isNew = true;
             return message;
           });
+          if (!getMediaExists(newMessages)) {
+            loadScroll(feedRef, heightsSum);
+          }
           setMessages((prev) => [...newMessagesWithNewFlag, ...prev]);
           setLoading(false);
         }
