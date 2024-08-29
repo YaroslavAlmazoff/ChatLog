@@ -118,7 +118,7 @@ export default function Room() {
             return message;
           });
           if (!getMediaExists(newMessages)) {
-            loadScroll(feedRef, heightsSum);
+            loadScroll(feedRef, currentHeight.current + heightsSum);
           }
           setMessages((prev) => [...newMessagesWithNewFlag, ...prev]);
           setLoading(false);
