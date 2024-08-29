@@ -41,7 +41,6 @@ export default function Room() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [actionType, setActionType] = useState(messagesDataTypes.init);
-  const [heightsSum, setHeightsSum] = useState(0);
 
   const setErrorCallback = useCallback((err) => {
     setError(err);
@@ -58,7 +57,6 @@ export default function Room() {
   } = useLoad((totalMediaHeight) => {
     console.log("callback");
     if (!feedRef.current) return;
-    setHeightsSum((prev) => prev + totalMediaHeight);
     if (actionType === messagesDataTypes.init) {
       feedRef.current.scrollTop = feedRef.current.scrollHeight;
     } else if (actionType === messagesDataTypes.load) {
@@ -118,7 +116,7 @@ export default function Room() {
             return message;
           });
           if (!getMediaExists(newMessages)) {
-            loadScroll(feedRef, currentHeight.current + heightsSum);
+            loadScroll(feedRef, currentHeight.current);
           }
           setMessages((prev) => [...newMessagesWithNewFlag, ...prev]);
           setLoading(false);

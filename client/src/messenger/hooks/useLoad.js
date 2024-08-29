@@ -21,6 +21,8 @@ export default function useLoad(onAllMessagesLoaded) {
           return acc + currentHeight;
         }, 0)
       );
+      setRegisteredMedia(0);
+      setLoadedMediaHeights([]);
     }
   }, [loadedMediaHeights]);
 
