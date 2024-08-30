@@ -98,6 +98,8 @@ export default function Room() {
 
         setActionType(messagesData.type);
 
+        const height = feedRef.current.scrollHeight;
+
         currentHeight.current = feedRef.current.scrollHeight;
 
         if (isCreate) {
@@ -116,7 +118,7 @@ export default function Room() {
             return message;
           });
           if (!getMediaExists(newMessages)) {
-            loadScroll(feedRef, currentHeight.current);
+            loadScroll(feedRef, height);
           }
           setMessages((prev) => [...newMessagesWithNewFlag, ...prev]);
           setLoading(false);
