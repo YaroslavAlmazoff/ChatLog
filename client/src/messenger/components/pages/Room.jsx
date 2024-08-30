@@ -55,7 +55,7 @@ export default function Room() {
     justSentMediaLoaded,
     allMediaLoaded,
   } = useLoad((totalMediaHeight) => {
-    console.log("callback");
+    console.log("callback", actionType);
     if (!feedRef.current) return;
     if (actionType === messagesDataTypes.init) {
       feedRef.current.scrollTop = feedRef.current.scrollHeight;
