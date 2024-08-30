@@ -3,6 +3,7 @@ import { useCallback, useEffect, useState } from "react";
 export default function useLoad(onAllMessagesLoaded) {
   const [registeredMedia, setRegisteredMedia] = useState(0);
   const [loadedMediaHeights, setLoadedMediaHeights] = useState([]);
+  const [loadingMedia, setLoadingMedia] = useState(false);
   const [justSentMediaLoaded, setJustSentMediaLoaded] = useState(false);
 
   const registerMedia = useCallback(() => {
@@ -11,6 +12,7 @@ export default function useLoad(onAllMessagesLoaded) {
 
   const loadMedia = useCallback((height) => {
     setLoadedMediaHeights((prev) => [...prev, height]);
+    setLoadingMedia((prev) => !prev);
   }, []);
 
   const reset = useCallback(() => {
@@ -28,7 +30,7 @@ export default function useLoad(onAllMessagesLoaded) {
       );
       reset();
     }
-  }, [loadedMediaHeights]);
+  }, [loadingMedia]);
 
   const allMediaLoaded =
     registeredMedia === 0 || loadedMediaHeights.length === registeredMedia;
