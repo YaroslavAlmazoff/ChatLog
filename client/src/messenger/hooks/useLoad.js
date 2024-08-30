@@ -13,6 +13,11 @@ export default function useLoad(onAllMessagesLoaded) {
     setLoadedMediaHeights((prev) => [...prev, height]);
   }, []);
 
+  const reset = useCallback(() => {
+    setRegisteredMedia(0);
+    setLoadedMediaHeights([]);
+  });
+
   useEffect(() => {
     if (!registeredMedia || loadedMediaHeights.length === registeredMedia) {
       console.log("all loaded");
@@ -21,8 +26,7 @@ export default function useLoad(onAllMessagesLoaded) {
           return acc + currentHeight;
         }, 0)
       );
-      setRegisteredMedia(0);
-      setLoadedMediaHeights([]);
+      reset();
     }
   }, [loadedMediaHeights]);
 
