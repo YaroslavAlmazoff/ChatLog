@@ -117,10 +117,10 @@ export default function Room() {
             message.isNew = true;
             return message;
           });
+          setMessages((prev) => [...newMessagesWithNewFlag, ...prev]);
           if (!getMediaExists(newMessages)) {
             loadScroll(feedRef, height);
           }
-          setMessages((prev) => [...newMessagesWithNewFlag, ...prev]);
           setLoading(false);
         }
       };
