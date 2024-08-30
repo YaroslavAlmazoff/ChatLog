@@ -16,7 +16,7 @@ export default function useLoad(onAllMessagesLoaded) {
   const reset = useCallback(() => {
     setRegisteredMedia(0);
     setLoadedMediaHeights([]);
-  });
+  }, []);
 
   useEffect(() => {
     if (!registeredMedia || loadedMediaHeights.length === registeredMedia) {
