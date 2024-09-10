@@ -57,7 +57,10 @@ export default function Room() {
   } = useLoad((totalMediaHeight) => {
     console.log("callback", actionType);
     if (!feedRef.current) return;
-    if (actionType === messagesDataTypes.init) {
+    if (
+      actionType === messagesDataTypes.init ||
+      actionType === messagesDataTypes.create
+    ) {
       feedRef.current.scrollTop = feedRef.current.scrollHeight;
     } else if (actionType === messagesDataTypes.load) {
       console.log(
