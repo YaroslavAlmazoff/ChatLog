@@ -24,6 +24,7 @@ export default function RoomMessageVideo({ video, index, count }) {
 
   const onVideoLoad = (e) => {
     if (message.isNew) {
+      console.log(e.target.clientHeight);
       loadMedia(e.target.clientHeight);
     }
     if (message.isJustSent) {
