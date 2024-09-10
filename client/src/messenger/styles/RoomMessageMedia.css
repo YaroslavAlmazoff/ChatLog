@@ -59,7 +59,7 @@
 }
 
 .room-message-video {
-  width: 100%;
+  max-width: 50%;
   height: auto;
   border-radius: 15px;
 }
