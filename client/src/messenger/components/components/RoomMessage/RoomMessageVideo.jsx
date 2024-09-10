@@ -5,12 +5,14 @@ import { useEffect, useContext } from "react";
 import { folders } from "../../../data/messengerConfiguration";
 import { ImageLoadContext } from "../../../context/ImageLoadContext";
 import { MessageContext } from "../../../context/MessageContext";
+import useImage from "../../../hooks/useImage";
 
 export default function RoomMessageVideo({ video, index, count }) {
   const { getIsLast } = useList();
 
   const { fileFromServer } = useFile();
   const { openInNewTab } = useWindow();
+  const { determineImageFormat } = useImage();
 
   const { registerMedia, loadMedia, setJustSentMediaLoaded } =
     useContext(ImageLoadContext);
@@ -23,6 +25,11 @@ export default function RoomMessageVideo({ video, index, count }) {
   }, [registerMedia]);
 
   const onVideoLoad = (e) => {
+    if (isSingle) {
+      imageRef.current.classList.add(
+        `room-message-single-video-${determineImageFormat(imageRef.current)}`
+      );
+    }
     if (message.isNew) {
       console.log(e.target.clientHeight);
       loadMedia(e.target.clientHeight);
