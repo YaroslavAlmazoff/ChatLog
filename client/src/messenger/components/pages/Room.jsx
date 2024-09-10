@@ -28,7 +28,7 @@ export default function Room() {
   const { fileFromServer } = useFile();
   const { playAudio } = useAudio(messageSound);
   const { getMediaExists } = useMessage();
-  const { loadScroll } = useScroll();
+  const { loadScroll, scrollToBottom } = useScroll();
   const { userId } = useContext(AuthContext);
 
   const feedRef = useRef(null);
@@ -69,11 +69,6 @@ export default function Room() {
         currentHeight.current + totalMediaHeight
       );
       loadScroll(feedRef, currentHeight.current + totalMediaHeight);
-      // setTimeout(() => {
-      //   feedRef.current.scrollTop =
-      //     feedRef.current.scrollHeight -
-      //     (currentHeight.current + totalMediaHeight);
-      // }, 0);
     }
     setMessages((prev) =>
       prev.map((message) => {
@@ -108,8 +103,15 @@ export default function Room() {
         if (isCreate) {
           newMessages[0].isJustSent = true;
           setMessages((prev) => [...prev, ...newMessages]);
-          if (isMyAction) setLoading(false);
-          else playAudio();
+          if (isMyAction) {
+            setLoading(false);
+            if (!getMediaExists(newMessages)) {
+              scrollToBottom(feedRef);
+            }
+          } else {
+            playAudio();
+            //show that new message exists
+          }
         } else if (isDelete) {
           setMessages((prev) =>
             prev.filter((message) => message._id !== newMessages[0]._id)
@@ -139,7 +141,7 @@ export default function Room() {
 
   useEffect(() => {
     if (justSentMediaLoaded) {
-      feedRef.current.scrollTop = feedRef.current.scrollHeight;
+      scrollToBottom(feedRef);
       setJustSentMediaLoaded(false);
     }
   }, [justSentMediaLoaded]);
