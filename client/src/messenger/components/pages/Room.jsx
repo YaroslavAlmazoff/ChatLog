@@ -105,12 +105,11 @@ export default function Room() {
           setMessages((prev) => [...prev, ...newMessages]);
           if (isMyAction) {
             setLoading(false);
-            if (!getMediaExists(newMessages)) {
-              scrollToBottom(feedRef);
-            }
           } else {
             playAudio();
-            //show that new message exists
+          }
+          if (!getMediaExists(newMessages)) {
+            scrollToBottom(feedRef);
           }
         } else if (isDelete) {
           setMessages((prev) =>
