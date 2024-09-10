@@ -64,6 +64,16 @@
   border-radius: 15px;
 }
 
+.room-message-single-video-horizontal {
+  min-width: 98%;
+}
+.room-message-single-video-square {
+  min-width: 75%;
+}
+.room-message-single-video-vertical {
+  min-width: 50%;
+}
+
 .room-message-media-margin {
   margin-right: 5px;
 }
