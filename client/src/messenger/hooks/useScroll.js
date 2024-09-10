@@ -5,5 +5,9 @@ export default function useScroll() {
     }, 0);
   };
 
-  return { loadScroll };
+  const scrollToBottom = (ref) => {
+    ref.current.scrollTop = ref.current.scrollHeight;
+  };
+
+  return { loadScroll, scrollToBottom };
 }
