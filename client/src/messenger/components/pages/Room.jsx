@@ -57,6 +57,7 @@ export default function Room() {
   } = useLoad((totalMediaHeight) => {
     console.log("callback", actionType);
     if (!feedRef.current) return;
+    console.log("actionType", actionType);
     if (
       actionType === messagesDataTypes.init ||
       actionType === messagesDataTypes.create
