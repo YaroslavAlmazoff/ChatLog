@@ -61,7 +61,8 @@ export default function Room() {
       actionType === messagesDataTypes.init ||
       actionType === messagesDataTypes.create
     ) {
-      feedRef.current.scrollTop = feedRef.current.scrollHeight;
+      console.log("init or create and scroll");
+      scrollToBottom(feedRef);
     } else if (actionType === messagesDataTypes.load) {
       console.log(
         currentHeight.current,
