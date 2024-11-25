@@ -52,6 +52,7 @@ export default function RoomMessageVideo({ video, index, count }) {
         controls
         onLoadedData={onVideoLoad}
         onError={onVideoLoad}
+        ref={videoRef}
         src={fileFromServer(folders.videos, video)}
         className="room-message-video"
       />
