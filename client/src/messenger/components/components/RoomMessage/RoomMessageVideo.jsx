@@ -23,7 +23,7 @@ export default function RoomMessageVideo({ video, index, count }) {
   const isSingle = getIsSingle(count);
 
   useEffect(() => {
-    if (message.isNew) {
+    if (!message.isNew) {
       registerMedia();
     }
   }, [registerMedia]);
@@ -35,7 +35,7 @@ export default function RoomMessageVideo({ video, index, count }) {
       );
     }
     console.log("IS NEW", message.isNew);
-    if (message.isNew) {
+    if (!message.isNew) {
       console.log(e.target.clientHeight);
       loadMedia(e.target.clientHeight);
     }
