@@ -32,6 +32,7 @@ export default function RoomMessageVideo({ video, index, count }) {
         `room-message-single-video-${determineImageFormat(videoRef.current)}`
       );
     }
+    console.log("IS NEW", message.isNew);
     if (message.isNew) {
       console.log(e.target.clientHeight);
       loadMedia(e.target.clientHeight);
