@@ -70,7 +70,7 @@ export default function Room() {
         totalMediaHeight,
         currentHeight.current + totalMediaHeight
       );
-      loadScroll(feedRef, currentHeight.current + totalMediaHeight);
+      loadScroll(feedRef, currentHeight.current);
     }
     setMessages((prev) =>
       prev.map((message) => {
