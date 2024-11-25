@@ -31,6 +31,7 @@ export default function RoomMessageImage({ image, index, count }) {
         `room-message-single-image-${determineImageFormat(imageRef.current)}`
       );
     }
+    console.log("IS NEW", message.isNew);
     if (message.isNew) {
       console.log("load image " + image);
       loadMedia(e.target.clientHeight);
