@@ -124,7 +124,10 @@ export default function Room() {
             return message;
           });
           setMessages((prev) => [...newMessagesWithNewFlag, ...prev]);
-          if (!getMediaExists(newMessages)) {
+          if (
+            !getMediaExists(newMessages) &&
+            actionType != messagesDataTypes.init
+          ) {
             loadScroll(feedRef, height);
           }
           setLoading(false);
