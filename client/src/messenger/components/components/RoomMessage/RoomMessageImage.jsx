@@ -22,7 +22,7 @@ export default function RoomMessageImage({ image, index, count }) {
   const isLast = getIsLast(index, count);
 
   useEffect(() => {
-    if (message.isNew) {
+    if (!message.isNew) {
       registerMedia();
     }
   }, [registerMedia]);
@@ -34,7 +34,7 @@ export default function RoomMessageImage({ image, index, count }) {
       );
     }
     console.log("IS NEW", message.isNew);
-    if (message.isNew) {
+    if (!message.isNew) {
       console.log("load image " + image);
       loadMedia(e.target.clientHeight);
     }
