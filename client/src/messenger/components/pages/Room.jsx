@@ -176,6 +176,7 @@ export default function Room() {
           loadMedia,
           setJustSentMediaLoaded,
           allMediaLoaded,
+          firstLoad,
         }}
       >
         <RoomMessages
