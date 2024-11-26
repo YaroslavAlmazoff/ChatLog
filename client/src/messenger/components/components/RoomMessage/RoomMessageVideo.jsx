@@ -2,7 +2,7 @@ import useFile from "../../../hooks/useFile";
 import useWindow from "../../../hooks/useWindow";
 import useList from "../../../hooks/useList";
 import useImage from "../../../hooks/useImage";
-import { useEffect, useContext, useRef } from "react";
+import { useState, useEffect, useContext, useRef } from "react";
 import { folders } from "../../../data/messengerConfiguration";
 import { ImageLoadContext } from "../../../context/ImageLoadContext";
 import { MessageContext } from "../../../context/MessageContext";
