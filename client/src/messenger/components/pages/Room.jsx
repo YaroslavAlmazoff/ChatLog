@@ -42,6 +42,8 @@ export default function Room() {
   const [error, setError] = useState(false);
   const [actionType, setActionType] = useState(messagesDataTypes.init);
 
+  const firstLoad = useRef(true);
+
   const setErrorCallback = useCallback((err) => {
     setError(err);
   }, []);
@@ -70,7 +72,12 @@ export default function Room() {
         totalMediaHeight,
         currentHeight.current + totalMediaHeight
       );
-      loadScroll(feedRef, currentHeight.current);
+      if (firstLoad.current) {
+        scrollToBottom(feedRef);
+        firstLoad.current = false;
+      } else {
+        loadScroll(feedRef, currentHeight.current);
+      }
     }
     setMessages((prev) =>
       prev.map((message) => {
