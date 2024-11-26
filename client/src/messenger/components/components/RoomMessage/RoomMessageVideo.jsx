@@ -22,6 +22,8 @@ export default function RoomMessageVideo({ video, index, count }) {
   const isLast = getIsLast(index, count);
   const isSingle = getIsSingle(count);
 
+  const [renderedHeight, setRenderedHeight] = useState(0);
+
   useEffect(() => {
     if (!message.isNew) {
       registerMedia();
@@ -35,9 +37,8 @@ export default function RoomMessageVideo({ video, index, count }) {
       );
     }
     console.log("IS NEW", message.isNew);
-    if (!message.isNew) {
-      console.log(e.target.clientHeight);
-      loadMedia(e.target.clientHeight);
+    if (videoRef.current && !message.isNew) {
+      loadMedia(videoRef.current.offsetHeight);
     }
     if (message.isJustSent) {
       setJustSentMediaLoaded(true);
