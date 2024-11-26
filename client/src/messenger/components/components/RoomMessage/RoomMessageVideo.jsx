@@ -23,7 +23,7 @@ export default function RoomMessageVideo({ video, index, count }) {
   const isSingle = getIsSingle(count);
 
   useEffect(() => {
-    if (!message.isNew) {
+    if (firstLoad ? message.isNew : !message.isNew) {
       registerMedia();
     }
   }, [registerMedia]);
