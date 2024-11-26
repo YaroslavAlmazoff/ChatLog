@@ -130,10 +130,7 @@ export default function Room() {
           ) {
             loadScroll(feedRef, height);
           }
-
-          if (actionType == messagesDataTypes.init) {
-            scrollToBottom(feedRef);
-          }
+          scrollToBottom(feedRef);
           setLoading(false);
         }
       };
