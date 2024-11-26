@@ -13,7 +13,7 @@ export default function RoomMessageImage({ image, index, count }) {
   const { openInNewTab } = useWindow();
   const { determineImageFormat } = useImage();
 
-  const { registerMedia, loadMedia, setJustSentMediaLoaded } =
+  const { registerMedia, loadMedia, setJustSentMediaLoaded, firstLoad } =
     useContext(ImageLoadContext);
   const { message } = useContext(MessageContext);
   const imageRef = useRef(null);
@@ -34,7 +34,7 @@ export default function RoomMessageImage({ image, index, count }) {
       );
     }
     console.log("IS NEW", message.isNew);
-    if (!message.isNew) {
+    if (imageRef.current && (firstLoad ? message.isNew : !message.isNew)) {
       console.log("load image " + image);
       loadMedia(e.target.clientHeight);
     }
