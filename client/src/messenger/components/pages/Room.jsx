@@ -36,7 +36,6 @@ export default function Room() {
 
   const [room, setRoom] = useState({ name: "", date: "", bg: "" });
   const [messages, setMessages] = useState([]);
-  const [newMessages, setNewMessages] = useState([]);
   const [page, setPage] = useState(1);
   const [offset, setOffset] = useState(0);
   const [loading, setLoading] = useState(true);
@@ -119,7 +118,8 @@ export default function Room() {
           });
           setMessages((prev) => [...newMessagesWithNewFlag, ...prev]);
           if (isLoad && !getMediaExists(newMessagesWithNewFlag)) {
-            setNewMessages(newMessagesWithNewFlag);
+            registerMedia();
+            loadMedia(0);
           }
           setLoading(false);
         }
@@ -142,14 +142,6 @@ export default function Room() {
       setJustSentMediaLoaded(false);
     }
   }, [justSentMediaLoaded]);
-
-  useEffect(() => {
-    if (newMessages.length > 0) {
-      registerMedia();
-      loadMedia(0);
-      setNewMessages([]);
-    }
-  }, [newMessages]);
 
   return (
     <div
