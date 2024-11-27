@@ -15,7 +15,8 @@ export default function useLoad(onAllMessagesLoaded) {
     }
   }, [loadingMessages]);
 
-  const getAllMessagesLoaded = useCallback(() => {
+  const getAllMessagesLoaded = () => {
+    console.log("get all messages loaded");
     if (loadingMessages.length) {
       let allLoaded = true;
       for (let i = 0; i < loadingMessages.length; i++) {
@@ -31,7 +32,7 @@ export default function useLoad(onAllMessagesLoaded) {
     } else {
       return false;
     }
-  }, []);
+  };
 
   const allMessagesLoaded = getAllMessagesLoaded();
 
