@@ -16,7 +16,7 @@ export default function useLoad(onAllMessagesLoaded) {
   }, [loadingMessages]);
 
   const getAllMessagesLoaded = () => {
-    console.log("get all messages loaded");
+    console.log("get all messages loaded", loadingMessages);
     if (loadingMessages.length) {
       let allLoaded = true;
       for (let i = 0; i < loadingMessages.length; i++) {
