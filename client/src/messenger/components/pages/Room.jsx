@@ -146,6 +146,7 @@ export default function Room() {
 
   useEffect(() => {
     if (newMessages.length > 0) {
+      console.log(feedRef, currentHeight.current);
       loadScroll(feedRef, currentHeight.current);
       setNewMessages([]);
     }
