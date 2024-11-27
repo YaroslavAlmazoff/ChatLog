@@ -35,6 +35,7 @@ export default function RoomMessageVideo({ video, index, count }) {
       );
     }
     console.log("IS NEW", message.isNew);
+    console.log(firstLoad ? message.isNew : !message.isNew);
     if (videoRef.current && (firstLoad ? message.isNew : !message.isNew)) {
       loadMedia(videoRef.current.offsetHeight);
     }

@@ -34,6 +34,7 @@ export default function RoomMessageImage({ image, index, count }) {
       );
     }
     console.log("IS NEW", message.isNew);
+    console.log(firstLoad ? message.isNew : !message.isNew);
     if (imageRef.current && (firstLoad ? message.isNew : !message.isNew)) {
       console.log("load image " + image);
       loadMedia(e.target.clientHeight);
