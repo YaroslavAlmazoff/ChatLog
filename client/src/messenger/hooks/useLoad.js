@@ -16,17 +16,19 @@ export default function useLoad(onAllMessagesLoaded) {
   }, [loadingMessages]);
 
   const getAllMessagesLoaded = useCallback(() => {
-    let allLoaded = true;
-    for (let i = 0; i < loadingMessages.length; i++) {
-      allLoaded =
-        loadingMessages[i].text &&
-        loadingMessages[i].image &&
-        loadingMessages[i].video;
-      if (!allLoaded) {
-        return allLoaded;
+    if (loadingMessages.length) {
+      let allLoaded = true;
+      for (let i = 0; i < loadingMessages.length; i++) {
+        allLoaded =
+          loadingMessages[i].text &&
+          loadingMessages[i].image &&
+          loadingMessages[i].video;
+        if (!allLoaded) {
+          return allLoaded;
+        }
       }
-    }
-    return allLoaded;
+      return allLoaded;
+    } else false;
   }, []);
 
   const allMessagesLoaded = !loadingMessages.length || getAllMessagesLoaded();
