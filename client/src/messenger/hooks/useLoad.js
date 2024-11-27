@@ -1,44 +1,45 @@
 import { useCallback, useEffect, useState } from "react";
 
 export default function useLoad(onAllMessagesLoaded) {
-  const [registeredMedia, setRegisteredMedia] = useState(0);
-  const [loadedMediaHeights, setLoadedMediaHeights] = useState([]);
-  const [loadingMedia, setLoadingMedia] = useState(false);
-  const [justSentMediaLoaded, setJustSentMediaLoaded] = useState(false);
+  const [loadingMessages, setLoadingMessages] = useState([]);
+  const [justSentMessageLoaded, setJustSentMessageLoaded] = useState(false);
 
-  const registerMedia = useCallback(() => {
-    setRegisteredMedia((prev) => prev + 1);
-  }, []);
-
-  const loadMedia = useCallback((height) => {
-    setLoadedMediaHeights((prev) => [...prev, height]);
-    setLoadingMedia((prev) => !prev);
+  const loadMessage = useCallback((message) => {
+    setLoadingMedia((prev) => [...prev, message]);
   }, []);
 
   const reset = useCallback(() => {
-    setRegisteredMedia(0);
-    setLoadedMediaHeights([]);
+    setLoadingMessages([]);
   }, []);
 
   useEffect(() => {
-    if (!registeredMedia || loadedMediaHeights.length === registeredMedia) {
-      onAllMessagesLoaded(
-        loadedMediaHeights.reduce((acc, currentHeight) => {
-          return acc + currentHeight;
-        }, 0)
-      );
+    if (!loadingMessages.length || getAllMessagesLoaded()) {
+      onAllMessagesLoaded();
       reset();
     }
-  }, [loadingMedia]);
+  }, [loadingMessages]);
 
-  const allMediaLoaded =
-    registeredMedia === 0 || loadedMediaHeights.length === registeredMedia;
+  const getAllMessagesLoaded = useCallback(() => {
+    let allLoaded = true;
+    for (let i = 0; i < loadingMessages.length; i++) {
+      allLoaded =
+        loadingMessages[i].text &&
+        loadingMessages[i].image &&
+        loadingMessages[i].video;
+      if (!allLoaded) {
+        return allLoaded;
+      }
+    }
+    return allLoaded;
+  }, []);
+
+  const allMessagesLoaded = !loadingMessages.length || getAllMessagesLoaded();
 
   return {
-    registerMedia,
-    loadMedia,
-    setJustSentMediaLoaded,
-    justSentMediaLoaded,
-    allMediaLoaded,
+    loadMessage,
+    setJustSentMessageLoaded,
+    setLoadingMessages,
+    justSentMessageLoaded,
+    allMessagesLoaded,
   };
 }

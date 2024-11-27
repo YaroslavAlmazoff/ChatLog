@@ -51,9 +51,8 @@ export default function Room() {
   const id = useMemo(() => params.id, [params]);
 
   const {
-    registerMedia,
-    loadMedia,
-    setJustSentMediaLoaded,
+    setJustSentMessageLoaded,
+    setLoadingMessages,
     justSentMediaLoaded,
     allMediaLoaded,
   } = useLoad(() => {
@@ -118,8 +117,6 @@ export default function Room() {
           });
           setMessages((prev) => [...newMessagesWithNewFlag, ...prev]);
           if (isLoad && !getMediaExists(newMessagesWithNewFlag)) {
-            registerMedia();
-            loadMedia(0);
           }
           setLoading(false);
         }
@@ -157,9 +154,8 @@ export default function Room() {
       />
       <ImageLoadContext.Provider
         value={{
-          registerMedia,
-          loadMedia,
-          setJustSentMediaLoaded,
+          setJustSentMessageLoaded,
+          setLoadingMessages,
           allMediaLoaded,
           firstLoad,
         }}

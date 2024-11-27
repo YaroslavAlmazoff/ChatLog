@@ -14,19 +14,12 @@ export default function RoomMessageVideo({ video, index, count }) {
   const { openInNewTab } = useWindow();
   const { determineImageFormat } = useImage();
 
-  const { registerMedia, loadMedia, setJustSentMediaLoaded, firstLoad } =
-    useContext(ImageLoadContext);
+  const { setJustSentMessageLoaded, firstLoad } = useContext(ImageLoadContext);
   const { message } = useContext(MessageContext);
   const videoRef = useRef(null);
 
   const isLast = getIsLast(index, count);
   const isSingle = getIsSingle(count);
-
-  useEffect(() => {
-    if (firstLoad ? message.isNew : !message.isNew) {
-      registerMedia();
-    }
-  }, [registerMedia]);
 
   const onVideoLoad = (e) => {
     if (isSingle) {
@@ -35,10 +28,15 @@ export default function RoomMessageVideo({ video, index, count }) {
       );
     }
     if (firstLoad ? message.isNew : !message.isNew) {
-      loadMedia(videoRef.current.offsetHeight);
+      setLoadingMessages((prev) => {
+        const index = prev.findIndex((it) => it.id === message._id);
+        const newArray = [...prev];
+        newArray[index].video = true;
+        return newArray;
+      });
     }
     if (message.isJustSent) {
-      setJustSentMediaLoaded(true);
+      setJustSentMessageLoaded(true);
     }
   };
 
