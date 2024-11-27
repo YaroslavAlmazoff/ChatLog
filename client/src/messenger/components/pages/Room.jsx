@@ -119,6 +119,10 @@ export default function Room() {
           setMessages((prev) => [...newMessagesWithNewFlag, ...prev]);
           setLoading(false);
         }
+
+        if (isLoad) {
+          loadScroll(feedRef, currentHeight.current);
+        }
       };
     };
     getData();
