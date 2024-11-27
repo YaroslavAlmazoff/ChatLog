@@ -165,6 +165,7 @@ export default function Room() {
           ref={feedRef}
           loading={loading}
           setPage={setPage}
+          actionType={actionType}
         />
       </ImageLoadContext.Provider>
       <RoomMainField
