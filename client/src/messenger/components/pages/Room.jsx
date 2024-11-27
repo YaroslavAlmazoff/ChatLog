@@ -74,6 +74,7 @@ export default function Room() {
       );
       if (firstLoad.current) {
         scrollToBottom(feedRef);
+        console.log("scrolled to bottom");
         firstLoad.current = false;
       } else {
         loadScroll(feedRef, currentHeight.current);
@@ -105,8 +106,6 @@ export default function Room() {
 
         setActionType(messagesData.type);
 
-        const height = feedRef.current.scrollHeight;
-
         currentHeight.current = feedRef.current.scrollHeight;
 
         if (isCreate) {
@@ -131,13 +130,6 @@ export default function Room() {
             return message;
           });
           setMessages((prev) => [...newMessagesWithNewFlag, ...prev]);
-          if (
-            !getMediaExists(newMessages) &&
-            actionType != messagesDataTypes.init
-          ) {
-            loadScroll(feedRef, height);
-          }
-          scrollToBottom(feedRef);
           setLoading(false);
         }
       };
