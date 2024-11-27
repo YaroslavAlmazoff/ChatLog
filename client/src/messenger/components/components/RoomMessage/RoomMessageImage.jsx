@@ -22,7 +22,8 @@ export default function RoomMessageImage({ image, index, count }) {
   const isLast = getIsLast(index, count);
 
   useEffect(() => {
-    if (!message.isNew) {
+    if (firstLoad ? message.isNew : !message.isNew) {
+      console.log("register image " + image);
       registerMedia();
     }
   }, [registerMedia]);
@@ -33,9 +34,7 @@ export default function RoomMessageImage({ image, index, count }) {
         `room-message-single-image-${determineImageFormat(imageRef.current)}`
       );
     }
-    console.log("IS NEW", message.isNew);
-    console.log(firstLoad ? message.isNew : !message.isNew);
-    if (imageRef.current && (firstLoad ? message.isNew : !message.isNew)) {
+    if (firstLoad ? message.isNew : !message.isNew) {
       console.log("load image " + image);
       loadMedia(e.target.clientHeight);
     }

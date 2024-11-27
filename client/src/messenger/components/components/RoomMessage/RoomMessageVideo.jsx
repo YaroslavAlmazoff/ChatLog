@@ -24,6 +24,7 @@ export default function RoomMessageVideo({ video, index, count }) {
 
   useEffect(() => {
     if (firstLoad ? message.isNew : !message.isNew) {
+      console.log("register video: " + video);
       registerMedia();
     }
   }, [registerMedia]);
@@ -34,9 +35,8 @@ export default function RoomMessageVideo({ video, index, count }) {
         `room-message-single-video-${determineImageFormat(videoRef.current)}`
       );
     }
-    console.log("IS NEW", message.isNew);
-    console.log(firstLoad ? message.isNew : !message.isNew);
-    if (videoRef.current && (firstLoad ? message.isNew : !message.isNew)) {
+    if (firstLoad ? message.isNew : !message.isNew) {
+      console.log("load video " + video);
       loadMedia(videoRef.current.offsetHeight);
     }
     if (message.isJustSent) {
