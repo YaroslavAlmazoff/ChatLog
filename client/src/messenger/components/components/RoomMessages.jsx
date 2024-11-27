@@ -1,7 +1,6 @@
-import { useRef, forwardRef, useContext, useEffect } from "react";
+import { useRef, forwardRef } from "react";
 import RoomMessage from "./RoomMessage/RoomMessage";
 import { useObserver } from "../../../common_hooks/observer.hook";
-import { ImageLoadContext } from "../../context/ImageLoadContext";
 
 export default forwardRef(function RoomMessages(
   { messages, loading, setPage },
@@ -9,15 +8,9 @@ export default forwardRef(function RoomMessages(
 ) {
   const messagesEndRef = useRef(null);
 
-  const { allMediaLoaded } = useContext(ImageLoadContext);
-
   useObserver(messagesEndRef, true, loading, () => {
     setPage((prev) => prev + 1);
   });
-
-  useEffect(() => {
-    ref.current.scrollTop = ref.current.scrollHeight;
-  }, [allMediaLoaded]);
 
   return (
     <div className="room-messages-wrapper">
