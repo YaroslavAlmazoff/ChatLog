@@ -23,7 +23,6 @@ export default function RoomMessageImage({ image, index, count }) {
 
   useEffect(() => {
     if (firstLoad ? message.isNew : !message.isNew) {
-      console.log("register image " + image);
       registerMedia();
     }
   }, [registerMedia]);
@@ -35,7 +34,6 @@ export default function RoomMessageImage({ image, index, count }) {
       );
     }
     if (firstLoad ? message.isNew : !message.isNew) {
-      console.log("load image " + image);
       loadMedia(e.target.clientHeight);
     }
     if (message.isJustSent) {

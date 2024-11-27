@@ -21,14 +21,7 @@ export default function useLoad(onAllMessagesLoaded) {
   }, []);
 
   useEffect(() => {
-    console.log(
-      "епта",
-      registeredMedia,
-      loadedMediaHeights,
-      loadedMediaHeights.length === registeredMedia
-    );
     if (!registeredMedia || loadedMediaHeights.length === registeredMedia) {
-      console.log("all loaded");
       onAllMessagesLoaded(
         loadedMediaHeights.reduce((acc, currentHeight) => {
           return acc + currentHeight;
