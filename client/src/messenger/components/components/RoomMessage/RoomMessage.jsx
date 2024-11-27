@@ -16,7 +16,15 @@ export default function RoomMessage({ message, index }) {
 
   useEffect(() => {
     if (firstLoad ? message.isNew : !message.isNew) {
-      setLoadingMessages((prev) => [...prev, { id: message._id, text: true }]);
+      setLoadingMessages((prev) => [
+        ...prev,
+        {
+          id: message._id,
+          text: true,
+          image: message.images.length ? false : true,
+          video: message.videos.length ? false : true,
+        },
+      ]);
     }
   }, []);
 
