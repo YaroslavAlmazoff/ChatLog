@@ -36,11 +36,13 @@ export default function Room() {
 
   const [room, setRoom] = useState({ name: "", date: "", bg: "" });
   const [messages, setMessages] = useState([]);
+  const [newMessages, setNewMessages] = useState([]);
   const [page, setPage] = useState(1);
   const [offset, setOffset] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [actionType, setActionType] = useState(messagesDataTypes.init);
+  const [loadWithoutMedia, setLoadWithoutMedia] = useState(false);
 
   const firstLoad = useRef(true);
 
@@ -117,9 +119,8 @@ export default function Room() {
             return message;
           });
           setMessages((prev) => [...newMessagesWithNewFlag, ...prev]);
-          if (isLoad && !getMediaExists(newMessages)) {
-            console.log(feedRef.current.scrollHeight, currentHeight.current);
-            loadScroll(feedRef, currentHeight.current);
+          if (isLoad && !getMediaExists(newMessagesWithNewFlag)) {
+            setNewMessages(newMessagesWithNewFlag);
           }
           setLoading(false);
         }
@@ -142,6 +143,13 @@ export default function Room() {
       setJustSentMediaLoaded(false);
     }
   }, [justSentMediaLoaded]);
+
+  useEffect(() => {
+    if (newMessages.length > 0) {
+      loadScroll(feedRef, currentHeight.current);
+      setNewMessages([]);
+    }
+  }, [newMessages]);
 
   return (
     <div
