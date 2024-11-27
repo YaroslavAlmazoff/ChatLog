@@ -17,13 +17,14 @@ export default function useLoad(onAllMessagesLoaded) {
 
   const getAllMessagesLoaded = () => {
     console.log("get all messages loaded", loadingMessages);
-    if (loadingMessages.length) {
+    if (loadingMessages.length > 0) {
       let allLoaded = true;
       for (let i = 0; i < loadingMessages.length; i++) {
         allLoaded =
           loadingMessages[i].text &&
           loadingMessages[i].image &&
           loadingMessages[i].video;
+        console.log(allLoaded);
         if (!allLoaded) {
           return false;
         }
