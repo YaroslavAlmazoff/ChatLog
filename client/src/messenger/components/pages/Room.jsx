@@ -59,7 +59,6 @@ export default function Room() {
   } = useLoad((totalMediaHeight) => {
     console.log("callback", actionType);
     if (!feedRef.current) return;
-    console.log("actionType", actionType);
     if (
       actionType === messagesDataTypes.init ||
       actionType === messagesDataTypes.create
@@ -67,15 +66,10 @@ export default function Room() {
       console.log("init or create and scroll");
       scrollToBottom(feedRef);
     } else if (actionType === messagesDataTypes.load) {
-      console.log(
-        currentHeight.current,
-        totalMediaHeight,
-        currentHeight.current + totalMediaHeight
-      );
+      console.log(firstLoad);
       if (firstLoad.current) {
-        scrollToBottom(feedRef);
-        console.log("scrolled to bottom");
         firstLoad.current = false;
+        console.log(firstLoad);
       } else {
         loadScroll(feedRef, currentHeight.current);
       }
