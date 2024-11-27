@@ -147,7 +147,9 @@ export default function Room() {
   }, [createEventSource, getRoom, playAudio, id, userId]);
 
   useEffect(() => {
-    getMessages(page, offset);
+    if (page !== 1) {
+      getMessages(page, offset);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, getMessages]);
 
