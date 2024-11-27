@@ -13,19 +13,13 @@ export default function RoomMessageImage({ image, index, count }) {
   const { openInNewTab } = useWindow();
   const { determineImageFormat } = useImage();
 
-  const { registerMedia, loadMedia, setJustSentMediaLoaded, firstLoad } =
+  const { setLoadingMessages, setJustSentMessageLoaded, firstLoad } =
     useContext(ImageLoadContext);
   const { message } = useContext(MessageContext);
   const imageRef = useRef(null);
 
   const isSingle = getIsSingle(count);
   const isLast = getIsLast(index, count);
-
-  useEffect(() => {
-    if (firstLoad ? message.isNew : !message.isNew) {
-      registerMedia();
-    }
-  }, [registerMedia]);
 
   const onImageLoad = (e) => {
     if (isSingle) {
@@ -34,10 +28,15 @@ export default function RoomMessageImage({ image, index, count }) {
       );
     }
     if (firstLoad ? message.isNew : !message.isNew) {
-      loadMedia(e.target.clientHeight);
+      setLoadingMessages((prev) => {
+        const index = prev.findIndex((it) => it.id === message._id);
+        const newArray = [...prev];
+        newArray[index].image = true;
+        return newArray;
+      });
     }
     if (message.isJustSent) {
-      setJustSentMediaLoaded(true);
+      setJustSentMessageLoaded(true);
     }
   };
 

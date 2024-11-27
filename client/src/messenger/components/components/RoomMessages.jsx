@@ -11,7 +11,7 @@ export default forwardRef(function RoomMessages(
 ) {
   const messagesEndRef = useRef(null);
 
-  const { allMediaLoaded } = useContext(ImageLoadContext);
+  const { allMessagesLoaded } = useContext(ImageLoadContext);
   const { scrollToBottom } = useScroll();
 
   useObserver(messagesEndRef, true, loading, () => {
@@ -22,7 +22,7 @@ export default forwardRef(function RoomMessages(
     if (actionType === messagesDataTypes.init) {
       scrollToBottom(ref);
     }
-  }, [allMediaLoaded]);
+  }, [allMessagesLoaded]);
 
   return (
     <div className="room-messages-wrapper">

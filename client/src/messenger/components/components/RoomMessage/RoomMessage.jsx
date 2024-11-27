@@ -12,6 +12,13 @@ import { MessageContext } from "../../../context/MessageContext";
 export default function RoomMessage({ message, index }) {
   const { fileFromServer } = useFile();
   const [showActions, setShowActions] = useState(false);
+  const { setLoadingMessages, firstLoad } = useContext(ImageLoadContext);
+
+  useEffect(() => {
+    if (firstLoad ? message.isNew : !message.isNew) {
+      setLoadingMessages((prev) => [...prev, { id: message._id, text: true }]);
+    }
+  }, []);
 
   return (
     <MessageContext.Provider value={{ message }}>
