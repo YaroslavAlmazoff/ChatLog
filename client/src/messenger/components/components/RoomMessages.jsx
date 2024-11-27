@@ -19,6 +19,7 @@ export default forwardRef(function RoomMessages(
   });
 
   useEffect(() => {
+    console.log("здесь");
     if (actionType === messagesDataTypes.init) {
       scrollToBottom(ref);
     }
