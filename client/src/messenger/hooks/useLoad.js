@@ -28,6 +28,7 @@ export default function useLoad(onAllMessagesLoaded) {
           return false;
         }
       }
+      console.log(allLoaded);
       return allLoaded;
     } else {
       return false;
