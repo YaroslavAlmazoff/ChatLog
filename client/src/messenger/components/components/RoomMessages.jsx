@@ -3,6 +3,7 @@ import RoomMessage from "./RoomMessage/RoomMessage";
 import { useObserver } from "../../../common_hooks/observer.hook";
 import { ImageLoadContext } from "../../context/ImageLoadContext";
 import { messagesDataTypes } from "../../data/messengerConfiguration";
+import useScroll from "../../hooks/useScroll";
 
 export default forwardRef(function RoomMessages(
   { messages, loading, setPage, actionType },
