@@ -56,23 +56,16 @@ export default function Room() {
     setJustSentMediaLoaded,
     justSentMediaLoaded,
     allMediaLoaded,
-  } = useLoad((totalMediaHeight) => {
+  } = useLoad(() => {
     console.log("callback", actionType);
     if (!feedRef.current) return;
     if (
       actionType === messagesDataTypes.init ||
       actionType === messagesDataTypes.create
     ) {
-      console.log("init or create and scroll");
       scrollToBottom(feedRef);
     } else if (actionType === messagesDataTypes.load) {
-      console.log(firstLoad);
-      if (firstLoad.current) {
-        firstLoad.current = false;
-        console.log(firstLoad);
-      } else {
-        loadScroll(feedRef, currentHeight.current);
-      }
+      loadScroll(feedRef, currentHeight.current);
     }
     setMessages((prev) =>
       prev.map((message) => {
