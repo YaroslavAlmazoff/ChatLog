@@ -28,7 +28,9 @@ export default function useLoad(onAllMessagesLoaded) {
         }
       }
       return allLoaded;
-    } else false;
+    } else {
+      return false;
+    }
   }, []);
 
   const allMessagesLoaded = !loadingMessages.length || getAllMessagesLoaded();
