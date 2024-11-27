@@ -134,7 +134,7 @@ export default function Room() {
   }, [page, getMessages]);
 
   useEffect(() => {
-    if (justSentMediaLoaded) {
+    if (justSentMessageLoaded) {
       scrollToBottom(feedRef);
       setJustSentMessageLoaded(false);
     }
