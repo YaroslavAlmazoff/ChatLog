@@ -53,8 +53,8 @@ export default function Room() {
   const {
     setJustSentMessageLoaded,
     setLoadingMessages,
-    justSentMediaLoaded,
-    allMediaLoaded,
+    justSentMessageLoaded,
+    allMessagesLoaded,
   } = useLoad(() => {
     console.log("callback", actionType);
     if (!feedRef.current) return;
@@ -136,9 +136,9 @@ export default function Room() {
   useEffect(() => {
     if (justSentMediaLoaded) {
       scrollToBottom(feedRef);
-      setJustSentMediaLoaded(false);
+      setJustSentMessageLoaded(false);
     }
-  }, [justSentMediaLoaded]);
+  }, [justSentMessageLoaded]);
 
   return (
     <div
@@ -156,7 +156,7 @@ export default function Room() {
         value={{
           setJustSentMessageLoaded,
           setLoadingMessages,
-          allMediaLoaded,
+          allMessagesLoaded,
           firstLoad,
         }}
       >

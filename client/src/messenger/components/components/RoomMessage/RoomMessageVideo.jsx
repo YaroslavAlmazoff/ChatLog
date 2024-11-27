@@ -14,7 +14,8 @@ export default function RoomMessageVideo({ video, index, count }) {
   const { openInNewTab } = useWindow();
   const { determineImageFormat } = useImage();
 
-  const { setJustSentMessageLoaded, firstLoad } = useContext(ImageLoadContext);
+  const { setLoadingMessages, setJustSentMessageLoaded, firstLoad } =
+    useContext(ImageLoadContext);
   const { message } = useContext(MessageContext);
   const videoRef = useRef(null);
 
