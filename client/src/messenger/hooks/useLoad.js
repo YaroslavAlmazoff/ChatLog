@@ -9,7 +9,7 @@ export default function useLoad(onAllMessagesLoaded) {
   }, []);
 
   useEffect(() => {
-    if (!loadingMessages.length || getAllMessagesLoaded()) {
+    if (getAllMessagesLoaded()) {
       onAllMessagesLoaded();
       reset();
     }
@@ -33,7 +33,7 @@ export default function useLoad(onAllMessagesLoaded) {
     }
   }, []);
 
-  const allMessagesLoaded = !loadingMessages.length || getAllMessagesLoaded();
+  const allMessagesLoaded = getAllMessagesLoaded();
 
   return {
     setJustSentMessageLoaded,
