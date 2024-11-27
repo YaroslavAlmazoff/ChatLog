@@ -1,16 +1,27 @@
-import { useRef, forwardRef } from "react";
+import { useRef, forwardRef, useContext, useEffect } from "react";
 import RoomMessage from "./RoomMessage/RoomMessage";
 import { useObserver } from "../../../common_hooks/observer.hook";
+import { ImageLoadContext } from "../../context/ImageLoadContext";
+import { messagesDataTypes } from "../../data/messengerConfiguration";
 
 export default forwardRef(function RoomMessages(
-  { messages, loading, setPage },
+  { messages, loading, setPage, actionType },
   ref
 ) {
   const messagesEndRef = useRef(null);
 
+  const { allMediaLoaded } = useContext(ImageLoadContext);
+  const { scrollToBottom } = useScroll();
+
   useObserver(messagesEndRef, true, loading, () => {
     setPage((prev) => prev + 1);
   });
+
+  useEffect(() => {
+    if (actionType === messagesDataTypes.init) {
+      scrollToBottom(ref);
+    }
+  }, [allMediaLoaded]);
 
   return (
     <div className="room-messages-wrapper">
