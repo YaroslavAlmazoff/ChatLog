@@ -4,10 +4,6 @@ export default function useLoad(onAllMessagesLoaded) {
   const [loadingMessages, setLoadingMessages] = useState([]);
   const [justSentMessageLoaded, setJustSentMessageLoaded] = useState(false);
 
-  const loadMessage = useCallback((message) => {
-    setLoadingMedia((prev) => [...prev, message]);
-  }, []);
-
   const reset = useCallback(() => {
     setLoadingMessages([]);
   }, []);
@@ -36,7 +32,6 @@ export default function useLoad(onAllMessagesLoaded) {
   const allMessagesLoaded = !loadingMessages.length || getAllMessagesLoaded();
 
   return {
-    loadMessage,
     setJustSentMessageLoaded,
     setLoadingMessages,
     justSentMessageLoaded,
