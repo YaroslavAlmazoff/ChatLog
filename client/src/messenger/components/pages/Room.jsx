@@ -142,6 +142,12 @@ export default function Room() {
     }
   }, [justSentMessageLoaded]);
 
+  useEffect(() => {
+    if (actionType === messagesDataTypes.load) {
+      loadScroll(feedRef, currentHeight.current);
+    }
+  }, [messages, actionType]);
+
   return (
     <div
       className="block room-size room"
