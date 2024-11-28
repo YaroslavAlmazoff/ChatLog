@@ -23,7 +23,9 @@ export default function RoomMessageVideo({ video, index, count }) {
   const isSingle = getIsSingle(count);
 
   useEffect(() => {
-    register();
+    if (firstLoad ? message.isNew : !message.isNew) {
+      register();
+    }
   }, []);
 
   const onVideoLoad = (e) => {

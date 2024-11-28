@@ -22,7 +22,9 @@ export default function RoomMessageImage({ image, index, count }) {
   const isLast = getIsLast(index, count);
 
   useEffect(() => {
-    register();
+    if (firstLoad ? message.isNew : !message.isNew) {
+      register();
+    }
   }, []);
 
   const onImageLoad = (e) => {
