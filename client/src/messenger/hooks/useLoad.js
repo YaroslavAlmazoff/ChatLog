@@ -25,9 +25,9 @@ export default function useLoad(onAllMessagesLoaded) {
           loadingMessages[i].image &&
           loadingMessages[i].video;
         console.log(allLoaded);
-        if (!allLoaded) {
-          return false;
-        }
+        // if (!allLoaded) {
+        //   return false;
+        // }
       }
       console.log(allLoaded);
       return allLoaded;
