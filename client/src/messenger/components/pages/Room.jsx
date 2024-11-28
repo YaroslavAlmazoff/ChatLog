@@ -51,10 +51,11 @@ export default function Room() {
   const id = useMemo(() => params.id, [params]);
 
   const {
+    register,
+    load,
     setJustSentMessageLoaded,
-    setLoadingMessages,
     justSentMessageLoaded,
-    allMessagesLoaded,
+    allLoaded,
   } = useLoad(() => {
     console.log("callback", actionType);
     if (!feedRef.current) return;
@@ -154,9 +155,10 @@ export default function Room() {
       />
       <ImageLoadContext.Provider
         value={{
+          register,
+          load,
           setJustSentMessageLoaded,
-          setLoadingMessages,
-          allMessagesLoaded,
+          allLoaded,
           firstLoad,
         }}
       >
