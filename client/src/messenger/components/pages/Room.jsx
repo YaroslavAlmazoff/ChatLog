@@ -65,6 +65,7 @@ export default function Room() {
     ) {
       scrollToBottom(feedRef);
     } else if (actionType === messagesDataTypes.load) {
+      console.log(feedRef, currentHeight.current);
       loadScroll(feedRef, currentHeight.current);
     }
     setMessages((prev) =>
