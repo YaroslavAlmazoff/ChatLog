@@ -1,47 +1,37 @@
 import { useCallback, useEffect, useState } from "react";
 
 export default function useLoad(onAllMessagesLoaded) {
-  const [loadingMessages, setLoadingMessages] = useState([]);
+  const [registered, setRegistered] = useState(0);
+  const [loaded, setLoaded] = useState(0);
   const [justSentMessageLoaded, setJustSentMessageLoaded] = useState(false);
 
+  const register = useCallback(() => {
+    setRegistered((prev) => prev + 1);
+  }, []);
+
+  const load = useCallback(() => {
+    setLoaded((prev) => prev + 1);
+  }, []);
+
   const reset = useCallback(() => {
-    setLoadingMessages([]);
+    setRegistered(0);
+    setLoaded(0);
   }, []);
 
   useEffect(() => {
-    if (getAllMessagesLoaded()) {
+    if (!loaded || registered === loaded) {
       onAllMessagesLoaded();
       reset();
     }
-  }, [loadingMessages]);
+  }, [loaded]);
 
-  const getAllMessagesLoaded = () => {
-    console.log("get all messages loaded", loadingMessages);
-    if (loadingMessages.length > 0) {
-      let allLoaded = true;
-      for (let i = 0; i < loadingMessages.length; i++) {
-        allLoaded =
-          loadingMessages[i].text &&
-          loadingMessages[i].image &&
-          loadingMessages[i].video;
-        console.log(allLoaded);
-        // if (!allLoaded) {
-        //   return false;
-        // }
-      }
-      console.log(allLoaded);
-      return allLoaded;
-    } else {
-      return false;
-    }
-  };
-
-  const allMessagesLoaded = getAllMessagesLoaded();
+  const allLoaded = !loaded || registered === loaded;
 
   return {
+    register,
+    load,
     setJustSentMessageLoaded,
-    setLoadingMessages,
     justSentMessageLoaded,
-    allMessagesLoaded,
+    allLoaded,
   };
 }
