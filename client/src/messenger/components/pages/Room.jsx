@@ -19,7 +19,6 @@ import { AuthContext } from "../../../context/AuthContext";
 import { ImageLoadContext } from "../../context/ImageLoadContext";
 import messageSound from "../../audio/message.mp3";
 import "../../styles/global.css";
-import useMessage from "../../hooks/useMessage";
 import useScroll from "../../hooks/useScroll";
 
 export default function Room() {
@@ -40,8 +39,7 @@ export default function Room() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [actionType, setActionType] = useState(messagesDataTypes.init);
-
-  const firstLoad = useRef(true);
+  const [firstLoad, setFirstLoad] = useState(true);
 
   const setErrorCallback = useCallback((err) => {
     setError(err);
@@ -69,9 +67,7 @@ export default function Room() {
           return message;
         })
       );
-      if (firstLoad.current) {
-        firstLoad.current = false;
-      }
+      setFirstLoad(false);
     });
 
   useEffect(() => {
