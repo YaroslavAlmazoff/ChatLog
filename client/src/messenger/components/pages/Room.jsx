@@ -50,32 +50,27 @@ export default function Room() {
 
   const id = useMemo(() => params.id, [params]);
 
-  const {
-    register,
-    load,
-    setJustSentMessageLoaded,
-    justSentMessageLoaded,
-    allLoaded,
-  } = useLoad(() => {
-    console.log("callback", actionType);
-    if (!feedRef.current) return;
-    if (
-      actionType === messagesDataTypes.init ||
-      actionType === messagesDataTypes.create
-    ) {
-      console.log("scroll to bottom");
-      scrollToBottom(feedRef);
-    } else if (actionType === messagesDataTypes.load) {
-      console.log(feedRef, currentHeight.current);
-      loadScroll(feedRef, currentHeight.current);
-    }
-    setMessages((prev) =>
-      prev.map((message) => {
-        message.isNew = false;
-        return message;
-      })
-    );
-  });
+  const { register, load, setJustSentMessageLoaded, justSentMessageLoaded } =
+    useLoad(() => {
+      console.log("callback", actionType);
+      if (!feedRef.current) return;
+      if (
+        actionType === messagesDataTypes.init ||
+        actionType === messagesDataTypes.create
+      ) {
+        console.log("scroll to bottom");
+        scrollToBottom(feedRef);
+      } else if (actionType === messagesDataTypes.load) {
+        console.log(feedRef, currentHeight.current);
+        loadScroll(feedRef, currentHeight.current);
+      }
+      setMessages((prev) =>
+        prev.map((message) => {
+          message.isNew = false;
+          return message;
+        })
+      );
+    });
 
   useEffect(() => {
     const getData = async () => {
@@ -92,6 +87,8 @@ export default function Room() {
         const isCreate = messagesData.type === messagesDataTypes.create;
         const isDelete = messagesData.type === messagesDataTypes.delete;
         const isMyAction = messagesData.user === userId;
+
+        console.log("DATA");
 
         setActionType(messagesData.type);
 
@@ -116,8 +113,6 @@ export default function Room() {
             return message;
           });
           setMessages((prev) => [...newMessagesWithNewFlag, ...prev]);
-          if (isLoad && !getMediaExists(newMessagesWithNewFlag)) {
-          }
           setLoading(false);
         }
       };
@@ -166,7 +161,6 @@ export default function Room() {
           ref={feedRef}
           loading={loading}
           setPage={setPage}
-          actionType={actionType}
         />
       </ImageLoadContext.Provider>
       <RoomMainField
