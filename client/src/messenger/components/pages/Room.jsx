@@ -27,7 +27,6 @@ export default function Room() {
   const { getRoom, createEventSource, getMessages } = useAPI();
   const { fileFromServer } = useFile();
   const { playAudio } = useAudio(messageSound);
-  const { getMediaExists } = useMessage();
   const { loadScroll, scrollToBottom } = useScroll();
   const { userId } = useContext(AuthContext);
 
@@ -152,7 +151,6 @@ export default function Room() {
           register,
           load,
           setJustSentMessageLoaded,
-          allLoaded,
           firstLoad,
         }}
       >
