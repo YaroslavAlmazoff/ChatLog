@@ -20,19 +20,16 @@ export default function useLoad(onAllMessagesLoaded) {
 
   useEffect(() => {
     console.log(loaded, registered);
-    if (!registered || registered === loaded) {
+    if (loaded && registered === loaded) {
       onAllMessagesLoaded();
       reset();
     }
   }, [loaded]);
-
-  const allLoaded = loaded && registered === loaded;
 
   return {
     register,
     load,
     setJustSentMessageLoaded,
     justSentMessageLoaded,
-    allLoaded,
   };
 }
