@@ -26,7 +26,7 @@ export default function useLoad(onAllMessagesLoaded) {
     }
   }, [loaded]);
 
-  const allLoaded = !loaded || registered === loaded;
+  const allLoaded = loaded && registered === loaded;
 
   return {
     register,
