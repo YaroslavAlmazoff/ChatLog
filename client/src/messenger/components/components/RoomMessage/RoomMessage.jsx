@@ -17,7 +17,7 @@ export default function RoomMessage({ message, index }) {
   const { scrollToBottom } = useScroll();
 
   useEffect(() => {
-    scrollToBottom();
+    firstLoad && scrollToBottom();
     if (firstLoad ? message.isNew : !message.isNew) {
       register();
       setTimeout(() => {
