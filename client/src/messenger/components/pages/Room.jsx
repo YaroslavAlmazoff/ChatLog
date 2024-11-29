@@ -48,7 +48,7 @@ export default function Room() {
 
   const { register, load, setJustSentMessageLoaded, justSentMessageLoaded } =
     useLoad(() => {
-      console.log("callback", actionType);
+      console.log("callback", actionType, page);
       if (!feedRef.current) return;
       if (
         actionType === messagesDataTypes.init ||
