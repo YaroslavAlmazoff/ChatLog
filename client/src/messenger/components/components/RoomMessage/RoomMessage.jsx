@@ -17,7 +17,9 @@ export default function RoomMessage({ message, index }) {
   useEffect(() => {
     if (firstLoad ? message.isNew : !message.isNew) {
       register();
-      load();
+      setTimeout(() => {
+        load();
+      }, 50);
     }
   }, []);
 
