@@ -20,11 +20,11 @@ export default function useLoad(onAllMessagesLoaded) {
 
   useEffect(() => {
     console.log(loaded, registered);
-    if (registered > 0 || registered === loaded) {
+    if (!registered || registered === loaded) {
       onAllMessagesLoaded();
       reset();
     }
-  }, [loaded, registered]);
+  }, [loaded]);
 
   const allLoaded = !loaded || registered === loaded;
 
