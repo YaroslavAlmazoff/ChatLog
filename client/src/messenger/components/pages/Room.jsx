@@ -40,8 +40,6 @@ export default function Room() {
   const [error, setError] = useState(false);
   const [actionType, setActionType] = useState(messagesDataTypes.init);
 
-  const firstLoad = useRef(true);
-
   const setErrorCallback = useCallback((err) => {
     setError(err);
   }, []);
@@ -69,7 +67,6 @@ export default function Room() {
           return message;
         })
       );
-      setFirstLoad(false);
     });
 
   useEffect(() => {
@@ -152,7 +149,6 @@ export default function Room() {
           register,
           load,
           setJustSentMessageLoaded,
-          firstLoad,
         }}
       >
         <RoomMessages
