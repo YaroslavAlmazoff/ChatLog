@@ -14,7 +14,7 @@ export default function RoomMessageVideo({ video, index, count }) {
   const { openInNewTab } = useWindow();
   const { determineImageFormat } = useImage();
 
-  const { register, load, setJustSentMessageLoaded, firstLoad } =
+  const { register, load, setJustSentMessageLoaded } =
     useContext(ImageLoadContext);
   const { message } = useContext(MessageContext);
   const videoRef = useRef(null);
@@ -23,7 +23,7 @@ export default function RoomMessageVideo({ video, index, count }) {
   const isSingle = getIsSingle(count);
 
   useEffect(() => {
-    if (firstLoad ? message.isNew : !message.isNew) {
+    if (message.isNew) {
       register();
     }
   }, []);
@@ -34,7 +34,7 @@ export default function RoomMessageVideo({ video, index, count }) {
         `room-message-single-video-${determineImageFormat(videoRef.current)}`
       );
     }
-    if (firstLoad ? message.isNew : !message.isNew) {
+    if (message.isNew) {
       load();
     }
     if (message.isJustSent) {
