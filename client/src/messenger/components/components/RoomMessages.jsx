@@ -9,7 +9,7 @@ export default forwardRef(function RoomMessages(
   const messagesEndRef = useRef(null);
 
   useObserver(messagesEndRef, true, loading, () => {
-    setPage((prev) => prev + 1);
+    setTimeout(() => setPage((prev) => prev + 1), 50);
   });
 
   return (
