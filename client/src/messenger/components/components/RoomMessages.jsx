@@ -1,8 +1,6 @@
 import { useRef, forwardRef, useContext } from "react";
 import RoomMessage from "./RoomMessage/RoomMessage";
 import { useObserver } from "../../../common_hooks/observer.hook";
-import { ImageLoadContext } from "../../context/ImageLoadContext";
-import { messagesDataTypes } from "../../data/messengerConfiguration";
 
 export default forwardRef(function RoomMessages(
   { messages, loading, setPage },
@@ -10,12 +8,8 @@ export default forwardRef(function RoomMessages(
 ) {
   const messagesEndRef = useRef(null);
 
-  const { firstLoad } = useContext(ImageLoadContext);
-
   useObserver(messagesEndRef, true, loading, () => {
-    if (!firstLoad) {
-      setPage((prev) => prev + 1);
-    }
+    setPage((prev) => prev + 1);
   });
 
   return (

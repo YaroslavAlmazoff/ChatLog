@@ -39,7 +39,8 @@ export default function Room() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [actionType, setActionType] = useState(messagesDataTypes.init);
-  const [firstLoad, setFirstLoad] = useState(true);
+
+  const firstLoad = useRef(true);
 
   const setErrorCallback = useCallback((err) => {
     setError(err);
@@ -53,7 +54,8 @@ export default function Room() {
       if (!feedRef.current) return;
       if (
         actionType === messagesDataTypes.init ||
-        actionType === messagesDataTypes.create
+        actionType === messagesDataTypes.create ||
+        (actionType === messagesDataTypes.load && page <= 3)
       ) {
         console.log("scroll to bottom");
         scrollToBottom(feedRef);
