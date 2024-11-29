@@ -8,16 +8,13 @@ import "../../../styles/RoomMessage.css";
 import "../../../styles/RoomMessageMedia.css";
 import { ImageLoadContext } from "../../../context/ImageLoadContext";
 import { MessageContext } from "../../../context/MessageContext";
-import useScroll from "../../../hooks/useScroll";
 
 export default function RoomMessage({ message, index }) {
   const { fileFromServer } = useFile();
   const [showActions, setShowActions] = useState(false);
   const { register, load, firstLoad } = useContext(ImageLoadContext);
-  const { scrollToBottom } = useScroll();
 
   useEffect(() => {
-    firstLoad && scrollToBottom();
     if (firstLoad ? message.isNew : !message.isNew) {
       register();
       setTimeout(() => {
