@@ -1,6 +1,7 @@
-import { useRef, forwardRef } from "react";
+import { useRef, forwardRef, useContext } from "react";
 import RoomMessage from "./RoomMessage/RoomMessage";
 import { useObserver } from "../../../common_hooks/observer.hook";
+import { ImageLoadContext } from "../../context/ImageLoadContext";
 
 export default forwardRef(function RoomMessages(
   { messages, loading, setPage },
@@ -8,8 +9,12 @@ export default forwardRef(function RoomMessages(
 ) {
   const messagesEndRef = useRef(null);
 
+  const { firstLoad } = useContext(ImageLoadContext);
+
   useObserver(messagesEndRef, true, loading, () => {
-    setTimeout(() => setPage((prev) => prev + 1), 50);
+    if (!firstLoad) {
+      setPage((prev) => prev + 1);
+    }
   });
 
   return (

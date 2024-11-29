@@ -69,6 +69,9 @@ export default function Room() {
           return message;
         })
       );
+      if (firstLoad) {
+        firstLoad.current = false;
+      }
     });
 
   useEffect(() => {
