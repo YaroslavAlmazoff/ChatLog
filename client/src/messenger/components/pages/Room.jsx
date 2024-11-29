@@ -69,7 +69,7 @@ export default function Room() {
           return message;
         })
       );
-      if (firstLoad) {
+      if (firstLoad.current) {
         firstLoad.current = false;
       }
     });
