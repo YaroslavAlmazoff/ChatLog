@@ -63,6 +63,7 @@ export default function Room() {
       actionType === messagesDataTypes.init ||
       actionType === messagesDataTypes.create
     ) {
+      console.log("scroll to bottom");
       scrollToBottom(feedRef);
     } else if (actionType === messagesDataTypes.load) {
       console.log(feedRef, currentHeight.current);
@@ -104,9 +105,6 @@ export default function Room() {
           } else {
             playAudio();
           }
-          if (!getMediaExists(newMessages)) {
-            scrollToBottom(feedRef);
-          }
         } else if (isDelete) {
           setMessages((prev) =>
             prev.filter((message) => message._id !== newMessages[0]._id)
@@ -141,12 +139,6 @@ export default function Room() {
       setJustSentMessageLoaded(false);
     }
   }, [justSentMessageLoaded]);
-
-  useEffect(() => {
-    if (actionType === messagesDataTypes.load) {
-      loadScroll(feedRef, currentHeight.current);
-    }
-  }, [messages, actionType]);
 
   return (
     <div
