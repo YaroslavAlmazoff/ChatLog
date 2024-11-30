@@ -127,6 +127,7 @@ export default function Room() {
 
   useEffect(() => {
     if (justSentMessageLoaded) {
+      console.log("just", justSentMessageLoaded);
       scrollToBottom(feedRef);
       setJustSentMessageLoaded(false);
     }
