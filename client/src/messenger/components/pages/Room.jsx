@@ -93,6 +93,7 @@ export default function Room() {
 
         if (isCreate) {
           newMessages[0].isJustSent = true;
+          newMessages[0].isNew = true;
           setMessages((prev) => [...prev, ...newMessages]);
           if (isMyAction) {
             setLoading(false);
