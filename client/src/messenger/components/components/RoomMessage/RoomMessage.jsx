@@ -12,10 +12,10 @@ import { MessageContext } from "../../../context/MessageContext";
 export default function RoomMessage({ message, index }) {
   const { fileFromServer } = useFile();
   const [showActions, setShowActions] = useState(false);
-  const { register, load, firstLoad } = useContext(ImageLoadContext);
+  const { register, load } = useContext(ImageLoadContext);
 
   useEffect(() => {
-    if (firstLoad ? message.isNew : !message.isNew) {
+    if (message.isNew) {
       register();
       setTimeout(() => {
         load();
