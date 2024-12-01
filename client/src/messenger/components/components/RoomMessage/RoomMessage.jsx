@@ -4,10 +4,10 @@ import useFile from "../../../hooks/useFile";
 import RoomMessageActions from "./RoomMessageActions";
 import RoomMessageImages from "./RoomMessageImages";
 import RoomMessageVideos from "./RoomMessageVideos";
-import "../../../styles/RoomMessage.css";
-import "../../../styles/RoomMessageMedia.css";
 import { ImageLoadContext } from "../../../context/ImageLoadContext";
 import { MessageContext } from "../../../context/MessageContext";
+import "../../../styles/RoomMessage.css";
+import "../../../styles/RoomMessageMedia.css";
 
 export default function RoomMessage({ message, index }) {
   const { fileFromServer } = useFile();

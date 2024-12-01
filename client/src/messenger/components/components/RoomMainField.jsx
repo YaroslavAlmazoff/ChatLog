@@ -69,6 +69,8 @@ export default function RoomMainField({ setOffset, error, setErrorCallback }) {
     selectVideoRef.current.click();
   };
 
+  const handleChangeBackground = () => {};
+
   const addSmile = (code) => {
     messageFieldRef.current.value = messageFieldRef.current.value + code;
     messageFieldRef.current.focus();
@@ -86,6 +88,7 @@ export default function RoomMainField({ setOffset, error, setErrorCallback }) {
         )}
         {canChooseVideo && <span onClick={handleOpenVideoSelect}>Видео</span>}
         <span>Голосовое сообщение</span>
+        <span>Изменить фон</span>
         <img
           onClick={openSmiles}
           src={smile}

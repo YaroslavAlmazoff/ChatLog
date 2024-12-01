@@ -37,9 +37,9 @@ export default function RoomMessageVideo({ video, index, count }) {
     if (message.isNew) {
       load();
     }
-    if (message.isJustSent) {
-      setJustSentMessageLoaded(true);
-    }
+    // if (message.isJustSent) {
+    //   setJustSentMessageLoaded(true);
+    // }
   };
 
   return (
