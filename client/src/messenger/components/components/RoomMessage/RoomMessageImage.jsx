@@ -13,8 +13,7 @@ export default function RoomMessageImage({ image, index, count }) {
   const { openInNewTab } = useWindow();
   const { determineImageFormat } = useImage();
 
-  const { register, load, setJustSentMessageLoaded } =
-    useContext(ImageLoadContext);
+  const { register, load } = useContext(ImageLoadContext);
   const { message } = useContext(MessageContext);
   const imageRef = useRef(null);
 
@@ -33,12 +32,10 @@ export default function RoomMessageImage({ image, index, count }) {
         `room-message-single-image-${determineImageFormat(imageRef.current)}`
       );
     }
+    console.log(message.isNew);
     if (message.isNew) {
       load();
     }
-    // if (message.isJustSent) {
-    //   setJustSentMessageLoaded(true);
-    // }
   };
 
   return (

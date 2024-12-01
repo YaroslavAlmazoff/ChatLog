@@ -46,28 +46,27 @@ export default function Room() {
 
   const id = useMemo(() => params.id, [params]);
 
-  const { register, load, setJustSentMessageLoaded, justSentMessageLoaded } =
-    useLoad(() => {
-      console.log("callback", actionType, page);
-      if (!feedRef.current) return;
-      if (
-        actionType === messagesDataTypes.init ||
-        actionType === messagesDataTypes.create ||
-        (actionType === messagesDataTypes.load && page < 3)
-      ) {
-        console.log("scroll to bottom");
-        scrollToBottom(feedRef);
-      } else if (actionType === messagesDataTypes.load) {
-        console.log(feedRef, currentHeight.current);
-        loadScroll(feedRef, currentHeight.current);
-      }
-      setMessages((prev) =>
-        prev.map((message) => {
-          message.isNew = false;
-          return message;
-        })
-      );
-    });
+  const { register, load } = useLoad(() => {
+    console.log("callback", actionType, page);
+    if (!feedRef.current) return;
+    if (
+      actionType === messagesDataTypes.init ||
+      actionType === messagesDataTypes.create ||
+      (actionType === messagesDataTypes.load && page < 3)
+    ) {
+      console.log("scroll to bottom");
+      scrollToBottom(feedRef);
+    } else if (actionType === messagesDataTypes.load) {
+      console.log(feedRef, currentHeight.current);
+      loadScroll(feedRef, currentHeight.current);
+    }
+    setMessages((prev) =>
+      prev.map((message) => {
+        message.isNew = false;
+        return message;
+      })
+    );
+  });
 
   useEffect(() => {
     const getData = async () => {
@@ -126,14 +125,6 @@ export default function Room() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, getMessages]);
 
-  // useEffect(() => {
-  //   if (justSentMessageLoaded) {
-  //     console.log("just", justSentMessageLoaded);
-  //     scrollToBottom(feedRef);
-  //     setJustSentMessageLoaded(false);
-  //   }
-  // }, [justSentMessageLoaded]);
-
   return (
     <div
       className="block room-size room"
@@ -146,13 +137,7 @@ export default function Room() {
         onlineDate={room.date}
         isOnline={room.isOnline}
       />
-      <ImageLoadContext.Provider
-        value={{
-          register,
-          load,
-          setJustSentMessageLoaded,
-        }}
-      >
+      <ImageLoadContext.Provider value={{ register, load }}>
         <RoomMessages
           messages={messages}
           ref={feedRef}

@@ -3,7 +3,6 @@ import { useCallback, useEffect, useState } from "react";
 export default function useLoad(onAllMessagesLoaded) {
   const [registered, setRegistered] = useState(0);
   const [loaded, setLoaded] = useState(0);
-  const [justSentMessageLoaded, setJustSentMessageLoaded] = useState(false);
 
   const register = useCallback(() => {
     setRegistered((prev) => prev + 1);
@@ -26,10 +25,5 @@ export default function useLoad(onAllMessagesLoaded) {
     }
   }, [loaded]);
 
-  return {
-    register,
-    load,
-    setJustSentMessageLoaded,
-    justSentMessageLoaded,
-  };
+  return { register, load };
 }
