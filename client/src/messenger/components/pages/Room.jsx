@@ -126,13 +126,13 @@ export default function Room() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, getMessages]);
 
-  useEffect(() => {
-    if (justSentMessageLoaded) {
-      console.log("just", justSentMessageLoaded);
-      scrollToBottom(feedRef);
-      setJustSentMessageLoaded(false);
-    }
-  }, [justSentMessageLoaded]);
+  // useEffect(() => {
+  //   if (justSentMessageLoaded) {
+  //     console.log("just", justSentMessageLoaded);
+  //     scrollToBottom(feedRef);
+  //     setJustSentMessageLoaded(false);
+  //   }
+  // }, [justSentMessageLoaded]);
 
   return (
     <div
