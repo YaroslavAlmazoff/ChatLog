@@ -12,17 +12,14 @@ import "../../../styles/RoomMessageMedia.css";
 export default function RoomMessage({ message, index }) {
   const { fileFromServer } = useFile();
   const [showActions, setShowActions] = useState(false);
-  const { register, load, setJustSendMessageLoaded } =
-    useContext(ImageLoadContext);
+  const { register, load } = useContext(ImageLoadContext);
 
   useEffect(() => {
+    console.log(message.isNew);
     if (message.isNew) {
       register();
       setTimeout(() => {
         load();
-        if (message.isJustSent) {
-          setJustSendMessageLoaded(true);
-        }
       }, 50);
     }
   }, []);
