@@ -15,11 +15,12 @@ export default function RoomMessage({ message, index }) {
   const { register, load } = useContext(ImageLoadContext);
 
   useEffect(() => {
-    console.log(message.isNew);
     if (message.isNew) {
       register();
+      console.log("registered " + message.message);
       setTimeout(() => {
         load();
+        console.log("loaded " + message.message);
       }, 50);
     }
   }, []);

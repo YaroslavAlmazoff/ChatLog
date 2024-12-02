@@ -24,6 +24,7 @@ export default function RoomMessageVideo({ video, index, count }) {
   useEffect(() => {
     if (message.isNew) {
       register();
+      console.log("registered " + message.message);
     }
   }, []);
 
@@ -33,9 +34,9 @@ export default function RoomMessageVideo({ video, index, count }) {
         `room-message-single-video-${determineImageFormat(videoRef.current)}`
       );
     }
-    console.log(message.isNew);
     if (message.isNew) {
       load();
+      console.log("loaded " + message.message);
     }
   };
 
