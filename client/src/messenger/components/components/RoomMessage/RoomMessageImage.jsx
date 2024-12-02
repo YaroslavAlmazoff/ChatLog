@@ -33,6 +33,7 @@ export default function RoomMessageImage({ image, index, count }) {
         `room-message-single-image-${determineImageFormat(imageRef.current)}`
       );
     }
+    console.log(image, "LOADED", message.isNew);
     if (message.isNew) {
       load();
       console.log("loaded " + image);
