@@ -39,6 +39,7 @@ export default function Room() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [actionType, setActionType] = useState(messagesDataTypes.init);
+  const [firstLoading, setFirstLoading] = useState(true);
 
   const setErrorCallback = useCallback((err) => {
     setError(err);
@@ -60,12 +61,16 @@ export default function Room() {
       console.log(feedRef, currentHeight.current);
       loadScroll(feedRef, currentHeight.current);
     }
-    setMessages((prev) =>
-      prev.map((message) => {
-        message.isNew = false;
-        return message;
-      })
-    );
+    if (!firstLoading) {
+      setMessages((prev) =>
+        prev.map((message) => {
+          message.isNew = false;
+          return message;
+        })
+      );
+    } else if (actionType === messagesDataTypes.load) {
+      setFirstLoading(false);
+    }
   });
 
   useEffect(() => {
