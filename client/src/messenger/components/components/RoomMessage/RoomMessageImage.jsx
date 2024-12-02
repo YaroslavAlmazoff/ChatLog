@@ -23,7 +23,7 @@ export default function RoomMessageImage({ image, index, count }) {
   useEffect(() => {
     if (message.isNew) {
       register();
-      console.log("registered " + message.message);
+      console.log("registered " + image);
     }
   }, []);
 
