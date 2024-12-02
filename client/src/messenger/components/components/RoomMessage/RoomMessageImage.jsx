@@ -23,6 +23,7 @@ export default function RoomMessageImage({ image, index, count }) {
   useEffect(() => {
     if (message.isNew) {
       register();
+      console.log("registered " + message.message);
     }
   }, []);
 
@@ -32,9 +33,9 @@ export default function RoomMessageImage({ image, index, count }) {
         `room-message-single-image-${determineImageFormat(imageRef.current)}`
       );
     }
-    console.log(message.isNew);
     if (message.isNew) {
       load();
+      console.log("loaded " + message.message);
     }
   };
 
