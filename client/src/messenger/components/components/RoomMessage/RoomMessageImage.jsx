@@ -35,7 +35,7 @@ export default function RoomMessageImage({ image, index, count }) {
     }
     if (message.isNew) {
       load();
-      console.log("loaded " + message.message);
+      console.log("loaded " + image);
     }
   };
 

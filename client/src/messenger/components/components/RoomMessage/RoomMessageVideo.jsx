@@ -36,7 +36,7 @@ export default function RoomMessageVideo({ video, index, count }) {
     }
     if (message.isNew) {
       load();
-      console.log("loaded " + message.message);
+      console.log("loaded " + video);
     }
   };
 
