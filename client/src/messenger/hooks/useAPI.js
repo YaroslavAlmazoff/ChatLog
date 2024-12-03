@@ -105,13 +105,10 @@ export default function useAPI(openModal, setErrorCallback) {
   );
 
   const read = useCallback(
-    async (messages) => {
+    async (messages, roomId) => {
       const lastMessage = messages[messages.length - 1];
       if (lastMessage.user !== userId) {
-        const response = await api.get(
-          `${prefix}/read/${lastMessage._id}`,
-          options
-        );
+        const response = await api.get(`${prefix}/read/${roomId}`, options);
         console.log(response);
       }
     },
