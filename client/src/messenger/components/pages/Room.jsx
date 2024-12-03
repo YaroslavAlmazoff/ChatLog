@@ -95,7 +95,7 @@ export default function Room() {
         currentHeight.current = feedRef.current.scrollHeight;
 
         if (isInit) {
-          read(newMessages);
+          read(newMessages, id);
         }
 
         if (isCreate) {
