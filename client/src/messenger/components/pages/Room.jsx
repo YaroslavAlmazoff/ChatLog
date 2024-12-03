@@ -23,7 +23,7 @@ import useScroll from "../../hooks/useScroll";
 
 export default function Room() {
   const params = useParams();
-  const { getRoom, createEventSource, getMessages } = useAPI();
+  const { getRoom, createEventSource, getMessages, read } = useAPI();
   const { fileFromServer } = useFile();
   const { playAudio } = useAudio(messageSound);
   const { loadScroll, scrollToBottom } = useScroll();
@@ -74,11 +74,10 @@ export default function Room() {
   });
 
   useEffect(() => {
-    const getData = async () => {
+    const getDataAndStartEventSource = async () => {
       const { room } = await getRoom(id);
       setRoom(room);
-    };
-    const startEventSource = () => {
+
       const eventSource = createEventSource(id);
       eventSource.onmessage = function (event) {
         const messagesData = JSON.parse(event.data);
@@ -94,6 +93,10 @@ export default function Room() {
         setActionType(messagesData.type);
 
         currentHeight.current = feedRef.current.scrollHeight;
+
+        if (isInit) {
+          read(newMessages);
+        }
 
         if (isCreate) {
           newMessages[0].isJustSent = true;
@@ -119,8 +122,7 @@ export default function Room() {
         }
       };
     };
-    getData();
-    startEventSource();
+    getDataAndStartEventSource();
   }, [createEventSource, getRoom, playAudio, id, userId]);
 
   useEffect(() => {
