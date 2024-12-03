@@ -14,7 +14,7 @@ import useAPI from "../../hooks/useAPI";
 import useFile from "../../hooks/useFile";
 import useLoad from "../../hooks/useLoad";
 import useAudio from "../../hooks/useAudio";
-import { messagesDataTypes } from "../../data/messengerConfiguration";
+import { folders, messagesDataTypes } from "../../data/messengerConfiguration";
 import { AuthContext } from "../../../context/AuthContext";
 import { ImageLoadContext } from "../../context/ImageLoadContext";
 import messageSound from "../../audio/message.mp3";
@@ -136,7 +136,9 @@ export default function Room() {
     <div
       className="block room-size room"
       style={{
-        backgroundImage: room.bg ? `url(${fileFromServer(room.bg)})` : "",
+        backgroundImage: room.bg
+          ? `url(${fileFromServer(folders.bg, room.bg)})`
+          : "",
       }}
     >
       <RoomHead
