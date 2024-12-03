@@ -115,6 +115,15 @@ export default function useAPI(openModal, setErrorCallback) {
     [options]
   );
 
+  const uploadBg = useCallback(
+    async (file, roomId) => {
+      const formData = new FormData();
+      formData.append("file", file);
+      await api.post(`${prefix}/uploadbg/${roomId}`, formData, options);
+    },
+    [options]
+  );
+
   return {
     createEventSource,
     sendMessage,
@@ -122,5 +131,6 @@ export default function useAPI(openModal, setErrorCallback) {
     getMessages,
     deleteMessage,
     read,
+    uploadBg,
   };
 }
