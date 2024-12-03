@@ -449,7 +449,6 @@ class MessengerService {
   async uploadBg(req, res) {
     const filename = uuid.v4() + ".jpg";
     const room = await Room.findByIdAndUpdate(req.params.id, { bg: filename });
-    console.log(room);
     FileService.insertRoomBackground(req.files.file, filename);
     res.json({ filename });
   }
