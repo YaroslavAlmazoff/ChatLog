@@ -79,8 +79,8 @@ export default function RoomMainField({
     selectBackgroundRef.current.click();
   };
 
-  const getBackgroundImage = (e) => {
-    const bg = uploadBg(e.target.files[0], id);
+  const getBackgroundImage = async (e) => {
+    const bg = await uploadBg(e.target.files[0], id);
     setRoom((prev) => ({ ...prev, bg }));
   };
 
