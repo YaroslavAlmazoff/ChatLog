@@ -1,5 +1,10 @@
 @import url("./colors.css");
 
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #40a4ff transparent;
+}
+
 .block-success {
   animation-name: glow-success;
   animation-duration: 2s;
