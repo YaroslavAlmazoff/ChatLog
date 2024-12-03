@@ -75,6 +75,7 @@ export default function RoomMainField({ setOffset, error, setErrorCallback }) {
   };
 
   const getBackgroundImage = (e) => {
+    console.log("upload bg");
     uploadBg(e.target.files[0], id);
   };
 
