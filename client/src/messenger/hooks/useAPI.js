@@ -4,6 +4,7 @@ import { AuthContext } from "../../context/AuthContext";
 import { useCallback, useContext, useMemo } from "react";
 import { messengerErrors } from "../data/errors";
 import useFile from "./useFile";
+import auth from "../../auth/api/auth";
 
 const prefix = "/api";
 
@@ -103,11 +104,26 @@ export default function useAPI(openModal, setErrorCallback) {
     [options]
   );
 
+  const read = useCallback(
+    async (messages) => {
+      const lastMessage = messages[messages.length - 1];
+      if (lastMessage.user !== userId) {
+        const response = await api.get(
+          `${prefix}/read/${lastMessage._id}`,
+          options
+        );
+        console.log(response);
+      }
+    },
+    [options]
+  );
+
   return {
     createEventSource,
     sendMessage,
     getRoom,
     getMessages,
     deleteMessage,
+    read,
   };
 }
