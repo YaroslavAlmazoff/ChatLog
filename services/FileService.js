@@ -109,7 +109,7 @@ class FileService {
     return filename;
   }
   async insertRoomBackground(file, filename) {
-    ImageService.saveFile(file, filename, "roombackgrounds");
+    ImageService.saveFile(file, filename, "room-backgrounds");
     return filename;
   }
   async insertAstronomicalEvent(file, filename) {
