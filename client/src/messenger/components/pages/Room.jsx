@@ -153,6 +153,7 @@ export default function Room() {
         />
       </ImageLoadContext.Provider>
       <RoomMainField
+        setRoom={setRoom}
         setOffset={setOffset}
         error={error}
         setErrorCallback={setErrorCallback}

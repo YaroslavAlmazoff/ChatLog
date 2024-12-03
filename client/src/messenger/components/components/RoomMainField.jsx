@@ -18,7 +18,12 @@ const initialState = {
   audioFile: null,
 };
 
-export default function RoomMainField({ setOffset, error, setErrorCallback }) {
+export default function RoomMainField({
+  setRoom,
+  setOffset,
+  error,
+  setErrorCallback,
+}) {
   const [modalContent, setModalContent] = useState(null);
 
   const openModal = (content) => {
@@ -75,8 +80,8 @@ export default function RoomMainField({ setOffset, error, setErrorCallback }) {
   };
 
   const getBackgroundImage = (e) => {
-    console.log("upload bg");
-    uploadBg(e.target.files[0], id);
+    const bg = uploadBg(e.target.files[0], id);
+    setRoom((prev) => ({ ...prev, bg }));
   };
 
   const addSmile = (code) => {
