@@ -120,7 +120,12 @@ export default function useAPI(openModal, setErrorCallback) {
       const formData = new FormData();
       formData.append("file", file);
       console.log("file ", file);
-      await api.post(`${prefix}/uploadbg/${roomId}`, formData, options);
+      const response = await api.post(
+        `${prefix}/uploadbg/${roomId}`,
+        formData,
+        options
+      );
+      console.log(response);
     },
     [options]
   );
