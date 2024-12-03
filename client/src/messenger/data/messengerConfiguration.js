@@ -12,6 +12,7 @@ export const folders = {
   images: "message-images",
   videos: "message-videos",
   audios: "message-audios",
+  bg: "room-backgrounds",
 };
 
 export const actionsAnimationClasses = {
