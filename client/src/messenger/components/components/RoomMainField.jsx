@@ -30,13 +30,14 @@ export default function RoomMainField({ setOffset, error, setErrorCallback }) {
     setModalContent(null);
   };
 
-  const { sendMessage } = useAPI(openModal, setErrorCallback);
+  const { sendMessage, uploadBg } = useAPI(openModal, setErrorCallback);
   const { fileTypes } = useFile();
   const { id } = useParams();
 
   const messageFieldRef = useRef();
   const selectImageRef = useRef();
   const selectVideoRef = useRef();
+  const selectBackgroundRef = useRef();
 
   const [files, setFiles] = useState(initialState);
   const [canChooseImage, setCanChooseImage] = useState(true);
@@ -69,7 +70,13 @@ export default function RoomMainField({ setOffset, error, setErrorCallback }) {
     selectVideoRef.current.click();
   };
 
-  const handleChangeBackground = () => {};
+  const handleChangeBackground = () => {
+    selectBackgroundRef.current.click();
+  };
+
+  const getBackgroundImage = (e) => {
+    uploadBg(e.target.files[0], id);
+  };
 
   const addSmile = (code) => {
     messageFieldRef.current.value = messageFieldRef.current.value + code;
@@ -88,7 +95,7 @@ export default function RoomMainField({ setOffset, error, setErrorCallback }) {
         )}
         {canChooseVideo && <span onClick={handleOpenVideoSelect}>Видео</span>}
         <span>Голосовое сообщение</span>
-        <span>Изменить фон</span>
+        <span onClick={handleChangeBackground}>Изменить фон</span>
         <img
           onClick={openSmiles}
           src={smile}
@@ -108,6 +115,12 @@ export default function RoomMainField({ setOffset, error, setErrorCallback }) {
           type="file"
           accept=".mp4"
           multiple
+        />
+        <input
+          onChange={(e) => getBackgroundImage(e)}
+          ref={selectBackgroundRef}
+          type="file"
+          accept=".jpg,.jpeg,.png,.gif"
         />
       </div>
       <div className="message-field-wrapper">
