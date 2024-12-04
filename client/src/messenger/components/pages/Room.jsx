@@ -135,10 +135,8 @@ export default function Room() {
   }, [page, getMessages]);
 
   useEffect(() => {
-    setTimeout(() => {
-      console.log(messages);
-    }, 5000);
-  }, []);
+    console.log(messages);
+  }, [messages]);
 
   return (
     <div
