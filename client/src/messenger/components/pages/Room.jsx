@@ -117,6 +117,9 @@ export default function Room() {
             message.isNew = true;
             return message;
           });
+          newMessagesWithNewFlag.forEach(() => {
+            register();
+          });
           setMessages((prev) => [...newMessagesWithNewFlag, ...prev]);
           setLoading(false);
         }
