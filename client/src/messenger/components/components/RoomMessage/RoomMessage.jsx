@@ -72,11 +72,11 @@ export default function RoomMessage({ message, index }) {
           <span className="room-message-text">{message.message}</span>
           <RoomMessageImages
             images={message.images}
-            onImageLoad={onImageLoaded}
+            onImageLoaded={onImageLoaded}
           />
           <RoomMessageVideos
             videos={message.videos}
-            onVideoLoad={onVideoLoaded}
+            onVideoLoaded={onVideoLoaded}
           />
         </div>
         <CSSTransition
