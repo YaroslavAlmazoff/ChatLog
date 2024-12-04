@@ -63,10 +63,10 @@ export default function Room() {
     }
     if (!firstLoading) {
       setMessages((prev) =>
-        prev.map((message) => {
-          message.isNew = false;
-          return message;
-        })
+        prev.map((message) => ({
+          ...message,
+          isNew: false,
+        }))
       );
     } else if (actionType === messagesDataTypes.load) {
       setFirstLoading(false);
