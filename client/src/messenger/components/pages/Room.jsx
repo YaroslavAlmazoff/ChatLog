@@ -56,7 +56,7 @@ export default function Room() {
       console.log("scroll to bottom");
       scrollToBottom(feedRef);
     } else if (actionType === messagesDataTypes.load) {
-      console.log(feedRef.scrollHeight, currentHeight.current);
+      console.log(feedRef.current.scrollHeight, currentHeight.current);
       loadScroll(feedRef, currentHeight.current);
     }
   });
@@ -107,10 +107,10 @@ export default function Room() {
           );
           setOffset((prev) => prev - 1);
         } else if ((isInit || isLoad) && isMyAction) {
-          const newMessagesWithNewFlag = newMessages.map((message) => {
-            message.isNew = true;
-            return message;
-          });
+          const newMessagesWithNewFlag = newMessages.map((message) => ({
+            ...message,
+            isNew: true,
+          }));
           newMessagesWithNewFlag.forEach(() => {
             register();
           });
