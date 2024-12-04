@@ -68,9 +68,8 @@ export default function Room() {
           isNew: false,
         }))
       );
-    } else if (actionType === messagesDataTypes.init) {
-      setFirstLoading(false);
     }
+    setFirstLoading(false);
   });
 
   useEffect(() => {
@@ -136,8 +135,10 @@ export default function Room() {
   }, [page, getMessages]);
 
   useEffect(() => {
-    console.log(messages);
-  }, [messages]);
+    setTimeout(() => {
+      console.log(messages);
+    }, 5000);
+  }, []);
 
   return (
     <div
