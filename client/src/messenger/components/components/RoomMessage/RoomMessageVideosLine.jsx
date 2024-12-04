@@ -1,6 +1,6 @@
 import RoomMessageVideo from "./RoomMessageVideo";
 
-export default function RoomMessageVideosLine({ videosLine }) {
+export default function RoomMessageVideosLine({ videosLine, onVideoLoaded }) {
   const length = videosLine.length;
   if (!length) return null;
 
@@ -12,6 +12,7 @@ export default function RoomMessageVideosLine({ videosLine }) {
           index={index}
           count={length}
           key={video}
+          onVideoLoaded={onVideoLoaded}
         />
       ))}
     </div>

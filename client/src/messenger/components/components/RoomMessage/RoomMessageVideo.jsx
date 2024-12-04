@@ -7,7 +7,12 @@ import { folders } from "../../../data/messengerConfiguration";
 import { ImageLoadContext } from "../../../context/ImageLoadContext";
 import { MessageContext } from "../../../context/MessageContext";
 
-export default function RoomMessageVideo({ video, index, count }) {
+export default function RoomMessageVideo({
+  video,
+  index,
+  count,
+  onVideoLoaded,
+}) {
   const { getIsLast, getIsSingle } = useList();
 
   const { fileFromServer } = useFile();
@@ -36,7 +41,7 @@ export default function RoomMessageVideo({ video, index, count }) {
     }
     if (message.isNew) {
       load();
-      console.log("loaded " + video);
+      onVideoLoaded();
     }
   };
 
