@@ -68,7 +68,7 @@ export default function Room() {
           isNew: false,
         }))
       );
-    } else if (actionType === messagesDataTypes.load) {
+    } else if (actionType === messagesDataTypes.init) {
       setFirstLoading(false);
     }
   });
