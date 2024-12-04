@@ -16,12 +16,12 @@ export default function RoomMessage({ message, index }) {
 
   useEffect(() => {
     if (message.isNew) {
-      register();
-      console.log("registered " + message.message);
-      setTimeout(() => {
-        load();
-        console.log("loaded " + message.message);
-      }, 50);
+      //register();
+      //console.log("registered " + message.message);
+      // setTimeout(() => {
+      load();
+      console.log("loaded " + message.message);
+      // }, 50);
     }
   }, []);
 
