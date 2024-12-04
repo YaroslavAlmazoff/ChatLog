@@ -21,6 +21,7 @@ export default function useLoad(onAllMessagesLoaded) {
     console.log(loaded, registered);
     if (loaded && registered === loaded) {
       onAllMessagesLoaded();
+      reset();
     }
   }, [loaded]);
 

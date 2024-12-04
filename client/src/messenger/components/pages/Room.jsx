@@ -39,7 +39,6 @@ export default function Room() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [actionType, setActionType] = useState(messagesDataTypes.init);
-  const [firstLoading, setFirstLoading] = useState(true);
 
   const setErrorCallback = useCallback((err) => {
     setError(err);
@@ -61,15 +60,12 @@ export default function Room() {
       console.log(feedRef, currentHeight.current);
       loadScroll(feedRef, currentHeight.current);
     }
-    if (!firstLoading) {
-      setMessages((prev) =>
-        prev.map((message) => ({
-          ...message,
-          isNew: false,
-        }))
-      );
-    }
-    setFirstLoading(false);
+    setMessages((prev) =>
+      prev.map((message) => ({
+        ...message,
+        isNew: false,
+      }))
+    );
   });
 
   useEffect(() => {
@@ -86,8 +82,6 @@ export default function Room() {
         const isCreate = messagesData.type === messagesDataTypes.create;
         const isDelete = messagesData.type === messagesDataTypes.delete;
         const isMyAction = messagesData.user === userId;
-
-        console.log("DATA");
 
         setActionType(messagesData.type);
 
