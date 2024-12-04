@@ -51,8 +51,7 @@ export default function Room() {
     if (!feedRef.current) return;
     if (
       actionType === messagesDataTypes.init ||
-      actionType === messagesDataTypes.create ||
-      (actionType === messagesDataTypes.load && page < 3)
+      actionType === messagesDataTypes.create
     ) {
       console.log("scroll to bottom");
       scrollToBottom(feedRef);
