@@ -1,7 +1,7 @@
 import { videosInLine } from "../../../data/messengerConfiguration";
 import RoomMessageVideosLine from "./RoomMessageVideosLine";
 
-export default function RoomMessageVideos({ videos }) {
+export default function RoomMessageVideos({ videos, onVideoLoaded }) {
   const length = videos.length;
   if (!length) return null;
 
@@ -14,7 +14,11 @@ export default function RoomMessageVideos({ videos }) {
   return (
     <div className="room-message-videos">
       {lines.map((line) => (
-        <RoomMessageVideosLine videosLine={line} key={JSON.stringify(line)} />
+        <RoomMessageVideosLine
+          videosLine={line}
+          key={JSON.stringify(line)}
+          onVideoLoaded={onVideoLoaded}
+        />
       ))}
     </div>
   );

@@ -1,7 +1,7 @@
 import RoomMessageImagesLine from "./RoomMessageImagesLine";
 import { imagesInLine } from "../../../data/messengerConfiguration";
 
-export default function RoomMessageImages({ images }) {
+export default function RoomMessageImages({ images, onImageLoaded }) {
   const length = images.length;
   if (!length) return null;
 
@@ -19,6 +19,7 @@ export default function RoomMessageImages({ images }) {
           index={index}
           count={length}
           key={JSON.stringify(line)}
+          onImageLoaded={onImageLoaded}
         />
       ))}
     </div>

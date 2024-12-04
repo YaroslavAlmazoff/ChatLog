@@ -12,18 +12,42 @@ import "../../../styles/RoomMessageMedia.css";
 export default function RoomMessage({ message, index }) {
   const { fileFromServer } = useFile();
   const [showActions, setShowActions] = useState(false);
-  const { register, load } = useContext(ImageLoadContext);
+  const { makeMessageOld, load } = useContext(ImageLoadContext);
+
+  const [loadedImages, setLoadedImages] = useState(0);
+  const [loadedVideos, setLoadedVideos] = useState(0);
+
+  const [allImagesLoaded, setAllImagesLoaded] = useState(false);
+  const [allVideosLoaded, setAllVideosLoaded] = useState(false);
 
   useEffect(() => {
     if (message.isNew) {
-      //register();
-      //console.log("registered " + message.message);
-      // setTimeout(() => {
       load();
-      console.log("loaded " + message.message);
-      // }, 50);
+      if (!message.images.length && !message.videos.length) {
+        makeMessageOld(message);
+      }
     }
   }, []);
+
+  const onImageLoaded = () => {
+    setLoadedImages((prev) => prev + 1);
+    if (loadedImages + 1 === message.images.length) {
+      setAllImagesLoaded(true);
+    }
+  };
+
+  const onVideoLoaded = () => {
+    setLoadedVideos((prev) => prev + 1);
+    if (loadedVideos + 1 === message.videos.length) {
+      setAllVideosLoaded(true);
+    }
+  };
+
+  useEffect(() => {
+    if (allImagesLoaded && allVideosLoaded) {
+      makeMessageOld(message);
+    }
+  }, [allImagesLoaded, allVideosLoaded]);
 
   return (
     <MessageContext.Provider value={{ message }}>
@@ -46,8 +70,14 @@ export default function RoomMessage({ message, index }) {
             <span className="room-message-name">{message.name}</span>
           </div>
           <span className="room-message-text">{message.message}</span>
-          <RoomMessageImages images={message.images} />
-          <RoomMessageVideos videos={message.videos} />
+          <RoomMessageImages
+            images={message.images}
+            onImageLoad={onImageLoaded}
+          />
+          <RoomMessageVideos
+            videos={message.videos}
+            onVideoLoad={onVideoLoaded}
+          />
         </div>
         <CSSTransition
           in={showActions}

@@ -56,16 +56,18 @@ export default function Room() {
       console.log("scroll to bottom");
       scrollToBottom(feedRef);
     } else if (actionType === messagesDataTypes.load) {
-      console.log(feedRef, currentHeight.current);
+      console.log(feedRef.scrollHeight, currentHeight.current);
       loadScroll(feedRef, currentHeight.current);
     }
-    setMessages((prev) =>
-      prev.map((message) => ({
-        ...message,
-        isNew: false,
-      }))
-    );
   });
+
+  const makeMessageOld = (message) => {
+    setMessages((prev) => {
+      return prev.map((item) =>
+        item._id === message._id ? { ...item, isNew: false } : item
+      );
+    });
+  };
 
   useEffect(() => {
     const getDataAndStartEventSource = async () => {
@@ -145,7 +147,7 @@ export default function Room() {
         onlineDate={room.date}
         isOnline={room.isOnline}
       />
-      <ImageLoadContext.Provider value={{ register, load }}>
+      <ImageLoadContext.Provider value={{ register, load, makeMessageOld }}>
         <RoomMessages
           messages={messages}
           ref={feedRef}
