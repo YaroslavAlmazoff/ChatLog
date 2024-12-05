@@ -39,6 +39,7 @@ export default function RoomMessageImage({
       );
     }
     if (message.isNew) {
+      console.log("load image", image);
       load();
       onImageLoaded();
     }
