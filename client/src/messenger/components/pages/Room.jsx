@@ -112,7 +112,7 @@ export default function Room() {
             isNew: true,
           }));
           newMessagesWithNewFlag.forEach((item) => {
-            console.log("register ", item.text);
+            console.log("register ", item.message);
             register();
           });
           setMessages((prev) => [...newMessagesWithNewFlag, ...prev]);
