@@ -26,20 +26,24 @@ export default function RoomMessage({ message, index }) {
       load();
       if (!message.images.length && !message.videos.length) {
         makeMessageOld(message);
+      } else if (!message.images.length) {
+        setAllImagesLoaded(true);
+      } else if (!message.videos.length) {
+        setAllVideosLoaded(true);
       }
     }
   }, []);
 
   const onImageLoaded = () => {
     setLoadedImages((prev) => prev + 1);
-    if (loadedImages + 1 === message.images.length || !message.images.length) {
+    if (loadedImages + 1 === message.images.length) {
       setAllImagesLoaded(true);
     }
   };
 
   const onVideoLoaded = () => {
     setLoadedVideos((prev) => prev + 1);
-    if (loadedVideos + 1 === message.videos.length || !message.videos.length) {
+    if (loadedVideos + 1 === message.videos.length) {
       setAllVideosLoaded(true);
     }
   };
