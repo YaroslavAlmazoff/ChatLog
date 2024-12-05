@@ -40,6 +40,7 @@ export default function RoomMessageVideo({
       );
     }
     if (message.isNew) {
+      console.log("load video", video);
       load();
       onVideoLoaded();
     }

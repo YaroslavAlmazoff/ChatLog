@@ -22,6 +22,7 @@ export default function RoomMessage({ message, index }) {
 
   useEffect(() => {
     if (message.isNew) {
+      console.log("load text", message.message);
       load();
       if (!message.images.length && !message.videos.length) {
         makeMessageOld(message);
