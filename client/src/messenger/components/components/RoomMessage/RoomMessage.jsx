@@ -32,19 +32,24 @@ export default function RoomMessage({ message, index }) {
 
   const onImageLoaded = () => {
     setLoadedImages((prev) => prev + 1);
-    if (loadedImages + 1 === message.images.length) {
+    if (loadedImages + 1 === message.images.length || !message.images.length) {
       setAllImagesLoaded(true);
     }
   };
 
   const onVideoLoaded = () => {
     setLoadedVideos((prev) => prev + 1);
-    if (loadedVideos + 1 === message.videos.length) {
+    if (loadedVideos + 1 === message.videos.length || !message.videos.length) {
       setAllVideosLoaded(true);
     }
   };
 
   useEffect(() => {
+    console.log(
+      allImagesLoaded,
+      allVideosLoaded,
+      allImagesLoaded && allVideosLoaded
+    );
     if (allImagesLoaded && allVideosLoaded) {
       makeMessageOld(message);
     }
