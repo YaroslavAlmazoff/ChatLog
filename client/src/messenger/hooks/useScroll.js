@@ -1,8 +1,8 @@
 export default function useScroll() {
   const loadScroll = (ref, scroll) => {
-    requestAnimationFrame(() => {
+    setTimeout(() => {
       ref.current.scrollTop = ref.current.scrollHeight - scroll;
-    });
+    }, 0);
   };
 
   const scrollToBottom = (ref) => {
