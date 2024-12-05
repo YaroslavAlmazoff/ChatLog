@@ -49,11 +49,6 @@ export default function RoomMessage({ message, index }) {
   };
 
   useEffect(() => {
-    console.log(
-      allImagesLoaded,
-      allVideosLoaded,
-      allImagesLoaded && allVideosLoaded
-    );
     if (allImagesLoaded && allVideosLoaded) {
       makeMessageOld(message);
     }
