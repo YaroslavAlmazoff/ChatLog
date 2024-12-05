@@ -56,7 +56,7 @@ export default function Room() {
       console.log("scroll to bottom");
       scrollToBottom(feedRef);
     } else if (actionType === messagesDataTypes.load) {
-      console.log(feedRef.current.scrollHeight, currentHeight.current);
+      //console.log(feedRef.current.scrollHeight, currentHeight.current);
       loadScroll(feedRef, currentHeight.current);
     }
   });
@@ -111,7 +111,8 @@ export default function Room() {
             ...message,
             isNew: true,
           }));
-          newMessagesWithNewFlag.forEach(() => {
+          newMessagesWithNewFlag.forEach((item) => {
+            console.log("register ", item.text);
             register();
           });
           setMessages((prev) => [...newMessagesWithNewFlag, ...prev]);
@@ -129,9 +130,9 @@ export default function Room() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, getMessages]);
 
-  useEffect(() => {
-    console.log(messages);
-  }, [messages]);
+  // useEffect(() => {
+  //   console.log(messages);
+  // }, [messages]);
 
   return (
     <div

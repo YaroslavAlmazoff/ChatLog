@@ -28,8 +28,8 @@ export default function RoomMessageVideo({
 
   useEffect(() => {
     if (message.isNew) {
+      console.log("register " + video);
       register();
-      console.log("registered " + video);
     }
   }, []);
 
