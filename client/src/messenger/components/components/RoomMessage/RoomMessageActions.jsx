@@ -29,14 +29,18 @@ export default function RoomMessageActions({ message, animation }) {
     <div className={`room-message-actions ${animation}`}>
       <span className="room-message-date">{message.date}</span>
       <div className="room-message-actions-list">
-        {messageActions.map((action) => (
-          <img
-            onClick={action.onClick}
-            src={action.icon}
-            alt="Action"
-            className="room-message-action"
-          />
-        ))}
+        {messageActions.map((action) =>
+          action.available ? (
+            <img
+              onClick={action.onClick}
+              src={action.icon}
+              alt="Action"
+              className="room-message-action"
+            />
+          ) : (
+            <></>
+          )
+        )}
       </div>
     </div>
   );
