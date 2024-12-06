@@ -103,8 +103,6 @@ export default function Room() {
           read(newMessages, id);
         }
 
-        if (isMyAction) setLoading(false);
-
         if (isCreate) {
           newMessages[0].isJustSent = true;
           newMessages[0].isNew = true;
@@ -127,6 +125,7 @@ export default function Room() {
             register();
           });
           setMessages((prev) => [...newMessagesWithNewFlag, ...prev]);
+          setLoading(false);
         }
       };
     };
