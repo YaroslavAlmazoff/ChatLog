@@ -144,6 +144,10 @@ export default function Room() {
     console.log(messages);
   }, [messages]);
 
+  useEffect(() => {
+    console.log(loading);
+  }, [loading]);
+
   return (
     <div
       className="block room-size room"
