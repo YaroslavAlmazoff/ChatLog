@@ -5,7 +5,7 @@ import Loader from "../../../common_components/Loader";
 import RoomNoMessages from "./RoomNoMessages";
 
 export default forwardRef(function RoomMessages(
-  { messages, loading, setPage },
+  { messages, loading, scrollLoading, setPage },
   ref
 ) {
   const messagesEndRef = useRef(null);
@@ -33,7 +33,11 @@ export default forwardRef(function RoomMessages(
         ) : (
           <Loader />
         )}
-        {!loading && !messages.length ? <RoomNoMessages /> : <></>}
+        {(!loading && !messages.length) || scrollLoading ? (
+          <RoomNoMessages />
+        ) : (
+          <></>
+        )}
       </div>
     </div>
   );
