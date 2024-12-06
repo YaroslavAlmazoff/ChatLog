@@ -1,6 +1,8 @@
 import { useRef, forwardRef } from "react";
 import RoomMessage from "./RoomMessage/RoomMessage";
 import { useObserver } from "../../../common_hooks/observer.hook";
+import Loader from "../../../common_components/Loader";
+import RoomNoMessages from "./RoomNoMessages";
 
 export default forwardRef(function RoomMessages(
   { messages, loading, setPage },
@@ -20,13 +22,18 @@ export default forwardRef(function RoomMessages(
           style={{ height: "10px", backgroundColor: "#40a4ff" }}
         />
 
-        {messages.map((message, index) => (
-          <RoomMessage
-            message={message}
-            index={index}
-            key={`${message.message}${message.date}-${index}`}
-          />
-        ))}
+        {!loading ? (
+          messages.map((message, index) => (
+            <RoomMessage
+              message={message}
+              index={index}
+              key={`${message.message}${message.date}-${index}`}
+            />
+          ))
+        ) : (
+          <Loader />
+        )}
+        {!messages.length ? <RoomNoMessages /> : <></>}
       </div>
     </div>
   );
