@@ -37,6 +37,7 @@ export default function Room() {
   const [page, setPage] = useState(1);
   const [offset, setOffset] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [scrollLoading, setScrollLoading] = useState(false);
   const [error, setError] = useState(false);
   const [actionType, setActionType] = useState(messagesDataTypes.init);
 
@@ -62,6 +63,7 @@ export default function Room() {
       );
       loadScroll(feedRef, currentHeight.current);
     }
+    setScrollLoading(false);
   });
 
   const makeMessageOld = (message) => {
@@ -125,7 +127,6 @@ export default function Room() {
             register();
           });
           setMessages((prev) => [...newMessagesWithNewFlag, ...prev]);
-          setLoading(false);
         }
       };
     };
@@ -134,7 +135,7 @@ export default function Room() {
 
   useEffect(() => {
     if (page !== 1) {
-      setLoading(true);
+      setScrollLoading(true);
       getMessages(page, offset);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
