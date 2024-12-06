@@ -10,11 +10,11 @@ export const useObserver = (ref, canLoad, loading, callback) => {
 
     const cb = function (entries) {
       if (entries[0].isIntersecting && canLoad) {
-        if (isFirstRender.current) {
-          // Пропускаем первое пересечение
-          isFirstRender.current = false;
-          return;
-        }
+        // if (isFirstRender.current) {
+        //   // Пропускаем первое пересечение
+        //   isFirstRender.current = false;
+        //   return;
+        // }
         callback();
       }
     };
