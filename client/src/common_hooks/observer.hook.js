@@ -2,7 +2,6 @@ import { useEffect, useRef } from "react";
 
 export const useObserver = (ref, canLoad, loading, callback) => {
   const observer = useRef();
-  const isFirstRender = useRef(true); // Флаг первого рендера
 
   useEffect(() => {
     if (loading) return;
@@ -10,11 +9,6 @@ export const useObserver = (ref, canLoad, loading, callback) => {
 
     const cb = function (entries) {
       if (entries[0].isIntersecting && canLoad) {
-        // if (isFirstRender.current) {
-        //   // Пропускаем первое пересечение
-        //   isFirstRender.current = false;
-        //   return;
-        // }
         callback();
       }
     };
