@@ -376,7 +376,7 @@ router.delete("/message/:id", auth, async (req, res) => {
     const message = await Message.findById(id);
     const messageCopy = message.toObject();
     if (message.user.toString() === req.user.userId) {
-      await message.delete();
+      dm();
       emitter.emit("deleteMessage", messageCopy);
     }
     res.json({ id });
@@ -384,6 +384,16 @@ router.delete("/message/:id", auth, async (req, res) => {
     console.log(e);
   }
 });
+
+const dm = async (id) => {
+  const message = await Message.findById(id);
+  if (message) {
+    await message.delete();
+    dm(id);
+  } else {
+    return true;
+  }
+};
 
 ////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////
