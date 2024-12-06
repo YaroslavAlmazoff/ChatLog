@@ -17,9 +17,9 @@ import useAudio from "../../hooks/useAudio";
 import { folders, messagesDataTypes } from "../../data/messengerConfiguration";
 import { AuthContext } from "../../../context/AuthContext";
 import { ImageLoadContext } from "../../context/ImageLoadContext";
+import useScroll from "../../hooks/useScroll";
 import messageSound from "../../audio/message.mp3";
 import "../../styles/global.css";
-import useScroll from "../../hooks/useScroll";
 
 export default function Room() {
   const params = useParams();
@@ -110,6 +110,7 @@ export default function Room() {
           register();
           if (!isMyAction) {
             playAudio();
+            read(newMessages, id);
           }
         } else if (isDelete) {
           setMessages((prev) =>
