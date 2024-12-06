@@ -134,6 +134,7 @@ export default function Room() {
 
   useEffect(() => {
     if (page !== 1) {
+      setLoading(true);
       getMessages(page, offset);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
