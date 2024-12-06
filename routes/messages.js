@@ -376,7 +376,7 @@ router.delete("/message/:id", auth, async (req, res) => {
     const message = await Message.findById(id);
     const messageCopy = message.toObject();
     if (message.user.toString() === req.user.userId) {
-      dm();
+      dm(message.message, message.date);
       emitter.emit("deleteMessage", messageCopy);
     }
     res.json({ id });
@@ -385,11 +385,11 @@ router.delete("/message/:id", auth, async (req, res) => {
   }
 });
 
-const dm = async (id) => {
-  const message = await Message.findById(id);
+const dm = async (message, date) => {
+  const message = await Message.findOne({ message, date });
   if (message) {
     await message.delete();
-    dm(id);
+    dm(message.message, message.data);
   } else {
     return true;
   }
