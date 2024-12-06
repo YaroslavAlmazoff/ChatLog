@@ -103,13 +103,13 @@ export default function Room() {
           read(newMessages, id);
         }
 
+        if (isMyAction) setLoading(false);
+
         if (isCreate) {
           newMessages[0].isJustSent = true;
           newMessages[0].isNew = true;
           setMessages((prev) => [...prev, ...newMessages]);
-          if (isMyAction) {
-            setLoading(false);
-          } else {
+          if (!isMyAction) {
             playAudio();
           }
         } else if (isDelete) {
