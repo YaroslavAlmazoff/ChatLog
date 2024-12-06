@@ -22,7 +22,7 @@ export default forwardRef(function RoomMessages(
           style={{ height: "10px", backgroundColor: "#40a4ff" }}
         />
 
-        {!loading ? (
+        {!loading && !scrollLoading ? (
           messages.map((message, index) => (
             <RoomMessage
               message={message}
@@ -33,11 +33,7 @@ export default forwardRef(function RoomMessages(
         ) : (
           <Loader />
         )}
-        {(!loading && !messages.length) || scrollLoading ? (
-          <RoomNoMessages />
-        ) : (
-          <></>
-        )}
+        {!loading && !messages.length ? <RoomNoMessages /> : <></>}
       </div>
     </div>
   );
