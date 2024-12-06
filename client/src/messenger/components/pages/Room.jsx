@@ -56,7 +56,10 @@ export default function Room() {
       console.log("scroll to bottom");
       scrollToBottom(feedRef);
     } else if (actionType === messagesDataTypes.load) {
-      console.log(feedRef.current.scrollHeight, currentHeight.current);
+      console.log(
+        "старая высота: " + currentHeight.current,
+        "новая высота: " + feedRef.current.scrollHeight
+      );
       loadScroll(feedRef, currentHeight.current);
     }
   });
@@ -87,6 +90,12 @@ export default function Room() {
         setActionType(messagesData.type);
 
         currentHeight.current = feedRef.current.scrollHeight;
+        console.log(
+          "save height: " +
+            feedRef.current.scrollHeight +
+            " " +
+            currentHeight.current
+        );
 
         if (isInit) {
           read(newMessages, id);
