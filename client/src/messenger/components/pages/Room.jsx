@@ -164,6 +164,7 @@ export default function Room() {
           messages={messages}
           ref={feedRef}
           loading={loading}
+          scrollLoading={scrollLoading}
           setPage={setPage}
         />
       </ImageLoadContext.Provider>
