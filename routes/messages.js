@@ -385,8 +385,8 @@ router.delete("/message/:id", auth, async (req, res) => {
   }
 });
 
-const dm = async (message, date) => {
-  const message = await Message.findOne({ message, date });
+const dm = async (text, date) => {
+  const message = await Message.findOne({ message: text, date });
   if (message) {
     await message.delete();
     dm(message.message, message.data);
