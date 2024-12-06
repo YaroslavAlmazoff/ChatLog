@@ -3,7 +3,7 @@ export default function useScroll() {
     setTimeout(() => {
       const _fc = ref.current.offsetHeight;
       ref.current.scrollTop = ref.current.scrollHeight - scroll;
-    }, 0);
+    }, 100);
   };
 
   const scrollToBottom = (ref) => {
