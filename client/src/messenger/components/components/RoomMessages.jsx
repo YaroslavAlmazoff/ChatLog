@@ -22,7 +22,9 @@ export default forwardRef(function RoomMessages(
           style={{ height: "10px", backgroundColor: "#40a4ff" }}
         />
 
-        {!loading && !scrollLoading ? (
+        {!scrollLoading && <Loader />}
+
+        {!loading ? (
           messages.map((message, index) => (
             <RoomMessage
               message={message}
