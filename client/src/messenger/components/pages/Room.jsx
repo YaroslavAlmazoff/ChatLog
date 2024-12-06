@@ -107,9 +107,10 @@ export default function Room() {
           newMessages[0].isJustSent = true;
           newMessages[0].isNew = true;
           setMessages((prev) => [...prev, ...newMessages]);
-          register();
           if (!isMyAction) {
             playAudio();
+          } else {
+            register();
           }
         } else if (isDelete) {
           setMessages((prev) =>
