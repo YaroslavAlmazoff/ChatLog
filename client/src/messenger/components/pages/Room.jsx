@@ -170,6 +170,7 @@ export default function Room() {
         setOffset={setOffset}
         error={error}
         setErrorCallback={setErrorCallback}
+        setLoading={setLoading}
       />
     </div>
   );

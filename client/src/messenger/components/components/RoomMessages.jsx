@@ -33,7 +33,7 @@ export default forwardRef(function RoomMessages(
         ) : (
           <Loader />
         )}
-        {!messages.length ? <RoomNoMessages /> : <></>}
+        {!loading && !messages.length ? <RoomNoMessages /> : <></>}
       </div>
     </div>
   );
