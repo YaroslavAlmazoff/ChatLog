@@ -194,13 +194,9 @@ class MessengerService {
             const filteredRooms = sortedRooms.filter((el) => el != null);
             res.json({ rooms: filteredRooms });
           })
-          .catch((e) =>
-            res.json({ e: e.message, rooms: [], fullRooms, sortedMessages })
-          );
+          .catch((e) => res.json({ e: e.message, rooms: [] }));
       })
-      .catch((e) =>
-        res.json({ e: e.message, rooms: [], fullRooms, sortedMessages })
-      );
+      .catch((e) => res.json({ e: e.message, rooms: [] }));
   }
   async getNotReadedRooms(req, res) {
     const user = req.user.userId;
