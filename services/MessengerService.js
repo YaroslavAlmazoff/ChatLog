@@ -77,16 +77,20 @@ class MessengerService {
       roomObj.isChat = true;
       return roomObj;
     });
-    console.log(rooms);
 
     const fullRooms = rooms.concat(chatRooms);
-
-    console.log(fullRooms);
 
     const lastMessages = fullRooms.map(async (el) => {
       if (el.lastMessageId) {
         const message = await Message.findById(el.lastMessageId);
-        return message;
+        if (message) {
+          return message;
+        } else {
+          const allMessages = await Message.find({ room: el._id });
+          if (allMessages.length > 0)
+            return allMessages[allMessages.length - 1];
+          else return { _id: null };
+        }
       } else {
         const messages = await Message.find({ room: el._id });
         return messages[messages.length - 1];
@@ -149,9 +153,9 @@ class MessengerService {
               mongoose.Types.ObjectId(user)
             );
           } else {
-            console.log(el.isNotReaded);
             roomObj.unread = el.isNotReaded;
             roomObj.sender = el.user;
+            if (!el._id) roomObj.lastMessage = "Пустой чат";
             if (roomObj.user1 == user) {
               const fullUser = await User.findById(roomObj.user2);
               roomObj.name = fullUser.name;
