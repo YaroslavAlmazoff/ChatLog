@@ -110,15 +110,12 @@ export default function Room() {
         }
 
         if (isCreate) {
-          console.log("nm, ", newMessages);
-          newMessages[0].isJustSent = true;
           newMessages[0].isNew = isMyAction ? true : false;
           setMessages((prev) => [...prev, ...newMessages]);
-          register();
           if (!isMyAction) {
             playAudio();
             read(newMessages, id);
-          }
+          } else register();
         } else if (isDelete) {
           console.log(newMessages);
           setMessages((prev) =>
