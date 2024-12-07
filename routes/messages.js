@@ -377,21 +377,22 @@ router.delete("/message/:id", auth, async (req, res) => {
     const messageCopy = message.toObject();
     if (message.user.toString() === req.user.userId) {
       dm(message.message, message.date);
-      emitter.emit("deleteMessage", messageCopy);
+    } else {
+      res.json({ id });
     }
-    res.json({ id });
   } catch (e) {
     console.log(e);
   }
 });
 
-const dm = async (text, date) => {
+const dm = async (text, date, messageCopy, req, res) => {
   const message = await Message.findOne({ message: text, date });
   if (message) {
     await message.delete();
-    dm(message.message, message.date);
+    dm(message.message, message.date, messageCopy, req, res);
   } else {
-    return true;
+    emitter.emit("deleteMessage", messageCopy);
+    res.json({ id: req.params.id });
   }
 };
 
