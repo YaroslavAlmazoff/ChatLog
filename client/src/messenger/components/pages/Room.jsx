@@ -114,6 +114,7 @@ export default function Room() {
             read(newMessages, id);
           }
         } else if (isDelete) {
+          console.log(newMessages);
           setMessages((prev) =>
             prev.filter((message) => message._id !== newMessages[0]._id)
           );
