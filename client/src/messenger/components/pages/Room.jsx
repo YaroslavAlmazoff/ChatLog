@@ -64,6 +64,7 @@ export default function Room() {
       loadScroll(feedRef, currentHeight.current);
     }
     setScrollLoading(false);
+    setLoading(false);
   });
 
   const makeMessageOld = (message) => {
@@ -130,7 +131,7 @@ export default function Room() {
           });
           setMessages((prev) => [...newMessagesWithNewFlag, ...prev]);
         }
-        if (isMyAction) setLoading(false);
+        // if (isMyAction) setLoading(false);
       };
     };
     getDataAndStartEventSource();
