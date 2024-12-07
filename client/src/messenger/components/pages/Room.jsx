@@ -14,7 +14,11 @@ import useAPI from "../../hooks/useAPI";
 import useFile from "../../hooks/useFile";
 import useLoad from "../../hooks/useLoad";
 import useAudio from "../../hooks/useAudio";
-import { folders, messagesDataTypes } from "../../data/messengerConfiguration";
+import {
+  folders,
+  messagesDataTypes,
+  startMessagesCountCheck,
+} from "../../data/messengerConfiguration";
 import { AuthContext } from "../../../context/AuthContext";
 import { ImageLoadContext } from "../../context/ImageLoadContext";
 import useScroll from "../../hooks/useScroll";
@@ -31,15 +35,14 @@ export default function Room() {
 
   const feedRef = useRef(null);
   const currentHeight = useRef(0);
+  const startMessagesCount = useRef(0);
 
   const [room, setRoom] = useState({ name: "", date: "", bg: "" });
   const [messages, setMessages] = useState([]);
   const [page, setPage] = useState(1);
   const [offset, setOffset] = useState(0);
-  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [actionType, setActionType] = useState(messagesDataTypes.init);
-
   const [startLoading, setStartLoading] = useState(true);
   const [observerLoading, setObserverLoading] = useState(true);
   const [scrollLoading, setScrollLoading] = useState(false);
@@ -52,21 +55,17 @@ export default function Room() {
   const id = useMemo(() => params.id, [params]);
 
   const { register, load } = useLoad(() => {
-    console.log("callback", actionType, page);
     if (!feedRef.current) return;
     if (
       actionType === messagesDataTypes.init ||
       actionType === messagesDataTypes.create
     ) {
-      console.log("scroll to bottom");
       scrollToBottom(feedRef);
       setSendLoading(false);
-      setObserverLoading(false);
+      if (startMessagesCount.current > startMessagesCountCheck) {
+        setObserverLoading(false);
+      }
     } else if (actionType === messagesDataTypes.load) {
-      console.log(
-        "старая высота: " + currentHeight.current,
-        "новая высота: " + feedRef.current.scrollHeight
-      );
       loadScroll(feedRef, currentHeight.current);
       setScrollLoading(false);
     }
@@ -98,17 +97,11 @@ export default function Room() {
         setActionType(messagesData.type);
 
         currentHeight.current = feedRef.current.scrollHeight;
-        console.log(
-          "save height: " +
-            feedRef.current.scrollHeight +
-            " " +
-            currentHeight.current
-        );
 
         if (isInit) {
           read(newMessages, id);
+          startMessagesCount.current = newMessages.length;
         }
-
         if (isCreate) {
           newMessages[0].isNew = isMyAction ? true : false;
           setMessages((prev) => [...prev, ...newMessages]);
@@ -117,7 +110,6 @@ export default function Room() {
             read(newMessages, id);
           } else register();
         } else if (isDelete) {
-          console.log(newMessages);
           setMessages((prev) =>
             prev.filter((message) => message._id !== newMessages[0]._id)
           );
@@ -127,8 +119,7 @@ export default function Room() {
             ...message,
             isNew: true,
           }));
-          newMessagesWithNewFlag.forEach((item) => {
-            console.log("register ", item.message);
+          newMessagesWithNewFlag.forEach(() => {
             register();
           });
           setMessages((prev) => [...newMessagesWithNewFlag, ...prev]);
@@ -146,14 +137,6 @@ export default function Room() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, getMessages]);
-
-  useEffect(() => {
-    console.log(messages);
-  }, [messages]);
-
-  useEffect(() => {
-    console.log(loading);
-  }, [loading]);
 
   return (
     <div
