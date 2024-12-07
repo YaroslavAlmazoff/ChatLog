@@ -53,11 +53,17 @@ class MessengerService {
   }
   async getRooms(req, res) {
     const user = req.user.userId;
+    console.log("!!! GET ROOMS !!!");
+    console.log(user);
 
     let rooms1 = await Room.find({ user1: user });
     let rooms2 = await Room.find({ user2: user });
 
+    console.log(rooms1, rooms2);
+
     let rooms = rooms1.concat(rooms2);
+
+    console.log(rooms);
     let chatRooms = await ChatRoom.find({ members: user });
 
     rooms = rooms.map((room) => {
@@ -71,8 +77,11 @@ class MessengerService {
       roomObj.isChat = true;
       return roomObj;
     });
+    console.log(rooms);
 
     const fullRooms = rooms.concat(chatRooms);
+
+    console.log(fullRooms);
 
     const lastMessages = fullRooms.map(async (el) => {
       if (el.lastMessageId) {
@@ -98,12 +107,6 @@ class MessengerService {
             a.date.split(" ")[1].split(":")[0] ===
               b.date.split(" ")[1].split(":")[0]
           ) {
-            console.log(
-              b.date.split(" ")[1].split(":")[1],
-              a.date.split(" ")[1].split(":")[1],
-              b.date.split(" ")[1].split(":")[1] -
-                a.date.split(" ")[1].split(":")[1]
-            );
             return (
               b.date.split(" ")[1].split(":")[1] -
               a.date.split(" ")[1].split(":")[1]
@@ -116,12 +119,6 @@ class MessengerService {
             a.date.split(" ")[0].split(".")[0] ===
               b.date.split(" ")[0].split(".")[0]
           ) {
-            console.log(
-              b.date.split(" ")[1].split(":")[0],
-              a.date.split(" ")[1].split(":")[0],
-              b.date.split(" ")[1].split(":")[0] -
-                a.date.split(" ")[1].split(":")[0]
-            );
             return (
               b.date.split(" ")[1].split(":")[0] -
               a.date.split(" ")[1].split(":")[0]
@@ -132,23 +129,11 @@ class MessengerService {
             a.date.split(" ")[0].split(".")[1] ===
               b.date.split(" ")[0].split(".")[1]
           ) {
-            console.log(
-              b.date.split(" ")[0].split(".")[1],
-              a.date.split(" ")[0].split(".")[1],
-              b.date.split(" ")[0].split(".")[1] -
-                a.date.split(" ")[0].split(".")[1]
-            );
             return (
               b.date.split(" ")[0].split(".")[1] -
               a.date.split(" ")[0].split(".")[1]
             );
           } else {
-            console.log(
-              b.date.split(" ")[0].split(".")[2],
-              a.date.split(" ")[0].split(".")[2],
-              b.date.split(" ")[0].split(".")[2] -
-                a.date.split(" ")[0].split(".")[2]
-            );
             return (
               b.date.split(" ")[0].split(".")[2] -
               a.date.split(" ")[0].split(".")[2]
