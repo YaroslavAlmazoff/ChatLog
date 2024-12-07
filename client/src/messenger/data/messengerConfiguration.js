@@ -43,6 +43,8 @@ export const modalTypes = {
   video: "video",
 };
 
+export const startMessagesCountCheck = 10;
+
 export const testMessages = [
   {
     message: "Привет",

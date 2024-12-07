@@ -7,7 +7,6 @@ import RoomNoMessages from "./RoomNoMessages";
 export default forwardRef(function RoomMessages(
   {
     messages,
-    loading,
     startLoading,
     observerLoading,
     sendLoading,
