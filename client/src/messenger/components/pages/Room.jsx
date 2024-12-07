@@ -37,9 +37,13 @@ export default function Room() {
   const [page, setPage] = useState(1);
   const [offset, setOffset] = useState(0);
   const [loading, setLoading] = useState(true);
-  const [scrollLoading, setScrollLoading] = useState(false);
   const [error, setError] = useState(false);
   const [actionType, setActionType] = useState(messagesDataTypes.init);
+
+  const [startLoading, setStartLoading] = useState(true);
+  const [observerLoading, setObserverLoading] = useState(true);
+  const [scrollLoading, setScrollLoading] = useState(false);
+  const [sendLoading, setSendLoading] = useState(false);
 
   const setErrorCallback = useCallback((err) => {
     setError(err);
@@ -56,15 +60,16 @@ export default function Room() {
     ) {
       console.log("scroll to bottom");
       scrollToBottom(feedRef);
+      setSendLoading(false);
+      setObserverLoading(false);
     } else if (actionType === messagesDataTypes.load) {
       console.log(
         "старая высота: " + currentHeight.current,
         "новая высота: " + feedRef.current.scrollHeight
       );
       loadScroll(feedRef, currentHeight.current);
+      setScrollLoading(false);
     }
-    setScrollLoading(false);
-    setLoading(false);
   });
 
   const makeMessageOld = (message) => {
@@ -131,7 +136,7 @@ export default function Room() {
           });
           setMessages((prev) => [...newMessagesWithNewFlag, ...prev]);
         }
-        // if (isMyAction) setLoading(false);
+        if (isMyAction) setStartLoading(false);
       };
     };
     getDataAndStartEventSource();
@@ -171,7 +176,9 @@ export default function Room() {
         <RoomMessages
           messages={messages}
           ref={feedRef}
-          loading={loading}
+          startLoading={startLoading}
+          observerLoading={observerLoading}
+          sendLoading={sendLoading}
           scrollLoading={scrollLoading}
           setPage={setPage}
         />
@@ -181,7 +188,7 @@ export default function Room() {
         setOffset={setOffset}
         error={error}
         setErrorCallback={setErrorCallback}
-        setLoading={setLoading}
+        setSendLoading={setSendLoading}
       />
     </div>
   );
