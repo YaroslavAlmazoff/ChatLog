@@ -5,12 +5,20 @@ import Loader from "../../../common_components/Loader";
 import RoomNoMessages from "./RoomNoMessages";
 
 export default forwardRef(function RoomMessages(
-  { messages, loading, scrollLoading, setPage },
+  {
+    messages,
+    loading,
+    startLoading,
+    observerLoading,
+    sendLoading,
+    scrollLoading,
+    setPage,
+  },
   ref
 ) {
   const messagesEndRef = useRef(null);
 
-  useObserver(messagesEndRef, true, loading, () => {
+  useObserver(messagesEndRef, true, observerLoading, () => {
     setPage((prev) => prev + 1);
   });
 
@@ -22,9 +30,9 @@ export default forwardRef(function RoomMessages(
           style={{ height: "10px", backgroundColor: "#40a4ff" }}
         />
 
-        {scrollLoading && <Loader />}
+        {scrollLoading ? <Loader /> : <></>}
 
-        {!loading ? (
+        {!startLoading ? (
           messages.map((message, index) => (
             <RoomMessage
               message={message}
@@ -35,7 +43,10 @@ export default forwardRef(function RoomMessages(
         ) : (
           <Loader />
         )}
-        {!loading && !messages.length ? <RoomNoMessages /> : <></>}
+
+        {sendLoading ? <Loader /> : <></>}
+
+        {!observerLoading && !messages.length ? <RoomNoMessages /> : <></>}
       </div>
     </div>
   );

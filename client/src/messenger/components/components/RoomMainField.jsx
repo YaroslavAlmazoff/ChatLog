@@ -23,7 +23,7 @@ export default function RoomMainField({
   setOffset,
   error,
   setErrorCallback,
-  setLoading,
+  setSendLoading,
 }) {
   const [modalContent, setModalContent] = useState(null);
 
@@ -62,7 +62,7 @@ export default function RoomMainField({
     );
 
   const handleSend = async () => {
-    setLoading(true);
+    setSendLoading(true);
     sendMessage(id, messageFieldRef.current.value, files);
     setOffset((prev) => prev + 1);
     messageFieldRef.current.value = "";
