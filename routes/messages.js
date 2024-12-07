@@ -237,6 +237,7 @@ router.get("/connect/:id/:user", async (req, res) => {
   };
 
   const deleteMessage = async (deleted) => {
+    console.log("delete message", deleted);
     res.write(
       `data: ${JSON.stringify({
         messages: [deleted],
