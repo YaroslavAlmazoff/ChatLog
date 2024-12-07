@@ -389,7 +389,7 @@ const dm = async (text, date) => {
   const message = await Message.findOne({ message: text, date });
   if (message) {
     await message.delete();
-    dm(message.message, message.data);
+    dm(message.message, message.date);
   } else {
     return true;
   }
