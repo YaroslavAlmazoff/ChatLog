@@ -80,16 +80,35 @@ class MessengerService {
 
     const fullRooms = rooms.concat(chatRooms);
 
-    const lastMessages = fullRooms.map(async (el) => {
+    const lastMessages = fullRooms.map(async (el, index) => {
       if (el.lastMessageId) {
         const message = await Message.findById(el.lastMessageId);
         if (message) {
           return message;
         } else {
           const allMessages = await Message.find({ room: el._id });
-          if (allMessages.length > 0)
-            return allMessages[allMessages.length - 1];
-          else return { _id: null };
+          if (allMessages.length > 0) {
+            const lastMessage = allMessages[allMessages.length - 1];
+            let lastMessageText = "";
+            if (lastMessage.message) {
+              lastMessageText = lastMessage.message;
+            } else if (lastMessage.images.length) {
+              lastMessageText = `Фото${
+                lastMessage.images.length > 1
+                  ? " (" + lastMessage.images.length + ")"
+                  : ""
+              }`;
+            } else if (lastMessage.videos.length) {
+              lastMessageText = `Видео${
+                lastMessage.videos.length > 1
+                  ? " (" + lastMessage.videos.length + ")"
+                  : ""
+              }`;
+            }
+            fullRooms[i].lastMessage = lastMessageText;
+            fullRooms[i].lastMessageId = lastMessage._id;
+            return lastMessage;
+          } else return { _id: null };
         }
       } else {
         const messages = await Message.find({ room: el._id });
