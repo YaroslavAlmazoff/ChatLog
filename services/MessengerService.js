@@ -80,7 +80,7 @@ class MessengerService {
 
     const fullRooms = rooms.concat(chatRooms);
 
-    const lastMessages = fullRooms.map(async (el, index) => {
+    const lastMessages = fullRooms.map(async (el, i) => {
       if (el.lastMessageId) {
         const message = await Message.findById(el.lastMessageId);
         if (message) {
