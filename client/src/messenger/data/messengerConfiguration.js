@@ -25,6 +25,7 @@ export const messagesDataTypes = {
   load: "load",
   create: "create",
   delete: "delete",
+  edit: "edit",
 };
 
 export const imageFormats = {

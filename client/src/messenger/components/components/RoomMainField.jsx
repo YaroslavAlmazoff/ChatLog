@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, forwardRef } from "react";
 import { useParams } from "react-router";
 import sendMessageIcon from "../../img/send-message.png";
 import useAPI from "../../hooks/useAPI";
@@ -18,13 +18,17 @@ const initialState = {
   audioFile: null,
 };
 
-export default function RoomMainField({
-  setRoom,
-  setOffset,
-  error,
-  setErrorCallback,
-  setSendLoading,
-}) {
+export default function RoomMainField(
+  {
+    setRoom,
+    setOffset,
+    error,
+    setErrorCallback,
+    setSendLoading,
+    editingMessage,
+  },
+  ref
+) {
   const [modalContent, setModalContent] = useState(null);
 
   const openModal = (content) => {
@@ -36,7 +40,10 @@ export default function RoomMainField({
     setModalContent(null);
   };
 
-  const { sendMessage, uploadBg } = useAPI(openModal, setErrorCallback);
+  const { sendMessage, uploadBg, editMessage } = useAPI(
+    openModal,
+    setErrorCallback
+  );
   const { fileTypes } = useFile();
   const { id } = useParams();
 
@@ -63,8 +70,12 @@ export default function RoomMainField({
 
   const handleSend = async () => {
     setSendLoading(true);
-    sendMessage(id, messageFieldRef.current.value, files);
-    setOffset((prev) => prev + 1);
+    if (editingMessage) {
+      await editMessage(editingMessage._id, messageFieldRef.current.value);
+    } else {
+      sendMessage(id, messageFieldRef.current.value, files);
+      setOffset((prev) => prev + 1);
+    }
     messageFieldRef.current.value = "";
     clearPreviews();
   };

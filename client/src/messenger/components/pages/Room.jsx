@@ -21,6 +21,7 @@ import {
 } from "../../data/messengerConfiguration";
 import { AuthContext } from "../../../context/AuthContext";
 import { ImageLoadContext } from "../../context/ImageLoadContext";
+import { EditMessageContext } from "../../context/EditMessageContext";
 import useScroll from "../../hooks/useScroll";
 import messageSound from "../../audio/message.mp3";
 import "../../styles/global.css";
@@ -47,6 +48,7 @@ export default function Room() {
   const [observerLoading, setObserverLoading] = useState(true);
   const [scrollLoading, setScrollLoading] = useState(false);
   const [sendLoading, setSendLoading] = useState(false);
+  const [editingMessage, setEditingMessage] = useState(null);
 
   const setErrorCallback = useCallback((err) => {
     setError(err);
@@ -79,6 +81,10 @@ export default function Room() {
     });
   };
 
+  const startMessageEditing = (message) => {
+    setEditingMessage(message);
+  };
+
   useEffect(() => {
     const getDataAndStartEventSource = async () => {
       const { room } = await getRoom(id);
@@ -92,6 +98,7 @@ export default function Room() {
         const isLoad = messagesData.type === messagesDataTypes.load;
         const isCreate = messagesData.type === messagesDataTypes.create;
         const isDelete = messagesData.type === messagesDataTypes.delete;
+        const isEdit = messagesData.type === messagesDataTypes.edit;
         const isMyAction = messagesData.user === userId;
 
         setActionType(messagesData.type);
@@ -117,6 +124,20 @@ export default function Room() {
             )
           );
           setOffset((prev) => prev - 1);
+        } else if (isEdit) {
+          setMessages((prev) =>
+            prev.map((item) => {
+              if (
+                item.date === newMessages[0].date &&
+                item.message === messagesData.oldText
+              ) {
+                return { ...item, message: newMessages[0].message };
+              } else {
+                return item;
+              }
+            })
+          );
+          setEditingMessage(null);
         } else if ((isInit || isLoad) && isMyAction) {
           const newMessagesWithNewFlag = newMessages.map((message) => ({
             ...message,
@@ -156,15 +177,17 @@ export default function Room() {
         isOnline={room.isOnline}
       />
       <ImageLoadContext.Provider value={{ register, load, makeMessageOld }}>
-        <RoomMessages
-          messages={messages}
-          ref={feedRef}
-          startLoading={startLoading}
-          observerLoading={observerLoading}
-          sendLoading={sendLoading}
-          scrollLoading={scrollLoading}
-          setPage={setPage}
-        />
+        <EditMessageContext.Provider value={{ startMessageEditing }}>
+          <RoomMessages
+            messages={messages}
+            ref={feedRef}
+            startLoading={startLoading}
+            observerLoading={observerLoading}
+            sendLoading={sendLoading}
+            scrollLoading={scrollLoading}
+            setPage={setPage}
+          />
+        </EditMessageContext.Provider>
       </ImageLoadContext.Provider>
       <RoomMainField
         setRoom={setRoom}

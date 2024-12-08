@@ -9,7 +9,7 @@ import { MessageContext } from "../../../context/MessageContext";
 import "../../../styles/RoomMessage.css";
 import "../../../styles/RoomMessageMedia.css";
 
-export default function RoomMessage({ message, index }) {
+export default function RoomMessage({ message }) {
   const { fileFromServer } = useFile();
   const [showActions, setShowActions] = useState(false);
   const { makeMessageOld, load } = useContext(ImageLoadContext);
