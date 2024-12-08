@@ -114,7 +114,10 @@ export default function Room() {
         } else if (isDelete) {
           console.log(newMessages);
           setMessages((prev) =>
-            prev.filter((message) => message._id !== newMessages[0]._id)
+            prev.filter(
+              (message) =>
+                message._id.toString() !== newMessages[0]._id.toString()
+            )
           );
           setOffset((prev) => prev - 1);
         } else if ((isInit || isLoad) && isMyAction) {
