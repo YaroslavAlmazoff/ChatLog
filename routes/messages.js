@@ -237,7 +237,6 @@ router.get("/connect/:id/:user", async (req, res) => {
   };
 
   const deleteMessage = async (deleted) => {
-    console.log("delete message", deleted);
     res.write(
       `data: ${JSON.stringify({
         messages: [deleted],
@@ -247,14 +246,27 @@ router.get("/connect/:id/:user", async (req, res) => {
     );
   };
 
+  const editMessage = async (edited, oldText) => {
+    res.write(
+      `data: ${JSON.stringify({
+        messages: [edited],
+        user: edited.user,
+        type: "edit",
+        oldText,
+      })} \n\n`
+    );
+  };
+
   emitter.on("messages", messages);
   emitter.on("newMessage", newMessage);
   emitter.on("deleteMessage", deleteMessage);
+  emitter.on("editMessage", editMessage);
 
   req.on("close", () => {
     emitter.off("messages", messages);
     emitter.off("newMessage", newMessage);
     emitter.off("deleteMessage", deleteMessage);
+    emitter.off("editMessage", editMessage);
   });
 });
 
@@ -386,13 +398,26 @@ router.delete("/message/:id", auth, async (req, res) => {
   }
 });
 
-const dm = async (text, date, messageCopy, req, res) => {
-  const message = await Message.findOne({ message: text, date });
+router.patch("/message/:id", auth, async (req, res) => {
+  try {
+    const id = req.params.id;
+    const message = await Message.findById(id);
+    if (message.user.toString() === req.user.userId) {
+      edit(message.message, message.date, req.body, req, res);
+    } else {
+      res.json({ id });
+    }
+  } catch (e) {
+    console.log(e);
+  }
+});
+
+const edit = async (text, date, data, req, res) => {
+  const message = await Message.findOneAndUpdate({ message: text, date }, data);
   if (message) {
-    await message.delete();
-    dm(text, date, messageCopy, req, res);
+    edit(text, date, data, req, res);
   } else {
-    emitter.emit("deleteMessage", messageCopy);
+    emitter.emit("editMessage", message, text);
     res.json({ id: req.params.id });
   }
 };

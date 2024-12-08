@@ -104,6 +104,17 @@ export default function useAPI(openModal, setErrorCallback) {
     [options]
   );
 
+  const editMessage = useCallback(
+    async (id, text) => {
+      const response = await api.patch(
+        `${prefix}/message/${id}`,
+        { message: text },
+        options
+      );
+    },
+    [options]
+  );
+
   const read = useCallback(
     async (messages, roomId) => {
       const lastMessage = messages[messages.length - 1];
@@ -135,6 +146,7 @@ export default function useAPI(openModal, setErrorCallback) {
     getRoom,
     getMessages,
     deleteMessage,
+    editMessage,
     read,
     uploadBg,
   };
