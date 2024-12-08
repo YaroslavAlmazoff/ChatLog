@@ -1,4 +1,4 @@
-import { useState, useRef, forwardRef } from "react";
+import { useState, useRef, forwardRef, useEffect } from "react";
 import { useParams } from "react-router";
 import sendMessageIcon from "../../img/send-message.png";
 import useAPI from "../../hooks/useAPI";
@@ -105,6 +105,33 @@ export default function RoomMainField(
   const openSmiles = () => {
     openModal(<RoomSmilesSelectingList onSmileClick={addSmile} />);
   };
+
+  useEffect(() => {
+    if (editingMessage) {
+      messageFieldRef.current.value = editingMessage.text;
+      messageFieldRef.current.focus();
+      // setFiles((prev) => {
+      //   const newFiles = {...prev };
+      //   if (editingMessage.attachments.images.length) {
+      //     newFiles.imageFiles = editingMessage.attachments.images;
+      //   }
+      //   if (editingMessage.attachments.videos.length) {
+      //     newFiles.videoFiles = editingMessage.attachments.videos;
+      //   }
+      //   if (editingMessage.attachments.audio) {
+      //     newFiles.audioFile = editingMessage.attachments.audio;
+      //   }
+      //   return newFiles;
+      // });
+      setCanChooseImage(false);
+      setCanChooseVideo(false);
+      setFilesVisible(true);
+      messageFieldRef.current.disabled = true;
+      setSendLoading(false);
+      setEditingMessage(null);
+      closeModal();
+    }
+  }, [editingMessage]);
 
   return (
     <div className="message-field-area">
