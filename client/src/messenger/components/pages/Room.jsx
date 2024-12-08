@@ -115,7 +115,7 @@ export default function Room() {
           console.log(newMessages);
           setMessages((prev) => {
             console.log("prev", prev);
-            prev.filter(
+            return prev.filter(
               (message) =>
                 message._id.toString() !== newMessages[0]._id.toString()
             );
