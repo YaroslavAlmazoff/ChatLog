@@ -98,6 +98,8 @@ export default function Room() {
 
         currentHeight.current = feedRef.current.scrollHeight;
 
+        console.log(isDelete);
+
         if (isInit) {
           read(newMessages, id);
           startMessagesCount.current = newMessages.length;
@@ -110,6 +112,7 @@ export default function Room() {
             read(newMessages, id);
           } else register();
         } else if (isDelete) {
+          console.log(newMessages);
           setMessages((prev) =>
             prev.filter((message) => message._id !== newMessages[0]._id)
           );
