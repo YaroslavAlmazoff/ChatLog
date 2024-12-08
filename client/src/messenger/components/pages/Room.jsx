@@ -113,12 +113,13 @@ export default function Room() {
           } else register();
         } else if (isDelete) {
           console.log(newMessages);
-          setMessages((prev) =>
+          setMessages((prev) => {
+            console.log("prev", prev);
             prev.filter(
               (message) =>
                 message._id.toString() !== newMessages[0]._id.toString()
-            )
-          );
+            );
+          });
           setOffset((prev) => prev - 1);
         } else if ((isInit || isLoad) && isMyAction) {
           const newMessagesWithNewFlag = newMessages.map((message) => ({
