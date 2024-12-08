@@ -95,10 +95,7 @@ export default function Room() {
         const isMyAction = messagesData.user === userId;
 
         setActionType(messagesData.type);
-
         currentHeight.current = feedRef.current.scrollHeight;
-
-        console.log(isDelete);
 
         if (isInit) {
           read(newMessages, id);
@@ -112,14 +109,13 @@ export default function Room() {
             read(newMessages, id);
           } else register();
         } else if (isDelete) {
-          console.log(newMessages);
-          setMessages((prev) => {
-            console.log("prev", prev);
-            return prev.filter(
+          setMessages((prev) =>
+            prev.filter(
               (message) =>
-                message._id.toString() !== newMessages[0]._id.toString()
-            );
-          });
+                message.date !== newMessages[0].date &&
+                message.message !== newMessages[0].message
+            )
+          );
           setOffset((prev) => prev - 1);
         } else if ((isInit || isLoad) && isMyAction) {
           const newMessagesWithNewFlag = newMessages.map((message) => ({
