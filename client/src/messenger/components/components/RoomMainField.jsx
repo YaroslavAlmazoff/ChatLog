@@ -105,8 +105,9 @@ export default function RoomMainField({
   };
 
   useEffect(() => {
+    console.log(editingMessage);
     if (editingMessage) {
-      messageFieldRef.current.value = editingMessage.text;
+      messageFieldRef.current.value = editingMessage.message;
       messageFieldRef.current.focus();
     }
   }, [editingMessage]);
