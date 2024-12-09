@@ -417,7 +417,11 @@ const edit = async (text, date, data, req, res) => {
   if (message) {
     edit(text, date, data, req, res);
   } else {
-    emitter.emit("editMessage", message, text);
+    const updatedMessage = await Message.findOne({
+      message: data.message,
+      date,
+    });
+    emitter.emit("editMessage", updatedMessage, text);
     res.json({ id: req.params.id });
   }
 };
