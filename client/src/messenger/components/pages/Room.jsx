@@ -133,6 +133,7 @@ export default function Room() {
               }
             })
           );
+          if (isMyAction) setSendLoading(false);
           setEditingMessage(null);
         } else if ((isInit || isLoad) && isMyAction) {
           const newMessagesWithNewFlag = newMessages.map((message) => ({
