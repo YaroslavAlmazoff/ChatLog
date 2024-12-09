@@ -18,17 +18,15 @@ const initialState = {
   audioFile: null,
 };
 
-export default function RoomMainField(
-  {
-    setRoom,
-    setOffset,
-    error,
-    setErrorCallback,
-    setSendLoading,
-    editingMessage,
-  },
-  ref
-) {
+export default function RoomMainField({
+  setRoom,
+  setOffset,
+  error,
+  setErrorCallback,
+  setSendLoading,
+  editingMessage,
+  setEditingMessage,
+}) {
   const [modalContent, setModalContent] = useState(null);
 
   const openModal = (content) => {
@@ -110,26 +108,6 @@ export default function RoomMainField(
     if (editingMessage) {
       messageFieldRef.current.value = editingMessage.text;
       messageFieldRef.current.focus();
-      // setFiles((prev) => {
-      //   const newFiles = {...prev };
-      //   if (editingMessage.attachments.images.length) {
-      //     newFiles.imageFiles = editingMessage.attachments.images;
-      //   }
-      //   if (editingMessage.attachments.videos.length) {
-      //     newFiles.videoFiles = editingMessage.attachments.videos;
-      //   }
-      //   if (editingMessage.attachments.audio) {
-      //     newFiles.audioFile = editingMessage.attachments.audio;
-      //   }
-      //   return newFiles;
-      // });
-      setCanChooseImage(false);
-      setCanChooseVideo(false);
-      setFilesVisible(true);
-      messageFieldRef.current.disabled = true;
-      setSendLoading(false);
-      setEditingMessage(null);
-      closeModal();
     }
   }, [editingMessage]);
 
