@@ -1,4 +1,4 @@
-import { useState, useRef, forwardRef, useEffect } from "react";
+import { useState, useRef, forwardRef, useEffect, useContext } from "react";
 import { useParams } from "react-router";
 import sendMessageIcon from "../../img/send-message.png";
 import useAPI from "../../hooks/useAPI";
@@ -11,6 +11,7 @@ import RoomSmilesSelectingList from "./RoomSmiles/RoomSmilesSelectingList";
 import smile from "../../img/smile.png";
 import "../../styles/RoomMainField.css";
 import "../../styles/RoomSmiles.css";
+import { EditMessageContext } from "../../context/EditMessageContext";
 
 const initialState = {
   imageFiles: [],
@@ -24,9 +25,8 @@ export default function RoomMainField({
   error,
   setErrorCallback,
   setSendLoading,
-  editingMessage,
-  setEditingMessage,
 }) {
+  const { editingMessage } = useContext(EditMessageContext);
   const [modalContent, setModalContent] = useState(null);
 
   const openModal = (content) => {

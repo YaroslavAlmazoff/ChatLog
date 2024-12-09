@@ -81,10 +81,6 @@ export default function Room() {
     });
   };
 
-  const startMessageEditing = (message) => {
-    setEditingMessage(message);
-  };
-
   useEffect(() => {
     const getDataAndStartEventSource = async () => {
       const { room } = await getRoom(id);
@@ -176,8 +172,10 @@ export default function Room() {
         onlineDate={room.date}
         isOnline={room.isOnline}
       />
-      <ImageLoadContext.Provider value={{ register, load, makeMessageOld }}>
-        <EditMessageContext.Provider value={{ startMessageEditing }}>
+      <EditMessageContext.Provider
+        value={{ editingMessage, setEditingMessage }}
+      >
+        <ImageLoadContext.Provider value={{ register, load, makeMessageOld }}>
           <RoomMessages
             messages={messages}
             ref={feedRef}
@@ -187,15 +185,15 @@ export default function Room() {
             scrollLoading={scrollLoading}
             setPage={setPage}
           />
-        </EditMessageContext.Provider>
-      </ImageLoadContext.Provider>
-      <RoomMainField
-        setRoom={setRoom}
-        setOffset={setOffset}
-        error={error}
-        setErrorCallback={setErrorCallback}
-        setSendLoading={setSendLoading}
-      />
+        </ImageLoadContext.Provider>
+        <RoomMainField
+          setRoom={setRoom}
+          setOffset={setOffset}
+          error={error}
+          setErrorCallback={setErrorCallback}
+          setSendLoading={setSendLoading}
+        />
+      </EditMessageContext.Provider>
     </div>
   );
 }

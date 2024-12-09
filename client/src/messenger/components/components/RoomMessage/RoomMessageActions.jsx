@@ -9,7 +9,7 @@ import { EditMessageContext } from "../../../context/EditMessageContext";
 
 export default function RoomMessageActions({ message, animation }) {
   const { userId } = useContext(AuthContext);
-  const { startMessageEditing } = useContext(EditMessageContext);
+  const { setEditingMessage } = useContext(EditMessageContext);
   const { deleteMessage } = useAPI();
   const isMyMessage = message.user === userId;
 
@@ -25,7 +25,7 @@ export default function RoomMessageActions({ message, animation }) {
       icon: editIcon,
       available: isMyMessage,
       onClick: () => {
-        startMessageEditing(message);
+        setEditingMessage(message);
       },
     },
     { icon: replyIcon, available: true, onClick: () => {} },
