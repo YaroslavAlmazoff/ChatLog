@@ -126,7 +126,9 @@ export default function Room() {
             prev.map((item) => {
               if (
                 item.date === newMessages[0].date &&
-                item.message === messagesData.oldText
+                item.message === messagesData.oldText &&
+                item.images[0] === messagesData.firstOldImage &&
+                item.videos[0] === messagesData.firstOldVideo
               ) {
                 return {
                   ...item,

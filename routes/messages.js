@@ -254,7 +254,7 @@ router.get("/connect/:id/:user", async (req, res) => {
     );
   };
 
-  const editMessage = async (edited, oldText) => {
+  const editMessage = async (edited, oldText, oldImages, oldVideos) => {
     console.log("edit", edited, oldText);
     res.write(
       `data: ${JSON.stringify({
@@ -262,6 +262,8 @@ router.get("/connect/:id/:user", async (req, res) => {
         user: edited.user,
         type: "edit",
         oldText,
+        firstOldImage: oldImages[0],
+        firstOldVideo: oldVideos[0],
       })} \n\n`
     );
   };
@@ -490,7 +492,7 @@ const edit = async (
       date,
       message: newText,
     });
-    emitter.emit("editMessage", updatedMessage, oldText);
+    emitter.emit("editMessage", updatedMessage, oldText, oldImages, oldVideos);
     res.json({ id: req.params.id });
   }
 };
