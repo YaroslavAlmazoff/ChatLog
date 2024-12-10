@@ -133,6 +133,8 @@ export default function Room() {
                 return {
                   ...item,
                   message: newMessages[0].message,
+                  images: newMessages[0].images,
+                  videos: newMessages[0].videos,
                   isNew:
                     newMessages[0].images.length || newMessages[0].videos.length
                       ? true
