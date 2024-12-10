@@ -121,6 +121,7 @@ export default function Room() {
           );
           setOffset((prev) => prev - 1);
         } else if (isEdit) {
+          console.log("edit", newMessages);
           setMessages((prev) =>
             prev.map((item) => {
               if (
@@ -141,8 +142,10 @@ export default function Room() {
             })
           );
           register();
-          if (isMyAction) setSendLoading(false);
-          setEditingMessage(null);
+          if (isMyAction) {
+            setEditingMessage(null);
+            setSendLoading(false);
+          }
         } else if ((isInit || isLoad) && isMyAction) {
           const newMessagesWithNewFlag = newMessages.map((message) => ({
             ...message,

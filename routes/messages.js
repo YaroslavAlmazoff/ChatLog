@@ -255,6 +255,7 @@ router.get("/connect/:id/:user", async (req, res) => {
   };
 
   const editMessage = async (edited, oldText) => {
+    console.log("edit", edited, oldText);
     res.write(
       `data: ${JSON.stringify({
         messages: [edited],
