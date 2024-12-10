@@ -453,7 +453,7 @@ const edit = async (req, res, text, date, newText, images, videos) => {
     edit(req, res, text, date, newText, images, videos);
   } else {
     const updatedMessage = await Message.findOne({
-      message: data.message,
+      message: newText,
       date,
     });
     emitter.emit("editMessage", updatedMessage, text);
