@@ -419,7 +419,6 @@ const dm = async (req, res, text, date, messageCopy) => {
 };
 
 router.patch("/message/:id", auth, async (req, res) => {
-  req.setTimeout(60 * 1000);
   try {
     const id = req.params.id;
     const imageExists = JSON.parse(req.body.imageExists);
