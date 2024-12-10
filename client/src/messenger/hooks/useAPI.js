@@ -105,7 +105,7 @@ export default function useAPI(openModal, setErrorCallback) {
   );
 
   const editMessage = useCallback(
-    async (id, text) => {
+    async (id, text, files) => {
       const checkingSizeError = checkErrorWhileSendingFiles(files);
       if (checkingSizeError.isError) {
         setErrorCallback(true);
