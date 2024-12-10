@@ -436,6 +436,8 @@ router.patch("/message/:id", auth, async (req, res) => {
         message.message,
         message.date,
         req.body.message,
+        message.images,
+        message.videos,
         images,
         videos
       );
@@ -447,20 +449,48 @@ router.patch("/message/:id", auth, async (req, res) => {
   }
 });
 
-const edit = async (req, res, text, date, newText, images, videos) => {
+const edit = async (
+  req,
+  res,
+  oldText,
+  date,
+  newText,
+  oldImages,
+  oldVideos,
+  newImages,
+  newVideos
+) => {
   console.log("edit");
   const message = await Message.findOneAndUpdate(
-    { message: text, date },
-    { message: newText, images, videos }
+    {
+      images: { $eq: oldImages },
+      videos: { $eq: oldVideos },
+      date,
+      message: oldText,
+    },
+    { $set: { images: newImages, videos: newVideos, message: newText } },
+    { new: true }
   );
   if (message) {
-    edit(req, res, text, date, newText, images, videos);
+    edit(
+      req,
+      res,
+      oldText,
+      date,
+      newText,
+      oldImages,
+      oldVideos,
+      newImages,
+      newVideos
+    );
   } else {
     const updatedMessage = await Message.findOne({
-      message: newText,
+      images: { $eq: newImages },
+      videos: { $eq: newVideos },
       date,
+      message: newText,
     });
-    emitter.emit("editMessage", updatedMessage, text);
+    emitter.emit("editMessage", updatedMessage, oldText);
     res.json({ id: req.params.id });
   }
 };
