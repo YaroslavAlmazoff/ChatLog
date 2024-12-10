@@ -140,6 +140,7 @@ export default function Room() {
               }
             })
           );
+          register();
           if (isMyAction) setSendLoading(false);
           setEditingMessage(null);
         } else if ((isInit || isLoad) && isMyAction) {
