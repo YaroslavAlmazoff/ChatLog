@@ -360,15 +360,6 @@ router.post("/new-messages/:id", auth, async (req, res) => {
   message.audios = audios;
   message.hms = getCurrentTime();
 
-  await Message.updateMany(
-    {},
-    {
-      $set: {
-        hms: `${message.date.split(" ")[1]}}:${Math.floor(Math.random()) * 10}`,
-      },
-    }
-  );
-
   let to = "";
   if (room.user1.toString() == req.user.userId) {
     to = room.user2;
@@ -426,6 +417,8 @@ router.patch("/message/:id", auth, async (req, res) => {
     const images = imageExists ? processFiles(req.files, fileTypes.image) : [];
     const videos = videoExists ? processFiles(req.files, fileTypes.video) : [];
 
+    console.log(req.body);
+
     const message = await Message.findById(id);
     if (message.user.toString() === req.user.userId) {
       edit(
@@ -446,6 +439,7 @@ router.patch("/message/:id", auth, async (req, res) => {
 });
 
 const edit = async (req, res, text, date, newText, images, videos) => {
+  console.log("edit");
   const message = await Message.findOneAndUpdate(
     { message: text, date },
     { message: newText, images, videos }
