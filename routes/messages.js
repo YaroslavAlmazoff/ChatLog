@@ -399,7 +399,7 @@ router.delete("/message/:id", auth, async (req, res) => {
     const message = await Message.findById(id);
     const messageCopy = message.toObject();
     if (message.user.toString() === req.user.userId) {
-      dm(message.message, message.date, messageCopy, req, res);
+      dm(req, res, message.message, message.date, messageCopy);
     } else {
       res.json({ id });
     }
@@ -407,6 +407,16 @@ router.delete("/message/:id", auth, async (req, res) => {
     console.log(e);
   }
 });
+
+const dm = async (req, res, text, date, messageCopy) => {
+  const message = await Message.findOneAndDelete({ message: text, date });
+  if (message) {
+    dm(req, res, text, date, messageCopy);
+  } else {
+    emitter.emit("deleteMessage", messageCopy);
+    res.json({ id: req.params.id });
+  }
+};
 
 router.patch("/message/:id", auth, async (req, res) => {
   req.setTimeout(60 * 1000);
