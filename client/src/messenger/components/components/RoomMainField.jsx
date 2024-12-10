@@ -69,7 +69,11 @@ export default function RoomMainField({
   const handleSend = async () => {
     setSendLoading(true);
     if (editingMessage) {
-      await editMessage(editingMessage._id, messageFieldRef.current.value);
+      await editMessage(
+        editingMessage._id,
+        messageFieldRef.current.value,
+        files
+      );
     } else {
       sendMessage(id, messageFieldRef.current.value, files);
       setOffset((prev) => prev + 1);
@@ -105,7 +109,6 @@ export default function RoomMainField({
   };
 
   useEffect(() => {
-    console.log(editingMessage);
     if (editingMessage) {
       messageFieldRef.current.value = editingMessage.message;
       messageFieldRef.current.focus();

@@ -399,11 +399,25 @@ router.delete("/message/:id", auth, async (req, res) => {
 });
 
 router.patch("/message/:id", auth, async (req, res) => {
+  req.setTimeout(60 * 1000);
   try {
     const id = req.params.id;
+    const imageExists = JSON.parse(req.body.imageExists);
+    const videoExists = JSON.parse(req.body.videoExists);
+    const images = imageExists ? processFiles(req.files, fileTypes.image) : [];
+    const videos = videoExists ? processFiles(req.files, fileTypes.video) : [];
+
     const message = await Message.findById(id);
     if (message.user.toString() === req.user.userId) {
-      edit(message.message, message.date, req.body, req, res);
+      edit(
+        req,
+        res,
+        message.message,
+        message.date,
+        req.body.message,
+        images,
+        videos
+      );
     } else {
       res.json({ id });
     }
@@ -412,10 +426,13 @@ router.patch("/message/:id", auth, async (req, res) => {
   }
 });
 
-const edit = async (text, date, data, req, res) => {
-  const message = await Message.findOneAndUpdate({ message: text, date }, data);
+const edit = async (req, res, text, date, newText, images, videos) => {
+  const message = await Message.findOneAndUpdate(
+    { message: text, date },
+    { message: newText, images, videos }
+  );
   if (message) {
-    edit(text, date, data, req, res);
+    edit(req, res, text, date, newText, images, videos);
   } else {
     const updatedMessage = await Message.findOne({
       message: data.message,

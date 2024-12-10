@@ -127,7 +127,14 @@ export default function Room() {
                 item.date === newMessages[0].date &&
                 item.message === messagesData.oldText
               ) {
-                return { ...item, message: newMessages[0].message };
+                return {
+                  ...item,
+                  message: newMessages[0].message,
+                  isNew:
+                    newMessages[0].images.length || newMessages[0].videos.length
+                      ? true
+                      : false,
+                };
               } else {
                 return item;
               }
