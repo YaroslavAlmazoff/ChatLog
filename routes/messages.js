@@ -25,6 +25,14 @@ const emitter = new events.EventEmitter();
 events.EventEmitter.defaultMaxListeners = 4;
 events.EventEmitter.setMaxListeners(4);
 
+const getCurrentTime = () => {
+  const now = new Date();
+  const hours = now.getHours().toString().padStart(2, "0");
+  const minutes = now.getMinutes().toString().padStart(2, "0");
+  const seconds = now.getSeconds().toString().padStart(2, "0");
+  return `${hours}:${minutes}:${seconds}`;
+};
+
 router.get("/createroom/:to", auth, (req, res) => {
   try {
     MessengerService.createRoom(req, res);
@@ -349,6 +357,16 @@ router.post("/new-messages/:id", auth, async (req, res) => {
   message.images = images;
   message.videos = videos;
   message.audios = audios;
+  message.hms = getCurrentTime();
+
+  await Message.updateMany(
+    {},
+    {
+      $set: {
+        hms: `${message.date.split(" ")[1]}}:${Math.floor(Math.random()) * 10}`,
+      },
+    }
+  );
 
   let to = "";
   if (room.user1.toString() == req.user.userId) {

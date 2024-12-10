@@ -17,6 +17,7 @@ const Message = new mongoose.Schema({
   screenshotUrl: { type: String, default: "" },
   readedThisMessage: [{ type: mongoose.Types.ObjectId, default: [] }],
   fileLink: { type: String, default: "" },
+  hms: { type: String, required: true },
 });
 
 module.exports = mongoose.model("Message", Message);
