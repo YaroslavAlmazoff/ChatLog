@@ -106,11 +106,26 @@ export default function useAPI(openModal, setErrorCallback) {
 
   const editMessage = useCallback(
     async (id, text) => {
-      const response = await api.patch(
-        `${prefix}/message/${id}`,
-        { message: text },
-        options
-      );
+      const checkingSizeError = checkErrorWhileSendingFiles(files);
+      if (checkingSizeError.isError) {
+        setErrorCallback(true);
+        openModal(checkingSizeError.text);
+        return;
+      }
+
+      const filesObject = files;
+      const formData = new FormData();
+      formData.append("message", text);
+      filesObject.imageFiles.forEach((file, i) => {
+        formData.append(`image${i}`, file.file, `image${i}.jpg`);
+      });
+      filesObject.videoFiles.forEach((file, i) => {
+        formData.append(`video${i}`, file.file, `video${i}.mp4`);
+      });
+      formData.append("imageExists", !!filesObject.imageFiles.length);
+      formData.append("videoExists", !!filesObject.videoFiles.length);
+
+      await api.patch(`${prefix}/message/${id}`, formData, options);
     },
     [options]
   );
