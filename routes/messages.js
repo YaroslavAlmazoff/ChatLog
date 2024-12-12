@@ -393,7 +393,15 @@ router.delete("/message/:id", auth, async (req, res) => {
     const message = await Message.findById(id);
     const messageCopy = message.toObject();
     if (message.user.toString() === req.user.userId) {
-      dm(req, res, message.message, message.date, messageCopy);
+      dm(
+        req,
+        res,
+        message.message,
+        message.date,
+        message.images,
+        message.videos,
+        messageCopy
+      );
     } else {
       res.json({ id });
     }
@@ -402,8 +410,13 @@ router.delete("/message/:id", auth, async (req, res) => {
   }
 });
 
-const dm = async (req, res, text, date, messageCopy) => {
-  const message = await Message.findOneAndDelete({ message: text, date });
+const dm = async (req, res, text, date, images, videos, messageCopy) => {
+  const message = await Message.findOneAndDelete({
+    message: text,
+    date,
+    images,
+    videos,
+  });
   if (message) {
     dm(req, res, text, date, messageCopy);
   } else {
@@ -723,8 +736,13 @@ router.get("/all-messages", auth, async (req, res) => {
         const filtered2 = short.filter((el) => el != null && el != undefined);
         const unique = filtered2.filter(
           (v, i, a) =>
-            a.findIndex((t) => t.message === v.message && t.date === v.date) ===
-            i
+            a.findIndex(
+              (t) =>
+                t.message === v.message &&
+                t.date === v.date &&
+                t.images[0] === v.images[0] &&
+                t.videos[0] === v.videos[0]
+            ) === i
         );
         for (let i = 0; i < unique.length; i++) {
           console.log(unique[i].message);
