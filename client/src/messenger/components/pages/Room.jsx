@@ -25,6 +25,7 @@ import { EditMessageContext } from "../../context/EditMessageContext";
 import useScroll from "../../hooks/useScroll";
 import messageSound from "../../audio/message.mp3";
 import "../../styles/global.css";
+import useMessage from "../../hooks/useMessage";
 
 export default function Room() {
   const params = useParams();
@@ -32,6 +33,7 @@ export default function Room() {
   const { fileFromServer } = useFile();
   const { playAudio } = useAudio(messageSound);
   const { loadScroll, scrollToBottom } = useScroll();
+  const { filterMessages, compareMessages } = useMessage();
   const { userId } = useContext(AuthContext);
 
   const feedRef = useRef(null);
@@ -112,38 +114,17 @@ export default function Room() {
             read(newMessages, id);
           } else register();
         } else if (isDelete) {
-          setMessages((prev) =>
-            prev.filter(
-              (message) =>
-                message.date !== newMessages[0].date &&
-                message.message !== newMessages[0].message
-            )
-          );
+          setMessages((prev) => filterMessages(prev, newMessages));
           setOffset((prev) => prev - 1);
         } else if (isEdit) {
-          console.log("edit", newMessages);
           setMessages((prev) =>
-            prev.map((item) => {
-              if (
-                item.date === newMessages[0].date &&
-                item.message === messagesData.oldText &&
-                item.images[0] === messagesData.firstOldImage &&
-                item.videos[0] === messagesData.firstOldVideo
-              ) {
-                return {
-                  ...item,
-                  message: newMessages[0].message,
-                  images: newMessages[0].images,
-                  videos: newMessages[0].videos,
-                  isNew:
-                    newMessages[0].images.length || newMessages[0].videos.length
-                      ? true
-                      : false,
-                };
-              } else {
-                return item;
-              }
-            })
+            compareMessages(
+              prev,
+              newMessages,
+              messagesData.oldText,
+              messagesData.firstOldImage,
+              messagesData.firstOldVideo
+            )
           );
           register();
           if (isMyAction) {

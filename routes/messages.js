@@ -89,20 +89,6 @@ router.post("/sendmessage/:room", auth, (req, res) => {
     console.log(e);
   }
 });
-// router.get("/deletemessage/:id", (req, res) => {
-//   try {
-//     MessengerService.deleteMessage(req, res);
-//   } catch (e) {
-//     console.log(e);
-//   }
-// });
-// router.post("/editmessage/:id", (req, res) => {
-//   try {
-//     MessengerService.editMessage(req, res);
-//   } catch (e) {
-//     console.log(e);
-//   }
-// });
 router.get("/room-by-id/:id", auth, (req, res) => {
   try {
     MessengerService.getRoomById(req, res);
@@ -171,7 +157,13 @@ const filterMessages = async (room) => {
   return messages
     .filter(
       (v, i, a) =>
-        a.findIndex((t) => t.message === v.message && t.date === v.date) === i
+        a.findIndex(
+          (t) =>
+            t.message === v.message &&
+            t.date === v.date &&
+            t.images[0] === v.images[0] &&
+            t.videos[0] === v.videos[0]
+        ) === i
     )
     .reverse();
 };
@@ -462,7 +454,6 @@ const edit = async (
   newImages,
   newVideos
 ) => {
-  console.log("edit");
   const message = await Message.findOneAndUpdate(
     {
       images: { $eq: oldImages },
@@ -686,7 +677,13 @@ const getMessagesMobile = async (res, messages) => {
     .then((data) => {
       const filtered = data.filter(
         (v, i, a) =>
-          a.findIndex((t) => t.message === v.message && t.date === v.date) === i
+          a.findIndex(
+            (t) =>
+              t.message === v.message &&
+              t.date === v.date &&
+              t.images[0] === v.images[0] &&
+              t.videos[0] === v.videos[0]
+          ) === i
       );
       res.write(`data: ${JSON.stringify(filtered)} \n\n`);
     })
