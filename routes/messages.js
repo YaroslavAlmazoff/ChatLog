@@ -418,7 +418,7 @@ const dm = async (req, res, text, date, images, videos, messageCopy) => {
     videos,
   });
   if (message) {
-    dm(req, res, text, date, messageCopy);
+    dm(req, res, text, date, images, videos, messageCopy);
   } else {
     emitter.emit("deleteMessage", messageCopy);
     res.json({ id: req.params.id });
