@@ -9,13 +9,25 @@ export default function useMessage() {
     return exists;
   };
   const filterMessages = (messages, newMessages) => {
-    return messages.filter(
-      (message) =>
+    const filtered = messages.filter((message) => {
+      console.log(
+        message.images[0],
+        newMessages[0].images[0],
+        message.images[0] !== newMessages[0].images[0]
+      );
+      console.log(
+        message.videos[0],
+        newMessages[0].videos[0],
+        message.videos[0] !== newMessages[0].videos[0]
+      );
+      return (
         message.date !== newMessages[0].date &&
         message.message !== newMessages[0].message &&
         message.images[0] !== newMessages[0].images[0] &&
         message.videos[0] !== newMessages[0].videos[0]
-    );
+      );
+    });
+    return filtered;
   };
   const compareMessages = (
     messages,
