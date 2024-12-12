@@ -132,9 +132,13 @@ export default function RoomMainField({
           alt="Эмодзи"
           className="message-field-smile"
         />
-        <span onClick={() => setEditingMessage(null)}>
-          Отменить редактирование
-        </span>
+        {editingMessage ? (
+          <span onClick={() => setEditingMessage(null)}>
+            &nbsp;Отменить редактирование
+          </span>
+        ) : (
+          <></>
+        )}
         <input
           onChange={(e) => getFiles(e, fileTypes.images)}
           ref={selectImageRef}
