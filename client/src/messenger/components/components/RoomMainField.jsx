@@ -26,7 +26,7 @@ export default function RoomMainField({
   setErrorCallback,
   setSendLoading,
 }) {
-  const { editingMessage } = useContext(EditMessageContext);
+  const { editingMessage, setEditingMessage } = useContext(EditMessageContext);
   const [modalContent, setModalContent] = useState(null);
 
   const openModal = (content) => {
@@ -112,6 +112,8 @@ export default function RoomMainField({
     if (editingMessage) {
       messageFieldRef.current.value = editingMessage.message;
       messageFieldRef.current.focus();
+    } else {
+      messageFieldRef.current.value = "";
     }
   }, [editingMessage]);
 
@@ -130,6 +132,9 @@ export default function RoomMainField({
           alt="Эмодзи"
           className="message-field-smile"
         />
+        <span onClick={() => setEditingMessage(null)}>
+          Отменить редактирование
+        </span>
         <input
           onChange={(e) => getFiles(e, fileTypes.images)}
           ref={selectImageRef}

@@ -433,8 +433,6 @@ router.patch("/message/:id", auth, async (req, res) => {
     const images = imageExists ? processFiles(req.files, fileTypes.image) : [];
     const videos = videoExists ? processFiles(req.files, fileTypes.video) : [];
 
-    console.log(req.body);
-
     const message = await Message.findById(id);
     if (message.user.toString() === req.user.userId) {
       edit(
