@@ -9,17 +9,15 @@ export default function useMessage() {
     return exists;
   };
   const filterMessages = (messages, newMessages) => {
-    const filtered = messages.filter((message) => {
-      return (
+    return messages.filter(
+      (message) =>
         message.date !== newMessages[0].date &&
         message.message !== newMessages[0].message &&
         (message.images[0] !== newMessages[0].images[0] ||
           !message.images.length) &&
         (message.videos[0] !== newMessages[0].videos[0] ||
           !message.videos.length)
-      );
-    });
-    return filtered;
+    );
   };
   const compareMessages = (
     messages,
