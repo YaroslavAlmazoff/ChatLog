@@ -1,4 +1,4 @@
-import { useState, useRef, forwardRef, useEffect, useContext } from "react";
+import { useState, useRef, useEffect, useContext } from "react";
 import { useParams } from "react-router";
 import sendMessageIcon from "../../img/send-message.png";
 import useAPI from "../../hooks/useAPI";
@@ -6,12 +6,13 @@ import useFile from "../../hooks/useFile";
 import RoomFilesPreview from "./RoomPreview/RoomFilesPreview";
 import usePreviews from "../../hooks/usePreviews";
 import RoomModal from "./RoomModal/RoomModal";
-import { modalTypes } from "../../data/messengerConfiguration";
+import { modalTypes, roomTypes } from "../../data/messengerConfiguration";
 import RoomSmilesSelectingList from "./RoomSmiles/RoomSmilesSelectingList";
 import smile from "../../img/smile.png";
 import "../../styles/RoomMainField.css";
 import "../../styles/RoomSmiles.css";
 import { EditMessageContext } from "../../context/EditMessageContext";
+import useGroupAPI from "../../hooks/useGroupAPI";
 
 const initialState = {
   imageFiles: [],
@@ -25,6 +26,7 @@ export default function RoomMainField({
   error,
   setErrorCallback,
   setSendLoading,
+  type,
 }) {
   const { editingMessage, setEditingMessage } = useContext(EditMessageContext);
   const [modalContent, setModalContent] = useState(null);
@@ -42,8 +44,10 @@ export default function RoomMainField({
     openModal,
     setErrorCallback
   );
+  const { editGroupMessage, uploadGroupBg, sendGroupMessage } = useGroupAPI();
   const { fileTypes } = useFile();
   const { id } = useParams();
+  const isGroup = type === roomTypes.group;
 
   const messageFieldRef = useRef();
   const selectImageRef = useRef();
@@ -69,13 +73,21 @@ export default function RoomMainField({
   const handleSend = async () => {
     setSendLoading(true);
     if (editingMessage) {
-      await editMessage(
-        editingMessage._id,
-        messageFieldRef.current.value,
-        files
-      );
+      await (isGroup
+        ? editGroupMessage(
+            editingMessage._id,
+            messageFieldRef.current.value,
+            files
+          )
+        : editMessage(
+            editingMessage._id,
+            messageFieldRef.current.value,
+            files
+          ));
     } else {
-      sendMessage(id, messageFieldRef.current.value, files);
+      isGroup
+        ? sendGroupMessage(id, messageFieldRef.current.value, files)
+        : sendMessage(id, messageFieldRef.current.value, files);
       setOffset((prev) => prev + 1);
     }
     messageFieldRef.current.value = "";
@@ -95,7 +107,9 @@ export default function RoomMainField({
   };
 
   const getBackgroundImage = async (e) => {
-    const bg = await uploadBg(e.target.files[0], id);
+    const bg = await (isGroup
+      ? uploadGroupBg(e.target.files[0], id)
+      : uploadBg(e.target.files[0], id));
     setRoom((prev) => ({ ...prev, bg }));
   };
 
