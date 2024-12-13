@@ -7,6 +7,7 @@ const ChatRoom = new mongoose.Schema({
   bg: { type: String, default: "" },
   members: [{ type: mongoose.Types.ObjectId, required: true, default: [] }],
   lastMessage: { type: String, default: "" },
+  lastMessageId: { type: mongoose.Types.ObjectId, required: true },
 });
 
 module.exports = mongoose.model("ChatRoom", ChatRoom);

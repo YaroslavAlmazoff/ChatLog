@@ -26,10 +26,12 @@ import useScroll from "../../hooks/useScroll";
 import messageSound from "../../audio/message.mp3";
 import "../../styles/global.css";
 import useMessage from "../../hooks/useMessage";
+import useGroupAPI from "../../hooks/useGroupAPI";
 
 export default function Room() {
   const params = useParams();
   const { getRoom, createEventSource, getMessages, read } = useAPI();
+  const { getGroupRoom, createGroupEventSource, getGroupMessages, readGroup } = useGroupAPI();
   const { fileFromServer } = useFile();
   const { playAudio } = useAudio(messageSound);
   const { loadScroll, scrollToBottom } = useScroll();
