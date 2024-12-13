@@ -17,6 +17,7 @@ import useAudio from "../../hooks/useAudio";
 import {
   folders,
   messagesDataTypes,
+  roomTypes,
   startMessagesCountCheck,
 } from "../../data/messengerConfiguration";
 import { AuthContext } from "../../../context/AuthContext";
@@ -27,11 +28,13 @@ import messageSound from "../../audio/message.mp3";
 import "../../styles/global.css";
 import useMessage from "../../hooks/useMessage";
 import useGroupAPI from "../../hooks/useGroupAPI";
+import GroupRoomHead from "../components/GroupRoomHead";
 
-export default function Room() {
+export default function Room({ type }) {
   const params = useParams();
   const { getRoom, createEventSource, getMessages, read } = useAPI();
-  const { getGroupRoom, createGroupEventSource, getGroupMessages, readGroup } = useGroupAPI();
+  const { getGroupRoom, createGroupEventSource, getGroupMessages, readGroup } =
+    useGroupAPI();
   const { fileFromServer } = useFile();
   const { playAudio } = useAudio(messageSound);
   const { loadScroll, scrollToBottom } = useScroll();
@@ -59,6 +62,7 @@ export default function Room() {
   }, []);
 
   const id = useMemo(() => params.id, [params]);
+  const isGroup = type === roomTypes.group;
 
   const { register, load } = useLoad(() => {
     if (!feedRef.current) return;
@@ -87,10 +91,12 @@ export default function Room() {
 
   useEffect(() => {
     const getDataAndStartEventSource = async () => {
-      const { room } = await getRoom(id);
+      const { room } = await (isGroup ? getGroupRoom(id) : getRoom(id));
       setRoom(room);
 
-      const eventSource = createEventSource(id);
+      const eventSource = isGroup
+        ? createGroupEventSource(id)
+        : createEventSource(id);
       eventSource.onmessage = function (event) {
         const messagesData = JSON.parse(event.data);
         const newMessages = messagesData.messages;
@@ -105,7 +111,7 @@ export default function Room() {
         currentHeight.current = feedRef.current.scrollHeight;
 
         if (isInit) {
-          read(newMessages, id);
+          isGroup ? readGroup(newMessages, id) : read(newMessages, id);
           startMessagesCount.current = newMessages.length;
         }
         if (isCreate) {
@@ -113,7 +119,7 @@ export default function Room() {
           setMessages((prev) => [...prev, ...newMessages]);
           if (!isMyAction) {
             playAudio();
-            read(newMessages, id);
+            isGroup ? readGroup(newMessages, id) : read(newMessages, id);
           } else register();
         } else if (isDelete) {
           setMessages((prev) => filterMessages(prev, newMessages));
@@ -166,13 +172,17 @@ export default function Room() {
           : "",
       }}
     >
-      <RoomHead
-        name={room.name}
-        onlineDate={room.date}
-        isOnline={room.isOnline}
-      />
+      {isGroup ? (
+        <GroupRoomHead title={room.title} />
+      ) : (
+        <RoomHead
+          name={room.name}
+          onlineDate={room.date}
+          isOnline={room.isOnline}
+        />
+      )}
       <EditMessageContext.Provider
-        value={{ editingMessage, setEditingMessage }}
+        value={{ editingMessage, setEditingMessage, type }}
       >
         <ImageLoadContext.Provider value={{ register, load, makeMessageOld }}>
           <RoomMessages

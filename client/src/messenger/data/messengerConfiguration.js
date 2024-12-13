@@ -1,3 +1,8 @@
+export const roomTypes = {
+  private: "private",
+  group: "group",
+};
+
 export const limits = {
   images: 6,
   videos: 2,
