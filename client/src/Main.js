@@ -10,7 +10,7 @@ const Main = () => {
     } else {
       window.location = "/greeting";
     }
-  }, []);
+  }, [authenticated]);
   return <div></div>;
 };
 
