@@ -49,7 +49,7 @@ import InterestingVideos from "./videohost/components/pages/lists/InterestingVid
 import CategoryVideos from "./videohost/components/pages/lists/CategoryVideos";
 import SubscribeChannels from "./videohost/components/pages/lists/SubscribeChannels";
 import PublicNotifications from "./publics/components/pages/PublicNotifications";
-import CreateChat from "./messenger/components/pages/CreateChat";
+import CreateGroup from "./messenger/components/pages/CreateChat";
 import Games from "./games/components/pages/Games";
 import Game from "./games/components/pages/Game";
 import CreateGame from "./games/components/pages/CreateGame";
