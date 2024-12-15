@@ -86,7 +86,7 @@ const UserLeftSide = ({
     checkFriends();
   }, [params, auth]);
   const createRoom = async () => {
-    const response = await api.get(`/api/checkrooms/${params.id}`, {
+    const response = await api.get(`/api/check-rooms/${params.id}`, {
       headers: {
         Authorization: `Bearer ${auth.token}`,
       },
@@ -95,12 +95,12 @@ const UserLeftSide = ({
     if (response.data.room) {
       window.location = `/messages/${response.data.room}`;
     } else {
-      const response = await api.get(`/api/createroom/${params.id}`, {
+      const response = await api.get(`/api/create-room/${params.id}`, {
         headers: {
           Authorization: `Bearer ${auth.token}`,
         },
       });
-      const response2 = await api.get(`/api/getroom/${params.id}`, {
+      const response2 = await api.get(`/api/room-by-users/${params.id}`, {
         headers: {
           Authorization: `Bearer ${auth.token}`,
         },

@@ -5,7 +5,7 @@ import { AuthContext } from "../../../context/AuthContext";
 import "../styles/create-chat.css";
 import "../../../auth/styles/form.css";
 
-const CreateChat = () => {
+const CreateGroup = () => {
   const { divideWord } = useWord();
   const auth = useContext(AuthContext);
   const fileRef = useRef(null);
@@ -25,7 +25,7 @@ const CreateChat = () => {
     formData.append("title", title);
     formData.append("file", file);
 
-    await api.post("/api/createchatroom", formData, {
+    await api.post("/api/create-room", formData, {
       headers: {
         Authorization: `Bearer ${auth.token}`,
       },
@@ -54,4 +54,4 @@ const CreateChat = () => {
   );
 };
 
-export default CreateChat;
+export default CreateGroup;

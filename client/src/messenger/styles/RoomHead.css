@@ -13,6 +13,26 @@
   z-index: 1000;
 }
 
+.room-group-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.room-group-head-avatar {
+  height: 98%;
+  width: auto;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.room-group-head-open-info {
+  width: 98%;
+  height: auto;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
 .room-head-text {
   color: white;
   text-align: center;

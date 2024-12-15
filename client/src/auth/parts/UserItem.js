@@ -28,7 +28,7 @@ const UserItem = ({
 
   const createRoom = async (e) => {
     e.stopPropagation();
-    const response = await api.get(`/api/checkrooms/${id}`, {
+    const response = await api.get(`/api/check-rooms/${id}`, {
       headers: {
         Authorization: `Bearer ${auth.token}`,
       },
@@ -36,12 +36,12 @@ const UserItem = ({
     if (response.data.room) {
       window.location = `/messages/${response.data.room}`;
     } else {
-      await api.get(`/api/createroom/${id}`, {
+      await api.get(`/api/create-room/${id}`, {
         headers: {
           Authorization: `Bearer ${auth.token}`,
         },
       });
-      const response2 = await api.get(`/api/getroom/${id}`, {
+      const response2 = await api.get(`/api/room-by-users/${id}`, {
         headers: {
           Authorization: `Bearer ${auth.token}`,
         },

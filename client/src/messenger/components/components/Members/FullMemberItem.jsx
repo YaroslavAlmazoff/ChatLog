@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import "../../../auth/styles/user-item.css";
-import { AuthContext } from "../../../context/AuthContext";
-import api from "../../../auth/api/auth";
+import { AuthContext } from "../../../../context/AuthContext";
+import api from "../../../../auth/api/auth";
 
 const FullMemberItem = ({ room, name, surname, avatarUrl, id }) => {
   const [excluded, setExcluded] = useState(false);
