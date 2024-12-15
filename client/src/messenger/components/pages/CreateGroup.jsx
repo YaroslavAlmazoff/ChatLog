@@ -5,7 +5,7 @@ import { AuthContext } from "../../../context/AuthContext";
 import "../styles/create-chat.css";
 import "../../../auth/styles/form.css";
 
-const CreateGroup = () => {
+export function CreateGroup() {
   const { divideWord } = useWord();
   const auth = useContext(AuthContext);
   const fileRef = useRef(null);
@@ -52,6 +52,4 @@ const CreateGroup = () => {
       </button>
     </div>
   );
-};
-
-export default CreateGroup;
+}
