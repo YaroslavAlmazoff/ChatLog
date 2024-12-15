@@ -7,7 +7,7 @@ import { AuthContext } from "../../../context/AuthContext";
 import Loader from "../../../common_components/Loader";
 import { useNavigate } from "react-router";
 
-export const RoomsList = () => {
+export function RoomsList() {
   const auth = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -62,4 +62,4 @@ export const RoomsList = () => {
       </div>
     </div>
   );
-};
+}

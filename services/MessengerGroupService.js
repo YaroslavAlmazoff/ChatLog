@@ -10,7 +10,7 @@ const Utils = require("../utils/Utils");
 
 const emitter = new events.EventEmitter();
 
-class ChatRoomService {
+class MessengerGroupService {
   async createRoom(req, res) {
     const creator = req.user.userId;
     let { title } = req.body;
@@ -340,4 +340,4 @@ class ChatRoomService {
   }
 }
 
-module.exports = new ChatRoomService();
+module.exports = new MessengerGroupService();

@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
-import { RoomsList } from "./messenger/c/pages/RoomsList";
+import RoomsList from "./messenger/components/pages/RoomsList";
 import Register from "./auth/Register";
 import Login from "./auth/Login";
 import Users from "./auth/Users";
@@ -49,8 +49,7 @@ import InterestingVideos from "./videohost/components/pages/lists/InterestingVid
 import CategoryVideos from "./videohost/components/pages/lists/CategoryVideos";
 import SubscribeChannels from "./videohost/components/pages/lists/SubscribeChannels";
 import PublicNotifications from "./publics/components/pages/PublicNotifications";
-// import CreateChat from "./messenger/components/pages/CreateChat";
-// import ChatRoom from "./messenger/components/pages/ChatRoom";
+import CreateChat from "./messenger/components/pages/CreateChat";
 import Games from "./games/components/pages/Games";
 import Game from "./games/components/pages/Game";
 import CreateGame from "./games/components/pages/CreateGame";
