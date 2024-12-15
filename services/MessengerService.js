@@ -8,7 +8,6 @@ const uuid = require("uuid");
 const mongoose = require("mongoose");
 const NotificationToken = require("../models/NotificationToken");
 const File = require("../models/File");
-const MessengerService = require("../services/MessengerService");
 const FileService = require("../services/FileService");
 const FirebaseService = require("../services/FirebaseService");
 const Utils = require("../utils/Utils");
