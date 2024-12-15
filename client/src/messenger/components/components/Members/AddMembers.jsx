@@ -1,9 +1,9 @@
 import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router";
-import { AuthContext } from "../../../context/AuthContext";
-import api from "../../../auth/api/auth";
+import { AuthContext } from "../../../../context/AuthContext";
+import api from "../../../../auth/api/auth";
 import MemberItem from "./MemberItem";
-import useArray from "../../../common_hooks/array.hook";
+import useArray from "../../../../common_hooks/array.hook";
 
 const AddMembers = ({ close, addMembersCount }) => {
   const auth = useContext(AuthContext);

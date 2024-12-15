@@ -6,7 +6,7 @@ import { messengerErrors } from "../data/errors";
 import useFile from "./useFile";
 import auth from "../../auth/api/auth";
 
-const prefix = "/api";
+const prefix = "/api/group";
 
 export default function useGroupAPI(openModal, setErrorCallback) {
   const { getCurrentDate } = useDate();
@@ -22,7 +22,9 @@ export default function useGroupAPI(openModal, setErrorCallback) {
 
   const createGroupEventSource = useCallback(
     (id) => {
-      return new EventSource(`https://chatlog.ru/api/connect/${id}/${userId}`);
+      return new EventSource(
+        `${process.env.REACT_APP_API_URL}${prefix}/connect/${id}/${userId}`
+      );
     },
     [userId]
   );
@@ -75,7 +77,7 @@ export default function useGroupAPI(openModal, setErrorCallback) {
 
   const getGroupRoom = useCallback(
     async (id) => {
-      const response = await api.get(`${prefix}/room-by-id/${id}`, options);
+      const response = await api.get(`${prefix}/room/${id}`, options);
       return response.data;
     },
     [options]
@@ -146,7 +148,7 @@ export default function useGroupAPI(openModal, setErrorCallback) {
       const formData = new FormData();
       formData.append("file", file);
       const response = await api.post(
-        `${prefix}/uploadbg/${roomId}`,
+        `${prefix}/upload-bg/${roomId}`,
         formData,
         options
       );

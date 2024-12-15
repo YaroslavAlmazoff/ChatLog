@@ -2,14 +2,21 @@ const Room = require("../models/Room");
 const ChatRoom = require("../models/ChatRoom");
 const events = require("events");
 const path = require("path");
-const emitter = new events.EventEmitter();
 const Message = require("../models/Message");
 const User = require("../models/User");
-const FileService = require("./FileService");
 const uuid = require("uuid");
-const RoomsArray = require("../models/RoomsArray");
-const ImageService = require("./ImageService");
 const mongoose = require("mongoose");
+const NotificationToken = require("../models/NotificationToken");
+const File = require("../models/File");
+const MessengerService = require("../services/MessengerService");
+const FileService = require("../services/FileService");
+const FirebaseService = require("../services/FirebaseService");
+const Utils = require("../utils/Utils");
+
+const emitter = new events.EventEmitter();
+
+// events.EventEmitter.defaultMaxListeners = 4;
+// events.EventEmitter.setMaxListeners(4);
 
 class MessengerService {
   async createRoom(req, res) {
@@ -32,38 +39,13 @@ class MessengerService {
       res.json({ msg: "success" });
     }
   }
-  async createRoomMobile(req, res) {
-    const user1 = req.params.id;
-    const user2 = req.params.to;
-
-    const room1 = await Room.findOne({ user1, user2 });
-    const room2 = await Room.findOne({ user1: user2, user2: user1 });
-
-    if (room1) {
-      res.json({ err: 1, room: room1 });
-    } else if (room2) {
-      res.json({ err: 1, room: room2 });
-    } else {
-      Room.create({ user1, user2 })
-        .then((data) => {
-          res.json({ err: 0, room: data });
-        })
-        .catch((err) => res.json({ err: 2, room: "", errors: [err.message] }));
-    }
-  }
   async getRooms(req, res) {
     const user = req.user.userId;
-    console.log("!!! GET ROOMS !!!");
-    console.log(user);
 
     let rooms1 = await Room.find({ user1: user });
     let rooms2 = await Room.find({ user2: user });
 
-    console.log(rooms1, rooms2);
-
     let rooms = rooms1.concat(rooms2);
-
-    console.log(rooms);
     let chatRooms = await ChatRoom.find({ members: user });
 
     rooms = rooms.map((room) => {
@@ -198,81 +180,7 @@ class MessengerService {
       })
       .catch((e) => res.json({ e: e.message, rooms: [] }));
   }
-  async getNotReadedRooms(req, res) {
-    const user = req.user.userId;
-
-    let rooms1 = await Room.find({ user1: user });
-    let rooms2 = await Room.find({ user2: user });
-    const rooms = rooms1.concat(rooms2);
-
-    const newRooms = rooms.filter(async (el) => {
-      const messages = await Message.find({ room: el._id });
-      if (!messages.length) {
-        res.json({ msg: "err" });
-        return;
-      }
-      const isNotReaded = messages[messages.length - 1].isNotReaded;
-      console.log(isNotReaded, user != messages[messages.length - 1].user);
-      return isNotReaded && user != messages[messages.length - 1].user;
-    });
-    Promise.all(newRooms)
-      .then((data) => {
-        res.json({ rooms: data });
-      })
-      .catch((e) => res.json({ rooms: [] }));
-  }
-  async getRoomsMobile(req, res) {
-    const user = req.user.userId;
-
-    let rooms1 = await Room.find({ user1: user });
-    let rooms2 = await Room.find({ user2: user });
-    const rooms = rooms1.concat(rooms2);
-
-    const fullRooms = rooms.map(async (el) => {
-      const room = el;
-      if (room == null) return null;
-      const user1 = await User.findById(room.user1);
-      const user2 = await User.findById(room.user2);
-
-      if (!user1 || !user2) {
-        return null;
-      }
-
-      const messages = await Message.find({ room: room._id });
-      if (!messages.length) {
-        return null;
-      }
-      const roomObj = room.toObject();
-      roomObj.read =
-        !messages[messages.length - 1].isNotReaded ||
-        user.toString() == messages[messages.length - 1].user.toString();
-
-      if (user == room.user1) {
-        roomObj.name = user2.name + " " + user2.surname;
-        roomObj.avatar = user2.avatarUrl;
-        return roomObj;
-      } else {
-        roomObj.name = user1.name + " " + user1.surname;
-        roomObj.avatar = user1.avatarUrl;
-        return roomObj;
-      }
-    });
-    Promise.all(fullRooms)
-      .then((r) => {
-        const filtered = r.filter((item) => item != null);
-        res
-          .set({
-            "Content-Type": "application/json; charset=utf-8",
-            "Accept-Charset": "utf-8",
-          })
-          .json({ rooms: filtered });
-      })
-      .catch((e) => {
-        console.log(e);
-        res.json({ rooms: [], e: e.message });
-      });
-  }
-  async getRoom(req, res) {
+  async getRoomByUsers(req, res) {
     const user1 = req.user.userId;
     const user2 = req.params.user2;
 
@@ -282,17 +190,7 @@ class MessengerService {
     }
     res.json({ room });
   }
-  async getRoomId(req, res) {
-    const user1 = req.user.userId;
-    const user2 = req.params.user2;
-
-    let room = await Room.findOne({ user1, user2 });
-    if (!room) {
-      room = await Room.findOne({ user1: user2, user2: user1 });
-    }
-    res.json({ room: room._id });
-  }
-  async getRoomById(req, res) {
+  async getRoom(req, res) {
     const id = req.params.id;
     const room = await Room.findById(id);
     const roomObj = room.toObject();
@@ -310,97 +208,17 @@ class MessengerService {
     }
     res.json({ room: roomObj });
   }
-  async getMessageStart(req, res) {
-    const room = req.params.room;
-    let fullRoom = await Room.findById(room);
-    if (!fullRoom) fullRoom = await ChatRoom.findById(room);
-    const messages = await Message.find({ room });
-    const fullMessages = messages.map(async (el) => {
-      const message = el.toObject();
-      const user = await User.findById(message.user);
-      message.avatarUrl = user.avatarUrl;
-      if (!message.message) message.message = "";
-      if (!message.to) message.to = "";
-      if (!message.fileLink) message.fileLink = "";
-      return message;
-    });
-    Promise.all(fullMessages)
-      .then((data) => {
-        const filtered = data.filter(
-          (v, i, a) =>
-            a.findIndex((t) => t.message === v.message && t.date === v.date) ===
-            i
-        );
-        res.json({ messages: filtered });
-        res.end();
-        return;
-      })
-      .catch((e) => {
-        console.log(e);
-        res.json({ messages: [] });
-        res.end();
-        return;
-      });
-  }
+  async getRoomId(req, res) {
+    const user1 = req.user.userId;
+    const user2 = req.params.user2;
 
-  async deleteMessage(req, res) {
-    const message = await Message.findById(req.params.id);
-    await Room.findByIdAndUpdate(message.room, { lastMessage: "" });
-    const sameMessages = await Message.find({
-      message: message.message,
-      date: message.date,
-      room: message.room,
-    });
-    for await (var i of sameMessages) {
-      if (i.imageUrl != "") {
-        await ImageService.deleteFile(
-          path.resolve("..", "static", "messagefotos", i.imageUrl)
-        );
-      } else if (i.videoUrl != "") {
-        await ImageService.deleteFile(
-          path.resolve("..", "static", "messagevideos", i.videoUrl)
-        );
-      } else if (i.audioUrl != "") {
-        await ImageService.deleteFile(
-          path.resolve("..", "static", "messageaudios", i.audioUrl)
-        );
-      }
-      await Message.findByIdAndDelete(i._id);
+    let room = await Room.findOne({ user1, user2 });
+    if (!room) {
+      room = await Room.findOne({ user1: user2, user2: user1 });
     }
-    res.json({ msg: "deleted" });
-  }
-  async editMessage(req, res) {
-    const message = await Message.findById(req.params.id);
-    await Message.findByIdAndUpdate(req.params.id, {
-      old: message.message,
-      message: req.body.message,
-    });
-
-    // await Room.findByIdAndUpdate(message.room, {
-    //   lastMessage: req.body.message,
-    // });
-    res.json({ msg: "updated" });
+    res.json({ room: room._id });
   }
 
-  async lastMessage(req, res) {
-    const lastMessage = req.body.lastMessage;
-    console.log(lastMessage);
-    const room = req.params.room;
-
-    await Room.findByIdAndUpdate(room, { lastMessage });
-    res.json({ msg: "success" });
-  }
-  async newMessageExists(req, res) {
-    const room = req.params.id;
-
-    const messages = await Message.find({ room });
-    if (!messages.length) {
-      res.json({ msg: "err" });
-      return;
-    }
-    const isNotReaded = messages[messages.length - 1].isNotReaded;
-    res.json({ isNotReaded });
-  }
   async read(req, res) {
     const id = req.params.id;
     const messages = await Message.find({ room: id });
@@ -427,55 +245,14 @@ class MessengerService {
       res.json({ room: null, exists: false });
     }
   }
-  async getFullLastMessage(req, res) {
-    const id = req.params.id;
-    const messages = await Message.find({ room: id });
-    if (!messages.length) {
-      res.json({ msg: "err" });
-      return;
-    }
-    const lastMessage = messages[messages.length - 1];
-    res.json({ fullLastMessage: lastMessage });
-  }
-  async lastMessageMobile(req, res) {
-    const id = req.params.id;
-    const messages = await Message.find({ room: id });
-    if (!messages.length) {
-      res.json({ msg: "err" });
-      return;
-    }
-    const lastMessage = messages[messages.length - 1];
-    const lastMessageObj = lastMessage.toObject();
-    if (!lastMessage.message) lastMessage.message = "";
-    if (!lastMessage.to) lastMessage.to = "";
-    res.json(lastMessageObj);
-  }
   async uploadBg(req, res) {
-    const filename = uuid.v4() + ".jpg";
-    const room = await Room.findByIdAndUpdate(req.params.id, { bg: filename });
-    FileService.insertRoomBackground(req.files.file, filename);
-    res.json({ filename });
-  }
-  async uploadBgMobile(req, res) {
     const filename = uuid.v4() + ".jpg";
     await Room.findByIdAndUpdate(req.params.id, { bg: filename });
     FileService.insertRoomBackground(req.files.file, filename);
-    res.json("");
+    res.json({ filename });
   }
   async user2byRoom(req, res) {
     const room = await Room.findById(req.params.id);
-    console.log(
-      "ну пипец",
-      room.user1.toString(),
-      req.params.user,
-      room.user1.toString() == req.params.user
-    );
-    console.log(
-      "ну капец",
-      room.user2.toString(),
-      req.params.user,
-      room.user2.toString() == req.params.user
-    );
     if (room.user1.toString() == req.params.user) {
       const user = await User.findById(room.user2);
       res.json({ user });
@@ -495,37 +272,211 @@ class MessengerService {
     }
   }
 
-  async clear() {
-    try {
-      // Находим все уникальные комбинации полей message, date, room и user
-      const uniqueMessages = await Message.aggregate([
-        {
-          $group: {
-            _id: {
-              message: "$message",
-              date: "$date",
-              room: "$room",
-              user: "$user",
-            },
-            count: { $sum: 1 },
-          },
-        },
-      ]);
+  async connect(req, res) {
+    console.log("connection");
+    res.writeHead(200, {
+      Connection: "keep-alive",
+      "Content-Type": "text/event-stream",
+      "Cache-Control": "no-cache",
+      "Accept-Ranges": "bytes",
+      "Content-Range": "bytes 100-64656926/64656927",
+    });
 
-      // Удаляем все дубликаты, оставляя только одну запись для каждой уникальной комбинации полей
-      uniqueMessages.forEach(async (uniqueMessage) => {
-        if (uniqueMessage.count > 1) {
-          await Message.deleteMany({
-            message: uniqueMessage._id.message,
-            date: uniqueMessage._id.date,
-            room: uniqueMessage._id.room,
-            user: uniqueMessage._id.user,
-          });
-        }
+    Utils.sendMessages(res, req.params.user, req.params.id, 1, 0, "init");
+
+    const messages = async (page, offset, user) => {
+      await Utils.sendMessages(res, user, req.params.id, page, offset, "load");
+    };
+
+    const newMessage = async (message) => {
+      const existingMessage = await Message.findOne({
+        images: { $eq: oldImages },
+        videos: { $eq: oldVideos },
+        message: message.message,
+        date: message.date,
       });
-      console.log("Дубли удалены успешно");
-    } catch (err) {
-      console.error("Ошибка при удалении дублей:", err);
+      if (!existingMessage) {
+        const created = new Message(message);
+        const saveMessage = async () => {
+          await created.save();
+        };
+        emitter.once("save-message", saveMessage);
+        emitter.emit("save-message");
+        emitter.off("save-message", saveMessage);
+        await Room.findByIdAndUpdate(message.room, {
+          lastMessageId: created._id,
+          lastMessage: created.message,
+        });
+        res.write(
+          `data: ${JSON.stringify({
+            messages: [created],
+            user: created.user,
+            type: "create",
+          })} \n\n`
+        );
+      }
+    };
+
+    const deleteMessage = async (deleted) => {
+      res.write(
+        `data: ${JSON.stringify({
+          messages: [deleted],
+          user: deleted.user,
+          type: "delete",
+        })} \n\n`
+      );
+    };
+
+    const editMessage = async (edited, oldText, oldImages, oldVideos) => {
+      res.write(
+        `data: ${JSON.stringify({
+          messages: [edited],
+          user: edited.user,
+          type: "edit",
+          oldText,
+          firstOldImage: oldImages[0],
+          firstOldVideo: oldVideos[0],
+        })} \n\n`
+      );
+    };
+
+    emitter.on("messages", messages);
+    emitter.on("newMessage", newMessage);
+    emitter.on("deleteMessage", deleteMessage);
+    emitter.on("editMessage", editMessage);
+
+    req.on("close", () => {
+      emitter.off("messages", messages);
+      emitter.off("newMessage", newMessage);
+      emitter.off("deleteMessage", deleteMessage);
+      emitter.off("editMessage", editMessage);
+    });
+  }
+
+  async messages(req, res) {
+    try {
+      emitter.emit(
+        "messages",
+        req.params.page,
+        req.params.offset,
+        req.user.userId
+      );
+      res.json({ message: "да ну тебя" });
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  async newMessage(req, res) {
+    req.setTimeout(60 * 1000);
+    const user = await User.findById(req.user.userId);
+    const room = await Room.findById(req.params.id);
+
+    const message = req.body;
+
+    const imageExists = JSON.parse(req.body.imageExists);
+    const videoExists = JSON.parse(req.body.videoExists);
+    const audioExists = JSON.parse(req.body.audioExists);
+
+    const images = imageExists
+      ? Utils.processFiles(req.files, fileTypes.image)
+      : [];
+    const videos = videoExists
+      ? Utils.processFiles(req.files, fileTypes.video)
+      : [];
+
+    const audios = audioExists ? Utils.processAudio(req.files) : "";
+
+    message.isFile =
+      message.isFile == "true" || message.isFile == true ? true : false;
+    message.room = req.params.id;
+    message.avatarUrl = user.avatarUrl;
+    message.name = user.name;
+    message.isNotReaded = true;
+    message.user = user._id;
+    message.images = images;
+    message.videos = videos;
+    message.audios = audios;
+    message.hms = Utils.getCurrentTime();
+
+    let to = "";
+    if (room.user1.toString() == req.user.userId) {
+      to = room.user2;
+    } else {
+      to = room.user1;
+    }
+
+    const token = await NotificationToken.findOne({ user: to });
+
+    if (token != null) {
+      const name = user.name + " " + user.surname;
+      FirebaseService.send(name, message.message, token.token, {
+        id: room._id.toString(),
+        type: "message",
+        message: message.message,
+        name,
+        click_action: "MESSENGER",
+      });
+    }
+
+    if (
+      message.fileLink == null ||
+      message.fileLink == "null" ||
+      message.fileLink == ""
+    ) {
+      message.fileLink = "";
+    } else {
+      await File.findByIdAndUpdate(message.fileLink, { public: true });
+    }
+    emitter.emit("newMessage", message);
+    res.json({ message, user, room });
+  }
+
+  async deleteMessage(req, res) {
+    const id = req.params.id;
+    const message = await Message.findById(id);
+    const messageCopy = message.toObject();
+    if (message.user.toString() === req.user.userId) {
+      Utils.dm(
+        req,
+        res,
+        message.message,
+        message.date,
+        message.images,
+        message.videos,
+        messageCopy
+      );
+    } else {
+      res.json({ id });
+    }
+  }
+
+  async editMessage(req, res) {
+    const id = req.params.id;
+    const imageExists = JSON.parse(req.body.imageExists);
+    const videoExists = JSON.parse(req.body.videoExists);
+    const images = imageExists
+      ? Utils.processFiles(req.files, fileTypes.image)
+      : [];
+    const videos = videoExists
+      ? Utils.processFiles(req.files, fileTypes.video)
+      : [];
+
+    const message = await Message.findById(id);
+    if (message.user.toString() === req.user.userId) {
+      Utils.edit(
+        req,
+        res,
+        message.message,
+        message.date,
+        req.body.message,
+        message.images,
+        message.videos,
+        images,
+        videos
+      );
+    } else {
+      res.json({ id });
     }
   }
 }

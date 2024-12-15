@@ -18,6 +18,7 @@ export const folders = {
   videos: "message-videos",
   audios: "message-audios",
   bg: "room-backgrounds",
+  groupAvatars: "chatavatars",
 };
 
 export const actionsAnimationClasses = {

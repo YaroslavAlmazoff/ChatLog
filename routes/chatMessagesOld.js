@@ -271,4 +271,51 @@ router.post("/uploadbg/:id", (req, res) => {
   }
 });
 
+router.post("/new-chat-messages/:id", auth, async (req, res) => {
+  const user = await User.findById(req.user.userId); //id
+  const message = req.body;
+  const updatedRoom = await ChatRoom.findByIdAndUpdate(req.params.id, {
+    lastMessage: message.message,
+  });
+  message.isFile =
+    message.isFile == "true" || message.isFile == true ? true : false;
+  message.room = req.params.id;
+  message.avatarUrl = user.avatarUrl;
+  message.name = user.name;
+  message.isNotReaded = true;
+  message.user = user._id;
+  message.date = message.date;
+
+  const tokens = [];
+
+  const tkns = updatedRoom.members.map(async (user) => {
+    const token = await NotificationToken.findOne({ user });
+    if (token) tokens.push(token.token);
+  });
+
+  Promise.all(tkns).then((data) => {
+    console.log(tokens);
+    FirebaseService.sendMulticast(
+      user.name + " " + user.surname,
+      message.message,
+      tokens.filter((value) => value != req.user.userId),
+      {
+        id: updatedRoom._id.toString(),
+        type: "chatmessage",
+        message: message.message,
+        name: updatedRoom.title,
+        click_action: "CHAT",
+      }
+    );
+  });
+
+  if (message.fileLink == null || message.fileLink == "null") {
+    message.fileLink = "";
+  } else {
+    await File.findByIdAndUpdate(message.fileLink, { public: true });
+  }
+  emitter.emit("newMessageMobile", message, req);
+  res.status(200);
+});
+
 module.exports = router;

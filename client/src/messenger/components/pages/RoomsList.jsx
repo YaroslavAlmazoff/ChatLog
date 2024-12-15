@@ -1,11 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
 import useRandom from "../../../common_hooks/random.hook";
-import RoomItem from "../parts/RoomItem";
+import RoomItem from "../components/RoomItem";
 import "../styles/room-list.css";
 import api from "../../../auth/api/auth";
 import { AuthContext } from "../../../context/AuthContext";
 import Loader from "../../../common_components/Loader";
-import useVerify from "../../../common_hooks/verify.hook";
 import { useNavigate } from "react-router";
 
 export const RoomsList = () => {
@@ -20,7 +19,7 @@ export const RoomsList = () => {
     if (!auth.userId) return;
     const getRooms = async () => {
       setLoading(true);
-      const response = await api.get(`/api/getrooms`, {
+      const response = await api.get(`/api/get-rooms`, {
         headers: {
           Authorization: `Bearer ${auth.token}`,
         },

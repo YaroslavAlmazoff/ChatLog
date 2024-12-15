@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import api from "../../../auth/api/auth";
+import api from "../../../../auth/api/auth";
 import FullMemberItem from "./FullMemberItem";
 
 const Members = ({ room, openAddMembers }) => {
@@ -9,7 +9,7 @@ const Members = ({ room, openAddMembers }) => {
 
   useEffect(() => {
     const getMembers = async () => {
-      const response = await api.get(`/api/fullmembers/${params.id}`);
+      const response = await api.get(`/api/full-members/${params.id}`);
       setMembers(response.data.members);
     };
     getMembers();
