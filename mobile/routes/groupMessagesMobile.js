@@ -1,8 +1,8 @@
 const { Router } = require("express");
 
 const router = Router();
-const auth = require("../middleware/auth.middleware");
-const MessengerGroupServiceMobile = require("../services/MessengerGroupServiceMobile");
+const auth = require("../../middleware/auth.middleware");
+const MessengerGroupServiceMobile = require("../../services/MessengerGroupServiceMobile");
 
 router.get("/getchatrooms-mobile", auth, (req, res) => {
   try {
