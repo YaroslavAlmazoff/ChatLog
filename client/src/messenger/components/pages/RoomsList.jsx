@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
 import useRandom from "../../../common_hooks/random.hook";
 import RoomItem from "../components/RoomItem";
-import "../styles/room-list.css";
 import api from "../../../auth/api/auth";
 import { AuthContext } from "../../../context/AuthContext";
 import Loader from "../../../common_components/Loader";
 import { useNavigate } from "react-router";
+import "../../styles/RoomList.css";
 
 export function RoomsList() {
   const auth = useContext(AuthContext);

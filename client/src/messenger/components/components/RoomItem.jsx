@@ -1,8 +1,8 @@
-import "../styles/room-item.css";
 import useWord from "../../../common_hooks/divideWord.hook";
 import useHighlight from "../../../common_hooks/highlight.hook";
 import { useContext } from "react";
 import { AuthContext } from "../../../context/AuthContext";
+import "../../styles/RoomItem.css";
 
 const ChatRoomItem = ({ room }) => {
   const auth = useContext(AuthContext);
