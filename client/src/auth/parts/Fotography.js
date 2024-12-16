@@ -9,8 +9,8 @@ import useRandom from "../../common_hooks/random.hook";
 import Loader from "../../common_components/Loader";
 import usePosts from "../hooks/usePosts";
 import { AuthContext } from "../../context/AuthContext";
-import Smile from "../../messenger/c/parts/Smile";
-import { smiles } from "../../messenger/c/pages/smiles";
+import Smile from "../Smile";
+import { smiles } from "../smiles";
 import "../../messenger/c/styles/smiles.css";
 import useVerify from "../../common_hooks/verify.hook";
 
