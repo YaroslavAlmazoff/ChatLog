@@ -11,7 +11,7 @@ import usePosts from "../hooks/usePosts";
 import { AuthContext } from "../../context/AuthContext";
 import Smile from "../Smile";
 import { smiles } from "../smiles";
-import "../../messenger/c/styles/smiles.css";
+import "../styles/smiles.css";
 import useVerify from "../../common_hooks/verify.hook";
 
 const Fotography = () => {
