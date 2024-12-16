@@ -2,7 +2,7 @@ import { useContext, useRef, useState } from "react";
 import api from "../../../auth/api/auth";
 import useWord from "../../../common_hooks/divideWord.hook";
 import { AuthContext } from "../../../context/AuthContext";
-import "../styles/create-chat.css";
+import "../../styles/CreateGroup.css";
 import "../../../auth/styles/form.css";
 
 export function CreateGroup() {
