@@ -9,8 +9,8 @@ import UserArticleComment from "./parts/UserArticleComment";
 import Likers from "./parts/Likers";
 import Loader from "../common_components/Loader";
 import { AuthContext } from "../context/AuthContext";
-import Smile from "../messenger/c/parts/Smile";
-import { smiles } from "../messenger/c/pages/smiles";
+import Smile from "./Smile";
+import { smiles } from ".smiles";
 import useVerify from "../common_hooks/verify.hook";
 
 const UserArticle = () => {
