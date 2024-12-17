@@ -22,7 +22,7 @@ class Utils {
   processAudio(files) {
     if (Object.keys(files).length !== 0 && files.audio) {
       const audio = files.audio;
-      const filename = generateFileName(audio);
+      const filename = this.generateFileName(audio);
       audio.mv(
         path.resolve(
           "..",
@@ -45,7 +45,7 @@ class Utils {
             .filter((key) => key.includes(type))
             .map((key) => {
               const file = files[key];
-              const filename = generateFileName(file);
+              const filename = this.generateFileName(file);
               file.mv(
                 path.resolve("..", "static", `message-${type}s`, filename)
               );
@@ -81,8 +81,8 @@ class Utils {
   }
 
   async sendMessages(res, user, room, page, offset, type) {
-    const filtered = await filterMessages(room);
-    const { startIndex, endIndex } = getMessagesPortion(page, offset);
+    const filtered = await this.filterMessages(room);
+    const { startIndex, endIndex } = this.getMessagesPortion(page, offset);
     const results = filtered.slice(startIndex, endIndex).reverse();
     res.write(
       `data: ${JSON.stringify({
@@ -103,7 +103,7 @@ class Utils {
       videos,
     });
     if (message) {
-      dm(req, res, text, date, images, videos, messageCopy);
+      this.dm(req, res, text, date, images, videos, messageCopy);
     } else {
       emitter.emit("deleteMessage", messageCopy);
       res.json({ id: req.params.id });
@@ -133,7 +133,7 @@ class Utils {
       { new: true }
     );
     if (message) {
-      edit(
+      this.edit(
         req,
         res,
         oldText,
