@@ -104,7 +104,7 @@ class Utils {
       videos,
     });
     if (message) {
-      this.dm(req, res, text, date, images, videos, messageCopy);
+      this.dm(req, res, text, date, images, videos, messageCopy, emitter);
     } else {
       emitter.emit("deleteMessage", messageCopy);
       res.json({ id: req.params.id });
@@ -143,7 +143,8 @@ class Utils {
         oldImages,
         oldVideos,
         newImages,
-        newVideos
+        newVideos,
+        emitter
       );
     } else {
       const updatedMessage = await Message.findOne({

@@ -472,7 +472,8 @@ class MessengerService {
         message.images,
         message.videos,
         images,
-        videos
+        videos,
+        emitter
       );
     } else {
       res.json({ id });
