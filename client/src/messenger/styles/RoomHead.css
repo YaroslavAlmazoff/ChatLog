@@ -20,10 +20,11 @@
 }
 
 .room-group-head-avatar {
-  height: 98%;
+  height: 90%;
   aspect-ratio: 1/1;
   border-radius: 50%;
   object-fit: cover;
+  margin-left: 8px;
 }
 
 .room-group-head-open-info {
@@ -31,6 +32,7 @@
   width: auto;
   border-radius: 50%;
   object-fit: cover;
+  margin-right: 8px;
 }
 
 .room-head-text {
