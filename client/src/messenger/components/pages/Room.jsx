@@ -101,6 +101,7 @@ export default function Room({ type }) {
   useEffect(() => {
     const getDataAndStartEventSource = async () => {
       const { room } = await (isGroup ? getGroupRoom(id) : getRoom(id));
+      console.log(room);
       setRoom(room);
 
       const eventSource = isGroup
