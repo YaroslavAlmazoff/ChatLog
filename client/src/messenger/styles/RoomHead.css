@@ -27,8 +27,8 @@
 }
 
 .room-group-head-open-info {
-  width: 98%;
-  height: auto;
+  height: 98%;
+  width: auto;
   border-radius: 50%;
   object-fit: cover;
 }
