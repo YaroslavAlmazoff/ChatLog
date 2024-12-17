@@ -191,7 +191,7 @@ export default function Room({ type }) {
       }}
     >
       {isGroup ? (
-        <GroupRoomHead title={room.title} />
+        <GroupRoomHead title={room.title} avatarUrl={room.avatarUrl} />
       ) : (
         <RoomHead
           name={room.name}
