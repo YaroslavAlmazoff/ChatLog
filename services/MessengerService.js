@@ -443,7 +443,8 @@ class MessengerService {
         message.date,
         message.images,
         message.videos,
-        messageCopy
+        messageCopy,
+        emitter
       );
     } else {
       res.json({ id });
