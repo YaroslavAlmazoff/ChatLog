@@ -21,14 +21,14 @@
 
 .room-group-head-avatar {
   height: 98%;
-  width: auto;
+  aspect-ratio: 1/1;
   border-radius: 50%;
   object-fit: cover;
 }
 
 .room-group-head-open-info {
-  height: 98%;
-  aspect-ratio: 1/1;
+  height: 80%;
+  width: auto;
   border-radius: 50%;
   object-fit: cover;
 }
