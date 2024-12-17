@@ -95,6 +95,10 @@ export default function Room({ type }) {
   };
 
   useEffect(() => {
+    console.log(observerLoading);
+  }, [observerLoading]);
+
+  useEffect(() => {
     const getDataAndStartEventSource = async () => {
       const { room } = await (isGroup ? getGroupRoom(id) : getRoom(id));
       setRoom(room);
@@ -116,7 +120,11 @@ export default function Room({ type }) {
         currentHeight.current = feedRef.current.scrollHeight;
 
         if (isInit) {
-          isGroup ? readGroup(newMessages, id) : read(newMessages, id);
+          if (isGroup) {
+            readGroup(newMessages, id);
+          } else {
+            read(newMessages, id);
+          }
           startMessagesCount.current = newMessages.length;
         }
         if (isCreate) {
@@ -124,7 +132,11 @@ export default function Room({ type }) {
           setMessages((prev) => [...prev, ...newMessages]);
           if (!isMyAction) {
             playAudio();
-            isGroup ? readGroup(newMessages, id) : read(newMessages, id);
+            if (isGroup) {
+              readGroup(newMessages, id);
+            } else {
+              read(newMessages, id);
+            }
           } else register();
         } else if (isDelete) {
           setMessages((prev) => filterMessages(prev, newMessages));
