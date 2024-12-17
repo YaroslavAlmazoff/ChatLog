@@ -4,7 +4,7 @@ import { useContext } from "react";
 import { AuthContext } from "../../../context/AuthContext";
 import "../../styles/RoomItem.css";
 
-const ChatRoomItem = ({ room }) => {
+export default function ChatRoomItem({ room }) {
   const auth = useContext(AuthContext);
   const { divideWord } = useWord();
   const { randomColor, randomShadow, randomBlockShadow } = useHighlight();
@@ -48,6 +48,4 @@ const ChatRoomItem = ({ room }) => {
       </div>
     </div>
   );
-};
-
-export default ChatRoomItem;
+}
