@@ -76,7 +76,7 @@ export default function Room({ type }) {
     ) {
       scrollToBottom(feedRef);
       setSendLoading(false);
-      if (startMessagesCount.current > startMessagesCountCheck) {
+      if (startMessagesCount.current >= startMessagesCountCheck) {
         setObserverLoading(false);
       }
     } else if (actionType === messagesDataTypes.load) {
