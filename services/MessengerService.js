@@ -289,8 +289,8 @@ class MessengerService {
 
     const newMessage = async (message) => {
       const existingMessage = await Message.findOne({
-        images: { $eq: oldImages },
-        videos: { $eq: oldVideos },
+        images: { $eq: message.images },
+        videos: { $eq: message.videos },
         message: message.message,
         date: message.date,
       });
