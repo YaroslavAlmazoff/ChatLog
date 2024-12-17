@@ -378,10 +378,10 @@ class MessengerService {
     const audioExists = JSON.parse(req.body.audioExists);
 
     const images = imageExists
-      ? Utils.processFiles(req.files, fileTypes.image)
+      ? Utils.processFiles(req.files, Utils.fileTypes.image)
       : [];
     const videos = videoExists
-      ? Utils.processFiles(req.files, fileTypes.video)
+      ? Utils.processFiles(req.files, Utils.fileTypes.video)
       : [];
 
     const audios = audioExists ? Utils.processAudio(req.files) : "";
@@ -455,10 +455,10 @@ class MessengerService {
     const imageExists = JSON.parse(req.body.imageExists);
     const videoExists = JSON.parse(req.body.videoExists);
     const images = imageExists
-      ? Utils.processFiles(req.files, fileTypes.image)
+      ? Utils.processFiles(req.files, Utils.fileTypes.image)
       : [];
     const videos = videoExists
-      ? Utils.processFiles(req.files, fileTypes.video)
+      ? Utils.processFiles(req.files, Utils.fileTypes.video)
       : [];
 
     const message = await Message.findById(id);
