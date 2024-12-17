@@ -1,5 +1,6 @@
 const Message = require("../models/Message");
 const path = require("path");
+const uuid = require("uuid");
 
 class Utils {
   fileTypes = {
