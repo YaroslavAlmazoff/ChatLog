@@ -7,7 +7,7 @@ import Loader from "../../../common_components/Loader";
 import { useNavigate } from "react-router";
 import "../../styles/RoomList.css";
 
-export function RoomsList() {
+export default function RoomsList() {
   const auth = useContext(AuthContext);
   const navigate = useNavigate();
 
