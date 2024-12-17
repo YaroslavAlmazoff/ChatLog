@@ -64,6 +64,10 @@ export default function Room({ type }) {
   const id = useMemo(() => params.id, [params]);
   const isGroup = type === roomTypes.group;
 
+  useEffect(() => {
+    console.log(isGroup);
+  }, [isGroup]);
+
   const { register, load } = useLoad(() => {
     if (!feedRef.current) return;
     if (
@@ -76,6 +80,7 @@ export default function Room({ type }) {
         setObserverLoading(false);
       }
     } else if (actionType === messagesDataTypes.load) {
+      console.log("load");
       loadScroll(feedRef, currentHeight.current);
       setScrollLoading(false);
     }
