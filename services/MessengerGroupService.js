@@ -31,7 +31,7 @@ class MessengerGroupService {
 
   async getRoom(req, res) {
     const room = await ChatRoom.findById(req.params.id);
-    res.json(room);
+    res.json({ room });
   }
 
   async invite(req, res) {
