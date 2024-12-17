@@ -149,7 +149,7 @@ class MessengerService {
             (item) => item._id.toString() == el.room.toString()
           );
           if (roomObj.isChat) {
-            roomObj.unread = el.readedThisMessage.includes(
+            roomObj.unread = !el.readedThisMessage.includes(
               mongoose.Types.ObjectId(user)
             );
           } else {
