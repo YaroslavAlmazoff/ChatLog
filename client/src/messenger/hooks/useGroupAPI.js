@@ -78,6 +78,7 @@ export default function useGroupAPI(openModal, setErrorCallback) {
   const getGroupRoom = useCallback(
     async (id) => {
       const response = await api.get(`${prefix}/room/${id}`, options);
+      console.log(response);
       return response.data;
     },
     [options]
