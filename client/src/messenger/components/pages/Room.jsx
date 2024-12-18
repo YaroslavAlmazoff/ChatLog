@@ -219,6 +219,7 @@ export default function Room({ type }) {
           error={error}
           setErrorCallback={setErrorCallback}
           setSendLoading={setSendLoading}
+          isGroup={isGroup}
         />
       </EditMessageContext.Provider>
     </div>

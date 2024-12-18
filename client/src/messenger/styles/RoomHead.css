@@ -25,6 +25,7 @@
   border-radius: 50%;
   object-fit: cover;
   margin-left: 6px;
+  cursor: pointer;
 }
 
 .room-group-head-open-info {
@@ -33,6 +34,7 @@
   border-radius: 50%;
   object-fit: cover;
   margin-right: 8px;
+  cursor: pointer;
 }
 
 .room-head-text {
