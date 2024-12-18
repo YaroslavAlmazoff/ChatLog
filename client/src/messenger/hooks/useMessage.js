@@ -34,12 +34,19 @@ export default function useMessage() {
         message.images[0] === firstOldImage &&
         message.videos[0] === firstOldVideo
       ) {
+        console.log(
+          "COMPARE",
+          message,
+          newMessages[0].images.length > 0 || newMessages[0].videos.length > 0
+        );
         return {
           ...message,
           message: newMessages[0].message,
           images: newMessages[0].images,
           videos: newMessages[0].videos,
-          isNew: newMessages[0].images.length || newMessages[0].videos.length,
+          isNew:
+            newMessages[0].images.length > 0 ||
+            newMessages[0].videos.length > 0,
         };
       } else {
         return message;
