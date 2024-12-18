@@ -26,6 +26,7 @@ export default function useMessage() {
     firstOldImage,
     firstOldVideo
   ) => {
+    console.log(newMessages[0].images.length || newMessages[0].videos.length);
     return messages.map((message) => {
       if (
         message.date === newMessages[0].date &&
@@ -38,10 +39,7 @@ export default function useMessage() {
           message: newMessages[0].message,
           images: newMessages[0].images,
           videos: newMessages[0].videos,
-          isNew:
-            newMessages[0].images.length || newMessages[0].videos.length
-              ? true
-              : false,
+          isNew: newMessages[0].images.length || newMessages[0].videos.length,
         };
       } else {
         return message;

@@ -152,7 +152,11 @@ export default function Room({ type }) {
               messagesData.firstOldVideo
             )
           );
-          register();
+          if (
+            newMessages[0].images.length ||
+            (newMessages[0].images.length && isMyAction)
+          )
+            register();
           if (isMyAction) {
             setEditingMessage(null);
             setSendLoading(false);
