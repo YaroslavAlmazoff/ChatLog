@@ -200,7 +200,7 @@ export default function Room({ type }) {
         />
       )}
       <EditMessageContext.Provider
-        value={{ editingMessage, setEditingMessage, type }}
+        value={{ editingMessage, setEditingMessage, isGroup }}
       >
         <ImageLoadContext.Provider value={{ register, load, makeMessageOld }}>
           <RoomMessages
