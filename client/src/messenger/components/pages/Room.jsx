@@ -72,7 +72,8 @@ export default function Room({ type }) {
     if (!feedRef.current) return;
     if (
       actionType === messagesDataTypes.init ||
-      actionType === messagesDataTypes.create
+      actionType === messagesDataTypes.create ||
+      actionType === messagesDataTypes.edit
     ) {
       scrollToBottom(feedRef);
       setSendLoading(false);
