@@ -1,11 +1,12 @@
-const File = require("../models/File");
 const events = require("events");
+const uuid = require("uuid");
+const File = require("../models/File");
 const Message = require("../models/Message");
 const User = require("../models/User");
 const FileService = require("./FileService");
 const FirebaseService = require("./FirebaseService");
-const uuid = require("uuid");
 const ChatRoom = require("../models/ChatRoom");
+const NotificationToken = require("../models/NotificationToken");
 const Utils = require("../utils/Utils");
 
 const emitter = new events.EventEmitter();
