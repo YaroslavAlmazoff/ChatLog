@@ -46,20 +46,6 @@ router.post("/edit-discussion/:id", (req, res) => {
     console.log(e);
   }
 });
-router.delete("/message/:id", (req, res) => {
-  try {
-    MessengerGroupService.deleteMessage(req, res);
-  } catch (e) {
-    console.log(e);
-  }
-});
-router.patch("/message/:id", (req, res) => {
-  try {
-    MessengerGroupService.editMessage(req, res);
-  } catch (e) {
-    console.log(e);
-  }
-});
 router.delete("/leave/:id", auth, (req, res) => {
   try {
     MessengerGroupService.leave(req, res);
