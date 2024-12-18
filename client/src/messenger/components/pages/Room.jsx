@@ -155,8 +155,10 @@ export default function Room({ type }) {
           if (
             newMessages[0].images.length ||
             (newMessages[0].images.length && isMyAction)
-          )
+          ) {
             register();
+            console.log("registered text", newMessages[0].message);
+          }
           if (isMyAction) {
             setEditingMessage(null);
             setSendLoading(false);
