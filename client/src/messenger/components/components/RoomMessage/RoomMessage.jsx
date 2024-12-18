@@ -33,7 +33,7 @@ export default function RoomMessage({ message }) {
         setAllVideosLoaded(true);
       }
     }
-  }, []);
+  }, [message]);
 
   const onImageLoaded = () => {
     setLoadedImages((prev) => prev + 1);
