@@ -7,22 +7,24 @@ import shareIcon from "../../../img/share.png";
 import useAPI from "../../../hooks/useAPI";
 import { EditMessageContext } from "../../../context/EditMessageContext";
 import useGroupAPI from "../../../hooks/useGroupAPI";
-import { roomTypes } from "../../../data/messengerConfiguration";
 
 export default function RoomMessageActions({ message, animation }) {
   const { userId } = useContext(AuthContext);
-  const { setEditingMessage, type } = useContext(EditMessageContext);
+  const { setEditingMessage, isGroup } = useContext(EditMessageContext);
   const { deleteMessage } = useAPI();
   const { deleteGroupMessage } = useGroupAPI();
   const isMyMessage = message.user === userId;
-  const isGroup = type === roomTypes.group;
 
   const messageActions = [
     {
       icon: deleteIcon,
       available: isMyMessage,
       onClick: async () => {
-        await (isGroup ? deleteGroupMessage(message) : deleteMessage(message));
+        if (isGroup) {
+          await deleteGroupMessage(message);
+        } else {
+          await deleteMessage(message);
+        }
       },
     },
     {
