@@ -174,6 +174,9 @@ export default function Room({ type }) {
             setSendLoading(false);
           }
         } else if ((isInit || isLoad) && isMyAction) {
+          if (newMessages.length === 0) {
+            setScrollLoading(false);
+          }
           const newMessagesWithNewFlag = newMessages.map((message) => ({
             ...message,
             isNew: true,
