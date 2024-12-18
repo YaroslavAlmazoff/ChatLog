@@ -26,7 +26,7 @@ export default function RoomMainField({
   error,
   setErrorCallback,
   setSendLoading,
-  type,
+  isGroup,
 }) {
   const { editingMessage, setEditingMessage } = useContext(EditMessageContext);
   const [modalContent, setModalContent] = useState(null);
@@ -47,7 +47,6 @@ export default function RoomMainField({
   const { editGroupMessage, uploadGroupBg, sendGroupMessage } = useGroupAPI();
   const { fileTypes } = useFile();
   const { id } = useParams();
-  const isGroup = type === roomTypes.group;
 
   const messageFieldRef = useRef();
   const selectImageRef = useRef();
@@ -73,21 +72,25 @@ export default function RoomMainField({
   const handleSend = async () => {
     setSendLoading(true);
     if (editingMessage) {
-      await (isGroup
-        ? editGroupMessage(
-            editingMessage._id,
-            messageFieldRef.current.value,
-            files
-          )
-        : editMessage(
-            editingMessage._id,
-            messageFieldRef.current.value,
-            files
-          ));
+      if (isGroup) {
+        await editGroupMessage(
+          editingMessage._id,
+          messageFieldRef.current.value,
+          files
+        );
+      } else {
+        await editMessage(
+          editingMessage._id,
+          messageFieldRef.current.value,
+          files
+        );
+      }
     } else {
-      isGroup
-        ? sendGroupMessage(id, messageFieldRef.current.value, files)
-        : sendMessage(id, messageFieldRef.current.value, files);
+      if (isGroup) {
+        await sendGroupMessage(id, messageFieldRef.current.value, files);
+      } else {
+        await sendMessage(id, messageFieldRef.current.value, files);
+      }
       setOffset((prev) => prev + 1);
     }
     messageFieldRef.current.value = "";
