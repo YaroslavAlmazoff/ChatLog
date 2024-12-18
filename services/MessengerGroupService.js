@@ -255,22 +255,21 @@ class MessengerGroupService {
 
     const tokens = [];
 
-    const tkns = updatedRoom.members.map(async (user) => {
+    const tkns = room.members.map(async (user) => {
       const token = await NotificationToken.findOne({ user });
       if (token) tokens.push(token.token);
     });
 
     Promise.all(tkns).then((data) => {
-      console.log(tokens);
       FirebaseService.sendMulticast(
         user.name + " " + user.surname,
         message.message,
         tokens.filter((value) => value != req.user.userId),
         {
-          id: updatedRoom._id.toString(),
+          id: room._id.toString(),
           type: "chatmessage",
           message: message.message,
-          name: updatedRoom.title,
+          name: room.title,
           click_action: "CHAT",
         }
       );
