@@ -138,7 +138,13 @@ export default function Room({ type }) {
             } else {
               read(newMessages, id);
             }
-          } else register();
+          } else {
+            register();
+            console.log(
+              `registered text in ${actionType}`,
+              newMessages[0].message
+            );
+          }
         } else if (isDelete) {
           setMessages((prev) => filterMessages(prev, newMessages));
           setOffset((prev) => prev - 1);
@@ -157,7 +163,10 @@ export default function Room({ type }) {
             isMyAction
           ) {
             register();
-            console.log("registered text", newMessages[0].message);
+            console.log(
+              `registered text in ${actionType}`,
+              newMessages[0].message
+            );
           }
           if (isMyAction) {
             setEditingMessage(null);
@@ -168,8 +177,9 @@ export default function Room({ type }) {
             ...message,
             isNew: true,
           }));
-          newMessagesWithNewFlag.forEach(() => {
+          newMessagesWithNewFlag.forEach((u) => {
             register();
+            console.log(`registered text in ${actionType}`, u.message);
           });
           setMessages((prev) => [...newMessagesWithNewFlag, ...prev]);
         }
