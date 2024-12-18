@@ -187,7 +187,12 @@ export default function Room({ type }) {
             setScrollLoading(false);
           }
         }
-        if (isMyAction) setStartLoading(false);
+        if (isMyAction) {
+          setStartLoading(false);
+          if (!newMessages.length) {
+            setScrollLoading(false);
+          }
+        }
       };
     };
     getDataAndStartEventSource();
