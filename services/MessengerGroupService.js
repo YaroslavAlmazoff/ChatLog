@@ -222,6 +222,7 @@ class MessengerGroupService {
   }
 
   async messages(req, res) {
+    console.log("groupMessages");
     emitter.emit(
       "groupMessages",
       req.params.page,
