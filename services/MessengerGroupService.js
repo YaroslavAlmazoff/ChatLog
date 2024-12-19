@@ -222,6 +222,20 @@ class MessengerGroupService {
     });
   }
 
+  async messages(req, res) {
+    try {
+      emitter.emit(
+        "messages",
+        req.params.page,
+        req.params.offset,
+        req.user.userId
+      );
+      res.json({ message: "да ну тебя" });
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
   async newMessage(req, res) {
     req.setTimeout(60 * 1000);
     const user = await User.findById(req.user.userId);
