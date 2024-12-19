@@ -198,7 +198,11 @@ export default function Room({ type }) {
   useEffect(() => {
     if (page !== 1) {
       setScrollLoading(true);
-      getMessages(page, offset);
+      if (isGroup) {
+        getGroupMessages(page, offset);
+      } else {
+        getMessages(page, offset);
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, getMessages]);
