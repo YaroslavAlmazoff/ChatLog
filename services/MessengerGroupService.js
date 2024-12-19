@@ -229,7 +229,7 @@ class MessengerGroupService {
       req.params.offset,
       req.user.userId
     );
-    res.json({ message: "да ну тебя" });
+    res.json({ message: "да" });
   }
 
   async newMessage(req, res) {
