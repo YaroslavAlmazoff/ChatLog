@@ -186,6 +186,9 @@ export default function Room({ type }) {
         }
         if (isMyAction) {
           setStartLoading(false);
+          if (!newMessages.length) {
+            setScrollLoading(false);
+          }
         }
       };
     };
