@@ -168,9 +168,9 @@ class MessengerGroupService {
         const saveMessage = async () => {
           await created.save();
         };
-        emitter.once("save-message", saveMessage);
-        emitter.emit("save-message");
-        emitter.off("save-message", saveMessage);
+        emitter.once("group-save-message", saveMessage);
+        emitter.emit("group-save-message");
+        emitter.off("group-save-message", saveMessage);
         await ChatRoom.findByIdAndUpdate(message.room, {
           lastMessageId: created._id,
           lastMessage: created.message,
@@ -196,7 +196,6 @@ class MessengerGroupService {
     };
 
     const editMessage = async (edited, oldText, oldImages, oldVideos) => {
-      console.log("edit", edited, oldText);
       res.write(
         `data: ${JSON.stringify({
           messages: [edited],
@@ -209,31 +208,27 @@ class MessengerGroupService {
       );
     };
 
-    emitter.on("messages", messages);
-    emitter.on("newMessage", newMessage);
-    emitter.on("deleteMessage", deleteMessage);
-    emitter.on("editMessage", editMessage);
+    emitter.on("groupMessages", messages);
+    emitter.on("groupNewMessage", newMessage);
+    emitter.on("groupDeleteMessage", deleteMessage);
+    emitter.on("groupEditMessage", editMessage);
 
     req.on("close", () => {
-      emitter.off("messages", messages);
-      emitter.off("newMessage", newMessage);
-      emitter.off("deleteMessage", deleteMessage);
-      emitter.off("editMessage", editMessage);
+      emitter.off("groupMessages", messages);
+      emitter.off("groupNewMessage", newMessage);
+      emitter.off("groupDeleteMessage", deleteMessage);
+      emitter.off("groupEditMessage", editMessage);
     });
   }
 
   async messages(req, res) {
-    try {
-      emitter.emit(
-        "messages",
-        req.params.page,
-        req.params.offset,
-        req.user.userId
-      );
-      res.json({ message: "да ну тебя" });
-    } catch (e) {
-      console.log(e);
-    }
+    emitter.emit(
+      "groupMessages",
+      req.params.page,
+      req.params.offset,
+      req.user.userId
+    );
+    res.json({ message: "да ну тебя" });
   }
 
   async newMessage(req, res) {
@@ -299,7 +294,7 @@ class MessengerGroupService {
     } else {
       await File.findByIdAndUpdate(message.fileLink, { public: true });
     }
-    emitter.emit("newMessage", message);
+    emitter.emit("groupNewMessage", message);
     res.json({ message, user, room });
   }
 
@@ -316,7 +311,8 @@ class MessengerGroupService {
         message.images,
         message.videos,
         messageCopy,
-        emitter
+        emitter,
+        true
       );
     } else {
       res.json({ id });
@@ -346,7 +342,8 @@ class MessengerGroupService {
         message.videos,
         images,
         videos,
-        emitter
+        emitter,
+        true
       );
     } else {
       res.json({ id });

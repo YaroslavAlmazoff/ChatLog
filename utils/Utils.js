@@ -96,7 +96,17 @@ class Utils {
     );
   }
 
-  async dm(req, res, text, date, images, videos, messageCopy, emitter) {
+  async dm(
+    req,
+    res,
+    text,
+    date,
+    images,
+    videos,
+    messageCopy,
+    emitter,
+    isGroup
+  ) {
     const message = await Message.findOneAndDelete({
       message: text,
       date,
@@ -106,7 +116,10 @@ class Utils {
     if (message) {
       this.dm(req, res, text, date, images, videos, messageCopy, emitter);
     } else {
-      emitter.emit("deleteMessage", messageCopy);
+      emitter.emit(
+        isGroup ? "groupDeleteMessage" : "deleteMessage",
+        messageCopy
+      );
       res.json({ id: req.params.id });
     }
   }
@@ -154,7 +167,7 @@ class Utils {
         message: newText,
       });
       emitter.emit(
-        "editMessage",
+        isGroup ? "groupEditMessage" : "editMessage",
         updatedMessage,
         oldText,
         oldImages,
