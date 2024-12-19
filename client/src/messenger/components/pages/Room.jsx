@@ -183,15 +183,9 @@ export default function Room({ type }) {
             console.log(`registered text in ${actionType}`, u.message);
           });
           setMessages((prev) => [...newMessagesWithNewFlag, ...prev]);
-          if (newMessages.length === 0) {
-            setScrollLoading(false);
-          }
         }
         if (isMyAction) {
           setStartLoading(false);
-          if (!newMessages.length) {
-            setScrollLoading(false);
-          }
         }
       };
     };
