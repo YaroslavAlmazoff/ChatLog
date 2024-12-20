@@ -42,7 +42,7 @@
   scrollbar-color: var(--blue-neon);
 }
 
-/* .room-messages::-webkit-scrollbar {
+.room-messages::-webkit-scrollbar {
   width: 10px;
 }
 .room-messages::-webkit-scrollbar-track {
@@ -76,4 +76,4 @@
   background-color: rgb(20, 20, 32);
   border-radius: 11px;
   border: 1px solid var(--blue-neon);
-} */
+}
