@@ -28,7 +28,6 @@ export default function RoomMessageImage({
   useEffect(() => {
     if (message.isNew) {
       register();
-      console.log("registered image", image);
     }
   }, []);
 
@@ -39,34 +38,24 @@ export default function RoomMessageImage({
       );
     }
     if (message.isNew) {
-      console.log("load image", image);
       load();
       onImageLoaded();
     }
   };
 
-  const onClose = () => {
-    //TODO: handle
-  };
-
   return (
-    <>
-      <img
-        onClick={() => openInNewTab(folders.images, image)}
-        src={fileFromServer(folders.images, image)}
-        alt={image}
-        ref={imageRef}
-        onLoad={onImageLoad}
-        onError={onImageLoad}
-        className={`room-message-image
+    <img
+      onClick={() => openInNewTab(folders.images, image)}
+      src={fileFromServer(folders.images, image)}
+      alt={image}
+      ref={imageRef}
+      onLoad={onImageLoad}
+      onError={onImageLoad}
+      className={`room-message-image
         ${isSingle ? " room-message-single-image" : ""}
         ${!isLast ? " room-message-media-margin" : ""}
         `}
-        id={image}
-      />
-      <button className="room-message-close-button" onClick={onClose}>
-        &times;
-      </button>
-    </>
+      id={image}
+    />
   );
 }
