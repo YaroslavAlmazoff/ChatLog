@@ -30,7 +30,7 @@ body::-webkit-scrollbar {
   width: 20px; /* ширина scrollbar */
 }
 body::-webkit-scrollbar-track {
-  background: transparent; /* цвет дорожки */
+  background: rgb(18, 20, 33); /* цвет дорожки */
 }
 body::-webkit-scrollbar-thumb {
   background-color: rgb(20, 20, 32); /* цвет плашки */
@@ -42,7 +42,7 @@ body::-moz-scrollbar {
   width: 20px; /* ширина scrollbar */
 }
 body::-moz-scrollbar-track {
-  background: transparent; /* цвет дорожки */
+  background: rgb(18, 20, 33); /* цвет дорожки */
 }
 body::-moz-scrollbar-thumb {
   background-color: rgb(20, 20, 32); /* цвет плашки */
@@ -54,7 +54,7 @@ body::-o-scrollbar {
   width: 20px; /* ширина scrollbar */
 }
 body::-o-scrollbar-track {
-  background: transparent; /* цвет дорожки */
+  background: rgb(18, 20, 33); /* цвет дорожки */
 }
 body::-o-scrollbar-thumb {
   background-color: rgb(20, 20, 32); /* цвет плашки */
