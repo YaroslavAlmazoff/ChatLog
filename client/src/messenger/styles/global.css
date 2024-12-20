@@ -2,7 +2,7 @@
 
 * {
   scrollbar-width: thin;
-  scrollbar-color: #40a4ff transparent;
+  scrollbar-color: #40a4ff rgb(23, 27, 35);
 }
 
 .block-success {
