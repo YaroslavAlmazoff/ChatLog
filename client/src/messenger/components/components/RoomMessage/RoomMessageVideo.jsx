@@ -29,7 +29,6 @@ export default function RoomMessageVideo({
   useEffect(() => {
     if (message.isNew) {
       register();
-      console.log("registered video", video);
     }
   }, []);
 
@@ -40,7 +39,6 @@ export default function RoomMessageVideo({
       );
     }
     if (message.isNew) {
-      console.log("load video", video);
       load();
       onVideoLoaded();
     }

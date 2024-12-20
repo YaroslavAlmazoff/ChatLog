@@ -64,10 +64,6 @@ export default function Room({ type }) {
   const id = useMemo(() => params.id, [params]);
   const isGroup = type === roomTypes.group;
 
-  useEffect(() => {
-    console.log(isGroup);
-  }, [isGroup]);
-
   const { register, load } = useLoad(() => {
     if (!feedRef.current) return;
     if (
@@ -81,7 +77,6 @@ export default function Room({ type }) {
         setObserverLoading(false);
       }
     } else if (actionType === messagesDataTypes.load) {
-      console.log("load");
       loadScroll(feedRef, currentHeight.current);
       setScrollLoading(false);
     }
@@ -141,10 +136,6 @@ export default function Room({ type }) {
             }
           } else {
             register();
-            console.log(
-              `registered text in ${actionType}`,
-              newMessages[0].message
-            );
           }
         } else if (isDelete) {
           setMessages((prev) => filterMessages(prev, newMessages));
@@ -164,10 +155,6 @@ export default function Room({ type }) {
             isMyAction
           ) {
             register();
-            console.log(
-              `registered text in ${actionType}`,
-              newMessages[0].message
-            );
           }
           if (isMyAction) {
             setEditingMessage(null);
