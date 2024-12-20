@@ -46,18 +46,23 @@ export default function RoomMessageImage({
   };
 
   return (
-    <img
-      onClick={() => openInNewTab(folders.images, image)}
-      src={fileFromServer(folders.images, image)}
-      alt={image}
-      ref={imageRef}
-      onLoad={onImageLoad}
-      onError={onImageLoad}
-      className={`room-message-image
+    <>
+      <img
+        onClick={() => openInNewTab(folders.images, image)}
+        src={fileFromServer(folders.images, image)}
+        alt={image}
+        ref={imageRef}
+        onLoad={onImageLoad}
+        onError={onImageLoad}
+        className={`room-message-image
         ${isSingle ? " room-message-single-image" : ""}
         ${!isLast ? " room-message-media-margin" : ""}
         `}
-      id={image}
-    />
+        id={image}
+      />
+      <button className="close-button" onClick={onClose}>
+        &times;
+      </button>
+    </>
   );
 }
