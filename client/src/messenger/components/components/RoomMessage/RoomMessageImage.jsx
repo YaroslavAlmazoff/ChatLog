@@ -45,6 +45,10 @@ export default function RoomMessageImage({
     }
   };
 
+  const onClose = () => {
+    //TODO: handle
+  };
+
   return (
     <>
       <img
@@ -60,7 +64,7 @@ export default function RoomMessageImage({
         `}
         id={image}
       />
-      <button className="close-button" onClick={onClose}>
+      <button className="room-message-close-button" onClick={onClose}>
         &times;
       </button>
     </>
