@@ -27,7 +27,7 @@ span {
 }
 
 body::-webkit-scrollbar {
-  width: 20px; /* ширина scrollbar */
+  width: 0; /* ширина scrollbar */
 }
 body::-webkit-scrollbar-track {
   background: rgb(18, 20, 33); /* цвет дорожки */
@@ -39,7 +39,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 body::-moz-scrollbar {
-  width: 20px; /* ширина scrollbar */
+  width: 0; /* ширина scrollbar */
 }
 body::-moz-scrollbar-track {
   background: rgb(18, 20, 33); /* цвет дорожки */
@@ -51,7 +51,7 @@ body::-moz-scrollbar-thumb {
 }
 
 body::-o-scrollbar {
-  width: 20px; /* ширина scrollbar */
+  width: 0; /* ширина scrollbar */
 }
 body::-o-scrollbar-track {
   background: rgb(18, 20, 33); /* цвет дорожки */
