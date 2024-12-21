@@ -37,24 +37,24 @@
   height: 92%;
   padding-top: 50px;
   padding-bottom: 50px;
-  scrollbar-width: 10px;
-  scrollbar-track-color: transparent;
-  scrollbar-color: var(--blue-neon);
+  scrollbar-width: thin;
+  scrollbar-color: var(--blue-neon) transparent;
 }
 
 .room-messages::-webkit-scrollbar {
-  width: 10px;
-}
-.room-messages::-webkit-scrollbar-track {
-  background: transparent;
-}
-.room-messages::-webkit-scrollbar-thumb {
-  background-color: rgb(20, 20, 32);
-  border-radius: 11px;
-  border: 1px solid var(--blue-neon);
+  width: 8px;
 }
 
-.room-messages::-moz-scrollbar {
+.room-messages::-webkit-scrollbar-thumb {
+  background-color: #40a4ff;
+  border-radius: 10px;
+}
+
+.room-messages::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+/* .room-messages::-moz-scrollbar {
   width: 10px;
 }
 .room-messages::-moz-scrollbar-track {
@@ -64,9 +64,9 @@
   background-color: rgb(20, 20, 32);
   border-radius: 11px;
   border: 1px solid var(--blue-neon);
-}
+} */
 
-.room-messages::-o-scrollbar {
+/* .room-messages::-o-scrollbar {
   width: 10px;
 }
 .room-messages::-o-scrollbar-track {
@@ -76,4 +76,4 @@
   background-color: rgb(20, 20, 32);
   border-radius: 11px;
   border: 1px solid var(--blue-neon);
-}
+} */
