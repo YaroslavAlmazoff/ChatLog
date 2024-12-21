@@ -1,6 +1,7 @@
 .user {
   margin: 1%;
   text-align: left;
+  width: 100vw;
 }
 .user-nav {
   display: flex;
