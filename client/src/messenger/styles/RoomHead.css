@@ -45,3 +45,7 @@
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
   font-style: 14pt;
 }
+
+.room-group-head-field {
+  height: 75%;
+}

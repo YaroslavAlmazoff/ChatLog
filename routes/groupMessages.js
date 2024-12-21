@@ -11,6 +11,13 @@ router.post("/create-room", auth, (req, res) => {
     console.log(e);
   }
 });
+router.post("/change-title/:id", auth, (req, res) => {
+  try {
+    MessengerGroupService.changeTitle(req, res);
+  } catch (e) {
+    console.log(e);
+  }
+});
 router.get("/members/:id", (req, res) => {
   try {
     MessengerGroupService.members(req, res);

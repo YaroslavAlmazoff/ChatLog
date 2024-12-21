@@ -158,6 +158,18 @@ export default function useGroupAPI(openModal, setErrorCallback) {
     [options]
   );
 
+  const changeTitle = useCallback(
+    async (title, roomId) => {
+      const response = await api.post(
+        `${prefix}/change-title/${roomId}`,
+        { title },
+        options
+      );
+      return response.data.title;
+    },
+    [options]
+  );
+
   return {
     createGroupEventSource,
     sendGroupMessage,
@@ -167,5 +179,6 @@ export default function useGroupAPI(openModal, setErrorCallback) {
     editGroupMessage,
     readGroup,
     uploadGroupBg,
+    changeTitle,
   };
 }
