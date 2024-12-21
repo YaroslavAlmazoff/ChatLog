@@ -2,7 +2,7 @@ import { folders } from "../../data/messengerConfiguration";
 import useFile from "../../hooks/useFile";
 import "../../styles/RoomHead.css";
 import pointsIcon from "../../img/points.png";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router";
 import useGroupAPI from "../../hooks/useGroupAPI";
 
@@ -12,9 +12,14 @@ export default function GroupRoomHead({ groupTitle, groupAvatarUrl }) {
   const { id } = useParams();
   const inputRef = useRef(null);
   const avatarRef = useRef(null);
-  const [title, setTitle] = useState(groupTitle);
-  const [avatarUrl, setAvatarUrl] = useState(groupAvatarUrl);
+  const [title, setTitle] = useState("");
+  const [avatarUrl, setAvatarUrl] = useState("");
   const [editing, setEditing] = useState(false);
+
+  useEffect(() => {
+    setTitle(groupTitle);
+    setAvatarUrl(groupAvatarUrl);
+  }, [groupTitle]);
 
   const startEditing = () => {
     setEditing(true);
