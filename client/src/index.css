@@ -26,39 +26,3 @@ h3 {
 span {
   color: white;
 }
-
-body::-webkit-scrollbar {
-  width: 0; /* ширина scrollbar */
-}
-body::-webkit-scrollbar-track {
-  background: rgb(18, 20, 33); /* цвет дорожки */
-}
-body::-webkit-scrollbar-thumb {
-  background-color: rgb(20, 20, 32); /* цвет плашки */
-  border-radius: 11px; /* закругления плашки */
-  border: 1px solid rgb(0, 140, 255); /* padding вокруг плашки */
-}
-
-body::-moz-scrollbar {
-  width: 0; /* ширина scrollbar */
-}
-body::-moz-scrollbar-track {
-  background: rgb(18, 20, 33); /* цвет дорожки */
-}
-body::-moz-scrollbar-thumb {
-  background-color: rgb(20, 20, 32); /* цвет плашки */
-  border-radius: 11px; /* закругления плашки */
-  border: 1px solid rgb(0, 140, 255); /* padding вокруг плашки */
-}
-
-body::-o-scrollbar {
-  width: 0; /* ширина scrollbar */
-}
-body::-o-scrollbar-track {
-  background: rgb(18, 20, 33); /* цвет дорожки */
-}
-body::-o-scrollbar-thumb {
-  background-color: rgb(20, 20, 32); /* цвет плашки */
-  border-radius: 11px; /* закругления плашки */
-  border: 1px solid rgb(0, 140, 255); /* padding вокруг плашки */
-}
