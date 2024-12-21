@@ -6,7 +6,11 @@ import useFile from "../../hooks/useFile";
 import RoomFilesPreview from "./RoomPreview/RoomFilesPreview";
 import usePreviews from "../../hooks/usePreviews";
 import RoomModal from "./RoomModal/RoomModal";
-import { modalTypes, roomTypes } from "../../data/messengerConfiguration";
+import {
+  folders,
+  modalTypes,
+  roomTypes,
+} from "../../data/messengerConfiguration";
 import RoomSmilesSelectingList from "./RoomSmiles/RoomSmilesSelectingList";
 import smile from "../../img/smile.png";
 import "../../styles/RoomMainField.css";
@@ -44,6 +48,7 @@ export default function RoomMainField({
     openModal,
     setErrorCallback
   );
+  const { fetchFileFromServer } = useFile();
   const { editGroupMessage, uploadGroupBg, sendGroupMessage } = useGroupAPI();
   const { fileTypes } = useFile();
   const { id } = useParams();
@@ -129,8 +134,21 @@ export default function RoomMainField({
     if (editingMessage) {
       messageFieldRef.current.value = editingMessage.message;
       messageFieldRef.current.focus();
+      if (message.images.length > 0) {
+        const files = editingMessage.images.map(async (image) => {
+          return await fetchFileFromServer(folders.images, image);
+        });
+        Promise.all(files).then((images) => getFiles(images, fileTypes.images));
+      }
+      if (message.videos.length > 0) {
+        const files = editingMessage.videos.map(async (video) => {
+          return await fetchFileFromServer(folders.videos, video);
+        });
+        Promise.all(files).then((videos) => getFiles(videos, fileTypes.videos));
+      }
     } else {
       messageFieldRef.current.value = "";
+      clearPreviews();
     }
   }, [editingMessage]);
 
@@ -157,14 +175,14 @@ export default function RoomMainField({
           <></>
         )}
         <input
-          onChange={(e) => getFiles(e, fileTypes.images)}
+          onChange={(e) => getFiles(e.target.files, fileTypes.images)}
           ref={selectImageRef}
           type="file"
           accept=".jpg,.jpeg,.png,.gif"
           multiple
         />
         <input
-          onChange={(e) => getFiles(e, fileTypes.videos)}
+          onChange={(e) => getFiles(e.target.files, fileTypes.videos)}
           ref={selectVideoRef}
           type="file"
           accept=".mp4"

@@ -238,3 +238,8 @@ export default function Room({ type }) {
     </div>
   );
 }
+
+// const fileUrl = 'http://localhost:3000/uploads/image.jpg';
+// fetchFileFromServer(fileUrl).then((file) => {
+//   console.log('File created:', file);
+// });

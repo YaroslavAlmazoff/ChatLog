@@ -66,11 +66,13 @@ export default function usePreviews(
     toggleCanChoose(false, isImages);
   };
 
-  const getFiles = async (e, type) => {
-    if (!e.target.files[0]) return;
-    console.log(e.target.files);
+  const getFiles = async (selectedFiles, type) => {
+    if (!selectedFiles[0]) return;
     const isImages = type === fileTypes.images;
-    const result = await readFiles(e, isImages ? limits.images : limits.videos);
+    const result = await readFiles(
+      selectedFiles,
+      isImages ? limits.images : limits.videos
+    );
 
     const currentLength =
       result.files.length +
