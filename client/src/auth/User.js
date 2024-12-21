@@ -22,38 +22,16 @@ import useVerify from "../common_hooks/verify.hook";
 import ModalWindow from "../common_components/modal-window/ModalWindow";
 
 const User = () => {
-  //Страница пользователя
   const auth = useContext(AuthContext);
-  //Получение функций из кастомных хуков для взаимодействия с постами пользователя, сокращением слов, датой
   const { send, sendFoto, deleteFoto, deletePost, deleteVideo } = usePosts();
   const { divideWord } = useWord();
   const { getCurrentDate } = useDate();
-  //Получение параметров
   const params = useParams();
   const fileRef2 = useRef();
 
   const [userPosts, setUserPosts] = useState([]);
   const [userVideos, setUserVideos] = useState([]);
-  //Определение является ли пользователь владельцем страницы
   const [isOwner, setIsOwner] = useState(false);
-  /*
-    Инициализация состояний для:
-        Ввода текста поста;
-        Дисплея предпросмотра изображения для поста;
-        Url предпросмотра изображения для поста;
-        Дисплея предпросмотра фотографии;
-        Url предпросмотра изображения фотографии;
-        Друзей пользователя;
-        Подписок пользователя;
-        Постов пользователя;
-        Фотографий пользователя;
-        Уведомлений пользователя;
-        Дисплея всплывающей подсказки;
-        Текста всплывающей подсказки;
-        Дисплея блока с уведомлениями;
-        Файла изображения поста;
-        Файла фотографии;
-    */
 
   const [imagePreviewDisplay2, setImagePreviewDisplay2] = useState("none");
   const [imagePreviewUrl2, setImagePreviewUrl2] = useState("");
@@ -65,10 +43,8 @@ const User = () => {
   const [noticeText, setNoticeText] = useState("Уведомление");
   const [notificationsDisplay, setNotificationsDisplay] = useState(false);
   const [file2, setFile2] = useState("");
-  //Содание ссылки на всплывающую ссылку
   const noticeRef = useRef();
   const notificationRef = useRef(null);
-  //Показ уведомлений
   const showNotifications = async () => {
     await api.get(`/api/checknotification/${auth.userId}`, {
       headers: {
@@ -83,7 +59,6 @@ const User = () => {
       setNotificationsDisplay(false);
     }
   };
-  //Начальное состояние пользователя
   const [user, setUser] = useState({
     name: "",
     surname: "",
@@ -95,12 +70,10 @@ const User = () => {
     articles: [],
     fotos: [],
   });
-  //Эмитирование открытия загрузки файла фотографии пользователя
   const emitOpen2 = () => {
     fileRef2.current.click();
   };
 
-  //Получение файла фотографии пользователя
   const getFile2 = async (e) => {
     let file = e.target.files[0];
     console.log(file);
@@ -110,49 +83,35 @@ const User = () => {
       setImagePreviewUrl2(ev.target.result);
     };
     reader.readAsDataURL(file);
-    //Загрузка файла в состояние
     setFile2(file);
   };
   const { verify } = useVerify();
   useEffect(() => {
     verify();
     setIsOwner(auth.userId === params.id);
-    //Получение информации о пользователе
     const findUser = async () => {
       const userdata = await api.get(`/api/user/${params.id}`);
-      //Помещение информации о пользователе в состояние
       setUser(userdata.data.user);
-      //Получение друзей пользователя
       const friendsID = userdata.data.user.friends;
       let friends = [];
       for (let i = 0; i < friendsID.length; i++) {
         const data = await api.get(`/api/user/${friendsID[i]}`);
         friends.push(data.data.user);
       }
-      //Помещение друзей пользователя в состояние
       setUserFriends(friends);
       const subscribesResponse = await api.get(
         "/api/public/subscribes/" + params.id
       );
-      //Todo: Подписки пользователя
       setUserSubscribes(subscribesResponse.data.subscribes);
-      //Получение постов пользователя
       const response = await api.get(`/api/getuserposts/${params.id}`);
-      //Помещение постов пользователя в состояние
       setUserPosts(response.data.articles.reverse());
-      //Получение фотографий пользователя
       const response2 = await api.get(`/api/getuserfotos/${params.id}`);
-      //Помещение фотографий пользователя в состояние
       setUserFotos(response2.data.fotos.reverse());
-      //Получение видео пользователя
       const response3 = await api.get(`/api/getuservideos/${params.id}`);
-      //Помещение видео пользователя в состояние
       setUserVideos(response3.data.videos.reverse());
     };
-    //Получение уведомлений
     const getNotifications = async () => {
       const response = await api.get(`/api/getnotifications/${params.id}`);
-      //Помещение уведомлений в состояние
       setNotifications([...response.data.notifications].reverse());
     };
     const visit = async () => {

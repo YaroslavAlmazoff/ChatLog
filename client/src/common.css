@@ -480,6 +480,10 @@ audio {
   flex-direction: column;
 }
 
+.full-width {
+  width: 99vw;
+}
+
 /*audio::-webkit-media-controls-volume-slider-container
 
 audio::-webkit-media-controls-volume-slider
