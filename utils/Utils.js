@@ -114,7 +114,17 @@ class Utils {
       videos,
     });
     if (message) {
-      this.dm(req, res, text, date, images, videos, messageCopy, emitter);
+      this.dm(
+        req,
+        res,
+        text,
+        date,
+        images,
+        videos,
+        messageCopy,
+        emitter,
+        isGroup
+      );
     } else {
       emitter.emit(
         isGroup ? "groupDeleteMessage" : "deleteMessage",
@@ -134,7 +144,8 @@ class Utils {
     oldVideos,
     newImages,
     newVideos,
-    emitter
+    emitter,
+    isGroup
   ) {
     const message = await Message.findOneAndUpdate(
       {
@@ -157,7 +168,8 @@ class Utils {
         oldVideos,
         newImages,
         newVideos,
-        emitter
+        emitter,
+        isGroup
       );
     } else {
       const updatedMessage = await Message.findOne({
