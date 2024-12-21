@@ -35,6 +35,12 @@ class MessengerGroupService {
     res.json({ room });
   }
 
+  async changeTitle(req, res) {
+    const { title } = req.body;
+    await ChatRoom.findByIdAndUpdate(req.params.id, { title });
+    res.json({ title });
+  }
+
   async invite(req, res) {
     const { members } = req.body;
     await ChatRoom.findByIdAndUpdate(req.params.id, { members });
