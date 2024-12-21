@@ -2,21 +2,19 @@ import { folders } from "../../data/messengerConfiguration";
 import useFile from "../../hooks/useFile";
 import "../../styles/RoomHead.css";
 import pointsIcon from "../../img/points.png";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useParams } from "react-router";
 import useGroupAPI from "../../hooks/useGroupAPI";
 
-export default function GroupRoomHead({ groupTitle, avatarUrl }) {
+export default function GroupRoomHead({ groupTitle, groupAvatarUrl }) {
   const { fileFromServer } = useFile();
-  const { changeTitle } = useGroupAPI();
+  const { changeTitle, uploadGroupAvatar } = useGroupAPI();
   const { id } = useParams();
   const inputRef = useRef(null);
-  const [title, setTitle] = useState();
+  const avatarRef = useRef(null);
+  const [title, setTitle] = useState(groupTitle);
+  const [avatarUrl, setAvatarUrl] = useState(groupAvatarUrl);
   const [editing, setEditing] = useState(false);
-
-  useEffect(() => {
-    setTitle(groupTitle);
-  }, [groupTitle]);
 
   const startEditing = () => {
     setEditing(true);
@@ -31,9 +29,21 @@ export default function GroupRoomHead({ groupTitle, avatarUrl }) {
     }
   };
 
+  const changeGroupAvatar = async (file) => {
+    if (file) {
+      const avatarUrl = await uploadGroupAvatar(file, id);
+      setAvatarUrl(avatarUrl);
+    }
+  };
+
+  const handleAvatarSelect = () => {
+    avatarRef.current.click();
+  };
+
   return (
     <div className="room-head room-group-head">
       <img
+        onClick={handleAvatarSelect}
         className="room-group-head-avatar"
         src={fileFromServer(folders.groupAvatars, avatarUrl)}
         alt="Avatar"
@@ -56,6 +66,12 @@ export default function GroupRoomHead({ groupTitle, avatarUrl }) {
         className="room-group-head-open-info"
         src={pointsIcon}
         alt="Group Info"
+      />
+      <input
+        onChange={(e) => changeGroupAvatar(e.target.files[0])}
+        ref={avatarRef}
+        type="file"
+        accept=".jpg,.jpeg,.png,.gif"
       />
     </div>
   );

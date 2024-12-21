@@ -170,6 +170,20 @@ export default function useGroupAPI(openModal, setErrorCallback) {
     [options]
   );
 
+  const uploadGroupAvatar = useCallback(
+    async (file, roomId) => {
+      const formData = new FormData();
+      formData.append("file", file);
+      const response = await api.post(
+        `${prefix}/change-avatar/${roomId}`,
+        formData,
+        options
+      );
+      return response.data.avatarUrl;
+    },
+    [options]
+  );
+
   return {
     createGroupEventSource,
     sendGroupMessage,
@@ -180,5 +194,6 @@ export default function useGroupAPI(openModal, setErrorCallback) {
     readGroup,
     uploadGroupBg,
     changeTitle,
+    uploadGroupAvatar,
   };
 }
