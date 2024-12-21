@@ -2,7 +2,7 @@ import { folders } from "../../data/messengerConfiguration";
 import useFile from "../../hooks/useFile";
 import "../../styles/RoomHead.css";
 import pointsIcon from "../../img/points.png";
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router";
 import useGroupAPI from "../../hooks/useGroupAPI";
 
