@@ -66,7 +66,7 @@ export default function GroupRoomHead({ groupTitle, groupAvatarUrl }) {
             />
             <button
               onClick={() => changeGroupTitle({ key: "Enter" })}
-              className="button"
+              className="button room-group-head-ok"
             >
               ОК
             </button>
