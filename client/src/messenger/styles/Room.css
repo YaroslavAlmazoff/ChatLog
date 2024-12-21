@@ -38,8 +38,8 @@
   padding-top: 50px;
   padding-bottom: 50px;
   scrollbar-width: 10px;
-  scrollbar-track-color: black;
-  /*scrollbar-color: var(--blue-neon);*/
+  scrollbar-track-color: transparent;
+  scrollbar-color: var(--blue-neon);
 }
 
 .room-messages::-webkit-scrollbar {
