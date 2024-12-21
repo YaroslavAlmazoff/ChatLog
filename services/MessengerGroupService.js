@@ -41,6 +41,13 @@ class MessengerGroupService {
     res.json({ title });
   }
 
+  async changeAvatar(req, res) {
+    const avatarUrl = uuid.v4() + ".jpg";
+    await FileService.insertChatAvatar(req.files.file, avatarUrl);
+    await ChatRoom.findByIdAndUpdate(req.params.id, { avatarUrl });
+    res.json({ avatarUrl });
+  }
+
   async invite(req, res) {
     const { members } = req.body;
     await ChatRoom.findByIdAndUpdate(req.params.id, { members });

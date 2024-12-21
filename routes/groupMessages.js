@@ -18,6 +18,13 @@ router.post("/change-title/:id", auth, (req, res) => {
     console.log(e);
   }
 });
+router.post("/change-avatar/:id", auth, (req, res) => {
+  try {
+    MessengerGroupService.changeAvatar(req, res);
+  } catch (e) {
+    console.log(e);
+  }
+});
 router.get("/members/:id", (req, res) => {
   try {
     MessengerGroupService.members(req, res);
