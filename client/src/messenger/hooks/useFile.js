@@ -8,10 +8,10 @@ export default function useFile() {
     videos: "videos",
   };
 
-  const readFiles = (event, limit) => {
+  const readFiles = (fileList, limit) => {
     return new Promise((resolve) => {
       const resultFiles = [];
-      const files = Array.from(event.target.files);
+      const files = Array.from(fileList);
       const filesToRead = Math.min(files.length, limit - resultFiles.length);
       let filesRead = 0;
 
@@ -54,6 +54,24 @@ export default function useFile() {
     return `${process.env.REACT_APP_API_URL}/${folder}/${name}`;
   };
 
+  const fetchFileFromServer = async (folder, name) => {
+    try {
+      const url = fileFromServer(folder, name);
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`Failed to fetch file: ${response.statusText}`);
+      }
+      const blob = await response.blob();
+      const file = new File([blob], `image${Math.round(random() * 1000)}.jpg`, {
+        type: blob.type,
+      });
+      console.log(file);
+      return file;
+    } catch (error) {
+      console.error("Error fetching the file:", error);
+    }
+  };
+
   const checkErrorWhileSendingFiles = useCallback((files) => {
     const imagesLength = files.imageFiles.length;
     const videosLength = files.videoFiles.length;
@@ -76,6 +94,7 @@ export default function useFile() {
   return {
     readFiles,
     fileFromServer,
+    fetchFileFromServer,
     checkFilesSizeLimit,
     checkErrorWhileSendingFiles,
     fileTypes,
