@@ -58,7 +58,7 @@ export default function GroupRoomHead({ groupTitle, groupAvatarUrl }) {
           ref={inputRef}
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          className="input room-group-head-field"
+          className="room-group-head-field"
           placeholder="Нажмите Enter чтобы сохранить"
           onKeyDown={changeGroupTitle}
         />
