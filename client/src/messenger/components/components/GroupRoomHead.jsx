@@ -19,13 +19,13 @@ export default function GroupRoomHead({ groupTitle, groupAvatarUrl }) {
   useEffect(() => {
     setTitle(groupTitle);
     setAvatarUrl(groupAvatarUrl);
-  }, [groupTitle]);
+  }, [groupTitle, groupAvatarUrl]);
 
-  const startEditing = () => {
-    setEditing(true);
-    inputRef.current.value = title;
-    inputRef.current.focus();
-  };
+  useEffect(() => {
+    if (editing && inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [editing]);
 
   const changeGroupTitle = async (e) => {
     if (e.key === "Enter") {
@@ -63,7 +63,7 @@ export default function GroupRoomHead({ groupTitle, groupAvatarUrl }) {
           onKeyDown={changeGroupTitle}
         />
       ) : (
-        <span onClick={startEditing} className="room-head-text">
+        <span onClick={() => setEditing(true)} className="room-head-text">
           {title}
         </span>
       )}
