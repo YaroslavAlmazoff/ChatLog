@@ -1,6 +1,6 @@
 @import url("./colors.css");
 
-* {
+body {
   scrollbar-width: thin;
   scrollbar-color: #40a4ff rgb(23, 27, 35);
 }
