@@ -53,20 +53,37 @@ export default function GroupRoomHead({ groupTitle, groupAvatarUrl }) {
         src={fileFromServer(folders.groupAvatars, avatarUrl)}
         alt="Avatar"
       />
-      {editing ? (
-        <input
-          ref={inputRef}
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          className="room-group-head-field"
-          placeholder="Нажмите Enter чтобы сохранить"
-          onKeyDown={changeGroupTitle}
-        />
-      ) : (
-        <span onClick={() => setEditing(true)} className="room-head-text">
-          {title}
-        </span>
-      )}
+      <div>
+        {editing ? (
+          <>
+            <input
+              ref={inputRef}
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              className="room-group-head-field"
+              placeholder="Нажмите Enter чтобы сохранить"
+              onKeyDown={(e) => changeGroupTitle(e)}
+            />
+            <button
+              onClick={() => changeGroupTitle({ key: "Enter" })}
+              className="button"
+            >
+              ОК
+            </button>
+            <span
+              onClick={() => setEditing(false)}
+              className="room-group-head-cancel"
+            >
+              Отмена
+            </span>
+          </>
+        ) : (
+          <span onClick={() => setEditing(true)} className="room-head-text">
+            {title}
+          </span>
+        )}
+      </div>
+
       <img
         className="room-group-head-open-info"
         src={pointsIcon}
