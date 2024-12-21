@@ -47,5 +47,13 @@
 }
 
 .room-group-head-field {
-  height: 75%;
+  height: 30%;
+  width: 50%;
+  padding: 5px;
+  outline: none;
+  border-radius: 15px;
+  border: 0.5px solid var(--blue-neon);
+  background-color: rgba(0, 0, 0, 0.75);
+  color: white;
+  transition: box-shadow 0.3s ease;
 }
