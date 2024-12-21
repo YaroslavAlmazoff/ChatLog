@@ -52,7 +52,7 @@
   padding: 5px;
   outline: none;
   border-radius: 15px;
-  font-size: 8pt;
+  font-size: 10pt;
   border: 0.5px solid var(--blue-neon);
   background-color: rgba(0, 0, 0, 0.75);
   color: white;
@@ -73,11 +73,11 @@
   cursor: pointer;
   color: var(--blue-neon);
   margin-left: 8px;
-  font-size: 8pt;
+  font-size: 10pt;
 }
 
 .room-group-head-ok {
-  padding: 5px;
+  padding: 3px;
   margin-left: 8px;
-  font-size: 8pt;
+  font-size: 10pt;
 }
