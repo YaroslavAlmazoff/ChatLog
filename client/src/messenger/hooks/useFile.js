@@ -62,9 +62,13 @@ export default function useFile() {
         throw new Error(`Failed to fetch file: ${response.statusText}`);
       }
       const blob = await response.blob();
-      const file = new File([blob], `image${Math.round(random() * 1000)}.jpg`, {
-        type: blob.type,
-      });
+      const file = new File(
+        [blob],
+        `image${Math.round(Math.random() * 1000)}.jpg`,
+        {
+          type: blob.type,
+        }
+      );
       console.log(file);
       return file;
     } catch (error) {
