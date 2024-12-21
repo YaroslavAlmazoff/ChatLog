@@ -134,13 +134,13 @@ export default function RoomMainField({
     if (editingMessage) {
       messageFieldRef.current.value = editingMessage.message;
       messageFieldRef.current.focus();
-      if (message.images.length > 0) {
+      if (editingMessage.images.length > 0) {
         const files = editingMessage.images.map(async (image) => {
           return await fetchFileFromServer(folders.images, image);
         });
         Promise.all(files).then((images) => getFiles(images, fileTypes.images));
       }
-      if (message.videos.length > 0) {
+      if (editingMessage.videos.length > 0) {
         const files = editingMessage.videos.map(async (video) => {
           return await fetchFileFromServer(folders.videos, video);
         });
