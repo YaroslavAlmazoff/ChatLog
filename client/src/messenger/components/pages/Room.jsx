@@ -204,7 +204,7 @@ export default function Room({ type }) {
       }}
     >
       {isGroup ? (
-        <GroupRoomHead title={room.title} avatarUrl={room.avatarUrl} />
+        <GroupRoomHead groupTitle={room.title} avatarUrl={room.avatarUrl} />
       ) : (
         <RoomHead
           name={room.name}
@@ -238,8 +238,3 @@ export default function Room({ type }) {
     </div>
   );
 }
-
-// const fileUrl = 'http://localhost:3000/uploads/image.jpg';
-// fetchFileFromServer(fileUrl).then((file) => {
-//   console.log('File created:', file);
-// });
