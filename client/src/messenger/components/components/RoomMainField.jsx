@@ -75,31 +75,33 @@ export default function RoomMainField({
     );
 
   const handleSend = async () => {
-    setSendLoading(true);
-    if (editingMessage) {
-      if (isGroup) {
-        await editGroupMessage(
-          editingMessage._id,
-          messageFieldRef.current.value,
-          files
-        );
+    if (messageFieldRef.current.value) {
+      setSendLoading(true);
+      if (editingMessage) {
+        if (isGroup) {
+          await editGroupMessage(
+            editingMessage._id,
+            messageFieldRef.current.value,
+            files
+          );
+        } else {
+          await editMessage(
+            editingMessage._id,
+            messageFieldRef.current.value,
+            files
+          );
+        }
       } else {
-        await editMessage(
-          editingMessage._id,
-          messageFieldRef.current.value,
-          files
-        );
+        if (isGroup) {
+          await sendGroupMessage(id, messageFieldRef.current.value, files);
+        } else {
+          await sendMessage(id, messageFieldRef.current.value, files);
+        }
+        setOffset((prev) => prev + 1);
       }
-    } else {
-      if (isGroup) {
-        await sendGroupMessage(id, messageFieldRef.current.value, files);
-      } else {
-        await sendMessage(id, messageFieldRef.current.value, files);
-      }
-      setOffset((prev) => prev + 1);
+      messageFieldRef.current.value = "";
+      clearPreviews();
     }
-    messageFieldRef.current.value = "";
-    clearPreviews();
   };
 
   const handleOpenImageSelect = () => {
