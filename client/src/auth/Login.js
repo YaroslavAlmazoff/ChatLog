@@ -30,7 +30,7 @@ const Login = () => {
   };
 
   return (
-    <div>
+    <div className="full-width">
       <div className="form">
         <h2 className="white-glow-text">Вход</h2>
         {!loading ? (
