@@ -3,6 +3,12 @@ export const roomTypes = {
   group: "group",
 };
 
+export const roomContentTypes = {
+  messages: "messages",
+  groupSettings: "groupSettings",
+  addMembers: "addMembers",
+};
+
 export const limits = {
   images: 6,
   videos: 2,

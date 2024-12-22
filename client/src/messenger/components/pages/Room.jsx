@@ -17,6 +17,7 @@ import useAudio from "../../hooks/useAudio";
 import {
   folders,
   messagesDataTypes,
+  roomContentTypes,
   roomTypes,
   startMessagesCountCheck,
 } from "../../data/messengerConfiguration";
@@ -56,6 +57,7 @@ export default function Room({ type }) {
   const [scrollLoading, setScrollLoading] = useState(false);
   const [sendLoading, setSendLoading] = useState(false);
   const [editingMessage, setEditingMessage] = useState(null);
+  const [contentType, setContentType] = useState(roomContentTypes.messages);
 
   const setErrorCallback = useCallback((err) => {
     setError(err);
@@ -203,41 +205,49 @@ export default function Room({ type }) {
           : "",
       }}
     >
-      {isGroup ? (
-        <GroupRoomHead
-          groupTitle={room.title}
-          groupAvatarUrl={room.avatarUrl}
-        />
+      {contentType === roomContentTypes.messages ? (
+        <>
+          {isGroup ? (
+            <GroupRoomHead
+              groupTitle={room.title}
+              groupAvatarUrl={room.avatarUrl}
+            />
+          ) : (
+            <RoomHead
+              name={room.name}
+              onlineDate={room.date}
+              isOnline={room.isOnline}
+            />
+          )}
+          <EditMessageContext.Provider
+            value={{ editingMessage, setEditingMessage, isGroup }}
+          >
+            <ImageLoadContext.Provider
+              value={{ register, load, makeMessageOld }}
+            >
+              <RoomMessages
+                messages={messages}
+                ref={feedRef}
+                startLoading={startLoading}
+                observerLoading={observerLoading}
+                sendLoading={sendLoading}
+                scrollLoading={scrollLoading}
+                setPage={setPage}
+              />
+            </ImageLoadContext.Provider>
+            <RoomMainField
+              setRoom={setRoom}
+              setOffset={setOffset}
+              error={error}
+              setErrorCallback={setErrorCallback}
+              setSendLoading={setSendLoading}
+              isGroup={isGroup}
+            />
+          </EditMessageContext.Provider>
+        </>
       ) : (
-        <RoomHead
-          name={room.name}
-          onlineDate={room.date}
-          isOnline={room.isOnline}
-        />
+        <></>
       )}
-      <EditMessageContext.Provider
-        value={{ editingMessage, setEditingMessage, isGroup }}
-      >
-        <ImageLoadContext.Provider value={{ register, load, makeMessageOld }}>
-          <RoomMessages
-            messages={messages}
-            ref={feedRef}
-            startLoading={startLoading}
-            observerLoading={observerLoading}
-            sendLoading={sendLoading}
-            scrollLoading={scrollLoading}
-            setPage={setPage}
-          />
-        </ImageLoadContext.Provider>
-        <RoomMainField
-          setRoom={setRoom}
-          setOffset={setOffset}
-          error={error}
-          setErrorCallback={setErrorCallback}
-          setSendLoading={setSendLoading}
-          isGroup={isGroup}
-        />
-      </EditMessageContext.Provider>
     </div>
   );
 }
