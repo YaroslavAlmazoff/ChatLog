@@ -126,9 +126,10 @@ class MessengerGroupService {
     const lastMessage = messages[messages.length - 1];
 
     const readedThisMessage = lastMessage.readedThisMessage;
-    readedThisMessage.push(userid);
-
-    await Message.findByIdAndUpdate(lastMessage._id, { readedThisMessage });
+    if (!readedThisMessage.includes(userid)) {
+      readedThisMessage.push(userid);
+      await Message.findByIdAndUpdate(lastMessage._id, { readedThisMessage });
+    }
     res.json({ msg: "success" });
   }
   async fullMembers(req, res) {
@@ -276,6 +277,7 @@ class MessengerGroupService {
     message.videos = videos;
     message.audios = audios;
     message.hms = Utils.getCurrentTime();
+    message.readedThisMessage = [req.user.userId];
 
     const tokens = [];
 

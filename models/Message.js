@@ -15,7 +15,7 @@ const Message = new mongoose.Schema({
   videos: [{ type: String, default: [] }],
   audios: [{ type: String, default: [] }],
   screenshotUrl: { type: String, default: "" },
-  readedThisMessage: [{ type: mongoose.Types.ObjectId, default: [] }],
+  readedThisMessage: [{ type: String, default: [] }],
   fileLink: { type: String, default: "" },
   hms: { type: String, required: true },
 });

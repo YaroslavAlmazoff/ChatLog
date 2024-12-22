@@ -136,12 +136,6 @@ export default function useGroupAPI(openModal, setErrorCallback) {
   const readGroup = useCallback(
     async (messages, roomId) => {
       const lastMessage = messages[messages.length - 1];
-      console.log(
-        messages,
-        lastMessage.user,
-        userId,
-        lastMessage.user !== userId
-      );
       if (lastMessage.user !== userId) {
         const response = await api.get(`${prefix}/read/${roomId}`, options);
         console.log(response);
