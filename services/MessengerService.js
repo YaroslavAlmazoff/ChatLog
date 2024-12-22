@@ -152,6 +152,7 @@ class MessengerService {
             roomObj.unread = !el.readedThisMessage.includes(
               mongoose.Types.ObjectId(user)
             );
+            console.log(el.readedThisMessage, roomObj.unread);
           } else {
             roomObj.unread = el.isNotReaded;
             roomObj.sender = el.user;
