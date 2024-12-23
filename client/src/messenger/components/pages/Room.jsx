@@ -246,7 +246,7 @@ export default function Room({ type }) {
           </EditMessageContext.Provider>
         </>
       ) : (
-        <></>
+        <div></div>
       )}
     </div>
   );
