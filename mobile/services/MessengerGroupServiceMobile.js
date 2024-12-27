@@ -78,6 +78,24 @@ class MessengerGroupServiceMobile {
     emitter.emit("newChatMessage", message, req);
     res.status(200);
   }
+
+  async editGroup(req, res) {
+    let { title } = req.body;
+    title = title.replace('"', "");
+    title = title.replace('"', "");
+    const avatarUrl = uuid.v4() + ".jpg";
+    if (req.files) {
+      await ChatRoom.findByIdAndUpdate(req.params.id, {
+        title,
+        avatarUrl,
+      });
+      await FileService.insertChatAvatar(req.files.file, avatarUrl);
+    } else {
+      await ChatRoom.findByIdAndUpdate(req.params.id, { title });
+    }
+
+    res.json("");
+  }
 }
 
 module.exports = new MessengerGroupServiceMobile();

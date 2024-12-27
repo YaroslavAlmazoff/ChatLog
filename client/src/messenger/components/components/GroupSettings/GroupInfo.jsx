@@ -1,0 +1,79 @@
+import { useContext, useState } from "react";
+import "../../../styles/GroupInfo.css";
+import { GroupContext } from "../../../context/GroupContext";
+import useFile from "../../../hooks/useFile";
+import useGroupAPI from "../../../hooks/useGroupAPI";
+import { useParams } from "react-router";
+
+export default function GroupInfo() {
+  const { room, updateRoom } = useContext(GroupContext);
+  const { fileFromServer } = useFile();
+  const { editGroup } = useGroupAPI();
+  const { id } = useParams();
+
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [avatarUrl, setAvatarUrl] = useState("");
+  const [editing, setEditing] = useState(false);
+
+  useEffect(() => {
+    setTitle(room.title);
+    setDescription(room.description);
+    setAvatarUrl(room.avatarUrl);
+  }, [room]);
+
+  const save = async () => {
+    await editGroup(title, description, id);
+    updateRoom(title, description);
+    setEditing(false);
+  };
+
+  const cancel = () => {
+    setTitle(room.title);
+    setDescription(room.description);
+    setAvatarUrl(room.avatarUrl);
+    setEditing(false);
+  };
+
+  return (
+    <div className="group-info">
+      <div className="group-info-top">
+        <img
+          className="group-info-avatar"
+          src={fileFromServer(avatarUrl)}
+          alt="Avatar"
+        />
+        {editing ? (
+          <input
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            className="input group-info-title-field"
+            type="text"
+            placeholder="Название беседы"
+          />
+        ) : (
+          <span className="group-info-title">{title}</span>
+        )}
+      </div>
+      {editing ? (
+        <textarea
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          className="textarea group-info-description-field"
+        >
+          {description}
+        </textarea>
+      ) : (
+        <span className="group-info-description">{description}</span>
+      )}
+      <div className="group-info-actions">
+        <button onClick={save} className="button">
+          Сохранить
+        </button>
+        <span onClick={cancel} className="group-info-cancel">
+          Отменить изменения
+        </span>
+      </div>
+    </div>
+  );
+}

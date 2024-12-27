@@ -27,5 +27,12 @@ router.post("/new-chatmessages-mobile/:id", auth, async (req, res) => {
     console.log(e);
   }
 });
+router.post("/edit-discussion/:id", auth, async (req, res) => {
+  try {
+    MessengerGroupServiceMobile.editGroup(req, res);
+  } catch (e) {
+    console.log(e);
+  }
+});
 
 module.exports = router;

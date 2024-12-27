@@ -30,6 +30,9 @@ import "../../styles/global.css";
 import useMessage from "../../hooks/useMessage";
 import useGroupAPI from "../../hooks/useGroupAPI";
 import GroupRoomHead from "../components/GroupRoomHead";
+import GroupSettings from "../components/GroupSettings/GroupSettings";
+import AddMembers from "../components/AddMembers";
+import { GroupContext } from "../../context/GroupContext";
 
 export default function Room({ type }) {
   const params = useParams();
@@ -92,9 +95,9 @@ export default function Room({ type }) {
     });
   };
 
-  useEffect(() => {
-    console.log(observerLoading);
-  }, [observerLoading]);
+  const updateRoom = (title, description) => {
+    setRoom({ ...room, title, description });
+  };
 
   useEffect(() => {
     const getDataAndStartEventSource = async () => {
@@ -246,8 +249,16 @@ export default function Room({ type }) {
           </EditMessageContext.Provider>
         </>
       ) : (
-        <div></div>
+        <></>
       )}
+      {contentType === roomContentTypes.groupSettings ? (
+        <GroupContext.Provider value={{ room, updateRoom }}>
+          <GroupSettings />
+        </GroupContext.Provider>
+      ) : (
+        <></>
+      )}
+      {contentType === roomContentTypes.addMembers ? <AddMembers /> : <></>}
     </div>
   );
 }

@@ -184,6 +184,17 @@ export default function useGroupAPI(openModal, setErrorCallback) {
     [options]
   );
 
+  const editGroup = useCallback(
+    async (title, description, roomId) => {
+      await api.post(
+        `${prefix}/edit-group/${roomId}`,
+        { title, description },
+        options
+      );
+    },
+    [options]
+  );
+
   return {
     createGroupEventSource,
     sendGroupMessage,
@@ -195,5 +206,6 @@ export default function useGroupAPI(openModal, setErrorCallback) {
     uploadGroupBg,
     changeTitle,
     uploadGroupAvatar,
+    editGroup,
   };
 }

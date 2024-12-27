@@ -12,7 +12,6 @@ const FullMemberItem = ({ room, name, surname, avatarUrl, id }) => {
   const exclude = async (e) => {
     e.stopPropagation();
     setExcluded(true);
-    console.log("Что?");
     await api.delete(`/api/exclude/${room._id}/${id}`, {
       headers: {
         Authorization: `Bearer ${auth.token}`,

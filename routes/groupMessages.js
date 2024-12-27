@@ -53,9 +53,9 @@ router.delete("/exclude/:id/:user", auth, (req, res) => {
     console.log(e);
   }
 });
-router.post("/edit-discussion/:id", (req, res) => {
+router.post("/edit-group/:id", (req, res) => {
   try {
-    MessengerGroupService.editDiscussion(req, res);
+    MessengerGroupService.editGroup(req, res);
   } catch (e) {
     console.log(e);
   }
