@@ -37,8 +37,13 @@ import { GroupContext } from "../../context/GroupContext";
 export default function Room({ type }) {
   const params = useParams();
   const { getRoom, createEventSource, getMessages, read } = useAPI();
-  const { getGroupRoom, createGroupEventSource, getGroupMessages, readGroup } =
-    useGroupAPI();
+  const {
+    getGroupRoom,
+    createGroupEventSource,
+    getGroupMessages,
+    readGroup,
+    excludeMember,
+  } = useGroupAPI();
   const { fileFromServer } = useFile();
   const { playAudio } = useAudio(messageSound);
   const { loadScroll, scrollToBottom } = useScroll();
@@ -97,6 +102,17 @@ export default function Room({ type }) {
 
   const updateRoom = (title, description) => {
     setRoom({ ...room, title, description });
+  };
+
+  const exclude = async (e, userId) => {
+    e.stopPropagation();
+    await excludeMember(id, userId);
+    setRoom((prev) => {
+      return {
+        ...prev,
+        members: prev.members.filter((member) => member._id !== userId),
+      };
+    });
   };
 
   useEffect(() => {
@@ -252,7 +268,9 @@ export default function Room({ type }) {
         <></>
       )}
       {contentType === roomContentTypes.groupSettings ? (
-        <GroupContext.Provider value={{ room, updateRoom }}>
+        <GroupContext.Provider
+          value={{ room, updateRoom, setContentType, exclude }}
+        >
           <GroupSettings />
         </GroupContext.Provider>
       ) : (

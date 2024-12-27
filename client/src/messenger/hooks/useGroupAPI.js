@@ -195,6 +195,27 @@ export default function useGroupAPI(openModal, setErrorCallback) {
     [options]
   );
 
+  const leaveGroup = useCallback(
+    async (roomId) => {
+      await api.delete(`${prefix}/leave/${roomId}`, options);
+    },
+    [options]
+  );
+
+  const deleteGroup = useCallback(
+    async (roomId) => {
+      await api.delete(`${prefix}/room/${roomId}`, options);
+    },
+    [options]
+  );
+
+  const excludeMember = useCallback(
+    async (roomId, userId) => {
+      await api.delete(`${prefix}/exclude/${roomId}/${userId}`, options);
+    },
+    [options]
+  );
+
   return {
     createGroupEventSource,
     sendGroupMessage,
@@ -207,5 +228,8 @@ export default function useGroupAPI(openModal, setErrorCallback) {
     changeTitle,
     uploadGroupAvatar,
     editGroup,
+    leaveGroup,
+    deleteGroup,
+    excludeMember,
   };
 }
