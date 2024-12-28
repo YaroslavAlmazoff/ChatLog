@@ -63,7 +63,7 @@ export default function GroupInfo() {
         <textarea
           value={description}
           onChange={(e) => setDescription(e.target.value)}
-          className="textarea group-info-description-field"
+          className="input group-info-description-field"
           placeholder="Информация"
         >
           {description}
