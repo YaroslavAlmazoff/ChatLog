@@ -32,20 +32,20 @@ export default function AddingFriendItem({ friend }) {
           </h3>
         </div>
         {userId !== room.creator ? (
-          <button className="button" onClick={(e) => invite(e, friend)}>
+          <button className="button ml" onClick={(e) => invite(e, friend)}>
             Добавить
           </button>
         ) : (
           <>
             {isAdded ? (
               <button
-                className="button-neon-red"
+                className="button-neon-red ml"
                 onClick={(e) => exclude(e, friend._id)}
               >
                 Исключить
               </button>
             ) : (
-              <button className="button" onClick={(e) => invite(e, friend)}>
+              <button className="button ml" onClick={(e) => invite(e, friend)}>
                 Добавить
               </button>
             )}
