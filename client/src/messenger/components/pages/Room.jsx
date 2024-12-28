@@ -67,6 +67,7 @@ export default function Room({ type }) {
   const [sendLoading, setSendLoading] = useState(false);
   const [editingMessage, setEditingMessage] = useState(null);
   const [contentType, setContentType] = useState(roomContentTypes.messages);
+  const [isMessagesVisible, setIsMessagesVisible] = useState(true);
 
   const setErrorCallback = useCallback((err) => {
     setError(err);
@@ -236,7 +237,9 @@ export default function Room({ type }) {
           : "",
       }}
     >
-      {contentType === roomContentTypes.messages ? (
+      <section
+        style={{ visibility: isMessagesVisible ? "visibility" : "hidden" }}
+      >
         <>
           {isGroup ? (
             <GroupRoomHead
@@ -277,15 +280,14 @@ export default function Room({ type }) {
             />
           </EditMessageContext.Provider>
         </>
-      ) : (
-        <></>
-      )}
+      </section>
       {contentType === roomContentTypes.groupSettings ? (
         <GroupContext.Provider
           value={{
             room,
             contentType,
             setContentType,
+            setIsMessagesVisible,
             updateRoom,
             exclude,
             invite,

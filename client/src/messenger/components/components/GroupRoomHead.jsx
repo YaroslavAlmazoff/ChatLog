@@ -10,6 +10,7 @@ export default function GroupRoomHead({
   groupTitle,
   groupAvatarUrl,
   setContentType,
+  setIsMessagesVisible,
 }) {
   const { fileFromServer } = useFile();
   const { changeTitle, uploadGroupAvatar } = useGroupAPI();
@@ -47,6 +48,10 @@ export default function GroupRoomHead({
 
   const handleAvatarSelect = () => {
     avatarRef.current.click();
+  };
+
+  const handleOpenSettings = () => {
+    setContentType(roomContentTypes.groupSettings);
   };
 
   return (
@@ -92,7 +97,7 @@ export default function GroupRoomHead({
         className="room-group-head-open-info"
         src={pointsIcon}
         alt="Group Info"
-        onClick={() => setContentType(roomContentTypes.groupSettings)}
+        onClick={handleOpenSettings}
       />
       <input
         onChange={(e) => changeGroupAvatar(e.target.files[0])}
