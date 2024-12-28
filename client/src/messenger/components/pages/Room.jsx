@@ -237,52 +237,44 @@ export default function Room({ type }) {
           : "",
       }}
     >
-      <div
-        style={{
-          visibility: isMessagesVisible ? "visible" : "hidden",
-        }}
-      >
-        <>
-          {isGroup ? (
-            <GroupRoomHead
-              groupTitle={room.title}
-              groupAvatarUrl={room.avatarUrl}
-              setContentType={setContentType}
+      <>
+        {isGroup ? (
+          <GroupRoomHead
+            groupTitle={room.title}
+            groupAvatarUrl={room.avatarUrl}
+            setContentType={setContentType}
+          />
+        ) : (
+          <RoomHead
+            name={room.name}
+            onlineDate={room.date}
+            isOnline={room.isOnline}
+          />
+        )}
+        <EditMessageContext.Provider
+          value={{ editingMessage, setEditingMessage, isGroup }}
+        >
+          <ImageLoadContext.Provider value={{ register, load, makeMessageOld }}>
+            <RoomMessages
+              messages={messages}
+              ref={feedRef}
+              startLoading={startLoading}
+              observerLoading={observerLoading}
+              sendLoading={sendLoading}
+              scrollLoading={scrollLoading}
+              setPage={setPage}
             />
-          ) : (
-            <RoomHead
-              name={room.name}
-              onlineDate={room.date}
-              isOnline={room.isOnline}
-            />
-          )}
-          <EditMessageContext.Provider
-            value={{ editingMessage, setEditingMessage, isGroup }}
-          >
-            <ImageLoadContext.Provider
-              value={{ register, load, makeMessageOld }}
-            >
-              <RoomMessages
-                messages={messages}
-                ref={feedRef}
-                startLoading={startLoading}
-                observerLoading={observerLoading}
-                sendLoading={sendLoading}
-                scrollLoading={scrollLoading}
-                setPage={setPage}
-              />
-            </ImageLoadContext.Provider>
-            <RoomMainField
-              setRoom={setRoom}
-              setOffset={setOffset}
-              error={error}
-              setErrorCallback={setErrorCallback}
-              setSendLoading={setSendLoading}
-              isGroup={isGroup}
-            />
-          </EditMessageContext.Provider>
-        </>
-      </div>
+          </ImageLoadContext.Provider>
+          <RoomMainField
+            setRoom={setRoom}
+            setOffset={setOffset}
+            error={error}
+            setErrorCallback={setErrorCallback}
+            setSendLoading={setSendLoading}
+            isGroup={isGroup}
+          />
+        </EditMessageContext.Provider>
+      </>
       {contentType === roomContentTypes.groupSettings ? (
         <GroupContext.Provider
           value={{
