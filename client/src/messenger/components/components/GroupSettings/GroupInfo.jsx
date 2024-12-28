@@ -1,9 +1,10 @@
 import { useContext, useState } from "react";
-import "../../../styles/GroupInfo.css";
+import { useParams } from "react-router";
 import { GroupContext } from "../../../context/GroupContext";
 import useFile from "../../../hooks/useFile";
 import useGroupAPI from "../../../hooks/useGroupAPI";
-import { useParams } from "react-router";
+import "../../../styles/GroupInfo.css";
+import "../../../styles/GroupSettings.css";
 
 export default function GroupInfo() {
   const { room, updateRoom } = useContext(GroupContext);
@@ -36,7 +37,7 @@ export default function GroupInfo() {
   };
 
   return (
-    <div className="group-info">
+    <div className="group-settings-part">
       <div className="group-info-top">
         <img
           className="group-info-avatar"

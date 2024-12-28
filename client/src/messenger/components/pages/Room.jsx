@@ -31,7 +31,7 @@ import useMessage from "../../hooks/useMessage";
 import useGroupAPI from "../../hooks/useGroupAPI";
 import GroupRoomHead from "../components/GroupRoomHead";
 import GroupSettings from "../components/GroupSettings/GroupSettings";
-import AddMembers from "../components/AddMembers";
+import AddMembers from "../components/GroupSettings/AddMembers";
 import { GroupContext } from "../../context/GroupContext";
 
 export default function Room({ type }) {
@@ -43,6 +43,7 @@ export default function Room({ type }) {
     getGroupMessages,
     readGroup,
     excludeMember,
+    inviteMember,
   } = useGroupAPI();
   const { fileFromServer } = useFile();
   const { playAudio } = useAudio(messageSound);
@@ -111,6 +112,17 @@ export default function Room({ type }) {
       return {
         ...prev,
         members: prev.members.filter((member) => member._id !== userId),
+      };
+    });
+  };
+
+  const invite = async (e, newMember) => {
+    e.stopPropagation();
+    await inviteMember(id, newMember._id);
+    setRoom((prev) => {
+      return {
+        ...prev,
+        members: [...prev.members, newMember],
       };
     });
   };
@@ -269,7 +281,14 @@ export default function Room({ type }) {
       )}
       {contentType === roomContentTypes.groupSettings ? (
         <GroupContext.Provider
-          value={{ room, updateRoom, setContentType, exclude }}
+          value={{
+            room,
+            contentType,
+            setContentType,
+            updateRoom,
+            exclude,
+            invite,
+          }}
         >
           <GroupSettings />
         </GroupContext.Provider>

@@ -216,6 +216,20 @@ export default function useGroupAPI(openModal, setErrorCallback) {
     [options]
   );
 
+  const inviteMember = useCallback(
+    async (roomId, userId) => {
+      await api.get(`${prefix}/invite/${roomId}/${userId}`, options);
+    },
+    [options]
+  );
+
+  const getFriends = useCallback(
+    async (userId) => {
+      await api.get(`${prefix}/friends/${userId}`, options);
+    },
+    [options]
+  );
+
   return {
     createGroupEventSource,
     sendGroupMessage,
@@ -231,5 +245,7 @@ export default function useGroupAPI(openModal, setErrorCallback) {
     leaveGroup,
     deleteGroup,
     excludeMember,
+    inviteMember,
+    getFriends,
   };
 }

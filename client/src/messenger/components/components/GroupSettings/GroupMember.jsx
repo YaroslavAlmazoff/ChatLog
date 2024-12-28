@@ -1,15 +1,15 @@
 import { useContext } from "react";
 import { AuthContext } from "../../../../context/AuthContext";
+import { GroupContext } from "../../../context/GroupContext";
 import "../../../styles/GroupMember.css";
 import "../../../../auth/styles/user-item.css";
-import { GroupContext } from "../../../context/GroupContext";
 
 export default function GroupMember({ member }) {
   const { userId } = useContext(AuthContext);
   const { exclude } = useContext(GroupContext);
 
   const goToMember = () => {
-    window.location = `/user/${id}`;
+    window.location = `/user/${member._id}`;
   };
 
   return (

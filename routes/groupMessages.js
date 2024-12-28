@@ -39,7 +39,7 @@ router.get("/full-members/:id", (req, res) => {
     console.log(e);
   }
 });
-router.post("/invite/:id", (req, res) => {
+router.get("/invite/:room/:user", auth, (req, res) => {
   try {
     MessengerGroupService.invite(req, res);
   } catch (e) {

@@ -1,8 +1,9 @@
 import { useContext } from "react";
-import "../../../styles/GroupActions.css";
 import { GroupContext } from "../../../context/GroupContext";
 import { AuthContext } from "../../../../context/AuthContext";
 import useGroupAPI from "../../../hooks/useGroupAPI";
+import "../../../styles/GroupActions.css";
+import "../../../styles/GroupSettings.css";
 
 export default function GroupActions() {
   const { leaveGroup, deleteGroup } = useGroupAPI();
@@ -25,7 +26,7 @@ export default function GroupActions() {
   };
 
   return (
-    <div className="group-actions">
+    <div className="group-settings-part">
       {isCreator ? (
         <span onClick={handleDeleteGroup} className="group-action">
           Удалить беседу

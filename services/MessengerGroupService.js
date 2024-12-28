@@ -49,8 +49,10 @@ class MessengerGroupService {
   }
 
   async invite(req, res) {
-    const { members } = req.body;
-    await ChatRoom.findByIdAndUpdate(req.params.id, { members });
+    const { room, user } = req.body;
+    const chatRoom = await ChatRoom.findById(room);
+    chatRoom.members = [...chatRoom.members, user];
+    await chatRoom.save();
     res.json({ msg: "success" });
   }
 
