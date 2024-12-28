@@ -238,7 +238,10 @@ export default function Room({ type }) {
       }}
     >
       <section
-        style={{ visibility: isMessagesVisible ? "visibility" : "hidden" }}
+        style={{
+          overflowY: "scroll",
+          visibility: isMessagesVisible ? "visible" : "hidden",
+        }}
       >
         <>
           {isGroup ? (
