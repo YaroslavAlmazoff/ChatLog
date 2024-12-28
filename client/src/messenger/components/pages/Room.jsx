@@ -242,6 +242,7 @@ export default function Room({ type }) {
             <GroupRoomHead
               groupTitle={room.title}
               groupAvatarUrl={room.avatarUrl}
+              setContentType={setContentType}
             />
           ) : (
             <RoomHead
