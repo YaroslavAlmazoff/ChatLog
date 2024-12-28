@@ -29,7 +29,7 @@ export default function GroupMember({ member }) {
             {member.name} {member.surname}
           </h3>
         </div>
-        {userId == room.creator ? (
+        {userId === room.creator && member._id !== room.creator ? (
           <button
             className="button-neon-red"
             onClick={(e) => exclude(e, member._id)}
