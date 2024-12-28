@@ -9,6 +9,7 @@ const RoomModal = ({
   children = <div></div>,
   type = modalTypes.neutral,
   url = "",
+  padding = "20px",
 }) => {
   if (!show) return null;
 
@@ -26,6 +27,7 @@ const RoomModal = ({
       {isSuccess || isNeutral || isError ? (
         <div
           className={`room-modal-content room-modal-content-width room-modal-${type} block-${type}`}
+          style={{ padding }}
           onClick={(e) => e.stopPropagation()}
         >
           <div className="room-modal-body">{children}</div>

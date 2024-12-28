@@ -293,6 +293,7 @@ export default function Room({ type }) {
           }
           onClose={() => setContentType(roomContentTypes.messages)}
           type={modalTypes.neutral}
+          padding="0"
         >
           {contentType === roomContentTypes.groupSettings ? (
             <GroupSettings />
