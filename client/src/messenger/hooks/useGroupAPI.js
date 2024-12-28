@@ -226,6 +226,7 @@ export default function useGroupAPI(openModal, setErrorCallback) {
   const getFriends = useCallback(
     async (userId) => {
       const response = await api.get(`${prefix}/friends/${userId}`, options);
+      console.log(response);
       return response.data.friends;
     },
     [options]
