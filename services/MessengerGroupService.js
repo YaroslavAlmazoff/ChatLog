@@ -32,7 +32,12 @@ class MessengerGroupService {
 
   async getRoom(req, res) {
     const room = await ChatRoom.findById(req.params.id);
-    res.json({ room });
+    const roomObj = room.toObject();
+    const fullMembers = roomObj.members.map(
+      async (member) => await User.findById(member)
+    );
+    roomObj.members = await Promise.all(fullMembers);
+    res.json({ room: roomObj });
   }
 
   async changeTitle(req, res) {

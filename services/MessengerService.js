@@ -152,11 +152,6 @@ class MessengerService {
             roomObj.unread = !el.readedThisMessage.includes(
               mongoose.Types.ObjectId(user)
             );
-            const fullMembers = roomObj.members.map(
-              async (member) => await User.findById(member)
-            );
-            console.log(fullMembers);
-            roomObj.members = await Promise.all(fullMembers);
           } else {
             roomObj.unread = el.isNotReaded;
             roomObj.sender = el.user;
