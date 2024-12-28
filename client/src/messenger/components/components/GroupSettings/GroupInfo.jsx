@@ -38,7 +38,7 @@ export default function GroupInfo() {
   };
 
   return (
-    <div className="group-settings-part">
+    <div className="group-settings-part underlined-block">
       <div className="group-info-top">
         <img
           className="group-info-avatar"

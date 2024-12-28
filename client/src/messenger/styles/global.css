@@ -16,6 +16,10 @@
   animation-iteration-count: infinite;
 }
 
+.underlined-block {
+  border-bottom: 1px solid var(--grey);
+}
+
 @keyframes glow-success {
   0% {
     box-shadow: 0 0 7px var(--neon-green);

@@ -26,7 +26,7 @@ export default function GroupActions() {
   };
 
   return (
-    <div className="group-settings-part">
+    <div className="group-settings-part underlined-block">
       {isCreator ? (
         <span onClick={handleDeleteGroup} className="group-action">
           Удалить беседу
