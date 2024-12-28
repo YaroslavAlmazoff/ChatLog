@@ -17,6 +17,7 @@ import useAudio from "../../hooks/useAudio";
 import {
   folders,
   messagesDataTypes,
+  modalTypes,
   roomContentTypes,
   roomTypes,
   startMessagesCountCheck,
@@ -33,6 +34,7 @@ import GroupRoomHead from "../components/GroupRoomHead";
 import GroupSettings from "../components/GroupSettings/GroupSettings";
 import AddMembers from "../components/GroupSettings/AddMembers";
 import { GroupContext } from "../../context/GroupContext";
+import RoomModal from "../components/RoomModal/RoomModal";
 
 export default function Room({ type }) {
   const params = useParams();
@@ -67,7 +69,6 @@ export default function Room({ type }) {
   const [sendLoading, setSendLoading] = useState(false);
   const [editingMessage, setEditingMessage] = useState(null);
   const [contentType, setContentType] = useState(roomContentTypes.messages);
-  const [isMessagesVisible, setIsMessagesVisible] = useState(true);
 
   const setErrorCallback = useCallback((err) => {
     setError(err);
@@ -275,24 +276,33 @@ export default function Room({ type }) {
           />
         </EditMessageContext.Provider>
       </>
-      {contentType === roomContentTypes.groupSettings ? (
-        <GroupContext.Provider
-          value={{
-            room,
-            contentType,
-            setContentType,
-            setIsMessagesVisible,
-            updateRoom,
-            exclude,
-            invite,
-          }}
-        >
-          <GroupSettings />
-        </GroupContext.Provider>
-      ) : (
-        <></>
-      )}
-      {contentType === roomContentTypes.addMembers ? <AddMembers /> : <></>}
+
+      <RoomModal
+        show={
+          contentType === roomContentTypes.groupSettings ||
+          contentType === roomContentTypes.addMembers
+        }
+        onClose={() => setContentType(roomContentTypes.messages)}
+        type={modalTypes.neutral}
+      >
+        {contentType === roomContentTypes.groupSettings ? (
+          <GroupContext.Provider
+            value={{
+              room,
+              contentType,
+              setContentType,
+              updateRoom,
+              exclude,
+              invite,
+            }}
+          >
+            <GroupSettings />
+          </GroupContext.Provider>
+        ) : (
+          <></>
+        )}
+        {contentType === roomContentTypes.addMembers ? <AddMembers /> : <></>}
+      </RoomModal>
     </div>
   );
 }

@@ -4,20 +4,19 @@ import { GroupContext } from "../../context/GroupContext";
 import { roomContentTypes } from "../../data/messengerConfiguration";
 
 export default function GroupGoBack() {
-  const { contentType, setContentType, setIsMessagesVisible } =
-    useContext(GroupContext);
-
-  const goBack = () => {
-    if (contentType === roomContentTypes.addMembers) {
-      setContentType(roomContentTypes.groupSettings);
-    } else {
-      setContentType(roomContentTypes.messages);
-      setIsMessagesVisible(true);
-    }
-  };
+  const { contentType, setContentType } = useContext(GroupContext);
   return (
     <div className="group-go-back">
-      <span onClick={goBack} className="group-go-back-text">
+      <span
+        onClick={() =>
+          setContentType(
+            contentType === roomContentTypes.addMembers
+              ? roomContentTypes.groupSettings
+              : roomContentTypes.messages
+          )
+        }
+        className="group-go-back-text"
+      >
         ⭠ Назад
       </span>
     </div>

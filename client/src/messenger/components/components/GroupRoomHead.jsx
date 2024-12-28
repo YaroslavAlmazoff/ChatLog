@@ -10,7 +10,6 @@ export default function GroupRoomHead({
   groupTitle,
   groupAvatarUrl,
   setContentType,
-  setIsMessagesVisible,
 }) {
   const { fileFromServer } = useFile();
   const { changeTitle, uploadGroupAvatar } = useGroupAPI();
