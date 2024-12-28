@@ -9,7 +9,6 @@ class FriendsService {
   async getFriends(req, res) {
     const user = await User.findById(req.params.id);
     const friends = user.friends.map(async (item) => await User.findById(item));
-    console.log(friends);
     Promise.all(friends).then((data) => res.json({ friends: data }));
   }
   async makeFriends(req, res) {

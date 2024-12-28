@@ -16,7 +16,7 @@ export default function AddingFriendItem({ friend }) {
 
   return (
     <div onClick={goToMember} className="user-item">
-      <div className="user-item-right-side">
+      <div className="user-item-right-side group-member">
         <div>
           <img
             className="user-item-img"
