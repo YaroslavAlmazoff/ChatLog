@@ -1,4 +1,4 @@
-import { folders } from "../../data/messengerConfiguration";
+import { folders, roomContentTypes } from "../../data/messengerConfiguration";
 import useFile from "../../hooks/useFile";
 import "../../styles/RoomHead.css";
 import pointsIcon from "../../img/points.png";
@@ -6,7 +6,11 @@ import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router";
 import useGroupAPI from "../../hooks/useGroupAPI";
 
-export default function GroupRoomHead({ groupTitle, groupAvatarUrl }) {
+export default function GroupRoomHead({
+  groupTitle,
+  groupAvatarUrl,
+  setContentType,
+}) {
   const { fileFromServer } = useFile();
   const { changeTitle, uploadGroupAvatar } = useGroupAPI();
   const { id } = useParams();
@@ -88,6 +92,7 @@ export default function GroupRoomHead({ groupTitle, groupAvatarUrl }) {
         className="room-group-head-open-info"
         src={pointsIcon}
         alt="Group Info"
+        onClick={() => setContentType(roomContentTypes.groupSettings)}
       />
       <input
         onChange={(e) => changeGroupAvatar(e.target.files[0])}
