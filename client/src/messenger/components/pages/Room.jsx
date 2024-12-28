@@ -276,33 +276,32 @@ export default function Room({ type }) {
           />
         </EditMessageContext.Provider>
       </>
-
-      <RoomModal
-        show={
-          contentType === roomContentTypes.groupSettings ||
-          contentType === roomContentTypes.addMembers
-        }
-        onClose={() => setContentType(roomContentTypes.messages)}
-        type={modalTypes.neutral}
+      <GroupContext.Provider
+        value={{
+          room,
+          contentType,
+          setContentType,
+          updateRoom,
+          exclude,
+          invite,
+        }}
       >
-        {contentType === roomContentTypes.groupSettings ? (
-          <GroupContext.Provider
-            value={{
-              room,
-              contentType,
-              setContentType,
-              updateRoom,
-              exclude,
-              invite,
-            }}
-          >
+        <RoomModal
+          show={
+            contentType === roomContentTypes.groupSettings ||
+            contentType === roomContentTypes.addMembers
+          }
+          onClose={() => setContentType(roomContentTypes.messages)}
+          type={modalTypes.neutral}
+        >
+          {contentType === roomContentTypes.groupSettings ? (
             <GroupSettings />
-          </GroupContext.Provider>
-        ) : (
-          <></>
-        )}
-        {contentType === roomContentTypes.addMembers ? <AddMembers /> : <></>}
-      </RoomModal>
+          ) : (
+            <></>
+          )}
+          {contentType === roomContentTypes.addMembers ? <AddMembers /> : <></>}
+        </RoomModal>
+      </GroupContext.Provider>
     </div>
   );
 }

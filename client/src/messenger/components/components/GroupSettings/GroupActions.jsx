@@ -4,6 +4,7 @@ import { AuthContext } from "../../../../context/AuthContext";
 import useGroupAPI from "../../../hooks/useGroupAPI";
 import "../../../styles/GroupActions.css";
 import "../../../styles/GroupSettings.css";
+import { roomContentTypes } from "../../../data/messengerConfiguration";
 
 export default function GroupActions() {
   const { leaveGroup, deleteGroup } = useGroupAPI();
@@ -22,7 +23,7 @@ export default function GroupActions() {
   };
 
   const handleAddMembers = () => {
-    setContentType("addMembers");
+    setContentType(roomContentTypes.addMembers);
   };
 
   return (
