@@ -41,7 +41,7 @@ export default function GroupInfo() {
       <div className="group-info-top">
         <img
           className="group-info-avatar"
-          src={fileFromServer(avatarUrl)}
+          src={() => fileFromServer("chatavatars", avatarUrl)}
           alt="Avatar"
         />
         {editing ? (

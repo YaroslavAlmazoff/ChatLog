@@ -3,10 +3,12 @@ import { AuthContext } from "../../../../context/AuthContext";
 import { GroupContext } from "../../../context/GroupContext";
 import "../../../styles/GroupMember.css";
 import "../../../../auth/styles/user-item.css";
+import useFile from "../../../hooks/useFile";
 
 export default function GroupMember({ member }) {
   const { userId } = useContext(AuthContext);
   const { room, exclude } = useContext(GroupContext);
+  const { fileFromServer } = useFile();
 
   const goToMember = () => {
     window.location = `/user/${member._id}`;
@@ -18,9 +20,7 @@ export default function GroupMember({ member }) {
         <div>
           <img
             className="user-item-img"
-            src={
-              process.env.REACT_APP_API_URL + "/useravatars/" + member.avatarUrl
-            }
+            src={() => fileFromServer("useravatars", member.avatarUrl)}
             alt="user"
           />
         </div>
