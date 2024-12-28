@@ -6,7 +6,7 @@ import "../../../../auth/styles/user-item.css";
 
 export default function GroupMember({ member }) {
   const { userId } = useContext(AuthContext);
-  const { exclude } = useContext(GroupContext);
+  const { room, exclude } = useContext(GroupContext);
 
   const goToMember = () => {
     window.location = `/user/${member._id}`;
