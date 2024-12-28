@@ -13,8 +13,8 @@ export default function AddMembers() {
 
   useEffect(() => {
     const getUserFriends = async () => {
-      const response = await getFriends(userId);
-      setFriends(response.data.friends);
+      const data = await getFriends(userId);
+      setFriends(data);
     };
 
     getUserFriends();
