@@ -1,7 +1,7 @@
 import { useContext } from "react";
-import "../../styles/GroupGoBack.css";
 import { GroupContext } from "../../context/GroupContext";
 import { roomContentTypes } from "../../data/messengerConfiguration";
+import "../../styles/GroupGoBack.css";
 
 export default function GroupGoBack() {
   const { contentType, setContentType } = useContext(GroupContext);
