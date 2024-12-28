@@ -5,6 +5,7 @@ import useFile from "../../../hooks/useFile";
 import useGroupAPI from "../../../hooks/useGroupAPI";
 import "../../../styles/GroupInfo.css";
 import "../../../styles/GroupSettings.css";
+import { folders } from "../../../data/messengerConfiguration";
 
 export default function GroupInfo() {
   const { room, updateRoom } = useContext(GroupContext);
@@ -41,7 +42,7 @@ export default function GroupInfo() {
       <div className="group-info-top">
         <img
           className="group-info-avatar"
-          src={() => fileFromServer("chatavatars", avatarUrl)}
+          src={fileFromServer(folders.groupAvatars, avatarUrl)}
           alt="Avatar"
         />
         {editing ? (

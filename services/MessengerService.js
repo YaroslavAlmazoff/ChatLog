@@ -155,6 +155,7 @@ class MessengerService {
             const fullMembers = roomObj.members.map(
               async (member) => await User.findById(member)
             );
+            console.log(fullMembers);
             roomObj.members = await Promise.all(fullMembers);
           } else {
             roomObj.unread = el.isNotReaded;

@@ -20,7 +20,7 @@ export default function GroupMember({ member }) {
         <div>
           <img
             className="user-item-img"
-            src={() => fileFromServer("useravatars", member.avatarUrl)}
+            src={fileFromServer("useravatars", member.avatarUrl)}
             alt="user"
           />
         </div>

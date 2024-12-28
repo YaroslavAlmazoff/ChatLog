@@ -25,6 +25,7 @@ export const folders = {
   audios: "message-audios",
   bg: "room-backgrounds",
   groupAvatars: "chatavatars",
+  userAvatars: "useravatars",
 };
 
 export const actionsAnimationClasses = {
