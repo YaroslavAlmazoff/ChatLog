@@ -54,14 +54,17 @@ export default function GroupInfo() {
             placeholder="Название беседы"
           />
         ) : (
-          <span className="group-info-title">{title}</span>
+          <span onClick={() => setEditing(true)} className="group-info-title">
+            {title}
+          </span>
         )}
       </div>
-      {editing ? (
+      {editing || !description ? (
         <textarea
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           className="textarea group-info-description-field"
+          placeholder="Информация"
         >
           {description}
         </textarea>
