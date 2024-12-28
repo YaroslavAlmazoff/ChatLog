@@ -7,6 +7,7 @@ import useFile from "./useFile";
 import auth from "../../auth/api/auth";
 
 const prefix = "/api/group";
+const apiPrefixOnly = "/api";
 
 export default function useGroupAPI(openModal, setErrorCallback) {
   const { getCurrentDate } = useDate();
@@ -225,8 +226,10 @@ export default function useGroupAPI(openModal, setErrorCallback) {
 
   const getFriends = useCallback(
     async (userId) => {
-      const response = await api.get(`${prefix}/friends/${userId}`, options);
-      console.log(response);
+      const response = await api.get(
+        `${apiPrefixOnly}/friends/${userId}`,
+        options
+      );
       return response.data.friends;
     },
     [options]
