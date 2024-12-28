@@ -237,9 +237,8 @@ export default function Room({ type }) {
           : "",
       }}
     >
-      <section
+      <div
         style={{
-          overflowY: "scroll",
           visibility: isMessagesVisible ? "visible" : "hidden",
         }}
       >
@@ -283,7 +282,7 @@ export default function Room({ type }) {
             />
           </EditMessageContext.Provider>
         </>
-      </section>
+      </div>
       {contentType === roomContentTypes.groupSettings ? (
         <GroupContext.Provider
           value={{
