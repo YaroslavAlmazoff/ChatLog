@@ -15,7 +15,7 @@
 
 .room-modal-content {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   max-width: 100%;
   border-radius: 15px;
