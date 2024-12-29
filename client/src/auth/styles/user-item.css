@@ -85,3 +85,7 @@
   font-size: 10pt;
   cursor: pointer;
 }
+
+.ml {
+  margin-left: 10px;
+}
