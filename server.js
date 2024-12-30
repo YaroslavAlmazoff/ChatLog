@@ -11,10 +11,9 @@ const fs = require("fs");
 const subdomain = require("express-subdomain");
 const request = require("request");
 const cookieParser = require("cookie-parser");
+const { spawn } = require("child_process");
 
 const admin = require("firebase-admin");
-
-const { getMonthNumber } = require("./services/Astronomical/getMonthNumber");
 
 //Подключение роутеров
 const articlesRouter = require("./routes/articles");
@@ -122,9 +121,17 @@ const start = async () => {
     http.createServer(app).listen(80);
     https.createServer(options, app).listen(443, async () => {
       console.log(`The Server has been started on port 443...`);
-      setInterval(async () => {
-        await startNotifications();
-      }, 60 * 1000);
+    });
+    const secondServer = spawn("node", ["astroServer.js"], {
+      stdio: "inherit",
+    });
+
+    secondServer.on("error", (err) => {
+      console.error("Failed to start second server:", err);
+    });
+
+    secondServer.on("exit", (code) => {
+      console.log(`Second server exited with code ${code}`);
     });
   } catch (e) {
     console.log("Server Error: ", e.message);
