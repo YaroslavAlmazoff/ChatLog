@@ -40,7 +40,6 @@ const videohostUserActionsRouter = require("./routes/videohost/userActions");
 
 const gamesRouter = require("./routes/games");
 const storeRouter = require("./routes/store");
-const { startNotifications } = require("./services/Astronomical/AEPController");
 
 process.on("uncaughtException", function (err) {
   console.error(err);
