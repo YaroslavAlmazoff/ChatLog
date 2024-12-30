@@ -8,7 +8,7 @@ const { updateUpcomingStatus } = require("./updateUpcomingStatus");
 
 class AEPController {
   async events(req, res) {
-    const events = await Event.find();
+    const events = await AstronomicalEvent.find();
     const currentDateTime = new Date();
 
     const pastEvents = events
