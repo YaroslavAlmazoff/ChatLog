@@ -8,6 +8,8 @@ async function updateUpcomingStatus() {
   for (const event of events) {
     const eventDateTime = new Date(`${event.date}T${event.time}:00Z`);
 
+    console.log(eventDateTime, currentDateTime);
+
     if (eventDateTime <= currentDateTime) {
       event.upcoming = false;
       await event.save();
