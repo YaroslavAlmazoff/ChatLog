@@ -136,7 +136,7 @@ const start = async () => {
         event.notifiedHourBefore = true;
         await event.save();
       });
-      setInterval(startNotifications, 10 * 60 * 1000);
+      setInterval(startNotifications, 60 * 1000);
     });
   } catch (e) {
     console.log("Server Error: ", e.message);
