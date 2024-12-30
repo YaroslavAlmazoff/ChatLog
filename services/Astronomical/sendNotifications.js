@@ -32,7 +32,7 @@ async function sendNotifications(item, type) {
       },
       (err, response) => {
         if (err) console.log(err);
-        //console.log(response)
+        console.log(response);
       }
     );
   });
