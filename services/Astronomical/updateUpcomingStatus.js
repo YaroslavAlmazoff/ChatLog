@@ -1,7 +1,7 @@
 const { sendNotifications } = require("./sendNotifications");
 const AstronomicalEvent = require("../../models/AstronomicalEvent");
 
-export async function updateUpcomingStatus() {
+async function updateUpcomingStatus() {
   const events = await AstronomicalEvent.find({ upcoming: true });
   const currentDateTime = new Date();
 
@@ -30,3 +30,5 @@ export async function updateUpcomingStatus() {
     }
   }
 }
+
+module.exports = { updateUpcomingStatus };
