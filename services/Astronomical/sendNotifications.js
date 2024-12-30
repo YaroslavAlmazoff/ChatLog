@@ -28,7 +28,7 @@ async function sendNotifications(item, type) {
         method: "POST",
         json: true,
         headers: {
-          Authorization: `key=${config.get("AEP_KEY")}`,
+          Authorization: `key=${config.get("NOTIFICATIONS_TOKEN")}`,
         },
         body: message,
       },
