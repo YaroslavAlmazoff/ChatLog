@@ -111,6 +111,9 @@ const options = {
 
 const serviceAccount = require("./chatloglast-firebase-adminsdk-db7so-4665518e0f.json");
 const AstronomicalEvent = require("./models/AstronomicalEvent");
+const {
+  getCorrectNumber,
+} = require("./services/Astronomical/getCorrectNumber");
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
 });
@@ -123,8 +126,11 @@ const start = async () => {
       console.log(`The Server has been started on port 443...`);
       const events = await AstronomicalEvent.find({});
       events.forEach(async (event) => {
-        event.date = `${event.day}.${getMonthNumber(event.month)}.${
-          event.year
+        event.date = `${getCorrectNumber(event.day)}.${getMonthNumber(
+          event.month
+        )}.${event.year}`;
+        event.time = `${getCorrectNumber(event.time.split(":")[0])}:${
+          event.time.split(":")[1]
         }`;
         event.notifiedDayBefore = true;
         event.notifiedHourBefore = true;

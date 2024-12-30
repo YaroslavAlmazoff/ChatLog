@@ -21,6 +21,8 @@ class AEPController {
           new Date(`${a.date}T${a.time}:00Z`)
       );
 
+    console.log(pastEvents);
+
     const upcomingEvents = events
       .filter(
         (event) =>
