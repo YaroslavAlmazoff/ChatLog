@@ -6,7 +6,11 @@ async function updateUpcomingStatus() {
   const currentDateTime = new Date();
 
   for (const event of events) {
-    const eventDateTime = new Date(`${event.date}T${event.time}:00Z`);
+    const [day, month, year] = event.date.trim().split(".").map(Number); // Удаляем лишние пробелы и преобразуем в числа
+    const [hours, minutes] = event.time.trim().split(":").map(Number); // Аналогично для времени
+    const eventDateTime = new Date(
+      Date.UTC(year, month - 1, day, hours, minutes)
+    );
 
     console.log(eventDateTime, currentDateTime);
 
