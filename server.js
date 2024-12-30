@@ -111,9 +111,7 @@ const options = {
 
 const serviceAccount = require("./chatloglast-firebase-adminsdk-db7so-4665518e0f.json");
 const AstronomicalEvent = require("./models/AstronomicalEvent");
-const {
-  getCorrectNumber,
-} = require("./services/Astronomical/getCorrectNumber");
+
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
 });

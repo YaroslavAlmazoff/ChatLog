@@ -1,5 +1,6 @@
 const config = require("config");
 const request = require("request");
+const admin = require("firebase-admin");
 const AEPNotificationToken = require("../../models/AEPNotificationToken");
 
 async function sendNotifications(item, type) {
@@ -20,23 +21,20 @@ async function sendNotifications(item, type) {
                 item.interesting ? "ИНТЕРЕСНОГО " : ""
               }астрособытия!`,
         body: item.text,
+        android: {
+          priority: "high",
+        },
       },
     };
-    request(
-      "https://fcm.googleapis.com/fcm/send",
-      {
-        method: "POST",
-        json: true,
-        headers: {
-          Authorization: `key=${config.get("NOTIFICATIONS_TOKEN")}`,
-        },
-        body: message,
-      },
-      (err, response) => {
-        if (err) console.log(err);
-        console.log(response);
-      }
-    );
+    admin
+      .messaging()
+      .send(message)
+      .then((response) => {
+        console.log("Push уведомление успешно отправлено");
+      })
+      .catch((error) => {
+        console.log("Ошибка отправки push-уведомления", error);
+      });
   });
 }
 
