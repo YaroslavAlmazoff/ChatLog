@@ -14,6 +14,8 @@ const cookieParser = require("cookie-parser");
 
 const admin = require("firebase-admin");
 
+const { getMonthNumber } = require("./services/Astronomical/getMonthNumber");
+
 //Подключение роутеров
 const articlesRouter = require("./routes/articles");
 const authRouter = require("./routes/auth");

@@ -1,4 +1,4 @@
-export function getMonthNumber(month) {
+function getMonthNumber(month) {
   if (month === "январь") {
     return "01";
   } else if (month === "февраль") {
@@ -27,3 +27,5 @@ export function getMonthNumber(month) {
     return "01";
   }
 }
+
+module.exports = { getMonthNumber };
