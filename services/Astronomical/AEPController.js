@@ -122,7 +122,7 @@ class AEPController {
     }
   }
   async startNotifications() {
-    updateUpcomingStatus();
+    await updateUpcomingStatus();
   }
 }
 
