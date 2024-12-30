@@ -8,31 +8,65 @@ const { updateUpcomingStatus } = require("./updateUpcomingStatus");
 
 class AEPController {
   async events(req, res) {
-    const events = await AstronomicalEvent.find({});
-    const currentDateTime = new Date();
+    const events = await AstronomicalEvent.find(); // Получаем все события из базы данных
 
-    const pastEvents = events
-      .filter(
-        (event) => new Date(`${event.date}T${event.time}:00Z`) < currentDateTime
-      )
-      .sort(
-        (a, b) =>
-          new Date(`${b.date}T${b.time}:00Z`) -
-          new Date(`${a.date}T${a.time}:00Z`)
+    const now = new Date(); // Текущее время
+
+    // Разделяем события
+    const pastEvents = [];
+    const upcomingEvents = [];
+
+    events.forEach((event) => {
+      // Парсим дату и время события
+      const [day, month, year] = event.date.split(".").map(Number);
+      const [hours, minutes] = event.time.split(":").map(Number);
+
+      // Создаем объект Date для события
+      const eventDate = new Date(
+        Date.UTC(year, month - 1, day, hours, minutes)
       );
 
-    console.log(pastEvents);
+      if (eventDate.getTime() < now.getTime()) {
+        // Если событие прошло
+        pastEvents.push(event);
+      } else {
+        // Если событие еще впереди
+        upcomingEvents.push(event);
+      }
+    });
 
-    const upcomingEvents = events
-      .filter(
-        (event) =>
-          new Date(`${event.date}T${event.time}:00Z`) >= currentDateTime
-      )
-      .sort(
-        (a, b) =>
-          new Date(`${a.date}T${a.time}:00Z`) -
-          new Date(`${b.date}T${b.time}:00Z`)
+    // Сортируем массивы
+    pastEvents.sort((a, b) => {
+      const [dayA, monthA, yearA] = a.date.split(".").map(Number);
+      const [hoursA, minutesA] = a.time.split(":").map(Number);
+      const dateA = new Date(
+        Date.UTC(yearA, monthA - 1, dayA, hoursA, minutesA)
       );
+
+      const [dayB, monthB, yearB] = b.date.split(".").map(Number);
+      const [hoursB, minutesB] = b.time.split(":").map(Number);
+      const dateB = new Date(
+        Date.UTC(yearB, monthB - 1, dayB, hoursB, minutesB)
+      );
+
+      return dateB.getTime() - dateA.getTime(); // Сортировка по убыванию
+    });
+
+    upcomingEvents.sort((a, b) => {
+      const [dayA, monthA, yearA] = a.date.split(".").map(Number);
+      const [hoursA, minutesA] = a.time.split(":").map(Number);
+      const dateA = new Date(
+        Date.UTC(yearA, monthA - 1, dayA, hoursA, minutesA)
+      );
+
+      const [dayB, monthB, yearB] = b.date.split(".").map(Number);
+      const [hoursB, minutesB] = b.time.split(":").map(Number);
+      const dateB = new Date(
+        Date.UTC(yearB, monthB - 1, dayB, hoursB, minutesB)
+      );
+
+      return dateA.getTime() - dateB.getTime(); // Сортировка по возрастанию
+    });
     res.json({ future: upcomingEvents, past: pastEvents });
   }
   async uploadImage(req, res) {
