@@ -12,6 +12,7 @@ const AstronomicalEvent = new mongoose.Schema({
   visibility: { type: String, default: "" },
   upcoming: { type: Boolean, default: true },
   sort: { type: Number, required: true },
+  date: { type: String },
 });
 
 module.exports = mongoose.model("AstronomicalEvent", AstronomicalEvent);
