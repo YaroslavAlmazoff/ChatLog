@@ -109,39 +109,10 @@ const options = {
 
 const serviceAccount = require("./chatloglast-firebase-adminsdk-db7so-4665518e0f.json");
 const AstronomicalEvent = require("./models/AstronomicalEvent");
+const { getMonthNumber } = require("./services/Astronomical/getMonthNumber");
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
 });
-
-const getMonthNumber = (month) => {
-  if (month === "январь") {
-    return "01";
-  } else if (month === "февраль") {
-    return "02";
-  } else if (month === "март") {
-    return "03";
-  } else if (month === "апрель") {
-    return "04";
-  } else if (month === "май") {
-    return "05";
-  } else if (month === "июнь") {
-    return "06";
-  } else if (month === "июль") {
-    return "07";
-  } else if (month === "август") {
-    return "08";
-  } else if (month === "сентябрь") {
-    return "09";
-  } else if (month === "октябрь") {
-    return "10";
-  } else if (month === "ноябрь") {
-    return "11";
-  } else if (month === "декабрь") {
-    return "12";
-  } else {
-    return "01";
-  }
-};
 
 const start = async () => {
   try {
@@ -154,8 +125,11 @@ const start = async () => {
         event.date = `${event.day}.${getMonthNumber(event.month)}.${
           event.year
         }`;
+        event.notifiedDayBefore = true;
+        event.notifiedHourBefore = true;
         await event.save();
       });
+      setInterval(startNotifications, 10 * 60 * 1000);
     });
   } catch (e) {
     console.log("Server Error: ", e.message);
