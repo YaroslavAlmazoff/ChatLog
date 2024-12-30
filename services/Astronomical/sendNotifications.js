@@ -5,6 +5,8 @@ const AEPNotificationToken = require("../../models/AEPNotificationToken");
 async function sendNotifications(item, type) {
   const tokens = await AEPNotificationToken.find({});
 
+  щ = console.log(tokens);
+
   tokens.forEach((el) => {
     const message = {
       to: el.token,
