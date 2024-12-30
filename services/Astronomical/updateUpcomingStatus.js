@@ -1,6 +1,4 @@
-import { sendNotifications } from "./sendNotifications";
-
-const moment = require("moment");
+const { sendNotifications } = require("./sendNotifications");
 const AstronomicalEvent = require("../../models/AstronomicalEvent");
 
 export async function updateUpcomingStatus() {

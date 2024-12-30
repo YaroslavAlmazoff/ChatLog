@@ -1,4 +1,4 @@
-export function isEventInPast(eventDate, eventTime) {
+function isEventInPast(eventDate, eventTime) {
   const [day, month, year] = eventDate.split(".");
   const [hour, minute] = eventTime.split(":");
 
@@ -12,3 +12,5 @@ export function isEventInPast(eventDate, eventTime) {
 
   return eventDateTime.isBefore(moment());
 }
+
+module.exports = { isEventInPast };

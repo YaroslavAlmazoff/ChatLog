@@ -1,7 +1,8 @@
 const config = require("config");
+const request = require("request");
 const AEPNotificationToken = require("../../models/AEPNotificationToken");
 
-export async function sendNotifications(item, type) {
+async function sendNotifications(item, type) {
   const tokens = await AEPNotificationToken.find({});
 
   tokens.forEach((el) => {
@@ -36,3 +37,5 @@ export async function sendNotifications(item, type) {
     );
   });
 }
+
+module.exports = { sendNotifications };
