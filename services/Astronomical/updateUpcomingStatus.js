@@ -29,6 +29,7 @@ async function updateUpcomingStatus() {
       event.notifiedDayBefore = true;
       await event.save();
     }
+    const oneHourBefore = new Date(eventDateTime.getTime() - 60 * 60 * 1000);
     console.log(
       !event.notifiedHourBefore,
       currentDateTime,
@@ -36,7 +37,6 @@ async function updateUpcomingStatus() {
       currentDateTime >= oneHourBefore,
       !event.notifiedHourBefore && currentDateTime >= oneHourBefore
     );
-    const oneHourBefore = new Date(eventDateTime.getTime() - 60 * 60 * 1000);
     if (!event.notifiedHourBefore && currentDateTime >= oneHourBefore) {
       sendNotifications(event, "hour");
       event.notifiedHourBefore = true;
