@@ -10,7 +10,7 @@ async function sendNotifications(item, type) {
 
   tokens.forEach((el) => {
     const message = {
-      to: el.token,
+      token: el.token,
       notification: {
         title:
           type === "day"
@@ -21,9 +21,9 @@ async function sendNotifications(item, type) {
                 item.interesting ? "ИНТЕРЕСНОГО " : ""
               }астрособытия!`,
         body: item.text,
-        android: {
-          priority: "high",
-        },
+      },
+      android: {
+        priority: "high",
       },
     };
     admin
