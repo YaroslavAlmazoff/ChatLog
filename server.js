@@ -124,18 +124,6 @@ const start = async () => {
     http.createServer(app).listen(80);
     https.createServer(options, app).listen(443, async () => {
       console.log(`The Server has been started on port 443...`);
-      const events = await AstronomicalEvent.find({});
-      events.forEach(async (event) => {
-        event.date = `${getCorrectNumber(event.day)}.${getMonthNumber(
-          event.month
-        )}.${event.year}`;
-        event.time = `${getCorrectNumber(event.time.split(":")[0])}:${
-          event.time.split(":")[1]
-        }`;
-        event.notifiedDayBefore = true;
-        event.notifiedHourBefore = true;
-        await event.save();
-      });
       setInterval(async () => {
         await startNotifications();
       }, 60 * 1000);
