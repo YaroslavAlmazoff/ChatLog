@@ -87,7 +87,7 @@ class AEPController {
   }
   async newEvent(req, res) {
     const date = new Date();
-    let { text, month, day, time, interesting, information, visibility } =
+    let { text, year, month, day, time, interesting, information, visibility } =
       req.body;
     const filename = uuid.v4() + ".png";
     await AstronomicalEvent.create({

@@ -3,6 +3,7 @@ import api from "../auth/api/auth";
 
 const AddEvent = () => {
   const [text, setText] = useState("");
+  const [year, setYear] = useState("");
   const [month, setMonth] = useState("");
   const [day, setDay] = useState("");
   const [time, setTime] = useState("");
@@ -13,16 +14,13 @@ const AddEvent = () => {
   const [sort, setSort] = useState(null);
 
   const fileRef = useRef();
-  //Получение файла изображения поста пользователя
   const emitOpen2 = () => {
     fileRef.current.click();
   };
 
-  //Получение файла фотографии пользователя
   const getFile2 = async (e) => {
     let file = e.target.files[0];
     console.log(file);
-    //Загрузка файла в состояние
     setFile(file);
   };
 
@@ -36,12 +34,13 @@ const AddEvent = () => {
     formData.append("file", file);
     formData.append("information", information);
     formData.append("visibility", visibility);
-    formData.append("sort", sort);
+    formData.append("year", year);
 
     setText("");
     setDay("");
     setTime("");
     setMonth("");
+    setYear("");
     setInteresting(false);
     setFile("");
     setInformation("");
@@ -68,6 +67,14 @@ const AddEvent = () => {
         value={text}
         onChange={(e) => setText(e.target.value)}
         placeholder="Событие"
+      />
+      <input
+        className="input"
+        style={styles}
+        type="text"
+        value={year}
+        onChange={(e) => setYear(e.target.value)}
+        placeholder="Год"
       />
       <input
         className="input"
