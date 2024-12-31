@@ -1,6 +1,8 @@
 const express = require("express");
 const cors = require("cors");
 const admin = require("firebase-admin");
+const mongoose = require("mongoose");
+const config = require("config");
 const { startNotifications } = require("./services/Astronomical/AEPController");
 const serviceAccount = require("./chatlog-astro-firebase-adminsdk-vbdrf-6074f068be.json");
 
@@ -16,7 +18,7 @@ app.get("/", (req, res) => {
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
 });
-
+mongoose.connect(config.get("CONNECTION_URL"), { useNewUrlParser: true });
 app.listen(4000, () => {
   console.log("HTTP Server 2 running at http://localhost:4000/");
   setInterval(async () => {

@@ -108,7 +108,6 @@ const options = {
 };
 
 const serviceAccount = require("./chatloglast-firebase-adminsdk-db7so-4665518e0f.json");
-const AstronomicalEvent = require("./models/AstronomicalEvent");
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
