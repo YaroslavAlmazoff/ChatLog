@@ -69,7 +69,12 @@ export default function GroupInfo() {
           {description}
         </textarea>
       ) : (
-        <span className="group-info-description">{description}</span>
+        <span
+          onClick={() => setEditing(true)}
+          className="group-info-description"
+        >
+          {description}
+        </span>
       )}
       <div className="group-info-actions">
         <button onClick={save} className="button">
