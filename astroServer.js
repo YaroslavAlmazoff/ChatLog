@@ -1,6 +1,8 @@
 const express = require("express");
 const cors = require("cors");
+const admin = require("firebase-admin");
 const { startNotifications } = require("./services/Astronomical/AEPController");
+const serviceAccount = require("./chatlog-astro-firebase-adminsdk-vbdrf-6074f068be.json");
 
 const app = express();
 
@@ -9,6 +11,10 @@ app.use(express.json({ extended: true, limit: "50mb" }));
 
 app.get("/", (req, res) => {
   res.json({ message: "Работает" });
+});
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
 });
 
 app.listen(4000, () => {
