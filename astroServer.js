@@ -20,6 +20,7 @@ admin.initializeApp({
 app.listen(4000, () => {
   console.log("HTTP Server 2 running at http://localhost:4000/");
   setInterval(async () => {
+    console.log("Start notifications");
     await startNotifications();
   }, 1 * 60 * 1000);
 });
