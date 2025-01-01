@@ -3,7 +3,7 @@ import api from "../auth/api/auth";
 
 const AddEvent = () => {
   const [text, setText] = useState("");
-  const [year, setYear] = useState("");
+  const [year, setYear] = useState("2025");
   const [month, setMonth] = useState("");
   const [day, setDay] = useState("");
   const [time, setTime] = useState("");
@@ -40,7 +40,7 @@ const AddEvent = () => {
     setDay("");
     setTime("");
     setMonth("");
-    setYear("");
+    setYear("2025");
     setInteresting(false);
     setFile("");
     setInformation("");

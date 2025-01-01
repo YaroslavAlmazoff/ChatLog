@@ -93,7 +93,7 @@ class AEPController {
     const filename = uuid.v4() + ".png";
     await AstronomicalEvent.create({
       text,
-      year: date.getFullYear(),
+      year,
       month: month.toLowerCase(),
       day,
       time,
@@ -101,7 +101,7 @@ class AEPController {
       image: filename,
       information,
       visibility,
-      date: `${getCorrectNumber(day)}.${getMonthNumber(month)}.${year}`,
+      date: `${getCorrectNumber(`${day}`)}.${getMonthNumber(month)}.${year}`,
     });
     FileService.insertAstronomicalEvent(req.files.file, filename);
     res.json({ message: "OK" });
