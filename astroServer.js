@@ -24,5 +24,5 @@ app.listen(4000, () => {
   setInterval(async () => {
     console.log("Start notifications");
     await startNotifications();
-  }, 1 * 60 * 1000);
+  }, 10 * 60 * 1000);
 });
