@@ -5,6 +5,7 @@ const FileService = require("../FileService");
 const AstronomicalImage = require("../../models/AstronomicalImage");
 const { getMonthNumber } = require("./getMonthNumber");
 const { updateUpcomingStatus } = require("./updateUpcomingStatus");
+const { getCorrectNumber } = require("./getCorrectNumber");
 
 class AEPController {
   async events(req, res) {
@@ -100,7 +101,7 @@ class AEPController {
       image: filename,
       information,
       visibility,
-      date: `${day}.${getMonthNumber(month)}.${year}`,
+      date: `${getCorrectNumber(day)}.${getMonthNumber(month)}.${year}`,
     });
     FileService.insertAstronomicalEvent(req.files.file, filename);
     res.json({ message: "OK" });
