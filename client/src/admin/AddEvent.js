@@ -9,19 +9,29 @@ const AddEvent = () => {
   const [time, setTime] = useState("");
   const [interesting, setInteresting] = useState(false);
   const [file, setFile] = useState("");
+  const [file2, setFile2] = useState("");
   const [information, setInformation] = useState("");
   const [visibility, setVisibility] = useState("");
   const [sort, setSort] = useState(null);
 
   const fileRef = useRef();
-  const emitOpen2 = () => {
+  const file2Ref = useRef();
+  const emitOpen = () => {
     fileRef.current.click();
+  };
+
+  const getFile = async (e) => {
+    let file = e.target.files[0];
+    setFile(file);
+  };
+
+  const emitOpen2 = () => {
+    file2Ref.current.click();
   };
 
   const getFile2 = async (e) => {
     let file = e.target.files[0];
-    console.log(file);
-    setFile(file);
+    setFile2(file);
   };
 
   const send = async () => {
@@ -32,6 +42,7 @@ const AddEvent = () => {
     formData.append("time", time);
     formData.append("interesting", interesting);
     formData.append("file", file);
+    formData.append("file2", file2);
     formData.append("information", information);
     formData.append("visibility", visibility);
     formData.append("year", year);
@@ -43,6 +54,7 @@ const AddEvent = () => {
     setYear("2025");
     setInteresting(false);
     setFile("");
+    setFile2("");
     setInformation("");
     setVisibility("");
     setSort(null);
@@ -135,15 +147,24 @@ const AddEvent = () => {
       />
       <input
         style={styles}
-        onChange={(e) => getFile2(e)}
+        onChange={(e) => getFile(e)}
         ref={fileRef}
         type="file"
       />
+      <input
+        style={styles}
+        onChange={(e) => getFile2(e)}
+        ref={file2Ref}
+        type="file"
+      />
+      <button style={styles} onClick={(e) => emitOpen(e)} className="button">
+        Preview
+      </button>
       <button style={styles} onClick={(e) => emitOpen2(e)} className="button">
-        Добавить фотографию
+        Screenshot
       </button>
       <button style={styles} className="button" onClick={send}>
-        Опубликовать
+        Send
       </button>
     </div>
   );

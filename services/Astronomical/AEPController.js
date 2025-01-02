@@ -87,7 +87,6 @@ class AEPController {
     res.json({ images });
   }
   async newEvent(req, res) {
-    const date = new Date();
     let { text, year, month, day, time, interesting, information, visibility } =
       req.body;
     const filename = uuid.v4() + ".png";
@@ -103,7 +102,8 @@ class AEPController {
       visibility,
       date: `${getCorrectNumber(`${day}`)}.${getMonthNumber(month)}.${year}`,
     });
-    FileService.insertAstronomicalEvent(req.files.file, filename);
+    await FileService.insertAstronomicalEvent(req.files.file, filename);
+    await FileService.insertEventScreenshot(req.files.file2, filename);
     res.json({ message: "OK" });
   }
   async newToken(req, res) {

@@ -116,6 +116,10 @@ class FileService {
     ImageService.saveFile(file, filename, "astronomicalevents");
     return filename;
   }
+  async insertEventScreenshot(file, filename) {
+    ImageService.saveFile(file, filename, "eventscreenshots");
+    return filename;
+  }
   async insertAstronomicalImage(file, filename) {
     ImageService.saveFile(file, filename, "astronomicalimages");
     return filename;
