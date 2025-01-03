@@ -10,7 +10,7 @@ async function updateUpcomingStatus() {
       const [day, month, year] = event.date.trim().split(".").map(Number);
       const [hours, minutes] = event.time.trim().split(":").map(Number);
       const eventDateTime = new Date(
-        Date.UTC(year, month - 1, day, hours, minutes)
+        Date.UTC(year, month - 1, day, hours + 3, minutes)
       );
       console.log(eventDateTime, currentDateTime);
       console.log(eventDateTime <= currentDateTime);
@@ -24,6 +24,7 @@ async function updateUpcomingStatus() {
       const oneDayBefore = new Date(
         eventDateTime.getTime() - 24 * 60 * 60 * 1000
       );
+      const oneHourBefore = new Date(eventDateTime.getTime() - 60 * 60 * 1000);
       console.log(
         !event.notifiedDayBefore,
         currentDateTime,
@@ -31,12 +32,6 @@ async function updateUpcomingStatus() {
         currentDateTime >= oneDayBefore,
         !event.notifiedDayBefore && currentDateTime >= oneDayBefore
       );
-      if (!event.notifiedDayBefore && currentDateTime >= oneDayBefore) {
-        sendNotifications(event, "day");
-        event.notifiedDayBefore = true;
-        await event.save();
-      }
-      const oneHourBefore = new Date(eventDateTime.getTime() - 60 * 60 * 1000);
       console.log(
         !event.notifiedHourBefore,
         currentDateTime,
@@ -44,7 +39,14 @@ async function updateUpcomingStatus() {
         currentDateTime >= oneHourBefore,
         !event.notifiedHourBefore && currentDateTime >= oneHourBefore
       );
-      if (!event.notifiedHourBefore && currentDateTime >= oneHourBefore) {
+      if (!event.notifiedDayBefore && currentDateTime >= oneDayBefore) {
+        sendNotifications(event, "day");
+        event.notifiedDayBefore = true;
+        await event.save();
+      } else if (
+        !event.notifiedHourBefore &&
+        currentDateTime >= oneHourBefore
+      ) {
         sendNotifications(event, "hour");
         event.notifiedHourBefore = true;
         await event.save();
