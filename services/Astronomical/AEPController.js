@@ -123,7 +123,6 @@ class AEPController {
     }
   }
   async startNotifications() {
-    console.log("update");
     await updateUpcomingStatus();
   }
 }
