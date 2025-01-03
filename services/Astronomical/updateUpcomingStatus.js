@@ -5,8 +5,6 @@ async function updateUpcomingStatus() {
   const events = await AstronomicalEvent.find({ upcoming: true });
   const currentDateTime = new Date();
 
-  console.log(events);
-
   for (const event of events) {
     const [day, month, year] = event.date.trim().split(".").map(Number); // Удаляем лишние пробелы и преобразуем в числа
     const [hours, minutes] = event.time.trim().split(":").map(Number); // Аналогично для времени
