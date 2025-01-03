@@ -33,7 +33,7 @@ async function updateUpcomingStatus() {
     //   currentDateTime >= oneDayBefore,
     //   !event.notifiedDayBefore && currentDateTime >= oneDayBefore
     // );
-    if (!event.notifiedDayBefore && currentDateTime >= oneDayBefore) {
+    if (!event.notifiedDayBefore && currentDateTime <= oneDayBefore) {
       sendNotifications(event, "day");
       event.notifiedDayBefore = true;
       await event.save();
@@ -46,7 +46,7 @@ async function updateUpcomingStatus() {
     //   currentDateTime >= oneHourBefore,
     //   !event.notifiedHourBefore && currentDateTime >= oneHourBefore
     // );
-    if (!event.notifiedHourBefore && currentDateTime >= oneHourBefore) {
+    if (!event.notifiedHourBefore && currentDateTime <= oneHourBefore) {
       sendNotifications(event, "hour");
       event.notifiedHourBefore = true;
       await event.save();
