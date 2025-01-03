@@ -11,6 +11,11 @@ const app = express();
 app.use(cors());
 app.use(express.json({ extended: true, limit: "50mb" }));
 
+process.on("uncaughtException", function (err) {
+  console.error(err);
+  console.log("Node NOT Exiting...");
+});
+
 app.get("/", (req, res) => {
   res.json({ message: "Работает" });
 });
