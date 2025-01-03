@@ -14,7 +14,10 @@ async function updateUpcomingStatus() {
       Date.UTC(year, month - 1, day, hours, minutes)
     );
 
-    console.log(eventDateTime, currentDateTime);
+    if (event.text === "Метеорный поток Квадрантиды") {
+      console.log(eventDateTime, currentDateTime);
+      console.log(eventDateTime <= currentDateTime);
+    }
 
     if (eventDateTime <= currentDateTime) {
       event.upcoming = false;
@@ -25,26 +28,26 @@ async function updateUpcomingStatus() {
     const oneDayBefore = new Date(
       eventDateTime.getTime() - 24 * 60 * 60 * 1000
     );
-    console.log(
-      !event.notifiedDayBefore,
-      currentDateTime,
-      oneDayBefore,
-      currentDateTime >= oneDayBefore,
-      !event.notifiedDayBefore && currentDateTime >= oneDayBefore
-    );
+    // console.log(
+    //   !event.notifiedDayBefore,
+    //   currentDateTime,
+    //   oneDayBefore,
+    //   currentDateTime >= oneDayBefore,
+    //   !event.notifiedDayBefore && currentDateTime >= oneDayBefore
+    // );
     if (!event.notifiedDayBefore && currentDateTime >= oneDayBefore) {
       sendNotifications(event, "day");
       event.notifiedDayBefore = true;
       await event.save();
     }
     const oneHourBefore = new Date(eventDateTime.getTime() - 60 * 60 * 1000);
-    console.log(
-      !event.notifiedHourBefore,
-      currentDateTime,
-      oneHourBefore,
-      currentDateTime >= oneHourBefore,
-      !event.notifiedHourBefore && currentDateTime >= oneHourBefore
-    );
+    // console.log(
+    //   !event.notifiedHourBefore,
+    //   currentDateTime,
+    //   oneHourBefore,
+    //   currentDateTime >= oneHourBefore,
+    //   !event.notifiedHourBefore && currentDateTime >= oneHourBefore
+    // );
     if (!event.notifiedHourBefore && currentDateTime >= oneHourBefore) {
       sendNotifications(event, "hour");
       event.notifiedHourBefore = true;
