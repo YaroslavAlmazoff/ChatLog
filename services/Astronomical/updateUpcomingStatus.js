@@ -10,7 +10,7 @@ async function updateUpcomingStatus() {
       const [day, month, year] = event.date.trim().split(".").map(Number);
       const [hours, minutes] = event.time.trim().split(":").map(Number);
       const eventDateTime = new Date(
-        Date.UTC(year, month - 1, day, hours + 3, minutes)
+        Date.UTC(year, month - 1, day, hours - 3, minutes)
       );
       console.log(eventDateTime, currentDateTime);
       console.log(eventDateTime <= currentDateTime);
