@@ -108,6 +108,7 @@ const options = {
 };
 
 const serviceAccount = require("./chatloglast-firebase-adminsdk-db7so-4665518e0f.json");
+const AstronomicalEvent = require("./models/AstronomicalEvent");
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
@@ -131,6 +132,15 @@ const start = async () => {
     secondServer.on("exit", (code) => {
       console.log(`Second server exited with code ${code}`);
     });
+
+    const events = await AstronomicalEvent.find({ upcoming: true });
+    events.forEach(async (event) => {
+      event.notifiedDayBefore = false;
+      event.notifiedHourBefore = false;
+      await event.save();
+    });
+
+    Promise.all(events);
   } catch (e) {
     console.log("Server Error: ", e.message);
   }
