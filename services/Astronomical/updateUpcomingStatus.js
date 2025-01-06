@@ -6,7 +6,7 @@ async function updateUpcomingStatus() {
   const currentDateTime = new Date();
 
   for (const event of events) {
-    if (event.text === "w4rssdtfhgjhnkm") {
+    if (event.text === "Транзит тени Титана по диску Сатурна") {
       const [day, month, year] = event.date.trim().split(".").map(Number);
       const [hours, minutes] = event.time.trim().split(":").map(Number);
       const eventDateTime = new Date(
