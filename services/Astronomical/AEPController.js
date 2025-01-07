@@ -18,21 +18,12 @@ class AEPController {
     const upcomingEvents = [];
 
     events.forEach((event) => {
-      // Парсим дату и время события
-      const [day, month, year] = event.date.split(".").map(Number);
-      const [hours, minutes] = event.time.split(":").map(Number);
-
-      // Создаем объект Date для события
-      const eventDate = new Date(
-        Date.UTC(year, month - 1, day, hours, minutes)
-      );
-
-      if (eventDate.getTime() < now.getTime()) {
+      if (event.upcoming) {
         // Если событие прошло
-        pastEvents.push(event);
+        upcomingEvents.push(event);
       } else {
         // Если событие еще впереди
-        upcomingEvents.push(event);
+        pastEvents.push(event);
       }
     });
 
