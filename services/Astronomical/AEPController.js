@@ -27,6 +27,8 @@ class AEPController {
       }
     });
 
+    const currentYear = new Date().getFullYear();
+
     // Сортируем массивы
     pastEvents.sort((a, b) => {
       const [dayA, monthA, yearA] = a.date.split(".").map(Number);
@@ -44,6 +46,10 @@ class AEPController {
       return dateB.getTime() - dateA.getTime(); // Сортировка по убыванию
     });
 
+    const filteredPastEvents = pastEvents.filter(
+      (event) => event.year === currentYear
+    );
+
     upcomingEvents.sort((a, b) => {
       const [dayA, monthA, yearA] = a.date.split(".").map(Number);
       const [hoursA, minutesA] = a.time.split(":").map(Number);
@@ -57,9 +63,9 @@ class AEPController {
         Date.UTC(yearB, monthB - 1, dayB, hoursB, minutesB)
       );
 
-      return dateA.getTime() - dateB.getTime(); // Сортировка по возрастанию
+      return dateA.getTime() - dateB.getTime();
     });
-    res.json({ future: upcomingEvents, past: pastEvents });
+    res.json({ future: upcomingEvents, past: filteredPastEvents });
   }
   async uploadImage(req, res) {
     const filename = uuid.v4() + ".jpg";
