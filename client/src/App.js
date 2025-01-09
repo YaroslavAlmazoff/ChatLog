@@ -13,18 +13,9 @@ import "./common_components/modal-window/modal-window.css";
 import Loader from "./common_components/Loader";
 
 function App() {
-  // const { verify } = useVerify();
-  // const { getCurrentDate } = useDate();
   const routes = useRoutes();
 
   const { login, logout, token, userId, authenticated, activated } = useAuth();
-
-  // const [isVerified, setIsVerified] = useState(false);
-  // const [isActivated, setIsActivated] = useState(false);
-
-  useEffect(() => {
-    console.log("start");
-  }, [token]);
 
   return (
     <>
