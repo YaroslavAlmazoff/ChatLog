@@ -3,7 +3,7 @@
 @media screen and (width <= 600px) {
   .room-size {
     width: 96vw;
-    height: 90vh;
+    height: 92vh;
     margin: 5px 10px;
   }
 }
