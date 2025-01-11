@@ -13,7 +13,7 @@ import "../../styles/RoomMainField.css";
 import "../../styles/RoomSmiles.css";
 import { EditMessageContext } from "../../context/EditMessageContext";
 import useGroupAPI from "../../hooks/useGroupAPI";
-import { useIsMobile } from "../../../common_hooks/isMobile.hook";
+import useIsMobile from "../../../common_hooks/isMobile.hook";
 
 const initialState = {
   imageFiles: [],
