@@ -5,6 +5,7 @@
     display: flex;
     align-items: flex-start;
     justify-content: center;
+    flex-direction: column;
   }
 }
 @media screen and (width < 500px) {
@@ -14,6 +15,7 @@
     display: flex;
     align-items: flex-start;
     justify-content: center;
+    flex-direction: column;
   }
 }
 .publics-create-public {
