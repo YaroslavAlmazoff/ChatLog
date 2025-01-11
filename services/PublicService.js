@@ -346,6 +346,13 @@ class PublicService {
     );
     Promise.all(userSubscribes).then((data) => res.json({ subscribes: data }));
   }
+  async get10Subscribes(req, res) {
+    const { subscribes } = await User.findById(req.params.id);
+    const userSubscribes = subscribes
+      .slice(0, 10)
+      .map(async (item) => await Public.findById(item));
+    Promise.all(userSubscribes).then((data) => res.json({ subscribes: data }));
+  }
   async subscribeListMobile(req, res) {
     const pub = await Public.findById(req.params.id);
     const subscribers = pub.subscribers;

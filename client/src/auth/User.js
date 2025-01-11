@@ -94,7 +94,7 @@ const User = () => {
       const friendsResponse = await api.get(`/api/10-friends/${params.id}`);
       setUserFriends(friendsResponse);
       const subscribesResponse = await api.get(
-        `/api/public/subscribes/${params.id}`
+        `/api/public/10-subscribes/${params.id}`
       );
       setUserSubscribes(subscribesResponse.data.subscribes);
       const response = await api.get(`/api/getuserposts/${params.id}`);
