@@ -6,17 +6,26 @@
     height: 91vh;
     margin: 5px 10px;
   }
+  .room-messages-wrapper {
+    height: calc(100% - 75px);
+  }
 }
 @media screen and (width > 600px) {
   .room-size {
     width: 60vw;
     height: 80vh;
   }
+  .room-messages-wrapper {
+    height: calc(100% - 61px);
+  }
 }
 @media screen and (width > 1000px) {
   .room-size {
     width: 40vw;
     height: 80vh;
+  }
+  .room-messages-wrapper {
+    height: calc(100% - 51px);
   }
 }
 
@@ -25,10 +34,6 @@
   background-color: rgba(0, 0, 0, 0.25);
   border: 0.5px solid var(--blue-neon);
   border-radius: 15px;
-}
-
-.room-messages-wrapper {
-  height: calc(100% - 51px);
 }
 
 .room-messages {
