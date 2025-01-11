@@ -207,10 +207,9 @@ class FriendsService {
   async get10Friends(req, res) {
     const user = await User.findById(req.params.id);
     const top10Friends = user.friends.slice(0, 10);
-    const friendsInfo = top10Friends.map(async (item) => {
-      const friend = await User.findById(item);
-      friendsInfo.push(friend);
-    });
+    const friendsInfo = top10Friends.map(
+      async (item) => await User.findById(item)
+    );
     Promise.all(friendsInfo).then((data) =>
       res.json({ friends: data.filter((el) => el != null) })
     );
