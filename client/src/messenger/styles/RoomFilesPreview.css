@@ -17,8 +17,7 @@
   .message-selected-files {
     position: absolute;
     bottom: 10vh;
-    right: 0;
-    left: 2vw;
+    left: 10px;
     display: flex;
     align-items: center;
     justify-content: flex-start;
