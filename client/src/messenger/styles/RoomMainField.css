@@ -19,13 +19,23 @@
 }
 
 .message-field-actions span {
-  color: var(--blue-neon);
   cursor: pointer;
   color: rgba(255, 255, 255, 0.75);
   margin-left: 2px;
   margin-right: 8px;
   font-weight: 100;
-  font-size: 11pt;
+}
+
+@media screen and (width > 600px) {
+  .message-field-action {
+    font-size: 11pt;
+  }
+}
+
+@media screen and (width < 600px) {
+  .message-field-action {
+    font-size: 10pt;
+  }
 }
 
 .message-field-smile {

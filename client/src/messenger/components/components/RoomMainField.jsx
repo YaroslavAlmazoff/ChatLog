@@ -6,17 +6,14 @@ import useFile from "../../hooks/useFile";
 import RoomFilesPreview from "./RoomPreview/RoomFilesPreview";
 import usePreviews from "../../hooks/usePreviews";
 import RoomModal from "./RoomModal/RoomModal";
-import {
-  folders,
-  modalTypes,
-  roomTypes,
-} from "../../data/messengerConfiguration";
+import { folders, modalTypes } from "../../data/messengerConfiguration";
 import RoomSmilesSelectingList from "./RoomSmiles/RoomSmilesSelectingList";
 import smile from "../../img/smile.png";
 import "../../styles/RoomMainField.css";
 import "../../styles/RoomSmiles.css";
 import { EditMessageContext } from "../../context/EditMessageContext";
 import useGroupAPI from "../../hooks/useGroupAPI";
+import { useIsMobile } from "../../../common_hooks/isMobile.hook";
 
 const initialState = {
   imageFiles: [],
@@ -33,6 +30,7 @@ export default function RoomMainField({
   isGroup,
 }) {
   const { editingMessage, setEditingMessage } = useContext(EditMessageContext);
+  const isMobile = useIsMobile();
   const [modalContent, setModalContent] = useState(null);
 
   const openModal = (content) => {
@@ -158,11 +156,27 @@ export default function RoomMainField({
     <div className="message-field-area">
       <div className="message-field-actions">
         {canChooseImage && (
-          <span onClick={handleOpenImageSelect}>&nbsp;Фотография</span>
+          <span
+            className="message-field-action"
+            onClick={handleOpenImageSelect}
+          >
+            &nbsp;{isMobile ? "Фото" : "Фотография"}
+          </span>
         )}
-        {canChooseVideo && <span onClick={handleOpenVideoSelect}>Видео</span>}
-        <span>Голосовое сообщение</span>
-        <span onClick={handleChangeBackground}>Изменить фон</span>
+        {canChooseVideo && (
+          <span
+            className="message-field-action"
+            onClick={handleOpenVideoSelect}
+          >
+            Видео
+          </span>
+        )}
+        <span className="message-field-action">
+          Голосовое{!isMobile ? " сообщение" : ""}
+        </span>
+        <span className="message-field-action" onClick={handleChangeBackground}>
+          Cменить фон
+        </span>
         <img
           onClick={openSmiles}
           src={smile}
@@ -170,8 +184,11 @@ export default function RoomMainField({
           className="message-field-smile"
         />
         {editingMessage ? (
-          <span onClick={() => setEditingMessage(null)}>
-            &nbsp;Отменить редактирование
+          <span
+            className="message-field-action"
+            onClick={() => setEditingMessage(null)}
+          >
+            &nbsp;Отмена
           </span>
         ) : (
           <></>
