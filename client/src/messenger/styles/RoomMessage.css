@@ -9,7 +9,6 @@
 }
 
 .room-message {
-  width: 80%;
   padding: 5px;
   background-color: rgba(0, 0, 0, 0.5);
   border: 0.5px solid var(--blue-neon);
@@ -18,6 +17,18 @@
   align-items: flex-start;
   justify-content: flex-start;
   flex-direction: column;
+}
+
+@media screen and (width < 600px) {
+  .room-message-width {
+    width: 75%;
+  }
+}
+
+@media screen and (width > 600px) {
+  .room-message-width {
+    width: 80%;
+  }
 }
 
 .room-message-top {
