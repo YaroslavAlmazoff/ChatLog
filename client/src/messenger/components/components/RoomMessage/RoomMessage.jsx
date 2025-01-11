@@ -61,7 +61,7 @@ export default function RoomMessage({ message }) {
         onMouseLeave={() => setShowActions(false)}
       >
         <div
-          className="room-message"
+          className="room-message room-message-width"
           onMouseEnter={() => setShowActions(true)}
           onClick={() => setShowActions((prev) => !prev)}
         >
