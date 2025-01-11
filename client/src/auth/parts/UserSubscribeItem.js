@@ -32,7 +32,6 @@ const UserSubscribeItem = ({
   const goToPublic = () => {
     window.location = `/public/${el._id}`;
   };
-  //Удаление из друзей
   const unscribe = async () => {
     const response = await api.get(`/api/public/subscribe/${el._id}`, {
       headers: { Authorization: `Bearer ${auth.token}` },

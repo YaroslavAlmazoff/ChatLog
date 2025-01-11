@@ -2,13 +2,8 @@ import "./App.css";
 import "./common.css";
 import { useRoutes } from "./routes";
 import Header from "./common_components/Header";
-import React, { useEffect, useState } from "react";
 import { useAuth } from "./common_hooks/auth.hook";
-import useRedirect from "./common_hooks/redirect.hook";
 import { AuthContext } from "./context/AuthContext";
-import api from "./auth/api/auth";
-import useDate from "./common_hooks/date.hook";
-import useVerify from "./common_hooks/verify.hook";
 import "./common_components/modal-window/modal-window.css";
 import Loader from "./common_components/Loader";
 

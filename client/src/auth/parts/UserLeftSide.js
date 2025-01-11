@@ -16,66 +16,47 @@ const UserLeftSide = ({
   setNoticeText,
   noticeRef,
 }) => {
-  //Левая часть страницы пользователя - добаление в друзья, написать сообщение, друзья, подписки
   const auth = useContext(AuthContext);
-  //Получение параметров get-запроса, рандомного ключа и функции навигации
   const params = useParams();
-
-  //Инициализация состояний дисплея кнопки, и флага друзья ли пользователь и посетитель его страницы
   const [friendsButtonDisplay, setFriendsButtonDisplay] = useState("block");
   const [isFriends, setIsFriends] = useState(false);
   const [notificationSent, setNotificationSent] = useState(false);
 
   useEffect(() => {
-    //Проверка есть ли пользователь в друзьях у его посетителя
     const user2 = params.id;
-    console.log(user2, auth.userId, localStorage.getItem(user2), auth.userId);
     if (!auth.userId) return;
     if (localStorage.getItem(user2) === auth.userId) {
       setFriendsButtonDisplay("none");
     }
   }, [params, auth]);
 
-  //Отправка заявки в друзья
   const makeFriends = async () => {
-    //Всплывающая подсказка об отправлении заявки в друзья
     setNoticeDisplay("block");
     setNoticeText("Вы отправили заявку в друзья.");
     noticeRef.current.classList.add("notice-animation");
-    //Удаление кнопки добавить в друзья
     setFriendsButtonDisplay("none");
-    //Получение ID пользователей
     const user1 = auth.userId;
     const user2 = params.id;
-    //Проверка есть ли пользователь в друзьях у его посетителя
     if (localStorage.getItem(user2) === user1) {
       console.log(localStorage.getItem(user2) === user1);
       return false;
     }
-    //Отправка заявки в друзья
-    const response = await api.get(`/api/makefriends/${user2}`, {
+    await api.get(`/api/makefriends/${user2}`, {
       headers: { Authorization: `Bearer ${auth.token}` },
     });
-    console.log(response);
-    //Создание записи в локальном хранилище браузера о том что пользователь и посетитель его страницы - друзья
     localStorage.setItem(user2, user1);
   };
   useEffect(() => {
-    //Проверка являются ли друзьями пользователь и посетитель его страницы
     const checkFriends = async () => {
       if (!auth.userId) return;
       try {
-        //Получение ID пользователей
         const user2 = params.id;
-        console.log(auth);
-        //Проверка друзей в базе данных
         const response2 = await api.get(`/api/checknotifications/${user2}`, {
           headers: { Authorization: `Bearer ${auth.token}` },
         });
         const response3 = await api.get(`/api/checkfriends/${user2}`, {
           headers: { Authorization: `Bearer ${auth.token}` },
         });
-        //Изменение флага являются ли друзьями пользователь и посетитель его страницы
         setIsFriends(response2.data.message);
         setNotificationSent(response3.data.message);
         console.log(isFriends, response2, response3);

@@ -19,7 +19,6 @@ import Actions from "./parts/Mobile/Actions";
 import Fotos from "./parts/Mobile/Fotos";
 import Videos from "./parts/Mobile/Videos";
 import useVerify from "../common_hooks/verify.hook";
-import ModalWindow from "../common_components/modal-window/ModalWindow";
 
 const User = () => {
   const auth = useContext(AuthContext);
@@ -92,15 +91,10 @@ const User = () => {
     const findUser = async () => {
       const userdata = await api.get(`/api/user/${params.id}`);
       setUser(userdata.data.user);
-      const friendsID = userdata.data.user.friends;
-      let friends = [];
-      for (let i = 0; i < friendsID.length; i++) {
-        const data = await api.get(`/api/user/${friendsID[i]}`);
-        friends.push(data.data.user);
-      }
-      setUserFriends(friends);
+      const friendsResponse = await api.get(`/api/10-friends/${params.id}`);
+      setUserFriends(friendsResponse);
       const subscribesResponse = await api.get(
-        "/api/public/subscribes/" + params.id
+        `/api/public/subscribes/${params.id}`
       );
       setUserSubscribes(subscribesResponse.data.subscribes);
       const response = await api.get(`/api/getuserposts/${params.id}`);

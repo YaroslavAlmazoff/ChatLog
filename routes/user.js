@@ -254,4 +254,12 @@ router.get("/fpn/:id", (req, res) => {
   }
 });
 
+router.get("/10-friends/:id", (req, res) => {
+  try {
+    FriendsService.get10Friends(req, res);
+  } catch (e) {
+    console.log(e);
+  }
+});
+
 module.exports = router;

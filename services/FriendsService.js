@@ -3,8 +3,6 @@ const NotificationToken = require("../models/NotificationToken");
 const User = require("../models/User");
 const NotificationService = require("./NotificationService");
 const FirebaseService = require("../services/FirebaseService");
-
-//Сервис для друзей
 class FriendsService {
   async getFriends(req, res) {
     const user = await User.findById(req.params.id);
@@ -12,13 +10,10 @@ class FriendsService {
     Promise.all(friends).then((data) => res.json({ friends: data }));
   }
   async makeFriends(req, res) {
-    ///Извлечение ID пользователей
     const user1id = req.user.userId;
     const user2id = req.params.to;
-    //Поиск пользователей
     const user1 = await User.findById(user1id);
     const user2 = await User.findById(user2id);
-    //Проверка, есть ли у пользователя 2 в друзьях пользователь 1
     user2.friends.forEach((el) => {
       if (el == user1id) {
         res.json({
@@ -29,7 +24,6 @@ class FriendsService {
         return;
       }
     });
-    //Создание уведомления о том что пользователь 1 хочет добавить пользователя 2 в друзья
     const text = `${user1.name} ${user1.surname} хочет добавить вас в друзья.`;
     NotificationService.create(user1id, user2id, text, "friends", "user");
     console.log(user1id, user2id);
@@ -208,6 +202,17 @@ class FriendsService {
       //Если нет, возвращение на клиент false
       res.json({ message: false });
     }
+  }
+
+  async get10Friends(req, res) {
+    const user = await User.findById(req.params.id);
+    const friends = user.friends;
+    const top10Friends = friends.slice(0, 10);
+    const friendsInfo = top10Friends.map(async () => {
+      const friend = await User.findById(top10Friends[i]);
+      friendsInfo.push(friend);
+    });
+    Promise.all(friendsInfo).then((data) => res.json({ friends: data }));
   }
 }
 
