@@ -22,19 +22,13 @@ const Subscribes = () => {
   }, []);
 
   return (
-    <div
-      style={{
-        display: "flex",
-        alignItems: "flex-start",
-        justifyContent: "center",
-      }}
-    >
+    <div className="publics">
       {!loading ? (
-        <div className="publics">
+        <>
           {publics.map((item) => (
             <Public item={item} />
           ))}
-        </div>
+        </>
       ) : (
         <Loader ml={"50%"} />
       )}

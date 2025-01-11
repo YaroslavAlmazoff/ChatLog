@@ -2,12 +2,18 @@
   .publics {
     width: 40%;
     margin-top: 5%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
   }
 }
 @media screen and (width < 500px) {
   .publics {
     width: 98%;
     margin-top: 5%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
   }
 }
 .publics-create-public {
