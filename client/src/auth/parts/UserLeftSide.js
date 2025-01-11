@@ -153,7 +153,7 @@ const UserLeftSide = ({
           Подписки {userSubscribes.length}
         </p>
         <div className="user-friends-list">
-          {userSubscribes.slice(0, 3).map((el) => (
+          {userSubscribes.map((el) => (
             <UserSubscribeItem
               el={el}
               isOwner={isOwner}
