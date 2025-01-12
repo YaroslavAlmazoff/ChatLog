@@ -5,6 +5,7 @@ import { useParams } from "react-router";
 import { useState, useEffect } from "react";
 import useArray from "../../common_hooks/array.hook";
 import Loader from "../../common_components/Loader";
+import api from "../api/auth";
 
 const UserCenterSide = ({
   deletePost,
@@ -58,7 +59,6 @@ const UserCenterSide = ({
     window.addEventListener("scroll", onScroll);
 
     const getFirstPosts = async () => {
-      if (!auth.userId) return;
       setLoading(true);
       const response = await api.get(`/api/posts/${params.id}/${page}`);
       setPosts(response.data.posts);
