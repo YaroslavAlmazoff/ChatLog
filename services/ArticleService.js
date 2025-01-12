@@ -47,12 +47,22 @@ class ArticleService {
   }
   //Получение всех постов пользователя
   async getUserPosts(req, res) {
-    //Получение ID пользователя из параметров
     const user = req.params.id;
-    //Поиск постов
     const articles = await UserPost.find({ user });
-    //Возвращение на клиент посты пользователя
     res.json({ articles });
+  }
+  async getPostsLazy(req, res) {
+    const posts = await UserPost.find({ user: req.params.id });
+    const page = parseInt(req.params.page) || 1;
+    const perPage = 10;
+    const startIndex = (page - 1) * perPage;
+    const endIndex = page * perPage;
+    const results = posts.slice(startIndex, endIndex);
+    res.json({
+      posts: results,
+      count: posts.length,
+      isLast: endIndex >= posts.length,
+    });
   }
   async getUserPostsMobile(req, res) {
     const user = await User.findById(req.params.id);

@@ -19,6 +19,15 @@ router.get("/post/:id", async (req, res) => {
     console.log(e);
   }
 });
+
+router.get("/posts/:id/:page", async (req, res) => {
+  try {
+    ArticleService.getPostsLazy(req, res);
+  } catch (e) {
+    console.log(e);
+  }
+});
+
 router.get("/fotobyurl/:url", (req, res) => {
   try {
     FotoService.receiveByUrl(req, res);

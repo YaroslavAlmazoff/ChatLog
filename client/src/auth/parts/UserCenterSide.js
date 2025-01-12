@@ -4,6 +4,7 @@ import UserVideo from "./UserVideo";
 import { useParams } from "react-router";
 import ModalWindow from "../../common_components/modal-window/ModalWindow";
 import { useState } from "react";
+import Loader from "../../common_components/Loader";
 
 const UserCenterSide = ({
   deletePost,
@@ -63,7 +64,7 @@ const UserCenterSide = ({
     const getFirstPosts = async () => {
       if (!auth.userId) return;
       setLoading(true);
-      const response = await api.get(`/api/userposts/${params.id}/1`);
+      const response = await api.get(`/api/posts/${params.id}/${page}`);
       setPosts(response.data.posts);
       setLoading(false);
     };
@@ -73,7 +74,7 @@ const UserCenterSide = ({
     return () => {
       window.removeEventListener("scroll", onScroll);
     };
-  }, []);
+  }, [page]);
 
   return (
     <div className="user-center-side">
@@ -127,7 +128,8 @@ const UserCenterSide = ({
 
       <div className="user-posts">
         <div className="user-posts-list block">
-          {!posts[0] ? (
+          {loading ? <Loader /> : <></>}
+          {!loading && !posts[0] ? (
             <p className="nothing">Здесь нет постов.</p>
           ) : (
             posts.map((el) => (
