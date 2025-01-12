@@ -3,7 +3,7 @@ import "../styles/user.css";
 import UserVideo from "./UserVideo";
 import { useParams } from "react-router";
 import { useState, useEffect } from "react";
-import { useArray } from "../../common_hooks/array.hook";
+import useArray from "../../common_hooks/array.hook";
 import Loader from "../../common_components/Loader";
 
 const UserCenterSide = ({
