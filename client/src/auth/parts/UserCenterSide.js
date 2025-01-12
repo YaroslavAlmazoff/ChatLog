@@ -2,8 +2,8 @@ import UserPost from "./UserPost";
 import "../styles/user.css";
 import UserVideo from "./UserVideo";
 import { useParams } from "react-router";
-import ModalWindow from "../../common_components/modal-window/ModalWindow";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useArray } from "../../common_hooks/array.hook";
 import Loader from "../../common_components/Loader";
 
 const UserCenterSide = ({
