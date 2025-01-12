@@ -11,8 +11,6 @@ class AEPController {
   async events(req, res) {
     const events = await AstronomicalEvent.find(); // Получаем все события из базы данных
 
-    const now = new Date(); // Текущее время
-
     // Разделяем события
     const pastEvents = [];
     const upcomingEvents = [];
