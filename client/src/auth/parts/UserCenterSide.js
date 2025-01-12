@@ -30,24 +30,20 @@ const UserCenterSide = ({
   const [isLast, setIsLast] = useState(false);
 
   useEffect(() => {
-    const fetchUsers = async () => {
+    const fetchPosts = async () => {
       !isLast && setLoading(true);
-      const response = await api.get(`/api/userposts/${params.id}/${page}`);
-      setUsers((prev) =>
-        response.data.users
-          ? searchValue
-            ? uniqueObjects(
-                [...response.data.posts].slice(0, response.data.count)
-              )
-            : uniqueObjects(
-                [...prev, ...response.data.posts].slice(0, response.data.count)
-              )
+      const response = await api.get(`/api/posts/${params.id}/${page}`);
+      setPosts((prev) =>
+        response.data.posts
+          ? uniqueObjects(
+              [...prev, ...response.data.posts].slice(0, response.data.count)
+            )
           : uniqueObjects(prev.slice(0, response.data.count))
       );
       setIsLast(response.data.isLast);
       setLoading(false);
     };
-    fetchUsers();
+    fetchPosts();
   }, [page]);
 
   useEffect(() => {
@@ -68,7 +64,7 @@ const UserCenterSide = ({
       setPosts(response.data.posts);
       setLoading(false);
     };
-    if (users.length === 0) {
+    if (posts.length === 0) {
       getFirstPosts();
     }
     return () => {
