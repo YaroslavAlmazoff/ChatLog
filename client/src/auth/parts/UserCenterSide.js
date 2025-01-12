@@ -3,17 +3,17 @@ import "../styles/user.css";
 import UserVideo from "./UserVideo";
 import { useParams } from "react-router";
 import ModalWindow from "../../common_components/modal-window/ModalWindow";
+import { useState } from "react";
 
 const UserCenterSide = ({
   deletePost,
-  userPosts,
   divideWord,
-  setUserPosts,
   isOwner,
   userVideos,
   deleteVideo,
   setUserVideos,
 }) => {
+  const { uniqueObjects } = useArray();
   const params = useParams();
   const isAdmin = params.id === "628e5aab0153706a3e18fe79";
   const gotoCreatePostPage = () => {
@@ -22,7 +22,59 @@ const UserCenterSide = ({
   const gotoAdmin = () => {
     window.location = `/admin`;
   };
-  //Центральная часть страницы пользователя - список его постов
+
+  const [posts, setPosts] = useState([]);
+  const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(false);
+  const [isLast, setIsLast] = useState(false);
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      !isLast && setLoading(true);
+      const response = await api.get(`/api/userposts/${params.id}/${page}`);
+      setUsers((prev) =>
+        response.data.users
+          ? searchValue
+            ? uniqueObjects(
+                [...response.data.posts].slice(0, response.data.count)
+              )
+            : uniqueObjects(
+                [...prev, ...response.data.posts].slice(0, response.data.count)
+              )
+          : uniqueObjects(prev.slice(0, response.data.count))
+      );
+      setIsLast(response.data.isLast);
+      setLoading(false);
+    };
+    fetchUsers();
+  }, [page]);
+
+  useEffect(() => {
+    const onScroll = () => {
+      const scrollTop = window.scrollY;
+      const windowHeight = window.innerHeight;
+      const pageHeight = document.documentElement.scrollHeight;
+      if (scrollTop + windowHeight >= pageHeight) {
+        setPage((prev) => prev + 1);
+      }
+    };
+    window.addEventListener("scroll", onScroll);
+
+    const getFirstPosts = async () => {
+      if (!auth.userId) return;
+      setLoading(true);
+      const response = await api.get(`/api/userposts/${params.id}/1`);
+      setPosts(response.data.posts);
+      setLoading(false);
+    };
+    if (users.length === 0) {
+      getFirstPosts();
+    }
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+    };
+  }, []);
+
   return (
     <div className="user-center-side">
       <div className="center-side-buttons">
@@ -78,7 +130,7 @@ const UserCenterSide = ({
           {!userPosts[0] ? (
             <p className="nothing">Здесь нет записей.</p>
           ) : (
-            userPosts.map((el) => (
+            posts.map((el) => (
               <UserPost
                 post={el}
                 key={el._id}

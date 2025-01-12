@@ -7,7 +7,7 @@ const Links = () => {
   const list1 = [
     { name: "Моя страница", link: `/user/${auth.userId}` },
     { name: "Сообщения", link: "/messages" },
-    { name: "Игры", link: "/games" },
+    { name: "Приложения", link: "/apps" },
     { name: "Люди", link: "/users" },
     { name: "Группы", link: `/publics` },
   ];

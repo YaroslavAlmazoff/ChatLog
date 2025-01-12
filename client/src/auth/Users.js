@@ -3,11 +3,7 @@ import UserItem from "./parts/UserItem";
 import "./styles/users.css";
 import useRandom from "../common_hooks/random.hook";
 import api from "./api/auth";
-import UsersFilterSide from "./parts/UsersFilterSide";
-import UsersSearchSide from "./parts/UsersSearchSide";
 import Loader from "../common_components/Loader";
-import ShowAdLeft from "../inner_ad/components/components/ShowAdLeft";
-import ShowAdRight from "../inner_ad/components/components/ShowAdRight";
 import useVerify from "../common_hooks/verify.hook";
 import { AuthContext } from "../context/AuthContext";
 import useArray from "../common_hooks/array.hook";
@@ -41,7 +37,6 @@ const Users = () => {
           },
         }
       );
-      console.log(response);
       setUsers((prev) =>
         response.data.users
           ? searchValue
@@ -64,7 +59,6 @@ const Users = () => {
       const scrollTop = window.scrollY;
       const windowHeight = window.innerHeight;
       const pageHeight = document.documentElement.scrollHeight;
-      console.log(scrollTop, windowHeight, pageHeight);
       if (scrollTop + windowHeight >= pageHeight) {
         setPage((prev) => prev + 1);
       }
@@ -79,7 +73,6 @@ const Users = () => {
           Authorization: `Bearer ${auth.token}`,
         },
       });
-      console.log(response.data.users);
       setUsers(response.data.users);
       setLoading(false);
       setSearchDisplay(true);
@@ -146,7 +139,3 @@ const Users = () => {
 };
 
 export default Users;
-
-// const [selectAge, setSelectAge] = useState("Выберите возраст");
-// const [selectCountry, setSelectCountry] = useState("Выберите страну");
-// const [searchValue, setSearchValue] = useState("Поиск...");

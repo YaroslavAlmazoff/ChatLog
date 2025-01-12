@@ -24,7 +24,7 @@ const Game = () => {
   }, [params]);
 
   const gotoUpdate = () => {
-    window.location = `/updategame/${params.id}`;
+    window.location = `/update-game/${params.id}`;
   };
 
   return (

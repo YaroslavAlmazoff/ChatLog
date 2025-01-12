@@ -181,10 +181,10 @@ export const useRoutes = () => {
         element={<CategoryVideos />}
       />
 
-      <Route exact path="/creategame" element={<CreateGame />} />
-      <Route exact path="/updategame/:id" element={<UpdateGame />} />
-      <Route exact path="/store" element={<Games />} />
-      <Route exact path="/store/:id" element={<Game />} />
+      <Route exact path="/create-app" element={<CreateGame />} />
+      <Route exact path="/update-app/:id" element={<UpdateGame />} />
+      <Route exact path="/apps" element={<Games />} />
+      <Route exact path="/app/:id" element={<Game />} />
 
       <Route exact path="/v2" element={<LandingPageV2 />} />
       {/* <Route exact path="/contacts" element={<Contacts />} />
