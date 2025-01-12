@@ -31,7 +31,22 @@ const UserCenterSide = ({
   const [isLast, setIsLast] = useState(false);
 
   useEffect(() => {
-    const fetchPosts = async () => {
+    const onScroll = () => {
+      const scrollTop = window.scrollY;
+      const windowHeight = window.innerHeight;
+      const pageHeight = document.documentElement.scrollHeight;
+      if (scrollTop + windowHeight >= pageHeight) {
+        setPage((prev) => prev + 1);
+      }
+    };
+    window.addEventListener("scroll", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+    };
+  }, []);
+
+  useEffect(() => {
+    const getPosts = async () => {
       !isLast && setLoading(true);
       const response = await api.get(`/api/posts/${params.id}/${page}`);
       setPosts((prev) =>
@@ -44,32 +59,7 @@ const UserCenterSide = ({
       setIsLast(response.data.isLast);
       setLoading(false);
     };
-    fetchPosts();
-  }, [page]);
-
-  useEffect(() => {
-    const onScroll = () => {
-      const scrollTop = window.scrollY;
-      const windowHeight = window.innerHeight;
-      const pageHeight = document.documentElement.scrollHeight;
-      if (scrollTop + windowHeight >= pageHeight) {
-        setPage((prev) => prev + 1);
-      }
-    };
-    window.addEventListener("scroll", onScroll);
-
-    const getFirstPosts = async () => {
-      setLoading(true);
-      const response = await api.get(`/api/posts/${params.id}/${page}`);
-      setPosts(response.data.posts);
-      setLoading(false);
-    };
-    if (posts.length === 0) {
-      getFirstPosts();
-    }
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-    };
+    getPosts();
   }, [page]);
 
   return (
