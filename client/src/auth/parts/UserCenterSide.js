@@ -117,8 +117,8 @@ const UserCenterSide = ({
               comments={el.comments}
               deleteVideo={deleteVideo}
               divideWord={divideWord}
-              setUserPosts={setUserPosts}
-              userPosts={userPosts}
+              setUserPosts={setPosts}
+              userPosts={posts}
               isOwner={isOwner}
             />
           ))
@@ -127,16 +127,16 @@ const UserCenterSide = ({
 
       <div className="user-posts">
         <div className="user-posts-list block">
-          {!userPosts[0] ? (
-            <p className="nothing">Здесь нет записей.</p>
+          {!posts[0] ? (
+            <p className="nothing">Здесь нет постов.</p>
           ) : (
             posts.map((el) => (
               <UserPost
                 post={el}
                 key={el._id}
                 deletePost={deletePost}
-                setUserPosts={setUserPosts}
-                userPosts={userPosts}
+                setUserPosts={setPosts}
+                userPosts={posts}
                 isOwner={isOwner}
               />
             ))
