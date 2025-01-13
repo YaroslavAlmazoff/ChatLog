@@ -49,13 +49,15 @@ const UserCenterSide = ({
     const getPosts = async () => {
       !isLast && setLoading(true);
       const response = await api.get(`/api/posts/${params.id}/${page}`);
-      setPosts((prev) =>
-        response.data.posts
-          ? uniqueObjects(
-              [...prev, ...response.data.posts].slice(0, response.data.count)
-            )
-          : uniqueObjects(prev.slice(0, response.data.count))
-      );
+      setPosts((prev) => {
+        return (
+          response.data.posts
+            ? uniqueObjects(
+                [...prev, ...response.data.posts].slice(0, response.data.count)
+              )
+            : uniqueObjects(prev.slice(0, response.data.count))
+        ).reverse();
+      });
       setIsLast(response.data.isLast);
       setLoading(false);
     };
