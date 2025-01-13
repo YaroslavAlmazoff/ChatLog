@@ -47,7 +47,7 @@ const UserCenterSide = ({
 
   useEffect(() => {
     const getPosts = async () => {
-      !isLast && setLoading(true);
+      setLoading(true);
       const response = await api.get(`/api/posts/${params.id}/${page}`);
       setPosts((prev) => {
         return (
@@ -61,7 +61,9 @@ const UserCenterSide = ({
       setIsLast(response.data.isLast);
       setLoading(false);
     };
-    getPosts();
+    if (!isLast) {
+      getPosts();
+    }
   }, [page]);
 
   return (
