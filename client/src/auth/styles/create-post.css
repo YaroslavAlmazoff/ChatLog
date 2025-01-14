@@ -20,6 +20,7 @@
 }
 .new-smile {
   width: 30px;
-  margin-top: 10px;
+  margin-top: 25px;
   filter: brightness(120%);
+  cursor: pointer;
 }

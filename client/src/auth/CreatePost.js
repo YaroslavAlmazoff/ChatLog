@@ -120,7 +120,7 @@ const CreatePost = () => {
             src={smileImage}
             alt="img"
           />
-          <button onClick={(e) => emitOpen(e)} className="button ml">
+          <button onClick={(e) => emitOpen(e)} className="dark-button ml">
             Выбрать фото
           </button>
           <button onClick={send} className="button ml">
