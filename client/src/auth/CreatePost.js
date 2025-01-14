@@ -20,7 +20,7 @@ const CreatePost = () => {
 
   const auth = useContext(AuthContext);
   const { getCurrentDate } = useDate();
-  const [articleTitle, setArticleTitle] = useState("Напишите что-нибудь...");
+  const [articleTitle, setArticleTitle] = useState("");
   const [files, setFiles] = useState([]);
   const [filesData, setFilesData] = useState([]);
   const [imageDisplay, setImageDisplay] = useState("none");
@@ -113,6 +113,7 @@ const CreatePost = () => {
             type="text"
             value={articleTitle}
             onChange={(e) => setArticleTitle(e.target.value)}
+            placeholder="Напишите текст здесь"
           />
           <img
             onClick={showSmiles}
@@ -124,7 +125,7 @@ const CreatePost = () => {
             Выбрать фото
           </button>
           <button onClick={send} className="button ml">
-            Добавить запись
+            Опубликовать
           </button>
 
           <div
