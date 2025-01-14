@@ -9,6 +9,7 @@ import useDate from "../common_hooks/date.hook";
 import { AuthContext } from "../context/AuthContext";
 import Loader from "../common_components/Loader";
 import useVerify from "../common_hooks/verify.hook";
+import smileImage from "../img/smile.png";
 
 const CreatePost = () => {
   const { verify } = useVerify();
@@ -115,8 +116,8 @@ const CreatePost = () => {
           />
           <img
             onClick={showSmiles}
-            className="upload-image"
-            src={require(`../messenger/img/smile.png`)}
+            className="new-smile"
+            src={smileImage}
             alt="img"
           />
           <button onClick={(e) => emitOpen(e)} className="button">
