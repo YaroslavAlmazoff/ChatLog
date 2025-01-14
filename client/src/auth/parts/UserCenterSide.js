@@ -6,6 +6,8 @@ import { useState, useEffect } from "react";
 import useArray from "../../common_hooks/array.hook";
 import Loader from "../../common_components/Loader";
 import api from "../api/auth";
+import CommonModal from "../../common_components/Modal/CommonModal";
+import CreatePost from "../CreatePost";
 
 const UserCenterSide = ({
   deletePost,
@@ -18,8 +20,8 @@ const UserCenterSide = ({
   const { uniqueObjects } = useArray();
   const params = useParams();
   const isAdmin = params.id === "628e5aab0153706a3e18fe79";
-  const gotoCreatePostPage = () => {
-    window.location = "/createpost";
+  const startCreatingPost = () => {
+    setShowModal(true);
   };
   const gotoAdmin = () => {
     window.location = `/admin`;
@@ -29,6 +31,7 @@ const UserCenterSide = ({
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [isLast, setIsLast] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     const onScroll = () => {
@@ -72,7 +75,7 @@ const UserCenterSide = ({
         {isOwner ? (
           <button
             className="button margin-top-bottom center-side-button"
-            onClick={gotoCreatePostPage}
+            onClick={startCreatingPost}
           >
             Создать новую запись
           </button>
@@ -135,6 +138,9 @@ const UserCenterSide = ({
           )}
         </div>
       </div>
+      <CommonModal show={showModal} onClose={() => setShowModal(false)}>
+        <CreatePost />
+      </CommonModal>
     </div>
   );
 };

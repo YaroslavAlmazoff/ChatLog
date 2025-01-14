@@ -25,9 +25,8 @@ const CreatePost = () => {
   const [imageDisplay, setImageDisplay] = useState("none");
   const [smilesDisplay, setSmilesDisplay] = useState("none");
   const [loading, setLoading] = useState(false);
-  //Создание ссылок на файловые поля ввода
+
   const fileRef = useRef();
-  //Получение файла изображения поста пользователя
   const emitOpen = () => {
     fileRef.current.click();
   };
@@ -78,11 +77,6 @@ const CreatePost = () => {
     closeSmiles();
   };
   const showSmiles = () => {
-    console.log(
-      smilesDisplay,
-      smilesDisplay === "none",
-      smilesDisplay === "block"
-    );
     if (smilesDisplay === "none") {
       setSmilesDisplay("block");
       setTimeout(() => {
@@ -91,18 +85,20 @@ const CreatePost = () => {
     } else {
       setSmilesDisplay("none");
     }
-    console.log(
-      "sesh",
-      smilesDisplay,
-      smilesDisplay === "none",
-      smilesDisplay === "block"
-    );
   };
 
   return (
     <>
-      {!loading ? (
-        <div className="create-post block">
+      {loading ? (
+        <>
+          <p style={{ color: "white" }}>
+            Подождите, пока данные отправятся на сервер...
+          </p>
+          <br />
+          <Loader ml={"50%"} />
+        </>
+      ) : (
+        <>
           <h2 className="form-title">Создание поста</h2>
           <input
             onChange={(e) => getFile(e)}
@@ -143,14 +139,6 @@ const CreatePost = () => {
               <Smile key={el.code} el={el} addSmile={addSmile} />
             ))}
           </div>
-        </div>
-      ) : (
-        <>
-          <p style={{ color: "white" }}>
-            Подождите, пока данные отправятся на сервер...
-          </p>
-          <br />
-          <Loader ml={"50%"} />
         </>
       )}
     </>
