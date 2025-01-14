@@ -1,4 +1,8 @@
-@import url("./colors.css");
+:root {
+  --blue-neon: #40a4ff;
+  --red-neon: #ff073a;
+  --green-neon: #86ed26;
+}
 
 .common-modal {
   display: flex;
@@ -84,7 +88,7 @@
 }
 
 .common-modal-content::-webkit-scrollbar-thumb {
-  background-color: #40a4ff;
+  background-color: var(--blue-neon);
   border-radius: 10px;
 }
 
