@@ -109,7 +109,7 @@ const CreatePost = () => {
             multiple
           />
           <input
-            className="post-field"
+            className="input"
             type="text"
             value={articleTitle}
             onChange={(e) => setArticleTitle(e.target.value)}
@@ -120,10 +120,10 @@ const CreatePost = () => {
             src={smileImage}
             alt="img"
           />
-          <button onClick={(e) => emitOpen(e)} className="button">
+          <button onClick={(e) => emitOpen(e)} className="button ml">
             Выбрать фото
           </button>
-          <button onClick={send} className="button">
+          <button onClick={send} className="button ml">
             Добавить запись
           </button>
 
