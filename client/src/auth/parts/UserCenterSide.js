@@ -142,7 +142,11 @@ const UserCenterSide = ({
         </div>
       </div>
       <CommonModal show={showModal} onClose={() => setShowModal(false)}>
-        <CreatePost setPosts={setPosts} setOffset={setOffset} />
+        <CreatePost
+          setPosts={setPosts}
+          setOffset={setOffset}
+          onClose={() => setShowModal(false)}
+        />
       </CommonModal>
     </div>
   );

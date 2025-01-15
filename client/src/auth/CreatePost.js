@@ -11,7 +11,7 @@ import Loader from "../common_components/Loader";
 import useVerify from "../common_hooks/verify.hook";
 import smileImage from "./img/smile.png";
 
-const CreatePost = ({ setPosts, setOffset }) => {
+const CreatePost = ({ setPosts, setOffset, onClose }) => {
   const { verify } = useVerify();
 
   useEffect(() => {
@@ -69,6 +69,8 @@ const CreatePost = ({ setPosts, setOffset }) => {
 
     setLoading(false);
     setOffset((prev) => prev + 1);
+    setArticleTitle("");
+    onClose();
     setPosts((prev) => [response.data.post, ...prev]);
   };
   const closeSmiles = () => {
