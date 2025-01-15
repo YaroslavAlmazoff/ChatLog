@@ -122,6 +122,7 @@ const start = async () => {
       console.log(`The Server has been started on port 443...`);
     });
     let secondServer;
+
     try {
       secondServer = spawn("node", ["astroServer.js"], {
         stdio: "inherit",
@@ -132,6 +133,21 @@ const start = async () => {
         stdio: "inherit",
       });
     }
+
+    const shutDown = () => {
+      console.log("Shutting down main server...");
+      if (secondServer) {
+        secondServer.kill();
+        console.log("Second server stopped.");
+      }
+      server.close(() => {
+        console.log("Main server stopped.");
+        process.exit(0);
+      });
+    };
+
+    process.on("SIGINT", shutDown);
+    process.on("SIGTERM", shutDown);
 
     secondServer.on("error", (err) => {
       console.error("Failed to start second server:", err);
@@ -144,19 +160,5 @@ const start = async () => {
     console.log("Server Error: ", e.message);
   }
 };
-
-const shutDown = () => {
-  console.log("Shutting down main server...");
-  if (secondServer) {
-    secondServer.kill();
-    console.log("Second server stopped.");
-  }
-  server.close(() => {
-    console.log("Main server stopped.");
-    process.exit(0);
-  });
-};
-process.on("SIGINT", shutDown);
-process.on("SIGTERM", shutDown);
 
 start();
