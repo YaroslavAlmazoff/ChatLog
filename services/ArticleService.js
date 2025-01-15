@@ -25,6 +25,12 @@ class ArticleService {
     };
 
     const images = getImages();
+    if (req.files) {
+      Object.keys(req.files).forEach((file, i) => {
+        FileService.insertUserPostImage(req.files[file], images[i]);
+      });
+    }
+
     UserPost.create({ title, date, images, user: req.user.userId }).then(
       async (data) => {
         const user = await User.findById(req.user.userId);
@@ -33,17 +39,10 @@ class ArticleService {
           const friendsNews = friend.friendsNews;
           friendsNews.unshift(data._id);
           await User.findByIdAndUpdate(el, { friendsNews });
+          res.json({ image: JSON.stringify(images[0]), post: data });
         });
       }
     );
-
-    if (req.files) {
-      Object.keys(req.files).forEach((file, i) => {
-        FileService.insertUserPostImage(req.files[file], images[i]);
-      });
-    }
-
-    res.json(JSON.stringify(images[0]));
   }
   //Получение всех постов пользователя
   async getUserPosts(req, res) {
