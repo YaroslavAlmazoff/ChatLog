@@ -20,7 +20,7 @@ router.get("/post/:id", async (req, res) => {
   }
 });
 
-router.get("/posts/:id/:page", async (req, res) => {
+router.get("/posts/:id/:page/:offset", async (req, res) => {
   try {
     ArticleService.getPostsLazy(req, res);
   } catch (e) {

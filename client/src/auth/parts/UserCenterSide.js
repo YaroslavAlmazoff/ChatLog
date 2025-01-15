@@ -80,7 +80,7 @@ const UserCenterSide = ({
             className="button margin-top-bottom center-side-button"
             onClick={startCreatingPost}
           >
-            Создать новую запись
+            Создать новый пост
           </button>
         ) : (
           <></>
