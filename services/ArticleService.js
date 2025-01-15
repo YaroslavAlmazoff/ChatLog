@@ -39,8 +39,8 @@ class ArticleService {
           const friendsNews = friend.friendsNews;
           friendsNews.unshift(data._id);
           await User.findByIdAndUpdate(el, { friendsNews });
-          res.json({ image: JSON.stringify(images[0]), post: data });
         });
+        res.json({ image: JSON.stringify(images[0]), post: data });
       }
     );
   }
