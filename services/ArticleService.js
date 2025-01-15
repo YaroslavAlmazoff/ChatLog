@@ -57,7 +57,7 @@ class ArticleService {
     const perPage = 10;
     const startIndex = (page - 1) * perPage + offsetNumber;
     const endIndex = page * perPage + offsetNumber;
-    const results = posts.slice(startIndex, endIndex);
+    const results = posts.slice(startIndex, endIndex).reverse();
     res.json({
       posts: results,
       count: posts.length,

@@ -56,13 +56,11 @@ const UserCenterSide = ({
         `/api/posts/${params.id}/${page}/${offset}`
       );
       setPosts((prev) => {
-        return (
-          response.data.posts
-            ? uniqueObjects(
-                [...prev, ...response.data.posts].slice(0, response.data.count)
-              )
-            : uniqueObjects(prev.slice(0, response.data.count))
-        ).reverse();
+        return response.data.posts
+          ? uniqueObjects(
+              [...prev, ...response.data.posts].slice(0, response.data.count)
+            )
+          : uniqueObjects(prev.slice(0, response.data.count));
       });
       setIsLast(response.data.isLast);
       setLoading(false);
