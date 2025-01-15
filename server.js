@@ -108,7 +108,6 @@ const options = {
 };
 
 const serviceAccount = require("./chatloglast-firebase-adminsdk-db7so-4665518e0f.json");
-const { killProcessOnPort } = require("./utils/ServerUtils");
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
@@ -121,29 +120,9 @@ const start = async () => {
     https.createServer(options, app).listen(443, async () => {
       console.log(`The Server has been started on port 443...`);
     });
-    let secondServer;
-
-    try {
-      secondServer = spawn("node", ["astroServer.js"], {
-        stdio: "inherit",
-      });
-    } catch (e) {
-      killProcessOnPort(4000);
-      secondServer = spawn("node", ["astroServer.js"], {
-        stdio: "inherit",
-      });
-    }
-
-    const shutDown = () => {
-      console.log("Shutting down main server...");
-      if (secondServer) {
-        secondServer.kill();
-        console.log("Second server stopped.");
-      }
-    };
-
-    process.on("SIGINT", shutDown);
-    process.on("SIGTERM", shutDown);
+    let secondServer = spawn("node", ["astroServer.js"], {
+      stdio: "inherit",
+    });
 
     secondServer.on("error", (err) => {
       console.error("Failed to start second server:", err);
