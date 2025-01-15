@@ -29,6 +29,7 @@ const UserCenterSide = ({
 
   const [posts, setPosts] = useState([]);
   const [page, setPage] = useState(1);
+  const [offset, setOffset] = useState(0);
   const [loading, setLoading] = useState(false);
   const [isLast, setIsLast] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -51,7 +52,9 @@ const UserCenterSide = ({
   useEffect(() => {
     const getPosts = async () => {
       setLoading(true);
-      const response = await api.get(`/api/posts/${params.id}/${page}`);
+      const response = await api.get(
+        `/api/posts/${params.id}/${page}/${offset}`
+      );
       setPosts((prev) => {
         return (
           response.data.posts
@@ -139,7 +142,7 @@ const UserCenterSide = ({
         </div>
       </div>
       <CommonModal show={showModal} onClose={() => setShowModal(false)}>
-        <CreatePost setPosts={setPosts} />
+        <CreatePost setPosts={setPosts} setOffset={setOffset} />
       </CommonModal>
     </div>
   );

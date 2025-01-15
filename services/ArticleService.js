@@ -53,9 +53,10 @@ class ArticleService {
   async getPostsLazy(req, res) {
     const posts = await UserPost.find({ user: req.params.id });
     const page = parseInt(req.params.page) || 1;
+    const offsetNumber = parseInt(req.params.offset) || 0;
     const perPage = 10;
-    const startIndex = (page - 1) * perPage;
-    const endIndex = page * perPage;
+    const startIndex = (page - 1) * perPage + offsetNumber;
+    const endIndex = page * perPage + offsetNumber;
     const results = posts.slice(startIndex, endIndex);
     res.json({
       posts: results,
