@@ -140,10 +140,6 @@ const start = async () => {
         secondServer.kill();
         console.log("Second server stopped.");
       }
-      server.close(() => {
-        console.log("Main server stopped.");
-        process.exit(0);
-      });
     };
 
     process.on("SIGINT", shutDown);
