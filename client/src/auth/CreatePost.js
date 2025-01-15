@@ -11,7 +11,7 @@ import Loader from "../common_components/Loader";
 import useVerify from "../common_hooks/verify.hook";
 import smileImage from "./img/smile.png";
 
-const CreatePost = () => {
+const CreatePost = ({ setPosts }) => {
   const { verify } = useVerify();
 
   useEffect(() => {
@@ -60,7 +60,7 @@ const CreatePost = () => {
     files.forEach((el, index) => {
       formData.append(`file${index}`, el);
     });
-    await api.post(`/api/createuserpost`, formData, {
+    const response = await api.post(`/api/createuserpost`, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
         Authorization: `Bearer ${auth.token}`,
@@ -68,7 +68,7 @@ const CreatePost = () => {
     });
 
     setLoading(false);
-    window.location = `/user/${auth.userId}`;
+    setPosts((prev) => [response.data.post, ...prev]);
   };
   const closeSmiles = () => {
     setSmilesDisplay("none");
@@ -127,7 +127,6 @@ const CreatePost = () => {
           <button onClick={send} className="button ml">
             Опубликовать
           </button>
-
           <div
             className="create-public-images-list"
             style={{ display: imageDisplay }}
