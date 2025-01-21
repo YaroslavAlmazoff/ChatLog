@@ -19,7 +19,7 @@ const useFiles = () => {
     let file = e.target.files[0];
     const reader = new FileReader();
     reader.onload = (ev) => {
-      onLoad;
+      onLoad();
     };
     reader.readAsDataURL(file);
     return file;
