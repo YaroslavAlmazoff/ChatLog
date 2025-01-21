@@ -7,7 +7,7 @@ const Notification = require("../models/Notification");
 class UserService {
   //Поиск пользователя по ID
   async findUser(req, res) {
-    const id = req.user.userId;
+    const id = req.params.id;
     const user = await User.findById(id);
     const userObj = user.toObject();
 
