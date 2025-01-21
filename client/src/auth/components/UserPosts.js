@@ -1,4 +1,3 @@
-import useArray from "../../common_hooks/array.hook";
 import { useParams } from "react-router";
 import { useState, useEffect } from "react";
 import UserPost from "./UserPost";
