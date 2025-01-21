@@ -20,7 +20,7 @@ const UserFriendItem = ({ friend }) => {
 
   const deleteFriend = async () => {
     const response = await api.delete(
-      `/api/remove-friend/${id}`,
+      `/api/remove-friend/${friend._id}`,
       { showedFriends: friends },
       {
         headers: { Authorization: `Bearer ${auth.token}` },

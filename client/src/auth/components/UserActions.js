@@ -7,6 +7,7 @@ import NotificationAction from "./NotificationsAction";
 import PhotoAction from "./PhotoAction";
 
 const UserActions = ({ setShowCreatePostModal }) => {
+  const { isOwner } = useContext(ProfileContext);
   if (isOwner) {
     return (
       <div className="center-side-buttons">
