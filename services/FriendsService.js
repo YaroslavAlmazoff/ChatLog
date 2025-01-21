@@ -41,29 +41,23 @@ class FriendsService {
     res.json({ msg: "success" });
   }
   async deleteFriend(req, res) {
-    //Извлечение ID пользователей
+    const { showedFriends } = req.body;
     const user1id = req.user.userId;
     const user2id = req.params.to;
-    //Поиск пользователей
     const user1 = await User.findById(user1id);
     const user2 = await User.findById(user2id);
-    //Удаление друга у пользователя 1
     let user1friends = user1.friends;
     const deletingFriendNumber1 = user1.friends.indexOf(user2id);
     delete user1friends[deletingFriendNumber1];
     user1friends = user1friends.filter((el) => el != null);
-    //Удаление друга у пользователя 2
     let user2friends = user2.friends;
     const deletingFriendNumber2 = user2.friends.indexOf(user1id);
     delete user2friends[deletingFriendNumber2];
     user2friends = user2friends.filter((el) => el != null);
-    //Обновление поля друзья у пользователей
     await User.findByIdAndUpdate({ _id: user1id }, { friends: user1friends });
     await User.findByIdAndUpdate({ _id: user2id }, { friends: user2friends });
-    //Создание уведомления о том что пользователь 1 удалил пользователя 2 из друзей
     const text = `К сожалению, ${user1.name} ${user1.surname} удалил вас из друзей`;
     NotificationService.create(user1id, user2id, text, "delete", "user");
-    //Удаление заявки в друзья
     let notification = await Notification.findOne({
       from: user1id,
       to: user2id,
@@ -85,12 +79,22 @@ class FriendsService {
       name: "",
       click_action: "USER",
     });
+
+    const correctFriends = user1friends.filter(
+      (friend) => !showedFriends.includes(friend)
+    );
+    const friend = correctFriends.length
+      ? await User.findById(
+          correctFriends[Math.round(Math.random * correctFriends.length - 1)]
+        )
+      : null;
+
     if (!notification) {
-      res.json({ friends: user1friends });
+      res.json({ friends: user1friends, friend });
     } else {
       const id = notification._id;
       await Notification.findByIdAndDelete(id);
-      res.json({ friends: user1friends });
+      res.json({ friends: user1friends, friend });
     }
   }
   async cancelFriendsRequest(req, res) {
@@ -204,10 +208,10 @@ class FriendsService {
     }
   }
 
-  async get10Friends(req, res) {
+  async get9Friends(req, res) {
     const user = await User.findById(req.params.id);
-    const top10Friends = user.friends.slice(0, 10);
-    const friendsInfo = top10Friends.map(
+    const top9Friends = user.friends.slice(0, 9);
+    const friendsInfo = top9Friends.map(
       async (item) => await User.findById(item)
     );
     Promise.all(friendsInfo).then((data) =>

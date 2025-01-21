@@ -84,7 +84,7 @@ const Actions = ({
       return false;
     }
     //Отправка заявки в друзья
-    const response = await api.get(`/api/makefriends/${user2}`, {
+    const response = await api.get(`/api/make-friends/${user2}`, {
       headers: { Authorization: `Bearer ${auth.token}` },
     });
     console.log(response);

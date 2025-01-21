@@ -1,28 +1,21 @@
 import React from "react";
-import "../styles/notifications.css";
 import Notification from "./Notification";
 import useRandom from "../../common_hooks/random.hook";
+import "../styles/notifications.css";
 
 const Notifications = ({
   notifications,
-  showNotifications,
   setNotifications,
+  setFriends,
   setNoticeDisplay,
   setNoticeText,
-  setUserFriends,
   noticeRef,
 }) => {
-  //Блок с уведомлениями
   const { randomKey } = useRandom();
   return (
-    <div className="notifications block">
-      <p onClick={showNotifications} className="notifications-title">
-        Уведомления |{" "}
-        <span onClick={showNotifications} className="close-notifications">
-          Закрыть
-        </span>
-      </p>
-      {notifications[0] !== undefined ? (
+    <div>
+      <p className="notifications-title">Уведомления</p>
+      {notifications.length ? (
         notifications.map((el) => (
           <Notification
             key={randomKey()}
@@ -37,12 +30,12 @@ const Notifications = ({
             setNotifications={setNotifications}
             setNoticeDisplay={setNoticeDisplay}
             setNoticeText={setNoticeText}
-            setUserFriends={setUserFriends}
+            setFriends={setFriends}
             noticeRef={noticeRef}
           />
         ))
       ) : (
-        <p style={{ color: "white" }}>У вас нет уведомлений</p>
+        <span>У вас нет уведомлений</span>
       )}
     </div>
   );

@@ -1,4 +1,4 @@
-import ImagePreview from "./parts/ImagePreview";
+import ImagePreview from "./components/ImagePreview";
 import { useState, useRef, useContext, useEffect } from "react";
 import api from "./api/auth";
 import "./styles/create-post.css";

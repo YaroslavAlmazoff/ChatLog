@@ -77,7 +77,7 @@ router.get("/friends/:id", auth, (req, res) => {
     console.log(e);
   }
 });
-router.get("/makefriends/:to", auth, (req, res) => {
+router.get("/make-friends/:to", auth, (req, res) => {
   //Заявка в друзья
   try {
     FriendsService.makeFriends(req, res);
@@ -93,7 +93,7 @@ router.get("/reply/:to", auth, (req, res) => {
     console.log(e);
   }
 });
-router.get("/checkfriends/:to", auth, (req, res) => {
+router.get("/check-friends/:to", auth, (req, res) => {
   //Проверка, являются ли два пользователя друзьями
   try {
     FriendsService.checkFriends(req, res);
@@ -102,6 +102,14 @@ router.get("/checkfriends/:to", auth, (req, res) => {
   }
 });
 router.delete("/deletefriend/:to", auth, (req, res) => {
+  //Удаление из друзей
+  try {
+    FriendsService.deleteFriend(req, res);
+  } catch (e) {
+    console.log(e);
+  }
+});
+router.post("/remove-friend/:to", auth, (req, res) => {
   //Удаление из друзей
   try {
     FriendsService.deleteFriend(req, res);
@@ -126,7 +134,7 @@ router.get("/getnotifications/:id", (req, res) => {
     console.log(e);
   }
 });
-router.get("/checknotifications/:to", auth, (req, res) => {
+router.get("/check-notifications/:to", auth, (req, res) => {
   //Проверка, отправил ли пользователь заявку в друзья другому пользователю
   try {
     FriendsService.checkNotifications(req, res);
@@ -254,9 +262,9 @@ router.get("/fpn/:id", (req, res) => {
   }
 });
 
-router.get("/10-friends/:id", (req, res) => {
+router.get("/9-friends/:id", (req, res) => {
   try {
-    FriendsService.get10Friends(req, res);
+    FriendsService.get9Friends(req, res);
   } catch (e) {
     console.log(e);
   }

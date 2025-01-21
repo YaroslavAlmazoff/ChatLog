@@ -7,12 +7,7 @@ import Comment from "../../common_components/Comment";
 import ModalWindow from "../../common_components/modal-window/ModalWindow";
 import useHighlight from "../../common_hooks/highlight.hook";
 
-const UserPost = ({
-  post,
-  isOwner,
-  userPosts = [],
-  setUserPosts = () => {},
-}) => {
+const UserPost = ({ post, posts, setPosts, isOwner }) => {
   const auth = useContext(AuthContext);
   const { randomColor, randomShadow } = useHighlight();
   const [image, setImage] = useState("");
@@ -69,7 +64,7 @@ const UserPost = ({
     }
   };
   const deletePost = async () => {
-    setUserPosts([...userPosts].filter((el) => el._id !== post._id));
+    setPosts([...posts].filter((el) => el._id !== post._id));
     await api.delete(`/api/deleteuserpost/${post._id}`, {
       headers: {
         Authorization: `Bearer ${auth.token}`,

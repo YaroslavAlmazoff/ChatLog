@@ -51,12 +51,12 @@ const UserItem = ({
   };
   const makeFriends = async (e) => {
     e.stopPropagation();
-    await api.get(`/api/makefriends/${id}`, {
+    await api.get(`/api/make-friends/${id}`, {
       headers: { Authorization: `Bearer ${auth.token}` },
     });
     setFriendsRequestSent(true);
   };
-  const calcelFriendsRequest = async (e) => {
+  const cancelFriendsRequest = async (e) => {
     e.stopPropagation();
     await api.delete(`/api/cancel-friends-request/${id}`, {
       headers: { Authorization: `Bearer ${auth.token}` },
@@ -100,7 +100,7 @@ const UserItem = ({
               <>
                 {friendsRequestSent ? (
                   <span
-                    onClick={(e) => calcelFriendsRequest(e)}
+                    onClick={(e) => cancelFriendsRequest(e)}
                     className="user-item-request-sent"
                   >
                     Отменить заявку

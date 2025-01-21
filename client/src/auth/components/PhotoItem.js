@@ -1,4 +1,4 @@
-const FotoItem = ({ item, deleteFoto, isOwner }) => {
+const PhotoItem = ({ item, deletePhoto, isOwner }) => {
   return (
     <div className="foto-div">
       <img
@@ -7,7 +7,10 @@ const FotoItem = ({ item, deleteFoto, isOwner }) => {
         src={process.env.REACT_APP_API_URL + "/userfotos/" + item.imageUrl}
       />
       {isOwner && (
-        <span className="delete-foto" onClick={() => deleteFoto(item.imageUrl)}>
+        <span
+          className="delete-foto"
+          onClick={() => deletePhoto(item.imageUrl)}
+        >
           Удалить
         </span>
       )}
@@ -15,4 +18,4 @@ const FotoItem = ({ item, deleteFoto, isOwner }) => {
   );
 };
 
-export default FotoItem;
+export default PhotoItem;

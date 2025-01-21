@@ -5,7 +5,7 @@ import { AuthContext } from "../../../../context/AuthContext";
 import Loader from "../../../../common_components/Loader";
 import FriendsPostHead from "./components/FriendsPostHead";
 import Comment from "../../../../common_components/Comment";
-import CommentField from "../../../parts/CommentField";
+import CommentField from "../../../components/CommentField";
 import useHighlight from "../../../../common_hooks/highlight.hook";
 
 const FriendsNewsPost = ({ post }) => {

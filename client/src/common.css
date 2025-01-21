@@ -480,6 +480,11 @@ audio {
   flex-direction: column;
 }
 
+.cancel-button {
+  cursor: pointer;
+  color: #40a4ff;
+}
+
 .full-width {
   width: 99vw;
 }

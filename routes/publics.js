@@ -143,9 +143,9 @@ router.get("/subscribes/:id", (req, res) => {
     console.log(e);
   }
 });
-router.get("/10-subscribes/:id", (req, res) => {
+router.get("/3-subscribes/:id", (req, res) => {
   try {
-    PublicService.get10Subscribes(req, res);
+    PublicService.get3Subscribes(req, res);
   } catch (e) {
     console.log(e);
   }

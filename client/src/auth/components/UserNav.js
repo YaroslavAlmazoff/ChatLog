@@ -1,36 +1,38 @@
-import React, { useRef, useState, useContext } from "react";
-import "../styles/user.css";
-import Notice from "./Notice";
-import useDate from "../../common_hooks/date.hook";
-import api from "../api/auth";
+import { useRef, useState, useContext, useEffect } from "react";
 import { AuthContext } from "../../context/AuthContext";
+import { ProfileContext } from "../context/ProfileContext";
+import useDate from "../../common_hooks/date.hook";
 import useHighlight from "../../common_hooks/highlight.hook";
+import api from "../api/auth";
+import "../styles/user.css";
 
-const UserNav = ({
-  user,
-  isOwner,
-  noticeDisplay,
-  setNoticeDisplay,
-  noticeText,
-  noticeRef,
-}) => {
+const UserNav = () => {
   const { randomColor } = useHighlight();
   const { calculateAge } = useDate();
+  const { isOwner, user } = useContext(ProfileContext);
   const avatarFileRef = useRef();
-  const avatarRef = useRef();
   const bannerFileRef = useRef();
-  const bannerRef = useRef();
 
   const auth = useContext(AuthContext);
 
+  const [avatarUrl, setAvatarUrl] = useState("");
+  const [bannerUrl, setBannerUrl] = useState("");
+  const [aboutMeDisplaying, setAboutMeDisplaying] = useState(false);
+
+  useEffect(() => {
+    setAvatarUrl(user.avatarUrl);
+    setBannerUrl(user.bannerUrl);
+  }, []);
+
   const openAvatarSelect = () => {
-    avatarFileRef.current.click();
+    if (isOwner) {
+      avatarFileRef.current.click();
+    }
   };
   const openBannerSelect = () => {
     bannerFileRef.current.click();
   };
 
-  //Получение файла фотографии пользователя
   const sendMedia = async (e, type) => {
     let file = e.target.files[0];
     const formData = new FormData();
@@ -44,26 +46,16 @@ const UserNav = ({
       },
     });
     if (type === "avatar") {
-      avatarRef.current.src =
-        process.env.REACT_APP_API_URL +
-        "/useravatars/" +
-        JSON.parse(response.data).avatarUrl;
+      setAvatarUrl(JSON.parse(response.data).avatarUrl);
     } else if (type === "banner") {
-      bannerRef.current.style.backgroundImage = `url(${
-        process.env.REACT_APP_API_URL +
-        "/userbanners/" +
-        JSON.parse(response.data).bannerUrl
-      })`;
+      setBannerUrl(JSON.parse(response.data).bannerUrl);
     }
   };
 
   const arrow = useRef(null);
-  const [aboutMeDisplay, setAboutMeDisplay] = useState("none");
-  const gotoEdit = () => {
-    window.location = `/editprofile`;
-  };
+
   const openAboutMe = () => {
-    if (aboutMeDisplay === "none") {
+    if (aboutMeDisplaying === "none") {
       if (
         arrow.current.classList.value.includes(
           "user-nav-more-info-backward-animation"
@@ -71,7 +63,7 @@ const UserNav = ({
       ) {
         arrow.current.classList.remove("user-nav-more-info-backward-animation");
       }
-      setAboutMeDisplay("inline");
+      setAboutMeDisplaying(true);
       arrow.current.classList.add("user-nav-more-info-forward-animation");
     } else {
       if (
@@ -81,21 +73,19 @@ const UserNav = ({
       ) {
         arrow.current.classList.remove("user-nav-more-info-forward-animation");
       }
-
-      setAboutMeDisplay("none");
+      setAboutMeDisplaying(false);
       arrow.current.classList.add("user-nav-more-info-backward-animation");
     }
   };
   return (
     <div
       className="user-nav block"
-      ref={bannerRef}
       style={
         user.bannerUrl === "banner.jpg"
           ? { backgroundColor: "transparent" }
           : {
               backgroundImage: `url(${
-                process.env.REACT_APP_API_URL + "/userbanners/" + user.bannerUrl
+                process.env.REACT_APP_API_URL + "/userbanners/" + bannerUrl
               })`,
             }
       }
@@ -105,16 +95,9 @@ const UserNav = ({
           Изменить баннер
         </span>
       )}
-      <Notice
-        noticeDisplay={noticeDisplay}
-        setNoticeDisplay={setNoticeDisplay}
-        noticeText={noticeText}
-        noticeRef={noticeRef}
-      />
       <img
         className="user-avatar block"
-        ref={avatarRef}
-        src={process.env.REACT_APP_API_URL + "/useravatars/" + user.avatarUrl}
+        src={process.env.REACT_APP_API_URL + "/useravatars/" + avatarUrl}
         onClick={openAvatarSelect}
         alt="useravatar"
       />
@@ -146,20 +129,11 @@ const UserNav = ({
             />
           </div>
         </div>
-        <div className="about-me" style={{ display: aboutMeDisplay }}>
+        <div className="about-me" style={{ display: aboutMeDisplaying }}>
           {user.aboutMe ? (
             <span className="about-me-text">{user.aboutMe}</span>
           ) : (
             <p>Информация о себе отсутствует.</p>
-          )}
-        </div>
-        <div className="user-nav-actions">
-          {isOwner ? (
-            <button onClick={gotoEdit} className="button">
-              Редактировать профиль
-            </button>
-          ) : (
-            <></>
           )}
         </div>
       </div>

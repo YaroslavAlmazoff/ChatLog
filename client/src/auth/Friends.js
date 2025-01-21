@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import UserItem from "./parts/UserItem";
+import UserItem from "./components/UserItem";
 import "./styles/users.css";
 import useRandom from "../common_hooks/random.hook";
 import api from "./api/auth";

@@ -305,6 +305,7 @@ class PublicService {
     }
   }
   async subscribe(req, res) {
+    const { showedSubscribes } = require.body;
     const pub = await Public.findById(req.params.id);
     const user = await User.findById(req.user.userId);
 
@@ -328,8 +329,17 @@ class PublicService {
       await Public.findByIdAndUpdate(req.params.id, { subscribers });
       await User.findByIdAndUpdate(req.user.userId, { subscribes });
       await this.notify(types.unscribe, req.user.userId, req.params.id, null);
-
-      res.json({ isSubscriber: false });
+      const correctSubscribes = subscribes.filter(
+        (subscribe) => !showedSubscribes.includes(subscribe)
+      );
+      const subscribe = correctSubscribes.length
+        ? await Public.findById(
+            correctSubscribes[
+              Math.round(Math.random * correctSubscribes.length - 1)
+            ]
+          )
+        : null;
+      res.json({ isSubscriber: false, newSubscribe: subscribe });
     } else {
       subscribers.push(req.user.userId);
       subscribes.push(req.params.id);
@@ -346,7 +356,7 @@ class PublicService {
     );
     Promise.all(userSubscribes).then((data) => res.json({ subscribes: data }));
   }
-  async get10Subscribes(req, res) {
+  async get3Subscribes(req, res) {
     const { subscribes } = await User.findById(req.params.id);
     const slicedSubscribes = subscribes.slice(0, 3);
     const userSubscribes = slicedSubscribes.map(

@@ -1,15 +1,51 @@
-const fileUpload = require("express-fileupload");
 const User = require("../models/User");
+const UserPost = require("../models/UserPost");
+const UserPhoto = require("../models/UserFoto");
+const Public = require("../models/Public");
 const Notification = require("../models/Notification");
 
-//Сервис для взаимодействие с пользователями
 class UserService {
   //Поиск пользователя по ID
   async findUser(req, res) {
     const id = req.user.userId;
     const user = await User.findById(id);
-    //Возвращение данных пользователя на клиент
-    res.json({ user });
+    const userObj = user.toObject();
+
+    const notifications = await Notification.find({ to: id });
+    const fullNotifications = notifications.map(async (el) => {
+      if (el == null) return null;
+      const notificationObj = el.toObject();
+      notificationObj.postType = "";
+      notificationObj.postID = "";
+      return notificationObj;
+    });
+    const processedNotifications = await Promise.all(fullNotifications);
+
+    const slicedFriends = user.friends.slice(0, 9);
+    const friendsInfo = slicedFriends.map(
+      async (item) => await User.findById(item)
+    );
+    const friends = Promise.all(friendsInfo);
+
+    const slicedSubscribes = user.subscribes.slice(0, 3);
+    const userSubscribes = slicedSubscribes.map(
+      async (item) => await Public.findById(item)
+    );
+
+    userObj.friendsCount = user.friends.length;
+    userObj.subscribesCount = user.subscribes.length;
+
+    const subscribes = await Promise.all(userSubscribes);
+    const posts = await UserPost.find({ user: id });
+    const photos = await UserPhoto.find({ user: id });
+    res.json({
+      user,
+      posts,
+      photos,
+      friends,
+      subscribes,
+      notifications: processedNotifications,
+    });
   }
   async findUserById(req, res) {
     const id = req.params.id;
