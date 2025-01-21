@@ -1,11 +1,10 @@
 import useRandom from "../../common_hooks/random.hook";
 import useWord from "../../common_hooks/divideWord.hook";
-import useFiles from "../../common_hooks/files.hook";
 import api from "../api/auth";
 import { AuthContext } from "../../context/AuthContext";
 import { useContext, useState } from "react";
-import ModalWindow from "../../common_components/modal-window/ModalWindow";
 import { ProfileContext } from "../context/ProfileContext";
+import CommonModal from "../../common_components/Modal/CommonModal";
 
 const UserSubscribeItem = ({ subscribe }) => {
   const { token } = useContext(AuthContext);
@@ -16,7 +15,7 @@ const UserSubscribeItem = ({ subscribe }) => {
   const [showModal, setShowModal] = useState(false);
 
   const goToPublic = () => {
-    window.location = `/public/${el._id}`;
+    window.location = `/public/${subscribe._id}`;
   };
 
   const unsubscribe = async () => {
@@ -57,7 +56,7 @@ const UserSubscribeItem = ({ subscribe }) => {
       <img
         className="user-friend-avatar block"
         src={
-          el.avatarUrl
+          subscribe.avatarUrl
             ? process.env.REACT_APP_API_URL +
               "/publicavatars/" +
               subscribe.avatarUrl

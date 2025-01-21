@@ -6,10 +6,12 @@ import CommentField from "./CommentField";
 import Comment from "../../common_components/Comment";
 import ModalWindow from "../../common_components/modal-window/ModalWindow";
 import useHighlight from "../../common_hooks/highlight.hook";
+import { ProfileContext } from "../context/ProfileContext";
 
-const UserPost = ({ post, posts, setPosts, isOwner }) => {
+const UserPost = ({ post }) => {
   const auth = useContext(AuthContext);
   const { randomColor, randomShadow } = useHighlight();
+  const { posts, setPosts, isOwner } = useContext(ProfileContext);
   const [image, setImage] = useState("");
   const [mainImageLoading, setMainImageLoading] = useState(true);
   const [commentsDisplay, setCommentsDisplay] = useState(false);
