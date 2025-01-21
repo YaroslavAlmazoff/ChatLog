@@ -8,7 +8,6 @@ import User from "./auth/User";
 import Main from "./Main";
 import EditProfile from "./auth/EditProfile";
 import UserArticle from "./auth/UserArticle";
-import Fotography from "./auth/parts/Fotography";
 import UserVideoPage from "./auth/UserVideoPage";
 import HomePage from "./homepage/HomePage";
 import FileStorage from "./file_storage/components/pages/FileStorage";
@@ -91,7 +90,6 @@ export const useRoutes = () => {
       <Route exact path="/createpost" element={<CreatePost />} />
       <Route exact path="/createfoto" element={<CreateFoto />} />
       <Route exact path="/notifications" element={<Notifications />} />
-      <Route exact path="/fotography/:id" element={<Fotography />} />
       <Route exact path="/video/:id" element={<UserVideoPage />} />
       <Route exact path="/messages" element={<RoomsList />} />
       <Route exact path="/cloud" element={<FileStorage />} />
