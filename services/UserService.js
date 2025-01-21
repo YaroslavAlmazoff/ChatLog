@@ -39,7 +39,7 @@ class UserService {
     const posts = await UserPost.find({ user: id });
     const photos = await UserPhoto.find({ user: id });
     res.json({
-      user,
+      user: userObj,
       posts,
       photos,
       friends,

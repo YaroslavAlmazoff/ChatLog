@@ -52,7 +52,7 @@ const User = () => {
     verify();
     setIsOwner(auth.userId === params.id);
     const getUser = async () => {
-      const response = await api.get(`/api/user/${params.id}`);
+      const response = await api.get(`/api/user-profile/${params.id}`);
 
       setUser(response.data.user);
       setFriends(response.data.friends);

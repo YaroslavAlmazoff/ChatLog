@@ -14,6 +14,14 @@ const UserService = require("../services/UserService.js");
 const router = Router();
 
 //Создание роутера для действий пользователя
+router.get("/user-profile/:id", (req, res) => {
+  //Один конкретный пользователь
+  try {
+    UserService.findUser(req, res);
+  } catch (e) {
+    console.log(e);
+  }
+});
 router.post("/createuserpost", auth, (req, res) => {
   //Создание поста
   try {
