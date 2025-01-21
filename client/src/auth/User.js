@@ -90,8 +90,6 @@ const User = () => {
           setPhotos,
           notifications,
           setNotifications,
-          showModal,
-          setShowModal,
         }}
       >
         {!isMobile ? (

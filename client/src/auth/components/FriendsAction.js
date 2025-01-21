@@ -1,10 +1,12 @@
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 import { useParams } from "react-router";
 import { AuthContext } from "../../context/AuthContext";
 import api from "../api/auth";
+import { ProfileContext } from "../context/ProfileContext";
 
 const FriendsAction = () => {
   const { token, userId } = useContext(AuthContext);
+  const { hint } = useContext(ProfileContext);
   const params = useParams();
 
   const [friendsButtonDisplaying, setFriendsButtonDisplaying] = useState(true);
