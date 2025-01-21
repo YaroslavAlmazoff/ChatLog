@@ -7,8 +7,6 @@ import Users from "./auth/Users";
 import User from "./auth/User";
 import Main from "./Main";
 import EditProfile from "./auth/EditProfile";
-import UserArticle from "./auth/UserArticle";
-import UserVideoPage from "./auth/UserVideoPage";
 import HomePage from "./homepage/HomePage";
 import FileStorage from "./file_storage/components/pages/FileStorage";
 import File from "./file_storage/components/pages/File";
@@ -90,7 +88,6 @@ export const useRoutes = () => {
       <Route exact path="/createpost" element={<CreatePost />} />
       <Route exact path="/createfoto" element={<CreateFoto />} />
       <Route exact path="/notifications" element={<Notifications />} />
-      <Route exact path="/video/:id" element={<UserVideoPage />} />
       <Route exact path="/messages" element={<RoomsList />} />
       <Route exact path="/cloud" element={<FileStorage />} />
       <Route exact path="/users" element={<Users />} />
@@ -102,7 +99,6 @@ export const useRoutes = () => {
       {/* <Route exact path="/chat/:id" element={<ChatRoom />} />
       <Route exact path="/chat/:id/:link" element={<ChatRoom />} />
       <Route exact path="/createchat" element={<CreateChat />} /> */}
-      <Route exact path="/article/:id" element={<UserArticle />} />
       <Route path="/greeting" element={<LandingPageV2 />} />
       <Route path="/support" element={<SupportPage />} />
       <Route path="/register" element={<Register />} />
