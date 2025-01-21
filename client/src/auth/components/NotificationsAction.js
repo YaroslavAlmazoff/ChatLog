@@ -3,11 +3,7 @@ import CommonModal from "../../common_components/Modal/CommonModal";
 import Notifications from "./Notifications";
 import { ProfileContext } from "../context/ProfileContext";
 
-const NotificationAction = ({
-  notifications,
-  setNotifications,
-  setFriends,
-}) => {
+const NotificationAction = () => {
   const { notifications, setNotifications, setFriends } =
     useContext(ProfileContext);
   const [showNotifications, setShowNotifications] = useState();
