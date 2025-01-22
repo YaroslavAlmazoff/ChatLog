@@ -47,7 +47,7 @@ const Notification = ({ notification }) => {
   };
   return (
     <div className="notification">
-      {type === "friends" ? (
+      {notification.type === "friends" ? (
         <Friends
           title={notification.title}
           from={notification.from}
