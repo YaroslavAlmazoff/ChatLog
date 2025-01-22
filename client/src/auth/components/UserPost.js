@@ -18,15 +18,6 @@ const UserPost = ({ post }) => {
   const [comments, setComments] = useState([]);
   const [showModal, setShowModal] = useState(false);
 
-  const openWindow = () => {
-    setModal(true);
-    auth.darkScreen(true);
-  };
-  const closeWindow = () => {
-    setModal(false);
-    auth.darkScreen(false);
-  };
-
   useEffect(() => {
     const getComments = async () => {
       const response = await api.get(`/api/userpost/comments/${post._id}`);
@@ -103,7 +94,7 @@ const UserPost = ({ post }) => {
         <div className="user-post-delete">
           <span
             title="Удалить запись?"
-            onClick={openWindow}
+            onClick={() => setShowModal(true)}
             className="public-post-delete"
           >
             &times;

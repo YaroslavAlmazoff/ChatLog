@@ -56,12 +56,14 @@ const Notification = ({ notification }) => {
       ) : (
         <></>
       )}
-      {type === "reply" || type === "delete" || type === "reject" ? (
+      {notification.type === "reply" ||
+      notification.type === "delete" ||
+      notification.type === "reject" ? (
         <Simple title={notification.title} from={notification.from} />
       ) : (
         <></>
       )}
-      {type === "like" || type === "comment" ? (
+      {notification.type === "like" || notification.type === "comment" ? (
         <SimplePosts
           title={notification.title}
           postType={notification.postType}
@@ -70,12 +72,12 @@ const Notification = ({ notification }) => {
       ) : (
         <></>
       )}
-      {type === "visit" ? (
+      {notification.type === "visit" ? (
         <Visit title={notification.title} from={notification.from} />
       ) : (
         <></>
       )}
-      {type === "file" ? (
+      {notification.type === "file" ? (
         <GettingFile
           title={notification.title}
           gettingFile={gettingFile}
