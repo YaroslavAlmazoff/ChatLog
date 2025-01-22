@@ -14,9 +14,8 @@ const NotificationAction = () => {
           !notifications[notifications.length - 1].checked
             ? "button"
             : "dark-button"
-        } notice-img blue-block-glow`}
+        } blue-block-glow notice-img`}
         onClick={() => setShowNotifications(true)}
-        width="35"
         src={require("../img/notice.png")}
         alt="notice"
       />
