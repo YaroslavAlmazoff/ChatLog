@@ -8,44 +8,30 @@ import Simple from "./Notifications/SimpleFriends";
 import SimplePosts from "./Notifications/SimplePosts";
 import { AuthContext } from "../../context/AuthContext";
 import GettingFile from "./Notifications/GettingFile";
+import { ProfileContext } from "../context/ProfileContext";
 
-const Notification = ({
-  id,
-  title,
-  type,
-  from,
-  to,
-  postType,
-  postID,
-  notifications,
-  setNotifications,
-  setUserFriends,
-  setNoticeText,
-  setNoticeDisplay,
-  noticeRef,
-}) => {
-  const auth = useContext(AuthContext);
+const Notification = ({ notification }) => {
+  const { hint, notifications, setNotifications, setUserFriends } =
+    useContext(ProfileContext);
+  const { token } = useContext(AuthContext);
   const params = useParams();
   const reply = async (itog) => {
-    setNoticeDisplay("block");
-    setNoticeText("Теперь вы друзья.");
-    setNotifications([...notifications].filter((el) => el.title !== title));
-    const answer = await api.delete(`/api/deletenotification/${title}`, {
-      headers: { Authorization: `Bearer ${auth.token}` },
+    hint("Теперь вы друзья");
+    setNotifications(
+      [...notifications].filter((el) => el.title !== notification.title)
+    );
+    await api.delete(`/api/deletenotification/${notification.title}`, {
+      headers: { Authorization: `Bearer ${token}` },
     });
-    console.log(answer);
     if (!itog) {
-      setNoticeDisplay("block");
-      setNoticeText("Вы отклонили заявку в друзья.");
-      noticeRef.current.classList.add("notice-animation");
+      hint("Вы отклонили заявку в друзья.");
       return;
     }
-    const response = await api.get(`/api/reply/${from}`, {
+    await api.get(`/api/reply/${notification.from}`, {
       headers: {
-        Authorization: `Bearer ${auth.token}`,
+        Authorization: `Bearer ${token}`,
       },
     });
-    console.log(response);
     const userdata = await api.get(`/api/user/${params.id}`);
     const friendsID = userdata.data.user.friends;
     let friends = [];
@@ -56,29 +42,45 @@ const Notification = ({
     setUserFriends(friends);
   };
   const gettingFile = async () => {
-    await api.get(`/api/getsentfile/${id}`);
+    await api.get(`/api/getsentfile/${notification._id}`);
     window.location = "/cloud";
   };
   return (
     <div className="notification">
       {type === "friends" ? (
-        <Friends title={title} from={from} reply={reply} />
+        <Friends
+          title={notification.title}
+          from={notification.from}
+          reply={reply}
+        />
       ) : (
         <></>
       )}
       {type === "reply" || type === "delete" || type === "reject" ? (
-        <Simple title={title} from={from} />
+        <Simple title={notification.title} from={notification.from} />
       ) : (
         <></>
       )}
       {type === "like" || type === "comment" ? (
-        <SimplePosts title={title} postType={postType} postID={postID} />
+        <SimplePosts
+          title={notification.title}
+          postType={notification.postType}
+          postID={notification.postID}
+        />
       ) : (
         <></>
       )}
-      {type === "visit" ? <Visit title={title} from={from} /> : <></>}
+      {type === "visit" ? (
+        <Visit title={notification.title} from={notification.from} />
+      ) : (
+        <></>
+      )}
       {type === "file" ? (
-        <GettingFile title={title} gettingFile={gettingFile} id={id} />
+        <GettingFile
+          title={notification.title}
+          gettingFile={gettingFile}
+          id={notification._id}
+        />
       ) : (
         <></>
       )}
