@@ -5,7 +5,10 @@ const CreatePostAction = ({ setShowModal }) => {
     setShowModal(true);
   };
   return (
-    <button className="dark-button" onClick={startCreatingPost}>
+    <button
+      className="dark-button user-action-button"
+      onClick={startCreatingPost}
+    >
       Создать новый пост
     </button>
   );

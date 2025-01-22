@@ -28,7 +28,10 @@ const PhotoAction = ({ setPhotos }) => {
   return (
     <>
       {!publishButtonDisplaying && (
-        <button onClick={(e) => emitOpen(e)} className="dark-button">
+        <button
+          onClick={(e) => emitOpen(e)}
+          className="dark-button user-action-button"
+        >
           Добавить фотографию
         </button>
       )}

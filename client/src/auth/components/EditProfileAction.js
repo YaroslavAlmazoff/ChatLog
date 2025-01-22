@@ -8,7 +8,7 @@ const EditProfileAction = () => {
   };
   if (isOwner) {
     return (
-      <button onClick={gotoEdit} className="dark-button">
+      <button onClick={gotoEdit} className="dark-button user-action-button">
         Редактировать профиль
       </button>
     );
