@@ -27,19 +27,13 @@ const PhotoAction = ({ setPhotos }) => {
   return (
     <>
       {!publishButtonDisplaying && (
-        <button
-          onClick={(e) => emitOpen(e)}
-          className="user-add-foto-right button"
-        >
+        <button onClick={(e) => emitOpen(e)} className="button">
           Добавить фотографию
         </button>
       )}
       {publishButtonDisplaying && (
         <>
-          <button
-            onClick={() => sendPhoto(file, setPhotos)}
-            className="user-add-foto-right button"
-          >
+          <button onClick={() => sendPhoto(file, setPhotos)} className="button">
             Опубликовать
           </button>
           <span className="upload-photo-cancel" onClick={cancelUploadPhoto}>

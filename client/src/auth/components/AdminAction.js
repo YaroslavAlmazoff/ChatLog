@@ -8,7 +8,7 @@ const AdminAction = () => {
   };
   if (isAdmin) {
     return (
-      <button className="button margin-top-bottom ml" onClick={gotoAdmin}>
+      <button className="button" onClick={gotoAdmin}>
         Кабинет администратора
       </button>
     );

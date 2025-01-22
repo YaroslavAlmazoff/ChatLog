@@ -6,17 +6,13 @@ const EditProfileAction = () => {
   const gotoEdit = () => {
     window.location = `/editprofile`;
   };
-  return (
-    <div className="user-nav-actions">
-      {isOwner ? (
-        <button onClick={gotoEdit} className="button">
-          Редактировать профиль
-        </button>
-      ) : (
-        <></>
-      )}
-    </div>
-  );
+  if (isOwner) {
+    return (
+      <button onClick={gotoEdit} className="button">
+        Редактировать профиль
+      </button>
+    );
+  } else return null;
 };
 
 export default EditProfileAction;
