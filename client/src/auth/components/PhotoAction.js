@@ -9,7 +9,8 @@ const PhotoAction = ({ setPhotos }) => {
   const fileRef = useRef();
 
   const [file, setFile] = useState(null);
-  const [photoPreviewIsDisplaying, setPhotoPreviewIsDisplaying] = useState([]);
+  const [photoPreviewIsDisplaying, setPhotoPreviewIsDisplaying] =
+    useState(false);
   const [photoPreviewUrl, setPhotoPreviewUrl] = useState("");
   const [publishButtonDisplaying, setPublishButtonDisplaying] = useState(false);
 
@@ -27,7 +28,7 @@ const PhotoAction = ({ setPhotos }) => {
   return (
     <>
       {!publishButtonDisplaying && (
-        <button onClick={(e) => emitOpen(e)} className="button">
+        <button onClick={(e) => emitOpen(e)} className="dark-button">
           Добавить фотографию
         </button>
       )}

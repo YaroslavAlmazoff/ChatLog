@@ -14,8 +14,8 @@ const UserActions = ({ setShowCreatePostModal }) => {
         <NotificationAction />
         <EditProfileAction />
         <CreatePostAction setShowModal={setShowCreatePostModal} />
-        <AdminAction />
         <PhotoAction />
+        <AdminAction />
       </div>
     );
   } else return null;
