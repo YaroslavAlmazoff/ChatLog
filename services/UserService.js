@@ -36,7 +36,7 @@ class UserService {
     userObj.friendsCount = user.friends.length;
     userObj.subscribesCount = user.subscribes.length;
 
-    const friends = Promise.all(friendsInfo);
+    const friends = await Promise.all(friendsInfo);
     const subscribes = await Promise.all(userSubscribes);
     const posts = await UserPost.find({ user: id });
     const photos = await UserPhoto.find({ user: id });
