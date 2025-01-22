@@ -8,7 +8,9 @@ class UserService {
   //Поиск пользователя по ID
   async findUser(req, res) {
     const id = req.params.id;
+    console.log(id);
     const user = await User.findById(id);
+    console.log(user);
     const userObj = user.toObject();
 
     const notifications = await Notification.find({ to: id });
