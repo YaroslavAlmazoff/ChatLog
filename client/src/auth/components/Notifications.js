@@ -1,20 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
 import Notification from "./Notification";
 import useRandom from "../../common_hooks/random.hook";
 import "../styles/notifications.css";
+import { ProfileContext } from "../context/ProfileContext";
 
-const Notifications = ({
-  notifications,
-  setNotifications,
-  setFriends,
-  setNoticeDisplay,
-  setNoticeText,
-  noticeRef,
-}) => {
+const Notifications = ({ setShowNotifications }) => {
   const { randomKey } = useRandom();
+  const { notifications, setNotifications, setFriends } =
+    useContext(ProfileContext);
   return (
     <div>
-      <p className="notifications-title">Уведомления</p>
+      <p className="notifications-title">
+        Уведомления |{" "}
+        <span onClick={() => setShowNotifications(false)}>Закрыть</span>
+      </p>
       {notifications.length ? (
         notifications.map((el) => (
           <Notification

@@ -1,11 +1,10 @@
 import useRandom from "../../common_hooks/random.hook";
 import useWord from "../../common_hooks/divideWord.hook";
-import useFiles from "../../common_hooks/files.hook";
 import api from "../api/auth";
 import { AuthContext } from "../../context/AuthContext";
 import { useContext, useState } from "react";
-import CommonModal from "../../common_components/modal-window/ModalWindow";
 import { ProfileContext } from "../context/ProfileContext";
+import CommonModal from "../../common_components/Modal/CommonModal";
 
 const UserFriendItem = ({ friend }) => {
   const auth = useContext(AuthContext);
@@ -53,7 +52,9 @@ const UserFriendItem = ({ friend }) => {
           <button className="button-neon-red" onClick={onConfirm}>
             Удалить
           </button>
-          <span className="cancel-button">Отмена</span>
+          <span className="cancel-button" onClick={() => setShowModal(false)}>
+            Отмена
+          </span>
         </div>
       </CommonModal>
       {isOwner ? (

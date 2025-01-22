@@ -129,13 +129,17 @@ const UserNav = () => {
             />
           </div>
         </div>
-        <div className="about-me" style={{ display: aboutMeDisplaying }}>
-          {user.aboutMe ? (
-            <span className="about-me-text">{user.aboutMe}</span>
-          ) : (
-            <p>Информация о себе отсутствует.</p>
-          )}
-        </div>
+        {aboutMeDisplaying ? (
+          <div className="about-me">
+            {user.aboutMe ? (
+              <span className="about-me-text">{user.aboutMe}</span>
+            ) : (
+              <p>Информация о себе отсутствует.</p>
+            )}
+          </div>
+        ) : (
+          <></>
+        )}
       </div>
     </div>
   );

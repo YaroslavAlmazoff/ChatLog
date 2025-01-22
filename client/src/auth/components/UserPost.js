@@ -4,7 +4,7 @@ import api from "../api/auth";
 import { AuthContext } from "../../context/AuthContext";
 import CommentField from "./CommentField";
 import Comment from "../../common_components/Comment";
-import ModalWindow from "../../common_components/modal-window/ModalWindow";
+import CommonModal from "../../common_components/Modal/CommonModal";
 import useHighlight from "../../common_hooks/highlight.hook";
 import { ProfileContext } from "../context/ProfileContext";
 
@@ -16,7 +16,7 @@ const UserPost = ({ post }) => {
   const [mainImageLoading, setMainImageLoading] = useState(true);
   const [commentsDisplay, setCommentsDisplay] = useState(false);
   const [comments, setComments] = useState([]);
-  const [modal, setModal] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   const openWindow = () => {
     setModal(true);
@@ -82,20 +82,23 @@ const UserPost = ({ post }) => {
   };
 
   const onConfirm = () => {
+    setShowModal(false);
     deletePost();
-    auth.darkScreen(false);
   };
 
   return (
     <div className="user-post">
-      {modal && (
-        <ModalWindow
-          isOpen={modal}
-          onClose={closeWindow}
-          onConfirm={onConfirm}
-          text="Вы действительно хотите удалить этот пост?"
-        />
-      )}
+      <CommonModal show={showModal} onClose={() => setShowModal(false)}>
+        <span>Вы действительно хотите удалить этот пост?</span>
+        <div className="fl">
+          <button className="button-neon-red" onClick={onConfirm}>
+            Удалить
+          </button>
+          <span className="cancel-button" onClick={() => setShowModal(false)}>
+            Отмена
+          </span>
+        </div>
+      </CommonModal>
       {isOwner && (
         <div className="user-post-delete">
           <span

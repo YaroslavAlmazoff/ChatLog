@@ -50,7 +50,9 @@ const UserSubscribeItem = ({ subscribe }) => {
           <button className="button-neon-red" onClick={onConfirm}>
             Отписаться
           </button>
-          <span className="cancel-button">Отмена</span>
+          <span className="cancel-button" onClick={() => setShowModal(false)}>
+            Отмена
+          </span>
         </div>
       </CommonModal>
       <img
