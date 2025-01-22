@@ -25,7 +25,6 @@ class UserService {
     const friendsInfo = slicedFriends.map(
       async (item) => await User.findById(item)
     );
-    const friends = Promise.all(friendsInfo);
 
     const slicedSubscribes = user.subscribes.slice(0, 3);
     const userSubscribes = slicedSubscribes.map(
@@ -35,6 +34,7 @@ class UserService {
     userObj.friendsCount = user.friends.length;
     userObj.subscribesCount = user.subscribes.length;
 
+    const friends = Promise.all(friendsInfo);
     const subscribes = await Promise.all(userSubscribes);
     const posts = await UserPost.find({ user: id });
     const photos = await UserPhoto.find({ user: id });

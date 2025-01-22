@@ -54,6 +54,8 @@ const User = () => {
     const getUser = async () => {
       const response = await api.get(`/api/user-profile/${params.id}`);
 
+      console.log(response);
+
       setUser(response.data.user);
       setFriends(response.data.friends);
       setSubscribes(response.data.subscribes);
