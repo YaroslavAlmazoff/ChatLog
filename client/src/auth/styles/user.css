@@ -215,8 +215,12 @@
 }
 
 .user-action-button {
-  margin: 10px;
-  padding: 5px;
+  margin: 5px;
+  margin-left: 10px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  padding-right: 5px;
+  padding-left: 5px;
 }
 
 .user-foto-preview {
@@ -296,7 +300,8 @@
 }
 .notice-img {
   border-radius: 50%;
-  margin: 10px;
+  margin: 5px;
+  margin-left: 15px;
   padding: 5px;
   object-fit: cover;
   cursor: pointer;
