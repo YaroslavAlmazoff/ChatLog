@@ -93,8 +93,8 @@ const CreatePost = ({ setPosts, setOffset, onClose }) => {
   const onImageDelete = (url) => {
     const indexToRemove = filesData.findIndex((file) => file === url);
     console.log(index);
-    setFilesData((prev) => prev.filter(_, (index) => index != indexToRemove));
-    setFiles((prev) => prev.filter(_, (index) => index != indexToRemove));
+    setFilesData((prev) => prev.filter((_, index) => index != indexToRemove));
+    setFiles((prev) => prev.filter((_, index) => index != indexToRemove));
   };
 
   return (
