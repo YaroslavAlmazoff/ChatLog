@@ -55,7 +55,7 @@ const UserNav = () => {
   const arrow = useRef(null);
 
   const openAboutMe = () => {
-    if (aboutMeDisplaying === "none") {
+    if (!aboutMeDisplaying) {
       if (
         arrow.current.classList.value.includes(
           "user-nav-more-info-backward-animation"
