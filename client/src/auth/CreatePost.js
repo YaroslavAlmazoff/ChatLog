@@ -91,7 +91,7 @@ const CreatePost = ({ setPosts, setOffset, onClose }) => {
   };
 
   const onImageDelete = (url) => {
-    const index = filesData.findIndex((file) => file != url);
+    const index = filesData.findIndex((file) => file === url);
     setFilesData((prev) => {
       const newFilesData = prev;
       newFilesData.splice(index, 1);
