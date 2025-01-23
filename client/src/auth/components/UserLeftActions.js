@@ -5,7 +5,7 @@ import MessageAction from "./MessageAction";
 
 const UserLeftActions = () => {
   const { isOwner } = useContext(ProfileContext);
-  if (isOwner) {
+  if (!isOwner) {
     return (
       <div className="user-actions">
         <FriendsAction />
