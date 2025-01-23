@@ -4,7 +4,7 @@
   --green-neon: #86ed26;
 }
 
-.common-modal {
+.common-hint {
   display: flex;
   justify-content: center;
   align-items: center;
