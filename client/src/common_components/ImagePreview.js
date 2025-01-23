@@ -1,8 +1,8 @@
 import React from "react";
 
-const ImagePreview = ({ isDisplaying, display, url, onDelete }) => {
+const ImagePreview = ({ isDisplaying, url, onDelete }) => {
   return isDisplaying ? (
-    <div style={{ display }}>
+    <div>
       <img height="200" src={url} alt="preview" />
       <span onClick={() => onDelete(url)}>Удалить</span>
     </div>

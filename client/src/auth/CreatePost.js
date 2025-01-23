@@ -144,11 +144,10 @@ const CreatePost = ({ setPosts, setOffset, onClose }) => {
             Опубликовать
           </button>
           {imagesDisplaying ? (
-            <div className="create-public-images-list">
+            <div className="create-post-images-list">
               {filesData.map((imageUrl) => (
                 <ImagePreview
                   isDisplaying={true}
-                  display={"block"}
                   url={imageUrl}
                   onDelete={onImageDelete}
                 />
