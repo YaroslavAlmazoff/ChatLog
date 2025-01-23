@@ -1,4 +1,3 @@
-import ImagePreview from "./components/ImagePreview";
 import { useState, useRef, useContext, useEffect } from "react";
 import api from "./api/auth";
 import "./styles/create-post.css";
@@ -7,6 +6,7 @@ import { smiles } from "./smiles";
 import Smile from "./Smile";
 import useDate from "../common_hooks/date.hook";
 import { AuthContext } from "../context/AuthContext";
+import ImagePreview from "../common_components/ImagePreview";
 import Loader from "../common_components/Loader";
 import useVerify from "../common_hooks/verify.hook";
 import smileImage from "./img/smile.png";
@@ -23,8 +23,8 @@ const CreatePost = ({ setPosts, setOffset, onClose }) => {
   const [articleTitle, setArticleTitle] = useState("");
   const [files, setFiles] = useState([]);
   const [filesData, setFilesData] = useState([]);
-  const [imageDisplay, setImageDisplay] = useState("none");
-  const [smilesDisplay, setSmilesDisplay] = useState("none");
+  const [imagesDisplaying, setImagesDisplaying] = useState(false);
+  const [smilesDisplaying, setSmilesDisplaying] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const fileRef = useRef();
@@ -42,14 +42,13 @@ const CreatePost = ({ setPosts, setOffset, onClose }) => {
     const files = Array.from(fileList);
     files.forEach((el) => {
       const reader = new FileReader();
-      console.log(el);
       reader.onload = (ev) => {
         setFilesData((prev) => [...prev, ev.target.result]);
-        setImageDisplay("block");
+        setImagesDisplaying(true);
       };
       reader.readAsDataURL(el);
     });
-    setFiles(files);
+    setFiles((prev) => [...prev, ...files]);
   };
   const send = async () => {
     setLoading(true);
@@ -74,21 +73,35 @@ const CreatePost = ({ setPosts, setOffset, onClose }) => {
     setPosts((prev) => [response.data.post, ...prev]);
   };
   const closeSmiles = () => {
-    setSmilesDisplay("none");
+    setSmilesDisplaying(false);
   };
   const addSmile = (code) => {
     setArticleTitle((prev) => prev + code);
     closeSmiles();
   };
   const showSmiles = () => {
-    if (smilesDisplay === "none") {
-      setSmilesDisplay("block");
+    if (!smilesDisplaying) {
+      setSmilesDisplaying(true);
       setTimeout(() => {
-        setSmilesDisplay("none");
+        setSmilesDisplaying(false);
       }, 10000);
     } else {
-      setSmilesDisplay("none");
+      setSmilesDisplaying(false);
     }
+  };
+
+  const onImageDelete = (url) => {
+    const index = filesData.findIndex((file) => file != url);
+    setFilesData((prev) => {
+      const newFilesData = prev;
+      newFilesData.splice(index, 1);
+      return newFilesData;
+    });
+    setFiles((prev) => {
+      const newFiles = prev;
+      newFiles.splice(index, 1);
+      return newFiles;
+    });
   };
 
   return (
@@ -130,19 +143,28 @@ const CreatePost = ({ setPosts, setOffset, onClose }) => {
           <button onClick={send} className="button ml">
             Опубликовать
           </button>
-          <div
-            className="create-public-images-list"
-            style={{ display: imageDisplay }}
-          >
-            {filesData.map((imageUrl) => (
-              <ImagePreview imageUrl={imageUrl} />
-            ))}
-          </div>
-          <div className="room-smiles" style={{ display: smilesDisplay }}>
-            {smiles.map((el) => (
-              <Smile key={el.code} el={el} addSmile={addSmile} />
-            ))}
-          </div>
+          {imagesDisplaying ? (
+            <div className="create-public-images-list">
+              {filesData.map((imageUrl) => (
+                <ImagePreview
+                  isDisplaying={true}
+                  url={imageUrl}
+                  onDelete={onImageDelete}
+                />
+              ))}
+            </div>
+          ) : (
+            <></>
+          )}
+          {smilesDisplaying ? (
+            <div className="room-smiles">
+              {smiles.map((el) => (
+                <Smile key={el.code} el={el} addSmile={addSmile} />
+              ))}
+            </div>
+          ) : (
+            <></>
+          )}
         </>
       )}
     </>

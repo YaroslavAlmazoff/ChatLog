@@ -43,7 +43,6 @@ const EditProfile = () => {
   };
   const getFile2 = async (e) => {
     let file = e.target.files[0];
-    console.log(file);
     const reader = new FileReader();
     reader.onload = (ev) => {
       setImagePreviewDisplay2("block");
