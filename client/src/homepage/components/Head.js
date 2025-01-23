@@ -23,7 +23,7 @@ const Head = () => {
   const getUser = useCallback(async () => {
     if (!token) return;
     console.log(token);
-    const response = await api.get("/api/user", {
+    const response = await api.get("/api/user-by-token", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
