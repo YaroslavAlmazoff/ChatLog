@@ -247,10 +247,10 @@ router.get("/load-users", (req, res) => {
     console.log(e);
   }
 });
-router.get("/user", auth, (req, res) => {
+router.get("/user-by-token", auth, (req, res) => {
   //Один конкретный пользователь
   try {
-    UserService.findUser(req, res);
+    UserService.getUserByToken(req, res);
   } catch (e) {
     console.log(e);
   }

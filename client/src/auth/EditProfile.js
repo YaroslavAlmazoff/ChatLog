@@ -9,37 +9,28 @@ import Loader from "../common_components/Loader";
 import useVerify from "../common_hooks/verify.hook";
 
 const EditProfile = () => {
-  //Страница редактирования профиля
   const auth = useContext(AuthContext);
   const { verify } = useVerify();
-  //Функция для навигации
-  //Получение ссылок на файловые поля ввода
   const fileRef = useRef();
   const fileRef2 = useRef();
-  //Инициализация состояния для изображений предпросмотра аватарки и баннера
   const [file, setFile] = useState("");
   const [file2, setFile2] = useState("");
-  //Инициализация состояний дисплея и url изображений предпросмотра аватарки и баннера
   const [imagePreviewDisplay1, setImagePreviewDisplay1] = useState("none");
   const [imagePreviewUrl1, setImagePreviewUrl1] = useState("");
   const [imagePreviewDisplay2, setImagePreviewDisplay2] = useState("none");
   const [imagePreviewUrl2, setImagePreviewUrl2] = useState("");
-  //Инициализация состояний информации о пользователе
   const [name, setName] = useState("");
   const [surname, setSurName] = useState("");
   const [age, setAge] = useState("");
   const [email, setEmail] = useState("");
   const [aboutMe, setAboutMe] = useState("Напишите о себе");
   const [loading, setLoading] = useState(false);
-  //Эмитирование открытия загрузки изображения для аватарки
   const emitOpen = () => {
     fileRef.current.click();
   };
-  //Эмитирование открытия загрузки изображения для баннера
   const emitOpen2 = () => {
     fileRef2.current.click();
   };
-  //Получение изображения для аватарки
   const getFile = async (e) => {
     let file = e.target.files[0];
     const reader = new FileReader();
@@ -50,7 +41,6 @@ const EditProfile = () => {
     reader.readAsDataURL(file);
     setFile(file);
   };
-  //Получение изображения для баннера
   const getFile2 = async (e) => {
     let file = e.target.files[0];
     console.log(file);
@@ -65,14 +55,11 @@ const EditProfile = () => {
   useEffect(() => {
     verify();
     setLoading(true);
-    //Получение информацию о пользователе чтобы загрузить её в поля ввода
     const getUserData = async () => {
-      console.log(auth.token);
-      const response = await api.get(`/api/user`, {
+      const response = await api.get(`/api/user-by-token`, {
         headers: { Authorization: `Bearer ${auth.token}` },
       });
       const user = response.data.user;
-      //Изменение состояний информации о пользователе
       setName(user.name);
       setSurName(user.surname);
       setAge(user.age);
@@ -82,12 +69,9 @@ const EditProfile = () => {
     };
     getUserData();
   }, [auth]);
-  //Обновление профиля
   const updateHandler = async () => {
     setLoading(true);
-    //Инициализация formdata для загрузки на сервер изображений
     const formData = new FormData();
-    //Добавление информацию о пользователе в formdata
     formData.append("name", name);
     formData.append("surname", surname);
     formData.append("age", age);
@@ -95,7 +79,6 @@ const EditProfile = () => {
     formData.append("aboutMe", aboutMe);
     formData.append("file", file);
     formData.append("file2", file2);
-    //Отправка запроса на обновление профиля
     await api.post(`/api/editprofile`, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
@@ -103,7 +86,6 @@ const EditProfile = () => {
       },
     });
     setLoading(false);
-    //Перемещение на профиль пользователя
     window.location = `/user/${auth.userId}`;
   };
   return (
