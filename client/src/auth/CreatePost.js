@@ -148,6 +148,7 @@ const CreatePost = ({ setPosts, setOffset, onClose }) => {
               {filesData.map((imageUrl) => (
                 <ImagePreview
                   isDisplaying={true}
+                  display={"block"}
                   url={imageUrl}
                   onDelete={onImageDelete}
                 />
