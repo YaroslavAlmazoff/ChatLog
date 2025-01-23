@@ -94,8 +94,11 @@ const CreatePost = ({ setPosts, setOffset, onClose }) => {
     const index = filesData.findIndex((file) => file === url);
     console.log(index);
     setFilesData((prev) => {
+      console.log(prev);
       const newFilesData = prev;
+      console.log(newFilesData);
       newFilesData.splice(index, 1);
+      console.log(newFilesData);
       return newFilesData;
     });
     setFiles((prev) => {
