@@ -91,21 +91,10 @@ const CreatePost = ({ setPosts, setOffset, onClose }) => {
   };
 
   const onImageDelete = (url) => {
-    const index = filesData.findIndex((file) => file === url);
+    const indexToRemove = filesData.findIndex((file) => file === url);
     console.log(index);
-    setFilesData((prev) => {
-      console.log(prev);
-      const newFilesData = prev;
-      console.log(newFilesData);
-      newFilesData.splice(index, 1);
-      console.log(newFilesData);
-      return newFilesData;
-    });
-    setFiles((prev) => {
-      const newFiles = prev;
-      newFiles.splice(index, 1);
-      return newFiles;
-    });
+    setFilesData((prev) => prev.filter(_, (index) => index != indexToRemove));
+    setFiles((prev) => prev.filter(_, (index) => index != indexToRemove));
   };
 
   return (
