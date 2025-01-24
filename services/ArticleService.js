@@ -6,6 +6,7 @@ const ImageService = require("./ImageService.js");
 const User = require("../models/User.js");
 const NewsService = require("./NewsService.js");
 const Like = require("../models/Like.js");
+const { sortByDate } = require("../utils/ProfileUtils.js");
 
 //Сервис постов пользователя
 class ArticleService {
@@ -52,16 +53,17 @@ class ArticleService {
   }
   async getPostsLazy(req, res) {
     const posts = await UserPost.find({ user: req.params.id });
+    const sortedPosts = sortByDate(posts);
     const page = parseInt(req.params.page) || 1;
     const offsetNumber = parseInt(req.params.offset) || 0;
     const perPage = 10;
     const startIndex = (page - 1) * perPage + offsetNumber;
     const endIndex = page * perPage + offsetNumber;
-    const results = posts.slice(startIndex, endIndex);
+    const results = sortedPosts.slice(startIndex, endIndex);
     res.json({
       posts: results,
-      count: posts.length,
-      isLast: endIndex >= posts.length,
+      count: sortedPosts.length,
+      isLast: endIndex >= sortedPosts.length,
     });
   }
   async getUserPostsMobile(req, res) {

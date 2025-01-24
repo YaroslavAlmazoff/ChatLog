@@ -42,8 +42,8 @@ const UserPosts = ({ showModal, setShowModal }) => {
         return response.data.posts
           ? uniqueObjects(
               [...prev, ...response.data.posts].slice(0, response.data.count)
-            ).reverse()
-          : uniqueObjects(prev.slice(0, response.data.count)).reverse();
+            )
+          : uniqueObjects(prev.slice(0, response.data.count));
       });
       setIsLast(response.data.isLast);
       setLoading(false);
