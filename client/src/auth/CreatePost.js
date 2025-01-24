@@ -146,10 +146,10 @@ const CreatePost = ({ setPosts, setOffset, onClose }) => {
           </button>
           {imagesDisplaying ? (
             <div className="create-post-images-list">
-              {filesData.map((imageUrl) => (
+              {filesData.map((fileData) => (
                 <ImagePreview
                   isDisplaying={true}
-                  url={imageUrl}
+                  data={fileData}
                   onDelete={onImageDelete}
                 />
               ))}
