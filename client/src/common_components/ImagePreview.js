@@ -1,14 +1,14 @@
 import React from "react";
 
-const ImagePreview = ({ isDisplaying, url, onDelete }) => {
+const ImagePreview = ({ isDisplaying, data, onDelete }) => {
   return isDisplaying ? (
     <div>
       <img
-        src={url}
+        src={data.url}
         alt="preview"
         style={{ height: "200px", maxWidth: "100%", objectFit: "cover" }}
       />
-      <span onClick={() => onDelete(url)} className="cancel-button ml">
+      <span onClick={() => onDelete(data)} className="cancel-button ml">
         Удалить
       </span>
     </div>
