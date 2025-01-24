@@ -43,7 +43,7 @@ const CreatePost = ({ setPosts, setOffset, onClose }) => {
     files.forEach((el) => {
       const reader = new FileReader();
       reader.onload = (ev) => {
-        setFilesData((prev) => [...prev, ev.target.result]);
+        setFilesData((prev) => [...prev, { url: ev.target.result, file: el }]);
         setImagesDisplaying(true);
       };
       reader.readAsDataURL(el);
@@ -90,10 +90,19 @@ const CreatePost = ({ setPosts, setOffset, onClose }) => {
     }
   };
 
-  const onImageDelete = (url) => {
-    const indexToRemove = filesData.findIndex((file) => file === url);
-    setFilesData((prev) => prev.filter((_, index) => index != indexToRemove));
-    setFiles((prev) => prev.filter((_, index) => index != indexToRemove));
+  const onImageDelete = (targetFileData) => {
+    const dataIndex = filesData.findIndex(
+      (fileData) =>
+        fileData.file === targetFileData.file &&
+        fileData.url === targetFileData.url
+    );
+    if (dataIndex !== -1) {
+      setFilesData((prev) => prev.filter((_, index) => index !== dataIndex));
+      const fileIndex = files.findIndex((file) => file === targetFileData.file);
+      if (fileIndex !== -1) {
+        setFiles((prev) => prev.filter((_, index) => index !== fileIndex));
+      }
+    }
   };
 
   return (
