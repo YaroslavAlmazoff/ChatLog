@@ -26,7 +26,6 @@ const User = () => {
 
   const [loading, setLoading] = useState(true);
   const [isOwner, setIsOwner] = useState(false);
-  const [posts, setPosts] = useState([]);
   const [friends, setFriends] = useState([]);
   const [subscribes, setSubscribes] = useState([]);
   const [photos, setPhotos] = useState([]);
@@ -59,7 +58,6 @@ const User = () => {
       setUser(response.data.user);
       setFriends(response.data.friends);
       setSubscribes(response.data.subscribes);
-      setPosts(response.data.posts.reverse());
       setPhotos(response.data.photos.reverse());
       setNotifications(response.data.notifications);
       setLoading(false);
@@ -86,8 +84,6 @@ const User = () => {
           setFriends,
           subscribes,
           setSubscribes,
-          posts,
-          setPosts,
           photos,
           setPhotos,
           notifications,
