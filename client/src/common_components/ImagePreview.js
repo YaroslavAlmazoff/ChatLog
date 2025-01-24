@@ -3,7 +3,11 @@ import React from "react";
 const ImagePreview = ({ isDisplaying, url, onDelete }) => {
   return isDisplaying ? (
     <div>
-      <img height="200" src={url} alt="preview" />
+      <img
+        src={url}
+        alt="preview"
+        style={{ height: "200px", maxWidth: "100%", objectFit: "cover" }}
+      />
       <span onClick={() => onDelete(url)} className="cancel-button ml">
         Удалить
       </span>
