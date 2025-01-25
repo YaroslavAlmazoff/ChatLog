@@ -29,9 +29,9 @@ const PhotoAction = () => {
   const getFile = async (e) => {
     let file = e.target.files[0];
     const reader = new FileReader();
-    reader.onload = () => {
+    reader.onload = (event) => {
       setPhotoPreviewIsDisplaying(true);
-      setPhotoPreviewUrl(url);
+      setPhotoPreviewUrl(event.target.result);
       setPublishButtonDisplaying(true);
     };
     reader.readAsDataURL(file);
