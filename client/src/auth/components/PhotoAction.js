@@ -1,6 +1,5 @@
 import { useContext, useRef, useState } from "react";
 import usePhotos from "../hooks/usePhotos";
-import useFiles from "../../common_hooks/files.hook";
 import ImagePreview from "../../common_components/ImagePreview";
 import CommonModal from "../../common_components/Modal/CommonModal";
 import { ProfileContext } from "../context/ProfileContext";
@@ -8,7 +7,6 @@ import { ProfileContext } from "../context/ProfileContext";
 const PhotoAction = () => {
   const { setPhotos } = useContext(ProfileContext);
   const { sendPhoto } = usePhotos();
-  const { emitOpen, getFile } = useFiles();
   const fileRef = useRef();
 
   const [file, setFile] = useState(null);
@@ -24,32 +22,38 @@ const PhotoAction = () => {
     setPhotoPreviewUrl("");
     setFile("");
   };
-  const onFileLoaded = (url) => {
-    setPhotoPreviewIsDisplaying(true);
-    setPhotoPreviewUrl(url);
-    setPublishButtonDisplaying(true);
-  };
 
-  const openModalAndFileSelect = () => {
-    setShowModal(true);
-    emitOpen(fileRef);
+  const emitOpen = () => {
+    fileRef.current.click();
   };
-
-  const getSelectedFile = (e) => {
-    setFile(getFile(e, onFileLoaded));
+  const getFile = async (e) => {
+    let file = e.target.files[0];
+    const reader = new FileReader();
+    reader.onload = () => {
+      setPhotoPreviewIsDisplaying(true);
+      setPhotoPreviewUrl(url);
+      setPublishButtonDisplaying(true);
+    };
+    reader.readAsDataURL(file);
+    setFile(file);
   };
 
   return (
     <>
       {!publishButtonDisplaying && (
         <button
-          onClick={openModalAndFileSelect}
+          onClick={() => setShowModal(true)}
           className="dark-button user-action-button"
         >
           Добавить фотографию
         </button>
       )}
       <CommonModal show={showModal} onClose={() => setShowModal(false)}>
+        {!publishButtonDisplaying && (
+          <button onClick={emitOpen} className="dark-button user-action-button">
+            Загрузить фотографию
+          </button>
+        )}
         {publishButtonDisplaying && (
           <>
             <button
@@ -65,7 +69,7 @@ const PhotoAction = () => {
         )}
         <div>
           <input
-            onChange={(e) => getSelectedFile(e)}
+            onChange={(e) => getFile(e)}
             ref={fileRef}
             type="file"
             accept=".jpg,.jpeg,.png,.gif"
