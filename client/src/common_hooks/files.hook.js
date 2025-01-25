@@ -15,7 +15,7 @@ const useFiles = () => {
   const emitOpen = (ref) => {
     ref.current.click();
   };
-  const getFiles = async (e, onLoad) => {
+  const getFile = async (e, onLoad) => {
     let file = e.target.files[0];
     const reader = new FileReader();
     reader.onload = (ev) => {
@@ -25,7 +25,7 @@ const useFiles = () => {
     return file;
   };
 
-  return { getFileToDownload, emitOpen, getFiles };
+  return { getFileToDownload, emitOpen, getFile };
 };
 
 export default useFiles;
