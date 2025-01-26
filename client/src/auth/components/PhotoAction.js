@@ -39,6 +39,11 @@ const PhotoAction = () => {
     setFile(file);
   };
 
+  const postPhoto = async () => {
+    const photo = await sendPhoto(file);
+    setPhotos((prev) => [photo, ...prev]);
+  };
+
   return (
     <>
       {!publishButtonDisplaying && (
@@ -51,16 +56,24 @@ const PhotoAction = () => {
       )}
       <CommonModal show={showModal} onClose={() => setShowModal(false)}>
         {!publishButtonDisplaying && (
-          <button onClick={emitOpen} className="dark-button user-action-button">
-            Загрузить фотографию
-          </button>
+          <>
+            <button
+              onClick={emitOpen}
+              className="dark-button user-action-button"
+            >
+              Загрузить фотографию
+            </button>
+            <span
+              className="upload-photo-cancel"
+              onClick={() => setShowModal(false)}
+            >
+              Отмена
+            </span>
+          </>
         )}
         {publishButtonDisplaying && (
           <>
-            <button
-              onClick={() => sendPhoto(file, setPhotos)}
-              className="button"
-            >
+            <button onClick={postPhoto} className="button">
               Опубликовать
             </button>
             <span className="upload-photo-cancel" onClick={cancelUploadPhoto}>

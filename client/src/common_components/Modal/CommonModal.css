@@ -29,6 +29,7 @@
   overflow-x: hidden;
   scrollbar-width: thin;
   scrollbar-color: var(--blue-neon) rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .common-modal-close {

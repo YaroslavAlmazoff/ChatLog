@@ -7,7 +7,7 @@ const usePhotos = () => {
   const auth = useContext(AuthContext);
   const { getCurrentDate } = useDate();
 
-  const sendPhoto = async (file, setPhotos) => {
+  const sendPhoto = async (file) => {
     if (file) {
       const currentDate = getCurrentDate();
       const formData = new FormData();
@@ -21,7 +21,7 @@ const usePhotos = () => {
           Authorization: `Bearer ${auth.token}`,
         },
       });
-      setPhotos((prev) => [response.data.photo, ...prev]);
+      return response.data.photo;
     }
   };
   const deletePhoto = async (url, setPhotos) => {
