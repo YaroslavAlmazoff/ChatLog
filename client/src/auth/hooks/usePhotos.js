@@ -21,7 +21,7 @@ const usePhotos = () => {
           Authorization: `Bearer ${auth.token}`,
         },
       });
-      setPhotos((prev) => [{ imageUrl: response.data.filename }, ...prev]);
+      setPhotos((prev) => [response.data.photo, ...prev]);
     }
   };
   const deletePhoto = async (url, setPhotos) => {

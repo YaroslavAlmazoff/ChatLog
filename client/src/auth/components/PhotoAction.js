@@ -17,6 +17,7 @@ const PhotoAction = () => {
   const [showModal, setShowModal] = useState(false);
 
   const cancelUploadPhoto = () => {
+    setShowModal(false);
     setPublishButtonDisplaying(false);
     setPhotoPreviewIsDisplaying(false);
     setPhotoPreviewUrl("");

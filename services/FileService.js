@@ -11,7 +11,7 @@ class FileService {
     ImageService.saveFile(file, filename, "articles");
   }
   //Загрузка файла фотографии
-  async insertUserFoto(file, id, filename) {
+  async insertUserFoto(file, filename) {
     ImageService.saveFile(file, filename, "userfotos");
     return filename;
   }
