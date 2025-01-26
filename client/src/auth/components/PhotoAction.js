@@ -46,14 +46,12 @@ const PhotoAction = () => {
 
   return (
     <>
-      {!publishButtonDisplaying && (
-        <button
-          onClick={() => setShowModal(true)}
-          className="dark-button user-action-button"
-        >
-          Добавить фотографию
-        </button>
-      )}
+      <button
+        onClick={() => setShowModal(true)}
+        className="dark-button user-action-button"
+      >
+        Добавить фотографию
+      </button>
       <CommonModal show={showModal} onClose={() => setShowModal(false)}>
         {!publishButtonDisplaying && (
           <>
