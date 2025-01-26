@@ -41,6 +41,7 @@ const PhotoAction = () => {
 
   const postPhoto = async () => {
     const photo = await sendPhoto(file);
+    setShowModal(false);
     setPhotos((prev) => [photo, ...prev]);
   };
 
