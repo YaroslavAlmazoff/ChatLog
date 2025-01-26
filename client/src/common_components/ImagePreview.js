@@ -8,9 +8,13 @@ const ImagePreview = ({ isDisplaying, data, onDelete }) => {
         alt="preview"
         style={{ height: "200px", maxWidth: "100%", objectFit: "cover" }}
       />
-      <span onClick={() => onDelete(data)} className="cancel-button ml">
-        Удалить
-      </span>
+      {onDelete ? (
+        <span onClick={() => onDelete(data)} className="cancel-button ml">
+          Удалить
+        </span>
+      ) : (
+        <></>
+      )}
     </div>
   ) : null;
 };
