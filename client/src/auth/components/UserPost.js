@@ -81,8 +81,8 @@ const UserPost = ({ post, setPosts }) => {
     <div className="user-post">
       <CommonModal show={showModal} onClose={() => setShowModal(false)}>
         <span>Вы действительно хотите удалить этот пост?</span>
-        <div className="fl">
-          <button className="button-neon-red" onClick={onConfirm}>
+        <div className="flex-start mt10">
+          <button className="button-neon-red mr" onClick={onConfirm}>
             Удалить
           </button>
           <span className="cancel-button" onClick={() => setShowModal(false)}>
