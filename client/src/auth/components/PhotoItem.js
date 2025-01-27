@@ -4,6 +4,7 @@ import { ProfileContext } from "../context/ProfileContext";
 
 const PhotoItem = ({ photo }) => {
   const { deletePhoto } = usePhotos();
+  const { setPhotos } = useContext(ProfileContext);
   const { isOwner } = useContext(ProfileContext);
   return (
     <div className="foto-div">
@@ -15,7 +16,7 @@ const PhotoItem = ({ photo }) => {
       {isOwner && (
         <span
           className="delete-foto"
-          onClick={() => deletePhoto(photo.imageUrl)}
+          onClick={() => deletePhoto(photo.imageUrl, setPhotos)}
         >
           Удалить
         </span>
