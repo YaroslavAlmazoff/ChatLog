@@ -61,7 +61,9 @@ const UserPosts = ({ showModal, setShowModal }) => {
           {!loading && !posts[0] ? (
             <p className="nothing">Здесь нет постов.</p>
           ) : (
-            posts.map((el) => <UserPost key={el._id} post={el} />)
+            posts.map((el) => (
+              <UserPost key={el._id} post={el} setPosts={setPosts} />
+            ))
           )}
         </div>
       </div>

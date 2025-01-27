@@ -8,10 +8,10 @@ import CommonModal from "../../common_components/Modal/CommonModal";
 import useHighlight from "../../common_hooks/highlight.hook";
 import { ProfileContext } from "../context/ProfileContext";
 
-const UserPost = ({ post }) => {
+const UserPost = ({ post, setPosts }) => {
   const auth = useContext(AuthContext);
   const { randomColor, randomShadow } = useHighlight();
-  const { posts, setPosts, isOwner } = useContext(ProfileContext);
+  const { isOwner } = useContext(ProfileContext);
   const [image, setImage] = useState("");
   const [mainImageLoading, setMainImageLoading] = useState(true);
   const [commentsDisplay, setCommentsDisplay] = useState(false);
@@ -57,12 +57,12 @@ const UserPost = ({ post }) => {
     }
   };
   const deletePost = async () => {
-    setPosts([...posts].filter((el) => el._id !== post._id));
     await api.delete(`/api/deleteuserpost/${post._id}`, {
       headers: {
         Authorization: `Bearer ${auth.token}`,
       },
     });
+    setPosts((prev) => [...prev].filter((el) => el._id !== post._id));
   };
   const toggleCommentsDisplay = () => {
     if (commentsDisplay) {
