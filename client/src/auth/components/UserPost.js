@@ -17,6 +17,7 @@ const UserPost = ({ post, setPosts }) => {
   const [commentsDisplay, setCommentsDisplay] = useState(false);
   const [comments, setComments] = useState([]);
   const [showModal, setShowModal] = useState(false);
+  const [liked, setLiked] = useState(false);
 
   useEffect(() => {
     const getComments = async () => {
@@ -31,6 +32,7 @@ const UserPost = ({ post, setPosts }) => {
       });
       if (response.data.liked) {
         setLike(require("../../img/red-like.png"));
+        setLiked(true);
       }
     };
     getComments();
@@ -51,9 +53,11 @@ const UserPost = ({ post, setPosts }) => {
     if (response.data.liked) {
       setLikesCount(likesCount + 1);
       setLike(require("../../img/red-like.png"));
+      setLiked(true);
     } else {
       setLikesCount(likesCount - 1);
       setLike(require("../../img/blue-like.png"));
+      setLiked(false);
     }
   };
   const deletePost = async () => {
@@ -135,7 +139,7 @@ const UserPost = ({ post, setPosts }) => {
         ) : null}
         <img
           onClick={mark}
-          className="block user-post-like"
+          className={`${liked ? "red-block" : "block"} user-post-like`}
           src={like}
           alt=""
         />

@@ -108,6 +108,12 @@
   animation-iteration-count: infinite;
   border-radius: 11px;
 }
+.red-block {
+  animation-name: red-glow;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  border-radius: 11px;
+}
 .move-glow-block {
   animation-name: move-glow;
   animation-duration: 2s;
@@ -133,6 +139,17 @@
   }
   100% {
     box-shadow: 0 0 8px #40a4ff;
+  }
+}
+@keyframes red-glow {
+  0% {
+    box-shadow: 0 0 7px #ff073a;
+  }
+  50% {
+    box-shadow: 0 0 16px #ff073a;
+  }
+  100% {
+    box-shadow: 0 0 8px #ff073a;
   }
 }
 @keyframes move-glow {

@@ -16,6 +16,7 @@ const Post = ({ item, isAdmin, deletePost }) => {
   const [like, setLike] = useState(require("../../../../img/blue-like.png"));
   const [likesCount, setLikesCount] = useState();
   const [comments, setComments] = useState([]);
+  const [liked, setLiked] = useState(false);
 
   useEffect(() => {
     if (item.liked) {
@@ -38,9 +39,11 @@ const Post = ({ item, isAdmin, deletePost }) => {
     if (response.data.liked) {
       setLikesCount(likesCount + 1);
       setLike(require("../../../../img/red-like.png"));
+      setLiked(true);
     } else {
       setLikesCount(likesCount - 1);
       setLike(require("../../../../img/blue-like.png"));
+      setLiked(false);
     }
   };
 
@@ -86,7 +89,7 @@ const Post = ({ item, isAdmin, deletePost }) => {
             <img
               style={
                 process.env.REACT_APP_API_URL + "/publicposts/" + el === image
-                  ? { border: "1px solid rgb(0, 140, 255)" }
+                  ? { border: "1px solid #40a4ff" }
                   : { border: "none" }
               }
               onClick={() =>
@@ -100,7 +103,12 @@ const Post = ({ item, isAdmin, deletePost }) => {
         {likesCount > 0 ? (
           <span style={{ color: "white" }}>{likesCount}</span>
         ) : null}
-        <img onClick={mark} className="user-post-like" src={like} alt="" />
+        <img
+          onClick={mark}
+          className={`${liked ? "red-block" : "block"} user-post-like`}
+          src={like}
+          alt=""
+        />
         {comments.length ? (
           <span style={{ color: "white" }}>{comments.length}</span>
         ) : null}

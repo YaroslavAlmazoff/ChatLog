@@ -19,10 +19,12 @@ const PublicNewsPost = ({ post }) => {
   const [comments, setComments] = useState([]);
   const [like, setLike] = useState(require("../../../../img/blue-like.png"));
   const [likesCount, setLikesCount] = useState();
+  const [liked, setLiked] = useState(false);
 
   useEffect(() => {
     if (post.liked) {
       setLike(require("../../../../img/red-like.png"));
+      setLiked(true);
     }
     setImage(process.env.REACT_APP_API_URL + "/publicposts/" + post.images[0]);
     setLikesCount(post.likes);
@@ -41,9 +43,11 @@ const PublicNewsPost = ({ post }) => {
     if (response.data.liked) {
       setLikesCount(likesCount + 1);
       setLike(require("../../../../img/red-like.png"));
+      setLiked(true);
     } else {
       setLikesCount(likesCount - 1);
       setLike(require("../../../../img/blue-like.png"));
+      setLiked(false);
     }
   };
 
@@ -92,7 +96,7 @@ const PublicNewsPost = ({ post }) => {
                       style={
                         process.env.REACT_APP_API_URL + "/publicposts/" + el ===
                         image
-                          ? { border: "1px solid rgb(0, 140, 255)" }
+                          ? { border: "1px solid #40a4ff" }
                           : { border: "none" }
                       }
                       onClick={() =>
@@ -110,7 +114,7 @@ const PublicNewsPost = ({ post }) => {
                 ) : null}
                 <img
                   onClick={mark}
-                  className="block user-post-like"
+                  className={`${liked ? "red-block" : "block"} user-post-like`}
                   src={like}
                   alt=""
                 />
