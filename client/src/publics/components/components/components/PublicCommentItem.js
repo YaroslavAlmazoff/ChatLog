@@ -12,6 +12,7 @@ const PublicCommentItem = ({ item }) => {
     require("../../../../img/blue-like.png")
   );
   const [likesCount, setLikesCount] = useState(0);
+  const [liked, setLiked] = useState(false);
 
   useEffect(() => {
     const getUser = async () => {
@@ -28,6 +29,7 @@ const PublicCommentItem = ({ item }) => {
       });
       if (response.data.liked) {
         setLikeImg(require("../../../../img/red-like.png"));
+        setLiked(true);
       }
     };
     checkLike();
@@ -43,10 +45,12 @@ const PublicCommentItem = ({ item }) => {
       setLikeImg(require("../../../../img/red-like.png"));
       setLikesCount(likesCount + 1);
       setIsLike(true);
+      setLiked(true);
     } else {
       setLikeImg(require("../../../../img/blue-like.png"));
       setLikesCount(likesCount - 1);
       setIsLike(false);
+      setLiked(false);
     }
   };
 
@@ -63,7 +67,9 @@ const PublicCommentItem = ({ item }) => {
             {likesCount}
           </span>
           <img
-            className="block videohost-comment-item-like-img"
+            className={`${
+              liked ? "red-block" : "block"
+            } videohost-comment-item-like-img`}
             src={likeImg}
             alt=""
           />
