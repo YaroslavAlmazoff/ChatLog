@@ -42,7 +42,8 @@ const FriendsAction = () => {
   } else
     return (
       <>
-        {notificationSent ? <h3>Вы отправили заявку в друзья</h3> : <></>}
+        {notificationSent && <h3>Вы отправили заявку в друзья</h3>}
+        {isFriends && <h3>У Вас в друзьях</h3>}
         {friendsButtonDisplaying ? (
           <button onClick={makeFriends} className="user-action dark-button">
             Добавить в друзья
