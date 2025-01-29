@@ -95,6 +95,7 @@
   width: 20px;
   margin: 5px;
   filter: brightness(200%);
+  cursor: pointer;
 }
 .videohost-comment-item-likes-count {
   color: white;
