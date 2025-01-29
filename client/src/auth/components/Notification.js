@@ -16,7 +16,6 @@ const Notification = ({ notification }) => {
   const { token } = useContext(AuthContext);
   const params = useParams();
   const reply = async (itog) => {
-    hint("Теперь вы друзья");
     setNotifications(
       [...notifications].filter((el) => el.title !== notification.title)
     );
@@ -26,8 +25,10 @@ const Notification = ({ notification }) => {
     if (!itog) {
       hint("Вы отклонили заявку в друзья.");
       return;
+    } else {
+      hint("Теперь вы друзья");
     }
-    await api.get(`/api/reply/${notification.from}`, {
+    await api.get(`/api/reply/${notification.to}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

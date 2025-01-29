@@ -501,6 +501,11 @@ audio {
 .ml0 {
   margin-left: 0;
 }
+
+.pointer {
+  cursor: pointer;
+}
+
 .center-column {
   display: flex;
   align-items: center;

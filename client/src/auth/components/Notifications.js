@@ -11,7 +11,9 @@ const Notifications = ({ setShowNotifications }) => {
     <div>
       <p className="notifications-title">
         Уведомления |{" "}
-        <span onClick={() => setShowNotifications(false)}>Закрыть</span>
+        <span onClick={() => setShowNotifications(false)} className="pointer">
+          Закрыть
+        </span>
       </p>
       {notifications.length ? (
         notifications.map((el) => (
