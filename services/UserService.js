@@ -48,7 +48,7 @@ class UserService {
       photos,
       friends,
       subscribes,
-      notifications: processedNotifications,
+      notifications: processedNotifications.reverse(),
     });
   }
   async findUserById(req, res) {
