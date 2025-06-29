@@ -15,6 +15,7 @@ const PortfolioApp = ({ app }) => {
       >
         Скачать APK
       </a>
+      <br />
     </div>
   );
 };
