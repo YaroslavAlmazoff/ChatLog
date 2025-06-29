@@ -11,12 +11,12 @@ const Portfolio = () => {
         image: "chatlog.jpg",
       },
       {
-        title: "Сайт про космос Космотория (старый)",
+        title: "Сайт Космотория (старый)",
         link: "https://cosmotoryia.ru",
         image: "cosmotoryia.jpg",
       },
       {
-        title: "Сайт про космос Космотория (новый)",
+        title: "Сайт Космотория (новый)",
         link: "https://cosmotoriya.ru",
         image: "cosmotoriya.jpg",
       },

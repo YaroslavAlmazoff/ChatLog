@@ -9,8 +9,8 @@ const PortfolioSite = ({ site }) => {
         description="Screenshot"
       />
       <p>{site.title}</p>
-      <a className="portfolio-link" href={site.download}>
-        {site.download}
+      <a className="portfolio-link" href={site.link}>
+        {site.link}
       </a>
     </div>
   );
