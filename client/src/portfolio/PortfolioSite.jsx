@@ -2,7 +2,7 @@ const PortfolioSite = ({ site }) => {
   return (
     <div>
       <img
-        src={process.env.REACT_APP_API_URL + `/portfolio/${app.image}`}
+        src={process.env.REACT_APP_API_URL + `/portfolio/${site.image}`}
         description="Screenshot"
       />
       <p>{site.title}</p>

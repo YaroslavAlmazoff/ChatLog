@@ -82,11 +82,25 @@ const Portfolio = () => {
 
   return (
     <div>
-      <p>Портфолио Кижаева Ярослава Романовича</p>
+      <p className="portfolio-main-title">
+        Портфолио Кижаева Ярослава Романовича (Yaroslav Almazoff - это мой
+        псевдоним)
+      </p>
       <hr />
-      <p>Мой Github: https://github.com/YaroslavAlmazoff</p>
       <p>
-        Мой YouTube-канал: https://www.youtube.com/@yaroslavalmazoff
+        Мой Github:
+        <a
+          className="portfolio-link"
+          href="https://github.com/YaroslavAlmazoff"
+        >
+          https://github.com/YaroslavAlmazoff
+        </a>
+      </p>
+      <p>
+        Мой YouTube-канал:{" "}
+        <a href="https://www.youtube.com/@yaroslavalmazoff">
+          https://www.youtube.com/@yaroslavalmazoff
+        </a>
         <br />
         Если не работает YouTube, я есть на Rutube:
         https://rutube.ru/channel/34271160/
