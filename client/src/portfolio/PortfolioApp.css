@@ -1,0 +1,6 @@
+.portfolio-app {
+  width: 20%;
+  display: flex;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 15px;
+}

@@ -1,5 +1,6 @@
 import PortfolioApp from "./PortfolioApp";
 import PortfolioSite from "./PortfolioSite";
+import "./Portfolio.css";
 
 const Portfolio = () => {
   const projects = {
@@ -81,14 +82,14 @@ const Portfolio = () => {
   };
 
   return (
-    <div>
+    <div className="portfolio">
       <p className="portfolio-main-title">
         📔 Портфолио Кижаева Ярослава Романовича (Yaroslav Almazoff - это мой
         псевдоним)
       </p>
       <hr />
       <p>
-        Мой Github:
+        Мой Github:&nbsp;
         <a
           className="portfolio-link"
           href="https://github.com/YaroslavAlmazoff"
@@ -97,7 +98,7 @@ const Portfolio = () => {
         </a>
       </p>
       <p>
-        Мой YouTube-канал:
+        Мой YouTube-канал:&nbsp;
         <a href="https://www.youtube.com/@yaroslavalmazoff">
           https://www.youtube.com/@yaroslavalmazoff
         </a>
@@ -112,7 +113,7 @@ const Portfolio = () => {
       ))}
       <p className="portfolio-title">Android-приложения и игры</p>
       <p>
-        ❕Чтобы посмотреть описание, щелкните на иконку или название приложения.
+        ❕Чтобы посмотреть описание, щелкните по иконке или названию приложения.
       </p>
       {projects.apps.map((app) => (
         <PortfolioApp app={app} />

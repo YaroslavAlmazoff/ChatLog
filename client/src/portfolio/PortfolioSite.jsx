@@ -1,3 +1,5 @@
+import "./PortfolioSite.css";
+
 const PortfolioSite = ({ site }) => {
   return (
     <div>
