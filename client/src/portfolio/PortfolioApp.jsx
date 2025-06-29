@@ -5,11 +5,6 @@ const PortfolioApp = ({ app }) => {
     <div className="portfolio-app">
       <img
         className="portfolio-app-image"
-        style={
-          app.download == "orbital-havoc.apk"
-            ? { transform: "rotate(90deg)" }
-            : { transform: "rotate(0deg)" }
-        }
         src={process.env.REACT_APP_API_URL + `/portfolio/${app.image}`}
         description="Screenshot"
       />
