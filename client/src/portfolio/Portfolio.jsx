@@ -8,22 +8,22 @@ const Portfolio = () => {
       {
         title: "Социальная сеть ChatLog",
         link: "https://chatlog.ru",
-        image: "",
+        image: "chatlog.jpg",
       },
       {
         title: "Сайт про космос Космотория (старый)",
         link: "https://cosmotoryia.ru",
-        image: "",
+        image: "cosmotoryia.jpg",
       },
       {
         title: "Сайт про космос Космотория (новый)",
         link: "https://cosmotoriya.ru",
-        image: "",
+        image: "cosmotoriya.jpg",
       },
       {
         title: "Сайт-галерея для продажи картин",
         link: "https://kiosk-art.ru",
-        image: "",
+        image: "kiosk-art.jpg",
       },
     ],
     apps: [
@@ -32,9 +32,9 @@ const Portfolio = () => {
         description:
           "Мое первое приложение Android. Создавалось на языке Kotlin при помощи Android Studio.",
         link: "https://www.rustore.ru/catalog/app/com.chatlog.aep",
-        download: "https://chatlog.ru/portfolio/chatlog-astro.apk",
-        image: "https://chatlog.ru/portfolio/chatlog-astro.jpg",
-        logo: "https://chatlog.ru/portfolio/chatlog-astro.png",
+        download: "chatlog-astro.apk",
+        image: "chatlog-astro.jpg",
+        logo: "chatlog-astro.png",
       },
       {
         title: "MediaPlayer",
@@ -42,41 +42,34 @@ const Portfolio = () => {
           Создавался по принципам Clean Architecture с паттерном MVVM в программе Android Studio. 
           Использовались такие технологии, как: Kotlin, Jetpack 
           Compose, Hilt, Kotlin Coroutines & Flow, Room, ExoPlayer.`,
-        download: "https://chatlog.ru/portfolio/mediaplayer.apk",
-        image: "https://chatlog.ru/portfolio/mediaplayer.jpg",
-        logo: "https://chatlog.ru/portfolio/mediaplayer.png",
+        download: "media-player.apk",
+        image: "media-player.jpg",
+        logo: "media-player.png",
       },
       {
         title: "Reminder",
         description: `Приложение для создания напоминаний. 
         В указанные дату и время приложение отправляет уведомление с напоминанием. 
         Создавалось с использованием Kotlin и Jetpack Compose в Android Studio.`,
-        download: "https://chatlog.ru/portfolio/reminder.apk",
-        image: "https://chatlog.ru/portfolio/reminder.jpg",
-        logo: "https://chatlog.ru/portfolio/reminder.png",
-      },
-      {
-        title: "Диктофон",
-        description: `Простое приложение для записи голосовых сообщений. Создавалось на Kotlin в Android Studio.`,
-        download: "https://chatlog.ru/portfolio/voice-recorder.apk",
-        image: "https://chatlog.ru/portfolio/voice-recorder.jpg",
-        logo: "https://chatlog.ru/portfolio/voice-recorder.png",
+        download: "reminder.apk",
+        image: "reminder.jpg",
+        logo: "reminder.png",
       },
       {
         title: "Фонарик",
         description: `В приложении реализован полезный расширенный функционал обычного фонарика: сигнал SOS и режим с регулируемой частотой вспышек. 
         Само приложение выполнено с необычным дизайном. Создавалось на Kotlin в Android Studio.`,
-        download: "https://chatlog.ru/portfolio/flashlight.apk",
-        image: "https://chatlog.ru/portfolio/flashlight.jpg",
-        logo: "https://chatlog.ru/portfolio/flashlight.png",
+        download: "flashlight.apk",
+        image: "flashlight.jpg",
+        logo: "flashlight.png",
       },
       {
         title: "Orbital Havoc",
         description:
           "Моя первая и единственная игра, созданная с помощью движка Unity. Цель игры проста: как можно дольше продержаться на орбите Земли, уничтожая астероиды.",
-        download: "https://chatlog.ru/portfolio/orbital-havoc.apk",
-        image: "https://chatlog.ru/portfolio/orbital-havoc.jpg",
-        logo: "https://chatlog.ru/portfolio/orbital-havoc.png",
+        download: "orbital-havoc.apk",
+        image: "orbital-havoc.jpg",
+        logo: "orbital-havoc.png",
       },
     ],
   };

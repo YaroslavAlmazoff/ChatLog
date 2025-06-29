@@ -2,7 +2,7 @@ import { useState, useRef } from "react";
 import api from "../auth/api/auth";
 
 const AddImage = () => {
-  const [text, setText] = useState("");
+  const [text, setText] = useState("portfolio");
   const [name, setName] = useState("");
   const [file, setFile] = useState("");
 
