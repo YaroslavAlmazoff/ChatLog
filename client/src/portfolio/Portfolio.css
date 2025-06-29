@@ -1,6 +1,17 @@
+.portfolio {
+  width: 100%;
+  color: white;
+  height: auto;
+}
 .portfolio-main-title {
   font-size: 24pt;
 }
 .portfolio-link {
   color: #40a4ff;
+}
+.portfolio-projects-title {
+  font-size: 20pt;
+}
+.portfolio-title {
+  font-size: 18pt;
 }

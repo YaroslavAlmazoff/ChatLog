@@ -83,7 +83,7 @@ const Portfolio = () => {
   return (
     <div>
       <p className="portfolio-main-title">
-        Портфолио Кижаева Ярослава Романовича (Yaroslav Almazoff - это мой
+        📔 Портфолио Кижаева Ярослава Романовича (Yaroslav Almazoff - это мой
         псевдоним)
       </p>
       <hr />
@@ -97,7 +97,7 @@ const Portfolio = () => {
         </a>
       </p>
       <p>
-        Мой YouTube-канал:{" "}
+        Мой YouTube-канал:
         <a href="https://www.youtube.com/@yaroslavalmazoff">
           https://www.youtube.com/@yaroslavalmazoff
         </a>
@@ -105,14 +105,14 @@ const Portfolio = () => {
         Если не работает YouTube, я есть на Rutube:
         https://rutube.ru/channel/34271160/
       </p>
-      <p>Мои проекты</p>
-      <p>Сайты</p>
+      <p className="portfolio-projects-title">Мои проекты 💻</p>
+      <p className="portfolio-title">Сайты</p>
       {projects.sites.map((site) => (
         <PortfolioSite site={site} />
       ))}
-      <p>Android-приложения и игры</p>
+      <p className="portfolio-title">Android-приложения и игры</p>
       <p>
-        Чтобы посмотреть описание, щелкните на иконку или название приложения.
+        ❕Чтобы посмотреть описание, щелкните на иконку или название приложения.
       </p>
       {projects.apps.map((app) => (
         <PortfolioApp app={app} />
