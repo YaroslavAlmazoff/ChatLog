@@ -4,11 +4,14 @@ const PortfolioSite = ({ site }) => {
   return (
     <div className="portfolio-site">
       <img
+        className="portfolio-site-image"
         src={process.env.REACT_APP_API_URL + `/portfolio/${site.image}`}
         description="Screenshot"
       />
       <p>{site.title}</p>
-      <a href={site.download}>{site.title}</a>
+      <a className="portfolio-link" href={site.download}>
+        {site.download}
+      </a>
     </div>
   );
 };
