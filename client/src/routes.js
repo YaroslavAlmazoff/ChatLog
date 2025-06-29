@@ -68,6 +68,7 @@ import Friends from "./auth/Friends";
 import Subscribes from "./auth/Subscribes";
 import Room from "./messenger/components/pages/Room";
 import TestPage from "./messenger/components/pages/TestPage";
+import Portfolio from "./portfolio/Portfolio";
 //import { ESRoomUpdated } from "./messenger/components/pages/ESRoomUpdated";
 
 export const useRoutes = () => {
@@ -76,6 +77,7 @@ export const useRoutes = () => {
     <Routes>
       <Route path="*" element={<Navigate to="/" />} />
       <Route exact path="/" element={<Main />} />
+      <Route exact path="/portfolio" element={<Portfolio />} />
       <Route exact path="/services" element={<Services />} />
       <Route exact path="/admin" element={<Admin />} />
       <Route exact path="/cloud" element={<FileStorage />} />
