@@ -1,7 +1,24 @@
-.portfolio {
-  width: 100%;
-  color: white;
-  height: auto;
+@media screen and (width > 2000px) {
+  .portfolio {
+    width: 60%;
+    color: white;
+    height: auto;
+  }
+}
+@media screen and (width > 500px) {
+  .portfolio {
+    width: 80%;
+    color: white;
+    height: auto;
+  }
+}
+
+@media screen and (width > 500px) {
+  .portfolio {
+    width: 100%;
+    color: white;
+    height: auto;
+  }
 }
 .portfolio-main-title {
   font-size: 24pt;
@@ -14,4 +31,10 @@
 }
 .portfolio-title {
   font-size: 18pt;
+}
+.portfolio-projects-list {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
 }
