@@ -2,7 +2,7 @@ import "./PortfolioApp.css";
 
 const PortfolioApp = ({ app }) => {
   return (
-    <div>
+    <div className="portfolio-app">
       <img
         src={process.env.REACT_APP_API_URL + `/portfolio/${app.image}`}
         description="Screenshot"
