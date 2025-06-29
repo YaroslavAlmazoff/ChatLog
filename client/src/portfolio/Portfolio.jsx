@@ -105,7 +105,8 @@ const Portfolio = () => {
         >
           https://www.youtube.com/@yaroslavalmazoff
         </a>
-        <br />
+      </p>
+      <p>
         Если не работает YouTube, я есть на Rutube:
         <a
           className="portfolio-link"
