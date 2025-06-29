@@ -26,7 +26,6 @@ const AddImage = () => {
     formData.append("name", name);
     formData.append("file", file);
 
-    setText("");
     setName("");
     setFile("");
 
