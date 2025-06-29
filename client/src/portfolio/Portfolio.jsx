@@ -107,13 +107,21 @@ const Portfolio = () => {
         </a>
       </p>
       <p>
-        Если не работает YouTube, я есть на Rutube:
+        Если не работает YouTube, я есть на Rutube:&nbsp;
         <a
           className="portfolio-link"
           href="https://rutube.ru/channel/34271160/"
         >
           https://rutube.ru/channel/34271160/
         </a>
+      </p>
+      <p>
+        <span>Коротко обо мне:&nbsp;</span>
+        Разработчик-энтузиаст, серьезно увлекаюсь программированием на JS и
+        Kotlin. Мой первый сайт попал в Интернет в далеком 2017 году. В прошлом
+        году на него заходило несколько сотен человек в день согласно метрике. В
+        2023 году открыл свой YouTube-канал на тему программирования. Хочу
+        погрузиться в тему искусственного интеллекта и развиваться в этой сфере.
       </p>
       <p className="portfolio-projects-title">Мои проекты 💻</p>
       <p className="portfolio-title">Сайты</p>
@@ -131,6 +139,8 @@ const Portfolio = () => {
           <PortfolioApp app={app} />
         ))}
       </div>
+      <br />
+      <br />
     </div>
   );
 };
