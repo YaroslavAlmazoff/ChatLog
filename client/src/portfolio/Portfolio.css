@@ -6,9 +6,18 @@
     background-color: rgba(0, 0, 0, 0.75);
   }
 }
-@media screen and (width > 500px) {
+@media screen and (width > 1000px) {
   .portfolio {
     width: 80vw;
+    color: white;
+    height: auto;
+    background-color: rgba(0, 0, 0, 0.75);
+  }
+}
+
+@media screen and (width > 500px) {
+  .portfolio {
+    width: 100vw;
     color: white;
     height: auto;
     background-color: rgba(0, 0, 0, 0.75);
@@ -40,4 +49,5 @@
   align-items: center;
   justify-content: center;
   flex-direction: row;
+  flex-wrap: wrap;
 }

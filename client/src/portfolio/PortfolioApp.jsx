@@ -2,7 +2,7 @@ import "./PortfolioApp.css";
 
 const PortfolioApp = ({ app }) => {
   return (
-    <div className="portfolio-app">
+    <div className="portfolio-app portfolio-app-width">
       <img
         className="portfolio-app-image"
         src={process.env.REACT_APP_API_URL + `/portfolio/${app.image}`}

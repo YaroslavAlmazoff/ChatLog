@@ -1,11 +1,26 @@
 .portfolio-app {
-  width: 20%;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   background-color: rgba(0, 0, 0, 0.5);
   border-radius: 15px;
+}
+
+@media screen and (width > 1000px) {
+  .portfolio-app-width {
+    width: 20%;
+  }
+}
+@media screen and (width > 600px) {
+  .portfolio-app-width {
+    width: 50%;
+  }
+}
+@media screen and (width < 600px) {
+  .portfolio-app-width {
+    width: 98%;
+  }
 }
 
 .portfolio-app-title {
