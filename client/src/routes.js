@@ -77,7 +77,7 @@ export const useRoutes = () => {
     <Routes>
       <Route path="*" element={<Navigate to="/" />} />
       <Route exact path="/" element={<Main />} />
-      <Route exact path="/portfolio" element={<Portfolio />} />
+      <Route path="/portfolio" element={<Portfolio />} />
       <Route exact path="/services" element={<Services />} />
       <Route exact path="/admin" element={<Admin />} />
       <Route exact path="/cloud" element={<FileStorage />} />
@@ -105,6 +105,7 @@ export const useRoutes = () => {
       <Route path="/support" element={<SupportPage />} />
       <Route path="/register" element={<Register />} />
       <Route path="/login" element={<Login />} />
+      <Route path="/portfolio" element={<Portfolio />} />
       <Route exact path="/publics" element={<PublicsPage />} />
       <Route exact path="/public/:id" element={<PublicPage />} />
       <Route exact path="/createpublic" element={<CreatePage />} />

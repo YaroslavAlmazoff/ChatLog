@@ -17,6 +17,7 @@ const Header = () => {
   const notAuthorizedLinks = [
     { name: "Регистрация", route: "/register" },
     { name: "Вход", route: "/login" },
+    { name: "Мое портфолио", route: "/portfolio" },
   ];
 
   const markLink = (link) => {
