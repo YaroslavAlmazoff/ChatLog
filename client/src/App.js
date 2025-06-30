@@ -13,16 +13,16 @@ function App() {
   const { login, logout, token, userId, authenticated, activated } = useAuth();
 
   console.log(window.location.pathname);
-  console.log(window.location.pathname === "/portfolio");
+  console.log(window.location.pathname === "/portfolio/");
 
   return (
     <>
       {(token && userId) ||
-      window.location.pathname === "/greeting" ||
-      window.location.pathname === "/login" ||
-      window.location.pathname === "/register" ||
-      window.location.pathname === "/support" ||
-      window.location.pathname === "/portfolio" ? (
+      window.location.pathname === "/greeting/" ||
+      window.location.pathname === "/login/" ||
+      window.location.pathname === "/register/" ||
+      window.location.pathname === "/support/" ||
+      window.location.pathname === "/portfolio/" ? (
         <AuthContext.Provider
           value={{ login, logout, token, userId, authenticated, activated }}
         >
