@@ -86,6 +86,7 @@ const Portfolio = () => {
         <a
           className="portfolio-link"
           href="https://github.com/YaroslavAlmazoff"
+          target="_blank"
         >
           https://github.com/YaroslavAlmazoff
         </a>
@@ -95,6 +96,7 @@ const Portfolio = () => {
         <a
           className="portfolio-link"
           href="https://www.youtube.com/@yaroslavalmazoff"
+          target="_blank"
         >
           https://www.youtube.com/@yaroslavalmazoff
         </a>
@@ -104,6 +106,7 @@ const Portfolio = () => {
         <a
           className="portfolio-link"
           href="https://rutube.ru/channel/34271160/"
+          target="_blank"
         >
           https://rutube.ru/channel/34271160/
         </a>
