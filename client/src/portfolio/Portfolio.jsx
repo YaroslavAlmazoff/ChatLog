@@ -7,7 +7,7 @@ const Portfolio = () => {
     sites: [
       {
         title: "Социальная сеть ChatLog",
-        link: "https://chatlog.ru",
+        link: "https://chatlog.ru/greeting",
         image: "chatlog.jpg",
       },
       {

@@ -2,20 +2,20 @@ import { useContext, useEffect } from "react";
 import { AuthContext } from "./context/AuthContext";
 
 const Main = () => {
-  const { authenticated } = useContext(AuthContext);
+  // const { authenticated } = useContext(AuthContext);
 
-  useEffect(() => {
-    if (authenticated) {
-      window.location = "/home";
-    } else {
-      if (
-        window.location.pathname !== "/portfolio" &&
-        window.location.pathname !== "/portfolio/"
-      ) {
-        window.location = "/greeting";
-      }
-    }
-  }, [authenticated]);
+  // useEffect(() => {
+  //   if (authenticated) {
+  //     window.location = "/home";
+  //   } else {
+  //     if (
+  //       window.location.pathname !== "/portfolio" &&
+  //       window.location.pathname !== "/portfolio/"
+  //     ) {
+  //       window.location = "/greeting";
+  //     }
+  //   }
+  // }, [authenticated]);
   return <div></div>;
 };
 
