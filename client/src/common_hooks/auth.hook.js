@@ -34,6 +34,9 @@ export const useAuth = () => {
   useEffect(() => {
     const getData = async () => {
       const data = JSON.parse(localStorage.getItem(storageName));
+      const isPortfolio =
+        (window.location.pathname === window.location.pathname) ===
+          "/portfolio/" || window.location.pathname === "/portfolio";
       if (data) {
         const response = await api.get("/api/refresh", {
           headers: {
@@ -45,10 +48,10 @@ export const useAuth = () => {
 
         const { verified, activated, greeting, token, userId } = response.data;
 
+        if (isPortfolio) return;
         if (greeting) return navigate("/greeting");
         if (!verified) return navigate("/login");
         if (!activated) return navigate("/notactivated");
-
         login(token, userId);
       } else if (
         window.location.pathname === "/greeting" ||
