@@ -35,8 +35,8 @@ export const useAuth = () => {
     const getData = async () => {
       const data = JSON.parse(localStorage.getItem(storageName));
       const isPortfolio =
-        (window.location.pathname === window.location.pathname) ===
-          "/portfolio/" || window.location.pathname === "/portfolio";
+        window.location.pathname === "/portfolio/" ||
+        window.location.pathname === "/portfolio";
       if (data) {
         const response = await api.get("/api/refresh", {
           headers: {
