@@ -8,7 +8,12 @@ const Main = () => {
     if (authenticated) {
       window.location = "/home";
     } else {
-      window.location = "/greeting";
+      if (
+        window.location.pathname !== "/portfolio" &&
+        window.location.pathname !== "/portfolio/"
+      ) {
+        window.location = "/greeting";
+      }
     }
   }, [authenticated]);
   return <div></div>;
