@@ -12,6 +12,9 @@ function App() {
 
   const { login, logout, token, userId, authenticated, activated } = useAuth();
 
+  console.log(window.location.pathname);
+  console.log(window.location.pathname === "/portfolio");
+
   return (
     <>
       {(token && userId) ||
