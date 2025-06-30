@@ -7,14 +7,9 @@
   border-radius: 15px;
 }
 
-@media screen and (width > 1000px) {
-  .portfolio-app-width {
-    width: 20%;
-  }
-}
 @media screen and (width > 600px) {
   .portfolio-app-width {
-    width: 50%;
+    width: 20%;
   }
 }
 @media screen and (width < 600px) {

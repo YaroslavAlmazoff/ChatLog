@@ -6,7 +6,7 @@
     background-color: rgba(0, 0, 0, 0.75);
   }
 }
-@media screen and (width > 1000px) {
+@media screen and (width > 600px) {
   .portfolio {
     width: 80vw;
     color: white;
@@ -15,23 +15,15 @@
   }
 }
 
-@media screen and (width > 500px) {
+@media screen and (width < 600px) {
   .portfolio {
-    width: 100vw;
+    width: 98vw;
     color: white;
     height: auto;
     background-color: rgba(0, 0, 0, 0.75);
   }
 }
 
-@media screen and (width < 500px) {
-  .portfolio {
-    width: 100vw;
-    color: white;
-    height: auto;
-    background-color: rgba(0, 0, 0, 0.75);
-  }
-}
 .portfolio-main-title {
   font-size: 24pt;
 }
