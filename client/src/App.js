@@ -18,7 +18,8 @@ function App() {
       window.location.pathname === "/greeting" ||
       window.location.pathname === "/login" ||
       window.location.pathname === "/register" ||
-      window.location.pathname === "/support" ? (
+      window.location.pathname === "/support" ||
+      window.location.pathname === "/portfolio" ? (
         <AuthContext.Provider
           value={{ login, logout, token, userId, authenticated, activated }}
         >
