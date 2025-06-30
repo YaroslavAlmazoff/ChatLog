@@ -18,6 +18,7 @@ function App() {
   return (
     <>
       {(token && userId) ||
+      window.location.pathname === "/" ||
       window.location.pathname === "/greeting/" ||
       window.location.pathname === "/login/" ||
       window.location.pathname === "/register/" ||
