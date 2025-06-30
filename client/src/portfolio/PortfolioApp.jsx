@@ -12,6 +12,7 @@ const PortfolioApp = ({ app }) => {
       <a
         className="portfolio-link"
         href={process.env.REACT_APP_API_URL + `/portfolio/${app.download}`}
+        target="_blank"
       >
         Скачать APK
       </a>
