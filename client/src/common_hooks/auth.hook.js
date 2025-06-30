@@ -49,6 +49,7 @@ export const useAuth = () => {
         const { verified, activated, greeting, token, userId } = response.data;
 
         if (isPortfolio) return;
+        console.log("я не знаю как к этому относиться");
         if (greeting) return navigate("/greeting");
         if (!verified) return navigate("/login");
         if (!activated) return navigate("/notactivated");
