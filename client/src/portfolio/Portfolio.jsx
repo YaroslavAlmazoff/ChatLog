@@ -30,7 +30,7 @@ const Portfolio = () => {
       {
         title: "Chatlog Astro",
         description:
-          "Мое первое приложение Android. Создавалось на языке Kotlin при помощи Android Studio.",
+          "Мое первое приложение Android, которое представляет собой календарь астрономических событий, который заранее присылает напоминания о них. Создавалось на языке Kotlin при помощи Android Studio.",
         link: "https://www.rustore.ru/catalog/app/com.chatlog.aep",
         download: "chatlog-astro.apk",
         image: "chatlog-astro.jpg",
