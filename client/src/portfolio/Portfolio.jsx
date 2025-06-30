@@ -127,9 +127,6 @@ const Portfolio = () => {
         ))}
       </div>
       <p className="portfolio-title">Android-приложения и игры</p>
-      <p>
-        ❕Чтобы посмотреть описание, щелкните по иконке или названию приложения.
-      </p>
       <div className="portfolio-projects-list">
         {projects.apps.map((app) => (
           <PortfolioApp app={app} />
