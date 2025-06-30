@@ -8,7 +8,7 @@ const PortfolioApp = ({ app }) => {
         src={process.env.REACT_APP_API_URL + `/portfolio/${app.image}`}
         description="Screenshot"
       />
-      <p>{app.title}</p>
+      <p className="portfolio-app-title">{app.title}</p>
       <a
         className="portfolio-link"
         href={process.env.REACT_APP_API_URL + `/portfolio/${app.download}`}

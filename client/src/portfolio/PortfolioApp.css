@@ -8,6 +8,10 @@
   border-radius: 15px;
 }
 
+.portfolio-app-title {
+  font-size: 16pt;
+}
+
 .portfolio-app-image {
   width: 96%;
   border-radius: 15px;
