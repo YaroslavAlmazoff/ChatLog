@@ -53,6 +53,8 @@ export const useAuth = () => {
       } else if (
         window.location.pathname === "/greeting" ||
         window.location.pathname === "/support" ||
+        window.location.pathname === "/portfolio/" ||
+        window.location.pathname === "/portfolio" ||
         !window.location.pathname.includes("store")
       ) {
         return;
