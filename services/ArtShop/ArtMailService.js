@@ -3,12 +3,12 @@ const nodemailer = require("nodemailer");
 class MailService {
   constructor() {
     this.transporter = nodemailer.createTransport({
-      host: "smtp.gmail.com",
+      host: "mail.kiosk-art.ru",
       port: 587,
       secure: false,
       auth: {
-        user: "kiosk.svetlana.kizhaeva@gmail.com",
-        pass: "brkc knks sfep cgmu",
+        user: "robotkiosk@kiosk-art.ru",
+        pass: "Fn5md%j&D456jfe@",
       },
     });
   }
@@ -27,7 +27,7 @@ class MailService {
     } = data;
     try {
       await this.transporter.sendMail({
-        from: "kiosk.svetlana.kizhaeva@gmail.com",
+        from: "robotkiosk@kiosk-art.ru",
         to: email,
         subject: `Ваш заказ принят. Спасибо!`,
         text: "",
@@ -71,7 +71,7 @@ class MailService {
       `,
       });
       await this.transporter.sendMail({
-        from: "kiosk.svetlana.kizhaeva@gmail.com",
+        from: "robotkiosk@kiosk-art.ru",
         to: "svetlana.kizhaewa@yandex.ru",
         subject: `Новый заказ`,
         text: "",
