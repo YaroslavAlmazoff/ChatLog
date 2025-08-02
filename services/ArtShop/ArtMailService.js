@@ -25,12 +25,13 @@ class MailService {
       address1,
       address2,
     } = data;
-    await this.transporter.sendMail({
-      from: "kiosk.svetlana.kizhaeva@gmail.com",
-      to: email,
-      subject: `Ваш заказ принят. Спасибо!`,
-      text: "",
-      html: `
+    try {
+      await this.transporter.sendMail({
+        from: "kiosk.svetlana.kizhaeva@gmail.com",
+        to: email,
+        subject: `Ваш заказ принят. Спасибо!`,
+        text: "",
+        html: `
         <div>
           <p>
             Уважаемый(ая) ${name}, выражаю Вам признательность за покупку в
@@ -68,7 +69,10 @@ class MailService {
           <p>${comment}</p>
         </div>
       `,
-    });
+      });
+    } catch (e) {
+      console.log(e);
+    }
   }
 }
 
