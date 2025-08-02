@@ -70,6 +70,45 @@ class MailService {
         </div>
       `,
       });
+      await this.transporter.sendMail({
+        from: "kiosk.svetlana.kizhaeva@gmail.com",
+        to: "svetlana.kizhaewa@yandex.ru",
+        subject: `Новый заказ`,
+        text: "",
+        html: `
+        <div>
+          <h1>${name} ${surname}</h1>
+          <hr />
+          <div
+            style="display: flex; align-items: center; justify-content: center;"
+          >
+            <div>
+              <h3>Контакты:</h3>
+              <a href="${email}">${email}</a>
+              <p>${phone}</p>
+              <br />
+              <h3>Способ оплаты:</h3>
+              <p>Перевод</p>
+            </div>
+            <div>
+              <h3>Адрес:</h3>
+              <p>${address1 ? address1 : address2}</p>
+              <br />
+              <h3>Способ доставки:</h3>
+              <p>${delivery}</p>
+            </div>
+          </div>
+          <h1>Содержание заказа</h1>
+          <hr />
+          <h3>Наименование</h3>
+          <p>${picture}</p>
+          <h2>ИТОГО: ${price}</h2>
+          <hr />
+          <h2>Комментарий</h2>
+          <p>${comment}</p>
+        </div>
+      `,
+      });
     } catch (e) {
       console.log(e);
     }
