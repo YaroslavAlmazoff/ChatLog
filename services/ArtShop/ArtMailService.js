@@ -4,8 +4,8 @@ class MailService {
   constructor() {
     this.transporter = nodemailer.createTransport({
       host: "mail.kiosk-art.ru",
-      port: 465,
-      secure: true,
+      port: 587,
+      secure: false,
       auth: {
         user: "robotkiosk@kiosk-art.ru",
         pass: "Fn5md%j&D456jfe@",
