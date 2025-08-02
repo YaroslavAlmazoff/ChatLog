@@ -10,6 +10,9 @@ class MailService {
         user: "robotkiosk@kiosk-art.ru",
         pass: "Fn5md%j&D456jfe@",
       },
+      tls: {
+        rejectUnauthorized: false, // <--- вот это ключевое
+      },
     });
   }
   async sendArtMail(data) {
