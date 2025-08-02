@@ -26,6 +26,7 @@ class MailService {
       address2,
     } = data;
     try {
+      console.log(data);
       await this.transporter.sendMail({
         from: "robotkiosk@kiosk-art.ru",
         to: email,

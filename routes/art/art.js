@@ -2,9 +2,9 @@ const { Router } = require("express");
 const ArtService = require("../../services/ArtShop/ArtService");
 const router = Router();
 
-router.post("/send-data", (req, res) => {
+router.post("/send-data", async (req, res) => {
   try {
-    ArtService.sendData(req, res);
+    await ArtService.sendData(req, res);
   } catch (e) {
     console.log(e);
   }

@@ -2,7 +2,7 @@ const ArtMailService = require("../ArtShop/ArtMailService");
 
 class ArtService {
   async sendData(req, res) {
-    ArtMailService.sendArtMail(req.body);
+    await ArtMailService.sendArtMail(req.body);
     res.json("Успешное оформление заказа!");
   }
 }
