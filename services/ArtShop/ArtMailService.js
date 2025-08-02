@@ -26,7 +26,7 @@ class MailService {
       address2,
     } = data;
     await this.transporter.sendMail({
-      from: "svetlana.kizhaewa@yandex.ru",
+      from: "kiosk.svetlana.kizhaeva@gmail.com",
       to: email,
       subject: `Ваш заказ принят. Спасибо!`,
       text: "",
