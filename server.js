@@ -103,9 +103,9 @@ app.get("*", (req, res) => {
 });
 
 const options = {
-  key: fs.readFileSync("../chatlog.key", "utf-8"),
-  cert: fs.readFileSync("../chatlog.crt", "utf-8"),
-  ca: fs.readFileSync("../chatlog-ca.crt", "utf-8"),
+  key: fs.readFileSync("./chatlog.key", "utf-8"),
+  cert: fs.readFileSync("./chatlog.crt", "utf-8"),
+  ca: fs.readFileSync("./chatlog-ca.crt", "utf-8"),
 };
 const serviceAccount = require("./chatloglast-firebase-adminsdk-db7so-4665518e0f.json");
 
