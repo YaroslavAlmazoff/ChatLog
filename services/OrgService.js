@@ -15,7 +15,7 @@ class OrgService {
         }
       );
 
-      res.json(data);
+      res.json(req.body);
     } catch (err) {
       console.error("Ошибка:", err);
       res.json();
