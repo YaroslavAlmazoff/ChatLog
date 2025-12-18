@@ -82,7 +82,7 @@ app.use("/api/mobile", mobileRouter);
 app.use("/api/aep", AEPRouter);
 app.use("/api/art", artShopRouter);
 
-app.use("/api/org");
+app.use("/api/org", orgRouter);
 
 app.use("/api/videohost/channels", videohostChannelsRouter);
 app.use("/api/videohost/videos", videohostVideosRouter);
