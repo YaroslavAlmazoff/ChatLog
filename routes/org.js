@@ -18,4 +18,12 @@ router.post("/edit-map", (req, res) => {
   }
 });
 
+router.post("/edit-sources", (req, res) => {
+  try {
+    OrgService.editSources(req, res);
+  } catch (e) {
+    console.log(e);
+  }
+});
+
 module.exports = router;
