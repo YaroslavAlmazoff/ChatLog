@@ -4,13 +4,16 @@ const path = require("path");
 class OrgService {
   async edit(req, res) {
     try {
-      await fs.writeFile(
+      fs.writeFile(
         path.resolve("..", "static", "org", "data.json"),
         req.body.data,
-        "utf8"
+        "utf8",
+        (e) => {
+          if (e) console.log(e);
+          console.log("Файл обновлён");
+        }
       );
 
-      console.log("Файл обновлён");
       res.json(data);
     } catch (err) {
       console.error("Ошибка:", err);
