@@ -4,9 +4,10 @@ const path = require("path");
 class OrgService {
   async edit(req, res) {
     try {
+      console.log(req.body);
       fs.writeFile(
         path.resolve("..", "static", "org", "data.json"),
-        JSON.stringify(req.body.data),
+        JSON.stringify(req.body),
         "utf8",
         (e) => {
           if (e) console.log(e);
