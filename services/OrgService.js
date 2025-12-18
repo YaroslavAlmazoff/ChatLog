@@ -6,7 +6,7 @@ class OrgService {
     try {
       fs.writeFile(
         path.resolve("..", "static", "org", "data.json"),
-        json.stringify(req.body.data),
+        JSON.stringify(req.body.data),
         "utf8",
         (e) => {
           if (e) console.log(e);
