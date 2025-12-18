@@ -10,4 +10,12 @@ router.post("/edit", (req, res) => {
   }
 });
 
+router.post("/edit-map", (req, res) => {
+  try {
+    OrgService.editMap(req, res);
+  } catch (e) {
+    console.log(e);
+  }
+});
+
 module.exports = router;
