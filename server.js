@@ -34,6 +34,8 @@ const groupMessengerMobileRouter = require("./mobile/routes/groupMessagesMobile"
 const messengerRouter = require("./routes/messages");
 const messengerMobileRouter = require("./mobile/routes/messagesMobile");
 
+const orgRouter = require("./routes/org");
+
 const videohostChannelsRouter = require("./routes/videohost/channels");
 const videohostVideosRouter = require("./routes/videohost/videos");
 const videohostUserActionsRouter = require("./routes/videohost/userActions");
@@ -79,6 +81,8 @@ app.use("/api/store", storeRouter);
 app.use("/api/mobile", mobileRouter);
 app.use("/api/aep", AEPRouter);
 app.use("/api/art", artShopRouter);
+
+app.use("/api/org");
 
 app.use("/api/videohost/channels", videohostChannelsRouter);
 app.use("/api/videohost/videos", videohostVideosRouter);

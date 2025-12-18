@@ -10,7 +10,7 @@ import { useMemo } from "react";
 const Games = () => {
   const auth = useContext(AuthContext);
   const [games, setGames] = useState([]);
-  const [searchValue, setSearchValue] = useState("Поиск...");
+  const [searchValue, setSearchValue] = useState("");
 
   useEffect(() => {
     const getGames = async () => {
@@ -41,6 +41,7 @@ const Games = () => {
           <input
             className="input"
             type="text"
+            placeholder="Поиск..."
             value={searchValue}
             onChange={(e) => setSearchValue(e.target.value)}
           />

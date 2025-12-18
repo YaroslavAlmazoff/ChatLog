@@ -44,7 +44,7 @@ const LPV2Head = () => {
       <div className="lpv2-buttons">
         <LPV2Button text="Зарегистрироваться" link="/register" />
         <LPV2Button text="Войти" link="/login" />
-        {downloadUrl ? (
+        {/* {downloadUrl ? (
           <a
             className="button lpv2-button"
             href={
@@ -56,7 +56,7 @@ const LPV2Head = () => {
           </a>
         ) : (
           <></>
-        )}
+        )} */}
       </div>
     </div>
   );
