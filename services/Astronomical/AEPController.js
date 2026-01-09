@@ -142,8 +142,6 @@ class AEPController {
 
     await AstronomicalEvent.insertMany(updatedEvents);
   }
-
-  async;
 }
 
 module.exports = new AEPController();
