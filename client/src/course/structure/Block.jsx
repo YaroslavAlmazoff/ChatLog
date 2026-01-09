@@ -14,7 +14,7 @@ function Block({ block, activeLessonId, onSelectLesson }) {
       ))}
 
       {block.test?.length > 0 && (
-        <div style={{ marginLeft: 24, marginTop: 6, cursor: "pointer" }}>
+        <div style={{ marginLeft: 48, marginTop: 6, cursor: "pointer" }}>
           🧪 Итоговый тест блока
         </div>
       )}

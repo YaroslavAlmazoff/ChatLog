@@ -122,22 +122,23 @@ class AEPController {
 
     const updatedEvents = events.map((event) => {
       const [day, month, year] = event.date.split(".");
+      const e = event.toObject();
 
-      const ev = event.text.includes("Метеорный поток")
-        ? {
-            ...event,
-            _id: undefined,
-            year: Number(event.year) + 1,
-            date: `${day}.${month}.${Number(year) + 1}`,
-            createdAt: undefined,
-            updatedAt: undefined,
-            notifiedDayBefore: false,
-            notifiedHourBefore: false,
-            upcoming: true,
-          }
-        : event;
-
-      return ev;
+      if (event.text.includes("Метеорный поток")) {
+        return {
+          ...event,
+          _id: undefined,
+          year: Number(event.year) + 1,
+          date: `${day}.${month}.${Number(year) + 1}`,
+          createdAt: undefined,
+          updatedAt: undefined,
+          notifiedDayBefore: false,
+          notifiedHourBefore: false,
+          upcoming: true,
+        };
+      } else {
+        return e;
+      }
     });
 
     await AstronomicalEvent.insertMany(updatedEvents);

@@ -3,7 +3,7 @@ function Lesson({ lesson, isActive, onSelect }) {
     <div
       onClick={() => onSelect(lesson.id)}
       style={{
-        marginLeft: 16,
+        marginLeft: 2 * 16,
         cursor: "pointer",
         fontWeight: isActive ? "bold" : "normal",
         color: isActive ? "#40a4ff" : "white",
