@@ -1,0 +1,39 @@
+@import url("./colors.css");
+
+.room-preview-wrapper {
+  position: relative;
+  height: 8vh;
+  margin: 5px;
+  width: fit-content;
+}
+
+.room-preview {
+  height: 8vh;
+  border: 0.5px solid var(--blue-neon);
+  border-radius: 15px;
+}
+
+@media screen and (width < 600px) {
+  .message-selected-files {
+    position: absolute;
+    bottom: 10vh;
+    left: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+    width: 25%;
+  }
+}
+@media screen and (width > 600px) {
+  .message-selected-files {
+    position: absolute;
+    bottom: -11vh;
+    right: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+  }
+}

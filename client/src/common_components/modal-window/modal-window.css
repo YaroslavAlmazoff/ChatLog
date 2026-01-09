@@ -1,0 +1,40 @@
+.modal-window-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.75);
+  padding: 15px;
+  z-index: 10000;
+}
+
+.modal-window-content {
+  text-align: center;
+}
+
+.modal-window-cancel {
+  color: #40a4ff;
+  cursor: pointer;
+  margin-left: 10px;
+}
+.modal-window-button {
+  margin: 10px;
+}
+.modal-window-text {
+  color: white;
+}
+.modal-window-overlay {
+  position: fixed;
+  width: 1000vw;
+  height: 1000vh;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+.modal-window-overlay.open {
+  display: block;
+}

@@ -1,0 +1,37 @@
+.public-item {
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 20px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  cursor: pointer;
+  margin-top: 2%;
+}
+.public-item-info {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 83%;
+}
+.public-item-name {
+  margin-left: 10px;
+  color: white;
+}
+.public-item-avatar {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.public-item-subscribe {
+  border: none;
+  outline: none;
+  background-color: rgb(0, 140, 255);
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 12px;
+  border-radius: 12px;
+  cursor: pointer;
+}

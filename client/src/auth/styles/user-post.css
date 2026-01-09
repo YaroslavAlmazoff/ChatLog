@@ -1,0 +1,105 @@
+@media screen and (width > 500px) {
+  .user-post {
+    padding: 10px;
+    width: 96%;
+  }
+  .user-post-images {
+    margin-top: 5px;
+    width: 98%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+  .user-post-small-image {
+    height: 100%;
+    width: 50px;
+    margin: 5px;
+    border-radius: 15px;
+    object-fit: cover;
+    cursor: pointer;
+  }
+  .user-post-image {
+    height: auto;
+    border-radius: 12px;
+    object-fit: cover;
+    width: 100%;
+  }
+  .user-post-like {
+    height: 100%;
+    width: 50px;
+    margin: 5px;
+    object-fit: cover;
+    cursor: pointer;
+    filter: brightness(200%);
+    border-radius: 50%;
+    transition-property: transform;
+    transition-duration: 0.6s;
+  }
+}
+@media screen and (width < 500px) {
+  .user-post {
+    padding: 10px;
+    width: 98%;
+  }
+  .user-post-images {
+    margin-top: 5px;
+    width: 98%;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+  .user-post-small-image {
+    height: 100%;
+    width: 45px;
+    margin: 5px;
+    border-radius: 15px;
+    object-fit: cover;
+    cursor: pointer;
+  }
+  .user-post-image {
+    height: auto;
+    border-radius: 12px;
+    object-fit: cover;
+    width: 96%;
+  }
+  .user-post-like {
+    height: 100%;
+    width: 50px;
+    margin: 5px;
+    object-fit: cover;
+    cursor: pointer;
+    filter: brightness(200%);
+    border-radius: 50%;
+    transition-property: transform;
+    transition-duration: 0.6s;
+  }
+}
+.user-post-like:hover {
+  transform: scale(110%);
+}
+.user-post-title {
+  margin-left: 5px;
+  color: white;
+  text-align: left;
+}
+.user-post-text {
+  margin-left: 5px;
+  color: white;
+  text-align: left;
+}
+.user-post-delete {
+  position: absolute;
+  margin-left: -15px;
+  cursor: pointer;
+  color: #40a4ff;
+  font-size: 20pt;
+}
+.user-post-date {
+  color: rgb(154, 153, 153);
+  text-align: left;
+  margin-left: 5px;
+}

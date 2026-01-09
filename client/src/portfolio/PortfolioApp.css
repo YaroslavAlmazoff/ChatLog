@@ -1,0 +1,30 @@
+.portfolio-app {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 15px;
+  margin-bottom: 10px;
+}
+
+@media screen and (width > 600px) {
+  .portfolio-app-width {
+    width: 20%;
+  }
+}
+@media screen and (width < 600px) {
+  .portfolio-app-width {
+    width: 98%;
+  }
+}
+
+.portfolio-app-title {
+  font-size: 16pt;
+}
+
+.portfolio-app-image {
+  width: 96%;
+  border-radius: 15px;
+  clip-path: inset(30px 0 30px 0);
+}

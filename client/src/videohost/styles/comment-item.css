@@ -1,0 +1,104 @@
+@media screen and (width > 500px) {
+  .videohost-comment-item {
+    width: 97%;
+    height: 100px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 12px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+}
+@media screen and (width < 500px) {
+  .videohost-comment-item {
+    width: 98%;
+    height: 100px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 12px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+}
+.videohost-comment-item-avatar {
+  width: 50px;
+  height: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-direction: column;
+}
+.videohost-comment-item-avatar-img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+.videohost-comment-item-main {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-direction: column;
+  margin: 10px;
+  width: 100%;
+}
+.videohost-comment-item-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-direction: row;
+  width: 100%;
+}
+.videohost-comment-item-author {
+  color: #40a4ff;
+}
+.videohost-comment-item-date {
+  color: #40a4ff;
+  opacity: 0.8;
+}
+.videohost-comment-item-text-wrapper {
+  width: 100%;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.videohost-comment-item-text {
+  color: white;
+}
+.videohost-comment-item-like {
+  background-color: #40a4ff;
+  height: 15px;
+  width: 30px;
+  border-radius: 15px;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin: 10px;
+  object-fit: cover;
+  cursor: pointer;
+  filter: brightness(200%);
+  border-radius: 50%;
+  transition-property: transform;
+  transition-duration: 0.6s;
+}
+
+.videohost-comment-item-like-img {
+  width: 20px;
+  margin: 5px;
+  filter: brightness(200%);
+  cursor: pointer;
+}
+.videohost-comment-item-likes-count {
+  color: white;
+  font-size: 12pt;
+  font-weight: 200;
+}

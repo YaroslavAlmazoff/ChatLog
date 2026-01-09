@@ -1,0 +1,113 @@
+.game-overlay {
+  width: 100%;
+}
+@media screen and (width > 500px) {
+  .game {
+    width: 60%;
+    margin: 0 auto;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+    padding: 20px;
+  }
+  .game-top {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 30vh;
+    margin-top: 20px;
+  }
+  .game-top-preview {
+    width: 300px;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 15px;
+  }
+  .game-description {
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 700;
+    font-size: 12pt;
+    margin-bottom: 15px;
+  }
+}
+@media screen and (width < 500px) {
+  .game {
+    width: 98%;
+    margin: 0 auto;
+    background-color: rgba(26, 26, 30, 0.954);
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+  }
+  .game-top {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 20px;
+  }
+  .game-top-preview {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 12px;
+  }
+  .game-description {
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 700;
+    font-size: 12pt;
+    margin-bottom: 15px;
+    text-align: left;
+  }
+}
+
+.game-top-info {
+  width: 46%;
+  padding-right: 30px;
+  padding-left: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.game-rating {
+  height: 30px;
+  width: 46%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 5px;
+}
+.game-top-info-name {
+  color: white;
+  font-size: 26pt;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+.game-button {
+  width: 50%;
+  border: none;
+  outline: none;
+  background-color: rgb(0, 140, 255);
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 12px;
+  border-radius: 12px;
+  margin-top: 5px;
+  text-decoration: none;
+}
+.game-mobile-info-info {
+  padding: 20px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
+}

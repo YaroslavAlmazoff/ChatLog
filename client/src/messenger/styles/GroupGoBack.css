@@ -1,0 +1,12 @@
+.group-go-back {
+  background-color: rgba(0, 0, 0, 0.75);
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+}
+
+.group-go-back-text {
+  color: white;
+  cursor: pointer;
+}

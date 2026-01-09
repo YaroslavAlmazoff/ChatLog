@@ -1,0 +1,60 @@
+* {
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+body {
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  scrollbar-color: #40a4ff rgb(25, 25, 25);
+  scrollbar-width: thin;
+}
+
+html {
+  scrollbar-color: #40a4ff rgb(25, 25, 25);
+  scrollbar-width: thin;
+}
+
+body::-webkit-scrollbar {
+  width: 8px;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: #40a4ff;
+  border-radius: 10px;
+}
+
+body::-webkit-scrollbar-track {
+  background-color: rgb(25, 25, 25);
+}
+
+html::-webkit-scrollbar {
+  width: 8px;
+}
+
+html::-webkit-scrollbar-thumb {
+  background-color: #40a4ff;
+  border-radius: 10px;
+}
+
+html::-webkit-scrollbar-track {
+  background-color: rgb(25, 25, 25);
+}
+
+h1 {
+  color: white;
+}
+
+h3 {
+  color: white;
+}
+span {
+  color: white;
+}

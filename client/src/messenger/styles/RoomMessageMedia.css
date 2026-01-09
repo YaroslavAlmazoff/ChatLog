@@ -1,0 +1,80 @@
+.room-message-images {
+  row-gap: 5px;
+}
+
+.room-message-images-line {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.room-message-images-margin-bottom {
+  margin-bottom: 10px;
+}
+
+.room-message-images-line-height {
+  height: 300px;
+}
+
+.room-message-images-line-height-single {
+  min-height: 100px;
+}
+
+.room-message-image {
+  position: relative;
+  border-radius: 15px;
+  width: 49.5%;
+  height: 100%;
+  max-height: 500px;
+  object-fit: cover;
+}
+
+.room-message-single-image {
+  max-width: 98%;
+}
+
+.room-message-single-image-horizontal {
+  min-width: 98%;
+}
+.room-message-single-image-square {
+  min-width: 75%;
+}
+.room-message-single-image-vertical {
+  min-width: 50%;
+}
+
+.room-message-videos {
+  row-gap: 5px;
+}
+
+.room-message-videos-line {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 5px;
+}
+
+.room-message-video-container {
+  flex: 1 0 0;
+  position: relative;
+}
+
+.room-message-video {
+  max-width: 50%;
+  height: auto;
+  border-radius: 15px;
+}
+
+.room-message-single-video-horizontal {
+  min-width: 98%;
+}
+.room-message-single-video-square {
+  min-width: 75%;
+}
+.room-message-single-video-vertical {
+  min-width: 50%;
+}
+
+.room-message-media-margin {
+  margin-right: 5px;
+}

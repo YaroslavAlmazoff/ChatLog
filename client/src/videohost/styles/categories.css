@@ -1,0 +1,24 @@
+.videohost-categories {
+    border-top: 1px solid rgb(83, 83, 83);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 20px;
+    margin-top: 10px;
+    width: 90%;
+}
+.videohost-category {
+    border: 1px solid rgb(0, 140, 255);
+    color: rgb(0, 140, 255);
+    background-color: transparent;
+    padding: 5px;
+    border-radius: 15px;
+    margin: 10px;
+    transition: all .5s ease 0;
+    cursor: pointer;
+}
+.videohost-category:hover {
+    color: rgb(83, 83, 83);
+    background-color: rgb(0, 140, 255);
+}

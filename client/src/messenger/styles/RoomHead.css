@@ -1,0 +1,83 @@
+.room-head {
+  width: 100%;
+  height: 50px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 15px 15px 0 0;
+  z-index: 1000;
+}
+
+.room-group-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: rgba(0, 0, 0, 0.75);
+}
+
+.room-group-head-avatar {
+  height: 80%;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-left: 6px;
+  cursor: pointer;
+}
+
+.room-group-head-open-info {
+  height: 80%;
+  width: auto;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 8px;
+  cursor: pointer;
+}
+
+.room-head-text {
+  color: white;
+  text-align: center;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  font-style: 14pt;
+}
+
+.room-group-head-field {
+  height: 30%;
+  width: 50%;
+  padding: 5px;
+  outline: none;
+  border-radius: 15px;
+  font-size: 10pt;
+  border: 0.5px solid var(--blue-neon);
+  background-color: rgba(0, 0, 0, 0.75);
+  color: white;
+  transition: box-shadow 0.3s ease;
+  z-index: 100000;
+}
+
+.room-group-head-field::placeholder {
+  opacity: var(--placeholder-opacity, 0.5);
+  color: var(--placeholder-color, white);
+}
+
+.room-group-head-field:focus {
+  box-shadow: 0px -4px 15px var(--blue-neon), 4px 0px 15px var(--blue-neon);
+}
+
+.room-group-head-cancel {
+  cursor: pointer;
+  color: var(--blue-neon);
+  margin-left: 8px;
+  font-size: 10pt;
+}
+
+.room-group-head-ok {
+  padding: 3px;
+  margin-left: 8px;
+  font-size: 10pt;
+}

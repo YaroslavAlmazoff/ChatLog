@@ -1,0 +1,108 @@
+.public-posts {
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  /*ВРЕМЕННО*/
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin-top: 10px;
+}
+@media screen and (width > 500px) {
+  .public-post {
+    padding: 15px;
+    width: 40%;
+  }
+}
+@media screen and (width < 500px) {
+  .public-post {
+    padding: 15px;
+    width: 98%;
+  }
+}
+.public-post-title {
+  margin-left: 5px;
+  color: white;
+  text-align: left;
+}
+.public-post-text {
+  margin-left: 5px;
+  color: white;
+  text-align: left;
+}
+@media screen and (width > 500px) {
+  .public-post-image {
+    width: 98%;
+    height: auto;
+    border-radius: 12px;
+    object-fit: cover;
+  }
+  .public-post-images {
+    margin-top: 5px;
+    width: 98%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  .public-post-small-image {
+    height: 100%;
+    width: 50px;
+    margin: 5px;
+    border-radius: 15px;
+    object-fit: cover;
+    cursor: pointer;
+  }
+  .public-post-like {
+    height: 100%;
+    width: 50px;
+    margin: 5px;
+    object-fit: cover;
+    cursor: pointer;
+  }
+}
+@media screen and (width < 500px) {
+  .public-post-image {
+    width: 96%;
+    height: auto;
+    border-radius: 12px;
+    object-fit: cover;
+    overflow-x: scroll;
+  }
+  .public-post-images {
+    margin-top: 5px;
+    width: 98%;
+    height: 49px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  .public-post-small-image {
+    height: 100%;
+    width: 49px;
+    margin: 5px;
+    border-radius: 15px;
+    object-fit: cover;
+    cursor: pointer;
+  }
+  .public-post-like {
+    height: 100%;
+    width: 50px;
+    margin: 5px;
+    object-fit: cover;
+    cursor: pointer;
+  }
+}
+.public-post-delete {
+  position: absolute;
+  margin-left: -15px;
+  margin-top: 8px;
+  cursor: pointer;
+  color: rgb(0, 140, 255);
+  font-size: 20pt;
+}
+.public-post-date {
+  color: rgb(154, 153, 153);
+  text-align: left;
+  margin-left: 5px;
+}

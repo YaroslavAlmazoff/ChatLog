@@ -1,0 +1,17 @@
+.file-storage {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.folder-field {
+    width: 50%;
+    padding: 6px;
+}
+.folder-button {
+    padding: 6px;
+    font-size: 8pt;
+    width: 50%;
+}
+.folder-field::placeholder {
+    font-size: 8pt;
+}

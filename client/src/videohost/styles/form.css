@@ -1,0 +1,79 @@
+@media screen and (width > 500px) {
+  .videohost-create {
+    width: 35%;
+    background-color: rgba(41, 41, 41, 0.75);
+    border: 1px solid rgb(83, 83, 83);
+    border-radius: 12px;
+    margin: 0 auto;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+}
+@media screen and (width < 500px) {
+  .videohost-create {
+    width: 98%;
+    background-color: rgba(41, 41, 41, 0.75);
+    border: 1px solid rgb(83, 83, 83);
+    border-radius: 12px;
+    margin: 0 auto;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 5px;
+  }
+}
+
+.videohost-create-title {
+  color: white;
+}
+.videohost-create-empty-button {
+  color: #40a4ff;
+  border: 1px solid #40a4ff;
+  background-color: transparent;
+  cursor: pointer;
+  border-radius: 15px;
+  padding: 12px;
+  margin-bottom: 10px;
+  display: block;
+  transition: color background-color border 0.5s ease-in;
+}
+.videohost-create-empty-button:hover {
+  color: white;
+  background-color: #40a4ff;
+  border: 1px solid transparent;
+}
+.videohost-create-input {
+  border: none;
+  border-bottom: 2px solid #40a4ff;
+  color: white;
+  padding: 15px;
+  outline: none;
+  background-color: transparent;
+  width: 90%;
+  margin: 10px;
+}
+.videohost-create-area {
+  border: 1px solid #40a4ff;
+  padding: 15px;
+  color: white;
+  outline: none;
+  border-radius: 12px;
+  width: 90%;
+  background-color: transparent;
+  margin: 10px;
+}
+.videohost-main-button {
+  color: white;
+  border: none;
+  background-color: #40a4ff;
+  cursor: pointer;
+  border-radius: 15px;
+  padding: 12px;
+  margin-bottom: 10px;
+  display: block;
+}

@@ -1,0 +1,172 @@
+@media screen and (width > 500px) {
+    .videohost-video {
+        width: 90%;
+        margin: 0 auto;
+        background-color: rgba(41, 41, 41, .75);
+        border: 1px solid rgb(83, 83, 83);
+        border-radius: 11px;
+        margin-top: 10px;
+    }
+    .videohost-video-content {
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+    }
+    .videohost-recommended-videos-video-page {
+        width: 20%;
+    }
+    .videohost-same-videos {
+        width: 20%;
+    }
+    .videohost-video-frame {
+        width: 60%;
+    }
+    .videohost-video-middle-side {
+        background-color: rgb(41, 41, 41);
+        border: 1px solid rgb(83, 83, 83);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        height: 75px;
+        width: 98%;
+        padding: 5px;
+        margin-top: 10px;
+    }
+}
+@media screen and (width < 500px) {
+    .videohost-video {
+        width: 98%;
+        margin: 0 auto;
+        background-color: rgba(41, 41, 41, .75);
+        margin-top: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+    .videohost-recommended-videos-video-page {
+        display: none;
+    }
+    .videohost-same-videos {
+        width: 98%;
+    }
+    .videohost-video-frame {
+        width: 98%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        margin-left: 4px;
+    }
+    .videohost-video-middle-side {
+        background-color: rgb(41, 41, 41);
+        border: 1px solid rgb(83, 83, 83);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        height: 75px;
+        width: 96%;
+        padding: 5px;
+        margin-top: 10px;
+    }
+}
+.videohost-same-videos-list {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+}
+.videohost-video-frame-video {
+    width: 98%;
+    height: auto;
+    max-height: 100%;
+    border-radius: 12px;
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+.videohost-video-action {
+    height: 65px;
+    width: 65px;
+    border: 3px solid rgb(0, 140, 255);
+    border-radius: 15px;
+    padding: 5px;
+    margin-right: 5px;
+    cursor: pointer;
+    line-height: 50%;
+}
+.videohost-video-action-icon {
+    width: 98%;
+}
+.videohost-video-action-name {
+    color: rgb(0, 140, 255);
+    font-size: 7pt;
+}
+@media screen and (width > 500px) {
+    .videohost-video-info {
+        height: 100px;
+        width: 96%;
+        background-color: rgb(41, 41, 41);
+        border: 1px solid rgb(83, 83, 83);
+        border-radius: 12px;
+        padding: 15px;
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        flex-direction: column;
+    }
+}
+@media screen and (width < 500px) {
+    .videohost-video-info {
+        height: 100px;
+        width: 90%;
+        background-color: rgb(41, 41, 41);
+        border: 1px solid rgb(83, 83, 83);
+        border-radius: 12px;
+        padding: 15px;
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        flex-direction: column;
+    }
+}
+.videohost-video-info-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+.videohost-video-like {
+    background-color: rgb(0, 140, 255);;
+    height: 20px;
+    width: 50px;
+    border-radius: 15px;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.videohost-video-like-img {
+    width: 30px;
+}
+.videohost-video-likes-count {
+    color: white;
+    font-size: 14pt;
+    font-weight: 200;
+    margin: 5px;
+}
+.videohost-video-views {
+    color: rgb(0, 140, 255);
+    opacity: .85;
+}
+.videohost-video-title {
+    color: white;
+    font-size: 16px;
+}
+.videohost-video-title-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}

@@ -1,0 +1,107 @@
+.public-head {
+  width: 100%;
+  height: 40vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-image: url("../img/bg.png");
+  background-color: rgba(0, 0, 0, 0.5);
+  box-shadow: 5px;
+  border-radius: 10px;
+}
+.public-info {
+  margin: 15px;
+  width: 94%;
+  height: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
+}
+.public-top-info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 60%;
+}
+.public-bottom-info {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.public-avatar {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-top: 20px;
+}
+.public-description {
+  padding: 5px;
+  font-size: 14pt;
+  color: white;
+  background-color: rgba(20, 20, 32, 0.628);
+  font-family: Arial, Helvetica, sans-serif;
+  border-radius: 15px;
+  margin-left: 30px;
+}
+.public-name {
+  font-size: 20pt;
+  color: white;
+  background-color: rgba(20, 20, 32, 0.628);
+  border-radius: 15px;
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 5px;
+}
+.public-action {
+  width: 100%;
+  cursor: pointer;
+}
+@media screen and (width > 500px) {
+  .public-action-img {
+    width: 98%;
+  }
+  .public-action-name {
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 8pt;
+    margin-top: -4px;
+    margin-left: -5px;
+  }
+  .public-actions {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 0 10px 10px 0;
+    width: 4.9%;
+    height: 100%;
+    padding-right: 25px;
+    padding-left: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+}
+@media screen and (width < 500px) {
+  .public-action-img {
+    width: 98%;
+  }
+  .public-action-name {
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 6pt;
+    margin-top: -4px;
+  }
+  .public-actions {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 0 10px 10px 0;
+    width: 15%;
+    height: 100%;
+    padding-right: 10px;
+    padding-left: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+}

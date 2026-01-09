@@ -1,0 +1,55 @@
+@import url("./colors.css");
+
+@media screen and (width <= 600px) {
+  .room-size {
+    width: 96vw;
+    height: 91vh;
+    margin: 5px 10px;
+  }
+}
+@media screen and (width > 600px) {
+  .room-size {
+    width: 60vw;
+    height: 80vh;
+  }
+}
+@media screen and (width > 1000px) {
+  .room-size {
+    width: 40vw;
+    height: 80vh;
+  }
+}
+
+.room {
+  position: relative;
+  background-color: rgba(0, 0, 0, 0.25);
+  border: 0.5px solid var(--blue-neon);
+  border-radius: 15px;
+}
+
+.room-messages-wrapper {
+  height: calc(100% - 51px);
+}
+
+.room-messages {
+  overflow-x: hidden;
+  overflow-y: scroll;
+  height: 92%;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--blue-neon) transparent;
+}
+
+.room-messages::-webkit-scrollbar {
+  width: 8px;
+}
+
+.room-messages::-webkit-scrollbar-thumb {
+  background-color: #40a4ff;
+  border-radius: 10px;
+}
+
+.room-messages::-webkit-scrollbar-track {
+  background-color: transparent;
+}

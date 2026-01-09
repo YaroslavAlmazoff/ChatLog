@@ -1,0 +1,59 @@
+.create-public-form {
+  margin: 0 auto;
+  width: 30%;
+  margin-top: 5%;
+  border-radius: 11px;
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 12px;
+}
+.create-public-title {
+  color: white;
+  font-size: 14pt;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.create-public-input {
+  padding: 10px;
+  background-color: transparent;
+  outline: none;
+  border: none;
+  border-bottom: 2px solid #40a4ff;
+  width: 95%;
+  margin-bottom: 10px;
+  color: white;
+}
+.create-public-area {
+  padding: 10px;
+  background-color: transparent;
+  outline: none;
+  border: 1px solid #40a4ff;
+  border-radius: 12px;
+  width: 95%;
+  height: 60px;
+  margin-bottom: 10px;
+  color: white;
+}
+.create-public-upload-field {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 200px;
+  width: 45%;
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
+.create-public-images-list {
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 5px;
+}
+.create-post-images-list {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin-top: 10px;
+}

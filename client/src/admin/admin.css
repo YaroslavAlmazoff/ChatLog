@@ -1,0 +1,68 @@
+@media screen and (width > 500px) {
+  .admin {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 10px;
+  }
+  .admin-messages {
+    width: 30%;
+    min-height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    overflow-y: scroll;
+    border-radius: 15px;
+  }
+  .admin-visits {
+    width: 70%;
+  }
+  .admin-forms {
+    width: 60%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+}
+@media screen and (width < 500px) {
+  .admin {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 10px;
+  }
+  .admin-messages {
+    width: 90%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    overflow-y: scroll;
+    border-radius: 15px;
+  }
+  .admin-visits {
+    width: 90%;
+  }
+  .admin-forms {
+    width: 98%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+  }
+}
+.admin-messages::-webkit-scrollbar {
+  width: 0;
+}
+.admin-message {
+  border: 1px solid rgb(0, 140, 255);
+  background-color: transparent;
+  border-radius: 15px;
+  padding: 15px;
+  display: block;
+  margin: 10px;
+}
+.admin-message-text {
+  font-size: 14pt;
+  width: 90%;
+}
+.admin-visits-text {
+  color: rgb(0, 140, 255);
+  font-weight: 100;
+}

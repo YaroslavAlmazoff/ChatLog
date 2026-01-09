@@ -1,0 +1,45 @@
+@media screen and (width > 500px) {
+    .support_page {
+        margin: 0 auto;
+        margin-top: 15vh;
+        width: 27%;
+        background-color: rgba(0, 0, 0, .5);
+        border-radius: 12px;
+        padding: 15px;
+    }
+    .support_page_area {
+        width: 90%;
+        height: 30vh;
+        margin-top: 15px;
+    }
+}
+@media screen and (width < 500px) {
+    .support_page {
+        margin: 0 auto;
+        margin-top: 15vh;
+        width: 100%;
+        background-color: rgba(0, 0, 0, .5);
+        border-radius: 12px;
+        padding: 15px;
+    }
+    .support_page_area {
+        width: 85%;
+        height: 25vh;
+        margin-top: 15px;
+    }
+}
+.support_page_send {
+    color: white;
+    background-color: rgb(0, 140, 255);
+    padding: 15px;
+    border: none;
+    border-radius: 11px;
+    cursor: pointer;
+}
+.support_page_button {
+    margin-top: 10px;
+}
+.support_page_text {
+    color: white;
+    margin-bottom: 15px;
+}

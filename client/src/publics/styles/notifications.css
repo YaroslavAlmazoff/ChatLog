@@ -1,0 +1,16 @@
+.public-notifications {
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 10px;
+}
+.public-notification {
+  color: rgb(0, 140, 255);
+  width: 100%;
+  border-bottom: 1px solid rgb(83, 83, 83);
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}

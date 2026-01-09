@@ -1,0 +1,386 @@
+.user {
+  text-align: left;
+  width: 98vw;
+}
+.user-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-size: cover;
+  height: 22vh;
+  color: white;
+  border-radius: 12px;
+  position: relative;
+}
+.user-change-banner {
+  color: rgba(255, 255, 255, 0.497);
+  text-shadow: black 1px 0 10px;
+  position: absolute;
+  cursor: pointer;
+  top: 5px;
+  right: 10px;
+}
+.user-avatar {
+  object-fit: cover;
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  margin-left: 20px;
+  cursor: pointer;
+}
+.banner {
+  width: 90%;
+  display: flex;
+  align-items: center;
+}
+.user-nav-info {
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 25%;
+  flex-direction: column;
+  margin-left: 10px;
+}
+.user-name {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 20px;
+  padding: 7px;
+}
+.user-nav-actions {
+  flex-direction: column;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 50%;
+  margin-left: 25%;
+}
+.user-age {
+  color: rgba(255, 255, 255, 0.548);
+}
+.user-nav-more-info {
+  width: 30px;
+  transform: rotate(-90deg);
+}
+.user-more-info-container {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 20px;
+  padding: 7px;
+}
+.user-more-info-title {
+  color: #40a4ff;
+}
+.user-nav-more-info-forward-animation {
+  animation-name: arrow;
+  animation-duration: 0.5s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+@keyframes arrow {
+  from {
+    transform: rotate(-90deg);
+  }
+  to {
+    transform: rotate(90deg);
+  }
+}
+.user-nav-more-info-backward-animation {
+  animation-name: arrow-back;
+  animation-duration: 0.5s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+@keyframes arrow-back {
+  from {
+    transform: rotate(90deg);
+  }
+  to {
+    transform: rotate(-90deg);
+  }
+}
+.edit-profile {
+  border-radius: 15px;
+  padding: 12px;
+  color: white;
+  background-color: rgb(0, 140, 255);
+  border: none;
+}
+.user-right-side {
+  width: 16%;
+}
+.upload-photo-cancel {
+  color: #40a4ff;
+  cursor: pointer;
+  margin-left: 10px;
+  margin-top: 10px;
+}
+.user-action {
+  border: none;
+  padding: 12px;
+  color: white;
+  width: 100%;
+  margin-top: 10px;
+}
+.user-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.user-friends {
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 15px 15px 15px 15px;
+  color: white;
+  margin-top: 10px;
+  overflow: hidden;
+  height: 35vh;
+}
+.user-friend {
+  width: 25%;
+  position: relative;
+  display: inline-flex;
+  vertical-align: top;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin-left: 15px;
+  cursor: pointer;
+}
+.user-subscribe {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-left: 15px;
+  margin-bottom: 10px;
+}
+.unscribe {
+  color: #40a4ff;
+  cursor: pointer;
+  margin-left: 20px;
+}
+.user-friend-avatar {
+  width: 50px;
+  height: 50px;
+  border: 1px solid #40a4ff;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.user-friends-title {
+  margin: 20px;
+  color: white;
+  cursor: pointer;
+}
+.user-friend-name {
+  font-size: 8px;
+  text-align: center;
+  text-decoration: none;
+  color: white;
+}
+.user-subscribe-avatar {
+  width: 40px;
+  float: left;
+}
+.user-subscribe-name {
+  margin-left: 10px;
+  font-size: 10pt;
+}
+.user-center-side {
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 10px;
+}
+.center-side-buttons {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 82%;
+}
+.user-content {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+.user-left-side {
+  width: 20%;
+}
+.user-fotos-title {
+  color: white;
+  margin-left: 15px;
+}
+
+.user-action-button {
+  height: 40px;
+  color: white;
+  margin-left: 15px;
+}
+
+.user-foto-preview {
+  width: 94%;
+  cursor: pointer;
+  border-radius: 12px;
+  margin-left: 15px;
+}
+.foto-div {
+  margin-bottom: 10px;
+}
+.nothing {
+  color: white;
+  text-align: center;
+}
+.user-main-action {
+  background-color: rgb(0, 140, 255);
+  border: none;
+  padding: 12px;
+  color: white;
+  border-radius: 15px;
+  margin-top: 0.6vw;
+  margin-left: 0.5vw;
+  width: 48.5%;
+}
+.user-add-foto {
+  background-color: rgb(0, 140, 255);
+  border: none;
+  padding: 12px;
+  color: white;
+  border-radius: 15px;
+  margin-top: 0.6vw;
+  margin-left: 0.5vw;
+}
+.user-add-post {
+  background-color: rgb(0, 140, 255);
+  border: none;
+  padding: 12px;
+  color: white;
+  border-radius: 15px;
+  margin-top: 0.6vw;
+  margin-left: 0.5vw;
+  width: 100%;
+  margin-bottom: 10px;
+}
+.post-field {
+  color: white;
+  border: none;
+  border-bottom: 2px solid rgb(0, 140, 255);
+  padding: 12px;
+  background-color: transparent;
+  margin-left: 10px;
+  width: 65%;
+  outline: none;
+  margin-bottom: 10px;
+}
+.user-add-foto-right {
+  border: none;
+  padding: 8px;
+  color: black;
+  border-radius: 15px;
+  margin: 2px;
+  margin-top: 0.6vw;
+  margin-left: 10px;
+  width: 48%;
+}
+
+.about-me {
+  width: 50%;
+  margin-left: 25%;
+  background-color: rgba(0, 0, 0, 0.349);
+  border-radius: 11px;
+  padding: 10px;
+}
+.about-me-text {
+  text-align: justify;
+}
+.notice-img {
+  border-radius: 50%;
+  margin: 5px;
+  margin-left: 15px;
+  margin-right: 0;
+  height: 28px;
+  width: 28px;
+  padding: 3px;
+  object-fit: cover;
+  cursor: pointer;
+}
+.delete-friend {
+  position: absolute;
+  cursor: pointer;
+  color: #40a4ff;
+  right: 0;
+  top: -20px;
+}
+.delete-foto {
+  margin-left: 15px;
+  color: #40a4ff;
+  cursor: pointer;
+}
+input[type="file"] {
+  display: none;
+}
+.user-videos {
+  height: 230px;
+  overflow-y: scroll;
+  border-radius: 15px;
+  margin: 5px;
+}
+.user-videos::-webkit-scrollbar {
+  width: 5px;
+}
+.user-videos::-o-scrollbar {
+  width: 5px;
+}
+.user-videos::-moz-scrollbar {
+  width: 5px;
+}
+
+.user-posts {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin: 5px;
+  width: 80%;
+}
+
+.user-videos::-webkit-scrollbar {
+  width: 5px; /* ширина scrollbar */
+}
+.user-videos::-webkit-scrollbar-track {
+  background: transparent; /* цвет дорожки */
+}
+.user-videos::-webkit-scrollbar-thumb {
+  background-color: rgb(0, 140, 255); /* цвет плашки */
+  border-radius: 11px; /* закругления плашки */
+  border: 1px solid rgb(0, 140, 255); /* padding вокруг плашки */
+}
+
+.user-fotos {
+  overflow-x: hidden;
+  margin: 5px;
+  width: 102%;
+}
+
+@media screen and (width > 500px) {
+  .user-posts-list {
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+}
+@media screen and (width < 500px) {
+  .user-posts-list {
+    width: 98%;
+    background-color: rgba(0, 0, 0, 0.6);
+    border-radius: 10px;
+  }
+}

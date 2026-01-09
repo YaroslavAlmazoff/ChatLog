@@ -1,0 +1,61 @@
+@import url("./colors.css");
+
+.block-success {
+  animation-name: glow-success;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+.block-neutral {
+  animation-name: glow-neutral;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+.block-error {
+  animation-name: glow-error;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+
+.underlined-block {
+  border-bottom: 1px solid var(--grey);
+}
+
+.ml {
+  margin-left: 10px;
+}
+
+@keyframes glow-success {
+  0% {
+    box-shadow: 0 0 7px var(--neon-green);
+  }
+  50% {
+    box-shadow: 0 0 16px var(--neon-green);
+  }
+  100% {
+    box-shadow: 0 0 8px var(--neon-green);
+  }
+}
+
+@keyframes glow-neutral {
+  0% {
+    box-shadow: 0 0 7px var(--neon-blue);
+  }
+  50% {
+    box-shadow: 0 0 16px var(--neon-blue);
+  }
+  100% {
+    box-shadow: 0 0 8px var(--neon-blue);
+  }
+}
+
+@keyframes glow-error {
+  0% {
+    box-shadow: 0 0 7px var(--neon-red);
+  }
+  50% {
+    box-shadow: 0 0 16px var(--neon-red);
+  }
+  100% {
+    box-shadow: 0 0 8px var(--neon-red);
+  }
+}

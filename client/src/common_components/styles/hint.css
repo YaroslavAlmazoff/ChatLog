@@ -1,0 +1,33 @@
+:root {
+  --blue-neon: #40a4ff;
+  --red-neon: #ff073a;
+  --green-neon: #86ed26;
+}
+
+.common-hint {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  z-index: 1000000;
+  right: 0;
+  top: 0;
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.75);
+  border-radius: 20px;
+}
+
+.common-hint-neutral {
+  border: 0.5px solid var(--blue-neon);
+  color: var(--blue-neon);
+}
+
+.common-hint-success {
+  border: 0.5px solid var(--green-neon);
+  color: var(--green-neon);
+}
+
+.common-hint-error {
+  border: 0.5px solid var(--red-neon);
+  color: var(--red-neon);
+}

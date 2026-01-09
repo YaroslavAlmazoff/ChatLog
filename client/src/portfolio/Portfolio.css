@@ -1,0 +1,45 @@
+@media screen and (width > 2000px) {
+  .portfolio {
+    width: 60vw;
+    color: white;
+    height: auto;
+    background-color: rgba(0, 0, 0, 0.75);
+  }
+}
+@media screen and (width > 600px) {
+  .portfolio {
+    width: 80vw;
+    color: white;
+    height: auto;
+    background-color: rgba(0, 0, 0, 0.75);
+  }
+}
+
+@media screen and (width < 600px) {
+  .portfolio {
+    width: 98vw;
+    color: white;
+    height: auto;
+    background-color: rgba(0, 0, 0, 0.75);
+  }
+}
+
+.portfolio-main-title {
+  font-size: 24pt;
+}
+.portfolio-link {
+  color: #40a4ff;
+}
+.portfolio-projects-title {
+  font-size: 20pt;
+}
+.portfolio-title {
+  font-size: 18pt;
+}
+.portfolio-projects-list {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+}

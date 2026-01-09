@@ -1,0 +1,27 @@
+.public-subscribers {
+  margin-top: 10px;
+  height: 68px;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 10px;
+}
+.public-subscriber {
+  width: 50px;
+  height: 100%;
+  cursor: pointer;
+  margin-right: 10px;
+}
+.public-subscriber-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.public-subscriber-name {
+  color: white;
+  font-size: 10pt;
+  margin-top: -10px;
+}

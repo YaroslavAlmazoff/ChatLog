@@ -1,0 +1,86 @@
+@import url("./colors.css");
+
+.message-field-area {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.message-field-actions {
+  height: 20px;
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: rgba(0, 0, 0, 0.75);
+  border-radius: 0 15px 10px 0;
+  padding-right: 5px;
+}
+
+.message-field-actions span {
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.75);
+  margin-left: 2px;
+  margin-right: 8px;
+  font-weight: 100;
+}
+
+@media screen and (width > 600px) {
+  .message-field-action {
+    font-size: 11pt;
+  }
+}
+
+@media screen and (width < 600px) {
+  .message-field-action {
+    font-size: 10pt;
+  }
+}
+
+.message-field-smile {
+  height: 13px;
+  margin-bottom: -4px;
+  cursor: pointer;
+}
+
+.message-field-wrapper {
+  width: 100%;
+  position: static;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.message-field-send {
+  height: 30px;
+  margin-right: 11px;
+  margin-bottom: 0;
+  cursor: pointer;
+}
+
+.message-field-input {
+  height: 100%;
+  width: 92%;
+  padding: 12px;
+  margin-right: 10px;
+  margin-bottom: 0;
+  outline: none;
+  border-radius: 0 15px 0 15px;
+  border: 0.5px solid var(--blue-neon);
+  border-bottom: none;
+  border-left: none;
+  background-color: rgba(0, 0, 0, 0.75);
+  color: white;
+  z-index: 100000;
+  transition: box-shadow 0.3s ease;
+}
+
+.message-field-input::placeholder {
+  opacity: var(--placeholder-opacity, 0.5);
+  color: var(--placeholder-color, white);
+}
+
+.message-field-input:focus {
+  box-shadow: 0px -4px 15px var(--blue-neon), 4px 0px 15px var(--blue-neon);
+}

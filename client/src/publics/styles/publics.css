@@ -1,0 +1,30 @@
+@media screen and (width > 500px) {
+  .publics {
+    width: 40%;
+    margin-top: 5%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column;
+  }
+}
+@media screen and (width < 500px) {
+  .publics {
+    width: 98%;
+    margin-top: 5%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column;
+  }
+}
+.publics-create-public {
+  border: none;
+  outline: none;
+  background-color: #40a4ff;
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 12px;
+  border-radius: 12px;
+  margin-bottom: 15px;
+}

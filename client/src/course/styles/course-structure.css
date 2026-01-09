@@ -1,0 +1,20 @@
+.expandable-content {
+  overflow: hidden;
+  transition: max-height 0.3s ease, opacity 0.2s ease;
+}
+
+.expandable-content.closed {
+  max-height: 0;
+  opacity: 0;
+}
+
+.expandable-content.open {
+  max-height: 1000px; /* заведомо больше реального контента */
+  opacity: 1;
+}
+
+.course-structure {
+  color: white;
+  font-family: "Courier New", Courier, monospace;
+  text-align: left;
+}

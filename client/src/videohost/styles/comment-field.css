@@ -1,0 +1,29 @@
+@media screen and (width > 500px) {
+  .videohost-comment-field {
+    padding: 5px;
+    width: 98%;
+    border: 2px solid #40a4ff;
+    border-radius: 11px;
+    margin-top: 10px;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+@media screen and (width < 500px) {
+  .videohost-comment-field {
+    padding: 5px;
+    width: 96%;
+    border: 2px solid #40a4ff;
+    border-radius: 11px;
+    margin-top: 10px;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+.videohost-comment-title {
+  color: white;
+}

@@ -1,0 +1,141 @@
+.header::-webkit-scrollbar {
+  width: 0px; /* ширина scrollbar */
+}
+.header::-o-scrollbar {
+  width: 0px; /* ширина scrollbar */
+}
+.header::-moz-scrollbar {
+  width: 0px; /* ширина scrollbar */
+}
+.links {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+@font-face {
+  font-family: Cosmic;
+  src: url(./fonts/cosmic2.ttf);
+}
+@keyframes glow {
+  0% {
+    box-shadow: 0 0 7px #40a4ff;
+  }
+  50% {
+    box-shadow: 0 0 16px #40a4ff;
+  }
+  100% {
+    box-shadow: 0 0 8px #40a4ff;
+  }
+}
+@keyframes header-glow {
+  0% {
+    box-shadow: 0 0 15px #40a4ff;
+  }
+  50% {
+    box-shadow: 0 0 30px #40a4ff;
+  }
+  100% {
+    box-shadow: 0 0 16px #40a4ff;
+  }
+}
+@media screen and (width > 700px) {
+  .logo {
+    color: rgb(20, 20, 32);
+    font-weight: bold;
+    font-family: Cosmic;
+    margin: 15px;
+  }
+  .header {
+    width: 99vw;
+    margin-bottom: 15px;
+    display: flex;
+    height: 50px;
+    background-color: rgb(64, 164, 255);
+    box-shadow: 0 0 20px #40a4ff;
+    border-radius: 0 0 10px 10px;
+    transition-property: transform;
+    transition-duration: 0.6s;
+    animation-name: glow;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+  }
+  .link {
+    padding: 15px;
+    background-color: transparent;
+    border: none;
+    text-decoration: none;
+    color: rgb(5, 0, 38);
+    font-size: 13pt;
+    font-family: Arial, Helvetica, sans-serif;
+    cursor: pointer;
+  }
+}
+@media screen and (width < 700px) and (width > 500px) {
+  .logo {
+    color: rgb(20, 20, 32);
+    font-weight: bold;
+    font-family: Cosmic;
+    margin: 15px;
+  }
+  .header {
+    width: 100vw;
+    margin-bottom: 15px;
+    display: flex;
+    height: 50px;
+    background-color: rgb(64, 164, 255);
+    box-shadow: 0 0 20px #40a4ff;
+    border-radius: 0 0 10px 10px;
+    transition-property: transform;
+    transition-duration: 0.6s;
+    animation-name: glow;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+  }
+  .link {
+    padding: 15px;
+    background-color: transparent;
+    border: none;
+    text-decoration: none;
+    color: rgb(5, 0, 38);
+    font-size: 12pt;
+    font-family: Arial, Helvetica, sans-serif;
+    cursor: pointer;
+  }
+}
+@media screen and (width < 500px) {
+  .logo {
+    color: black;
+    font-weight: bold;
+    font-family: Cosmic;
+    margin: 15px;
+  }
+  .header {
+    width: 100vw;
+    margin-bottom: 15px;
+    display: flex;
+    height: 50px;
+    background-color: rgb(64, 164, 255);
+    overflow-x: scroll;
+    z-index: 100000;
+    box-shadow: 0 0 20px #40a4ff;
+    border-radius: 0 0 10px 10px;
+    transition-property: transform;
+    transition-duration: 0.6s;
+    animation-name: glow;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+  }
+  .link {
+    padding: 15px;
+    background-color: transparent;
+    border: none;
+    text-decoration: none;
+    color: rgb(5, 0, 38);
+    font-size: 11pt;
+    font-family: Arial, Helvetica, sans-serif;
+    cursor: pointer;
+  }
+}
+.link:hover {
+  color: white;
+}

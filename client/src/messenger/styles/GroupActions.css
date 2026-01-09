@@ -1,0 +1,15 @@
+@import url("./colors.css");
+
+.group-actions {
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.group-action {
+  color: var(--blue-neon);
+  margin: 10px;
+  cursor: pointer;
+}

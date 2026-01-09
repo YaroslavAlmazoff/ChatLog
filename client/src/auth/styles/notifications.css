@@ -1,0 +1,58 @@
+.notifications {
+  position: relative;
+  margin-top: 10px;
+  width: 40%;
+  height: 65vh;
+  overflow-y: scroll;
+  padding: 12px;
+  border-radius: 11px;
+}
+.notifications::-webkit-scrollbar {
+  width: 5px; /* ширина scrollbar */
+}
+.notifications::-webkit-scrollbar-track {
+  background: transparent; /* цвет дорожки */
+}
+.notifications::-webkit-scrollbar-thumb {
+  background-color: transparent; /* цвет плашки */
+  border-radius: 11px; /* закругления плашки */
+  border: transparent; /* padding вокруг плашки */
+}
+.notification {
+  background-color: transparent;
+  padding: 1px;
+  border-radius: 11px;
+  border: 1px solid white;
+  margin-bottom: 8px;
+  color: white;
+}
+.notifications-title {
+  color: white;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+.notice-title {
+  font-size: 11pt;
+  font-family: "Courier New", Courier, monospace;
+  color: black;
+  text-align: left;
+  margin: 5px;
+}
+.close-notifications {
+  cursor: pointer;
+}
+.notice-button {
+  padding: 8px;
+  margin: 8px;
+  border-radius: 15px;
+  background-color: transparent;
+  border: 1px solid rgb(0, 140, 255);
+  color: rgb(0, 140, 255);
+  cursor: pointer;
+}
+.notice-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: 10px;
+}

@@ -1,0 +1,72 @@
+.users {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+@media screen and (width > 700px) {
+  .users-ads {
+    width: 23%;
+    margin-top: 20px;
+    margin-left: 50px;
+  }
+  .users-list {
+    width: 40%;
+    margin-top: 10px;
+  }
+  .users-search-field-width {
+    width: 30%;
+  }
+}
+@media screen and (width < 700px) and (width > 500px) {
+  .users-ads {
+    width: 50%;
+    margin-top: 20px;
+  }
+  .users-list {
+    width: 100%;
+    margin-top: 10px;
+  }
+  .users-search-field-width {
+    width: 50%;
+  }
+}
+@media screen and (width < 500px) {
+  .users-ads {
+    width: 100%;
+    margin-top: 20px;
+    display: none;
+  }
+  .users-list {
+    width: 93%;
+    margin-top: 10px;
+  }
+  .users-search-field-width {
+    width: 98%;
+  }
+}
+
+.users-search-field {
+  padding: 15px;
+  outline: none;
+  border: 1px solid #50c5ff;
+  border-radius: 15px;
+  background-color: rgba(0, 0, 0, 0.5);
+  margin-right: 10px;
+  color: white;
+  text-decoration: none;
+}
+.users-search-field::placeholder {
+  color: #50c5ff;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+.users-search-field::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 10px;
+  width: 10px;
+  background-image: url(../../img/search-cancel.png);
+  background-size: 10px 10px;
+}

@@ -1,0 +1,47 @@
+@import url("./colors.css");
+
+.group-info-top {
+  width: 60%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.group-info-avatar {
+  width: 20%;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+  object-fit: cover;
+  cursor: pointer;
+}
+
+.group-info-title {
+  color: white;
+  cursor: pointer;
+  font-size: 14pt;
+}
+
+.group-info-title-field {
+  margin-left: 15px;
+}
+
+.group-info-description {
+  color: white;
+  font-size: 12pt;
+  cursor: pointer;
+}
+
+.group-info-description-field {
+}
+
+.group-info-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.group-info-cancel {
+  color: var(--blue-neon);
+  margin: 10px;
+  cursor: pointer;
+}

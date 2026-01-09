@@ -1,0 +1,54 @@
+.file-item {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 100px;
+    height: 100px;
+}
+.add-file {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40%;
+    height: 100px;
+}
+.file-item:hover {
+    background-color: rgba(0, 140, 255, 0.438);
+    border: 1px solid rgb(0, 140, 255);
+    width: 98px;
+    height: 98px;
+}
+.file-img {
+    height: 50px;
+    width: 75px;
+    object-fit: cover;
+    margin: 10px;
+    cursor: pointer;
+    border-radius: 10px;
+}
+.file-icon {
+    height: 50px;
+    margin: 10px;
+    cursor: pointer;
+}
+.file-title {
+    color: white;
+    margin-top: -8px;
+    font-size: 11pt;
+}
+.context-menu {
+    position: absolute;
+    background-color: rgb(50, 50, 50);
+    padding: 10px;
+    border: 1px solid rgb(0, 140, 255);
+}
+.context-menu-upload {
+    text-decoration: none;
+    color: rgb(0, 240, 0);
+    margin: 10px;
+}
+.context-menu-delete {
+    color: rgb(240, 0, 0);
+    margin: 10px;
+    cursor: pointer;
+}
