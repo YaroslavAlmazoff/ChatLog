@@ -120,11 +120,12 @@ class AEPController {
   async copyMeteorShowers() {
     const events = await AstronomicalEvent.find({});
 
-    const updatedEvents = events.map((event) => {
-      const e = event.toObject();
-      const [day, month, year] = e.date.split(".");
+    const updatedEvents = events
+      .filter((e) => e.text.includes("Метеорный поток"))
+      .map((event) => {
+        const e = event.toObject();
+        const [day, month, year] = e.date.split(".");
 
-      if (e.text.includes("Метеорный поток")) {
         return {
           ...e,
           _id: undefined,
@@ -136,10 +137,7 @@ class AEPController {
           notifiedHourBefore: false,
           upcoming: true,
         };
-      } else {
-        return e;
-      }
-    });
+      });
 
     await AstronomicalEvent.insertMany(updatedEvents);
   }
