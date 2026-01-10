@@ -31,7 +31,10 @@ async function updateUpcomingStatus() {
       event.notifiedHourBefore = true;
       await event.save();
 
-      if (event.includes("Метеорный поток")) {
+      if (
+        event.includes("Метеорный поток") &&
+        event.year === new Date().getFullYear()
+      ) {
         const [day, month, year] = event.date.split(".");
 
         const newEvent = {

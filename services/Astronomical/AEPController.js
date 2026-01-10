@@ -121,7 +121,11 @@ class AEPController {
     const events = await AstronomicalEvent.find({});
 
     const updatedEvents = events
-      .filter((e) => e.text.includes("Метеорный поток"))
+      .filter(
+        (e) =>
+          e.text.includes("Метеорный поток") &&
+          e.year === new Date().getFullYear()
+      )
       .map((event) => {
         const e = event.toObject();
         const [day, month, year] = e.date.split(".");

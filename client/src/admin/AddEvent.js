@@ -51,7 +51,7 @@ const AddEvent = () => {
     setDay("");
     setTime("");
     setMonth("");
-    setYear("2025");
+    setYear("2026");
     setInteresting(false);
     setFile("");
     setFile2("");
