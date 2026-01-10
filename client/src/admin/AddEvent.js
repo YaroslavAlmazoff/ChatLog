@@ -3,7 +3,7 @@ import api from "../auth/api/auth";
 
 const AddEvent = () => {
   const [text, setText] = useState("");
-  const [year, setYear] = useState("2025");
+  const [year, setYear] = useState(new Date().getFullYear());
   const [month, setMonth] = useState("");
   const [day, setDay] = useState("");
   const [time, setTime] = useState("");
