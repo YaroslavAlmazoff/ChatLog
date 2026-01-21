@@ -62,6 +62,7 @@ class AuthService {
         city,
         password: hashPassword,
         onCourse,
+        courseMemberID: uuid.v4().split("-")[0],
       });
 
       const { token, refreshToken } = TokenService.generateTokens({
@@ -78,7 +79,7 @@ class AuthService {
 
       await MailService.sendActivationLink(
         email,
-        `https://chatlog.ru/api/activate/${user._id}/${link}`
+        `https://chatlog.ru/api/activate/${user._id}/${link}`,
       );
 
       user.link = link;
@@ -141,7 +142,7 @@ class AuthService {
       //Обновление профиля пользователя
       await User.findByIdAndUpdate(
         { _id: id },
-        { name, surname, age, email, aboutMe, city, country }
+        { name, surname, age, email, aboutMe, city, country },
       );
       //Загрузка или обновление изображений аватарки и баннера
       if (req.files) {
@@ -156,7 +157,7 @@ class AuthService {
               "..",
               "static",
               "useravatars",
-              user.avatarUrl
+              user.avatarUrl,
             );
             fs.access(filePath, fs.constants.F_OK, async (err) => {
               if (err) {
@@ -180,7 +181,7 @@ class AuthService {
               "..",
               "static",
               "userbanners",
-              user.bannerUrl
+              user.bannerUrl,
             );
             fs.access(filePath, fs.constants.F_OK, async (err) => {
               if (err) {
@@ -207,7 +208,7 @@ class AuthService {
       }
       if (avatarExists && bannerExists) {
         res.json(
-          JSON.stringify({ avatarUrl: filename1, bannerUrl: filename2 })
+          JSON.stringify({ avatarUrl: filename1, bannerUrl: filename2 }),
         );
       } else if (avatarExists && !bannerExists) {
         res.json(JSON.stringify({ avatarUrl: filename1, bannerUrl: "" }));
@@ -341,7 +342,7 @@ class AuthService {
     const user = await User.findOneAndUpdate({ email }, { returnLink: link });
     await MailService.sendReturnLink(
       email,
-      "https://chatlog.ru/return-password/" + user._id + "/" + link
+      "https://chatlog.ru/return-password/" + user._id + "/" + link,
     );
     res.json("ok");
   }
@@ -380,7 +381,7 @@ class AuthService {
               "..",
               "static",
               "useravatars",
-              user.avatarUrl
+              user.avatarUrl,
             );
             fs.access(filePath, fs.constants.F_OK, async (err) => {
               if (err) {
@@ -401,7 +402,7 @@ class AuthService {
               "..",
               "static",
               "userbanners",
-              user.bannerUrl
+              user.bannerUrl,
             );
             fs.access(filePath, fs.constants.F_OK, async (err) => {
               if (err) {
@@ -417,7 +418,7 @@ class AuthService {
       }
       if (avatarExists && bannerExists) {
         res.json(
-          JSON.stringify({ avatarUrl: filename1, bannerUrl: filename2 })
+          JSON.stringify({ avatarUrl: filename1, bannerUrl: filename2 }),
         );
       } else if (avatarExists && !bannerExists) {
         res.json(JSON.stringify({ avatarUrl: filename1, bannerUrl: "" }));

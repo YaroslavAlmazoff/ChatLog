@@ -1,10 +1,4 @@
-import React, {
-  useState,
-  useContext,
-  useRef,
-  useEffect,
-  useDebugValue,
-} from "react";
+import React, { useState, useContext, useRef, useEffect } from "react";
 import "./styles/form.css";
 import api from "./api/auth";
 import { AuthContext } from "../context/AuthContext";
@@ -63,10 +57,10 @@ const Register = () => {
     const response = await api.post("/api/auth/register", {
       name,
       surname: default_value,
-      age: 18,
+      age: onCourse ? 18 : age,
       email,
-      country: default_value,
-      city: default_value,
+      country: onCourse ? default_value : city,
+      city: onCourse ? default_value : country,
       password,
       site: true,
       onCourse: onCourse,
@@ -90,8 +84,8 @@ const Register = () => {
       <span>
         <input
           type="checkbox"
-          value={onCourse}
-          onChange={(value) => setOnCourse(value)}
+          checked={onCourse}
+          onChange={(e) => setOnCourse(e.target.checked)}
         />
         Регистрация на курс по Android-разработке
       </span>

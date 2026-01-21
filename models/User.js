@@ -26,6 +26,7 @@ const User = new mongoose.Schema({
   link: { type: String, default: "" },
   onCourse: { type: Boolean, default: false },
   paid: { type: Boolean, default: false },
+  courseMemberID: { type: String, default: "" },
 });
 
 module.exports = mongoose.model("User", User);
