@@ -1,4 +1,10 @@
-import React, { useState, useContext, useRef, useEffect } from "react";
+import React, {
+  useState,
+  useContext,
+  useRef,
+  useEffect,
+  useDebugValue,
+} from "react";
 import "./styles/form.css";
 import api from "./api/auth";
 import { AuthContext } from "../context/AuthContext";
@@ -23,6 +29,12 @@ const Register = () => {
   const [city, setCity] = useState("");
   const [password, setPassword] = useState("");
   const [password2, setPassword2] = useState("");
+
+  const [onCourse, setOnCourse] = useState(false);
+
+  useEffect(() => {
+    setOnCourse(course);
+  }, [course]);
 
   const registerHandler = async () => {
     if (!name) {
@@ -57,7 +69,7 @@ const Register = () => {
       city: default_value,
       password,
       site: true,
-      onCourse: true,
+      onCourse: onCourse,
     });
 
     const { token, userId, errors } = response.data;
@@ -74,9 +86,15 @@ const Register = () => {
 
   return (
     <div className="form">
-      <h2 className="white-glow-text">
-        Регистрация{course ? " на курс по Android-разработке" : ""}
-      </h2>
+      <h2 className="white-glow-text">Регистрация</h2>
+      <span>
+        <input
+          type="checkbox"
+          value={onCourse}
+          onChange={(value) => setOnCourse(value)}
+        />
+        Регистрация на курс по Android-разработке
+      </span>
       {!loading ? (
         <>
           <input
@@ -93,7 +111,7 @@ const Register = () => {
             type="text"
             className="input"
           />
-          {!course ? (
+          {!onCourse ? (
             <>
               <p className="white-glow-text">Введите дату рождения</p>
               <input
@@ -125,7 +143,7 @@ const Register = () => {
           ) : (
             <></>
           )}
-          {!course ? (
+          {!onCourse ? (
             <input
               value={city}
               onChange={(e) => setCity(e.target.value)}
