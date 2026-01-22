@@ -4,11 +4,14 @@ import Search from "./components/Search";
 import Forecast from "./components/Forecast";
 import News from "./components/News";
 import "./homepage.css";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import useVerify from "../common_hooks/verify.hook";
+import { AuthContext } from "../context/AuthContext";
+import MiniProfile from "../course/MiniProfile";
 
 const HomePage = () => {
   const { verify } = useVerify();
+  const { onCourse } = useContext(AuthContext);
 
   useEffect(() => {
     verify();
@@ -19,8 +22,14 @@ const HomePage = () => {
       <Links />
       <div className="body">
         <Head />
-        <Search />
-        <Forecast />
+        {onCourse ? (
+          <MiniProfile />
+        ) : (
+          <>
+            <Search />
+            <Forecast />
+          </>
+        )}
         <News />
       </div>
     </div>
