@@ -5,6 +5,7 @@ import "./styles/mini-profile.css";
 
 const MiniProfile = () => {
   const { userId, token } = useContext(AuthContext);
+  const [loading, setLoading] = useState(false);
   const [user, setUser] = useState({
     paid: false,
     courseMemberID: "Загрузка...",
@@ -15,11 +16,13 @@ const MiniProfile = () => {
 
   useEffect(() => {
     const getUser = async () => {
+      setLoading(true);
       const response = await api.get(`/api/user/${userId}`);
       const user = response.data.user;
       setUser(user);
       setName(user.name);
       setAvatarUrl(user.avatarUrl);
+      setLoading(false);
     };
     getUser();
   }, []);
