@@ -2,10 +2,12 @@ import { useContext, useEffect, useRef, useState } from "react";
 import api from "../auth/api/auth";
 import { AuthContext } from "../context/AuthContext";
 import "./styles/mini-profile.css";
+import Loader from "../common_components/Loader";
 
 const MiniProfile = () => {
   const { userId, token } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
+  const [isOpen, setIsOpen] = useState(defaultOpen);
   const [user, setUser] = useState({
     paid: false,
     courseMemberID: "Загрузка...",
@@ -61,49 +63,76 @@ const MiniProfile = () => {
 
   return (
     <div className="mini-profile block mini-profile-width">
-      <span>
-        <span className="mini-profile-title">Профиль</span>
-      </span>
-      <span>
-        <span className="mini-profile-property">Имя: </span>
-        <input
-          className="input"
-          type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          placeholder="Ваше имя..."
-        />
-        <span onClick={updateNameHandler} className="mini-profile-ok">
-          OK
-        </span>
-      </span>
-      <span>
-        <span className="mini-profile-property">Статус курса: </span>
-        <span
-          className="mini-profile-property-value"
-          style={{ color: user.paid ? "#86ed26" : "#ff083a" }}
-        >
-          {user.paid ? "Полностью доступен" : "Только открытые уроки"}
-        </span>
-      </span>
-      {user.paid && user.courseMemberID ? (
-        <span>
-          <span className="mini-profile-property">Ваш ID участника: </span>
-          <span className="mini-profile-property-value">
-            #{user.courseMemberID.toUpperCase()}
+      <span onClick={() => setIsOpen(!isOpen)}>
+        <span className="mini-profile-title">
+          Профиль&nbsp;
+          <span
+            style={{
+              marginRight: 8,
+              transition: "transform 0.2s",
+              transform: isOpen ? "rotate(90deg)" : "rotate(0deg)",
+            }}
+          >
+            ▶
           </span>
         </span>
+      </span>
+      {isOpen ? (
+        <>
+          {!loading ? (
+            <>
+              <span>
+                <span className="mini-profile-property">Имя: </span>
+                <input
+                  className="input"
+                  type="text"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  placeholder="Ваше имя..."
+                />
+                <span onClick={updateNameHandler} className="mini-profile-ok">
+                  OK
+                </span>
+              </span>
+              <span>
+                <span className="mini-profile-property">Статус курса: </span>
+                <span
+                  className="mini-profile-property-value"
+                  style={{ color: user.paid ? "#86ed26" : "#ff083a" }}
+                >
+                  {user.paid ? "Полностью доступен" : "Только открытые уроки"}
+                </span>
+              </span>
+              {user.paid && user.courseMemberID ? (
+                <span>
+                  <span className="mini-profile-property">
+                    Ваш ID участника:{" "}
+                  </span>
+                  <span className="mini-profile-property-value">
+                    #{user.courseMemberID.toUpperCase()}
+                  </span>
+                </span>
+              ) : (
+                <></>
+              )}
+              <div className="mini-profile-avatar-container">
+                <img
+                  onClick={emitOpen}
+                  className="mini-profile-avatar"
+                  src={
+                    process.env.REACT_APP_API_URL + "/useravatars/" + avatarUrl
+                  }
+                />
+                <input onChange={(e) => getFile(e)} ref={fileRef} type="file" />
+              </div>
+            </>
+          ) : (
+            <Loader />
+          )}
+        </>
       ) : (
         <></>
       )}
-      <div className="mini-profile-avatar-container">
-        <img
-          onClick={emitOpen}
-          className="mini-profile-avatar"
-          src={process.env.REACT_APP_API_URL + "/useravatars/" + avatarUrl}
-        />
-        <input onChange={(e) => getFile(e)} ref={fileRef} type="file" />
-      </div>
     </div>
   );
 };
