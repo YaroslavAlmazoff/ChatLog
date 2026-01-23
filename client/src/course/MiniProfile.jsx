@@ -60,9 +60,9 @@ const MiniProfile = () => {
   };
 
   return (
-    <div className="mini-profile block">
+    <div className="mini-profile block mini-profile-width">
       <span>
-        <p>Профиль</p>
+        <span>Профиль</span>
       </span>
       <span>
         <span className="mini-profile-property">Имя: </span>
