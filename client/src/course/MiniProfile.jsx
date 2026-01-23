@@ -78,7 +78,10 @@ const MiniProfile = () => {
       </span>
       <span>
         <span className="mini-profile-property">Статус курса: </span>
-        <span className="mini-profile-property-value">
+        <span
+          className="mini-profile-property-value"
+          style={{ color: user.paid ? "#86ed26" : "#ff083a" }}
+        >
           {user.paid ? "Полностью доступен" : "Только открытые уроки"}
         </span>
       </span>
