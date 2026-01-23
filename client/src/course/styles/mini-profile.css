@@ -6,6 +6,10 @@
   flex-direction: column;
 }
 
+.mini-profile-title {
+  font-size: 18pt;
+}
+
 .mini-profile-ok {
   color: #40a4ff;
 }
