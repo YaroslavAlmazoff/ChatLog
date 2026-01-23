@@ -7,7 +7,7 @@ import Loader from "../common_components/Loader";
 const MiniProfile = () => {
   const { userId, token } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
-  const [isOpen, setIsOpen] = useState(defaultOpen);
+  const [isOpen, setIsOpen] = useState(false);
   const [user, setUser] = useState({
     paid: false,
     courseMemberID: "Загрузка...",
