@@ -12,7 +12,8 @@
   animation-name: glow;
   animation-duration: 2s;
   animation-iteration-count: infinite;
-  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+  font-family:
+    "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 }
 .dark-button {
@@ -29,7 +30,8 @@
   animation-name: glow;
   animation-duration: 2s;
   animation-iteration-count: infinite;
-  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+  font-family:
+    "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 }
 .button-neon-red {
@@ -46,7 +48,8 @@
   animation-name: red-block-glow;
   animation-duration: 2s;
   animation-iteration-count: infinite;
-  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+  font-family:
+    "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 }
 .input {
@@ -103,10 +106,11 @@
 }
 
 .block {
-  animation-name: glow;
+  /* animation-name: glow;
   animation-duration: 2s;
-  animation-iteration-count: infinite;
+  animation-iteration-count: infinite; */
   border-radius: 11px;
+  box-shadow: 0 0 8px #40a4ff;
 }
 .red-block {
   animation-name: red-glow;
