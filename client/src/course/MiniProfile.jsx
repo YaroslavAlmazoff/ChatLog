@@ -62,9 +62,9 @@ const MiniProfile = () => {
   return (
     <div className="mini-profile block mini-profile-width">
       <span>
-        <span>Профиль</span>
+        <span className="mini-profile-title">Профиль</span>
       </span>
-      <span className="mini-profile-title">
+      <span>
         <span className="mini-profile-property">Имя: </span>
         <input
           className="input"
@@ -96,12 +96,14 @@ const MiniProfile = () => {
       ) : (
         <></>
       )}
-      <img
-        onClick={emitOpen}
-        className="mini-profile-avatar"
-        src={process.env.REACT_APP_API_URL + "/useravatars/" + avatarUrl}
-      />
-      <input onChange={(e) => getFile(e)} ref={fileRef} type="file" />
+      <div className="mini-profile-avatar-container">
+        <img
+          onClick={emitOpen}
+          className="mini-profile-avatar"
+          src={process.env.REACT_APP_API_URL + "/useravatars/" + avatarUrl}
+        />
+        <input onChange={(e) => getFile(e)} ref={fileRef} type="file" />
+      </div>
     </div>
   );
 };

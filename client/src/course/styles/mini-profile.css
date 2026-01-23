@@ -30,6 +30,13 @@
 .mini-profile-ok {
   color: #40a4ff;
   margin-left: 10px;
+  cursor: pointer;
+}
+.mini-profile-avatar-container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .mini-profile-avatar {
   width: 30%;
@@ -37,6 +44,10 @@
   object-fit: cover;
   border-radius: 50%;
   border: 1px dashed #40a4ff;
+  cursor: pointer;
+}
+.mini-profile-avatar:hover {
+  border: 1px solid #40a4ff;
 }
 
 .mini-profile-field {
