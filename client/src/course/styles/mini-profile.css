@@ -14,17 +14,23 @@
 }
 @media screen and (width > 500px) and (width < 1000px) {
   .mini-profile-width {
-    width: 40%;
+    width: 50%;
   }
 }
 @media screen and (width >= 1000px) {
   .mini-profile-width {
-    width: 30%;
+    width: 40%;
   }
 }
 .mini-profile-title {
   font-size: 18pt;
   font-weight: 700;
+}
+
+.mini-profile-name-row {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
 }
 
 .mini-profile-ok {

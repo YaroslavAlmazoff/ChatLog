@@ -81,7 +81,7 @@ const MiniProfile = () => {
         <>
           {!loading ? (
             <>
-              <span>
+              <div className="mini-profile-name-row">
                 <span className="mini-profile-property">Имя: </span>
                 <input
                   className="input"
@@ -93,7 +93,7 @@ const MiniProfile = () => {
                 <span onClick={updateNameHandler} className="mini-profile-ok">
                   OK
                 </span>
-              </span>
+              </div>
               <span>
                 <span className="mini-profile-property">Статус курса: </span>
                 <span
