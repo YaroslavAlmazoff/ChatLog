@@ -64,10 +64,10 @@ const MiniProfile = () => {
       <span>
         <span>Профиль</span>
       </span>
-      <span>
+      <span className="mini-profile-title">
         <span className="mini-profile-property">Имя: </span>
         <input
-          className="mini-profile-field"
+          className="input"
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
