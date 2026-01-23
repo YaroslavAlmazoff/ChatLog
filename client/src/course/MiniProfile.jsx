@@ -97,6 +97,7 @@ const MiniProfile = () => {
       )}
       <img
         onClick={emitOpen}
+        className="mini-profile-avatar"
         src={process.env.REACT_APP_API_URL + "/useravatars/" + avatarUrl}
       />
       <input onChange={(e) => getFile(e)} ref={fileRef} type="file" />
