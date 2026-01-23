@@ -1,17 +1,33 @@
 .mini-profile {
-  width: 100%;
   display: flex;
   align-items: flex-start;
   justify-content: center;
   flex-direction: column;
 }
 
+@media screen and (width <= 500px) {
+  .mini-profile-width {
+    width: 98%;
+  }
+}
+@media screen and (width > 500px) and (width < 1000px) {
+  .mini-profile-width {
+    width: 40%;
+  }
+}
+@media screen and (width >= 1000px) {
+  .mini-profile-width {
+    width: 30%;
+  }
+}
 .mini-profile-title {
   font-size: 18pt;
+  font-weight: 700;
 }
 
 .mini-profile-ok {
   color: #40a4ff;
+  margin-left: 10px;
 }
 .mini-profile-avatar {
   width: 30%;
