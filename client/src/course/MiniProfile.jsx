@@ -63,7 +63,10 @@ const MiniProfile = () => {
 
   return (
     <div className="mini-profile block mini-profile-width">
-      <span style={{ cursor: "pointer" }} onClick={() => setIsOpen(!isOpen)}>
+      <span
+        style={{ cursor: "pointer" }}
+        onClick={() => setIsOpen((prev) => !prev)}
+      >
         <span className="mini-profile-title">
           Профиль&nbsp;
           <span
