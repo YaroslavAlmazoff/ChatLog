@@ -8,6 +8,7 @@ import { useContext, useEffect } from "react";
 import useVerify from "../common_hooks/verify.hook";
 import { AuthContext } from "../context/AuthContext";
 import MiniProfile from "../course/MiniProfile";
+import Content from "../course/content/Content";
 
 const HomePage = () => {
   const { verify } = useVerify();
@@ -23,14 +24,17 @@ const HomePage = () => {
       <div className="body">
         <Head />
         {onCourse ? (
-          <MiniProfile />
+          <>
+            <MiniProfile />
+            <Content />
+          </>
         ) : (
           <>
             <Search />
             <Forecast />
+            <News />
           </>
         )}
-        <News />
       </div>
     </div>
   );
