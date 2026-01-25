@@ -71,11 +71,11 @@ const updateGradient = () => {
   }
 };
 
-setInterval(updateGradient, 10);
+setInterval(updateGradient, 100);
 
 ReactDOM.render(
   <BrowserRouter>
     <App />
   </BrowserRouter>,
-  document.getElementById("root")
+  document.getElementById("root"),
 );
