@@ -71,6 +71,7 @@ const MiniProfile = () => {
           Профиль&nbsp;
           <span
             style={{
+              display: "inline-block",
               marginRight: 8,
               transition: "transform 0.2s",
               transform: isOpen ? "rotate(90deg)" : "rotate(0deg)",
