@@ -57,12 +57,5 @@
 }
 
 .mini-profile-field {
-  border: none;
-  padding: 12px;
-  background-color: transparent;
-  outline: none;
-  border-bottom: 2px solid #40a4ff;
-  width: 94%;
-  margin-top: 10px;
-  color: white;
+  margin-left: 10px;
 }
