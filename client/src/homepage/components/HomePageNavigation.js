@@ -2,36 +2,21 @@ import { NavLink } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import CourseStructure from "../../course/CourseStructure";
+import { list1, list2, list3 } from "../links-data";
 
-const Links = () => {
+const HomePageNavigation = () => {
   const auth = useContext(AuthContext);
-  const list1 = [
-    { name: "Моя страница", link: `/user/${auth.userId}` },
-    { name: "Сообщения", link: "/messages" },
-    { name: "Приложения", link: "/apps" },
-    { name: "Люди", link: "/users" },
-    { name: "Группы", link: `/publics` },
-  ];
-  const list2 = [
-    { name: "Chat Log Видеоблогер", link: `/videohost` },
-    { name: "Chat Log Cloud", link: `/cloud` },
-    //{name: 'Chat Log Реклама', link: `/innerad/cabinet`},
-    //{name: 'Chat Log Ads', link: `/ad/main`},
-    //{name: 'Chat Log Store', link: `/store`},
-  ];
-  const list3 = [
-    { name: "Моя страница", link: `/user/${auth.userId}` },
-    { name: "Сообщения", link: "/messages" },
-    { name: "Игры", link: "/store" },
-    { name: "Люди", link: "/users" },
-    { name: "Группы", link: `/publics` },
-    { name: "Сервисы", link: "/services" },
-  ];
+  const [activeLessonId, setActiveLessonId] = useState(null);
 
   return (
     <div className="homelinks">
       {auth.onCourse ? (
-        <CourseStructure />
+        <CourseStructure
+          course={course}
+          mode="view"
+          activeLessonId={activeLessonId}
+          onSelectLesson={setActiveLessonId}
+        />
       ) : (
         <>
           {window.innerWidth > 500 ? (
@@ -74,4 +59,4 @@ const Links = () => {
   );
 };
 
-export default Links;
+export default HomePageNavigation;

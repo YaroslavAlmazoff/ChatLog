@@ -1,21 +1,84 @@
 import Expandable from "./Expandable";
 import Lesson from "./Lesson";
 
-function Block({ block, activeLessonId, onSelectLesson }) {
+function Block({
+  block,
+  activeLessonId,
+  onSelectLesson,
+  onSelectItem,
+  onEditItem,
+  mode = "view",
+  partIndex,
+  blockIndex,
+}) {
+  const item = {
+    type: "block",
+    path: { partIndex, blockIndex },
+    data: {
+      number: block.number,
+      title: block.title,
+    },
+  };
+
   return (
-    <Expandable title={`Блок ${block.number}: ${block.title}`} level={2}>
-      {block.lessons.map((lesson) => (
+    <Expandable
+      title={`Блок ${block.number}: ${block.title}`}
+      level={2}
+      onTitleClick={mode === "editor" ? () => onSelectItem?.(item) : undefined}
+      rightContent={
+        mode === "editor" && (
+          <span
+            onClick={(e) => {
+              e.stopPropagation();
+              onEditItem?.(item);
+            }}
+          >
+            ✏️
+          </span>
+        )
+      }
+    >
+      {block.lessons.map((lesson, lessonIndex) => (
         <Lesson
-          key={lesson.id}
+          key={lessonIndex}
           lesson={lesson}
-          isActive={lesson.id === activeLessonId}
-          onSelect={onSelectLesson}
+          isActive={lessonIndex === activeLessonId}
+          mode={mode}
+          path={{ partIndex, blockIndex, lessonIndex }}
+          onSelectLesson={onSelectLesson}
+          onSelectItem={onSelectItem}
+          onEditItem={onEditItem}
         />
       ))}
 
-      {block.test?.length > 0 && (
-        <div style={{ marginLeft: 2 * 16, marginTop: 6, cursor: "pointer" }}>
+      {block.test && (
+        <div
+          style={{ marginLeft: 2 * 16, marginTop: 6, cursor: "pointer" }}
+          onClick={() =>
+            mode === "editor" &&
+            onSelectItem?.({
+              type: "test",
+              path: { partIndex, blockIndex },
+              data: block.test,
+            })
+          }
+        >
           🧪 Итоговый тест блока
+          {mode === "editor" && (
+            <span
+              onClick={(e) => {
+                e.stopPropagation();
+                onEditItem?.({
+                  type: "test",
+                  path: { partIndex, blockIndex },
+                  data: block.test,
+                });
+              }}
+            >
+              {" "}
+              ✏️
+            </span>
+          )}
         </div>
       )}
     </Expandable>

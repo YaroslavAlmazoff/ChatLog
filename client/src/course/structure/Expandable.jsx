@@ -1,14 +1,17 @@
-import { useState } from "react";
-
-function Expandable({ title, children, level = 0, defaultOpen = false }) {
+function Expandable({
+  title,
+  children,
+  level = 0,
+  defaultOpen = false,
+  rightContent,
+  onTitleClick,
+}) {
   const [isOpen, setIsOpen] = useState(defaultOpen);
 
   return (
     <div style={{ marginLeft: level * 16 }}>
       <div
-        onClick={() => setIsOpen(!isOpen)}
         style={{
-          cursor: "pointer",
           display: "flex",
           alignItems: "center",
           fontWeight: "bold",
@@ -16,21 +19,30 @@ function Expandable({ title, children, level = 0, defaultOpen = false }) {
         }}
       >
         <span
+          onClick={() => setIsOpen((v) => !v)}
           style={{
             marginRight: 8,
+            cursor: "pointer",
             transition: "transform 0.2s",
             transform: isOpen ? "rotate(90deg)" : "rotate(0deg)",
           }}
         >
           ▶
         </span>
-        {title}
+
+        <span
+          onClick={onTitleClick}
+          style={{ flex: 1, cursor: onTitleClick ? "pointer" : "default" }}
+        >
+          {title}
+        </span>
+
+        {rightContent}
       </div>
 
-      <div className={`expandable-content ${isOpen ? "open" : "closed"}`}>
-        <div style={{ paddingTop: 8 }}>{children}</div>
-      </div>
+      {isOpen && <div style={{ paddingTop: 8 }}>{children}</div>}
     </div>
   );
 }
+
 export default Expandable;

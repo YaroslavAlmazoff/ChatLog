@@ -11,67 +11,58 @@
             {
               "number": 1,
               "title": "Алгоритмы",
-              "video": "a54c2b0-f5df1a0.mp4",
-              "test": [
-                {
-                  "number": 1,
-                  "question": "3 основных типа алгоритмов",
-                  "rightValues": [2, 3, 5],
-                  "variants": [
-                    {
-                      "number": 1,
-                      "title": "Ступенчатые"
-                    },
-                    {
-                      "number": 2,
-                      "title": "Циклические"
-                    },
-                    {
-                      "number": 3,
-                      "title": "Линейные"
-                    },
-                    {
-                      "number": 4,
-                      "title": "Нелинейные"
-                    },
-                    {
-                      "number": 5,
-                      "title": "С ветвлением"
-                    }
-                  ]
-                }
-              ]
+              "video": {
+                "type": "video",
+                "number": 1,
+                "title": "Видеоурок",
+                "src": "a54c2b0-f5df1a0.mp4"
+              },
+              "test": {
+                "type": "test",
+                "number": 2,
+                "title": "Тест по алгоритмам",
+                "questions": [
+                  {
+                    "number": 1,
+                    "question": "3 основных типа алгоритмов",
+                    "rightValues": [2, 3, 5],
+                    "variants": [
+                      { "number": 1, "title": "Ступенчатые" },
+                      { "number": 2, "title": "Циклические" },
+                      { "number": 3, "title": "Линейные" },
+                      { "number": 4, "title": "Нелинейные" },
+                      { "number": 5, "title": "С ветвлением" }
+                    ]
+                  }
+                ]
+              }
             }
           ],
-          "test": [
-            {
-              "number": 1,
-              "question": "Что такое алгоритм?",
-              "rightValues": [3],
-              "variants": [
-                {
-                  "number": 1,
-                  "title": "Блок-схема"
-                },
-                {
-                  "number": 2,
-                  "title": "Программный код"
-                },
-                {
-                  "number": 3,
-                  "title": "Последовательность шагов, которая приводит к результату"
-                },
-                {
-                  "number": 4,
-                  "title": "Набор действий для получения результата"
-                },
-                {
-                  "number": 5,
-                  "title": "Язык программирования"
-                }
-              ]
-            }
-          ]
+          "test": {
+            "type": "test",
+            "number": 2,
+            "title": "Итоговый тест блока",
+            "questions": [
+              {
+                "number": 1,
+                "question": "Что такое алгоритм?",
+                "rightValues": [3],
+                "variants": [
+                  { "number": 1, "title": "Блок-схема" },
+                  { "number": 2, "title": "Программный код" },
+                  {
+                    "number": 3,
+                    "title": "Последовательность шагов, которая приводит к результату"
+                  },
+                  {
+                    "number": 4,
+                    "title": "Набор действий для получения результата"
+                  },
+                  { "number": 5, "title": "Язык программирования" }
+                ]
+              }
+            ]
+          }
         }
       ]
     }

@@ -1,4 +1,4 @@
-import Links from "./components/Links";
+import HomePageNavigation from "./components/HomePageNavigation";
 import Head from "./components/Head";
 import Search from "./components/Search";
 import Forecast from "./components/Forecast";
@@ -20,7 +20,7 @@ const HomePage = () => {
 
   return (
     <div className="homepage">
-      <Links />
+      <HomePageNavigation />
       <div className="body">
         <Head />
         {onCourse ? (
