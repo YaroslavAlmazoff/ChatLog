@@ -21,11 +21,3 @@
   text-align: left;
   width: 100%;
 }
-
-.course-structure-edit-icon {
-  opacity: 0;
-}
-
-.course-structure-edit-icon:hover {
-  opacity: 1;
-}
