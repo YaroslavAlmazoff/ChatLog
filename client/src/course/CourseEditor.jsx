@@ -1,6 +1,7 @@
 import { useState } from "react";
 import courseJson from "./course.json";
 import CourseStructure from "./CourseStructure";
+import "./styles/course-editor.css";
 
 const MODES = {
   ADD_PART: "add-part",

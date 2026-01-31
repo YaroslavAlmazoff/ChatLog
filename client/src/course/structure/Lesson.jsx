@@ -26,6 +26,7 @@ function Lesson({
 
   return (
     <div
+      className="course-structure-item"
       onClick={handleClick}
       style={{
         marginLeft: 2 * 16,
@@ -43,11 +44,11 @@ function Lesson({
 
       {mode === "editor" && (
         <span
+          className="edit-icon"
           onClick={(e) => {
             e.stopPropagation();
             onEditItem?.(item);
           }}
-          style={{ opacity: 0.7 }}
         >
           ✏️
         </span>

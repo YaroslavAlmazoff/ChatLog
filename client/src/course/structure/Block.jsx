@@ -34,7 +34,6 @@ function Block({
                 e.stopPropagation();
                 onEditItem?.(item);
               }}
-              style={{ opacity: 0.7 }}
             >
               ✏️
             </span>
@@ -59,6 +58,7 @@ function Block({
 
       {block.test && (
         <div
+          className="course-structure-item"
           style={{ marginLeft: 2 * 16, marginTop: 6, cursor: "pointer" }}
           onClick={() =>
             mode === "editor" &&
@@ -72,6 +72,7 @@ function Block({
           🧪 Итоговый тест блока
           {mode === "editor" && (
             <span
+              className="edit-icon"
               onClick={(e) => {
                 e.stopPropagation();
                 onEditItem?.({

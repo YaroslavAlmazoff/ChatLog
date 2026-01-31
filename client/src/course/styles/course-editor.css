@@ -1,0 +1,7 @@
+.course-structure-item .edit-icon {
+  opacity: 0;
+}
+
+.course-structure-item:hover .edit-icon {
+  opacity: 1;
+}
