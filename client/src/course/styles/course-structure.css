@@ -1,6 +1,8 @@
 .expandable-content {
   overflow: hidden;
-  transition: max-height 0.3s ease, opacity 0.2s ease;
+  transition:
+    max-height 0.3s ease,
+    opacity 0.2s ease;
 }
 
 .expandable-content.closed {
@@ -18,4 +20,12 @@
   font-family: "Courier New", Courier, monospace;
   text-align: left;
   width: 100%;
+}
+
+.course-structure-edit-icon {
+  opacity: 0;
+}
+
+.course-structure-edit-icon {
+  opacity: 1;
 }
