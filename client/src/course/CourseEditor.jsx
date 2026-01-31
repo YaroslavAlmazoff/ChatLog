@@ -180,6 +180,7 @@ const CourseEditor = () => {
           <div>
             <label>Номер</label>
             <input
+              className="input"
               type="number"
               value={form.number}
               onChange={(e) => setForm({ ...form, number: e.target.value })}
@@ -189,6 +190,7 @@ const CourseEditor = () => {
           <div>
             <label>Название</label>
             <input
+              className="input"
               value={form.title}
               onChange={(e) => setForm({ ...form, title: e.target.value })}
             />

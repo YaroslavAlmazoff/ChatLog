@@ -1,1 +1,19 @@
+@media screen and (width <= 500px) {
+  .course-editor-width {
+    width: 98vw;
+  }
+}
+@media screen and (width > 500px) {
+  .course-editor-width {
+    width: 40vw;
+  }
+}
 
+.course-editor {
+  border-radius: 11px;
+  border: 1px solid #40a4ff;
+  background-color: rgba(0, 0, 0, 0.75);
+  padding: 15px;
+  margin-top: 20px;
+  color: white;
+}
