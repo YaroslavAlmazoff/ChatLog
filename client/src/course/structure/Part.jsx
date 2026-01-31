@@ -31,7 +31,7 @@ function Part({
           Часть {part.number}: {part.title}
           {mode === "editor" && (
             <span
-              className="edit-icon"
+              className="course-structure-edit-icon"
               onClick={(e) => {
                 e.stopPropagation();
                 onEditItem?.({
