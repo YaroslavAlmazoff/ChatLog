@@ -30,6 +30,7 @@ function Block({
 
           {mode === "editor" && (
             <span
+              className="edit-icon"
               onClick={(e) => {
                 e.stopPropagation();
                 onEditItem?.(item);
@@ -82,7 +83,6 @@ function Block({
                 });
               }}
             >
-              {" "}
               ✏️
             </span>
           )}
