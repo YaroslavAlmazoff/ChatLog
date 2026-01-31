@@ -26,6 +26,6 @@
   opacity: 0;
 }
 
-.course-structure-edit-icon {
+.course-structure-edit-icon:hover {
   opacity: 1;
 }
