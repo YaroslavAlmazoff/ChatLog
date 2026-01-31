@@ -30,7 +30,7 @@ function Block({
 
           {mode === "editor" && (
             <span
-              className="edit-icon"
+              className="course-structure-edit-icon"
               onClick={(e) => {
                 e.stopPropagation();
                 onEditItem?.(item);
@@ -73,7 +73,7 @@ function Block({
           🧪 Итоговый тест блока
           {mode === "editor" && (
             <span
-              className="edit-icon"
+              className="course-structure-edit-icon"
               onClick={(e) => {
                 e.stopPropagation();
                 onEditItem?.({
