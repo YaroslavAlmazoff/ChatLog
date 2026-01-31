@@ -1,8 +1,9 @@
 import { NavLink } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import CourseStructure from "../../course/CourseStructure";
 import { list1, list2, list3 } from "../links-data";
+import course from "../../course/course.json";
 
 const HomePageNavigation = () => {
   const auth = useContext(AuthContext);
