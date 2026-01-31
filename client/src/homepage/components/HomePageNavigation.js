@@ -22,7 +22,7 @@ const HomePageNavigation = () => {
         <>
           {window.innerWidth > 500 ? (
             <>
-              {list1.map((el) => (
+              {list1(auth.userId).map((el) => (
                 <NavLink
                   key={Date.now() + Math.random() * 100}
                   className="homelink"
@@ -31,7 +31,7 @@ const HomePageNavigation = () => {
                   {el.name}
                 </NavLink>
               ))}
-              {list2.map((el) => (
+              {list2().map((el) => (
                 <NavLink
                   key={Date.now() + Math.random() * 100}
                   className="homelink"
@@ -43,7 +43,7 @@ const HomePageNavigation = () => {
             </>
           ) : (
             <>
-              {list3.map((el) => (
+              {list3(auth.userId).map((el) => (
                 <NavLink
                   key={Date.now() + Math.random() * 100}
                   className="homelink"
