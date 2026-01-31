@@ -32,8 +32,9 @@ function Lesson({
         cursor: "pointer",
         fontWeight: isActive ? "bold" : "normal",
         color: isActive ? "#40a4ff" : "white",
-        display: "flex",
-        justifyContent: "space-between",
+        display: "inline-flex",
+        alignItems: "center",
+        gap: 6,
       }}
     >
       <span>
@@ -46,6 +47,7 @@ function Lesson({
             e.stopPropagation();
             onEditItem?.(item);
           }}
+          style={{ opacity: 0.7 }}
         >
           ✏️
         </span>

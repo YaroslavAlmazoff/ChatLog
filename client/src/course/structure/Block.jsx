@@ -22,21 +22,27 @@ function Block({
 
   return (
     <Expandable
-      title={`Блок ${block.number}: ${block.title}`}
+      title={
+        <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
+          <span>
+            Блок {block.number}: {block.title}
+          </span>
+
+          {mode === "editor" && (
+            <span
+              onClick={(e) => {
+                e.stopPropagation();
+                onEditItem?.(item);
+              }}
+              style={{ opacity: 0.7 }}
+            >
+              ✏️
+            </span>
+          )}
+        </span>
+      }
       level={2}
       onTitleClick={mode === "editor" ? () => onSelectItem?.(item) : undefined}
-      rightContent={
-        mode === "editor" && (
-          <span
-            onClick={(e) => {
-              e.stopPropagation();
-              onEditItem?.(item);
-            }}
-          >
-            ✏️
-          </span>
-        )
-      }
     >
       {block.lessons.map((lesson, lessonIndex) => (
         <Lesson
