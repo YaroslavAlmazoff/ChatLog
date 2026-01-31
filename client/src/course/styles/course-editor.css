@@ -17,3 +17,12 @@
   margin-top: 20px;
   color: white;
 }
+
+.course-editor-add-button {
+  padding: 7px;
+  margin: 10px;
+  border: 1px solid #40a4ff;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #40a4ff;
+  border-radius: 11px;
+}

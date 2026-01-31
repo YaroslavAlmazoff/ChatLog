@@ -47,7 +47,7 @@ const CourseEditor = () => {
   /* ---------------- helpers ---------------- */
 
   const isValidTarget = () => {
-    if (!selectedItem) return false;
+    if (!selectedItem && mode !== MODES.ADD_PART) return false;
 
     if (mode === MODES.ADD_BLOCK) return selectedItem.type === "part";
     if (mode === MODES.ADD_LESSON) return selectedItem.type === "block";
@@ -157,19 +157,34 @@ const CourseEditor = () => {
     <div className="course-editor">
       {/* ACTIONS */}
       <div className="editor-actions">
-        <button onClick={() => startAdd(MODES.ADD_PART)}>
+        <button
+          className="course-editor-add-button"
+          onClick={() => startAdd(MODES.ADD_PART)}
+        >
           + Добавить часть
         </button>
-        <button onClick={() => startAdd(MODES.ADD_BLOCK)}>
+        <button
+          className="course-editor-add-button"
+          onClick={() => startAdd(MODES.ADD_BLOCK)}
+        >
           + Добавить блок
         </button>
-        <button onClick={() => startAdd(MODES.ADD_LESSON)}>
+        <button
+          className="course-editor-add-button"
+          onClick={() => startAdd(MODES.ADD_LESSON)}
+        >
           + Добавить урок
         </button>
-        <button onClick={() => startAdd(MODES.ADD_VIDEO)}>
+        <button
+          className="course-editor-add-button"
+          onClick={() => startAdd(MODES.ADD_VIDEO)}
+        >
           + Добавить видео
         </button>
-        <button onClick={() => startAdd(MODES.ADD_TEST)}>
+        <button
+          className="course-editor-add-button"
+          onClick={() => startAdd(MODES.ADD_TEST)}
+        >
           + Добавить тест
         </button>
       </div>
