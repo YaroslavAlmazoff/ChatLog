@@ -3,6 +3,7 @@ import CourseStructure from "./CourseStructure";
 import Loader from "../common_components/Loader";
 import { AuthContext } from "../context/AuthContext";
 import "./styles/course-editor.css";
+import TestEditor from "./TestEditor";
 
 const MODES = {
   ADD_PART: "add-part",

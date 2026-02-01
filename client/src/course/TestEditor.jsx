@@ -1,3 +1,5 @@
+import QuestionEditor from "./QuestionEditor";
+
 function TestEditor({ test, onChange, onClose, showTitleEdit }) {
   const updateQuestion = (index, updated) => {
     const questions = [...test.questions];
