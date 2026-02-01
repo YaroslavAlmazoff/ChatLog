@@ -13,7 +13,7 @@ const MODES = {
 };
 
 const CourseEditor = () => {
-  const [course, setCourse] = useState(courseJson);
+  const [course, setCourse] = useState(null);
 
   const [mode, setMode] = useState(null);
   const [selectedItem, setSelectedItem] = useState(null);
