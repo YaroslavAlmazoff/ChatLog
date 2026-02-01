@@ -41,7 +41,7 @@ function Part({
                 });
               }}
             >
-              ✏️
+              &nbsp;✏️
             </span>
           )}
         </div>

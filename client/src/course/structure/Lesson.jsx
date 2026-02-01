@@ -50,7 +50,7 @@ function Lesson({
             onEditItem?.(item);
           }}
         >
-          ✏️
+          &nbsp;✏️
         </span>
       )}
     </div>

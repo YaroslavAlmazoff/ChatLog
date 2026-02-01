@@ -36,7 +36,7 @@ function Block({
                 onEditItem?.(item);
               }}
             >
-              ✏️
+              &nbsp;✏️
             </span>
           )}
         </span>
