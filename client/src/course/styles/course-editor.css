@@ -25,4 +25,5 @@
   background-color: rgba(0, 0, 0, 0.5);
   color: #40a4ff;
   border-radius: 11px;
+  cursor: pointer;
 }

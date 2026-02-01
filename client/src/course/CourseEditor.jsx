@@ -47,7 +47,9 @@ const CourseEditor = () => {
   /* ---------------- helpers ---------------- */
 
   const isValidTarget = () => {
-    if (!selectedItem && mode !== MODES.ADD_PART) return false;
+    if (mode === MODES.ADD_PART) return true;
+
+    if (!selectedItem) return false;
 
     if (mode === MODES.ADD_BLOCK) return selectedItem.type === "part";
     if (mode === MODES.ADD_LESSON) return selectedItem.type === "block";
@@ -60,6 +62,8 @@ const CourseEditor = () => {
   };
 
   const getTargetLabel = () => {
+    if (mode === MODES.ADD_PART) return "курс";
+
     if (!selectedItem) return "не выбрано";
 
     return `${selectedItem.type}: ${selectedItem.data?.title ?? ""}`;
