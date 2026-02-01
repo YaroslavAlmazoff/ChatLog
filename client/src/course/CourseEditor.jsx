@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import courseJson from "./course.json";
 import CourseStructure from "./CourseStructure";
 import Loader from "../common_components/Loader";
