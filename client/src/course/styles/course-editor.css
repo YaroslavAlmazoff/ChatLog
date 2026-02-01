@@ -37,3 +37,13 @@
   border-radius: 11px;
   cursor: pointer;
 }
+
+.course-editor-save-button:disabled {
+  padding: 7px;
+  margin: 10px;
+  border: 1px solid #40a4ff;
+  background-color: #40a4ff;
+  color: rgb(84, 84, 84);
+  border-radius: 11px;
+  cursor: crosshair;
+}

@@ -18,6 +18,7 @@ const CourseEditor = () => {
   const [mode, setMode] = useState(null);
   const [selectedItem, setSelectedItem] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [isDirty, setIsDirty] = useState(false);
 
   const [form, setForm] = useState({
     number: "",
@@ -50,6 +51,7 @@ const CourseEditor = () => {
       });
 
       if (!res.ok) throw new Error();
+      setIsDirty(false);
       alert("Данные успешно сохранены");
     } catch {
       alert("Ошибка при сохранении");
@@ -183,7 +185,7 @@ const CourseEditor = () => {
 
       return copy;
     });
-
+    setIsDirty(true);
     resetForm();
     setMode(null);
   };
@@ -226,7 +228,11 @@ const CourseEditor = () => {
             >
               + Добавить тест
             </button>
-            <button className="course-editor-save-button" onClick={saveData}>
+            <button
+              className="course-editor-save-button"
+              onClick={saveData}
+              disabled={!isDirty}
+            >
               💾 Сохранить
             </button>
           </div>
