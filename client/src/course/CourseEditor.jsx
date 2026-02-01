@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import courseJson from "./course.json";
 import CourseStructure from "./CourseStructure";
 import Loader from "../common_components/Loader";
 import "./styles/course-editor.css";
@@ -39,6 +38,23 @@ const CourseEditor = () => {
         setLoading(false);
       });
   }, []);
+
+  const saveData = async () => {
+    try {
+      const res = await fetch("https://chatlog.ru/api/courses/edit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(course),
+      });
+
+      if (!res.ok) throw new Error();
+      alert("Данные успешно сохранены");
+    } catch {
+      alert("Ошибка при сохранении");
+    }
+  };
 
   /* ---------------- actions ---------------- */
 
@@ -209,6 +225,9 @@ const CourseEditor = () => {
               onClick={() => startAdd(MODES.ADD_TEST)}
             >
               + Добавить тест
+            </button>
+            <button className="course-editor-save-button" onClick={saveData}>
+              💾 Сохранить
             </button>
           </div>
 

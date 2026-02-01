@@ -43,6 +43,8 @@ const videohostUserActionsRouter = require("./routes/videohost/userActions");
 const gamesRouter = require("./routes/games");
 const storeRouter = require("./routes/store");
 
+const coursesRouter = require("./routes/courses");
+
 process.on("uncaughtException", function (err) {
   console.error(err);
   console.log("Node NOT Exiting...");
@@ -54,12 +56,12 @@ app.use(cors());
 app.use(
   fileUpload({
     limits: { fileSize: 100 * 1024 * 1024 }, // 50 MB
-  })
+  }),
 );
 app.use(express.json({ extended: true, limit: "50mb" }));
 app.use(cookieParser());
 app.use(
-  express.urlencoded({ limit: "50mb", extended: true, parameterLimit: 50000 })
+  express.urlencoded({ limit: "50mb", extended: true, parameterLimit: 50000 }),
 );
 
 app.use("/api", articlesRouter);
@@ -80,6 +82,7 @@ app.use("/api/games", gamesRouter);
 app.use("/api/store", storeRouter);
 app.use("/api/mobile", mobileRouter);
 app.use("/api/aep", AEPRouter);
+app.use("/api/courses", coursesRouter);
 app.use("/api/art", artShopRouter);
 
 app.use("/api/org", orgRouter);

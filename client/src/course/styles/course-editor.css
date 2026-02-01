@@ -27,3 +27,13 @@
   border-radius: 11px;
   cursor: pointer;
 }
+
+.course-editor-save-button {
+  padding: 7px;
+  margin: 10px;
+  border: 1px solid #40a4ff;
+  background-color: #40a4ff;
+  color: black;
+  border-radius: 11px;
+  cursor: pointer;
+}
