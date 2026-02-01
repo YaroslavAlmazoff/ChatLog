@@ -76,10 +76,10 @@ function Block({
               className="course-structure-edit-icon"
               onClick={(e) => {
                 e.stopPropagation();
-                onEditItem({
+                onEditItem?.({
                   type: "test",
-                  path,
-                  data: test,
+                  path: { partIndex, blockIndex },
+                  data: block.test,
                 });
               }}
             >
