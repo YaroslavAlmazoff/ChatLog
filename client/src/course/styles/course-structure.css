@@ -21,3 +21,7 @@
   text-align: left;
   width: 100%;
 }
+
+.course-structure-edit-icon {
+  cursor: pointer;
+}
