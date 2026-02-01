@@ -18,6 +18,12 @@
   color: white;
 }
 
+.course-editor-title {
+  font-size: 16pt;
+  margin: 10px;
+  text-align: center;
+}
+
 .course-editor-add-button {
   padding: 7px;
   margin: 10px;
@@ -46,4 +52,20 @@
   color: rgb(84, 84, 84);
   border-radius: 11px;
   cursor: crosshair;
+}
+
+.course-editor-form-field {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.course-editor-ok {
+  padding: 7px;
+  margin: 10px;
+  border: 1px solid white;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border-radius: 11px;
+  cursor: pointer;
 }

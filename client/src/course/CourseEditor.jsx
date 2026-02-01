@@ -40,6 +40,17 @@ const CourseEditor = () => {
       });
   }, []);
 
+  useEffect(() => {
+    const handler = (e) => {
+      if (!isDirty) return;
+      e.preventDefault();
+      e.returnValue = "";
+    };
+
+    window.addEventListener("beforeunload", handler);
+    return () => window.removeEventListener("beforeunload", handler);
+  }, [isDirty]);
+
   const saveData = async () => {
     try {
       const res = await fetch("https://chatlog.ru/api/courses/edit", {
@@ -194,6 +205,7 @@ const CourseEditor = () => {
 
   return (
     <div className="course-editor">
+      <span className="course-editor-title">Редактор курса</span>
       {!loading ? (
         <>
           {/* ACTIONS */}
@@ -239,8 +251,8 @@ const CourseEditor = () => {
 
           {/* FORM */}
           {mode && (
-            <div className="editor-form">
-              <div>
+            <div className="course-editor-form">
+              <div className="course-editor-form-field">
                 <label>Номер</label>
                 <input
                   className="input"
@@ -250,7 +262,7 @@ const CourseEditor = () => {
                 />
               </div>
 
-              <div>
+              <div className="course-editor-form-field">
                 <label>Название</label>
                 <input
                   className="input"
@@ -263,7 +275,11 @@ const CourseEditor = () => {
                 <strong>Куда:</strong> {getTargetLabel()}
               </div>
 
-              <button disabled={!isValidTarget()} onClick={applyChange}>
+              <button
+                className="course-editor-ok"
+                disabled={!isValidTarget()}
+                onClick={applyChange}
+              >
                 OK
               </button>
             </div>
