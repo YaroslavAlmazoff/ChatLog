@@ -77,7 +77,7 @@ const CourseEditor = () => {
     setCourse((prev) => {
       const copy = structuredClone(prev);
 
-      const { partIndex, blockIndex, lessonIndex } = selectedItem.path || {};
+      const { partIndex, blockIndex, lessonIndex } = selectedItem?.path || {};
 
       if (mode === MODES.ADD_PART) {
         copy.parts.push({
