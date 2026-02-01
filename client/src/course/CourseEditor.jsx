@@ -21,6 +21,7 @@ const CourseEditor = () => {
   const [selectedItem, setSelectedItem] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isDirty, setIsDirty] = useState(false);
+  const [editingTest, setEditingTest] = useState(null);
 
   const [form, setForm] = useState({
     number: "",
@@ -84,6 +85,12 @@ const CourseEditor = () => {
   };
 
   const startEdit = (item) => {
+    if (item.type === "test") {
+      setEditingTest({
+        path: item.path,
+        test: item.data,
+      });
+    }
     setMode(MODES.EDIT);
     setSelectedItem(item);
     setForm({
@@ -162,12 +169,20 @@ const CourseEditor = () => {
       }
 
       if (mode === MODES.ADD_TEST) {
-        copy.parts[partIndex].blocks[blockIndex].lessons[lessonIndex].test = {
+        const newTest = {
           type: "test",
           number: Number(form.number),
           title: form.title,
           questions: [],
         };
+
+        copy.parts[partIndex].blocks[blockIndex].lessons[lessonIndex].test =
+          newTest;
+
+        setEditingTest({
+          path: { partIndex, blockIndex, lessonIndex },
+          test: newTest,
+        });
       }
 
       if (mode === MODES.EDIT) {
@@ -201,6 +216,20 @@ const CourseEditor = () => {
     setIsDirty(true);
     resetForm();
     setMode(null);
+  };
+
+  const updateTest = (updatedTest) => {
+    setCourse((prev) => {
+      const copy = structuredClone(prev);
+      const { partIndex, blockIndex, lessonIndex } = editingTest.path;
+
+      copy.parts[partIndex].blocks[blockIndex].lessons[lessonIndex].test =
+        updatedTest;
+
+      return copy;
+    });
+
+    setIsDirty(true);
   };
 
   /* ---------------- render ---------------- */
@@ -293,7 +322,14 @@ const CourseEditor = () => {
                 </div>
               )}
 
-              {/* STRUCTURE */}
+              {editingTest && (
+                <TestEditor
+                  test={editingTest.test}
+                  onChange={updateTest}
+                  onClose={() => setEditingTest(null)}
+                  showTitleEdit
+                />
+              )}
               <CourseStructure
                 course={course}
                 mode="editor"
