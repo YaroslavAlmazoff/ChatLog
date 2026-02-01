@@ -17,11 +17,27 @@ const CourseEditor = () => {
 
   const [mode, setMode] = useState(null);
   const [selectedItem, setSelectedItem] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   const [form, setForm] = useState({
     number: "",
     title: "",
   });
+
+  useEffect(() => {
+    fetch("https://chatlog.ru/courses/android.json")
+      .then((res) => {
+        if (!res.ok) throw new Error();
+        return res.json();
+      })
+      .then((json) => {
+        setCourse(json);
+        setLoading(false);
+      })
+      .catch(() => {
+        setLoading(false);
+      });
+  }, []);
 
   /* ---------------- actions ---------------- */
 
