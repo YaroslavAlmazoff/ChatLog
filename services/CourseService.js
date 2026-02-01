@@ -5,7 +5,7 @@ class CourseService {
   async edit(req, res) {
     try {
       fs.writeFile(
-        path.resolve("..", "static", "course", "android.json"),
+        path.resolve("..", "static", "courses", "android.json"),
         JSON.stringify(req.body),
         "utf8",
         (e) => {
