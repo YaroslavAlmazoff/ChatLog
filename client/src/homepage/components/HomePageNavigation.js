@@ -8,16 +8,39 @@ import course from "../../course/course.json";
 const HomePageNavigation = () => {
   const auth = useContext(AuthContext);
   const [activeLessonId, setActiveLessonId] = useState(null);
+  const [course, setCourse] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch("https://chatlog.ru/courses/android.json")
+      .then((res) => {
+        if (!res.ok) throw new Error();
+        return res.json();
+      })
+      .then((json) => {
+        setCourse(json);
+        setLoading(false);
+      })
+      .catch(() => {
+        setLoading(false);
+      });
+  }, []);
 
   return (
     <div className="homelinks">
       {auth.onCourse ? (
-        <CourseStructure
-          course={course}
-          mode="view"
-          activeLessonId={activeLessonId}
-          onSelectLesson={setActiveLessonId}
-        />
+        !loading ? (
+          <>
+            <CourseStructure
+              course={course}
+              mode="view"
+              activeLessonId={activeLessonId}
+              onSelectLesson={setActiveLessonId}
+            />
+          </>
+        ) : (
+          <></>
+        )
       ) : (
         <>
           {window.innerWidth > 500 ? (

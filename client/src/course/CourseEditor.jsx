@@ -1,6 +1,7 @@
 import { useState } from "react";
 import courseJson from "./course.json";
 import CourseStructure from "./CourseStructure";
+import Loader from "../common_components/Loader";
 import "./styles/course-editor.css";
 
 const MODES = {
@@ -175,80 +176,86 @@ const CourseEditor = () => {
 
   return (
     <div className="course-editor">
-      {/* ACTIONS */}
-      <div className="editor-actions">
-        <button
-          className="course-editor-add-button"
-          onClick={() => startAdd(MODES.ADD_PART)}
-        >
-          + Добавить часть
-        </button>
-        <button
-          className="course-editor-add-button"
-          onClick={() => startAdd(MODES.ADD_BLOCK)}
-        >
-          + Добавить блок
-        </button>
-        <button
-          className="course-editor-add-button"
-          onClick={() => startAdd(MODES.ADD_LESSON)}
-        >
-          + Добавить урок
-        </button>
-        <button
-          className="course-editor-add-button"
-          onClick={() => startAdd(MODES.ADD_VIDEO)}
-        >
-          + Добавить видео
-        </button>
-        <button
-          className="course-editor-add-button"
-          onClick={() => startAdd(MODES.ADD_TEST)}
-        >
-          + Добавить тест
-        </button>
-      </div>
-
-      {/* FORM */}
-      {mode && (
-        <div className="editor-form">
-          <div>
-            <label>Номер</label>
-            <input
-              className="input"
-              type="number"
-              value={form.number}
-              onChange={(e) => setForm({ ...form, number: e.target.value })}
-            />
+      {!loading ? (
+        <>
+          {/* ACTIONS */}
+          <div className="editor-actions">
+            <button
+              className="course-editor-add-button"
+              onClick={() => startAdd(MODES.ADD_PART)}
+            >
+              + Добавить часть
+            </button>
+            <button
+              className="course-editor-add-button"
+              onClick={() => startAdd(MODES.ADD_BLOCK)}
+            >
+              + Добавить блок
+            </button>
+            <button
+              className="course-editor-add-button"
+              onClick={() => startAdd(MODES.ADD_LESSON)}
+            >
+              + Добавить урок
+            </button>
+            <button
+              className="course-editor-add-button"
+              onClick={() => startAdd(MODES.ADD_VIDEO)}
+            >
+              + Добавить видео
+            </button>
+            <button
+              className="course-editor-add-button"
+              onClick={() => startAdd(MODES.ADD_TEST)}
+            >
+              + Добавить тест
+            </button>
           </div>
 
-          <div>
-            <label>Название</label>
-            <input
-              className="input"
-              value={form.title}
-              onChange={(e) => setForm({ ...form, title: e.target.value })}
-            />
-          </div>
+          {/* FORM */}
+          {mode && (
+            <div className="editor-form">
+              <div>
+                <label>Номер</label>
+                <input
+                  className="input"
+                  type="number"
+                  value={form.number}
+                  onChange={(e) => setForm({ ...form, number: e.target.value })}
+                />
+              </div>
 
-          <div>
-            <strong>Куда:</strong> {getTargetLabel()}
-          </div>
+              <div>
+                <label>Название</label>
+                <input
+                  className="input"
+                  value={form.title}
+                  onChange={(e) => setForm({ ...form, title: e.target.value })}
+                />
+              </div>
 
-          <button disabled={!isValidTarget()} onClick={applyChange}>
-            OK
-          </button>
-        </div>
+              <div>
+                <strong>Куда:</strong> {getTargetLabel()}
+              </div>
+
+              <button disabled={!isValidTarget()} onClick={applyChange}>
+                OK
+              </button>
+            </div>
+          )}
+
+          {/* STRUCTURE */}
+          <CourseStructure
+            course={course}
+            mode="editor"
+            selectedItem={selectedItem}
+            onSelectItem={setSelectedItem}
+            onEditItem={startEdit}
+          />
+        </>
+      ) : (
+        <Loader />
       )}
-
-      {/* STRUCTURE */}
-      <CourseStructure
-        course={course}
-        mode="editor"
-        selectedItem={selectedItem}
-        onSelectItem={setSelectedItem}
-        onEditItem={startEdit}
-      />
     </div>
   );
 };
