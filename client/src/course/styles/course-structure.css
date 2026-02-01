@@ -25,3 +25,15 @@
 .course-structure-edit-icon {
   cursor: pointer;
 }
+
+.course-structure-subitem {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  opacity: 0.85;
+  cursor: pointer;
+}
+
+.course-structure-subitem:hover {
+  opacity: 1;
+}

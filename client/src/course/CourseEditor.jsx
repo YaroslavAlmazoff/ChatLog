@@ -86,18 +86,15 @@ const CourseEditor = () => {
   };
 
   const startEdit = (item) => {
-    if (item.type === "test") {
-      setEditingTest({
-        path: item.path,
-        test: item.data,
-      });
-    }
     setMode(MODES.EDIT);
     setSelectedItem(item);
-    setForm({
-      number: item.data?.number ?? "",
-      title: item.data?.title ?? "",
-    });
+
+    if (item.type !== "test" && item.type !== "video") {
+      setForm({
+        number: item.data?.number ?? "",
+        title: item.data?.title ?? "",
+      });
+    }
   };
 
   /* ---------------- helpers ---------------- */
@@ -180,9 +177,10 @@ const CourseEditor = () => {
         copy.parts[partIndex].blocks[blockIndex].lessons[lessonIndex].test =
           newTest;
 
-        setEditingTest({
+        setSelectedItem({
+          type: "test",
           path: { partIndex, blockIndex, lessonIndex },
-          test: newTest,
+          data: newTest,
         });
       }
 
@@ -323,11 +321,28 @@ const CourseEditor = () => {
                 </div>
               )}
 
-              {editingTest && (
+              {selectedItem?.type === "test" && (
                 <TestEditor
-                  test={editingTest.test}
-                  onChange={updateTest}
-                  onClose={() => setEditingTest(null)}
+                  test={selectedItem.data}
+                  onChange={(updatedTest) => {
+                    setCourse((prev) => {
+                      const copy = structuredClone(prev);
+                      const { partIndex, blockIndex, lessonIndex } =
+                        selectedItem.path;
+
+                      copy.parts[partIndex].blocks[blockIndex].lessons[
+                        lessonIndex
+                      ].test = updatedTest;
+
+                      return copy;
+                    });
+
+                    setIsDirty(true);
+                  }}
+                  onClose={() => {
+                    setSelectedItem(null);
+                    setMode(null);
+                  }}
                   showTitleEdit
                 />
               )}

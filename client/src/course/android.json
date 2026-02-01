@@ -1,64 +1,119 @@
 {
   "parts": [
     {
+      "id": "part-1",
       "number": 1,
       "title": "Алгоритмы и структуры данных. Основы Kotlin",
       "blocks": [
         {
+          "id": "block-1",
           "number": 1,
           "title": "Алгоритмы и структуры данных",
           "lessons": [
             {
+              "id": "lesson-1",
               "number": 1,
               "title": "Алгоритмы",
+
               "video": {
+                "id": "video-1",
                 "type": "video",
                 "number": 1,
                 "title": "Видеоурок",
                 "src": "a54c2b0-f5df1a0.mp4"
               },
+
               "test": {
+                "id": "test-lesson-1",
                 "type": "test",
                 "number": 2,
                 "title": "Тест по алгоритмам",
                 "questions": [
                   {
+                    "id": "q-1",
                     "number": 1,
                     "question": "3 основных типа алгоритмов",
-                    "rightValues": [2, 3, 5],
+                    "type": "variants",
                     "variants": [
-                      { "number": 1, "title": "Ступенчатые" },
-                      { "number": 2, "title": "Циклические" },
-                      { "number": 3, "title": "Линейные" },
-                      { "number": 4, "title": "Нелинейные" },
-                      { "number": 5, "title": "С ветвлением" }
+                      {
+                        "id": "v-1",
+                        "number": 1,
+                        "title": "Ступенчатые",
+                        "isCorrect": false
+                      },
+                      {
+                        "id": "v-2",
+                        "number": 2,
+                        "title": "Циклические",
+                        "isCorrect": true
+                      },
+                      {
+                        "id": "v-3",
+                        "number": 3,
+                        "title": "Линейные",
+                        "isCorrect": true
+                      },
+                      {
+                        "id": "v-4",
+                        "number": 4,
+                        "title": "Нелинейные",
+                        "isCorrect": false
+                      },
+                      {
+                        "id": "v-5",
+                        "number": 5,
+                        "title": "С ветвлением",
+                        "isCorrect": true
+                      }
                     ]
                   }
                 ]
               }
             }
           ],
+
           "test": {
+            "id": "test-block-1",
             "type": "test",
             "number": 2,
             "title": "Итоговый тест блока",
             "questions": [
               {
+                "id": "q-2",
                 "number": 1,
                 "question": "Что такое алгоритм?",
-                "rightValues": [3],
+                "type": "variants",
                 "variants": [
-                  { "number": 1, "title": "Блок-схема" },
-                  { "number": 2, "title": "Программный код" },
                   {
+                    "id": "v-6",
+                    "number": 1,
+                    "title": "Блок-схема",
+                    "isCorrect": false
+                  },
+                  {
+                    "id": "v-7",
+                    "number": 2,
+                    "title": "Программный код",
+                    "isCorrect": false
+                  },
+                  {
+                    "id": "v-8",
                     "number": 3,
-                    "title": "Последовательность шагов, которая приводит к результату"
+                    "title": "Последовательность шагов, которая приводит к результату",
+                    "isCorrect": true
                   },
                   {
+                    "id": "v-9",
                     "number": 4,
-                    "title": "Набор действий для получения результата"
+                    "title": "Набор действий для получения результата",
+                    "isCorrect": false
                   },
-                  { "number": 5, "title": "Язык программирования" }
+                  {
+                    "id": "v-10",
+                    "number": 5,
+                    "title": "Язык программирования",
+                    "isCorrect": false
+                  }
                 ]
               }
             ]
