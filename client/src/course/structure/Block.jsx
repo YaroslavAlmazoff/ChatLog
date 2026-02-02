@@ -48,7 +48,7 @@ function Block({
               </span>
 
               <span
-                className="course-structure-delete-icon"
+                className="course-structure-edit-icon"
                 onClick={(e) => {
                   e.stopPropagation();
                   if (
@@ -103,7 +103,7 @@ function Block({
               </span>
 
               <span
-                className="course-structure-delete-icon"
+                className="course-structure-edit-icon"
                 onClick={(e) => {
                   e.stopPropagation();
                   if (confirmDelete("Удалить итоговый тест блока?")) {

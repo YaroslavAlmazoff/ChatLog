@@ -24,6 +24,7 @@ const CourseEditor = () => {
   const [isDirty, setIsDirty] = useState(false);
 
   const [form, setForm] = useState({ number: "", title: "" });
+  const [videoFiles, setVideoFiles] = useState({});
 
   /* ---------------- load ---------------- */
 
@@ -66,6 +67,15 @@ const CourseEditor = () => {
         title: item.data?.title ?? "",
       });
     }
+  };
+
+  const handleVideoUpload = (videoId, file) => {
+    setVideoFiles((prev) => ({
+      ...prev,
+      [videoId]: file,
+    }));
+
+    setIsDirty(true);
   };
 
   const isValidTarget = () => {
@@ -192,12 +202,20 @@ const CourseEditor = () => {
       }
 
       if (mode === MODES.ADD_VIDEO) {
+        const videoId = crypto.randomUUID();
+
         copy.parts[partIndex].blocks[blockIndex].lessons[lessonIndex].video = {
+          id: videoId,
           type: "video",
           number: Number(form.number),
           title: form.title,
-          src: "",
+          src: `${videoId}.mp4`,
         };
+
+        setSelectedItem({
+          type: "video",
+          path: { partIndex, blockIndex, lessonIndex },
+        });
       }
 
       if (mode === MODES.ADD_TEST) {
@@ -248,6 +266,14 @@ const CourseEditor = () => {
     setMode(null);
   };
 
+  const getSelectedVideo = () => {
+    if (!selectedItem || selectedItem.type !== "video") return null;
+
+    const { partIndex, blockIndex, lessonIndex } = selectedItem.path;
+    return course.parts[partIndex].blocks[blockIndex].lessons[lessonIndex]
+      .video;
+  };
+
   const saveData = async () => {
     try {
       const res = await fetch("https://chatlog.ru/api/courses/edit", {
@@ -258,7 +284,18 @@ const CourseEditor = () => {
         body: JSON.stringify(course),
       });
 
-      if (!res.ok) throw new Error();
+      const formData = new FormData();
+
+      Object.entries(videoFiles).forEach(([id, file]) => {
+        formData.append("videos", file, `${id}.mp4`);
+      });
+
+      const res2 = await fetch("/api/upload-videos", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!res.ok || !res2.ok) throw new Error();
       setIsDirty(false);
       alert("Данные успешно сохранены");
     } catch {
@@ -370,6 +407,27 @@ const CourseEditor = () => {
             setSelectedItem(null);
             setMode(null);
           }}
+        />
+      )}
+
+      {selectedItem?.type === "video" && (
+        <VideoEditor
+          video={getSelectedVideo()}
+          onChange={(updatedVideo) => {
+            setCourse((prev) => {
+              const copy = structuredClone(prev);
+              const { partIndex, blockIndex, lessonIndex } = selectedItem.path;
+
+              copy.parts[partIndex].blocks[blockIndex].lessons[
+                lessonIndex
+              ].video = updatedVideo;
+
+              return copy;
+            });
+
+            setIsDirty(true);
+          }}
+          onUpload={handleVideoUpload}
         />
       )}
 

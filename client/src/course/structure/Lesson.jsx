@@ -59,7 +59,7 @@ function Lesson({
             </span>
 
             <span
-              className="course-structure-delete-icon"
+              className="course-structure-edit-icon"
               onClick={(e) => {
                 e.stopPropagation();
                 if (
@@ -98,7 +98,7 @@ function Lesson({
               </span>
 
               <span
-                className="course-structure-delete-icon"
+                className="course-structure-edit-icon"
                 onClick={(e) => {
                   e.stopPropagation();
                   if (confirmDelete("Удалить видеоурок?")) {
@@ -134,7 +134,7 @@ function Lesson({
               </span>
 
               <span
-                className="course-structure-delete-icon"
+                className="course-structure-edit-icon"
                 onClick={(e) => {
                   e.stopPropagation();
                   if (confirmDelete("Удалить тест урока?")) {
