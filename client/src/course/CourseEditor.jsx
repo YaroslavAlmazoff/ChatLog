@@ -109,6 +109,7 @@ const CourseEditor = () => {
   /* ---------------- apply ---------------- */
 
   const deleteItem = (item) => {
+    console.log(item);
     if (!item) return;
 
     setCourse((prev) => {
