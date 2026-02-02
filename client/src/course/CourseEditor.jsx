@@ -22,7 +22,6 @@ const CourseEditor = () => {
   const [selectedItem, setSelectedItem] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isDirty, setIsDirty] = useState(false);
-  const [editingTest, setEditingTest] = useState(null);
 
   const [form, setForm] = useState({
     number: "",
@@ -215,20 +214,6 @@ const CourseEditor = () => {
     setIsDirty(true);
     resetForm();
     setMode(null);
-  };
-
-  const updateTest = (updatedTest) => {
-    setCourse((prev) => {
-      const copy = structuredClone(prev);
-      const { partIndex, blockIndex, lessonIndex } = editingTest.path;
-
-      copy.parts[partIndex].blocks[blockIndex].lessons[lessonIndex].test =
-        updatedTest;
-
-      return copy;
-    });
-
-    setIsDirty(true);
   };
 
   /* ---------------- render ---------------- */
