@@ -8,6 +8,7 @@ function Part({
   selectedItem,
   onSelectItem,
   onEditItem,
+  onDeleteItem,
   activeLessonId,
   onSelectLesson,
 }) {
@@ -30,19 +31,36 @@ function Part({
         >
           Часть {part.number}: {part.title}
           {mode === "editor" && (
-            <span
-              className="course-structure-edit-icon"
-              onClick={(e) => {
-                e.stopPropagation();
-                onEditItem?.({
-                  type: "part",
-                  path: { partIndex },
-                  data: part,
-                });
-              }}
-            >
-              &nbsp;✏️
-            </span>
+            <>
+              <span
+                className="course-structure-edit-icon"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onEditItem?.({
+                    type: "part",
+                    path: { partIndex },
+                    data: part,
+                  });
+                }}
+              >
+                &nbsp;✏️
+              </span>
+
+              <span
+                className="course-structure-edit-icon"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  if (confirm("Удалить часть?")) {
+                    onDeleteItem?.({
+                      type: "part",
+                      path: { partIndex },
+                    });
+                  }
+                }}
+              >
+                &nbsp;🗑
+              </span>
+            </>
           )}
         </div>
       }
@@ -58,6 +76,7 @@ function Part({
           selectedItem={selectedItem}
           onSelectItem={onSelectItem}
           onEditItem={onEditItem}
+          onDeleteItem={onDeleteItem}
           activeLessonId={activeLessonId}
           onSelectLesson={onSelectLesson}
         />

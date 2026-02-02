@@ -108,6 +108,51 @@ const CourseEditor = () => {
 
   /* ---------------- apply ---------------- */
 
+  const deleteItem = (item) => {
+    if (!item) return;
+
+    setCourse((prev) => {
+      const copy = structuredClone(prev);
+      const { partIndex, blockIndex, lessonIndex } = item.path || {};
+
+      switch (item.type) {
+        case "part":
+          copy.parts.splice(partIndex, 1);
+          break;
+
+        case "block":
+          copy.parts[partIndex].blocks.splice(blockIndex, 1);
+          break;
+
+        case "lesson":
+          copy.parts[partIndex].blocks[blockIndex].lessons.splice(
+            lessonIndex,
+            1,
+          );
+          break;
+
+        case "video":
+          copy.parts[partIndex].blocks[blockIndex].lessons[lessonIndex].video =
+            null;
+          break;
+
+        case "test":
+          copy.parts[partIndex].blocks[blockIndex].lessons[lessonIndex].test =
+            null;
+          break;
+
+        default:
+          return prev;
+      }
+
+      return copy;
+    });
+
+    setSelectedItem(null);
+    setMode(null);
+    setIsDirty(true);
+  };
+
   const applyChange = () => {
     if (!isValidTarget()) return;
 
@@ -333,6 +378,7 @@ const CourseEditor = () => {
         selectedItem={selectedItem}
         onSelectItem={setSelectedItem}
         onEditItem={startEdit}
+        onDeleteItem={deleteItem}
       />
     </div>
   );

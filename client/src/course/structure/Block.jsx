@@ -7,46 +7,70 @@ function Block({
   onSelectLesson,
   onSelectItem,
   onEditItem,
+  onDeleteItem,
   mode = "view",
   partIndex,
   blockIndex,
 }) {
-  const item = {
+  const blockItem = {
     type: "block",
     path: { partIndex, blockIndex },
-    data: {
-      number: block.number,
-      title: block.title,
-    },
+  };
+
+  const blockTestItem = {
+    type: "test",
+    path: { partIndex, blockIndex },
   };
 
   return (
     <Expandable
+      level={2}
       title={
-        <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
+        <div
+          className="structure-item"
+          style={{ display: "inline-flex", alignItems: "center", gap: 6 }}
+          onClick={() => mode === "editor" && onSelectItem?.(blockItem)}
+        >
           <span>
             Блок {block.number}: {block.title}
           </span>
 
           {mode === "editor" && (
-            <span
-              className="course-structure-edit-icon"
-              onClick={(e) => {
-                e.stopPropagation();
-                onEditItem?.(item);
-              }}
-            >
-              &nbsp;✏️
-            </span>
+            <>
+              <span
+                className="course-structure-edit-icon"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onEditItem?.(blockItem);
+                }}
+              >
+                ✏️
+              </span>
+
+              <span
+                className="course-structure-delete-icon"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  if (
+                    confirm(
+                      "Удалить блок? Все уроки и тест внутри будут удалены.",
+                    )
+                  ) {
+                    onDeleteItem?.(blockItem);
+                  }
+                }}
+              >
+                🗑
+              </span>
+            </>
           )}
-        </span>
+        </div>
       }
-      level={2}
-      onTitleClick={mode === "editor" ? () => onSelectItem?.(item) : undefined}
     >
+      {/* УРОКИ */}
       {block.lessons.map((lesson, lessonIndex) => (
         <Lesson
-          key={lessonIndex}
+          key={lesson.id ?? lessonIndex}
           lesson={lesson}
           isActive={lessonIndex === activeLessonId}
           mode={mode}
@@ -54,37 +78,42 @@ function Block({
           onSelectLesson={onSelectLesson}
           onSelectItem={onSelectItem}
           onEditItem={onEditItem}
+          onDeleteItem={onDeleteItem}
         />
       ))}
 
+      {/* ИТОГОВЫЙ ТЕСТ БЛОКА */}
       {block.test && (
         <div
           className="course-structure-item"
-          style={{ marginLeft: 2 * 16, marginTop: 6, cursor: "pointer" }}
-          onClick={() =>
-            mode === "editor" &&
-            onSelectItem?.({
-              type: "test",
-              path: { partIndex, blockIndex },
-              data: block.test,
-            })
-          }
+          style={{ marginLeft: 32, marginTop: 6 }}
+          onClick={() => mode === "editor" && onSelectItem?.(blockTestItem)}
         >
           🧪 Итоговый тест блока
           {mode === "editor" && (
-            <span
-              className="course-structure-edit-icon"
-              onClick={(e) => {
-                e.stopPropagation();
-                onEditItem?.({
-                  type: "test",
-                  path: { partIndex, blockIndex },
-                  data: block.test,
-                });
-              }}
-            >
-              ✏️
-            </span>
+            <>
+              <span
+                className="course-structure-edit-icon"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onEditItem?.(blockTestItem);
+                }}
+              >
+                ✏️
+              </span>
+
+              <span
+                className="course-structure-delete-icon"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  if (confirm("Удалить итоговый тест блока?")) {
+                    onDeleteItem?.(blockTestItem);
+                  }
+                }}
+              >
+                🗑
+              </span>
+            </>
           )}
         </div>
       )}

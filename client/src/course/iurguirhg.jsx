@@ -31,11 +31,6 @@ function TestEditor({ test, onChange, onClose }) {
     });
   };
 
-  const removeQuestion = (index) => {
-    const updatedQuestions = questions.filter((_, i) => i !== index);
-    updateQuestions(updatedQuestions);
-  };
-
   return (
     <div className="test-editor">
       <span className="test-editor-title">Редактор теста</span>
