@@ -192,31 +192,31 @@ const CourseEditor = () => {
 
       <div className="editor-actions">
         <button
-          className="course-editor-save-button"
+          className="course-editor-add-button"
           onClick={() => startAdd(MODES.ADD_PART)}
         >
           + Часть
         </button>
         <button
-          className="course-editor-save-button"
+          className="course-editor-add-button"
           onClick={() => startAdd(MODES.ADD_BLOCK)}
         >
           + Блок
         </button>
         <button
-          className="course-editor-save-button"
+          className="course-editor-add-button"
           onClick={() => startAdd(MODES.ADD_LESSON)}
         >
           + Урок
         </button>
         <button
-          className="course-editor-save-button"
+          className="course-editor-add-button"
           onClick={() => startAdd(MODES.ADD_VIDEO)}
         >
           + Видео
         </button>
         <button
-          className="course-editor-save-button"
+          className="course-editor-add-button"
           onClick={() => startAdd(MODES.ADD_TEST)}
         >
           + Тест
@@ -248,7 +248,9 @@ const CourseEditor = () => {
             onChange={(e) => setForm({ ...form, title: e.target.value })}
           />
 
-          <button onClick={applyChange}>OK</button>
+          <button className="course-editor-ok" onClick={applyChange}>
+            OK
+          </button>
         </div>
       )}
 

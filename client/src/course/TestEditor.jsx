@@ -52,7 +52,7 @@ function TestEditor({ test, onChange, onClose }) {
           />
 
           <button
-            className="test-editor-remove-button"
+            className="test-editor-red-button"
             onClick={() => removeQuestion(index)}
           >
             🗑 Удалить вопрос
