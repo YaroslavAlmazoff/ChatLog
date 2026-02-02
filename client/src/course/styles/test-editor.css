@@ -25,3 +25,14 @@
   border-radius: 11px;
   cursor: pointer;
 }
+
+.test-editor-red-button {
+  padding: 7px;
+  margin: 10px;
+  border: none;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #ff083a;
+  border: 1px solid #ff083a;
+  border-radius: 11px;
+  cursor: pointer;
+}
