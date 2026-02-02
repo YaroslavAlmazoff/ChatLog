@@ -47,6 +47,7 @@ function QuestionEditor({ question, onChange }) {
     <div className="question-editor">
       {/* Текст вопроса */}
       <input
+        style={{ minWidth: "75%" }}
         className="test-editor-small-input test-editor-small-input-blue"
         value={question.question}
         onChange={(e) => updateQuestionField({ question: e.target.value })}
