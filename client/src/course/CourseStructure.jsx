@@ -10,6 +10,7 @@ function CourseStructure({
   onSelectLesson,
   onSelectItem,
   onEditItem,
+  onDeleteItem,
 }) {
   const [internalActiveLessonId, setInternalActiveLessonId] = useState(null);
 
@@ -33,6 +34,7 @@ function CourseStructure({
           onSelectLesson={handleSelectLesson}
           onSelectItem={onSelectItem}
           onEditItem={onEditItem}
+          onDeleteItem={onDeleteItem}
         />
       ))}
     </div>

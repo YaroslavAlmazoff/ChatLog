@@ -39,7 +39,6 @@ function Part({
                   onEditItem?.({
                     type: "part",
                     path: { partIndex },
-                    data: part,
                   });
                 }}
               >
