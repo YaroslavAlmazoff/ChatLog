@@ -88,7 +88,7 @@ const CourseEditor = () => {
     setMode(MODES.EDIT);
     setSelectedItem(item);
 
-    if (item.type !== "test" && item.type !== "video") {
+    if (item.type !== "video") {
       setForm({
         number: item.data?.number ?? "",
         title: item.data?.title ?? "",
@@ -328,7 +328,6 @@ const CourseEditor = () => {
                     setSelectedItem(null);
                     setMode(null);
                   }}
-                  showTitleEdit
                 />
               )}
               <CourseStructure

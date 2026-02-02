@@ -1,6 +1,6 @@
 import QuestionEditor from "./QuestionEditor";
 
-function TestEditor({ test, onChange, onClose, showTitleEdit }) {
+function TestEditor({ test, onChange, onClose }) {
   const updateQuestion = (index, updated) => {
     const questions = [...test.questions];
     questions[index] = updated;
@@ -26,15 +26,6 @@ function TestEditor({ test, onChange, onClose, showTitleEdit }) {
   return (
     <div className="test-editor">
       <h3>Редактор теста</h3>
-
-      {showTitleEdit && (
-        <input
-          value={test.title}
-          onChange={(e) => onChange({ ...test, title: e.target.value })}
-          placeholder="Название теста"
-        />
-      )}
-
       {test.questions.length === 0 ? (
         <button onClick={addQuestion}>+ Добавить вопрос</button>
       ) : (
