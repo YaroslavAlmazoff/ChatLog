@@ -1,4 +1,5 @@
 import QuestionEditor from "./QuestionEditor";
+import "./styles/test-editor.css";
 
 function TestEditor({ test, onChange, onClose }) {
   const updateQuestion = (index, updated) => {
