@@ -27,8 +27,13 @@ function QuestionEditor({ question, onChange }) {
     <div className="question-editor">
       <input
         className="test-editor-small-input test-editor-small-input-blue"
-        value={safeQuestion.title}
-        onChange={(e) => onChange({ ...safeQuestion, title: e.target.value })}
+        value={safeQuestion.question}
+        onChange={(e) =>
+          onChange({
+            ...safeQuestion,
+            question: e.target.value,
+          })
+        }
         placeholder="Текст вопроса"
       />
 
