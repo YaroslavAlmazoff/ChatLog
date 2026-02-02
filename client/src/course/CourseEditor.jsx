@@ -60,7 +60,7 @@ const CourseEditor = () => {
     setMode(MODES.EDIT);
     setSelectedItem(item);
 
-    if (item.type !== "video") {
+    if (item.type !== "video" && item.type !== "test") {
       setForm({
         number: item.data?.number ?? "",
         title: item.data?.title ?? "",
@@ -110,6 +110,11 @@ const CourseEditor = () => {
 
   const applyChange = () => {
     if (!isValidTarget()) return;
+
+    if (mode === MODES.EDIT && selectedItem.type === "test") {
+      setMode(null);
+      return;
+    }
 
     setCourse((prev) => {
       const copy = structuredClone(prev);
