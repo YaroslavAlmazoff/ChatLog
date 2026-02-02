@@ -78,6 +78,7 @@ function QuestionEditor({ question, onChange }) {
 
       {safeQuestion.rightText !== "" && (
         <input
+          className="test-editor-small-input test-editor-small-input-blue"
           value={safeQuestion.rightText}
           onChange={(e) =>
             onChange({ ...safeQuestion, rightText: e.target.value })

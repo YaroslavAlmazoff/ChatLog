@@ -41,7 +41,9 @@ function TestEditor({ test, onChange, onClose }) {
         ))
       )}
 
-      <button onClick={onClose}>Закрыть редактор</button>
+      <button className="course-editor-ok" onClick={onClose}>
+        Закрыть редактор
+      </button>
     </div>
   );
 }
