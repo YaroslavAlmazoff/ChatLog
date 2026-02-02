@@ -279,7 +279,7 @@ const CourseEditor = () => {
         </button>
       </div>
 
-      {mode && (
+      {mode && selectedItem?.type !== "test" && (
         <div className="course-editor-form">
           <input
             className="input"

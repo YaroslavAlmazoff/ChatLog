@@ -5,7 +5,7 @@ function QuestionEditor({ question, onChange }) {
   const [rightValueDraft, setRightValueDraft] = useState("");
 
   const variants = question.variants ?? [];
-  const rightValues = question.rightValues ?? [];
+  const rightsVariantIds = question.rightsVariantIds ?? [];
 
   const updateQuestionField = (patch) => {
     onChange({
@@ -14,12 +14,15 @@ function QuestionEditor({ question, onChange }) {
     });
   };
 
+  /* ---------- add variant ---------- */
+
   const addVariant = () => {
     updateQuestionField({
       rightText: "",
       variants: [
         ...variants,
         {
+          id: crypto.randomUUID(),
           number: variants.length + 1,
           title: "",
         },
@@ -27,15 +30,35 @@ function QuestionEditor({ question, onChange }) {
     });
   };
 
-  const toggleCorrect = (variantNumber) => {
-    const isCorrect = rightValues.includes(variantNumber);
+  /* ---------- delete variant ---------- */
+
+  const deleteVariant = (variantId) => {
+    const updatedVariants = variants
+      .filter((v) => v.id !== variantId)
+      .map((v, index) => ({
+        ...v,
+        number: index + 1,
+      }));
 
     updateQuestionField({
-      rightValues: isCorrect
-        ? rightValues.filter((v) => v !== variantNumber)
-        : [...rightValues, variantNumber],
+      variants: updatedVariants,
+      rightsVariantIds: rightsVariantIds.filter((id) => id !== variantId),
     });
   };
+
+  /* ---------- toggle correct ---------- */
+
+  const toggleCorrect = (variantId) => {
+    const isCorrect = rightsVariantIds.includes(variantId);
+
+    updateQuestionField({
+      rightsVariantIds: isCorrect
+        ? rightsVariantIds.filter((id) => id !== variantId)
+        : [...rightsVariantIds, variantId],
+    });
+  };
+
+  /* ---------- update title ---------- */
 
   const updateVariantTitle = (index, title) => {
     const updated = [...variants];
@@ -56,10 +79,10 @@ function QuestionEditor({ question, onChange }) {
 
       {/* Варианты ответа */}
       {variants.map((variant, index) => {
-        const isCorrect = rightValues.includes(variant.number);
+        const isCorrect = rightsVariantIds.includes(variant.id);
 
         return (
-          <div key={variant.number} className="variant-row">
+          <div key={variant.id} className="variant-row">
             <input
               className="test-editor-small-input test-editor-small-input-white"
               value={variant.title}
@@ -69,9 +92,19 @@ function QuestionEditor({ question, onChange }) {
             <button
               type="button"
               className="test-editor-dark-button"
-              onClick={() => toggleCorrect(variant.number)}
+              onClick={() => toggleCorrect(variant.id)}
             >
               {isCorrect ? "✔ Правильный" : "Сделать правильным"}
+            </button>
+
+            {/* ❌ удалить вариант */}
+            <button
+              type="button"
+              className="variant-delete-button"
+              onClick={() => deleteVariant(variant.id)}
+              title="Удалить вариант"
+            >
+              ✖
             </button>
           </div>
         );
@@ -82,7 +115,7 @@ function QuestionEditor({ question, onChange }) {
         + Добавить вариант
       </button>
 
-      {/* Текстовый ответ (если нет вариантов) */}
+      {/* Текстовый ответ */}
       {variants.length === 0 && !showRightInput && (
         <button
           className="course-editor-add-button"
