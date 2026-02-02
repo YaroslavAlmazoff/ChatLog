@@ -34,7 +34,7 @@
                     "number": 1,
                     "question": "3 основных типа алгоритмов",
                     "type": "variants",
-                    "rightsValues": [2, 3, 5],
+                    "rightsVariantIds": ["v-2", "v-3", "v-5"],
                     "variants": [
                       {
                         "id": "v-1",
@@ -79,7 +79,7 @@
                 "number": 1,
                 "question": "Что такое алгоритм?",
                 "type": "variants",
-                "rightsValues": [3],
+                "rightVariantIds": ["v-8"],
                 "variants": [
                   {
                     "id": "v-6",

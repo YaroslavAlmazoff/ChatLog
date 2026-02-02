@@ -179,7 +179,6 @@ const CourseEditor = () => {
         setSelectedItem({
           type: "test",
           path: { partIndex, blockIndex, lessonIndex },
-          data: newTest,
         });
       }
 
@@ -215,7 +214,12 @@ const CourseEditor = () => {
     resetForm();
     setMode(null);
   };
-
+  const selectedTest =
+    selectedItem?.type === "test"
+      ? course.parts[selectedItem.path.partIndex].blocks[
+          selectedItem.path.blockIndex
+        ].lessons[selectedItem.path.lessonIndex].test
+      : null;
   /* ---------------- render ---------------- */
 
   return (
@@ -306,28 +310,32 @@ const CourseEditor = () => {
                 </div>
               )}
 
-              {selectedItem?.type === "test" && (
+              {selectedTest && (
                 <TestEditor
-                  test={selectedItem.data}
+                  test={selectedTest.test}
+                  indexes={selectedTest.indexes} // передаем {p, b, l}
                   onChange={(updatedTest) => {
                     setCourse((prev) => {
-                      const copy = structuredClone(prev);
-                      const { partIndex, blockIndex, lessonIndex } =
-                        selectedItem.path;
+                      const newCourse = structuredClone(prev);
+                      const { p, b, l } = selectedTest.indexes;
 
-                      copy.parts[partIndex].blocks[blockIndex].lessons[
-                        lessonIndex
-                      ].test = updatedTest;
+                      if (
+                        newCourse.parts &&
+                        newCourse.parts[p] &&
+                        newCourse.parts[p].blocks &&
+                        newCourse.parts[p].blocks[b] &&
+                        newCourse.parts[p].blocks[b].lessons &&
+                        newCourse.parts[p].blocks[b].lessons[l]
+                      ) {
+                        newCourse.parts[p].blocks[b].lessons[l].test =
+                          updatedTest;
+                      }
 
-                      return copy;
+                      return newCourse;
                     });
-
                     setIsDirty(true);
                   }}
-                  onClose={() => {
-                    setSelectedItem(null);
-                    setMode(null);
-                  }}
+                  onClose={() => setSelectedItem(null)}
                 />
               )}
               <CourseStructure
