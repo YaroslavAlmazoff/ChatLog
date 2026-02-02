@@ -2,8 +2,8 @@ import { useState, useEffect, useContext } from "react";
 import CourseStructure from "./CourseStructure";
 import Loader from "../common_components/Loader";
 import { AuthContext } from "../context/AuthContext";
-import "./styles/course-editor.css";
 import TestEditor from "./TestEditor";
+import "./styles/course-editor.css";
 
 const MODES = {
   ADD_PART: "add-part",
@@ -17,30 +17,21 @@ const MODES = {
 const CourseEditor = () => {
   const { userId } = useContext(AuthContext);
   const [course, setCourse] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   const [mode, setMode] = useState(null);
   const [selectedItem, setSelectedItem] = useState(null);
-  const [loading, setLoading] = useState(true);
   const [isDirty, setIsDirty] = useState(false);
 
-  const [form, setForm] = useState({
-    number: "",
-    title: "",
-  });
+  const [form, setForm] = useState({ number: "", title: "" });
+
+  /* ---------------- load ---------------- */
 
   useEffect(() => {
     fetch("https://chatlog.ru/courses/android.json")
-      .then((res) => {
-        if (!res.ok) throw new Error();
-        return res.json();
-      })
-      .then((json) => {
-        setCourse(json);
-        setLoading(false);
-      })
-      .catch(() => {
-        setLoading(false);
-      });
+      .then((res) => res.json())
+      .then(setCourse)
+      .finally(() => setLoading(false));
   }, []);
 
   useEffect(() => {
@@ -54,29 +45,10 @@ const CourseEditor = () => {
     return () => window.removeEventListener("beforeunload", handler);
   }, [isDirty]);
 
-  const saveData = async () => {
-    try {
-      const res = await fetch("https://chatlog.ru/api/courses/edit", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(course),
-      });
-
-      if (!res.ok) throw new Error();
-      setIsDirty(false);
-      alert("Данные успешно сохранены");
-    } catch {
-      alert("Ошибка при сохранении");
-    }
-  };
-
-  /* ---------------- actions ---------------- */
+  /* ---------------- helpers ---------------- */
 
   const resetForm = () => {
     setForm({ number: "", title: "" });
-    setSelectedItem(null);
   };
 
   const startAdd = (newMode) => {
@@ -96,11 +68,8 @@ const CourseEditor = () => {
     }
   };
 
-  /* ---------------- helpers ---------------- */
-
   const isValidTarget = () => {
     if (mode === MODES.ADD_PART) return true;
-
     if (!selectedItem) return false;
 
     if (mode === MODES.ADD_BLOCK) return selectedItem.type === "part";
@@ -109,26 +78,16 @@ const CourseEditor = () => {
       return selectedItem.type === "lesson";
 
     if (mode === MODES.EDIT) return true;
-
     return false;
   };
 
-  const getTargetLabel = () => {
-    if (mode === MODES.ADD_PART) return "курс";
-
-    if (!selectedItem) return "не выбрано";
-
-    return `${selectedItem.type}: ${selectedItem.data?.title ?? ""}`;
-  };
-
-  /* ---------------- apply changes ---------------- */
+  /* ---------------- apply ---------------- */
 
   const applyChange = () => {
     if (!isValidTarget()) return;
 
     setCourse((prev) => {
       const copy = structuredClone(prev);
-
       const { partIndex, blockIndex, lessonIndex } = selectedItem?.path || {};
 
       if (mode === MODES.ADD_PART) {
@@ -166,15 +125,12 @@ const CourseEditor = () => {
       }
 
       if (mode === MODES.ADD_TEST) {
-        const newTest = {
+        copy.parts[partIndex].blocks[blockIndex].lessons[lessonIndex].test = {
           type: "test",
           number: Number(form.number),
           title: form.title,
           questions: [],
         };
-
-        copy.parts[partIndex].blocks[blockIndex].lessons[lessonIndex].test =
-          newTest;
 
         setSelectedItem({
           type: "test",
@@ -182,7 +138,7 @@ const CourseEditor = () => {
         });
       }
 
-      if (mode === MODES.EDIT) {
+      if (mode === MODES.EDIT && selectedItem) {
         let target;
 
         if (selectedItem.type === "part") target = copy.parts[partIndex];
@@ -210,150 +166,93 @@ const CourseEditor = () => {
 
       return copy;
     });
+
     setIsDirty(true);
     resetForm();
     setMode(null);
   };
-  const selectedTest =
-    selectedItem?.type === "test"
-      ? course.parts[selectedItem.path.partIndex].blocks[
-          selectedItem.path.blockIndex
-        ].lessons[selectedItem.path.lessonIndex].test
-      : null;
+
+  /* ---------------- test getter ---------------- */
+
+  const getSelectedTest = () => {
+    if (!selectedItem || selectedItem.type !== "test") return null;
+
+    const { partIndex, blockIndex, lessonIndex } = selectedItem.path;
+    return course.parts[partIndex].blocks[blockIndex].lessons[lessonIndex].test;
+  };
+
   /* ---------------- render ---------------- */
 
+  if (loading) return <Loader />;
+  if (userId !== "628e5aab0153706a3e18fe79") return null;
+
   return (
-    <>
-      {userId === "628e5aab0153706a3e18fe79" ? (
-        <div className="course-editor">
-          <span className="course-editor-title">Редактор курса</span>
-          {!loading ? (
-            <>
-              {/* ACTIONS */}
-              <div className="editor-actions">
-                <button
-                  className="course-editor-add-button"
-                  onClick={() => startAdd(MODES.ADD_PART)}
-                >
-                  + Добавить часть
-                </button>
-                <button
-                  className="course-editor-add-button"
-                  onClick={() => startAdd(MODES.ADD_BLOCK)}
-                >
-                  + Добавить блок
-                </button>
-                <button
-                  className="course-editor-add-button"
-                  onClick={() => startAdd(MODES.ADD_LESSON)}
-                >
-                  + Добавить урок
-                </button>
-                <button
-                  className="course-editor-add-button"
-                  onClick={() => startAdd(MODES.ADD_VIDEO)}
-                >
-                  + Добавить видео
-                </button>
-                <button
-                  className="course-editor-add-button"
-                  onClick={() => startAdd(MODES.ADD_TEST)}
-                >
-                  + Добавить тест
-                </button>
-                <button
-                  className="course-editor-save-button"
-                  onClick={saveData}
-                  disabled={!isDirty}
-                >
-                  💾 Сохранить
-                </button>
-              </div>
+    <div className="course-editor">
+      <span className="course-editor-title">Редактор курса</span>
 
-              {/* FORM */}
-              {mode && (
-                <div className="course-editor-form">
-                  <div className="course-editor-form-field">
-                    <label>Номер&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                    <input
-                      className="input"
-                      type="number"
-                      value={form.number}
-                      onChange={(e) =>
-                        setForm({ ...form, number: e.target.value })
-                      }
-                    />
-                  </div>
+      <div className="editor-actions">
+        <button onClick={() => startAdd(MODES.ADD_PART)}>+ Часть</button>
+        <button onClick={() => startAdd(MODES.ADD_BLOCK)}>+ Блок</button>
+        <button onClick={() => startAdd(MODES.ADD_LESSON)}>+ Урок</button>
+        <button onClick={() => startAdd(MODES.ADD_VIDEO)}>+ Видео</button>
+        <button onClick={() => startAdd(MODES.ADD_TEST)}>+ Тест</button>
 
-                  <div className="course-editor-form-field">
-                    <label>Название&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                    <input
-                      className="input"
-                      value={form.title}
-                      onChange={(e) =>
-                        setForm({ ...form, title: e.target.value })
-                      }
-                    />
-                  </div>
+        <button
+          className="course-editor-save-button"
+          disabled={!isDirty}
+          onClick={() => alert("TODO: save")}
+        >
+          💾 Сохранить
+        </button>
+      </div>
 
-                  <div>
-                    <strong>Куда:</strong> {getTargetLabel()}
-                  </div>
+      {mode && (
+        <div className="course-editor-form">
+          <input
+            type="number"
+            placeholder="Номер"
+            value={form.number}
+            onChange={(e) => setForm({ ...form, number: e.target.value })}
+          />
 
-                  <button
-                    className="course-editor-ok"
-                    disabled={!isValidTarget()}
-                    onClick={applyChange}
-                  >
-                    OK
-                  </button>
-                </div>
-              )}
+          <input
+            placeholder="Название"
+            value={form.title}
+            onChange={(e) => setForm({ ...form, title: e.target.value })}
+          />
 
-              {selectedTest && (
-                <TestEditor
-                  test={selectedTest.test}
-                  indexes={selectedTest.indexes} // передаем {p, b, l}
-                  onChange={(updatedTest) => {
-                    setCourse((prev) => {
-                      const newCourse = structuredClone(prev);
-                      const { p, b, l } = selectedTest.indexes;
-
-                      if (
-                        newCourse.parts &&
-                        newCourse.parts[p] &&
-                        newCourse.parts[p].blocks &&
-                        newCourse.parts[p].blocks[b] &&
-                        newCourse.parts[p].blocks[b].lessons &&
-                        newCourse.parts[p].blocks[b].lessons[l]
-                      ) {
-                        newCourse.parts[p].blocks[b].lessons[l].test =
-                          updatedTest;
-                      }
-
-                      return newCourse;
-                    });
-                    setIsDirty(true);
-                  }}
-                  onClose={() => setSelectedItem(null)}
-                />
-              )}
-              <CourseStructure
-                course={course}
-                mode="editor"
-                selectedItem={selectedItem}
-                onSelectItem={setSelectedItem}
-                onEditItem={startEdit}
-              />
-            </>
-          ) : (
-            <Loader />
-          )}
+          <button onClick={applyChange}>OK</button>
         </div>
-      ) : (
-        <></>
       )}
-    </>
+
+      {selectedItem?.type === "test" && (
+        <TestEditor
+          test={getSelectedTest()}
+          onChange={(updatedTest) => {
+            setCourse((prev) => {
+              const copy = structuredClone(prev);
+              const { partIndex, blockIndex, lessonIndex } = selectedItem.path;
+
+              copy.parts[partIndex].blocks[blockIndex].lessons[
+                lessonIndex
+              ].test = updatedTest;
+
+              return copy;
+            });
+            setIsDirty(true);
+          }}
+          onClose={() => setSelectedItem(null)}
+        />
+      )}
+
+      <CourseStructure
+        course={course}
+        mode="editor"
+        selectedItem={selectedItem}
+        onSelectItem={setSelectedItem}
+        onEditItem={startEdit}
+      />
+    </div>
   );
 };
 

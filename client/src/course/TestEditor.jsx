@@ -2,105 +2,67 @@ import QuestionEditor from "./QuestionEditor";
 import "./styles/test-editor.css";
 
 function TestEditor({ test, onChange, onClose }) {
-  // Создаем безопасный объект теста с дефолтными значениями
-  const safeTest = {
-    id: Date.now(),
-    title: "",
-    questions: [],
-    ...test,
-  };
+  const questions = test.questions ?? [];
 
-  const updateQuestion = (index, updatedQuestion) => {
-    const updatedQuestions = [...safeTest.questions];
-    updatedQuestions[index] = updatedQuestion;
-
+  const updateQuestions = (updatedQuestions) => {
     onChange({
-      ...safeTest,
-      questions: updatedQuestions,
+      ...test,
+      questions: updatedQuestions.map((q, i) => ({
+        ...q,
+        number: i + 1,
+      })),
     });
   };
 
   const addQuestion = () => {
-    const newQuestion = {
-      id: Date.now() + Math.random(),
-      question: `Вопрос ${safeTest.questions.length + 1}`,
-      variants: [],
-      rightVariantIds: [],
-      rightText: "",
-    };
-
-    onChange({
-      ...safeTest,
-      questions: [...safeTest.questions, newQuestion],
-    });
+    updateQuestions([
+      ...questions,
+      {
+        number: questions.length + 1,
+        question: "",
+        variants: [],
+        rightValues: [],
+        rightText: "",
+      },
+    ]);
   };
 
-  const deleteQuestion = (questionId) => {
-    const updatedQuestions = safeTest.questions.filter(
-      (q) => q.id !== questionId,
-    );
-
-    // Обновляем порядковые номера
-    const renumberedQuestions = updatedQuestions.map((q, index) => ({
-      ...q,
-      number: index + 1,
-    }));
-
-    onChange({
-      ...safeTest,
-      questions: renumberedQuestions,
-    });
+  const updateQuestion = (index, updated) => {
+    const updatedQuestions = [...questions];
+    updatedQuestions[index] = updated;
+    updateQuestions(updatedQuestions);
   };
+
+  const removeQuestion = (index) => {
+    const updatedQuestions = questions.filter((_, i) => i !== index);
+    updateQuestions(updatedQuestions);
+  };
+
+  if (!test) return null;
 
   return (
     <div className="test-editor">
-      <div className="test-editor-header">
-        <h3>Редактор теста</h3>
-        <button className="test-editor-close" onClick={onClose}>
-          ×
-        </button>
-      </div>
+      <h3>Редактор теста: {test.title}</h3>
 
-      <div className="test-questions-list">
-        {safeTest.questions.length === 0 ? (
-          <div className="no-questions">
-            <p>В тесте пока нет вопросов</p>
-            <button className="course-editor-add-button" onClick={addQuestion}>
-              + Добавить первый вопрос
-            </button>
-          </div>
-        ) : (
-          safeTest.questions.map((question, index) => (
-            <div key={question.id} className="question-editor-wrapper">
-              <div className="question-header">
-                <span className="question-number">Вопрос {index + 1}</span>
-                <button
-                  className="question-delete-btn"
-                  onClick={() => deleteQuestion(question.id)}
-                  title="Удалить вопрос"
-                >
-                  ×
-                </button>
-              </div>
+      {questions.map((q, index) => (
+        <div key={q.number} className="question-wrapper">
+          <QuestionEditor
+            question={q}
+            onChange={(updated) => updateQuestion(index, updated)}
+          />
 
-              <QuestionEditor
-                question={question}
-                onChange={(updated) => updateQuestion(index, updated)}
-              />
+          <button
+            className="test-editor-remove-button"
+            onClick={() => removeQuestion(index)}
+          >
+            🗑 Удалить вопрос
+          </button>
+        </div>
+      ))}
 
-              {index < safeTest.questions.length - 1 && (
-                <hr className="question-divider" />
-              )}
-            </div>
-          ))
-        )}
-      </div>
-
-      {safeTest.questions.length > 0 && (
-        <button className="course-editor-add-button" onClick={addQuestion}>
-          + Добавить ещё вопрос
-        </button>
-      )}
+      <button className="course-editor-add-button" onClick={addQuestion}>
+        + Добавить вопрос
+      </button>
 
       <div className="test-editor-footer">
         <button className="course-editor-ok" onClick={onClose}>
