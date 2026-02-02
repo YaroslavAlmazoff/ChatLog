@@ -81,6 +81,31 @@ const CourseEditor = () => {
     return false;
   };
 
+  const getTargetLabel = () => {
+    if (mode === MODES.ADD_PART) return "курс";
+
+    if (!selectedItem) return "не выбрано";
+
+    const { partIndex, blockIndex, lessonIndex } = selectedItem.path || {};
+
+    if (selectedItem.type === "part")
+      return `часть: ${course.parts[partIndex].title}`;
+
+    if (selectedItem.type === "block")
+      return `блок: ${course.parts[partIndex].blocks[blockIndex].title}`;
+
+    if (selectedItem.type === "lesson")
+      return `урок: ${
+        course.parts[partIndex].blocks[blockIndex].lessons[lessonIndex].title
+      }`;
+
+    if (selectedItem.type === "video") return "видео урока";
+
+    if (selectedItem.type === "test") return "тест урока";
+
+    return "не выбрано";
+  };
+
   /* ---------------- apply ---------------- */
 
   const applyChange = () => {
@@ -247,7 +272,9 @@ const CourseEditor = () => {
             value={form.title}
             onChange={(e) => setForm({ ...form, title: e.target.value })}
           />
-
+          <div style={{ marginTop: 8 }}>
+            <strong>Куда:</strong> {getTargetLabel()}
+          </div>
           <button className="course-editor-ok" onClick={applyChange}>
             OK
           </button>
