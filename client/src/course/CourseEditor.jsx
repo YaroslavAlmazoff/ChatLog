@@ -234,6 +234,7 @@ const CourseEditor = () => {
       {mode && (
         <div className="course-editor-form">
           <input
+            className="input"
             type="number"
             placeholder="Номер"
             value={form.number}
@@ -241,6 +242,7 @@ const CourseEditor = () => {
           />
 
           <input
+            className="input"
             placeholder="Название"
             value={form.title}
             onChange={(e) => setForm({ ...form, title: e.target.value })}
