@@ -31,6 +31,7 @@ function QuestionEditor({ question, onChange }) {
   return (
     <div className="question-editor">
       <input
+        className="test-editor-small-input test-editor-small-input-blue"
         value={safeQuestion.title}
         onChange={(e) => onChange({ ...safeQuestion, title: e.target.value })}
         placeholder="Текст вопроса"
@@ -46,6 +47,7 @@ function QuestionEditor({ question, onChange }) {
             className={isCorrect ? "correct" : ""}
           >
             <input
+              className="test-editor-small-input test-editor-small-input-white"
               value={variant.title}
               onChange={(e) => {
                 const variants = [...safeQuestion.variants];
@@ -58,9 +60,12 @@ function QuestionEditor({ question, onChange }) {
         );
       })}
 
-      <button onClick={addVariant}>+ Добавить вариант</button>
+      <button className="course-editor-add-button" onClick={addVariant}>
+        + Добавить вариант
+      </button>
 
       <button
+        className="course-editor-add-button"
         onClick={() =>
           onChange({
             ...safeQuestion,

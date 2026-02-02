@@ -1,0 +1,17 @@
+.test-editor-small-input {
+  padding: 5px;
+  margin: 10px;
+  outline: none;
+  background-color: rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+}
+
+.test-editor-small-input-white {
+  color: white;
+  border: 1px solid white;
+}
+
+.test-editor-small-input-blue {
+  color: #40a4ff;
+  border: #40a4ff;
+}

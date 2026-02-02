@@ -27,7 +27,9 @@ function TestEditor({ test, onChange, onClose }) {
     <div className="test-editor">
       <h3>Редактор теста</h3>
       {test.questions.length === 0 ? (
-        <button onClick={addQuestion}>+ Добавить вопрос</button>
+        <button className="course-editor-add-button" onClick={addQuestion}>
+          + Добавить вопрос
+        </button>
       ) : (
         test.questions.map((q, i) => (
           <QuestionEditor
