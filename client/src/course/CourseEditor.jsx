@@ -320,7 +320,10 @@ const CourseEditor = () => {
             });
             setIsDirty(true);
           }}
-          onClose={() => setSelectedItem(null)}
+          onClose={() => {
+            setSelectedItem(null);
+            setMode(null);
+          }}
         />
       )}
 
