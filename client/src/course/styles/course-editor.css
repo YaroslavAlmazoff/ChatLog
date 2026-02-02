@@ -60,6 +60,10 @@
   justify-content: center;
 }
 
+.course-editor-form-input {
+  margin-left: 15px;
+}
+
 .course-editor-ok {
   padding: 7px;
   margin: 10px;
