@@ -23,17 +23,6 @@ function QuestionEditor({ question, onChange }) {
     });
   };
 
-  const toggleCorrect = (index) => {
-    const exists = safeQuestion.rightValues.includes(index + 1);
-
-    onChange({
-      ...safeQuestion,
-      rightValues: exists
-        ? safeQuestion.rightValues.filter((v) => v !== index + 1)
-        : [...safeQuestion.rightValues, index + 1],
-    });
-  };
-
   return (
     <div className="question-editor">
       <input
@@ -44,24 +33,40 @@ function QuestionEditor({ question, onChange }) {
       />
 
       {safeQuestion.variants.map((variant, index) => {
-        const isCorrect = safeQuestion.rightValues.includes(index + 1);
+        const isCorrect = safeQuestion.rightValues.includes(variant.number);
 
         return (
-          <div key={index} className="variant-row">
+          <div key={variant.id} className="variant-row">
             <input
               className="test-editor-small-input test-editor-small-input-white"
               value={variant.title}
               onChange={(e) => {
                 const variants = [...safeQuestion.variants];
-                variants[index].title = e.target.value;
+                variants[index] = {
+                  ...variants[index],
+                  title: e.target.value,
+                };
                 onChange({ ...safeQuestion, variants });
               }}
             />
 
             <button
               type="button"
-              className={isCorrect ? "correct-btn active" : "correct-btn"}
-              onClick={() => toggleCorrect(index)}
+              className={`correct-btn ${isCorrect ? "active" : ""}`}
+              onClick={() => {
+                const exists = safeQuestion.rightValues.includes(
+                  variant.number,
+                );
+
+                onChange({
+                  ...safeQuestion,
+                  rightValues: exists
+                    ? safeQuestion.rightValues.filter(
+                        (v) => v !== variant.number,
+                      )
+                    : [...safeQuestion.rightValues, variant.number],
+                });
+              }}
             >
               {isCorrect ? "✔ Правильный" : "Сделать правильным"}
             </button>
