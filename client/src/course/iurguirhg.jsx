@@ -31,21 +31,14 @@ function TestEditor({ test, onChange, onClose }) {
     });
   };
 
-  const deleteQuestion = (index) => {
-    const questions = test.questions
-      .filter((_, i) => i !== index)
-      .map((q, i) => ({
-        ...q,
-        number: i + 1, // перенумерация
-      }));
-
-    updateField({ questions });
+  const removeQuestion = (index) => {
+    const updatedQuestions = questions.filter((_, i) => i !== index);
+    updateQuestions(updatedQuestions);
   };
 
   return (
     <div className="test-editor">
       <span className="test-editor-title">Редактор теста</span>
-
       {/* Название теста */}
       <input
         className="test-editor-title-input"
@@ -61,16 +54,15 @@ function TestEditor({ test, onChange, onClose }) {
         </button>
       ) : (
         test.questions.map((q, i) => (
-          <div key={q.id} className="question-wrapper">
+          <div key={q.number} className="question-wrapper">
             <QuestionEditor
+              key={q.id}
               question={q}
               onChange={(updated) => updateQuestion(i, updated)}
             />
-
             <button
-              type="button"
               className="test-editor-red-button"
-              onClick={() => deleteQuestion(i)}
+              onClick={() => removeQuestion(i)}
             >
               🗑 Удалить вопрос
             </button>
