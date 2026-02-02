@@ -202,6 +202,24 @@ const CourseEditor = () => {
     setMode(null);
   };
 
+  const saveData = async () => {
+    try {
+      const res = await fetch("https://chatlog.ru/api/courses/edit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(course),
+      });
+
+      if (!res.ok) throw new Error();
+      setIsDirty(false);
+      alert("Данные успешно сохранены");
+    } catch {
+      alert("Ошибка при сохранении");
+    }
+  };
+
   /* ---------------- test getter ---------------- */
 
   const getSelectedTest = () => {
@@ -255,7 +273,7 @@ const CourseEditor = () => {
         <button
           className="course-editor-save-button"
           disabled={!isDirty}
-          onClick={() => alert("TODO: save")}
+          onClick={saveData}
         >
           💾 Сохранить
         </button>
