@@ -13,5 +13,15 @@
 
 .test-editor-small-input-blue {
   color: #40a4ff;
-  border: #40a4ff;
+  border: 1px solid #40a4ff;
+}
+
+.test-editor-dark-button {
+  padding: 7px;
+  margin: 10px;
+  border: none;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border-radius: 11px;
+  cursor: pointer;
 }
