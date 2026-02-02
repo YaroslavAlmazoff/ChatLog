@@ -1,4 +1,9 @@
+import { useState } from "react";
+
 function QuestionEditor({ question, onChange }) {
+  const [showRightInput, setShowRightInput] = useState(false);
+  const [rightValueDraft, setRightValueDraft] = useState("");
+
   const safeQuestion = {
     variants: [],
     rightValues: [],
