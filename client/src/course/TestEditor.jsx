@@ -33,8 +33,7 @@ function TestEditor({ test, onChange, onClose }) {
 
   return (
     <div className="test-editor">
-      <h3>Редактор теста</h3>
-
+      <span className="test-editor-title">Редактор теста</span>
       {/* Название теста */}
       <input
         className="test-editor-title-input"
