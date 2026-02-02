@@ -36,37 +36,46 @@ function QuestionEditor({ question, onChange }) {
         placeholder="Текст вопроса"
       />
 
-      {safeQuestion.variants.map((opt) => (
-        <div
-          key={opt.id}
-          onClick={() => toggleCorrect(opt.id)}
-          className={opt.isCorrect ? "correct" : ""}
-        >
-          <input
-            value={opt.title}
-            onChange={(e) =>
-              onChange({
-                ...safeQuestion,
-                variants: safeQuestion.variants.map((o) =>
-                  o.id === opt.id ? { ...o, title: e.target.value } : o,
-                ),
-              })
-            }
-          />
-        </div>
-      ))}
+      {safeQuestion.variants.map((variant, index) => {
+        const isCorrect = safeQuestion.rightValues.includes(index + 1);
+
+        return (
+          <div
+            key={index}
+            onClick={() => toggleCorrect(index)}
+            className={isCorrect ? "correct" : ""}
+          >
+            <input
+              value={variant.title}
+              onChange={(e) => {
+                const variants = [...safeQuestion.variants];
+                variants[index].title = e.target.value;
+
+                onChange({ ...safeQuestion, variants });
+              }}
+            />
+          </div>
+        );
+      })}
 
       <button onClick={addVariant}>+ Добавить вариант</button>
 
-      <button onClick={() => onChange({ ...safeQuestion, textAnswer: "" })}>
+      <button
+        onClick={() =>
+          onChange({
+            ...safeQuestion,
+            rightText: safeQuestion.rightText ?? "",
+          })
+        }
+      >
         + Добавить правильный ответ
       </button>
 
-      {safeQuestion.textAnswer !== "" && (
+      {safeQuestion.rightText !== "" && (
         <input
-          value={safeQuestion.textAnswer}
+          value={safeQuestion.rightText}
           onChange={(e) =>
-            onChange({ ...safeQuestion, textAnswer: e.target.value })
+            onChange({ ...safeQuestion, rightText: e.target.value })
           }
           placeholder="Правильный ответ"
         />
