@@ -12,6 +12,7 @@ function QuestionEditor({ question, onChange }) {
   const addVariant = () => {
     onChange({
       ...safeQuestion,
+      rightText: "",
       variants: [
         ...safeQuestion.variants,
         {
@@ -46,21 +47,24 @@ function QuestionEditor({ question, onChange }) {
         const isCorrect = safeQuestion.rightValues.includes(index + 1);
 
         return (
-          <div
-            key={index}
-            onClick={() => toggleCorrect(index)}
-            className={isCorrect ? "correct" : ""}
-          >
+          <div key={index} className="variant-row">
             <input
               className="test-editor-small-input test-editor-small-input-white"
               value={variant.title}
               onChange={(e) => {
                 const variants = [...safeQuestion.variants];
                 variants[index].title = e.target.value;
-
                 onChange({ ...safeQuestion, variants });
               }}
             />
+
+            <button
+              type="button"
+              className={isCorrect ? "correct-btn active" : "correct-btn"}
+              onClick={() => toggleCorrect(index)}
+            >
+              {isCorrect ? "✔ Правильный" : "Сделать правильным"}
+            </button>
           </div>
         );
       })}
@@ -69,27 +73,39 @@ function QuestionEditor({ question, onChange }) {
         + Добавить вариант
       </button>
 
-      <button
-        className="course-editor-add-button"
-        onClick={() =>
-          onChange({
-            ...safeQuestion,
-            rightText: safeQuestion.rightText ?? "",
-          })
-        }
-      >
-        + Добавить правильный ответ
-      </button>
+      {safeQuestion.variants.length === 0 && (
+        <button
+          className="course-editor-add-button"
+          onClick={() => setShowRightInput(true)}
+        >
+          + Добавить правильный ответ
+        </button>
+      )}
 
-      {safeQuestion.rightText !== "" && (
-        <input
-          className="test-editor-small-input test-editor-small-input-blue"
-          value={safeQuestion.rightText}
-          onChange={(e) =>
-            onChange({ ...safeQuestion, rightText: e.target.value })
-          }
-          placeholder="Правильный ответ"
-        />
+      {showRightInput && safeQuestion.variants.length === 0 && (
+        <div className="right-text-editor">
+          <input
+            className="test-editor-small-input test-editor-small-input-blue"
+            value={rightValueDraft}
+            onChange={(e) => setRightValueDraft(e.target.value)}
+            placeholder="Правильный ответ"
+          />
+
+          <button
+            className="course-editor-ok"
+            onClick={() => {
+              onChange({
+                ...safeQuestion,
+                rightText: rightValueDraft,
+              });
+
+              setRightValueDraft("");
+              setShowRightInput(false);
+            }}
+          >
+            OK
+          </button>
+        </div>
       )}
     </div>
   );

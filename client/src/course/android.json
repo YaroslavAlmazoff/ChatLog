@@ -34,36 +34,32 @@
                     "number": 1,
                     "question": "3 основных типа алгоритмов",
                     "type": "variants",
+                    "rightsValues": [2, 3, 5],
                     "variants": [
                       {
                         "id": "v-1",
                         "number": 1,
-                        "title": "Ступенчатые",
-                        "isCorrect": false
+                        "title": "Ступенчатые"
                       },
                       {
                         "id": "v-2",
                         "number": 2,
-                        "title": "Циклические",
-                        "isCorrect": true
+                        "title": "Циклические"
                       },
                       {
                         "id": "v-3",
                         "number": 3,
-                        "title": "Линейные",
-                        "isCorrect": true
+                        "title": "Линейные"
                       },
                       {
                         "id": "v-4",
                         "number": 4,
-                        "title": "Нелинейные",
-                        "isCorrect": false
+                        "title": "Нелинейные"
                       },
                       {
                         "id": "v-5",
                         "number": 5,
-                        "title": "С ветвлением",
-                        "isCorrect": true
+                        "title": "С ветвлением"
                       }
                     ]
                   }
@@ -83,36 +79,32 @@
                 "number": 1,
                 "question": "Что такое алгоритм?",
                 "type": "variants",
+                "rightsValues": [3],
                 "variants": [
                   {
                     "id": "v-6",
                     "number": 1,
-                    "title": "Блок-схема",
-                    "isCorrect": false
+                    "title": "Блок-схема"
                   },
                   {
                     "id": "v-7",
                     "number": 2,
-                    "title": "Программный код",
-                    "isCorrect": false
+                    "title": "Программный код"
                   },
                   {
                     "id": "v-8",
                     "number": 3,
-                    "title": "Последовательность шагов, которая приводит к результату",
-                    "isCorrect": true
+                    "title": "Последовательность шагов, которая приводит к результату"
                   },
                   {
                     "id": "v-9",
                     "number": 4,
-                    "title": "Набор действий для получения результата",
-                    "isCorrect": false
+                    "title": "Набор действий для получения результата"
                   },
                   {
                     "id": "v-10",
                     "number": 5,
-                    "title": "Язык программирования",
-                    "isCorrect": false
+                    "title": "Язык программирования"
                   }
                 ]
               }
