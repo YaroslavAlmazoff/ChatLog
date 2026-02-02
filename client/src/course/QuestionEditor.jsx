@@ -57,7 +57,7 @@ function QuestionEditor({ question, onChange }) {
 
             <button
               type="button"
-              className={`correct-btn ${isCorrect ? "active" : ""}`}
+              className={`test-editor-dark-button`}
               onClick={() => {
                 const exists = safeQuestion.rightValues.includes(
                   variant.number,
