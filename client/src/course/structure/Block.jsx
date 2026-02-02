@@ -21,7 +21,7 @@ function Block({
     type: "test",
     path: { partIndex, blockIndex },
   };
-
+  const confirmDelete = (text) => window.confirm(text);
   return (
     <Expandable
       level={2}
@@ -52,7 +52,7 @@ function Block({
                 onClick={(e) => {
                   e.stopPropagation();
                   if (
-                    confirm(
+                    confirmDelete(
                       "Удалить блок? Все уроки и тест внутри будут удалены.",
                     )
                   ) {
@@ -106,7 +106,7 @@ function Block({
                 className="course-structure-delete-icon"
                 onClick={(e) => {
                   e.stopPropagation();
-                  if (confirm("Удалить итоговый тест блока?")) {
+                  if (confirmDelete("Удалить итоговый тест блока?")) {
                     onDeleteItem?.(blockTestItem);
                   }
                 }}

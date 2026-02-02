@@ -14,7 +14,7 @@ function Part({
 }) {
   const isSelected =
     selectedItem?.type === "part" && selectedItem.path?.partIndex === partIndex;
-
+  const confirmDelete = (text) => window.confirm(text);
   return (
     <Expandable
       title={
@@ -50,7 +50,7 @@ function Part({
                 className="course-structure-edit-icon"
                 onClick={(e) => {
                   e.stopPropagation();
-                  if (confirm("Удалить часть?")) {
+                  if (confirmDelete("Удалить часть?")) {
                     onDeleteItem?.({
                       type: "part",
                       path: { partIndex },

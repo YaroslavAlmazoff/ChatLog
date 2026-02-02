@@ -23,6 +23,8 @@ function Lesson({
     path,
   };
 
+  const confirmDelete = (text) => window.confirm(text);
+
   return (
     <div style={{ marginLeft: 32 }}>
       {/* УРОК */}
@@ -61,7 +63,7 @@ function Lesson({
               onClick={(e) => {
                 e.stopPropagation();
                 if (
-                  confirm(
+                  confirmDelete(
                     "Удалить урок? Видео и тест внутри также будут удалены.",
                   )
                 ) {
@@ -99,7 +101,7 @@ function Lesson({
                 className="course-structure-delete-icon"
                 onClick={(e) => {
                   e.stopPropagation();
-                  if (confirm("Удалить видеоурок?")) {
+                  if (confirmDelete("Удалить видеоурок?")) {
                     onDeleteItem?.(videoItem);
                   }
                 }}
@@ -135,7 +137,7 @@ function Lesson({
                 className="course-structure-delete-icon"
                 onClick={(e) => {
                   e.stopPropagation();
-                  if (confirm("Удалить тест урока?")) {
+                  if (confirmDelete("Удалить тест урока?")) {
                     onDeleteItem?.(testItem);
                   }
                 }}
