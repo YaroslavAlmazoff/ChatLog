@@ -270,7 +270,7 @@ const CourseEditor = () => {
               {mode && (
                 <div className="course-editor-form">
                   <div className="course-editor-form-field">
-                    <label>Номер</label>
+                    <label>Номер&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
                     <input
                       className="input"
                       type="number"
@@ -282,7 +282,7 @@ const CourseEditor = () => {
                   </div>
 
                   <div className="course-editor-form-field">
-                    <label>Название</label>
+                    <label>Название&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
                     <input
                       className="input"
                       value={form.title}
