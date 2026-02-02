@@ -4,26 +4,27 @@ function QuestionEditor({ question, onChange }) {
     rightValues: [],
     ...question,
   };
-  const addOption = () => {
+  const addVariant = () => {
     onChange({
       ...safeQuestion,
-      options: [
-        ...safeQuestion.options,
+      variants: [
+        ...safeQuestion.variants,
         {
-          id: crypto.randomUUID(),
+          number: safeQuestion.variants.length + 1,
           title: "",
-          isCorrect: false,
         },
       ],
     });
   };
 
-  const toggleCorrect = (id) => {
+  const toggleCorrect = (index) => {
+    const exists = safeQuestion.rightValues.includes(index + 1);
+
     onChange({
       ...safeQuestion,
-      options: safeQuestion.options.map((o) =>
-        o.id === id ? { ...o, isCorrect: !o.isCorrect } : o,
-      ),
+      rightValues: exists
+        ? safeQuestion.rightValues.filter((v) => v !== index + 1)
+        : [...safeQuestion.rightValues, index + 1],
     });
   };
 
@@ -35,7 +36,7 @@ function QuestionEditor({ question, onChange }) {
         placeholder="Текст вопроса"
       />
 
-      {safeQuestion.options.map((opt) => (
+      {safeQuestion.variants.map((opt) => (
         <div
           key={opt.id}
           onClick={() => toggleCorrect(opt.id)}
@@ -46,7 +47,7 @@ function QuestionEditor({ question, onChange }) {
             onChange={(e) =>
               onChange({
                 ...safeQuestion,
-                options: safeQuestion.options.map((o) =>
+                variants: safeQuestion.variants.map((o) =>
                   o.id === opt.id ? { ...o, title: e.target.value } : o,
                 ),
               })
@@ -55,7 +56,7 @@ function QuestionEditor({ question, onChange }) {
         </div>
       ))}
 
-      <button onClick={addOption}>+ Добавить вариант</button>
+      <button onClick={addVariant}>+ Добавить вариант</button>
 
       <button onClick={() => onChange({ ...safeQuestion, textAnswer: "" })}>
         + Добавить правильный ответ
