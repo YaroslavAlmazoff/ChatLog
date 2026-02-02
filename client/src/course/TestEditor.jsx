@@ -13,10 +13,11 @@ function TestEditor({ test, onChange, onClose, showTitleEdit }) {
       questions: [
         ...test.questions,
         {
-          id: crypto.randomUUID(),
-          title: "",
-          options: [],
-          textAnswer: "",
+          number: test.questions.length + 1,
+          question: "",
+          variants: [],
+          rightValues: [],
+          rightText: "",
         },
       ],
     });

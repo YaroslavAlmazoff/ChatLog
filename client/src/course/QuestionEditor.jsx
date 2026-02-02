@@ -1,9 +1,14 @@
 function QuestionEditor({ question, onChange }) {
+  const safeQuestion = {
+    variants: [],
+    rightValues: [],
+    ...question,
+  };
   const addOption = () => {
     onChange({
-      ...question,
+      ...safeQuestion,
       options: [
-        ...question.options,
+        ...safeQuestion.options,
         {
           id: crypto.randomUUID(),
           title: "",
@@ -15,8 +20,8 @@ function QuestionEditor({ question, onChange }) {
 
   const toggleCorrect = (id) => {
     onChange({
-      ...question,
-      options: question.options.map((o) =>
+      ...safeQuestion,
+      options: safeQuestion.options.map((o) =>
         o.id === id ? { ...o, isCorrect: !o.isCorrect } : o,
       ),
     });
@@ -25,12 +30,12 @@ function QuestionEditor({ question, onChange }) {
   return (
     <div className="question-editor">
       <input
-        value={question.title}
-        onChange={(e) => onChange({ ...question, title: e.target.value })}
+        value={safeQuestion.title}
+        onChange={(e) => onChange({ ...safeQuestion, title: e.target.value })}
         placeholder="Текст вопроса"
       />
 
-      {question.options.map((opt) => (
+      {safeQuestion.options.map((opt) => (
         <div
           key={opt.id}
           onClick={() => toggleCorrect(opt.id)}
@@ -40,8 +45,8 @@ function QuestionEditor({ question, onChange }) {
             value={opt.title}
             onChange={(e) =>
               onChange({
-                ...question,
-                options: question.options.map((o) =>
+                ...safeQuestion,
+                options: safeQuestion.options.map((o) =>
                   o.id === opt.id ? { ...o, title: e.target.value } : o,
                 ),
               })
@@ -52,15 +57,15 @@ function QuestionEditor({ question, onChange }) {
 
       <button onClick={addOption}>+ Добавить вариант</button>
 
-      <button onClick={() => onChange({ ...question, textAnswer: "" })}>
+      <button onClick={() => onChange({ ...safeQuestion, textAnswer: "" })}>
         + Добавить правильный ответ
       </button>
 
-      {question.textAnswer !== "" && (
+      {safeQuestion.textAnswer !== "" && (
         <input
-          value={question.textAnswer}
+          value={safeQuestion.textAnswer}
           onChange={(e) =>
-            onChange({ ...question, textAnswer: e.target.value })
+            onChange({ ...safeQuestion, textAnswer: e.target.value })
           }
           placeholder="Правильный ответ"
         />
