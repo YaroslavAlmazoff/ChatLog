@@ -53,30 +53,26 @@ function TestEditor({ test, onChange, onClose }) {
         onChange={(e) => updateField({ title: e.target.value })}
         placeholder="Название теста"
       />
-
+      <button className="course-editor-add-button" onClick={addQuestion}>
+        + Добавить вопрос
+      </button>
       {/* Вопросы */}
-      {test.questions.length === 0 ? (
-        <button className="course-editor-add-button" onClick={addQuestion}>
-          + Добавить вопрос
-        </button>
-      ) : (
-        test.questions.map((q, i) => (
-          <div key={q.id} className="question-wrapper">
-            <QuestionEditor
-              question={q}
-              onChange={(updated) => updateQuestion(i, updated)}
-            />
+      {test.questions.map((q, i) => (
+        <div key={q.id} className="question-wrapper">
+          <QuestionEditor
+            question={q}
+            onChange={(updated) => updateQuestion(i, updated)}
+          />
 
-            <button
-              type="button"
-              className="test-editor-red-button"
-              onClick={() => deleteQuestion(i)}
-            >
-              🗑 Удалить вопрос
-            </button>
-          </div>
-        ))
-      )}
+          <button
+            type="button"
+            className="test-editor-red-button"
+            onClick={() => deleteQuestion(i)}
+          >
+            🗑 Удалить вопрос
+          </button>
+        </div>
+      ))}
 
       <div style={{ marginTop: 16 }}>
         <button className="course-editor-ok" onClick={onClose}>
