@@ -130,21 +130,21 @@ const CourseEditor = () => {
     console.log(item);
     if (!item) return;
 
-    if (item.type === "video") {
-      const videoId =
-        course.parts[partIndex].blocks[blockIndex].lessons[lessonIndex].video
-          ?.id;
-
-      setVideoUploads((prev) => {
-        const next = { ...prev };
-        delete next[videoId];
-        return next;
-      });
-    }
-
     setCourse((prev) => {
       const copy = structuredClone(prev);
       const { partIndex, blockIndex, lessonIndex } = item.path || {};
+
+      if (item.type === "video") {
+        const videoId =
+          course.parts[partIndex].blocks[blockIndex].lessons[lessonIndex].video
+            ?.id;
+
+        setVideoUploads((prev) => {
+          const next = { ...prev };
+          delete next[videoId];
+          return next;
+        });
+      }
 
       switch (item.type) {
         case "part":
