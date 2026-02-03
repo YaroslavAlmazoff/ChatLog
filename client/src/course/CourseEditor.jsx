@@ -155,7 +155,6 @@ const CourseEditor = () => {
   /* ---------------- apply ---------------- */
 
   const deleteItem = (item) => {
-    console.log(item);
     if (!item) return;
 
     setCourse((prev) => {
@@ -163,45 +162,36 @@ const CourseEditor = () => {
       const { partIndex, blockIndex, lessonIndex } = item.path || {};
 
       if (item.type === "video") {
-        const videoId =
-          course.parts[partIndex].blocks[blockIndex].lessons[lessonIndex].video
-            ?.id;
+        const video =
+          copy.parts[partIndex].blocks[blockIndex].lessons[lessonIndex].video;
 
-        setVideoUploads((prev) => {
-          const next = { ...prev };
-          delete next[videoId];
-          return next;
-        });
+        if (video?.id) {
+          setVideoUploads((prevUploads) => {
+            const next = { ...prevUploads };
+            delete next[video.id];
+            return next;
+          });
+        }
+
+        copy.parts[partIndex].blocks[blockIndex].lessons[lessonIndex].video =
+          null;
       }
 
-      switch (item.type) {
-        case "part":
-          copy.parts.splice(partIndex, 1);
-          break;
+      if (item.type === "test") {
+        copy.parts[partIndex].blocks[blockIndex].lessons[lessonIndex].test =
+          null;
+      }
 
-        case "block":
-          copy.parts[partIndex].blocks.splice(blockIndex, 1);
-          break;
+      if (item.type === "lesson") {
+        copy.parts[partIndex].blocks[blockIndex].lessons.splice(lessonIndex, 1);
+      }
 
-        case "lesson":
-          copy.parts[partIndex].blocks[blockIndex].lessons.splice(
-            lessonIndex,
-            1,
-          );
-          break;
+      if (item.type === "block") {
+        copy.parts[partIndex].blocks.splice(blockIndex, 1);
+      }
 
-        case "video":
-          copy.parts[partIndex].blocks[blockIndex].lessons[lessonIndex].video =
-            null;
-          break;
-
-        case "test":
-          copy.parts[partIndex].blocks[blockIndex].lessons[lessonIndex].test =
-            null;
-          break;
-
-        default:
-          return prev;
+      if (item.type === "part") {
+        copy.parts.splice(partIndex, 1);
       }
 
       return copy;
