@@ -5,6 +5,8 @@ const fsPromises = require("fs/promises");
 class CourseService {
   async edit(req, res) {
     try {
+      if (req.user.userId != "628e5aab0153706a3e18fe79")
+        return res.status(400).json({ message: "Вы не имеете на это права." });
       const course = req.body;
 
       const coursePath = path.resolve(
@@ -78,6 +80,8 @@ class CourseService {
       if (!req.files) {
         return res.status(400).json({ message: "Файлы не переданы" });
       }
+      if (req.user.userId != "628e5aab0153706a3e18fe79")
+        return res.status(400).json({ message: "Вы не имеете на это права." });
 
       const uploadDir = path.resolve("..", "static", "courses", "videos");
 

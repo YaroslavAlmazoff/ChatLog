@@ -17,7 +17,7 @@ const MODES = {
 };
 
 const CourseEditor = () => {
-  const { userId } = useContext(AuthContext);
+  const { userId, token } = useContext(AuthContext);
   const [course, setCourse] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -299,6 +299,10 @@ const CourseEditor = () => {
       }));
 
       await api.post("/api/courses/upload-videos", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${token}`,
+        },
         onUploadProgress: (e) => {
           const percent = Math.round((e.loaded * 100) / e.total);
 
@@ -330,7 +334,12 @@ const CourseEditor = () => {
   const saveData = async () => {
     try {
       await uploadVideosSequentially();
-      await api.post("/api/courses/edit", course);
+      await api.post("/api/courses/edit", course, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${token}`,
+        },
+      });
       setVideoUploads({});
       setIsDirty(false);
       alert("Данные и видео успешно сохранены");
