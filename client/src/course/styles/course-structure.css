@@ -40,6 +40,5 @@
 
 .course-structure-item.selected,
 .course-structure-subitem.selected {
-  background: #e6f0ff;
-  border-left: 3px solid #4c7cff;
+  border-left: 3px solid #40a4ff;
 }
