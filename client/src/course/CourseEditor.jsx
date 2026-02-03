@@ -57,6 +57,34 @@ const CourseEditor = () => {
   };
 
   const startAdd = (newMode) => {
+    if (newMode === MODES.ADD_VIDEO && selectedItem?.type === "lesson") {
+      const { partIndex, blockIndex, lessonIndex } = selectedItem.path;
+      const videoId = crypto.randomUUID();
+
+      setCourse((prev) => {
+        const copy = structuredClone(prev);
+
+        copy.parts[partIndex].blocks[blockIndex].lessons[lessonIndex].video = {
+          id: videoId,
+          type: "video",
+          number: 1,
+          title: "",
+          src: null,
+        };
+
+        return copy;
+      });
+
+      setSelectedItem({
+        type: "video",
+        path: { partIndex, blockIndex, lessonIndex },
+      });
+
+      setIsDirty(true);
+      setMode(null); // форма не нужна
+      return;
+    }
+
     setMode(newMode);
     resetForm();
   };
@@ -220,24 +248,6 @@ const CourseEditor = () => {
           test: null,
         });
       }
-
-      if (mode === MODES.ADD_VIDEO) {
-        const videoId = crypto.randomUUID();
-
-        copy.parts[partIndex].blocks[blockIndex].lessons[lessonIndex].video = {
-          id: videoId,
-          type: "video",
-          number: Number(form.number),
-          title: form.title,
-          src: `${videoId}.mp4`,
-        };
-
-        setSelectedItem({
-          type: "video",
-          path: { partIndex, blockIndex, lessonIndex },
-        });
-      }
-
       if (mode === MODES.ADD_TEST) {
         copy.parts[partIndex].blocks[blockIndex].lessons[lessonIndex].test = {
           type: "test",
@@ -329,10 +339,7 @@ const CourseEditor = () => {
 
   const saveData = async () => {
     try {
-      // 1. сначала видео
       await uploadVideosSequentially();
-
-      // 2. потом структура
       await api.post("/api/courses/edit", course);
 
       setIsDirty(false);
@@ -440,7 +447,7 @@ const CourseEditor = () => {
         </button>
       </div>
 
-      {mode && selectedItem?.type !== "test" && (
+      {mode && selectedItem?.type !== "test" && mode !== MODES.ADD_VIDEO && (
         <div className="course-editor-form">
           <input
             className="input"
