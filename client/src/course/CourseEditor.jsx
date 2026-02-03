@@ -383,8 +383,7 @@ const CourseEditor = () => {
   const hasMissingVideos =
     course &&
     collectVideoIdsFromCourse().some((id) => {
-      const upload = videoUploads[id];
-      return !upload || upload.status !== "done";
+      return !videoUploads[id];
     });
 
   const disableSave =
