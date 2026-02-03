@@ -351,10 +351,6 @@ const CourseEditor = () => {
     return course.parts[partIndex].blocks[blockIndex].lessons[lessonIndex].test;
   };
 
-  const hasPendingVideos = Object.values(videoUploads).some(
-    (v) => v.status !== "ready" && v.status !== "done",
-  );
-
   const collectVideoIdsFromCourse = () => {
     if (!course) return [];
 
