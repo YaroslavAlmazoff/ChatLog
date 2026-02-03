@@ -130,6 +130,18 @@ const CourseEditor = () => {
     console.log(item);
     if (!item) return;
 
+    if (item.type === "video") {
+      const videoId =
+        course.parts[partIndex].blocks[blockIndex].lessons[lessonIndex].video
+          ?.id;
+
+      setVideoUploads((prev) => {
+        const next = { ...prev };
+        delete next[videoId];
+        return next;
+      });
+    }
+
     setCourse((prev) => {
       const copy = structuredClone(prev);
       const { partIndex, blockIndex, lessonIndex } = item.path || {};
@@ -317,11 +329,11 @@ const CourseEditor = () => {
 
   const saveData = async () => {
     try {
-      // 1. сохраняем структуру курса
-      await api.post("/api/courses/edit", course);
-
-      // 2. загружаем видео
+      // 1. сначала видео
       await uploadVideosSequentially();
+
+      // 2. потом структура
+      await api.post("/api/courses/edit", course);
 
       setIsDirty(false);
       alert("Данные и видео успешно сохранены");
@@ -330,7 +342,6 @@ const CourseEditor = () => {
       alert("Ошибка при сохранении");
     }
   };
-
   /* ---------------- test getter ---------------- */
 
   const getSelectedTest = () => {
@@ -345,6 +356,8 @@ const CourseEditor = () => {
   );
 
   const collectVideoIdsFromCourse = () => {
+    if (!course) return [];
+
     const ids = [];
 
     course.parts.forEach((part) => {
@@ -364,12 +377,15 @@ const CourseEditor = () => {
     (v) => v.status === "uploading",
   );
 
-  const hasMissingVideos = collectVideoIdsFromCourse().some((id) => {
-    const upload = videoUploads[id];
-    return !upload || upload.status !== "done";
-  });
+  const hasMissingVideos =
+    course &&
+    collectVideoIdsFromCourse().some((id) => {
+      const upload = videoUploads[id];
+      return !upload || upload.status !== "done";
+    });
 
-  const disableSave = !isDirty || hasUploadingVideos || hasMissingVideos;
+  const disableSave =
+    !course || !isDirty || hasUploadingVideos || hasMissingVideos;
 
   /* ---------------- render ---------------- */
 
