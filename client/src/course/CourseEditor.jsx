@@ -274,6 +274,39 @@ const CourseEditor = () => {
     setMode(null);
   };
 
+  const uploadVideosSequentially = async () => {
+    for (const [id, v] of Object.entries(videoUploads)) {
+      if (v.status === "done") continue;
+
+      const formData = new FormData();
+      formData.append("videos", v.file, `${id}.mp4`);
+
+      setVideoUploads((prev) => ({
+        ...prev,
+        [id]: { ...prev[id], status: "uploading", progress: 0 },
+      }));
+
+      await api.post("/api/courses/upload-video", formData, {
+        onUploadProgress: (e) => {
+          const percent = Math.round((e.loaded * 100) / e.total);
+
+          setVideoUploads((prev) => ({
+            ...prev,
+            [id]: {
+              ...prev[id],
+              progress: percent,
+            },
+          }));
+        },
+      });
+
+      setVideoUploads((prev) => ({
+        ...prev,
+        [id]: { ...prev[id], status: "done", progress: 100 },
+      }));
+    }
+  };
+
   const getSelectedVideo = () => {
     if (!selectedItem || selectedItem.type !== "video") return null;
 
@@ -284,45 +317,14 @@ const CourseEditor = () => {
 
   const saveData = async () => {
     try {
+      // 1. сохраняем структуру курса
       await api.post("/api/courses/edit", course);
 
-      const formData = new FormData();
-
-      Object.entries(videoUploads).forEach(([id, v]) => {
-        if (v.status === "done") return;
-        formData.append("videos", v.file, `${id}.mp4`);
-      });
-
-      await api.post("/api/courses/upload-video", formData, {
-        onUploadProgress: (e) => {
-          const percent = Math.round((e.loaded * 100) / e.total);
-
-          setVideoUploads((prev) => {
-            const next = { ...prev };
-            Object.keys(next).forEach((id) => {
-              if (next[id].status === "ready") {
-                next[id] = {
-                  ...next[id],
-                  status: "uploading",
-                  progress: percent,
-                };
-              }
-            });
-            return next;
-          });
-        },
-      });
-
-      setVideoUploads((prev) => {
-        const next = {};
-        Object.entries(prev).forEach(([id, v]) => {
-          next[id] = { ...v, status: "done", progress: 100 };
-        });
-        return next;
-      });
+      // 2. загружаем видео
+      await uploadVideosSequentially();
 
       setIsDirty(false);
-      alert("Данные успешно сохранены");
+      alert("Данные и видео успешно сохранены");
     } catch (e) {
       console.error(e);
       alert("Ошибка при сохранении");
@@ -341,6 +343,33 @@ const CourseEditor = () => {
   const hasPendingVideos = Object.values(videoUploads).some(
     (v) => v.status !== "ready" && v.status !== "done",
   );
+
+  const collectVideoIdsFromCourse = () => {
+    const ids = [];
+
+    course.parts.forEach((part) => {
+      part.blocks.forEach((block) => {
+        block.lessons.forEach((lesson) => {
+          if (lesson.video?.id) {
+            ids.push(lesson.video.id);
+          }
+        });
+      });
+    });
+
+    return ids;
+  };
+
+  const hasUploadingVideos = Object.values(videoUploads).some(
+    (v) => v.status === "uploading",
+  );
+
+  const hasMissingVideos = collectVideoIdsFromCourse().some((id) => {
+    const upload = videoUploads[id];
+    return !upload || upload.status !== "done";
+  });
+
+  const disableSave = !isDirty || hasUploadingVideos || hasMissingVideos;
 
   /* ---------------- render ---------------- */
 
@@ -385,8 +414,15 @@ const CourseEditor = () => {
 
         <button
           className="course-editor-save-button"
-          disabled={!isDirty || hasPendingVideos}
+          disabled={disableSave}
           onClick={saveData}
+          title={
+            hasUploadingVideos
+              ? "Видео загружаются"
+              : hasMissingVideos
+                ? "Не все видео загружены"
+                : ""
+          }
         >
           💾 Сохранить
         </button>
@@ -462,6 +498,20 @@ const CourseEditor = () => {
         />
       )}
 
+      {Object.entries(videoUploads).map(([id, v]) => (
+        <div key={id} className="video-upload-row">
+          <div>{id}</div>
+          <progress value={v.progress} max="100" />
+          <span>{v.status}</span>
+        </div>
+      ))}
+      {hasMissingVideos && (
+        <div className="editor-warning">⚠️ Не все видео загружены</div>
+      )}
+
+      {hasUploadingVideos && (
+        <div className="editor-warning">⏳ Идёт загрузка видео</div>
+      )}
       <CourseStructure
         course={course}
         mode="editor"
