@@ -3,6 +3,8 @@ import CourseStructure from "./CourseStructure";
 import Loader from "../common_components/Loader";
 import { AuthContext } from "../context/AuthContext";
 import TestEditor from "./TestEditor";
+import VideoEditor from "./VideoEditor";
+import api from "../auth/api/auth";
 import "./styles/course-editor.css";
 
 const MODES = {
@@ -24,15 +26,17 @@ const CourseEditor = () => {
   const [isDirty, setIsDirty] = useState(false);
 
   const [form, setForm] = useState({ number: "", title: "" });
-  const [videoFiles, setVideoFiles] = useState({});
+  const [videoUploads, setVideoUploads] = useState({});
 
   /* ---------------- load ---------------- */
 
   useEffect(() => {
-    fetch("https://chatlog.ru/courses/android.json")
-      .then((res) => res.json())
-      .then(setCourse)
-      .finally(() => setLoading(false));
+    const getCourse = async () => {
+      const response = await api.get("/courses/android.json");
+      setCourse(response.data);
+      setLoading(false);
+    };
+    getCourse();
   }, []);
 
   useEffect(() => {
@@ -70,9 +74,13 @@ const CourseEditor = () => {
   };
 
   const handleVideoUpload = (videoId, file) => {
-    setVideoFiles((prev) => ({
+    setVideoUploads((prev) => ({
       ...prev,
-      [videoId]: file,
+      [videoId]: {
+        file,
+        status: "ready",
+        progress: 0,
+      },
     }));
 
     setIsDirty(true);
@@ -276,29 +284,47 @@ const CourseEditor = () => {
 
   const saveData = async () => {
     try {
-      const res = await fetch("https://chatlog.ru/api/courses/edit", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(course),
-      });
+      await api.post("/api/courses/edit", course);
 
       const formData = new FormData();
 
-      Object.entries(videoFiles).forEach(([id, file]) => {
-        formData.append("videos", file, `${id}.mp4`);
+      Object.entries(videoUploads).forEach(([id, v]) => {
+        if (v.status === "done") return;
+        formData.append("videos", v.file, `${id}.mp4`);
       });
 
-      const res2 = await fetch("/api/upload-videos", {
-        method: "POST",
-        body: formData,
+      await api.post("/api/courses/upload-video", formData, {
+        onUploadProgress: (e) => {
+          const percent = Math.round((e.loaded * 100) / e.total);
+
+          setVideoUploads((prev) => {
+            const next = { ...prev };
+            Object.keys(next).forEach((id) => {
+              if (next[id].status === "ready") {
+                next[id] = {
+                  ...next[id],
+                  status: "uploading",
+                  progress: percent,
+                };
+              }
+            });
+            return next;
+          });
+        },
       });
 
-      if (!res.ok || !res2.ok) throw new Error();
+      setVideoUploads((prev) => {
+        const next = {};
+        Object.entries(prev).forEach(([id, v]) => {
+          next[id] = { ...v, status: "done", progress: 100 };
+        });
+        return next;
+      });
+
       setIsDirty(false);
       alert("Данные успешно сохранены");
-    } catch {
+    } catch (e) {
+      console.error(e);
       alert("Ошибка при сохранении");
     }
   };
@@ -311,6 +337,10 @@ const CourseEditor = () => {
     const { partIndex, blockIndex, lessonIndex } = selectedItem.path;
     return course.parts[partIndex].blocks[blockIndex].lessons[lessonIndex].test;
   };
+
+  const hasPendingVideos = Object.values(videoUploads).some(
+    (v) => v.status !== "ready" && v.status !== "done",
+  );
 
   /* ---------------- render ---------------- */
 
@@ -355,7 +385,7 @@ const CourseEditor = () => {
 
         <button
           className="course-editor-save-button"
-          disabled={!isDirty}
+          disabled={!isDirty || hasPendingVideos}
           onClick={saveData}
         >
           💾 Сохранить
@@ -413,6 +443,7 @@ const CourseEditor = () => {
       {selectedItem?.type === "video" && (
         <VideoEditor
           video={getSelectedVideo()}
+          upload={videoUploads[getSelectedVideo()?.id]}
           onChange={(updatedVideo) => {
             setCourse((prev) => {
               const copy = structuredClone(prev);

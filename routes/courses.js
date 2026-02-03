@@ -3,11 +3,11 @@ const CourseService = require("../services/CourseService");
 const router = Router();
 
 router.post("/edit", (req, res) => {
-  try {
-    CourseService.edit(req, res);
-  } catch (e) {
-    console.log(e);
-  }
+  CourseService.edit(req, res);
+});
+
+router.post("/upload-videos", (req, res) => {
+  CourseService.uploadVideos(req, res);
 });
 
 module.exports = router;

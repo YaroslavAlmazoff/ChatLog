@@ -1,8 +1,7 @@
-function VideoEditor({ video, onChange, onUpload }) {
+function VideoEditor({ video, upload, onChange, onUpload }) {
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (!file) return;
-
     onUpload(video.id, file);
   };
 
@@ -10,27 +9,24 @@ function VideoEditor({ video, onChange, onUpload }) {
     <div className="video-editor">
       <h3>Редактор видео</h3>
 
-      {/* Название */}
       <input
         className="input"
         placeholder="Название видео"
         value={video.title}
-        onChange={(e) =>
-          onChange({
-            ...video,
-            title: e.target.value,
-          })
-        }
+        onChange={(e) => onChange({ ...video, title: e.target.value })}
       />
 
-      {/* Загрузка */}
-      <div style={{ marginTop: 12 }}>
-        <input type="file" accept="video/*" onChange={handleFileChange} />
-      </div>
+      <input type="file" accept="video/*" onChange={handleFileChange} />
 
-      {video.src && (
+      {upload && (
         <div style={{ marginTop: 8, fontSize: 12 }}>
-          Загружен файл: <b>{video.src}</b>
+          Статус: <b>{upload.status}</b>
+          {upload.status === "uploading" && (
+            <div>
+              <progress value={upload.progress} max="100" />
+              {upload.progress}%
+            </div>
+          )}
         </div>
       )}
     </div>
