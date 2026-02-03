@@ -519,9 +519,8 @@ const CourseEditor = () => {
 
       {Object.entries(videoUploads).map(([id, v]) => (
         <div key={id} className="video-upload-row">
-          <div>{id}</div>
           <progress value={v.progress} max="100" />
-          <span>{v.status}</span>
+          <span>&nbsp;{v.status}</span>
         </div>
       ))}
       {hasMissingVideos && (
