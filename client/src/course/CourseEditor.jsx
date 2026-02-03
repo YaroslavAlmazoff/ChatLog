@@ -439,30 +439,35 @@ const CourseEditor = () => {
         </button>
       </div>
 
-      {mode && selectedItem?.type !== "test" && mode !== MODES.ADD_VIDEO && (
-        <div className="course-editor-form">
-          <input
-            className="input"
-            type="number"
-            placeholder="Номер"
-            value={form.number}
-            onChange={(e) => setForm({ ...form, number: e.target.value })}
-          />
+      {mode &&
+        selectedItem &&
+        !["video", "test"].includes(selectedItem.type) &&
+        mode !== MODES.ADD_VIDEO && (
+          <div className="course-editor-form">
+            <input
+              className="input"
+              type="number"
+              placeholder="Номер"
+              value={form.number}
+              onChange={(e) => setForm({ ...form, number: e.target.value })}
+            />
 
-          <input
-            className="input"
-            placeholder="Название"
-            value={form.title}
-            onChange={(e) => setForm({ ...form, title: e.target.value })}
-          />
-          <div style={{ marginTop: 8 }}>
-            <strong>Куда:</strong> {getTargetLabel()}
+            <input
+              className="input"
+              placeholder="Название"
+              value={form.title}
+              onChange={(e) => setForm({ ...form, title: e.target.value })}
+            />
+
+            <div style={{ marginTop: 8 }}>
+              <strong>Куда:</strong> {getTargetLabel()}
+            </div>
+
+            <button className="course-editor-ok" onClick={applyChange}>
+              OK
+            </button>
           </div>
-          <button className="course-editor-ok" onClick={applyChange}>
-            OK
-          </button>
-        </div>
-      )}
+        )}
 
       {selectedItem?.type === "test" && (
         <TestEditor
