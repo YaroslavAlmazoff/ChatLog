@@ -28,7 +28,39 @@ const CourseEditor = () => {
   const [form, setForm] = useState({ number: "", title: "" });
   const [videoUploads, setVideoUploads] = useState({});
 
-  /* ---------------- load ---------------- */
+  const [expanded, setExpanded] = useState({
+    parts: new Set(),
+    blocks: new Set(),
+    lessons: new Set(),
+  });
+
+  const partKey = (p) => `part-${p}`;
+  const blockKey = (p, b) => `block-${p}-${b}`;
+  const lessonKey = (p, b, l) => `lesson-${p}-${b}-${l}`;
+
+  const expandParentsByPath = ({ partIndex, blockIndex, lessonIndex }) => {
+    setExpanded((prev) => {
+      const next = {
+        parts: new Set(prev.parts),
+        blocks: new Set(prev.blocks),
+        lessons: new Set(prev.lessons),
+      };
+
+      if (partIndex !== undefined) {
+        next.parts.add(partKey(partIndex));
+      }
+
+      if (blockIndex !== undefined) {
+        next.blocks.add(blockKey(partIndex, blockIndex));
+      }
+
+      if (lessonIndex !== undefined) {
+        next.lessons.add(lessonKey(partIndex, blockIndex, lessonIndex));
+      }
+
+      return next;
+    });
+  };
 
   useEffect(() => {
     const getCourse = async () => {
@@ -237,6 +269,10 @@ const CourseEditor = () => {
           video: null,
           test: null,
         });
+        expandParentsByPath({
+          partIndex,
+          blockIndex,
+        });
       }
       if (mode === MODES.ADD_TEST) {
         copy.parts[partIndex].blocks[blockIndex].lessons[lessonIndex].test = {
@@ -276,6 +312,14 @@ const CourseEditor = () => {
           target.number = Number(form.number);
           target.title = form.title;
         }
+      }
+
+      if (mode === MODES.ADD_VIDEO || mode === MODES.ADD_TEST) {
+        expandParentsByPath({
+          partIndex,
+          blockIndex,
+          lessonIndex,
+        });
       }
 
       return copy;
@@ -533,6 +577,8 @@ const CourseEditor = () => {
         onSelectItem={setSelectedItem}
         onEditItem={startEdit}
         onDeleteItem={deleteItem}
+        expanded={expanded}
+        onToggleExpand={handleToggleExpand}
       />
     </div>
   );

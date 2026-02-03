@@ -26,6 +26,10 @@
   cursor: pointer;
 }
 
+.course-structure-item {
+  cursor: pointer;
+}
+
 .course-structure-subitem {
   display: flex;
   align-items: center;
