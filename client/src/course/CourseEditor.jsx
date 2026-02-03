@@ -308,7 +308,7 @@ const CourseEditor = () => {
         [id]: { ...prev[id], status: "uploading", progress: 0 },
       }));
 
-      await api.post("/api/courses/upload-video", formData, {
+      await api.post("/api/courses/upload-videos", formData, {
         onUploadProgress: (e) => {
           const percent = Math.round((e.loaded * 100) / e.total);
 
