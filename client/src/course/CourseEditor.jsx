@@ -341,7 +341,7 @@ const CourseEditor = () => {
     try {
       await uploadVideosSequentially();
       await api.post("/api/courses/edit", course);
-
+      setVideoUploads({});
       setIsDirty(false);
       alert("Данные и видео успешно сохранены");
     } catch (e) {
@@ -358,33 +358,26 @@ const CourseEditor = () => {
     return course.parts[partIndex].blocks[blockIndex].lessons[lessonIndex].test;
   };
 
-  const collectVideoIdsFromCourse = () => {
-    if (!course) return [];
-
-    const ids = [];
-
-    course.parts.forEach((part) => {
-      part.blocks.forEach((block) => {
-        block.lessons.forEach((lesson) => {
-          if (lesson.video?.id) {
-            ids.push(lesson.video.id);
-          }
-        });
-      });
-    });
-
-    return ids;
-  };
-
   const hasUploadingVideos = Object.values(videoUploads).some(
     (v) => v.status === "uploading",
   );
 
   const hasMissingVideos =
     course &&
-    collectVideoIdsFromCourse().some((id) => {
-      return !videoUploads[id];
-    });
+    course.parts.some((part) =>
+      part.blocks.some((block) =>
+        block.lessons.some((lesson) => {
+          const video = lesson.video;
+          if (!video) return false;
+
+          // если src есть — видео уже загружено
+          if (video.src) return false;
+
+          // если src нет — проверяем, выбран ли файл
+          return !videoUploads[video.id];
+        }),
+      ),
+    );
 
   const disableSave =
     !course || !isDirty || hasUploadingVideos || hasMissingVideos;
