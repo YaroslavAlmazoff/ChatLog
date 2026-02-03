@@ -37,3 +37,9 @@
 .course-structure-subitem:hover {
   opacity: 1;
 }
+
+.course-structure-item.selected,
+.course-structure-subitem.selected {
+  background: #e6f0ff;
+  border-left: 3px solid #4c7cff;
+}

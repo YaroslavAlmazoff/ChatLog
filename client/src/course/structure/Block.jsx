@@ -8,6 +8,7 @@ function Block({
   onSelectItem,
   onEditItem,
   onDeleteItem,
+  selectedItem,
   mode = "view",
   partIndex,
   blockIndex,
@@ -79,6 +80,7 @@ function Block({
           onSelectItem={onSelectItem}
           onEditItem={onEditItem}
           onDeleteItem={onDeleteItem}
+          selectedItem={selectedItem}
         />
       ))}
 

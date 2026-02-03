@@ -2,40 +2,33 @@ function Lesson({
   lesson,
   mode = "view",
   path,
-  isActive,
+  selectedItem,
   onSelectLesson,
   onSelectItem,
   onEditItem,
   onDeleteItem,
 }) {
-  const lessonItem = {
-    type: "lesson",
-    path,
-  };
-
-  const videoItem = {
-    type: "video",
-    path,
-  };
-
-  const testItem = {
-    type: "test",
-    path,
-  };
+  const lessonItem = { type: "lesson", path };
+  const videoItem = { type: "video", path };
+  const testItem = { type: "test", path };
 
   const confirmDelete = (text) => window.confirm(text);
+
+  const isSelected = (type) =>
+    mode === "editor" &&
+    selectedItem?.type === type &&
+    selectedItem.path?.lessonIndex === path.lessonIndex &&
+    selectedItem.path?.blockIndex === path.blockIndex &&
+    selectedItem.path?.partIndex === path.partIndex;
 
   return (
     <div style={{ marginLeft: 32 }}>
       {/* УРОК */}
       <div
-        className={`course-structure-item ${isActive ? "active" : ""}`}
-        style={{
-          display: "flex",
-          alignItems: "center",
-          gap: 6,
-          cursor: "pointer",
-        }}
+        className={`course-structure-item ${
+          isSelected("lesson") ? "selected" : ""
+        }`}
+        style={{ display: "flex", alignItems: "center", gap: 6 }}
         onClick={() =>
           mode === "editor"
             ? onSelectItem?.(lessonItem)
@@ -80,8 +73,10 @@ function Lesson({
       {/* ВИДЕО */}
       {lesson.video && (
         <div
-          className="course-structure-subitem"
-          style={{ marginLeft: 16, cursor: "pointer" }}
+          className={`course-structure-subitem ${
+            isSelected("video") ? "selected" : ""
+          }`}
+          style={{ marginLeft: 16 }}
           onClick={() => mode === "editor" && onSelectItem?.(videoItem)}
         >
           🎬 {lesson.video.title}
@@ -116,8 +111,10 @@ function Lesson({
       {/* ТЕСТ */}
       {lesson.test && (
         <div
-          className="course-structure-subitem"
-          style={{ marginLeft: 16, cursor: "pointer" }}
+          className={`course-structure-subitem ${
+            isSelected("test") ? "selected" : ""
+          }`}
+          style={{ marginLeft: 16 }}
           onClick={() => mode === "editor" && onSelectItem?.(testItem)}
         >
           🧪 {lesson.test.title}
