@@ -44,7 +44,7 @@ function Block({
       level={2}
       title={
         <div
-          className="structure-item"
+          className="course-structure-item"
           style={{ display: "inline-flex", alignItems: "center", gap: 6 }}
           onClick={() => mode === "editor" && onSelectItem?.(blockItem)}
         >

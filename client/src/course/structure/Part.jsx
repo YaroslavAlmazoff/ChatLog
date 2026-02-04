@@ -36,7 +36,7 @@ function Part({
       isOpen={isOpen}
       title={
         <div
-          className={`structure-item ${isSelected ? "selected" : ""}`}
+          className={`course-structure-item ${isSelected ? "selected" : ""}`}
           onClick={() =>
             mode === "editor" &&
             onSelectItem?.({
