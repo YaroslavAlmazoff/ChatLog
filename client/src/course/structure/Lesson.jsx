@@ -33,3 +33,5 @@ function Lesson({ lesson, path, selectedItem, onItemClick, renderActions }) {
     </div>
   );
 }
+
+export default Lesson;
