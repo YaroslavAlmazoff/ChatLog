@@ -34,6 +34,10 @@ const CourseEditor = () => {
     lessons: new Set(),
   });
 
+  const partKey = (p) => `p-${p}`;
+  const blockKey = (p, b) => `b-${p}-${b}`;
+  const lessonKey = (p, b, l) => `l-${p}-${b}-${l}`;
+
   const expandParentsByPath = ({ partIndex, blockIndex, lessonIndex }) => {
     setExpanded((prev) => {
       const next = {
