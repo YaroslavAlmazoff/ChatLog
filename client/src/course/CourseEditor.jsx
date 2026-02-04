@@ -490,7 +490,7 @@ const CourseEditor = () => {
       await uploadVideosSequentially();
       const r = await api.post("/api/courses/edit", course, {
         headers: {
-          "Content-Type": "multipart/form-data",
+          "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
       });
