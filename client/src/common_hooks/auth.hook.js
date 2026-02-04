@@ -50,14 +50,15 @@ export const useAuth = () => {
 
         console.log(response);
 
-        const { _verified, _activated, _greeting, _token, _userId, _onCourse } =
-          response.data;
-
         if (isPortfolio) return;
-        if (_greeting) return navigate("/greeting");
-        if (!_verified) return navigate("/login");
-        if (!_activated) return navigate("/notactivated");
-        login(_token, _userId, _onCourse);
+        if (response.data.greeting) return navigate("/greeting");
+        if (!response.data.verified) return navigate("/login");
+        if (!response.data.activated) return navigate("/notactivated");
+        login(
+          response.data.token,
+          response.data.userId,
+          response.data.onCourse,
+        );
       } else if (
         window.location.pathname === "/greeting" ||
         window.location.pathname === "/support" ||
