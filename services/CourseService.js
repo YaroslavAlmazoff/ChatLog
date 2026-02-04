@@ -61,7 +61,7 @@ class CourseService {
         return res.status(400).json({ message: "Вы не имеете на это права." });
       const course = req.body;
 
-      if (!isValidCourse(course)) {
+      if (!this.isValidCourse(course)) {
         return res.status(400).json({
           message: "Структура курса повреждена",
         });
