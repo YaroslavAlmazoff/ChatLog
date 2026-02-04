@@ -452,6 +452,10 @@ const CourseEditor = () => {
 
   const saveData = async () => {
     try {
+      if (!isCourseValid) {
+        alert("Структура курса повреждена. Сохранение невозможно.");
+        return;
+      }
       await uploadVideosSequentially();
       await api.post("/api/courses/edit", course, {
         headers: {
@@ -492,9 +496,14 @@ const CourseEditor = () => {
       ),
     ),
   );
+  const isCourseValid = course && Array.isArray(course.parts);
 
   const disableSave =
-    !course || !isDirty || hasUploadingVideos || hasMissingVideos;
+    !isCourseValid ||
+    !course ||
+    !isDirty ||
+    hasUploadingVideos ||
+    hasMissingVideos;
 
   /* ---------------- render ---------------- */
 
