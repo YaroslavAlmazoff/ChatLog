@@ -30,6 +30,11 @@ function Block({
   const key = blockKey(partIndex, blockIndex);
   const isOpen = expanded.blocks.has(key);
 
+  const isSelected =
+    selectedItem?.type === "block" &&
+    selectedItem.path?.partIndex === partIndex &&
+    selectedItem.path?.blockIndex === blockIndex;
+
   const toggle = () => {
     setExpanded((prev) => {
       const next = new Set(prev.blocks);
