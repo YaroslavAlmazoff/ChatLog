@@ -63,6 +63,7 @@ class CourseService {
       }
 
       const course = req.body;
+      console.log(course);
 
       if (!this.isValidCourse(course)) {
         console.log("кошмар");
