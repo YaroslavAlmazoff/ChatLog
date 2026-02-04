@@ -39,7 +39,7 @@ function Lesson({
         onClick={() =>
           onEditItem({
             type: "test",
-            path: { partIndex, blockIndex, lessonIndex },
+            path,
           })
         }
       >
