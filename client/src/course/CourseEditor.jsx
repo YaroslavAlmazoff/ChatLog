@@ -58,6 +58,24 @@ const CourseEditor = () => {
     });
   };
 
+  const sortCourseByNumber = (course) => {
+    if (!course?.parts) return course;
+
+    const sorted = structuredClone(course);
+
+    sorted.parts.sort((a, b) => (a.number ?? 0) - (b.number ?? 0));
+
+    sorted.parts.forEach((part) => {
+      part.blocks?.sort((a, b) => (a.number ?? 0) - (b.number ?? 0));
+
+      part.blocks?.forEach((block) => {
+        block.lessons?.sort((a, b) => (a.number ?? 0) - (b.number ?? 0));
+      });
+    });
+
+    return sorted;
+  };
+
   const normalizeCourse = (raw) => {
     if (!raw || typeof raw !== "object") {
       return { parts: [] };
@@ -428,7 +446,7 @@ const CourseEditor = () => {
         });
       }
 
-      return copy;
+      return sortCourseByNumber(copy);
     });
 
     setIsDirty(true);
