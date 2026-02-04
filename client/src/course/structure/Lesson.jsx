@@ -1,159 +1,35 @@
-function Lesson({
-  lesson,
-  mode = "view",
-  path,
-  selectedItem,
-  onSelectLesson,
-  onSelectItem,
-  onEditItem,
-  onDeleteItem,
-}) {
-  const lessonItem = { type: "lesson", path };
-  const videoItem = {
-    type: "video",
-    path: { ...path, kind: "video" },
-  };
-
-  const testItem = {
-    type: "test",
-    path: { ...path, kind: "test" },
-  };
-
-  const confirmDelete = (text) => window.confirm(text);
-
-  const isSelected = (type) =>
-    mode === "editor" &&
-    selectedItem?.type === type &&
-    selectedItem.path?.lessonIndex === path.lessonIndex &&
-    selectedItem.path?.blockIndex === path.blockIndex &&
-    selectedItem.path?.partIndex === path.partIndex;
+function Lesson({ lesson, path, selectedItem, onItemClick, renderActions }) {
+  const isSelected =
+    selectedItem?.type === "lesson" &&
+    JSON.stringify(selectedItem.path) === JSON.stringify(path);
 
   return (
     <div style={{ marginLeft: 32 }}>
-      {/* УРОК */}
       <div
-        className={`course-structure-item ${
-          isSelected("lesson") ? "selected" : ""
-        }`}
-        style={{ display: "flex", alignItems: "center", gap: 6 }}
-        onClick={() =>
-          mode === "editor"
-            ? onSelectItem?.(lessonItem)
-            : onSelectLesson?.(path.lessonIndex)
-        }
+        className={`course-structure-item ${isSelected ? "selected" : ""}`}
+        onClick={() => onItemClick?.({ type: "lesson", path })}
       >
-        <span>
-          📘 Урок {lesson.number}: {lesson.title}
-        </span>
-
-        {mode === "editor" && (
-          <>
-            <span
-              className="course-structure-edit-icon"
-              onClick={(e) => {
-                e.stopPropagation();
-                onEditItem?.(lessonItem);
-              }}
-            >
-              ✏️
-            </span>
-
-            <span
-              className="course-structure-edit-icon"
-              onClick={(e) => {
-                e.stopPropagation();
-                if (
-                  confirmDelete(
-                    "Удалить урок? Видео и тест внутри также будут удалены.",
-                  )
-                ) {
-                  onDeleteItem?.(lessonItem);
-                }
-              }}
-            >
-              🗑
-            </span>
-          </>
-        )}
+        📘 Урок {lesson.number}: {lesson.title}
+        {renderActions?.({
+          type: "lesson",
+          path,
+          data: lesson,
+        })}
       </div>
 
-      {/* ВИДЕО */}
       {lesson.video && (
         <div
-          className={`course-structure-subitem ${
-            isSelected("video") ? "selected" : ""
-          }`}
-          style={{ marginLeft: 16 }}
-          onClick={() => mode === "editor" && onSelectItem?.(videoItem)}
+          className="course-structure-subitem"
+          onClick={() => onItemClick?.({ type: "video", path })}
         >
           🎬 {lesson.video.title}
-          {mode === "editor" && (
-            <>
-              <span
-                className="course-structure-edit-icon"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onEditItem?.(videoItem);
-                }}
-              >
-                ✏️
-              </span>
-
-              <span
-                className="course-structure-edit-icon"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  if (confirmDelete("Удалить видеоурок?")) {
-                    onDeleteItem?.(videoItem);
-                  }
-                }}
-              >
-                🗑
-              </span>
-            </>
-          )}
-        </div>
-      )}
-
-      {/* ТЕСТ */}
-      {lesson.test && (
-        <div
-          className={`course-structure-subitem ${
-            isSelected("test") ? "selected" : ""
-          }`}
-          style={{ marginLeft: 16 }}
-          onClick={() => mode === "editor" && onSelectItem?.(testItem)}
-        >
-          🧪 {lesson.test.title}
-          {mode === "editor" && (
-            <>
-              <span
-                className="course-structure-edit-icon"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onEditItem?.(testItem);
-                }}
-              >
-                ✏️
-              </span>
-
-              <span
-                className="course-structure-edit-icon"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  if (confirmDelete("Удалить тест урока?")) {
-                    onDeleteItem?.(testItem);
-                  }
-                }}
-              >
-                🗑
-              </span>
-            </>
-          )}
+          {renderActions?.({
+            type: "video",
+            path,
+            data: lesson.video,
+          })}
         </div>
       )}
     </div>
   );
 }
-
-export default Lesson;

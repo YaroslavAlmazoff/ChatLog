@@ -3,30 +3,15 @@ import Lesson from "./Lesson";
 
 function Block({
   block,
-  activeLessonId,
-  onSelectLesson,
-  onSelectItem,
-  onEditItem,
-  onDeleteItem,
-  selectedItem,
-  mode = "view",
   partIndex,
   blockIndex,
+  selectedItem,
   expanded,
   setExpanded,
   blockKey,
+  onItemClick,
+  renderActions,
 }) {
-  const blockItem = {
-    type: "block",
-    path: { partIndex, blockIndex },
-  };
-
-  const blockTestItem = {
-    type: "test",
-    path: { partIndex, blockIndex },
-  };
-  const confirmDelete = (text) => window.confirm(text);
-
   const key = blockKey(partIndex, blockIndex);
   const isOpen = expanded.blocks.has(key);
 
@@ -37,102 +22,60 @@ function Block({
       return { ...prev, blocks: next };
     });
   };
+
+  const item = {
+    type: "block",
+    path: { partIndex, blockIndex },
+    data: block,
+  };
+
   return (
     <Expandable
-      onToggle={toggle}
       isOpen={isOpen}
+      onToggle={toggle}
       level={2}
       title={
         <div
           className="structure-item"
           style={{ display: "inline-flex", alignItems: "center", gap: 6 }}
-          onClick={() => mode === "editor" && onSelectItem?.(blockItem)}
+          onClick={() => onItemClick?.(item)}
         >
           <span>
             Блок {block.number}: {block.title}
           </span>
-
-          {mode === "editor" && (
-            <>
-              <span
-                className="course-structure-edit-icon"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onEditItem?.(blockItem);
-                }}
-              >
-                ✏️
-              </span>
-
-              <span
-                className="course-structure-edit-icon"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  if (
-                    confirmDelete(
-                      "Удалить блок? Все уроки и тест внутри будут удалены.",
-                    )
-                  ) {
-                    onDeleteItem?.(blockItem);
-                  }
-                }}
-              >
-                🗑
-              </span>
-            </>
-          )}
+          {renderActions?.(item)}
         </div>
       }
     >
-      {/* УРОКИ */}
       {block.lessons.map((lesson, lessonIndex) => (
         <Lesson
           key={lesson.id ?? lessonIndex}
           lesson={lesson}
-          isActive={lessonIndex === activeLessonId}
-          mode={mode}
           path={{ partIndex, blockIndex, lessonIndex }}
-          onSelectLesson={onSelectLesson}
-          onSelectItem={onSelectItem}
-          onEditItem={onEditItem}
-          onDeleteItem={onDeleteItem}
           selectedItem={selectedItem}
+          onItemClick={onItemClick}
+          renderActions={renderActions}
         />
       ))}
 
-      {/* ИТОГОВЫЙ ТЕСТ БЛОКА */}
       {block.test && (
         <div
           className="course-structure-item"
           style={{ marginLeft: 32, marginTop: 6 }}
-          onClick={() => mode === "editor" && onSelectItem?.(blockTestItem)}
+          onClick={() =>
+            onItemClick?.({
+              type: "test",
+              path: { partIndex, blockIndex },
+              data: block.test,
+            })
+          }
         >
           🧪 Итоговый тест блока
-          {mode === "editor" && (
-            <>
-              <span
-                className="course-structure-edit-icon"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onEditItem?.(blockTestItem);
-                }}
-              >
-                ✏️
-              </span>
-
-              <span
-                className="course-structure-edit-icon"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  if (confirmDelete("Удалить итоговый тест блока?")) {
-                    onDeleteItem?.(blockTestItem);
-                  }
-                }}
-              >
-                🗑
-              </span>
-            </>
-          )}
+          {renderActions?.({
+            type: "test",
+            path: { partIndex, blockIndex },
+            data: block.test,
+          })}
         </div>
       )}
     </Expandable>
