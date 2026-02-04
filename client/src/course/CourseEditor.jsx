@@ -331,24 +331,53 @@ const CourseEditor = () => {
       }
 
       if (mode === MODES.ADD_BLOCK) {
-        copy.parts[partIndex].blocks.push({
+        const blocks = copy.parts[partIndex].blocks;
+
+        blocks.push({
           number: Number(form.number),
           title: form.title,
           lessons: [],
         });
-        expandParentsByPath({ partIndex });
+
+        const newBlockIndex = blocks.length - 1;
+
+        setExpanded((prev) => {
+          const next = {
+            parts: new Set(prev.parts),
+            blocks: new Set(prev.blocks),
+            lessons: new Set(prev.lessons),
+          };
+
+          next.parts.add(partKey(partIndex));
+          next.blocks.add(blockKey(partIndex, newBlockIndex));
+
+          return next;
+        });
       }
 
       if (mode === MODES.ADD_LESSON) {
-        copy.parts[partIndex].blocks[blockIndex].lessons.push({
+        const lessons = copy.parts[partIndex].blocks[blockIndex].lessons;
+
+        lessons.push({
           number: Number(form.number),
           title: form.title,
           video: null,
           test: null,
         });
-        expandParentsByPath({
-          partIndex,
-          blockIndex,
+
+        const newLessonIndex = lessons.length - 1;
+
+        setExpanded((prev) => {
+          const next = {
+            parts: new Set(prev.parts),
+            blocks: new Set(prev.blocks),
+            lessons: new Set(prev.lessons),
+          };
+
+          next.parts.add(partKey(partIndex));
+          next.blocks.add(blockKey(partIndex, blockIndex));
+
+          return next;
         });
       }
       if (mode === MODES.ADD_TEST) {
