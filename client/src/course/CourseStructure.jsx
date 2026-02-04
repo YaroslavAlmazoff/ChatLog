@@ -9,8 +9,8 @@ function CourseStructure({
   onSelectItem,
   onEditItem,
   onDeleteItem,
-  controlledExpanded,
-  setControlledExpanded,
+  expanded: controlledExpanded,
+  setExpanded: setControlledExpanded,
 }) {
   const partKey = (p) => `p-${p}`;
   const blockKey = (p, b) => `b-${p}-${b}`;
