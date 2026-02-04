@@ -37,9 +37,10 @@ function Lesson({
         }`}
         style={{ display: "flex", alignItems: "center", gap: 6 }}
         onClick={() =>
-          mode === "editor"
-            ? onSelectItem?.(lessonItem)
-            : onSelectLesson?.(path.lessonIndex)
+          onEditItem({
+            type: "test",
+            path: { partIndex, blockIndex, lessonIndex },
+          })
         }
       >
         <span>
