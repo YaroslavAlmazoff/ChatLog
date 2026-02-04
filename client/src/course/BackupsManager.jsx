@@ -25,6 +25,7 @@ const BackupsManager = () => {
           <span>{b.createdAt}</span>
 
           <button
+            className="course-editor-restore-button"
             onClick={async () => {
               if (
                 !window.confirm(

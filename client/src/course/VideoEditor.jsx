@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 
-function VideoEditor({ video, onChange, onUpload }) {
+function VideoEditor({ video, onChange, onUpload, onClose }) {
   const fileInputRef = useRef(null);
 
   const [readProgress, setReadProgress] = useState(0);
@@ -29,10 +29,8 @@ function VideoEditor({ video, onChange, onUpload }) {
       setIsReading(false);
       setReadProgress(100);
 
-      // передаём файл наверх
       onUpload(video.id, file);
 
-      // если src ещё не задан — задаём
       if (!video.src) {
         onChange({
           ...video,
@@ -47,13 +45,21 @@ function VideoEditor({ video, onChange, onUpload }) {
       setReadProgress(0);
     };
 
-    // запускаем чтение
     reader.readAsArrayBuffer(file);
   };
 
   return (
     <div className="video-editor">
-      <h3>Редактор видео</h3>
+      <div className="editor-header">
+        <h3>Редактор видео</h3>
+        <button
+          className="course-editor-add-button"
+          onClick={onClose}
+          type="button"
+        >
+          ✕ Закрыть
+        </button>
+      </div>
 
       {/* Название */}
       <input
@@ -77,7 +83,7 @@ function VideoEditor({ video, onChange, onUpload }) {
         onChange={handleFileChange}
       />
 
-      {/* Кнопка */}
+      {/* Кнопка загрузки */}
       <div style={{ marginTop: 12 }}>
         <button
           type="button"

@@ -679,6 +679,10 @@ const CourseEditor = () => {
             setIsDirty(true);
           }}
           onUpload={handleVideoUpload}
+          onClose={() => {
+            setSelectedItem(null);
+            setMode(null);
+          }}
         />
       )}
 
