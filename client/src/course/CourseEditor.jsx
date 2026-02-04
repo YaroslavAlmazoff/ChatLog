@@ -6,6 +6,7 @@ import TestEditor from "./TestEditor";
 import VideoEditor from "./VideoEditor";
 import api from "../auth/api/auth";
 import "./styles/course-editor.css";
+import BackupsManager from "./BackupsManager";
 
 const MODES = {
   ADD_PART: "add-part",
@@ -24,6 +25,7 @@ const CourseEditor = () => {
   const [mode, setMode] = useState(null);
   const [selectedItem, setSelectedItem] = useState(null);
   const [isDirty, setIsDirty] = useState(false);
+  const [isBackupsVisible, setIsBackupsVisible] = useState(false);
 
   const [form, setForm] = useState({ number: "", title: "" });
   const [videoUploads, setVideoUploads] = useState({});
@@ -662,6 +664,13 @@ const CourseEditor = () => {
         partKey={partKey}
         blockKey={blockKey}
       />
+      {isBackupsVisible && <BackupsManager />}
+      <span
+        className="course-editor-show-backups"
+        onClick={() => setIsBackupsVisible((prev) => !prev)}
+      >
+        Показать автобэкапы
+      </span>
     </div>
   );
 };

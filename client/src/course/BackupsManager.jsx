@@ -1,8 +1,10 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import api from "../auth/api/auth";
+import { AuthContext } from "../context/AuthContext";
 
 const BackupsManager = () => {
   const [backups, setBackups] = useState([]);
+  const { token } = useContext(AuthContext);
 
   useEffect(() => {
     const loadBackups = async () => {
@@ -31,9 +33,18 @@ const BackupsManager = () => {
               )
                 return;
 
-              await api.post("/api/courses/restore", {
-                file: b.file,
-              });
+              await api.post(
+                "/api/courses/restore",
+                {
+                  file: b.file,
+                },
+                {
+                  headers: {
+                    "Content-Type": "multipart/form-data",
+                    Authorization: `Bearer ${token}`,
+                  },
+                },
+              );
 
               window.location.reload();
             }}

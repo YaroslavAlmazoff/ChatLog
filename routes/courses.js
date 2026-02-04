@@ -11,7 +11,7 @@ router.post("/upload-videos", auth, (req, res) => {
   CourseService.uploadVideos(req, res);
 });
 
-router.get("/backups", auth, (req, res) => {
+router.get("/backups", (req, res) => {
   CourseService.getBackups(req, res);
 });
 
