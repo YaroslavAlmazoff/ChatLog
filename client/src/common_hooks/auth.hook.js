@@ -14,18 +14,18 @@ export const useAuth = () => {
 
   const loggedOut = () => !localStorage.getItem(storageName);
 
-  const login = useCallback((token, id, onCourse) => {
-    setToken(token);
-    setUserId(id);
+  const login = useCallback((_token, _id, _onCourse) => {
+    setToken(_token);
+    setUserId(_id);
     setAuthenticated(true);
     setActivated(true);
-    setOnCourse(onCourse);
+    setOnCourse(_onCourse);
     localStorage.setItem(
       storageName,
       JSON.stringify({
         userId: id,
         token: token,
-      })
+      }),
     );
   }, []);
 
@@ -50,15 +50,14 @@ export const useAuth = () => {
 
         console.log(response);
 
-        const { verified, activated, greeting, token, userId, onCourse } =
+        const { _verified, _activated, _greeting, _token, _userId, _onCourse } =
           response.data;
 
         if (isPortfolio) return;
-        console.log("я не знаю как к этому относиться");
-        if (greeting) return navigate("/greeting");
-        if (!verified) return navigate("/login");
-        if (!activated) return navigate("/notactivated");
-        login(token, userId, onCourse);
+        if (_greeting) return navigate("/greeting");
+        if (!_verified) return navigate("/login");
+        if (!_activated) return navigate("/notactivated");
+        login(_token, _userId, _onCourse);
       } else if (
         window.location.pathname === "/greeting" ||
         window.location.pathname === "/support" ||
@@ -68,7 +67,6 @@ export const useAuth = () => {
       ) {
         return;
       } else {
-        console.log("not data");
         window.location = "/greeting";
       }
     };
@@ -79,15 +77,7 @@ export const useAuth = () => {
       navigate("/login");
     }
 
-    const expirationTime = 1000 * 60 * 10;
-
-    const intervalId = setInterval(() => {
-      const now = new Date().getTime();
-      const timeRemaining = expirationTime - now;
-      if (timeRemaining < 30 * 60 * 1000) {
-        getData();
-      }
-    }, 30 * 60 * 1000);
+    const intervalId = setInterval(getData, 60 * 1000);
 
     return () => clearInterval(intervalId);
   }, [login]);
