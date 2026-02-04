@@ -12,6 +12,8 @@ function Block({
   mode = "view",
   partIndex,
   blockIndex,
+  expanded,
+  setExpanded,
 }) {
   const blockItem = {
     type: "block",
@@ -23,8 +25,22 @@ function Block({
     path: { partIndex, blockIndex },
   };
   const confirmDelete = (text) => window.confirm(text);
+
+  const blockKey = (p, b) => `block-${p}-${b}`;
+  const key = blockKey(partIndex, blockIndex);
+  const isOpen = expanded.blocks.has(key);
+
+  const toggle = () => {
+    setExpanded((prev) => {
+      const next = new Set(prev.parts);
+      next.has(key) ? next.delete(key) : next.add(key);
+      return { ...prev, parts: next };
+    });
+  };
   return (
     <Expandable
+      onToggle={toggle}
+      isOpen={isOpen}
       level={2}
       title={
         <div

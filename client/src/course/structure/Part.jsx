@@ -11,12 +11,28 @@ function Part({
   onDeleteItem,
   activeLessonId,
   onSelectLesson,
+  expanded,
+  setExpanded,
 }) {
   const isSelected =
     selectedItem?.type === "part" && selectedItem.path?.partIndex === partIndex;
   const confirmDelete = (text) => window.confirm(text);
+  const partKey = (p) => `part-${p}`;
+  const key = partKey(partIndex);
+  const isOpen = expanded.parts.has(key);
+
+  const toggle = () => {
+    setExpanded((prev) => {
+      const next = new Set(prev.parts);
+      next.has(key) ? next.delete(key) : next.add(key);
+      return { ...prev, parts: next };
+    });
+  };
+
   return (
     <Expandable
+      onToggle={toggle}
+      isOpen={isOpen}
       title={
         <div
           className={`structure-item ${isSelected ? "selected" : ""}`}

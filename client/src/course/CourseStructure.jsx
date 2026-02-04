@@ -11,6 +11,8 @@ function CourseStructure({
   onSelectItem,
   onEditItem,
   onDeleteItem,
+  expanded,
+  setExpanded,
 }) {
   const [internalActiveLessonId, setInternalActiveLessonId] = useState(null);
 
@@ -35,6 +37,8 @@ function CourseStructure({
           onSelectItem={onSelectItem}
           onEditItem={onEditItem}
           onDeleteItem={onDeleteItem}
+          expanded={expanded}
+          setExpanded={setExpanded}
         />
       ))}
     </div>

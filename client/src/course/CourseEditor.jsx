@@ -34,10 +34,6 @@ const CourseEditor = () => {
     lessons: new Set(),
   });
 
-  const partKey = (p) => `part-${p}`;
-  const blockKey = (p, b) => `block-${p}-${b}`;
-  const lessonKey = (p, b, l) => `lesson-${p}-${b}-${l}`;
-
   const expandParentsByPath = ({ partIndex, blockIndex, lessonIndex }) => {
     setExpanded((prev) => {
       const next = {
@@ -46,17 +42,11 @@ const CourseEditor = () => {
         lessons: new Set(prev.lessons),
       };
 
-      if (partIndex !== undefined) {
-        next.parts.add(partKey(partIndex));
-      }
-
-      if (blockIndex !== undefined) {
+      if (partIndex !== undefined) next.parts.add(partKey(partIndex));
+      if (blockIndex !== undefined)
         next.blocks.add(blockKey(partIndex, blockIndex));
-      }
-
-      if (lessonIndex !== undefined) {
+      if (lessonIndex !== undefined)
         next.lessons.add(lessonKey(partIndex, blockIndex, lessonIndex));
-      }
 
       return next;
     });
@@ -260,6 +250,7 @@ const CourseEditor = () => {
           title: form.title,
           lessons: [],
         });
+        expandParentsByPath({ partIndex });
       }
 
       if (mode === MODES.ADD_LESSON) {
@@ -578,7 +569,7 @@ const CourseEditor = () => {
         onEditItem={startEdit}
         onDeleteItem={deleteItem}
         expanded={expanded}
-        onToggleExpand={handleToggleExpand}
+        setExpanded={setExpanded}
       />
     </div>
   );
