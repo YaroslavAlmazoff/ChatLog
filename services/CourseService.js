@@ -3,19 +3,29 @@ const path = require("path");
 const fsPromises = require("fs/promises");
 
 class CourseService {
+  isValidCourse(course) {
+    if (!course || typeof course !== "object") return false;
+    if (!Array.isArray(course.parts)) return false;
+
+    for (const part of course.parts) {
+      if (!Array.isArray(part.blocks)) return false;
+
+      for (const block of part.blocks) {
+        if (!Array.isArray(block.lessons)) return false;
+      }
+    }
+
+    return true;
+  }
   async edit(req, res) {
     try {
       if (req.user.userId != "628e5aab0153706a3e18fe79")
         return res.status(400).json({ message: "Вы не имеете на это права." });
       const course = req.body;
 
-      if (
-        !course ||
-        typeof course !== "object" ||
-        !Array.isArray(course.parts)
-      ) {
+      if (!isValidCourse(course)) {
         return res.status(400).json({
-          message: "Некорректная структура курса",
+          message: "Структура курса повреждена",
         });
       }
 

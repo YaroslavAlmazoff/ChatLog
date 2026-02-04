@@ -56,10 +56,31 @@ const CourseEditor = () => {
     });
   };
 
+  const normalizeCourse = (raw) => {
+    if (!raw || typeof raw !== "object") {
+      return { parts: [] };
+    }
+
+    return {
+      ...raw,
+      parts: Array.isArray(raw.parts)
+        ? raw.parts.map((part) => ({
+            ...part,
+            blocks: Array.isArray(part.blocks)
+              ? part.blocks.map((block) => ({
+                  ...block,
+                  lessons: Array.isArray(block.lessons) ? block.lessons : [],
+                }))
+              : [],
+          }))
+        : [],
+    };
+  };
+
   useEffect(() => {
     const getCourse = async () => {
       const response = await api.get("/courses/android.json");
-      setCourse(response.data);
+      setCourse(normalizeCourse(response.data));
       setLoading(false);
     };
     getCourse();
