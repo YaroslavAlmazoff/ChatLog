@@ -28,6 +28,7 @@
 
 .course-structure-item {
   cursor: pointer;
+  padding-left: 7px;
 }
 
 .course-structure-subitem {
