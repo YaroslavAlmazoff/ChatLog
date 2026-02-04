@@ -167,21 +167,14 @@ const CourseEditor = () => {
   };
 
   const startEdit = (item) => {
-    // Тесты и видео — не через форму
-    if (item.type === "test") {
-      setSelectedItem(item);
-      setMode(null); // форма не нужна
-      return;
-    }
-
-    if (item.type === "video") {
-      setSelectedItem(item);
+    // Тест и видео — отдельные редакторы
+    if (item.type === "test" || item.type === "video") {
       setMode(null);
+      setSelectedItem(item);
       return;
     }
 
     const { partIndex, blockIndex, lessonIndex } = item.path;
-
     let target;
 
     if (item.type === "part") target = course.parts[partIndex];
@@ -555,6 +548,11 @@ const CourseEditor = () => {
     hasUploadingVideos ||
     hasMissingVideos;
 
+  const shouldShowForm =
+    mode &&
+    (mode === MODES.ADD_PART ||
+      (selectedItem &&
+        ["part", "block", "lesson"].includes(selectedItem.type)));
   /* ---------------- render ---------------- */
 
   if (loading) return <Loader />;
@@ -612,35 +610,32 @@ const CourseEditor = () => {
         </button>
       </div>
 
-      {mode &&
-        (mode === MODES.ADD_PART || selectedItem) &&
-        !["video", "test"].includes(selectedItem?.type) &&
-        mode !== MODES.ADD_VIDEO && (
-          <div className="course-editor-form">
-            <input
-              className="input"
-              type="number"
-              placeholder="Номер"
-              value={form.number}
-              onChange={(e) => setForm({ ...form, number: e.target.value })}
-            />
+      {shouldShowForm && (
+        <div className="course-editor-form">
+          <input
+            className="input"
+            type="number"
+            placeholder="Номер"
+            value={form.number}
+            onChange={(e) => setForm({ ...form, number: e.target.value })}
+          />
 
-            <input
-              className="input"
-              placeholder="Название"
-              value={form.title}
-              onChange={(e) => setForm({ ...form, title: e.target.value })}
-            />
+          <input
+            className="input"
+            placeholder="Название"
+            value={form.title}
+            onChange={(e) => setForm({ ...form, title: e.target.value })}
+          />
 
-            <div style={{ marginTop: 8 }}>
-              <strong>Куда:</strong> {getTargetLabel()}
-            </div>
-
-            <button className="course-editor-ok" onClick={applyChange}>
-              OK
-            </button>
+          <div style={{ marginTop: 8 }}>
+            <strong>Куда:</strong> {getTargetLabel()}
           </div>
-        )}
+
+          <button className="course-editor-ok" onClick={applyChange}>
+            OK
+          </button>
+        </div>
+      )}
 
       {selectedItem?.type === "test" && (
         <TestEditor
