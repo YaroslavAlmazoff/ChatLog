@@ -13,11 +13,12 @@ function Part({
   onSelectLesson,
   expanded,
   setExpanded,
+  partKey,
+  blockKey,
 }) {
   const isSelected =
     selectedItem?.type === "part" && selectedItem.path?.partIndex === partIndex;
   const confirmDelete = (text) => window.confirm(text);
-  const partKey = (p) => `part-${p}`;
   const key = partKey(partIndex);
   const isOpen = expanded.parts.has(key);
 
@@ -94,6 +95,9 @@ function Part({
           onDeleteItem={onDeleteItem}
           activeLessonId={activeLessonId}
           onSelectLesson={onSelectLesson}
+          expanded={expanded}
+          setExpanded={setExpanded}
+          blockKey={blockKey}
         />
       ))}
     </Expandable>

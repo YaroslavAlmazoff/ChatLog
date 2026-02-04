@@ -574,6 +574,8 @@ const CourseEditor = () => {
         onDeleteItem={deleteItem}
         expanded={expanded}
         setExpanded={setExpanded}
+        partKey={partKey}
+        blockKey={blockKey}
       />
     </div>
   );

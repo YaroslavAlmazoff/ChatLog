@@ -14,6 +14,7 @@ function Block({
   blockIndex,
   expanded,
   setExpanded,
+  blockKey,
 }) {
   const blockItem = {
     type: "block",
@@ -26,7 +27,6 @@ function Block({
   };
   const confirmDelete = (text) => window.confirm(text);
 
-  const blockKey = (p, b) => `block-${p}-${b}`;
   const key = blockKey(partIndex, blockIndex);
   const isOpen = expanded.blocks.has(key);
 

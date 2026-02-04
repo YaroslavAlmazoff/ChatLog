@@ -13,6 +13,8 @@ function CourseStructure({
   onDeleteItem,
   expanded,
   setExpanded,
+  partKey,
+  blockKey,
 }) {
   const [internalActiveLessonId, setInternalActiveLessonId] = useState(null);
 
@@ -39,6 +41,8 @@ function CourseStructure({
           onDeleteItem={onDeleteItem}
           expanded={expanded}
           setExpanded={setExpanded}
+          partKey={partKey}
+          blockKey={blockKey}
         />
       ))}
     </div>
