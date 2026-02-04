@@ -52,13 +52,6 @@ function VideoEditor({ video, onChange, onUpload, onClose }) {
     <div className="video-editor">
       <div className="editor-header">
         <h3>Редактор видео</h3>
-        <button
-          className="course-editor-add-button"
-          onClick={onClose}
-          type="button"
-        >
-          ✕ Закрыть
-        </button>
       </div>
 
       {/* Название */}
@@ -111,6 +104,9 @@ function VideoEditor({ video, onChange, onUpload, onClose }) {
           📎 Файл: <b>{video.src}</b>
         </div>
       )}
+      <button className="course-editor-ok" onClick={onClose} type="button">
+        ✕ Закрыть
+      </button>
     </div>
   );
 }
