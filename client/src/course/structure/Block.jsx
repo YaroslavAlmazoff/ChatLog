@@ -3,8 +3,6 @@ import Lesson from "./Lesson";
 
 function Block({
   block,
-  activeLessonId,
-  onSelectLesson,
   onSelectItem,
   onEditItem,
   onDeleteItem,
@@ -15,6 +13,7 @@ function Block({
   expanded,
   setExpanded,
   blockKey,
+  isEditor,
 }) {
   const blockItem = {
     type: "block",
@@ -28,9 +27,10 @@ function Block({
   const confirmDelete = (text) => window.confirm(text);
 
   const key = blockKey(partIndex, blockIndex);
-  const isOpen = expanded.blocks.has(key);
+  const isOpen = expanded?.blocks?.has(key);
 
   const isSelected =
+    isEditor &&
     selectedItem?.type === "block" &&
     selectedItem.path?.partIndex === partIndex &&
     selectedItem.path?.blockIndex === blockIndex;
@@ -51,7 +51,7 @@ function Block({
         <div
           className={`course-structure-item ${isSelected ? "selected" : ""}`}
           style={{ display: "inline-flex", alignItems: "center", gap: 6 }}
-          onClick={() => mode === "editor" && onSelectItem?.(blockItem)}
+          onClick={() => isEditor && onSelectItem?.(blockItem)}
         >
           <span>
             Блок {block.number}: {block.title}
@@ -94,14 +94,13 @@ function Block({
         <Lesson
           key={lesson.id ?? lessonIndex}
           lesson={lesson}
-          isActive={lessonIndex === activeLessonId}
           mode={mode}
           path={{ partIndex, blockIndex, lessonIndex }}
-          onSelectLesson={onSelectLesson}
           onSelectItem={onSelectItem}
           onEditItem={onEditItem}
           onDeleteItem={onDeleteItem}
           selectedItem={selectedItem}
+          isEditor={isEditor}
         />
       ))}
 
@@ -110,10 +109,10 @@ function Block({
         <div
           className="course-structure-item"
           style={{ marginLeft: 32, marginTop: 6 }}
-          onClick={() => mode === "editor" && onSelectItem?.(blockTestItem)}
+          onClick={() => isEditor && onSelectItem?.(blockTestItem)}
         >
           🧪 Итоговый тест блока
-          {mode === "editor" && (
+          {isEditor && (
             <>
               <span
                 className="course-structure-edit-icon"

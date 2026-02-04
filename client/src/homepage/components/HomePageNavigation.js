@@ -32,7 +32,6 @@ const HomePageNavigation = () => {
           <>
             <CourseStructure
               course={course}
-              mode="view"
               activeLessonId={activeLessonId}
               onSelectLesson={setActiveLessonId}
             />

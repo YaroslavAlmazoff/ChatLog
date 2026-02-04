@@ -3,10 +3,10 @@ function Lesson({
   mode = "view",
   path,
   selectedItem,
-  onSelectLesson,
   onSelectItem,
   onEditItem,
   onDeleteItem,
+  isEditor,
 }) {
   const lessonItem = { type: "lesson", path };
   const videoItem = {
@@ -22,7 +22,7 @@ function Lesson({
   const confirmDelete = (text) => window.confirm(text);
 
   const isSelected = (type) =>
-    mode === "editor" &&
+    isEditor &&
     selectedItem?.type === type &&
     selectedItem.path?.lessonIndex === path.lessonIndex &&
     selectedItem.path?.blockIndex === path.blockIndex &&
@@ -37,7 +37,7 @@ function Lesson({
         }`}
         style={{ display: "flex", alignItems: "center", gap: 6 }}
         onClick={() => {
-          if (mode === "editor") {
+          if (isEditor) {
             onSelectItem?.({
               type: "lesson",
               path,
@@ -87,10 +87,10 @@ function Lesson({
             isSelected("video") ? "selected" : ""
           }`}
           style={{ marginLeft: 16 }}
-          onClick={() => mode === "editor" && onSelectItem?.(videoItem)}
+          onClick={() => isEditor && onSelectItem?.(videoItem)}
         >
           🎬 {lesson.video.title}
-          {mode === "editor" && (
+          {isEditor && (
             <>
               <span
                 className="course-structure-edit-icon"
@@ -125,10 +125,10 @@ function Lesson({
             isSelected("test") ? "selected" : ""
           }`}
           style={{ marginLeft: 16 }}
-          onClick={() => mode === "editor" && onSelectItem?.(testItem)}
+          onClick={() => isEditor && onSelectItem?.(testItem)}
         >
           🧪 {lesson.test.title}
-          {mode === "editor" && (
+          {isEditor && (
             <>
               <span
                 className="course-structure-edit-icon"

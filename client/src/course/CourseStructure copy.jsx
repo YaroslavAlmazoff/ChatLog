@@ -5,35 +5,37 @@ import "./styles/course-structure.css";
 function CourseStructure({
   course,
   mode = "view",
+  activeLessonId: controlledActiveLessonId,
   selectedItem,
+  onSelectLesson,
   onSelectItem,
   onEditItem,
   onDeleteItem,
-  controlledExpanded,
-  setControlledExpanded,
+  expanded,
+  setExpanded,
   partKey,
   blockKey,
 }) {
-  const isEditor = mode === "editor";
-  const [internalExpanded, setInternalExpanded] = useState({
-    parts: new Set(),
-    blocks: new Set(),
-    lessons: new Set(),
-  });
+  const [internalActiveLessonId, setInternalActiveLessonId] = useState(null);
 
-  const expanded = controlledExpanded ?? internalExpanded;
-  const setExpanded = setControlledExpanded ?? setInternalExpanded;
+  const activeLessonId = controlledActiveLessonId ?? internalActiveLessonId;
 
-  if (!course?.parts?.length) return null;
+  const handleSelectLesson = (lessonId) => {
+    if (onSelectLesson) onSelectLesson(lessonId);
+    else setInternalActiveLessonId(lessonId);
+  };
+
   return (
     <div className="course-structure">
-      {course?.parts?.map((part, partIndex) => (
+      {course.parts.map((part, partIndex) => (
         <Part
           key={partIndex}
           part={part}
           partIndex={partIndex}
           mode={mode}
+          activeLessonId={activeLessonId}
           selectedItem={selectedItem}
+          onSelectLesson={handleSelectLesson}
           onSelectItem={onSelectItem}
           onEditItem={onEditItem}
           onDeleteItem={onDeleteItem}
@@ -41,7 +43,6 @@ function CourseStructure({
           setExpanded={setExpanded}
           partKey={partKey}
           blockKey={blockKey}
-          isEditor={isEditor}
         />
       ))}
     </div>

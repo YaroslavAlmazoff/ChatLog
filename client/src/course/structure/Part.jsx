@@ -9,18 +9,19 @@ function Part({
   onSelectItem,
   onEditItem,
   onDeleteItem,
-  activeLessonId,
-  onSelectLesson,
   expanded,
   setExpanded,
   partKey,
   blockKey,
+  isEditor,
 }) {
   const isSelected =
-    selectedItem?.type === "part" && selectedItem.path?.partIndex === partIndex;
+    isEditor &&
+    selectedItem?.type === "part" &&
+    selectedItem.path?.partIndex === partIndex;
   const confirmDelete = (text) => window.confirm(text);
   const key = partKey(partIndex);
-  const isOpen = expanded.parts.has(key);
+  const isOpen = expanded?.parts?.has(key);
 
   const toggle = () => {
     setExpanded((prev) => {
@@ -38,7 +39,7 @@ function Part({
         <div
           className={`course-structure-item ${isSelected ? "selected" : ""}`}
           onClick={() =>
-            mode === "editor" &&
+            isEditor &&
             onSelectItem?.({
               type: "part",
               path: { partIndex },
@@ -47,7 +48,7 @@ function Part({
           }
         >
           Часть {part.number}: {part.title}
-          {mode === "editor" && (
+          {isEditor && (
             <>
               <span
                 className="course-structure-edit-icon"
@@ -93,11 +94,10 @@ function Part({
           onSelectItem={onSelectItem}
           onEditItem={onEditItem}
           onDeleteItem={onDeleteItem}
-          activeLessonId={activeLessonId}
-          onSelectLesson={onSelectLesson}
           expanded={expanded}
           setExpanded={setExpanded}
           blockKey={blockKey}
+          isEditor={isEditor}
         />
       ))}
     </Expandable>
