@@ -11,4 +11,12 @@ router.post("/upload-videos", auth, (req, res) => {
   CourseService.uploadVideos(req, res);
 });
 
+router.get("/backups", auth, (req, res) => {
+  CourseService.getBackups(req, res);
+});
+
+router.post("/restore", auth, (req, res) => {
+  CourseService.restoreBackup(req, res);
+});
+
 module.exports = router;
