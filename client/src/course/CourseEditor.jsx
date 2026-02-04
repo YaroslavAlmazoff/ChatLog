@@ -626,55 +626,15 @@ const CourseEditor = () => {
       )}
       <CourseStructure
         course={course}
+        mode="editor"
         selectedItem={selectedItem}
+        onSelectItem={setSelectedItem}
+        onEditItem={startEdit}
+        onDeleteItem={deleteItem}
         expanded={expanded}
         setExpanded={setExpanded}
         partKey={partKey}
         blockKey={blockKey}
-        onItemClick={(item) => {
-          setSelectedItem(item);
-        }}
-        renderActions={(item) => {
-          // если вдруг захотим ограничить действия
-          if (!item) return null;
-
-          return (
-            <>
-              <span
-                className="course-structure-edit-icon"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  startEdit(item);
-                }}
-              >
-                ✏️
-              </span>
-
-              <span
-                className="course-structure-edit-icon"
-                onClick={(e) => {
-                  e.stopPropagation();
-
-                  const texts = {
-                    part: "Удалить часть?",
-                    block:
-                      "Удалить блок? Все уроки и тесты внутри будут удалены.",
-                    lesson:
-                      "Удалить урок? Видео и тест внутри также будут удалены.",
-                    video: "Удалить видеоурок?",
-                    test: "Удалить тест?",
-                  };
-
-                  if (window.confirm(texts[item.type] ?? "Удалить элемент?")) {
-                    deleteItem(item);
-                  }
-                }}
-              >
-                🗑
-              </span>
-            </>
-          );
-        }}
       />
     </div>
   );

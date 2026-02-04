@@ -1,26 +1,44 @@
 import Part from "./structure/Part";
+import { useState } from "react";
 import "./styles/course-structure.css";
 
 function CourseStructure({
   course,
+  mode = "view",
+  activeLessonId: controlledActiveLessonId,
   selectedItem,
-  onItemClick,
-  renderActions,
+  onSelectLesson,
+  onSelectItem,
+  onEditItem,
+  onDeleteItem,
   expanded,
   setExpanded,
   partKey,
   blockKey,
 }) {
+  const [internalActiveLessonId, setInternalActiveLessonId] = useState(null);
+
+  const activeLessonId = controlledActiveLessonId ?? internalActiveLessonId;
+
+  const handleSelectLesson = (lessonId) => {
+    if (onSelectLesson) onSelectLesson(lessonId);
+    else setInternalActiveLessonId(lessonId);
+  };
+
   return (
     <div className="course-structure">
       {course.parts.map((part, partIndex) => (
         <Part
           key={partIndex}
           part={part}
-          path={{ partIndex }}
+          partIndex={partIndex}
+          mode={mode}
+          activeLessonId={activeLessonId}
           selectedItem={selectedItem}
-          onItemClick={onItemClick}
-          renderActions={renderActions}
+          onSelectLesson={handleSelectLesson}
+          onSelectItem={onSelectItem}
+          onEditItem={onEditItem}
+          onDeleteItem={onDeleteItem}
           expanded={expanded}
           setExpanded={setExpanded}
           partKey={partKey}
