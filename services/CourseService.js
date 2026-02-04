@@ -57,11 +57,15 @@ class CourseService {
   }
   async edit(req, res) {
     try {
-      if (req.user.userId != "628e5aab0153706a3e18fe79")
+      if (req.user.userId != "628e5aab0153706a3e18fe79") {
+        console.log("капец");
         return res.status(400).json({ message: "Вы не имеете на это права." });
+      }
+
       const course = req.body;
 
       if (!this.isValidCourse(course)) {
+        console.log("кошмар");
         return res.status(400).json({
           message: "Структура курса повреждена",
         });
