@@ -3,6 +3,9 @@ const path = require("path");
 const fsPromises = require("fs/promises");
 
 class CourseService {
+  async ensureDir(dirPath) {
+    await fsPromises.mkdir(dirPath, { recursive: true });
+  }
   isValidCourse(course) {
     if (!course || typeof course !== "object") return false;
     if (!Array.isArray(course.parts)) return false;
@@ -20,7 +23,7 @@ class CourseService {
   async createBackup(coursePath) {
     const backupsDir = path.resolve("..", "static", "courses", "backups");
 
-    await fsPromises.mkdir(backupsDir, { recursive: true });
+    await ensureDir(backupsDir);
 
     const now = new Date();
     const timestamp = now
@@ -159,7 +162,7 @@ class CourseService {
   }
   async getBackups(req, res) {
     const backupsDir = path.resolve("..", "static", "courses", "backups");
-
+    await ensureDir(backupsDir);
     const files = await fsPromises.readdir(backupsDir);
 
     const backups = files
