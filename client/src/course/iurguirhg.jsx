@@ -1,77 +1,107 @@
-import QuestionEditor from "./QuestionEditor";
-import "./styles/test-editor.css";
+import { useState, useCallback, useEffect } from "react";
+import { useNavigate } from "react-router";
+import api from "../auth/api/auth";
 
-function TestEditor({ test, onChange, onClose }) {
-  const updateField = (patch) => {
-    onChange({
-      ...test,
-      ...patch,
-    });
+const storageName = "user";
+
+export const useAuth = () => {
+  const navigate = useNavigate();
+  const [token, setToken] = useState(null);
+  const [userId, setUserId] = useState(null);
+  const [authenticated, setAuthenticated] = useState(false);
+  const [activated, setActivated] = useState(false);
+  const [onCourse, setOnCourse] = useState(false);
+
+  const loggedOut = () => !localStorage.getItem(storageName);
+
+  const login = useCallback((_token, _id, _onCourse) => {
+    setToken(_token);
+    setUserId(_id);
+    setAuthenticated(true);
+    setActivated(true);
+    setOnCourse(_onCourse);
+    localStorage.setItem(
+      storageName,
+      JSON.stringify({
+        userId: _id,
+        token: _token,
+      }),
+    );
+  }, []);
+
+  const logout = useCallback(() => {
+    setToken(null);
+    setUserId(null);
+    localStorage.removeItem(storageName);
+  }, []);
+
+  useEffect(() => {
+    const getData = async () => {
+      const data = JSON.parse(localStorage.getItem(storageName));
+      const isPortfolio =
+        window.location.pathname === "/portfolio/" ||
+        window.location.pathname === "/portfolio";
+      if (data) {
+        const response = await api.get("/api/refresh", {
+          headers: {
+            Authorization: `Bearer ${data.token}`,
+          },
+        });
+
+        console.log(response);
+
+        if (isPortfolio) return;
+        if (response.data.greeting) return navigate("/greeting");
+        if (!response.data.verified) return navigate("/login");
+        if (!response.data.activated) return navigate("/notactivated");
+        login(
+          response.data.token,
+          response.data.userId,
+          response.data.onCourse,
+        );
+      } else if (
+        window.location.pathname === "/greeting" ||
+        window.location.pathname === "/support" ||
+        window.location.pathname === "/portfolio/" ||
+        window.location.pathname === "/portfolio" ||
+        window.location.pathname.includes("store")
+      ) {
+        return;
+      } else {
+        window.location = "/greeting";
+      }
+    };
+
+    try {
+      getData();
+    } catch {
+      navigate("/login");
+    }
+
+    const expirationTime = 1000 * 60 * 10;
+
+    const intervalId = setInterval(
+      () => {
+        const now = new Date().getTime();
+        const timeRemaining = expirationTime - now;
+        if (timeRemaining < 30 * 60 * 1000) {
+          getData();
+        }
+      },
+      30 * 60 * 1000,
+    );
+
+    return () => clearInterval(intervalId);
+  }, [login]);
+
+  return {
+    login,
+    logout,
+    loggedOut,
+    token,
+    userId,
+    authenticated,
+    activated,
+    onCourse,
   };
-
-  const updateQuestion = (index, updated) => {
-    const questions = [...test.questions];
-    questions[index] = updated;
-    updateField({ questions });
-  };
-
-  const addQuestion = () => {
-    updateField({
-      questions: [
-        ...test.questions,
-        {
-          id: crypto.randomUUID(),
-          number: test.questions.length + 1,
-          question: "",
-          variants: [],
-          rightsVariantIds: [],
-          rightText: "",
-        },
-      ],
-    });
-  };
-
-  return (
-    <div className="test-editor">
-      <span className="test-editor-title">Редактор теста</span>
-      {/* Название теста */}
-      <input
-        className="test-editor-title-input"
-        value={test.title}
-        onChange={(e) => updateField({ title: e.target.value })}
-        placeholder="Название теста"
-      />
-
-      {/* Вопросы */}
-      {test.questions.length === 0 ? (
-        <button className="course-editor-add-button" onClick={addQuestion}>
-          + Добавить вопрос
-        </button>
-      ) : (
-        test.questions.map((q, i) => (
-          <div key={q.number} className="question-wrapper">
-            <QuestionEditor
-              key={q.id}
-              question={q}
-              onChange={(updated) => updateQuestion(i, updated)}
-            />
-            <button
-              className="test-editor-red-button"
-              onClick={() => removeQuestion(i)}
-            >
-              🗑 Удалить вопрос
-            </button>
-          </div>
-        ))
-      )}
-
-      <div style={{ marginTop: 16 }}>
-        <button className="course-editor-ok" onClick={onClose}>
-          Закрыть редактор
-        </button>
-      </div>
-    </div>
-  );
-}
-
-export default TestEditor;
+};

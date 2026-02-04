@@ -78,7 +78,18 @@ export const useAuth = () => {
       navigate("/login");
     }
 
-    const intervalId = setInterval(getData, 60 * 1000);
+    const expirationTime = 1000 * 60 * 10;
+
+    const intervalId = setInterval(
+      () => {
+        const now = new Date().getTime();
+        const timeRemaining = expirationTime - now;
+        if (timeRemaining < 30 * 60 * 1000) {
+          getData();
+        }
+      },
+      30 * 60 * 1000,
+    );
 
     return () => clearInterval(intervalId);
   }, [login]);
