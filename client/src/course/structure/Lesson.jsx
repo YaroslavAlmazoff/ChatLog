@@ -36,12 +36,14 @@ function Lesson({
           isSelected("lesson") ? "selected" : ""
         }`}
         style={{ display: "flex", alignItems: "center", gap: 6 }}
-        onClick={() =>
-          onEditItem({
-            type: "test",
-            path,
-          })
-        }
+        onClick={() => {
+          if (mode === "editor") {
+            onSelectItem?.({
+              type: "lesson",
+              path,
+            });
+          }
+        }}
       >
         <span>
           📘 Урок {lesson.number}: {lesson.title}

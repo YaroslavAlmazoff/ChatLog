@@ -637,7 +637,7 @@ const CourseEditor = () => {
         </div>
       )}
 
-      {selectedItem?.type === "test" && (
+      {selectedItem?.type === "test" && getSelectedTest() && (
         <TestEditor
           test={getSelectedTest()}
           onChange={(updatedTest) => {
