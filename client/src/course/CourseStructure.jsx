@@ -11,8 +11,8 @@ function CourseStructure({
   onDeleteItem,
   controlledExpanded,
   setControlledExpanded,
-  partKey,
-  blockKey,
+  partKey = () => {},
+  blockKey = () => {},
 }) {
   const isEditor = mode === "editor";
   const [internalExpanded, setInternalExpanded] = useState({

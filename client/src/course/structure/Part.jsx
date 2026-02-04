@@ -11,8 +11,8 @@ function Part({
   onDeleteItem,
   expanded,
   setExpanded,
-  partKey = () => {},
-  blockKey = () => {},
+  partKey,
+  blockKey,
   isEditor,
 }) {
   const isSelected =
