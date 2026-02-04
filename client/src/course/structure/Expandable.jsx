@@ -1,15 +1,12 @@
-import { useState } from "react";
-
 function Expandable({
   title,
   children,
   level = 0,
-  defaultOpen = false,
+  isOpen,
+  onToggle,
   rightContent,
   onTitleClick,
 }) {
-  const [isOpen, setIsOpen] = useState(defaultOpen);
-
   return (
     <div style={{ marginLeft: level * 16 }}>
       <div
@@ -21,7 +18,10 @@ function Expandable({
         }}
       >
         <span
-          onClick={() => setIsOpen((v) => !v)}
+          onClick={(e) => {
+            e.stopPropagation();
+            onToggle?.();
+          }}
           style={{
             marginRight: 8,
             cursor: "pointer",
