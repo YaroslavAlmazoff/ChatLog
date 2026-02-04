@@ -11,9 +11,10 @@ function CourseStructure({
   onDeleteItem,
   controlledExpanded,
   setControlledExpanded,
-  partKey = () => {},
-  blockKey = () => {},
 }) {
+  const partKey = (p) => `p-${p}`;
+  const blockKey = (p, b) => `b-${p}-${b}`;
+  const lessonKey = (p, b, l) => `l-${p}-${b}-${l}`;
   const isEditor = mode === "editor";
   const [internalExpanded, setInternalExpanded] = useState({
     parts: new Set(),
