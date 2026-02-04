@@ -488,12 +488,13 @@ const CourseEditor = () => {
         return;
       }
       await uploadVideosSequentially();
-      await api.post("/api/courses/edit", course, {
+      const r = await api.post("/api/courses/edit", course, {
         headers: {
           "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${token}`,
         },
       });
+      console.log(r);
       setVideoUploads({});
       setIsDirty(false);
       alert("Данные и видео успешно сохранены");
