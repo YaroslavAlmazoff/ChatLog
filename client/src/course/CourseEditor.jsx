@@ -126,15 +126,37 @@ const CourseEditor = () => {
   };
 
   const startEdit = (item) => {
-    setMode(MODES.EDIT);
-    setSelectedItem(item);
-
-    if (item.type !== "video" && item.type !== "test") {
-      setForm({
-        number: item.data?.number ?? "",
-        title: item.data?.title ?? "",
-      });
+    // Тесты и видео — не через форму
+    if (item.type === "test") {
+      setSelectedItem(item);
+      setMode(null); // форма не нужна
+      return;
     }
+
+    if (item.type === "video") {
+      setSelectedItem(item);
+      setMode(null);
+      return;
+    }
+
+    const { partIndex, blockIndex, lessonIndex } = item.path;
+
+    let target;
+
+    if (item.type === "part") target = course.parts[partIndex];
+    if (item.type === "block")
+      target = course.parts[partIndex].blocks[blockIndex];
+    if (item.type === "lesson")
+      target = course.parts[partIndex].blocks[blockIndex].lessons[lessonIndex];
+
+    if (!target) return;
+
+    setSelectedItem(item);
+    setMode(MODES.EDIT);
+    setForm({
+      number: target.number ?? "",
+      title: target.title ?? "",
+    });
   };
 
   const handleVideoUpload = (videoId, file) => {
@@ -193,41 +215,68 @@ const CourseEditor = () => {
   const deleteItem = (item) => {
     if (!item) return;
 
+    const { type, path } = item;
+    const { partIndex, blockIndex, lessonIndex } = path || {};
+
     setCourse((prev) => {
       const copy = structuredClone(prev);
-      const { partIndex, blockIndex, lessonIndex } = item.path || {};
 
-      if (item.type === "video") {
-        const video =
-          copy.parts[partIndex].blocks[blockIndex].lessons[lessonIndex].video;
+      switch (type) {
+        case "video": {
+          const lesson =
+            copy.parts?.[partIndex]?.blocks?.[blockIndex]?.lessons?.[
+              lessonIndex
+            ];
 
-        if (video?.id) {
-          setVideoUploads((prevUploads) => {
-            const next = { ...prevUploads };
-            delete next[video.id];
-            return next;
-          });
+          if (!lesson || !lesson.video) return copy;
+
+          const videoId = lesson.video.id;
+
+          // удаляем видео из состояния загрузок
+          if (videoId) {
+            setVideoUploads((prevUploads) => {
+              const next = { ...prevUploads };
+              delete next[videoId];
+              return next;
+            });
+          }
+
+          lesson.video = null;
+          break;
         }
 
-        copy.parts[partIndex].blocks[blockIndex].lessons[lessonIndex].video =
-          null;
-      }
+        case "test": {
+          const lesson =
+            copy.parts?.[partIndex]?.blocks?.[blockIndex]?.lessons?.[
+              lessonIndex
+            ];
 
-      if (item.type === "test") {
-        copy.parts[partIndex].blocks[blockIndex].lessons[lessonIndex].test =
-          null;
-      }
+          if (lesson) {
+            lesson.test = null;
+          }
+          break;
+        }
 
-      if (item.type === "lesson") {
-        copy.parts[partIndex].blocks[blockIndex].lessons.splice(lessonIndex, 1);
-      }
+        case "lesson": {
+          copy.parts?.[partIndex]?.blocks?.[blockIndex]?.lessons?.splice(
+            lessonIndex,
+            1,
+          );
+          break;
+        }
 
-      if (item.type === "block") {
-        copy.parts[partIndex].blocks.splice(blockIndex, 1);
-      }
+        case "block": {
+          copy.parts?.[partIndex]?.blocks?.splice(blockIndex, 1);
+          break;
+        }
 
-      if (item.type === "part") {
-        copy.parts.splice(partIndex, 1);
+        case "part": {
+          copy.parts?.splice(partIndex, 1);
+          break;
+        }
+
+        default:
+          return copy;
       }
 
       return copy;

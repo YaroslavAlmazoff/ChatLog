@@ -9,8 +9,15 @@ function Lesson({
   onDeleteItem,
 }) {
   const lessonItem = { type: "lesson", path };
-  const videoItem = { type: "video", path };
-  const testItem = { type: "test", path };
+  const videoItem = {
+    type: "video",
+    path: { ...path, kind: "video" },
+  };
+
+  const testItem = {
+    type: "test",
+    path: { ...path, kind: "test" },
+  };
 
   const confirmDelete = (text) => window.confirm(text);
 
