@@ -111,6 +111,16 @@ const CourseEditor = () => {
       return;
     }
 
+    if (
+      (newMode === MODES.ADD_BLOCK && selectedItem?.type !== "part") ||
+      (newMode === MODES.ADD_LESSON && selectedItem?.type !== "block") ||
+      ((newMode === MODES.ADD_VIDEO || newMode === MODES.ADD_TEST) &&
+        selectedItem?.type !== "lesson")
+    ) {
+      alert("Сначала выберите родительский элемент");
+      return;
+    }
+
     setMode(newMode);
     resetForm();
   };
@@ -478,8 +488,8 @@ const CourseEditor = () => {
       </div>
 
       {mode &&
-        selectedItem &&
-        !["video", "test"].includes(selectedItem.type) &&
+        (mode === MODES.ADD_PART || selectedItem) &&
+        !["video", "test"].includes(selectedItem?.type) &&
         mode !== MODES.ADD_VIDEO && (
           <div className="course-editor-form">
             <input
