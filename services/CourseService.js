@@ -23,7 +23,7 @@ class CourseService {
   async createBackup(coursePath) {
     const backupsDir = path.resolve("..", "static", "courses", "backups");
 
-    await ensureDir(backupsDir);
+    await this.ensureDir(backupsDir);
 
     const now = new Date();
     const timestamp = now
@@ -73,7 +73,8 @@ class CourseService {
         "courses",
         "android.json",
       );
-      await createBackup(coursePath);
+      await this.createBackup(coursePath);
+      await this.cleanupBackups();
       const videosDir = path.resolve("..", "static", "courses", "videos");
 
       /* ---------- 1. Собираем все video.id из структуры ---------- */
@@ -162,7 +163,7 @@ class CourseService {
   }
   async getBackups(req, res) {
     const backupsDir = path.resolve("..", "static", "courses", "backups");
-    await ensureDir(backupsDir);
+    await this.ensureDir(backupsDir);
     const files = await fsPromises.readdir(backupsDir);
 
     const backups = files
