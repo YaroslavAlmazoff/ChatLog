@@ -459,22 +459,18 @@ const CourseEditor = () => {
     (v) => v.status === "uploading",
   );
 
-  const hasMissingVideos = course
-    ? course.parts.some((part) =>
-        part.blocks.some((block) =>
-          block.lessons.some((lesson) => {
-            const video = lesson.video;
-            if (!video) return false;
-
-            // если src есть — видео уже загружено
-            if (video.src) return false;
-
-            // если src нет — проверяем, выбран ли файл
-            return !videoUploads[video.id];
-          }),
-        ),
-      )
-    : false;
+  const hasMissingVideos = Boolean(
+    course?.parts?.some((part) =>
+      part.blocks?.some((block) =>
+        block.lessons?.some((lesson) => {
+          const video = lesson.video;
+          if (!video) return false;
+          if (video.src) return false;
+          return !videoUploads[video.id];
+        }),
+      ),
+    ),
+  );
 
   const disableSave =
     !course || !isDirty || hasUploadingVideos || hasMissingVideos;
