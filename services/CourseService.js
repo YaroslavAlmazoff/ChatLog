@@ -9,6 +9,16 @@ class CourseService {
         return res.status(400).json({ message: "Вы не имеете на это права." });
       const course = req.body;
 
+      if (
+        !course ||
+        typeof course !== "object" ||
+        !Array.isArray(course.parts)
+      ) {
+        return res.status(400).json({
+          message: "Некорректная структура курса",
+        });
+      }
+
       const coursePath = path.resolve(
         "..",
         "static",
