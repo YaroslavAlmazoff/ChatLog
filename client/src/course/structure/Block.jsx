@@ -32,9 +32,9 @@ function Block({
 
   const toggle = () => {
     setExpanded((prev) => {
-      const next = new Set(prev.parts);
+      const next = new Set(prev.blocks);
       next.has(key) ? next.delete(key) : next.add(key);
-      return { ...prev, parts: next };
+      return { ...prev, blocks: next };
     });
   };
   return (
