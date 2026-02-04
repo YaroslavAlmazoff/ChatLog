@@ -23,8 +23,8 @@ export const useAuth = () => {
     localStorage.setItem(
       storageName,
       JSON.stringify({
-        userId: id,
-        token: token,
+        userId: _id,
+        token: _token,
       }),
     );
   }, []);
