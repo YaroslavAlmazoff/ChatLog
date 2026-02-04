@@ -664,13 +664,13 @@ const CourseEditor = () => {
         partKey={partKey}
         blockKey={blockKey}
       />
-      {isBackupsVisible && <BackupsManager />}
       <span
         className="course-editor-show-backups"
         onClick={() => setIsBackupsVisible((prev) => !prev)}
       >
         Показать автобэкапы
       </span>
+      {isBackupsVisible && <BackupsManager />}
     </div>
   );
 };
