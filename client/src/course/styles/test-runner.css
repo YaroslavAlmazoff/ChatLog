@@ -1,0 +1,29 @@
+.test-runner {
+  margin-top: 24px;
+}
+
+.test-question {
+  margin-top: 20px;
+  padding: 12px;
+  border-radius: 8px;
+  background: #f7f7f7;
+}
+
+.test-question-title {
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.test-variant {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 6px;
+  cursor: pointer;
+}
+
+.test-input {
+  margin-top: 8px;
+  padding: 6px 8px;
+  width: 100%;
+}

@@ -1,4 +1,5 @@
 import "../styles/content.css";
+import TestRunner from "./TestRunner";
 
 const Content = ({ lesson }) => {
   if (!lesson) {
@@ -36,7 +37,7 @@ const Content = ({ lesson }) => {
         <div className="lesson-test">
           <h2>🧪 Тест</h2>
           <p>{lesson.lesson.test.title}</p>
-          <button>Начать тест</button>
+          {lesson.lesson.test && <TestRunner test={lesson.lesson.test} />}
         </div>
       )}
     </div>
