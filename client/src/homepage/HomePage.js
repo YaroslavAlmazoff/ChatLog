@@ -13,6 +13,7 @@ import Content from "../course/content/Content";
 const HomePage = () => {
   const { verify } = useVerify();
   const { onCourse } = useContext(AuthContext);
+  const [activeLesson, setActiveLesson] = useState(null);
 
   useEffect(() => {
     verify();
@@ -20,7 +21,10 @@ const HomePage = () => {
 
   return (
     <div className="homepage">
-      <HomePageNavigation />
+      <HomePageNavigation
+        activeLesson={activeLesson}
+        onSelectLesson={setActiveLesson}
+      />
       <div className="body">
         <Head />
         {onCourse ? (

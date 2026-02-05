@@ -37,12 +37,11 @@ function Lesson({
         }`}
         style={{ display: "flex", alignItems: "center", gap: 6 }}
         onClick={() => {
-          if (isEditor) {
-            onSelectItem?.({
-              type: "lesson",
-              path,
-            });
-          }
+          onSelectItem?.({
+            type: "lesson",
+            path,
+            lesson,
+          });
         }}
       >
         <span>

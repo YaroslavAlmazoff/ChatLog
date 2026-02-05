@@ -4,9 +4,8 @@ import { AuthContext } from "../../context/AuthContext";
 import CourseStructure from "../../course/CourseStructure";
 import { list1, list2, list3 } from "../links-data";
 
-const HomePageNavigation = () => {
+const HomePageNavigation = ({ activeLesson, onSelectLesson }) => {
   const auth = useContext(AuthContext);
-  const [activeLessonId, setActiveLessonId] = useState(null);
   const [course, setCourse] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -32,8 +31,8 @@ const HomePageNavigation = () => {
           <>
             <CourseStructure
               course={course}
-              activeLessonId={activeLessonId}
-              onSelectLesson={setActiveLessonId}
+              selectedItem={activeLesson}
+              onSelectItem={onSelectLesson}
             />
           </>
         ) : (
