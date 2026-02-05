@@ -30,7 +30,7 @@ const HomePage = () => {
         {onCourse ? (
           <>
             <MiniProfile />
-            <Content lesson={lesson} />
+            <Content lesson={activeLesson} />
           </>
         ) : (
           <>
