@@ -4,7 +4,7 @@ import Search from "./components/Search";
 import Forecast from "./components/Forecast";
 import News from "./components/News";
 import "./homepage.css";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import useVerify from "../common_hooks/verify.hook";
 import { AuthContext } from "../context/AuthContext";
 import MiniProfile from "../course/MiniProfile";
