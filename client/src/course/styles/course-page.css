@@ -1,33 +1,26 @@
 .course-page {
   display: flex;
   justify-content: center;
-  padding: 16px;
+  align-items: flex-start;
+  width: 100vw;
 }
 
 .course-layout {
-  width: 100%;
   max-width: 800px;
-  display: flex;
-  gap: 16px;
+  width: 100%;
 }
 
-/* Левая колонка */
 .course-sidebar {
-  width: 260px;
-  flex-shrink: 0;
+  width: 25%;
 }
 
-/* Правая колонка */
 .course-main {
-  flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  min-width: 0;
+  width: 75%;
 }
 
-/* Адаптив */
-@media (max-width: 799px) {
+@media screen and (max-width: 799px) {
   .course-layout {
     flex-direction: column;
   }
