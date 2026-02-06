@@ -52,11 +52,7 @@ const HomePageNavigation = ({ activeLesson, onSelectLesson }) => {
           ) : (
             <>
               {list3(auth.userId).map((el) => (
-                <NavLink
-                  key={Date.now() + Math.random() * 100}
-                  className="homelink"
-                  to={el.link}
-                >
+                <NavLink key={el.name} className="homelink" to={el.link}>
                   {el.name}
                 </NavLink>
               ))}
