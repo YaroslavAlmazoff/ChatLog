@@ -9,16 +9,16 @@ const Head = () => {
   const { getDaytime } = useDaytime();
   const [user, setUser] = useState({ name: "name" });
   let clockRef = useRef(null);
-  useEffect(() => {
-    // const interval = setInterval(() => {
-    //   let now = new Date();
-    //   clockRef.current.innerHTML = now.toLocaleTimeString();
-    // }, 1000);
+  // useEffect(() => {
+  // const interval = setInterval(() => {
+  //   let now = new Date();
+  //   clockRef.current.innerHTML = now.toLocaleTimeString();
+  // }, 1000);
 
-    return () => {
-      clearInterval(interval);
-    };
-  }, []);
+  //   return () => {
+  //     clearInterval(interval);
+  //   };
+  // }, []);
 
   useEffect(() => {
     const getUser = async () => {
