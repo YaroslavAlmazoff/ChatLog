@@ -47,3 +47,7 @@
 .course-structure-subitem.selected {
   border-left: 3px solid #40a4ff;
 }
+
+.course-structure-arrow {
+  color: #40a4ff;
+}

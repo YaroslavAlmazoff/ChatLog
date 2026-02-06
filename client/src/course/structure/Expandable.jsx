@@ -18,6 +18,7 @@ function Expandable({
         }}
       >
         <span
+          className="course-structure-arrow"
           onClick={(e) => {
             e.stopPropagation();
             onToggle?.();
