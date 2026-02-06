@@ -9,6 +9,7 @@ const Head = () => {
   const { getDaytime } = useDaytime();
   const [user, setUser] = useState({ name: "name" });
   const [time, setTime] = useState(new Date().toLocaleTimeString());
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 500);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -16,6 +17,12 @@ const Head = () => {
     }, 1000);
 
     return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    const onResize = () => setIsMobile(window.innerWidth <= 500);
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
   }, []);
 
   useEffect(() => {
@@ -33,13 +40,11 @@ const Head = () => {
   return (
     <div className="head">
       <div className="daytime">
-        <h2
-          className={`time ${window.screen.width < 500 ? "white-glow-text" : ""}`}
-        >
+        <h2 className={`time ${isMobile ? "white-glow-text" : ""}`}>
           {user.name ? getDaytime(user.name) : ""}
         </h2>
-        {window.screen.width > 500 ? (
-          <div style={{ marginRight: "20px" }} ref={clockRef} className="time">
+        {!isMobile ? (
+          <div style={{ marginRight: "20px" }} className="time">
             {time}
           </div>
         ) : (
