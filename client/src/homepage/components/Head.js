@@ -10,10 +10,10 @@ const Head = () => {
   const [user, setUser] = useState({ name: "name" });
   let clockRef = useRef(null);
   useEffect(() => {
-    const interval = setInterval(() => {
-      let now = new Date();
-      clockRef.current.innerHTML = now.toLocaleTimeString();
-    }, 1000);
+    // const interval = setInterval(() => {
+    //   let now = new Date();
+    //   clockRef.current.innerHTML = now.toLocaleTimeString();
+    // }, 1000);
 
     return () => {
       clearInterval(interval);
