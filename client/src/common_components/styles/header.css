@@ -55,9 +55,9 @@
     border-radius: 0 0 10px 10px;
     transition-property: transform;
     transition-duration: 0.6s;
-    animation-name: glow;
+    /* animation-name: glow;
     animation-duration: 2s;
-    animation-iteration-count: infinite;
+    animation-iteration-count: infinite; */
   }
   .link {
     padding: 15px;
@@ -87,9 +87,9 @@
     border-radius: 0 0 10px 10px;
     transition-property: transform;
     transition-duration: 0.6s;
-    animation-name: glow;
+    /* animation-name: glow;
     animation-duration: 2s;
-    animation-iteration-count: infinite;
+    animation-iteration-count: infinite; */
   }
   .link {
     padding: 15px;

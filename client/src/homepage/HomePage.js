@@ -34,9 +34,9 @@ const HomePage = () => {
           </>
         ) : (
           <>
-            {/* <Search />
+            <Search />
             <Forecast />
-            <News /> */}
+            <News />
           </>
         )}
       </div>
