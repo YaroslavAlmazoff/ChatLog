@@ -1,12 +1,12 @@
 .test-runner {
   margin-top: 24px;
+  color: white;
 }
 
 .test-question {
   margin-top: 20px;
   padding: 12px;
   border-radius: 8px;
-  background: #f7f7f7;
 }
 
 .test-question-title {
