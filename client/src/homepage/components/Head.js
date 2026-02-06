@@ -8,16 +8,14 @@ const Head = () => {
   const { token } = useContext(AuthContext);
   const { getDaytime } = useDaytime();
   const [user, setUser] = useState({ name: "name" });
-  let clockRef = useRef(null);
+  const [time, setTime] = useState(new Date().toLocaleTimeString());
+
   useEffect(() => {
     const interval = setInterval(() => {
-      let now = new Date();
-      clockRef.current.innerHTML = now.toLocaleTimeString();
+      setTime(new Date().toLocaleTimeString());
     }, 1000);
 
-    return () => {
-      clearInterval(interval);
-    };
+    return () => clearInterval(interval);
   }, []);
 
   useEffect(() => {
@@ -34,36 +32,20 @@ const Head = () => {
   }, []);
   return (
     <div className="head">
-      {window.screen.width > 700 ? (
-        <div className="daytime">
-          <h2 className="time">
-            {user.name ? getDaytime(user.name) : ""}&nbsp;&nbsp;&nbsp;&nbsp;
-          </h2>
-          <div ref={clockRef} className="time"></div>
-        </div>
-      ) : (
-        <></>
-      )}
-      {window.screen.width < 700 && window.screen.width > 500 ? (
-        <div className="daytime">
-          <p className="time">
-            {user.name ? getDaytime(user.name) : ""}&nbsp;&nbsp;&nbsp;&nbsp;
-          </p>
-          <div ref={clockRef} className="time"></div>
-        </div>
-      ) : (
-        <></>
-      )}
-      {window.screen.width < 500 ? (
-        <div className="daytime">
-          <p className="time white-glow-text">
-            {user.name ? getDaytime(user.name) : ""}
-          </p>
-          <div ref={clockRef} className="time white-glow-text"></div>
-        </div>
-      ) : (
-        <></>
-      )}
+      <div className="daytime">
+        <h2
+          className={`time ${window.screen.width < 500 ? "white-glow-text" : ""}`}
+        >
+          {user.name ? getDaytime(user.name) : ""}
+        </h2>
+        {window.screen.width > 500 ? (
+          <div style={{ marginRight: "20px" }} ref={clockRef} className="time">
+            {time}
+          </div>
+        ) : (
+          <div className="time white-glow-text">{time}</div>
+        )}
+      </div>
     </div>
   );
 };

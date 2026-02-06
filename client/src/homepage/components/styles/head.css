@@ -35,6 +35,9 @@
     font-size: 18pt;
     color: white;
     text-align: left;
+    min-width: 90px; /* важно */
+    display: inline-block;
+    text-align: right;
   }
 }
 @media screen and (width < 500px) {
@@ -64,5 +67,8 @@
     font-size: 20pt;
     color: white;
     text-align: center;
+    min-width: 90px; /* важно */
+    display: inline-block;
+    text-align: right;
   }
 }
