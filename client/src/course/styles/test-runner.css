@@ -1,6 +1,11 @@
 .test-runner {
   margin-top: 24px;
   color: white;
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
 }
 
 .test-question {

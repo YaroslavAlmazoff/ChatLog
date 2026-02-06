@@ -33,13 +33,7 @@ const Content = ({ lesson }) => {
       )}
 
       {/* ТЕСТ */}
-      {lesson.lesson.test && (
-        <div className="lesson-test">
-          <h2>🧪 Тест</h2>
-          <p>{lesson.lesson.test.title}</p>
-          {lesson.lesson.test && <TestRunner test={lesson.lesson.test} />}
-        </div>
-      )}
+      <TestRunner test={lesson.lesson.test} />
     </div>
   );
 };

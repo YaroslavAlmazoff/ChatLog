@@ -34,6 +34,8 @@ const TestRunner = ({ test }) => {
     }));
   };
 
+  if (!test) return null;
+
   return (
     <div className="test-runner">
       <h2>
