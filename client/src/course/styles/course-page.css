@@ -8,6 +8,9 @@
 .course-layout {
   max-width: 800px;
   width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .course-sidebar {
@@ -22,6 +25,9 @@
 
 @media (max-width: 799px) {
   .course-layout {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     flex-direction: column;
   }
 
