@@ -70,6 +70,7 @@ import Room from "./messenger/components/pages/Room";
 import TestPage from "./messenger/components/pages/TestPage";
 import Portfolio from "./portfolio/Portfolio";
 import CourseEditor from "./course/CourseEditor";
+import CoursePage from "./course/CoursePage";
 //import { ESRoomUpdated } from "./messenger/components/pages/ESRoomUpdated";
 
 export const useRoutes = () => {
@@ -199,6 +200,7 @@ export const useRoutes = () => {
       <Route path="/return-password/:id/:link" element={<ReturnPassword />} />
       <Route path="/test-page" element={<TestPage />} />
       <Route path="/course-editor" element={<CourseEditor />} />
+      <Route path="/course" element={<CoursePage />} />
     </Routes>
   );
 };

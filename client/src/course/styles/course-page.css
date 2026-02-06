@@ -1,0 +1,37 @@
+.course-page {
+  display: flex;
+  justify-content: center;
+  padding: 16px;
+}
+
+.course-layout {
+  width: 100%;
+  max-width: 800px;
+  display: flex;
+  gap: 16px;
+}
+
+/* Левая колонка */
+.course-sidebar {
+  width: 260px;
+  flex-shrink: 0;
+}
+
+/* Правая колонка */
+.course-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Адаптив */
+@media (max-width: 799px) {
+  .course-layout {
+    flex-direction: column;
+  }
+
+  .course-sidebar {
+    width: 100%;
+  }
+}
