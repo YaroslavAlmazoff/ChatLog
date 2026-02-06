@@ -5,23 +5,9 @@
   flex-direction: column;
   background-color: rgba(0, 0, 0, 0.5);
   padding: 15px;
+  width: 100%;
 }
 
-@media screen and (width <= 500px) {
-  .mini-profile-width {
-    width: 98%;
-  }
-}
-@media screen and (width > 500px) and (width < 1000px) {
-  .mini-profile-width {
-    width: 50%;
-  }
-}
-@media screen and (width >= 1000px) {
-  .mini-profile-width {
-    width: 40%;
-  }
-}
 .mini-profile-title {
   font-size: 18pt;
   font-weight: 700;
