@@ -85,7 +85,7 @@ const TestRunner = ({ test }) => {
             {/* ТЕКСТОВЫЙ / ЧИСЛОВОЙ ОТВЕТ */}
             {isTextAnswer && (
               <input
-                className="test-input"
+                className="input"
                 type={inputType}
                 value={answers[q.id] ?? ""}
                 onChange={(e) => handleInputChange(q.id, e.target.value)}
