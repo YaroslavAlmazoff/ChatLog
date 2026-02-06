@@ -3,7 +3,7 @@ import CourseStructure from "./CourseStructure";
 import MiniProfile from "./MiniProfile";
 import Content from "./content/Content";
 import api from "../auth/api/auth";
-import "./style/course-page.css";
+import "./styles/course-page.css";
 
 const CoursePage = () => {
   const [course, setCourse] = useState(null);
