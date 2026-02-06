@@ -20,7 +20,7 @@
   width: 75%;
 }
 
-@media screen and (max-width: 799px) {
+@media (max-width: 799px) {
   .course-layout {
     flex-direction: column;
   }
