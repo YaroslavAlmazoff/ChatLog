@@ -21,17 +21,15 @@ const Head = () => {
   }, []);
 
   useEffect(() => {
-    const getUser = useCallback(async () => {
+    const getUser = async () => {
       if (!token) return;
-      console.log(token);
       const response = await api.get("/api/user-by-token", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log(response); // {verified: false}
       setUser(response.data.user);
-    }, [token]);
+    };
     getUser();
   }, []);
   return (
