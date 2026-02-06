@@ -3,24 +3,23 @@ import "../styles/test-runner.css";
 
 const TestRunner = ({ test }) => {
   const [answers, setAnswers] = useState({});
+  const [results, setResults] = useState({});
 
   if (!test) return null;
 
   const handleRadioChange = (questionId, variantId) => {
-    setAnswers((prev) => ({
-      ...prev,
-      [questionId]: variantId,
-    }));
+    if (results[questionId]) return;
+    setAnswers((prev) => ({ ...prev, [questionId]: variantId }));
   };
 
   const handleCheckboxChange = (questionId, variantId) => {
+    if (results[questionId]) return;
+
     setAnswers((prev) => {
       const current = prev[questionId] || [];
-      const exists = current.includes(variantId);
-
       return {
         ...prev,
-        [questionId]: exists
+        [questionId]: current.includes(variantId)
           ? current.filter((id) => id !== variantId)
           : [...current, variantId],
       };
@@ -28,13 +27,45 @@ const TestRunner = ({ test }) => {
   };
 
   const handleInputChange = (questionId, value) => {
-    setAnswers((prev) => ({
+    if (results[questionId]) return;
+    setAnswers((prev) => ({ ...prev, [questionId]: value }));
+  };
+
+  const checkAnswer = (q) => {
+    const userAnswer = answers[q.id];
+    let isCorrect = false;
+
+    if (q.variants?.length) {
+      if (q.rightsVariantIds.length === 1) {
+        isCorrect = userAnswer === q.rightsVariantIds[0];
+      } else {
+        const u = [...(userAnswer || [])].sort();
+        const r = [...q.rightsVariantIds].sort();
+        isCorrect = JSON.stringify(u) === JSON.stringify(r);
+      }
+    } else if (q.rightText !== undefined) {
+      isCorrect = String(userAnswer).trim() === String(q.rightText).trim();
+    }
+
+    setResults((prev) => ({
       ...prev,
-      [questionId]: value,
+      [q.id]: isCorrect ? "correct" : "wrong",
     }));
   };
 
-  if (!test) return null;
+  const resetQuestion = (questionId) => {
+    setAnswers((prev) => {
+      const copy = { ...prev };
+      delete copy[questionId];
+      return copy;
+    });
+
+    setResults((prev) => {
+      const copy = { ...prev };
+      delete copy[questionId];
+      return copy;
+    });
+  };
 
   return (
     <div className="test-runner">
@@ -43,11 +74,11 @@ const TestRunner = ({ test }) => {
       </h2>
 
       {test.questions.map((q) => {
+        const hasAnswer = answers[q.id] !== undefined;
+        const result = results[q.id];
         const isMultiple = q.rightsVariantIds?.length > 1;
-        const isSingle = q.rightsVariantIds?.length === 1;
-        const hasVariants = q.variants && q.variants.length > 0;
-        const isTextAnswer = !hasVariants && q.rightText;
-
+        const hasVariants = q.variants?.length > 0;
+        const isTextAnswer = !hasVariants && q.rightText !== undefined;
         const inputType =
           isTextAnswer && !isNaN(Number(q.rightText)) ? "number" : "text";
 
@@ -55,16 +86,17 @@ const TestRunner = ({ test }) => {
           <div key={q.id} className="test-question">
             <div className="test-question-title">
               {q.number}. {q.question}
+              {result === "correct" && <span className="ok"> ✅</span>}
+              {result === "wrong" && <span className="bad"> ❌</span>}
             </div>
 
-            {/* ВАРИАНТЫ ОТВЕТА */}
+            {/* ВАРИАНТЫ */}
             {hasVariants &&
               q.variants.map((v) => (
                 <label key={v.id} className="test-variant">
                   <input
                     type={isMultiple ? "checkbox" : "radio"}
                     name={q.id}
-                    value={v.id}
                     checked={
                       isMultiple
                         ? answers[q.id]?.includes(v.id)
@@ -76,13 +108,11 @@ const TestRunner = ({ test }) => {
                         : handleRadioChange(q.id, v.id)
                     }
                   />
-                  <span>
-                    {v.number}. {v.title}
-                  </span>
+                  {v.number}. {v.title}
                 </label>
               ))}
 
-            {/* ТЕКСТОВЫЙ / ЧИСЛОВОЙ ОТВЕТ */}
+            {/* ТЕКСТ */}
             {isTextAnswer && (
               <input
                 className="input"
@@ -92,14 +122,25 @@ const TestRunner = ({ test }) => {
                 placeholder="Введите ответ"
               />
             )}
+
+            {/* КНОПКИ */}
+            {!result && hasAnswer && (
+              <button className="test-check" onClick={() => checkAnswer(q)}>
+                Проверить
+              </button>
+            )}
+
+            {result === "wrong" && (
+              <button
+                className="test-retry"
+                onClick={() => resetQuestion(q.id)}
+              >
+                🔄 Попробовать снова
+              </button>
+            )}
           </div>
         );
       })}
-
-      {/* пока просто вывод для отладки */}
-      <pre style={{ marginTop: 16, fontSize: 12 }}>
-        {JSON.stringify(answers, null, 2)}
-      </pre>
     </div>
   );
 };
