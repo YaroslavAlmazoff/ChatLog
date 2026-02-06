@@ -20,21 +20,20 @@ const Head = () => {
     };
   }, []);
 
-  const getUser = useCallback(async () => {
-    if (!token) return;
-    console.log(token);
-    const response = await api.get("/api/user-by-token", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    console.log(response); // {verified: false}
-    setUser(response.data.user);
-  }, [token]);
-
   useEffect(() => {
+    const getUser = useCallback(async () => {
+      if (!token) return;
+      console.log(token);
+      const response = await api.get("/api/user-by-token", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log(response); // {verified: false}
+      setUser(response.data.user);
+    }, [token]);
     getUser();
-  }, [getUser]);
+  }, []);
   return (
     <div className="head">
       {window.screen.width > 700 ? (
