@@ -3,6 +3,8 @@ import { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import CourseStructure from "../../course/CourseStructure";
 import { list1, list2, list3 } from "../links-data";
+import Loader from "../../common_components/Loader";
+import api from "../../auth/api/auth";
 
 const HomePageNavigation = ({ activeLesson, onSelectLesson }) => {
   const auth = useContext(AuthContext);
@@ -10,18 +12,12 @@ const HomePageNavigation = ({ activeLesson, onSelectLesson }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("https://chatlog.ru/courses/android.json")
-      .then((res) => {
-        if (!res.ok) throw new Error();
-        return res.json();
-      })
-      .then((json) => {
-        setCourse(json);
-        setLoading(false);
-      })
-      .catch(() => {
-        setLoading(false);
-      });
+    const getCourse = async () => {
+      const response = await api.get("/courses/android.json");
+      setCourse(response.data);
+      setLoading(false);
+    };
+    getCourse();
   }, []);
 
   return (
@@ -36,27 +32,19 @@ const HomePageNavigation = ({ activeLesson, onSelectLesson }) => {
             />
           </>
         ) : (
-          <></>
+          <Loader />
         )
       ) : (
         <>
           {window.innerWidth > 500 ? (
             <>
               {list1(auth.userId).map((el) => (
-                <NavLink
-                  key={Date.now() + Math.random() * 100}
-                  className="homelink"
-                  to={el.link}
-                >
+                <NavLink key={el.name} className="homelink" to={el.link}>
                   {el.name}
                 </NavLink>
               ))}
               {list2().map((el) => (
-                <NavLink
-                  key={Date.now() + Math.random() * 100}
-                  className="homelink"
-                  to={el.link}
-                >
+                <NavLink key={el.name} className="homelink" to={el.link}>
                   {el.name}
                 </NavLink>
               ))}
