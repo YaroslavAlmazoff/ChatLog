@@ -1,11 +1,28 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "../styles/test-runner.css";
 
-const TestRunner = ({ test }) => {
+const TestRunner = ({ test, onTestProgress }) => {
   const [answers, setAnswers] = useState({});
   const [results, setResults] = useState({});
 
   if (!test) return null;
+
+  useEffect(() => {
+    if (!test) return;
+
+    const totalQuestions = test.questions.length;
+    const correctQuestions = Object.entries(results)
+      .filter(([, v]) => v === "correct")
+      .map(([id]) => id);
+
+    const completed = correctQuestions.length === totalQuestions;
+
+    onTestProgress?.({
+      correctQuestions,
+      totalQuestions,
+      completed,
+    });
+  }, [results]);
 
   const handleRadioChange = (questionId, variantId) => {
     if (results[questionId]) return;

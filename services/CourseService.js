@@ -208,6 +208,23 @@ class CourseService {
 
     res.json({ message: "Курс восстановлен" });
   }
+  async saveProgress(req, res) {
+    const { userId, progress } = req.body;
+
+    if (!userId || !progress) {
+      return res.status(400).json({ error: "Invalid payload" });
+    }
+
+    const filePath = path.join(PROGRESS_DIR, `${userId}.json`);
+
+    try {
+      await fs.writeJson(filePath, progress, { spaces: 2 });
+      res.json({ success: true });
+    } catch (e) {
+      console.error(e);
+      res.status(500).json({ error: "Failed to save progress" });
+    }
+  }
 }
 
 module.exports = new CourseService();

@@ -26,3 +26,19 @@
   margin-top: 6px;
   cursor: pointer;
 }
+
+.test-retry {
+  border: 1px solid white;
+  border-radius: 11px;
+  padding: 7px;
+  background-color: rgba(0, 0, 0, 0.25);
+  color: white;
+}
+
+.test-check {
+  border: 1px solid #40a4ff;
+  border-radius: 11px;
+  padding: 7px;
+  background-color: rgba(0, 0, 0, 0.25);
+  color: #40a4ff;
+}

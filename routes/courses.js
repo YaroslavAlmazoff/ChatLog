@@ -18,5 +18,8 @@ router.get("/backups", (req, res) => {
 router.post("/restore", auth, (req, res) => {
   CourseService.restoreBackup(req, res);
 });
+router.post("/save", async (req, res) => {
+  CourseService.saveProgress(req, res);
+});
 
 module.exports = router;

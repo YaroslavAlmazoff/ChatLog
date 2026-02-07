@@ -1,13 +1,19 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import CourseStructure from "./CourseStructure";
 import MiniProfile from "./MiniProfile";
 import Content from "./content/Content";
 import api from "../auth/api/auth";
 import "./styles/course-page.css";
+import { AuthContext } from "../context/AuthContext";
 
 const CoursePage = () => {
+  const { userId } = useContext(AuthContext);
   const [course, setCourse] = useState(null);
   const [activeLesson, setActiveLesson] = useState(null);
+  const [progress, setProgress] = useState({
+    videos: {},
+    tests: {},
+  });
 
   useEffect(() => {
     const loadCourse = async () => {
@@ -16,6 +22,26 @@ const CoursePage = () => {
     };
     loadCourse();
   }, []);
+
+  useEffect(() => {
+    const loadProgress = async () => {
+      const res = await api.get(`/courses/progress/${userId}.json`);
+      setProgress(res.data);
+    };
+
+    if (userId) loadProgress();
+  }, [userId]);
+
+  const saveProgress = async (newProgress) => {
+    try {
+      await api.post("/courses/progress/save", {
+        userId,
+        progress: newProgress,
+      });
+    } catch (e) {
+      console.error("Ошибка сохранения прогресса", e);
+    }
+  };
 
   if (!course) return null;
 
@@ -32,7 +58,13 @@ const CoursePage = () => {
 
         <main className="course-main">
           <MiniProfile />
-          <Content lesson={activeLesson} />
+          <Content
+            lesson={activeLesson}
+            course={course}
+            progress={progress}
+            setProgress={setProgress}
+            saveProgress={saveProgress}
+          />
         </main>
       </div>
     </div>
