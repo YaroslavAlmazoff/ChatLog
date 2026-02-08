@@ -6,8 +6,6 @@ const VideoRunner = ({ video, onProgress }) => {
   const [duration, setDuration] = useState(0);
   const [maxWatched, setMaxWatched] = useState(0);
 
-  if (!video || !video.src) return null;
-
   const handleLoadedMetadata = () => {
     setDuration(videoRef.current.duration);
   };
@@ -28,7 +26,7 @@ const VideoRunner = ({ video, onProgress }) => {
 
     onProgress?.(percent);
   }, [maxWatched, duration]);
-
+  if (!video || !video.src) return null;
   return (
     <div className="lesson-video">
       <video
