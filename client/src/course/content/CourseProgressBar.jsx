@@ -5,7 +5,7 @@ const CourseProgressBar = ({ value }) => {
     <div className="course-progress">
       <div className="course-progress-header">
         <span>{value === 100 ? "🏆 Курс завершён" : "📊 Прогресс курса"}</span>
-        <span className="course-progress-percent">{value}%</span>
+        <span className="course-progress-percent">&nbsp;{value}%</span>
       </div>
 
       <div className="course-progress-track">

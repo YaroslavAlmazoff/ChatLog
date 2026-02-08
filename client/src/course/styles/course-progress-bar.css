@@ -11,8 +11,7 @@
 }
 
 .course-progress-percent {
-  font-size: 14px;
-  color: #4caf50;
+  color: #86ed26;
 }
 
 .course-progress-track {
@@ -25,7 +24,7 @@
 
 .course-progress-fill {
   height: 100%;
-  background: linear-gradient(90deg, #4caf50, #22c55e);
+  background: linear-gradient(90deg, #86ed26, #86ed26);
   border-radius: 999px;
   transition: width 0.4s ease;
 }
