@@ -5,6 +5,8 @@ import VideoRunner from "./VideoRunner";
 
 const Content = ({ lesson, progress, setProgress, course, saveProgress }) => {
   const calculateTotalProgress = () => {
+    if (!course || !progress) return 0;
+
     let total = 0;
     let completed = 0;
 
@@ -13,14 +15,13 @@ const Content = ({ lesson, progress, setProgress, course, saveProgress }) => {
         block.lessons.forEach((lesson) => {
           if (lesson.video) {
             total++;
-            if (progress.videos[lesson.video.id] >= 90) {
-              completed++;
-            }
+            const vp = progress.videos?.[lesson.video.id] || 0;
+            if (vp >= 90) completed++;
           }
 
           if (lesson.test) {
             total++;
-            if (progress.tests[lesson.test.id]?.completed) {
+            if (progress.tests?.[lesson.test.id]?.completed) {
               completed++;
             }
           }
@@ -28,11 +29,13 @@ const Content = ({ lesson, progress, setProgress, course, saveProgress }) => {
       });
     });
 
-    if (!total) return 0;
-    return Math.round((completed / total) * 100);
+    return total ? Math.round((completed / total) * 100) : 0;
   };
   const totalProgress = calculateTotalProgress();
 
+  if (!course || !progress || !progress.videos || !progress.tests) {
+    return null;
+  }
   if (!lesson) {
     return (
       <div className="content">

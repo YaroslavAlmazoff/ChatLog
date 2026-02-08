@@ -25,8 +25,17 @@ const CoursePage = () => {
 
   useEffect(() => {
     const loadProgress = async () => {
-      const res = await api.get(`/courses/progress/${userId}.json`);
-      setProgress(res.data);
+      try {
+        const res = await api.get(`/courses/progress/${userId}.json`);
+
+        setProgress({
+          videos: res.data?.videos || {},
+          tests: res.data?.tests || {},
+        });
+      } catch (e) {
+        console.warn("Прогресс не найден, создаём пустой");
+        setProgress({ videos: {}, tests: {} });
+      }
     };
 
     if (userId) loadProgress();
