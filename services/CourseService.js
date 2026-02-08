@@ -1,6 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 const fsPromises = require("fs/promises");
+const fsExtra = require("fs-extra");
 
 class CourseService {
   async ensureDir(dirPath) {
@@ -218,7 +219,7 @@ class CourseService {
     const filePath = path.join("..", "courses", "progress", `${userId}.json`);
 
     try {
-      await fs.writeJson(filePath, progress, { spaces: 2 });
+      await fsExtra.writeJson(filePath, progress, { spaces: 2 });
       res.json({ success: true });
     } catch (e) {
       console.error(e);
