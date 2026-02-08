@@ -5,8 +5,6 @@ const TestRunner = ({ test, onTestProgress }) => {
   const [answers, setAnswers] = useState({});
   const [results, setResults] = useState({});
 
-  if (!test) return null;
-
   useEffect(() => {
     if (!test) return;
 
@@ -83,7 +81,7 @@ const TestRunner = ({ test, onTestProgress }) => {
       return copy;
     });
   };
-
+  if (!test) return null;
   return (
     <div className="test-runner">
       <h2>

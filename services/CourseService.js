@@ -215,7 +215,7 @@ class CourseService {
       return res.status(400).json({ error: "Invalid payload" });
     }
 
-    const filePath = path.join(PROGRESS_DIR, `${userId}.json`);
+    const filePath = path.join("..", "courses", "progress", `${userId}.json`);
 
     try {
       await fs.writeJson(filePath, progress, { spaces: 2 });
