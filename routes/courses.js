@@ -21,5 +21,8 @@ router.post("/restore", auth, (req, res) => {
 router.post("/progress/save", async (req, res) => {
   CourseService.saveProgress(req, res);
 });
+router.get("/:userId.json", async (req, res) => {
+  CourseService.getProgress(req, res);
+});
 
 module.exports = router;

@@ -226,6 +226,23 @@ class CourseService {
       res.status(500).json({ error: "Failed to save progress" });
     }
   }
+  async getProgress(req, res) {
+    const { userId } = req.params;
+    const filePath = path.join(PROGRESS_DIR, `${userId}.json`);
+
+    try {
+      if (!(await fs.pathExists(filePath))) {
+        // если прогресса нет — возвращаем пустой
+        return res.json({ videos: {}, tests: {} });
+      }
+
+      const data = await fs.readJson(filePath);
+      res.json(data);
+    } catch (e) {
+      console.error(e);
+      res.status(500).json({ error: "Failed to load progress" });
+    }
+  }
 }
 
 module.exports = new CourseService();

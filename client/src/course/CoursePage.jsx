@@ -26,7 +26,7 @@ const CoursePage = () => {
   useEffect(() => {
     const loadProgress = async () => {
       try {
-        const res = await api.get(`/courses/progress/${userId}.json`);
+        const res = await api.get(`/api/courses/progress/${userId}.json`);
 
         setProgress({
           videos: res.data?.videos || {},
