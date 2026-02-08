@@ -243,12 +243,12 @@ class CourseService {
     );
 
     try {
-      if (!(await fs.pathExists(filePath))) {
+      if (!(await fsExtra.pathExists(filePath))) {
         // если прогресса нет — возвращаем пустой
         return res.json({ videos: {}, tests: {} });
       }
 
-      const data = await fs.readJson(filePath);
+      const data = await fsExtra.readJson(filePath);
       res.json(data);
     } catch (e) {
       console.error(e);
