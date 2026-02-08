@@ -217,6 +217,8 @@ class CourseService {
     }
 
     const filePath = path.join(
+      __dirname,
+      "..",
       "..",
       "static",
       "courses",
@@ -225,6 +227,7 @@ class CourseService {
     );
 
     try {
+      await fsExtra.ensureDir(path.dirname(filePath));
       await fsExtra.writeJson(filePath, progress, { spaces: 2 });
       res.json({ success: true });
     } catch (e) {
@@ -235,6 +238,8 @@ class CourseService {
   async getProgress(req, res) {
     const { userId } = req.params;
     const filePath = path.join(
+      __dirname,
+      "..",
       "..",
       "static",
       "courses",
