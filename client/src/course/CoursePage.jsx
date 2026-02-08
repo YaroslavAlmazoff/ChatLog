@@ -43,7 +43,7 @@ const CoursePage = () => {
 
   const saveProgress = async (newProgress) => {
     try {
-      await api.post("/courses/progress/save", {
+      await api.post("/api/courses/progress/save", {
         userId,
         progress: newProgress,
       });
