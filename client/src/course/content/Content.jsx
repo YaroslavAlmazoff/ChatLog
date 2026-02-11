@@ -55,8 +55,13 @@ const Content = ({ lesson, progress, setProgress, course, saveProgress }) => {
 
       <VideoRunner
         video={lesson.lesson.video}
+        savedPercent={progress.videos?.[lesson.lesson.video?.id] || 0}
         onProgress={(percent) => {
           setProgress((prev) => {
+            const old = prev.videos?.[lesson.lesson.video.id] || 0;
+
+            if (percent <= old) return prev;
+
             const updated = {
               ...prev,
               videos: {
@@ -73,8 +78,13 @@ const Content = ({ lesson, progress, setProgress, course, saveProgress }) => {
 
       <TestRunner
         test={lesson.lesson.test}
+        savedTestProgress={progress.tests?.[lesson.lesson.test?.id]}
         onTestProgress={(testProgress) => {
           setProgress((prev) => {
+            const old = prev.tests?.[lesson.lesson.test.id];
+
+            if (old?.completed) return prev;
+
             const updated = {
               ...prev,
               tests: {

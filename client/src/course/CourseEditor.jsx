@@ -397,6 +397,7 @@ const CourseEditor = () => {
           number: Number(form.number),
           title: form.title,
           questions: [],
+          id: crypto.randomUUID(),
         };
 
         setSelectedItem({
