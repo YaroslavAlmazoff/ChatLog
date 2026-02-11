@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import "../styles/test-runner.css";
 
-const TestRunner = ({ test, onTestProgress }) => {
+const TestRunner = ({ test, savedTestProgress, onTestProgress }) => {
   const [answers, setAnswers] = useState({});
   const [results, setResults] = useState({});
 
@@ -16,19 +16,28 @@ const TestRunner = ({ test, onTestProgress }) => {
     const completed = correctQuestions.length === totalQuestions;
 
     onTestProgress?.({
+      answers,
+      results,
       correctQuestions,
       totalQuestions,
       completed,
     });
-  }, [results, test?.id]);
+  }, [results, answers]);
+
+  useEffect(() => {
+    if (!test) return;
+
+    setAnswers(savedTestProgress?.answers || {});
+    setResults(savedTestProgress?.results || {});
+  }, [test?.id]);
 
   const handleRadioChange = (questionId, variantId) => {
-    if (results[questionId]) return;
+    if (results[questionId] || results[questionId] === "correct") return;
     setAnswers((prev) => ({ ...prev, [questionId]: variantId }));
   };
 
   const handleCheckboxChange = (questionId, variantId) => {
-    if (results[questionId]) return;
+    if (results[questionId] || results[questionId] === "correct") return;
 
     setAnswers((prev) => {
       const current = prev[questionId] || [];
@@ -42,7 +51,7 @@ const TestRunner = ({ test, onTestProgress }) => {
   };
 
   const handleInputChange = (questionId, value) => {
-    if (results[questionId]) return;
+    if (results[questionId] || results[questionId] === "correct") return;
     setAnswers((prev) => ({ ...prev, [questionId]: value }));
   };
 
@@ -69,6 +78,7 @@ const TestRunner = ({ test, onTestProgress }) => {
   };
 
   const resetQuestion = (questionId) => {
+    if (savedTestProgress?.completed) return;
     setAnswers((prev) => {
       const copy = { ...prev };
       delete copy[questionId];

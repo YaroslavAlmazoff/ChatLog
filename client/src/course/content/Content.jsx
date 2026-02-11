@@ -80,17 +80,13 @@ const Content = ({ lesson, progress, setProgress, course, saveProgress }) => {
         key={lesson.lesson.test?.id}
         test={lesson.lesson.test}
         savedTestProgress={progress.tests?.[lesson.lesson.test?.id]}
-        onTestProgress={(testProgress) => {
+        onTestProgress={(testState) => {
           setProgress((prev) => {
-            const old = prev.tests?.[lesson.lesson.test.id];
-
-            if (old?.completed) return prev;
-
             const updated = {
               ...prev,
               tests: {
                 ...prev.tests,
-                [lesson.lesson.test.id]: testProgress,
+                [lesson.lesson.test.id]: testState,
               },
             };
 
