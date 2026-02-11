@@ -20,7 +20,7 @@ const TestRunner = ({ test, onTestProgress }) => {
       totalQuestions,
       completed,
     });
-  }, [results]);
+  }, [results, test?.id]);
 
   const handleRadioChange = (questionId, variantId) => {
     if (results[questionId]) return;

@@ -5,14 +5,15 @@ const VideoRunner = ({ video, onProgress, savedPercent = 0 }) => {
   const [duration, setDuration] = useState(0);
   const [maxWatched, setMaxWatched] = useState(0);
 
-  // Инициализация из сохранённого
   useEffect(() => {
-    if (duration && savedPercent) {
-      const seconds = (savedPercent / 100) * duration;
-      setMaxWatched(seconds);
-    }
-  }, [duration]);
+    if (!duration) return;
+    if (!videoRef.current) return;
+    if (maxWatched === 0) return;
 
+    const percent = Math.min(Math.round((maxWatched / duration) * 100), 100);
+
+    onProgress?.(percent);
+  }, [maxWatched]);
   const handleTimeUpdate = () => {
     const current = videoRef.current.currentTime;
 
