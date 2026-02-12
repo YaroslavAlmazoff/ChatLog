@@ -27,7 +27,7 @@
 
   .course-sidebar,
   .course-main {
-    width: 98%;
+    width: 100%;
   }
 
   .course-sidebar {
@@ -35,12 +35,14 @@
     background-color: rgba(0, 0, 0, 0.5);
     border-radius: 11px;
     padding: 5px;
+    box-sizing: border-box;
   }
 
   .course-main {
     display: flex;
     flex-direction: column;
     align-items: center;
+    box-sizing: border-box;
   }
 
   .mini-profile,
@@ -55,9 +57,6 @@
     flex-direction: column;
     color: white;
     padding: 5px;
-  }
-  .course-sidebar,
-  .course-main {
     box-sizing: border-box;
   }
 }
