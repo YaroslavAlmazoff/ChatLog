@@ -236,21 +236,18 @@ class CourseService {
     try {
       await fsExtra.ensureDir(dirPath);
 
-      // 1️⃣ Пишем во временный файл
       await fsExtra.writeFile(
         tempPath,
         JSON.stringify(progress, null, 2),
         "utf8",
       );
 
-      // 2️⃣ Переименовываем (создаст файл если его нет)
       await fsExtra.rename(tempPath, filePath);
 
       res.json({ success: true });
     } catch (e) {
       console.error(e);
 
-      // Чистим временный файл если что-то пошло не так
       try {
         await fsExtra.remove(tempPath);
       } catch (_) {}

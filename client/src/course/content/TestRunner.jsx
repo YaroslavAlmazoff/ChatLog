@@ -4,9 +4,10 @@ import "../styles/test-runner.css";
 const TestRunner = ({ test, savedTestProgress, onTestProgress }) => {
   const [answers, setAnswers] = useState({});
   const [results, setResults] = useState({});
+  const [initialized, setInitialized] = useState(false);
 
   useEffect(() => {
-    if (!test) return;
+    if (!test || !initialized) return;
 
     const totalQuestions = test.questions.length;
     const correctQuestions = Object.entries(results)
@@ -22,13 +23,14 @@ const TestRunner = ({ test, savedTestProgress, onTestProgress }) => {
       totalQuestions,
       completed,
     });
-  }, [results, answers]);
+  }, [results, answers, initialized]);
 
   useEffect(() => {
     if (!test) return;
 
     setAnswers(savedTestProgress?.answers || {});
     setResults(savedTestProgress?.results || {});
+    setInitialized(true);
   }, [test?.id]);
 
   const handleRadioChange = (questionId, variantId) => {

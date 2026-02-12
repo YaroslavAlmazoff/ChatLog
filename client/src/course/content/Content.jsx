@@ -42,14 +42,14 @@ const Content = ({ lesson, progress, setProgress, course }) => {
 
     // ждём рендера
     setTimeout(() => {
-      if (lesson.path.kind === "video" && videoRef.current) {
+      if (lesson.type === "video" && videoRef.current) {
         videoRef.current.scrollIntoView({
           behavior: "smooth",
           block: "center",
         });
       }
 
-      if (lesson.path.kind === "test" && testRef.current) {
+      if (lesson.type === "test" && testRef.current) {
         testRef.current.scrollIntoView({
           behavior: "smooth",
           block: "start",
@@ -65,7 +65,7 @@ const Content = ({ lesson, progress, setProgress, course }) => {
     return (
       <div className="course-content">
         <CourseProgressBar value={totalProgress} />
-        <p>👈 Выберите урок слева</p>
+        <p>Выберите урок в структуре курса</p>
       </div>
     );
   }
