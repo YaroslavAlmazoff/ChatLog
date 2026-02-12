@@ -66,6 +66,21 @@ body::-webkit-scrollbar {
   .lpv2-service {
     text-align: left;
   }
+  .lpv2-button {
+    border-radius: 20px;
+    margin-top: 30px;
+    padding: 11px;
+    background-color: #40a4ff;
+    box-shadow: 0 0 5px #40a4ff;
+    border: 3px solid transparent;
+    margin: 15px;
+    cursor: pointer;
+    transition-property: transform;
+    transition-duration: 0.6s;
+    animation-name: glow;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+  }
 }
 @media screen and (width < 500px) {
   .lpv2 {
@@ -91,33 +106,33 @@ body::-webkit-scrollbar {
     width: 100%;
   }
   .lpv2-service-title {
-    font-size: 23pt;
+    font-size: 20pt;
     text-align: center;
     font-family: "VAG World Bold";
   }
   .lpv2-service {
-    text-align: center;
+    text-align: left;
+  }
+  .lpv2-button {
+    border-radius: 20px;
+    padding: 11px;
+    background-color: #40a4ff;
+    box-shadow: 0 0 5px #40a4ff;
+    border: 3px solid transparent;
+    margin: 15px;
+    cursor: pointer;
+    transition-property: transform;
+    transition-duration: 0.6s;
+    animation-name: glow;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
   }
 }
 
 .lpv2-subtitle {
   font-size: 36pt;
 }
-.lpv2-button {
-  border-radius: 20px;
-  margin-top: 30px;
-  padding: 11px;
-  background-color: #40a4ff;
-  box-shadow: 0 0 5px #40a4ff;
-  border: 3px solid transparent;
-  margin-left: 15px;
-  cursor: pointer;
-  transition-property: transform;
-  transition-duration: 0.6s;
-  animation-name: glow;
-  animation-duration: 2s;
-  animation-iteration-count: infinite;
-}
+
 @keyframes glow {
   0% {
     box-shadow: 0 0 7px #40a4ff;
