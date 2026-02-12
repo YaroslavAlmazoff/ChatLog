@@ -22,7 +22,6 @@
   .course-layout {
     display: flex;
     flex-direction: column;
-    align-items: stretch;
   }
 
   .course-sidebar,
