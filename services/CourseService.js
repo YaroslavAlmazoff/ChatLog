@@ -226,7 +226,12 @@ class CourseService {
     );
 
     const filePath = path.join(dirPath, `${userId}.json`);
-    const tempPath = filePath + ".tmp";
+
+    // уникальный временный файл
+    const tempPath = path.join(
+      dirPath,
+      `${userId}.${Date.now()}.${Math.random().toString(16).slice(2)}.tmp`,
+    );
 
     try {
       await fsExtra.ensureDir(dirPath);
@@ -238,12 +243,18 @@ class CourseService {
         "utf8",
       );
 
-      // 2️⃣ Атомарно заменяем
+      // 2️⃣ Переименовываем (создаст файл если его нет)
       await fsExtra.rename(tempPath, filePath);
 
       res.json({ success: true });
     } catch (e) {
       console.error(e);
+
+      // Чистим временный файл если что-то пошло не так
+      try {
+        await fsExtra.remove(tempPath);
+      } catch (_) {}
+
       res.status(500).json({ error: "Failed to save progress" });
     }
   }

@@ -1,16 +1,5 @@
-/* .mini-profile {
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  flex-direction: column;
-  background-color: rgba(0, 0, 0, 0.5);
-  padding: 15px;
-  border-radius: 11px;
-  width: 100%;
-} */
-
 .mini-profile-title {
-  font-size: 18pt;
+  font-size: 16pt;
   font-weight: 700;
 }
 
