@@ -111,7 +111,6 @@ const CoursePage = () => {
             course={course}
             progress={progress}
             setProgress={setProgress}
-            saveProgress={saveProgress}
           />
         </main>
       </div>
