@@ -1,7 +1,8 @@
 @font-face {
   font-family: "VAG World Bold";
   src: url("./fonts/vag_world_bold.eot"); /* IE 9 Compatibility Mode */
-  src: url("./fonts/vag_world_bold.eot?#iefix") format("embedded-opentype"),
+  src:
+    url("./fonts/vag_world_bold.eot?#iefix") format("embedded-opentype"),
     /* IE < 9 */ url("./fonts/vag_world_bold.woff2") format("woff2"),
     /* Super Modern Browsers */ url("./fonts/vag_world_bold.woff")
       format("woff"),
@@ -75,19 +76,19 @@ body::-webkit-scrollbar {
   .lpv2-services-wrapper {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
   }
   .lpv2-services {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
     flex-direction: column;
   }
   .lpv2-top-left {
-    width: 98%;
+    width: 100%;
   }
   .lpv2-top-right {
-    width: 98%;
+    width: 100%;
   }
   .lpv2-service-title {
     font-size: 23pt;
