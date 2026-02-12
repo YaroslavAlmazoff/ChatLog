@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, useRef } from "react";
 import CourseStructure from "./CourseStructure";
 import MiniProfile from "./MiniProfile";
 import Content from "./content/Content";
@@ -14,6 +14,8 @@ const CoursePage = () => {
     videos: {},
     tests: {},
   });
+
+  const saveTimeout = useRef(null);
 
   useEffect(() => {
     const loadCourse = async () => {
@@ -41,16 +43,53 @@ const CoursePage = () => {
     if (userId) loadProgress();
   }, [userId]);
 
-  const saveProgress = async (newProgress) => {
-    try {
-      await api.post("/api/courses/progress/save", {
-        userId,
-        progress: newProgress,
-      });
-    } catch (e) {
-      console.error("Ошибка сохранения прогресса", e);
+  useEffect(() => {
+    if (!userId) return;
+
+    if (saveTimeout.current) {
+      clearTimeout(saveTimeout.current);
     }
-  };
+
+    saveTimeout.current = setTimeout(async () => {
+      try {
+        await api.post("/api/courses/progress/save", {
+          userId,
+          progress,
+        });
+      } catch (e) {
+        console.error("Ошибка сохранения прогресса", e);
+      }
+    }, 1000);
+  }, [progress]);
+
+  useEffect(() => {
+    if (!userId) return;
+
+    const handleSaveOnExit = () => {
+      if (!progress) return;
+
+      const data = JSON.stringify({
+        userId,
+        progress,
+      });
+
+      navigator.sendBeacon(
+        process.env.REACT_APP_API_URL + "/api/courses/progress/save",
+        new Blob([data], { type: "application/json" }),
+      );
+    };
+
+    window.addEventListener("beforeunload", handleSaveOnExit);
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState === "hidden") {
+        handleSaveOnExit();
+      }
+    });
+
+    return () => {
+      window.removeEventListener("beforeunload", handleSaveOnExit);
+    };
+  }, [progress, userId]);
 
   if (!course) return null;
 

@@ -4,7 +4,7 @@ import TestRunner from "./TestRunner";
 import VideoRunner from "./VideoRunner";
 import { useRef, useEffect } from "react";
 
-const Content = ({ lesson, progress, setProgress, course, saveProgress }) => {
+const Content = ({ lesson, progress, setProgress, course }) => {
   const videoRef = useRef(null);
   const testRef = useRef(null);
 
@@ -87,16 +87,13 @@ const Content = ({ lesson, progress, setProgress, course, saveProgress }) => {
               const old = prev.videos?.[lesson.lesson.video.id] || 0;
               if (percent <= old) return prev;
 
-              const updated = {
+              return {
                 ...prev,
                 videos: {
                   ...prev.videos,
                   [lesson.lesson.video.id]: percent,
                 },
               };
-
-              saveProgress(updated);
-              return updated;
             });
           }}
         />
@@ -108,16 +105,13 @@ const Content = ({ lesson, progress, setProgress, course, saveProgress }) => {
           savedTestProgress={progress.tests?.[lesson.lesson.test?.id]}
           onTestProgress={(testState) => {
             setProgress((prev) => {
-              const updated = {
+              return {
                 ...prev,
                 tests: {
                   ...prev.tests,
                   [lesson.lesson.test.id]: testState,
                 },
               };
-
-              saveProgress(updated);
-              return updated;
             });
           }}
         />

@@ -216,19 +216,31 @@ class CourseService {
       return res.status(400).json({ error: "Invalid payload" });
     }
 
-    const filePath = path.join(
+    const dirPath = path.join(
       __dirname,
       "..",
       "..",
       "static",
       "courses",
       "progress",
-      `${userId}.json`,
     );
 
+    const filePath = path.join(dirPath, `${userId}.json`);
+    const tempPath = filePath + ".tmp";
+
     try {
-      await fsExtra.ensureDir(path.dirname(filePath));
-      await fsExtra.writeJson(filePath, progress, { spaces: 2 });
+      await fsExtra.ensureDir(dirPath);
+
+      // 1️⃣ Пишем во временный файл
+      await fsExtra.writeFile(
+        tempPath,
+        JSON.stringify(progress, null, 2),
+        "utf8",
+      );
+
+      // 2️⃣ Атомарно заменяем
+      await fsExtra.rename(tempPath, filePath);
+
       res.json({ success: true });
     } catch (e) {
       console.error(e);
