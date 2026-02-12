@@ -38,6 +38,7 @@
   border-radius: 50%;
   border: 1px dashed #40a4ff;
   cursor: pointer;
+  margin-top: 10px;
 }
 .mini-profile-avatar:hover {
   border: 1px solid #40a4ff;

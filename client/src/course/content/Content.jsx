@@ -78,9 +78,8 @@ const Content = ({ lesson, progress, setProgress, course, saveProgress }) => {
         Урок {lesson.lesson.number}: {lesson.lesson.title}
       </h1>
 
-      <div ref={videoRef}>
+      <div ref={videoRef} key={lesson.lesson.video?.id}>
         <VideoRunner
-          key={lesson.lesson.video?.id}
           video={lesson.lesson.video}
           savedPercent={progress.videos?.[lesson.lesson.video?.id] || 0}
           onProgress={(percent) => {
@@ -103,9 +102,8 @@ const Content = ({ lesson, progress, setProgress, course, saveProgress }) => {
         />
       </div>
 
-      <div ref={testRef}>
+      <div ref={testRef} key={lesson.lesson.test?.id}>
         <TestRunner
-          key={lesson.lesson.test?.id}
           test={lesson.lesson.test}
           savedTestProgress={progress.tests?.[lesson.lesson.test?.id]}
           onTestProgress={(testState) => {
