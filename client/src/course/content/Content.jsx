@@ -63,7 +63,7 @@ const Content = ({ lesson, progress, setProgress, course }) => {
   }
   if (!lesson) {
     return (
-      <div className="content">
+      <div className="course-content">
         <CourseProgressBar value={totalProgress} />
         <p>👈 Выберите урок слева</p>
       </div>
@@ -71,7 +71,7 @@ const Content = ({ lesson, progress, setProgress, course }) => {
   }
 
   return (
-    <div className="content">
+    <div className="course-content">
       <CourseProgressBar value={totalProgress} />
 
       <h1>
