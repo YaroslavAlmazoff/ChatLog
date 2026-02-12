@@ -43,6 +43,15 @@
   .mini-profile,
   .course-content {
     width: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    margin-top: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    color: white;
+    padding: 15px;
   }
   .course-sidebar,
   .course-main {
