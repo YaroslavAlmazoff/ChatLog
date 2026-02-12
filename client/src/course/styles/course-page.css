@@ -22,7 +22,7 @@
   .course-layout {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: stretch;
   }
 
   .course-sidebar,
