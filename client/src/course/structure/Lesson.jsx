@@ -86,7 +86,16 @@ function Lesson({
             isSelected("video") ? "selected" : ""
           }`}
           style={{ marginLeft: 16 }}
-          onClick={() => isEditor && onSelectItem?.(videoItem)}
+          onClick={
+            isEditor
+              ? () => onSelectItem?.(videoItem)
+              : () =>
+                  onSelectItem?.({
+                    type: "video",
+                    path,
+                    lesson,
+                  })
+          }
         >
           🎬 {lesson.video.title}
           {isEditor && (
@@ -124,7 +133,16 @@ function Lesson({
             isSelected("test") ? "selected" : ""
           }`}
           style={{ marginLeft: 16 }}
-          onClick={() => isEditor && onSelectItem?.(testItem)}
+          onClick={
+            isEditor
+              ? () => onSelectItem?.(testItem)
+              : () =>
+                  onSelectItem?.({
+                    type: "test",
+                    path,
+                    lesson,
+                  })
+          }
         >
           🧪 {lesson.test.title}
           {isEditor && (

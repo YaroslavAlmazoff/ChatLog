@@ -16,11 +16,6 @@ body::-webkit-scrollbar {
   width: 0px;
 }
 
-.lpv2-status {
-  color: rgba(255, 255, 255, 0.25);
-  font-size: 18pt;
-}
-
 .lpv2-link {
   color: #40a4ff;
 }
@@ -81,6 +76,10 @@ body::-webkit-scrollbar {
     animation-duration: 2s;
     animation-iteration-count: infinite;
   }
+  .lpv2-status {
+    color: rgba(255, 255, 255, 0.25);
+    font-size: 18pt;
+  }
 }
 @media screen and (width < 500px) {
   .lpv2 {
@@ -92,6 +91,7 @@ body::-webkit-scrollbar {
     display: flex;
     align-items: center;
     justify-content: flex-start;
+    padding: 5px;
   }
   .lpv2-services {
     display: flex;
@@ -126,6 +126,10 @@ body::-webkit-scrollbar {
     animation-name: glow;
     animation-duration: 2s;
     animation-iteration-count: infinite;
+  }
+  .lpv2-status {
+    color: rgba(255, 255, 255, 0.25);
+    font-size: 14pt;
   }
 }
 
