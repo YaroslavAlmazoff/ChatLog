@@ -20,7 +20,7 @@
 }
 @media (max-width: 768px) {
   .course-page {
-    width: 100%;
+    width: 98%;
   }
   .course-layout {
     display: flex;
