@@ -19,34 +19,47 @@
   }
 }
 
-@media screen and (max-width: 499px) {
+@media screen and (width <= 500px) {
   .course-page {
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    width: 95vw;
     margin-top: 10px;
     padding: 5px;
+  }
+  .course-layout {
+    max-height: 1000px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   .course-main {
     display: flex;
     flex-direction: column;
-    width: 95vw;
+    width: 100%;
   }
   .course-sidebar {
     background-color: rgba(0, 0, 0, 0.5);
     border-radius: 11px;
     padding: 10px;
-    width: 95vw;
+    width: 100%;
   }
 }
-@media screen and (min-width: 500px) {
+@media screen and (width > 500px) {
   .course-page {
     display: flex;
     justify-content: center;
     align-items: flex-start;
     width: 100vw;
     margin-top: 50px;
+  }
+  .course-layout {
+    max-width: 1000px;
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
   }
   .course-main {
     display: flex;
