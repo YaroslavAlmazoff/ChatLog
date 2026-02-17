@@ -11,17 +11,8 @@ const VideoRunner = forwardRef(({ video, onProgress, onReady }, ref) => {
   const [duration, setDuration] = useState(0);
   const [maxWatched, setMaxWatched] = useState(0);
 
-  useEffect(() => {
-    if (!duration) return;
-    if (!ref.current) return;
-    if (maxWatched === 0) return;
-
-    const percent = Math.min(Math.round((maxWatched / duration) * 100), 100);
-
-    onProgress?.(percent);
-  }, [maxWatched]);
   const handleTimeUpdate = () => {
-    const current = ref.current.currentTime;
+    const current = videoRef.current.currentTime;
 
     setMaxWatched((prev) => (current > prev ? current : prev));
   };
