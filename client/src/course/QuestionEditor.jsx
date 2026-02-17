@@ -167,7 +167,7 @@ function QuestionEditor({ question, onChange }) {
           <button
             className="course-editor-ok"
             onClick={() => {
-              updateQuestionField({ hint });
+              updateQuestionField({ timeCode: hint });
               setShowHintInput(false);
             }}
           >
