@@ -165,7 +165,7 @@ const TestRunner = ({ test, savedTestProgress, onTestProgress, onHint }) => {
                 🔄 Попробовать снова
               </button>
             )}
-            {results[q.id] === "wrong" && q.timeCode && (
+            {result === "wrong" && q.timeCode && (
               <button className="test-retry" onClick={() => onHint(q.timeCode)}>
                 💡 Подсказка {q.timeCode} в видео
               </button>
