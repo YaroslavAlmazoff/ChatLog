@@ -65,7 +65,7 @@ const CoursePage = () => {
       } catch (e) {
         console.error("Ошибка сохранения прогресса", e);
       }
-    }, 1000);
+    }, 500);
   }, [progress]);
 
   useEffect(() => {
