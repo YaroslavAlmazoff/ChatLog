@@ -6,7 +6,7 @@ const VideoRunner = forwardRef(({ video, onProgress }, ref) => {
 
   useEffect(() => {
     if (!duration) return;
-    if (!videoRef.current) return;
+    if (!ref.current) return;
     if (maxWatched === 0) return;
 
     const percent = Math.min(Math.round((maxWatched / duration) * 100), 100);
@@ -14,7 +14,7 @@ const VideoRunner = forwardRef(({ video, onProgress }, ref) => {
     onProgress?.(percent);
   }, [maxWatched]);
   const handleTimeUpdate = () => {
-    const current = videoRef.current.currentTime;
+    const current = ref.current.currentTime;
 
     setMaxWatched((prev) => (current > prev ? current : prev));
   };
@@ -29,10 +29,10 @@ const VideoRunner = forwardRef(({ video, onProgress }, ref) => {
 
   useImperativeHandle(ref, () => ({
     seekTo(seconds) {
-      if (!videoRef.current) return;
+      if (!ref.current) return;
 
-      videoRef.current.currentTime = seconds;
-      videoRef.current.play();
+      ref.current.currentTime = seconds;
+      ref.current.play();
     },
   }));
 
@@ -40,11 +40,11 @@ const VideoRunner = forwardRef(({ video, onProgress }, ref) => {
 
   return (
     <video
-      ref={videoRef}
+      ref={ref}
       controls
       width="100%"
       src={process.env.REACT_APP_API_URL + "/courses/videos/" + video.src}
-      onLoadedMetadata={() => setDuration(videoRef.current.duration)}
+      onLoadedMetadata={() => setDuration(ref.current.duration)}
       onTimeUpdate={handleTimeUpdate}
     />
   );

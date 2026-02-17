@@ -1,4 +1,4 @@
-export const useCourseProgress = () => {
+const useCourse = () => {
   const parseTimeCode = (timeCode) => {
     if (!timeCode) return 0;
 
@@ -19,3 +19,5 @@ export const useCourseProgress = () => {
 
   return { parseTimeCode };
 };
+
+export default useCourse;

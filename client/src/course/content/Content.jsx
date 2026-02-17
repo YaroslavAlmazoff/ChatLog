@@ -1,3 +1,4 @@
+import useCourse from "../hooks/useHintTime";
 import "../styles/content.css";
 import CourseProgressBar from "./CourseProgressBar";
 import TestRunner from "./TestRunner";
@@ -5,6 +6,7 @@ import VideoRunner from "./VideoRunner";
 import { useRef, useEffect } from "react";
 
 const Content = ({ lesson, progress, setProgress, course }) => {
+  const { parseTimeCode } = useCourse();
   const videoContainerRef = useRef(null);
   const testContainerRef = useRef(null);
   const videoRef = useRef(null);
