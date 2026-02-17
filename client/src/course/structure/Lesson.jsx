@@ -42,6 +42,16 @@ function Lesson({
             path,
             lesson,
           });
+          if (!isEditor) {
+            localStorage.setItem(
+              "lastLesson",
+              JSON.stringify({
+                partId: path.partIndex,
+                blockId: path.blockIndex,
+                lessonId: path.lessonIndex,
+              }),
+            );
+          }
         }}
       >
         <span>

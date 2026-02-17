@@ -91,6 +91,33 @@ const CoursePage = () => {
     };
   }, [progress, userId]);
 
+  useEffect(() => {
+    if (!course) return;
+
+    const saved = localStorage.getItem("lastLesson");
+    if (!saved) return;
+
+    let parsed;
+
+    try {
+      parsed = JSON.parse(saved);
+    } catch {
+      localStorage.removeItem("lastLesson");
+      return;
+    }
+
+    const { partIndex, blockIndex, lessonIndex } = parsed;
+
+    const lessonObject =
+      course?.parts?.[partIndex]?.blocks?.[blockIndex]?.lessons?.[lessonIndex];
+
+    if (lessonObject) {
+      setActiveLesson(lessonObject);
+    } else {
+      localStorage.removeItem("lastLesson");
+    }
+  }, [course]);
+
   if (!course) return null;
 
   return (
