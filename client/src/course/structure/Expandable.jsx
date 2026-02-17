@@ -34,8 +34,11 @@ function Expandable({
         </span>
 
         <span
-          onClick={onTitleClick}
-          style={{ flex: 1, cursor: onTitleClick ? "pointer" : "default" }}
+          onClick={(e) => {
+            e.stopPropagation();
+            onToggle?.();
+          }}
+          style={{ flex: 1, cursor: "pointer" }}
         >
           {title}
         </span>
