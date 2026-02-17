@@ -117,7 +117,7 @@ const CoursePage = () => {
       course?.parts?.[partIndex]?.blocks?.[blockIndex]?.lessons?.[lessonIndex];
     console.log(lessonObject);
     if (lessonObject) {
-      setActiveLesson(lessonObject);
+      setActiveLesson({ lesson: lessonObject, path: parsed, type: "lesson" });
     } else {
       console.log(5);
       localStorage.removeItem("lastLesson");
