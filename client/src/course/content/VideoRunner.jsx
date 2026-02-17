@@ -22,8 +22,11 @@ const VideoRunner = forwardRef(({ video, onProgress, onReady }, ref) => {
   useEffect(() => {
     if (!duration) return;
 
-    const watchedBlocks = Math.floor(maxWatched / BLOCK_SIZE);
     const totalBlocks = Math.ceil(duration / BLOCK_SIZE);
+    const watchedBlocks =
+      maxWatched >= duration
+        ? totalBlocks
+        : Math.floor(maxWatched / BLOCK_SIZE);
 
     onProgress?.({
       watchedBlocks,
