@@ -1,4 +1,10 @@
-import { useState, useEffect, forwardRef, useImperativeHandle } from "react";
+import {
+  useState,
+  useEffect,
+  forwardRef,
+  useImperativeHandle,
+  useRef,
+} from "react";
 
 const VideoRunner = forwardRef(({ video, onProgress }, ref) => {
   const videoRef = useRef(null);
