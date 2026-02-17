@@ -1,6 +1,7 @@
 import { useState, useEffect, forwardRef, useImperativeHandle } from "react";
 
 const VideoRunner = forwardRef(({ video, onProgress }, ref) => {
+  const videoRef = useRef(null);
   const [duration, setDuration] = useState(0);
   const [maxWatched, setMaxWatched] = useState(0);
 
@@ -29,10 +30,10 @@ const VideoRunner = forwardRef(({ video, onProgress }, ref) => {
 
   useImperativeHandle(ref, () => ({
     seekTo(seconds) {
-      if (!ref.current) return;
+      if (!videoRef.current) return;
 
-      ref.current.currentTime = seconds;
-      ref.current.play();
+      videoRef.current.currentTime = seconds;
+      videoRef.current.play();
     },
   }));
 
@@ -40,7 +41,7 @@ const VideoRunner = forwardRef(({ video, onProgress }, ref) => {
 
   return (
     <video
-      ref={ref}
+      ref={videoRef}
       controls
       width="100%"
       src={process.env.REACT_APP_API_URL + "/courses/videos/" + video.src}

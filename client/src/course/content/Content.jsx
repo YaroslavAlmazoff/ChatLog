@@ -3,7 +3,7 @@ import "../styles/content.css";
 import CourseProgressBar from "./CourseProgressBar";
 import TestRunner from "./TestRunner";
 import VideoRunner from "./VideoRunner";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useLayoutEffect } from "react";
 
 const Content = ({ lesson, progress, setProgress, course }) => {
   const { parseTimeCode } = useCourse();
@@ -40,23 +40,22 @@ const Content = ({ lesson, progress, setProgress, course }) => {
   };
   const totalProgress = calculateTotalProgress();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!lesson) return;
-    setTimeout(() => {
-      if (lesson.type === "video" && videoContainerRef.current) {
-        videoContainerRef.current.scrollIntoView({
-          behavior: "smooth",
-          block: "center",
-        });
-      }
 
-      if (lesson.type === "test" && testContainerRef.current) {
-        testContainerRef.current.scrollIntoView({
-          behavior: "smooth",
-          block: "start",
-        });
-      }
-    }, 50);
+    if (lesson.type === "video" && videoContainerRef.current) {
+      videoContainerRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+    }
+
+    if (lesson.type === "test" && testContainerRef.current) {
+      testContainerRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
   }, [lesson]);
 
   if (!course || !progress || !progress.videos || !progress.tests) {
