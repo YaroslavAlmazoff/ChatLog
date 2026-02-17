@@ -3,6 +3,8 @@ import { useState } from "react";
 function QuestionEditor({ question, onChange }) {
   const [showRightInput, setShowRightInput] = useState(false);
   const [rightValueDraft, setRightValueDraft] = useState("");
+  const [hint, setHint] = useState("");
+  const [showHintInput, setShowHintInput] = useState(false);
 
   const variants = question.variants ?? [];
   const rightsVariantIds = question.rightsVariantIds ?? [];
@@ -140,6 +142,34 @@ function QuestionEditor({ question, onChange }) {
               updateQuestionField({ rightText: rightValueDraft });
               setRightValueDraft("");
               setShowRightInput(false);
+            }}
+          >
+            OK
+          </button>
+        </div>
+      )}
+
+      <button
+        className="course-editor-add-button"
+        onClick={() => setShowHintInput(true)}
+      >
+        + Добавить тайм-код
+      </button>
+      {showHintInput && (
+        <div className="right-text-editor">
+          <input
+            className="test-editor-small-input test-editor-small-input-blue"
+            value={hint}
+            onChange={(e) => setHint(e.target.value)}
+            placeholder="Тайм-код подсказка"
+          />
+
+          <button
+            className="course-editor-ok"
+            onClick={() => {
+              updateQuestionField({ hint });
+              setHint("");
+              setShowHintInput(false);
             }}
           >
             OK

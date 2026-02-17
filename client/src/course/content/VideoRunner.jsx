@@ -1,7 +1,6 @@
-import { useRef, useState, useEffect } from "react";
+import { useState, useEffect, forwardRef, useImperativeHandle } from "react";
 
-const VideoRunner = ({ video, onProgress, savedPercent = 0 }) => {
-  const videoRef = useRef(null);
+const VideoRunner = forwardRef(({ video, onProgress }, ref) => {
   const [duration, setDuration] = useState(0);
   const [maxWatched, setMaxWatched] = useState(0);
 
@@ -28,6 +27,15 @@ const VideoRunner = ({ video, onProgress, savedPercent = 0 }) => {
     onProgress?.(percent);
   }, [maxWatched, duration]);
 
+  useImperativeHandle(ref, () => ({
+    seekTo(seconds) {
+      if (!videoRef.current) return;
+
+      videoRef.current.currentTime = seconds;
+      videoRef.current.play();
+    },
+  }));
+
   if (!video?.src) return null;
 
   return (
@@ -40,6 +48,6 @@ const VideoRunner = ({ video, onProgress, savedPercent = 0 }) => {
       onTimeUpdate={handleTimeUpdate}
     />
   );
-};
+});
 
 export default VideoRunner;

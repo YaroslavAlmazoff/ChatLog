@@ -5,8 +5,9 @@ import VideoRunner from "./VideoRunner";
 import { useRef, useEffect } from "react";
 
 const Content = ({ lesson, progress, setProgress, course }) => {
+  const videoContainerRef = useRef(null);
+  const testContainerRef = useRef(null);
   const videoRef = useRef(null);
-  const testRef = useRef(null);
 
   const calculateTotalProgress = () => {
     if (!course || !progress) return 0;
@@ -39,18 +40,16 @@ const Content = ({ lesson, progress, setProgress, course }) => {
 
   useEffect(() => {
     if (!lesson) return;
-
-    // ждём рендера
     setTimeout(() => {
-      if (lesson.type === "video" && videoRef.current) {
-        videoRef.current.scrollIntoView({
+      if (lesson.type === "video" && videoContainerRef.current) {
+        videoContainerRef.current.scrollIntoView({
           behavior: "smooth",
           block: "center",
         });
       }
 
-      if (lesson.type === "test" && testRef.current) {
-        testRef.current.scrollIntoView({
+      if (lesson.type === "test" && testContainerRef.current) {
+        testContainerRef.current.scrollIntoView({
           behavior: "smooth",
           block: "start",
         });
@@ -78,9 +77,10 @@ const Content = ({ lesson, progress, setProgress, course }) => {
         Урок {lesson.lesson.number}: {lesson.lesson.title}
       </h1>
 
-      <div ref={videoRef} key={lesson.lesson.video?.id}>
+      <div ref={videoContainerRef} key={lesson.lesson.video?.id}>
         <VideoRunner
           video={lesson.lesson.video}
+          ref={videoRef}
           savedPercent={progress.videos?.[lesson.lesson.video?.id] || 0}
           onProgress={(percent) => {
             setProgress((prev) => {
@@ -99,7 +99,7 @@ const Content = ({ lesson, progress, setProgress, course }) => {
         />
       </div>
 
-      <div ref={testRef} key={lesson.lesson.test?.id}>
+      <div ref={testContainerRef} key={lesson.lesson.test?.id}>
         <TestRunner
           test={lesson.lesson.test}
           savedTestProgress={progress.tests?.[lesson.lesson.test?.id]}
@@ -113,6 +113,10 @@ const Content = ({ lesson, progress, setProgress, course }) => {
                 },
               };
             });
+          }}
+          onHint={(timeCode) => {
+            const seconds = parseTimeCode(timeCode);
+            videoRef.current?.seekTo(seconds);
           }}
         />
       </div>

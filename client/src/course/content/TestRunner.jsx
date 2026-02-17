@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import "../styles/test-runner.css";
 
-const TestRunner = ({ test, savedTestProgress, onTestProgress }) => {
+const TestRunner = ({ test, savedTestProgress, onTestProgress, onHint }) => {
   const [answers, setAnswers] = useState({});
   const [results, setResults] = useState({});
   const [initialized, setInitialized] = useState(false);
@@ -163,6 +163,11 @@ const TestRunner = ({ test, savedTestProgress, onTestProgress }) => {
                 onClick={() => resetQuestion(q.id)}
               >
                 🔄 Попробовать снова
+              </button>
+            )}
+            {results[q.id] === "wrong" && q.timeCode && (
+              <button className="test-retry" onClick={() => onHint(q.timeCode)}>
+                💡 Подсказка {q.timeCode} в видео
               </button>
             )}
           </div>
