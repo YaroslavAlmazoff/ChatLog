@@ -4,12 +4,12 @@ import "../styles/test-runner.css";
 const TestRunner = ({ test, savedTestProgress, onTestProgress, onHint }) => {
   const [answers, setAnswers] = useState({});
   const [results, setResults] = useState({});
-  const [initialized, setInitialized] = useState(false);
 
   useEffect(() => {
-    if (!test || !initialized) return;
+    if (!test) return;
 
     const totalQuestions = test.questions.length;
+
     const correctQuestions = Object.entries(results)
       .filter(([, v]) => v === "correct")
       .map(([id]) => id);
@@ -23,14 +23,16 @@ const TestRunner = ({ test, savedTestProgress, onTestProgress, onHint }) => {
       totalQuestions,
       completed,
     });
-  }, [results, answers, initialized]);
+  }, [results]);
 
   useEffect(() => {
     if (!test) return;
 
-    setAnswers(savedTestProgress?.answers || {});
-    setResults(savedTestProgress?.results || {});
-    setInitialized(true);
+    const savedAnswers = savedTestProgress?.answers || {};
+    const savedResults = savedTestProgress?.results || {};
+
+    setAnswers(savedAnswers);
+    setResults(savedResults);
   }, [test?.id]);
 
   const handleRadioChange = (questionId, variantId) => {
