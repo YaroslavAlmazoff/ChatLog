@@ -25,8 +25,10 @@ const Content = ({ lesson, progress, setProgress, course }) => {
             const totalBlocks = Math.ceil(lesson.video.duration / 10);
             totalPoints += totalBlocks;
 
-            const watched =
+            const watchedRaw =
               progress.videos?.[lesson.video.id]?.watchedBlocks || 0;
+
+            const watched = Math.min(watchedRaw, totalBlocks);
 
             earnedPoints += watched;
           }
