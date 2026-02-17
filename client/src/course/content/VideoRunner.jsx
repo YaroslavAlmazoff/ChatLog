@@ -35,11 +35,22 @@ const VideoRunner = forwardRef(({ video, onProgress }, ref) => {
   }, [maxWatched, duration]);
 
   useImperativeHandle(ref, () => ({
-    seekTo(seconds) {
+    async seekTo(seconds) {
       if (!videoRef.current) return;
 
-      videoRef.current.currentTime = seconds;
-      videoRef.current.play();
+      const video = videoRef.current;
+
+      video.currentTime = seconds;
+
+      try {
+        if (!document.fullscreenElement) {
+          await video.requestFullscreen();
+        }
+      } catch (e) {
+        console.warn("Fullscreen не разрешён", e);
+      }
+
+      video.play();
     },
   }));
 
