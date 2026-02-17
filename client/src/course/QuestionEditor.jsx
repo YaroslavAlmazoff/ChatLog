@@ -168,7 +168,6 @@ function QuestionEditor({ question, onChange }) {
             className="course-editor-ok"
             onClick={() => {
               updateQuestionField({ hint });
-              setHint("");
               setShowHintInput(false);
             }}
           >
