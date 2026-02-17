@@ -11,6 +11,8 @@ const VideoRunner = forwardRef(({ video, onProgress, onReady }, ref) => {
   const [duration, setDuration] = useState(0);
   const [maxWatched, setMaxWatched] = useState(0);
 
+  const BLOCK_SIZE = 10; // секунд
+
   const handleTimeUpdate = () => {
     const current = videoRef.current.currentTime;
 
@@ -20,9 +22,13 @@ const VideoRunner = forwardRef(({ video, onProgress, onReady }, ref) => {
   useEffect(() => {
     if (!duration) return;
 
-    const percent = Math.min(Math.round((maxWatched / duration) * 100), 100);
+    const watchedBlocks = Math.floor(maxWatched / BLOCK_SIZE);
+    const totalBlocks = Math.floor(duration / BLOCK_SIZE);
 
-    onProgress?.(percent);
+    onProgress?.({
+      watchedBlocks,
+      totalBlocks,
+    });
   }, [maxWatched, duration]);
 
   useImperativeHandle(ref, () => ({

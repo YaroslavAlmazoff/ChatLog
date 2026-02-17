@@ -14,29 +14,38 @@ const Content = ({ lesson, progress, setProgress, course }) => {
   const calculateTotalProgress = () => {
     if (!course || !progress) return 0;
 
-    let total = 0;
-    let completed = 0;
+    let totalPoints = 0;
+    let earnedPoints = 0;
 
     course.parts.forEach((part) => {
       part.blocks.forEach((block) => {
         block.lessons.forEach((lesson) => {
+          // 🎬 Видео
           if (lesson.video) {
-            total++;
-            const vp = progress.videos?.[lesson.video.id] || 0;
-            if (vp >= 90) completed++;
+            const videoData = progress.videos?.[lesson.video.id];
+
+            if (videoData?.totalBlocks) {
+              totalPoints += videoData.totalBlocks;
+              earnedPoints += videoData.watchedBlocks || 0;
+            }
           }
 
+          // 🧪 Тест
           if (lesson.test) {
-            total++;
-            if (progress.tests?.[lesson.test.id]?.completed) {
-              completed++;
+            const testData = progress.tests?.[lesson.test.id];
+
+            if (testData?.totalQuestions) {
+              totalPoints += testData.totalQuestions;
+              earnedPoints += testData.correctQuestions || 0;
             }
           }
         });
       });
     });
 
-    return total ? Math.round((completed / total) * 100) : 0;
+    if (!totalPoints) return 0;
+
+    return Math.round((earnedPoints / totalPoints) * 100);
   };
   const totalProgress = calculateTotalProgress();
 
@@ -83,16 +92,21 @@ const Content = ({ lesson, progress, setProgress, course }) => {
           video={lesson.lesson.video}
           ref={videoRef}
           savedPercent={progress.videos?.[lesson.lesson.video?.id] || 0}
-          onProgress={(percent) => {
+          onProgress={(data) => {
             setProgress((prev) => {
-              const old = prev.videos?.[lesson.lesson.video.id] || 0;
-              if (percent <= old) return prev;
+              const old =
+                prev.videos?.[lesson.lesson.video.id]?.watchedBlocks || 0;
+
+              if (data.watchedBlocks <= old) return prev;
 
               return {
                 ...prev,
                 videos: {
                   ...prev.videos,
-                  [lesson.lesson.video.id]: percent,
+                  [lesson.lesson.video.id]: {
+                    watchedBlocks: data.watchedBlocks,
+                    totalBlocks: data.totalBlocks,
+                  },
                 },
               };
             });
@@ -111,7 +125,10 @@ const Content = ({ lesson, progress, setProgress, course }) => {
                 ...prev,
                 tests: {
                   ...prev.tests,
-                  [lesson.lesson.test.id]: testState,
+                  [lesson.lesson.test.id]: {
+                    correctQuestions: testState.correctQuestions.length,
+                    totalQuestions: testState.totalQuestions,
+                  },
                 },
               };
             });
