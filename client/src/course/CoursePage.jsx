@@ -92,17 +92,22 @@ const CoursePage = () => {
   }, [progress, userId]);
 
   useEffect(() => {
+    console.log(1);
     if (!course) return;
+    console.log(2);
 
     const saved = localStorage.getItem("lastLesson");
+    console.log(saved);
     if (!saved) return;
 
     let parsed;
 
     try {
       parsed = JSON.parse(saved);
+      console.log(parsed);
     } catch {
       localStorage.removeItem("lastLesson");
+      console.log(3);
       return;
     }
 
@@ -110,10 +115,11 @@ const CoursePage = () => {
 
     const lessonObject =
       course?.parts?.[partIndex]?.blocks?.[blockIndex]?.lessons?.[lessonIndex];
-
+    console.log(lessonObject);
     if (lessonObject) {
       setActiveLesson(lessonObject);
     } else {
+      console.log(5);
       localStorage.removeItem("lastLesson");
     }
   }, [course]);
