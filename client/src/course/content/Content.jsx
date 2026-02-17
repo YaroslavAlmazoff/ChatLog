@@ -3,7 +3,7 @@ import "../styles/content.css";
 import CourseProgressBar from "./CourseProgressBar";
 import TestRunner from "./TestRunner";
 import VideoRunner from "./VideoRunner";
-import { useRef, useLayoutEffect } from "react";
+import { useRef } from "react";
 
 const Content = ({ lesson, progress, setProgress, course }) => {
   const { parseTimeCode } = useCourse();
@@ -128,8 +128,11 @@ const Content = ({ lesson, progress, setProgress, course }) => {
                 tests: {
                   ...prev.tests,
                   [lesson.lesson.test.id]: {
+                    answers: testState.answers,
+                    results: testState.results,
                     correctQuestions: testState.correctQuestions.length,
                     totalQuestions: testState.totalQuestions,
+                    completed: testState.completed,
                   },
                 },
               };

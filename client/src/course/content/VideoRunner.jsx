@@ -23,7 +23,7 @@ const VideoRunner = forwardRef(({ video, onProgress, onReady }, ref) => {
     if (!duration) return;
 
     const watchedBlocks = Math.floor(maxWatched / BLOCK_SIZE);
-    const totalBlocks = Math.floor(duration / BLOCK_SIZE);
+    const totalBlocks = Math.ceil(duration / BLOCK_SIZE);
 
     onProgress?.({
       watchedBlocks,
