@@ -10,6 +10,7 @@ const CoursePage = () => {
   const { userId } = useContext(AuthContext);
   const [course, setCourse] = useState(null);
   const [progressLoaded, setProgressLoaded] = useState(false);
+  const [hasInitializedProgress, setHasInitializedProgress] = useState(false);
   const [activeLesson, setActiveLesson] = useState(null);
   const [progress, setProgress] = useState({
     videos: {},
@@ -36,10 +37,12 @@ const CoursePage = () => {
           tests: res.data?.tests || {},
         });
         setProgressLoaded(true);
+        setHasInitializedProgress(true);
       } catch (e) {
         console.warn("Прогресс не найден, создаём пустой");
         setProgress({ videos: {}, tests: {} });
         setProgressLoaded(true);
+        setHasInitializedProgress(true);
       }
     };
 
@@ -47,7 +50,7 @@ const CoursePage = () => {
   }, [userId]);
 
   useEffect(() => {
-    if (!userId || !progressLoaded) return;
+    if (!userId || !progressLoaded || !hasInitializedProgress) return;
 
     if (saveTimeout.current) {
       clearTimeout(saveTimeout.current);
@@ -63,7 +66,7 @@ const CoursePage = () => {
         console.error("Ошибка сохранения прогресса", e);
       }
     }, 1000);
-  }, [progress, progressLoaded]);
+  }, [progress]);
 
   useEffect(() => {
     if (!userId) return;
