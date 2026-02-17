@@ -9,6 +9,7 @@ import { AuthContext } from "../context/AuthContext";
 const CoursePage = () => {
   const { userId } = useContext(AuthContext);
   const [course, setCourse] = useState(null);
+  const [progressLoaded, setProgressLoaded] = useState(false);
   const [activeLesson, setActiveLesson] = useState(null);
   const [progress, setProgress] = useState({
     videos: {},
@@ -34,9 +35,11 @@ const CoursePage = () => {
           videos: res.data?.videos || {},
           tests: res.data?.tests || {},
         });
+        setProgressLoaded(true);
       } catch (e) {
         console.warn("Прогресс не найден, создаём пустой");
         setProgress({ videos: {}, tests: {} });
+        setProgressLoaded(true);
       }
     };
 
@@ -44,7 +47,7 @@ const CoursePage = () => {
   }, [userId]);
 
   useEffect(() => {
-    if (!userId) return;
+    if (!userId || !progressLoaded) return;
 
     if (saveTimeout.current) {
       clearTimeout(saveTimeout.current);
@@ -60,7 +63,7 @@ const CoursePage = () => {
         console.error("Ошибка сохранения прогресса", e);
       }
     }, 1000);
-  }, [progress]);
+  }, [progress, progressLoaded]);
 
   useEffect(() => {
     if (!userId) return;
