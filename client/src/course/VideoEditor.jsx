@@ -29,14 +29,27 @@ function VideoEditor({ video, onChange, onUpload, onClose }) {
       setIsReading(false);
       setReadProgress(100);
 
-      onUpload(video.id, file);
+      // 🔥 Определяем длительность через временный video
+      const tempVideo = document.createElement("video");
+      tempVideo.preload = "metadata";
 
-      if (!video.src) {
+      tempVideo.onloadedmetadata = () => {
+        window.URL.revokeObjectURL(tempVideo.src);
+
+        const duration = Math.floor(tempVideo.duration);
+
+        // 💾 Обновляем JSON видео
         onChange({
           ...video,
           src: `${video.id}.mp4`,
+          duration, // 🔥 сохраняем длительность
         });
-      }
+
+        // 🚀 Загружаем файл на сервер
+        onUpload(video.id, file);
+      };
+
+      tempVideo.src = URL.createObjectURL(file);
     };
 
     reader.onerror = () => {
@@ -102,8 +115,10 @@ function VideoEditor({ video, onChange, onUpload, onClose }) {
       {video.src && !isReading && (
         <div style={{ marginTop: 8, fontSize: 13 }}>
           📎 Файл: <b>{video.src}</b>
+          {video.duration && <div>⏱ Длительность: {video.duration} сек</div>}
         </div>
       )}
+
       <button className="course-editor-ok" onClick={onClose} type="button">
         ✕ Закрыть
       </button>

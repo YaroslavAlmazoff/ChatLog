@@ -22,22 +22,24 @@ const Content = ({ lesson, progress, setProgress, course }) => {
         block.lessons.forEach((lesson) => {
           // 🎬 Видео
           if (lesson.video) {
-            const videoData = progress.videos?.[lesson.video.id];
+            const totalBlocks = Math.ceil(lesson.video.duration / 10);
+            totalPoints += totalBlocks;
 
-            if (videoData?.totalBlocks) {
-              totalPoints += videoData.totalBlocks;
-              earnedPoints += videoData.watchedBlocks || 0;
-            }
+            const watched =
+              progress.videos?.[lesson.video.id]?.watchedBlocks || 0;
+
+            earnedPoints += watched;
           }
 
           // 🧪 Тест
           if (lesson.test) {
-            const testData = progress.tests?.[lesson.test.id];
+            const totalQuestions = lesson.test.questions.length;
+            totalPoints += totalQuestions;
 
-            if (testData?.totalQuestions) {
-              totalPoints += testData.totalQuestions;
-              earnedPoints += testData.correctQuestions || 0;
-            }
+            const correct =
+              progress.tests?.[lesson.test.id]?.correctQuestions || 0;
+
+            earnedPoints += correct;
           }
         });
       });
