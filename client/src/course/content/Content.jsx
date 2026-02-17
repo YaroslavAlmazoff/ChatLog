@@ -40,7 +40,7 @@ const Content = ({ lesson, progress, setProgress, course }) => {
   };
   const totalProgress = calculateTotalProgress();
 
-  useLayoutEffect(() => {
+  const scrollToContainer = () => {
     if (!lesson) return;
 
     if (lesson.type === "video" && videoContainerRef.current) {
@@ -56,7 +56,7 @@ const Content = ({ lesson, progress, setProgress, course }) => {
         block: "start",
       });
     }
-  }, [lesson]);
+  };
 
   if (!course || !progress || !progress.videos || !progress.tests) {
     return null;
@@ -97,6 +97,7 @@ const Content = ({ lesson, progress, setProgress, course }) => {
               };
             });
           }}
+          onReady={scrollToContainer}
         />
       </div>
 

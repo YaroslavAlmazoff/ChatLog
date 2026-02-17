@@ -6,7 +6,7 @@ import {
   useRef,
 } from "react";
 
-const VideoRunner = forwardRef(({ video, onProgress }, ref) => {
+const VideoRunner = forwardRef(({ video, onProgress, onReady }, ref) => {
   const videoRef = useRef(null);
   const [duration, setDuration] = useState(0);
   const [maxWatched, setMaxWatched] = useState(0);
@@ -62,7 +62,10 @@ const VideoRunner = forwardRef(({ video, onProgress }, ref) => {
       controls
       width="100%"
       src={process.env.REACT_APP_API_URL + "/courses/videos/" + video.src}
-      onLoadedMetadata={() => setDuration(ref.current.duration)}
+      onLoadedMetadata={() => {
+        setDuration(videoRef.current.duration);
+        onReady?.(); // 🔥 сигнал родителю
+      }}
       onTimeUpdate={handleTimeUpdate}
     />
   );
