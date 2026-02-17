@@ -46,9 +46,9 @@ function Lesson({
             localStorage.setItem(
               "lastLesson",
               JSON.stringify({
-                partId: path.partIndex,
-                blockId: path.blockIndex,
-                lessonId: path.lessonIndex,
+                partIndex: path.partIndex,
+                blockIndex: path.blockIndex,
+                lessonIndex: path.lessonIndex,
               }),
             );
           }
