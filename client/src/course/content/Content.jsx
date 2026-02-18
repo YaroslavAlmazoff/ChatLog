@@ -71,7 +71,7 @@ const Content = ({ lesson, progress, setProgress, course }) => {
         });
       }
     });
-  }, [lesson?.lesson?.id]);
+  }, [lesson?.lesson?.title]);
 
   if (!course || !progress || !progress.videos || !progress.tests) {
     return null;
