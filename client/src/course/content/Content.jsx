@@ -53,23 +53,36 @@ const Content = ({ lesson, progress, setProgress, course }) => {
   };
   const totalProgress = calculateTotalProgress();
 
-  useLayoutEffect(() => {
+  const scrollToContainer = () => {
     if (!lesson) return;
 
-    if (lesson.type === "video" && videoContainerRef.current) {
-      videoContainerRef.current.scrollIntoView({
-        behavior: "smooth",
-        block: "center",
-      });
-    }
+    requestAnimationFrame(() => {
+      if (lesson.type === "video" && videoContainerRef.current) {
+        videoContainerRef.current.scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+        });
+      }
+      if (lesson.type === "test" && testContainerRef.current) {
+        testContainerRef.current.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      }
+    });
+  };
 
-    if (lesson.type === "test" && testContainerRef.current) {
-      testContainerRef.current.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
-    }
-  }, [lesson?.lesson?.id, lesson?.type]);
+  useLayoutEffect(() => {
+    if (!lesson) return;
+    requestAnimationFrame(() => {
+      if (lesson.type === "test" && testContainerRef.current) {
+        testContainerRef.current.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      }
+    });
+  }, [lesson]);
 
   if (!course || !progress || !progress.videos || !progress.tests) {
     return null;
@@ -96,6 +109,7 @@ const Content = ({ lesson, progress, setProgress, course }) => {
           video={lesson.lesson.video}
           ref={videoRef}
           savedPercent={progress.videos?.[lesson.lesson.video?.id] || 0}
+          onReady={scrollToContainer}
           onProgress={(data) => {
             setProgress((prev) => {
               const old =
