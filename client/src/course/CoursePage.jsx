@@ -12,6 +12,7 @@ const CoursePage = () => {
   const [progressLoaded, setProgressLoaded] = useState(false);
   const [hasInitializedProgress, setHasInitializedProgress] = useState(false);
   const [activeLesson, setActiveLesson] = useState(null);
+  const prevProgressRef = useRef(null);
   const [progress, setProgress] = useState({
     videos: {},
     tests: {},
@@ -50,34 +51,28 @@ const CoursePage = () => {
   }, [userId]);
 
   useEffect(() => {
-    if (!userId || !progressLoaded || !hasInitializedProgress) return;
+    if (!userId || !progressLoaded) return;
 
-    if (saveTimeout.current) {
-      clearTimeout(saveTimeout.current);
-    }
+    const prev = prevProgressRef.current;
+    const current = JSON.stringify(progress);
 
-    saveTimeout.current = setTimeout(async () => {
-      try {
-        await api.post("/api/courses/progress/save", {
-          userId,
-          progress,
-        });
-      } catch (e) {
-        console.error("Ошибка сохранения прогресса", e);
-      }
-    }, 500);
-  }, [progress]);
+    if (prev === current) return;
+
+    prevProgressRef.current = current;
+
+    api
+      .post("/api/courses/progress/save", {
+        userId,
+        progress,
+      })
+      .catch((e) => console.error("Ошибка сохранения прогресса", e));
+  }, [progress, userId, progressLoaded]);
 
   useEffect(() => {
     if (!userId) return;
 
     const handleSaveOnExit = () => {
-      if (!progress) return;
-
-      const data = JSON.stringify({
-        userId,
-        progress,
-      });
+      const data = JSON.stringify({ userId, progress });
 
       navigator.sendBeacon(
         process.env.REACT_APP_API_URL + "/api/courses/progress/save",
@@ -85,15 +80,18 @@ const CoursePage = () => {
       );
     };
 
-    window.addEventListener("beforeunload", handleSaveOnExit);
-    document.addEventListener("visibilitychange", () => {
+    const handleVisibility = () => {
       if (document.visibilityState === "hidden") {
         handleSaveOnExit();
       }
-    });
+    };
+
+    window.addEventListener("beforeunload", handleSaveOnExit);
+    document.addEventListener("visibilitychange", handleVisibility);
 
     return () => {
       window.removeEventListener("beforeunload", handleSaveOnExit);
+      document.removeEventListener("visibilitychange", handleVisibility);
     };
   }, [progress, userId]);
 

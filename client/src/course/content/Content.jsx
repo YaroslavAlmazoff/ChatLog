@@ -53,23 +53,25 @@ const Content = ({ lesson, progress, setProgress, course }) => {
   };
   const totalProgress = calculateTotalProgress();
 
-  const scrollToContainer = () => {
+  useEffect(() => {
     if (!lesson) return;
 
-    if (lesson.type === "video" && videoContainerRef.current) {
-      videoContainerRef.current.scrollIntoView({
-        behavior: "smooth",
-        block: "center",
-      });
-    }
+    requestAnimationFrame(() => {
+      if (lesson.type === "video" && videoContainerRef.current) {
+        videoContainerRef.current.scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+        });
+      }
 
-    if (lesson.type === "test" && testContainerRef.current) {
-      testContainerRef.current.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
-    }
-  };
+      if (lesson.type === "test" && testContainerRef.current) {
+        testContainerRef.current.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      }
+    });
+  }, [lesson?.lesson?.id]);
 
   if (!course || !progress || !progress.videos || !progress.tests) {
     return null;
@@ -115,7 +117,6 @@ const Content = ({ lesson, progress, setProgress, course }) => {
               };
             });
           }}
-          onReady={scrollToContainer}
         />
       </div>
 
