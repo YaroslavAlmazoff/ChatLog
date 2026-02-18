@@ -21,6 +21,19 @@ function Lesson({
 
   const confirmDelete = (text) => window.confirm(text);
 
+  const saveLastLesson = () => {
+    if (!isEditor) {
+      localStorage.setItem(
+        "lastLesson",
+        JSON.stringify({
+          partIndex: path.partIndex,
+          blockIndex: path.blockIndex,
+          lessonIndex: path.lessonIndex,
+        }),
+      );
+    }
+  };
+
   const isSelected = (type) =>
     isEditor &&
     selectedItem?.type === type &&
@@ -42,16 +55,7 @@ function Lesson({
             path,
             lesson,
           });
-          if (!isEditor) {
-            localStorage.setItem(
-              "lastLesson",
-              JSON.stringify({
-                partIndex: path.partIndex,
-                blockIndex: path.blockIndex,
-                lessonIndex: path.lessonIndex,
-              }),
-            );
-          }
+          saveLastLesson();
         }}
       >
         <span>
@@ -99,12 +103,14 @@ function Lesson({
           onClick={
             isEditor
               ? () => onSelectItem?.(videoItem)
-              : () =>
+              : () => {
                   onSelectItem?.({
                     type: "video",
                     path,
                     lesson,
-                  })
+                  });
+                  saveLastLesson();
+                }
           }
         >
           🎬 {lesson.video.title}
@@ -146,12 +152,14 @@ function Lesson({
           onClick={
             isEditor
               ? () => onSelectItem?.(testItem)
-              : () =>
+              : () => {
                   onSelectItem?.({
                     type: "test",
                     path,
                     lesson,
-                  })
+                  });
+                  saveLastLesson();
+                }
           }
         >
           🧪 {lesson.test.title}
