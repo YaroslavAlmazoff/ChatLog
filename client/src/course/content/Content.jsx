@@ -3,7 +3,7 @@ import "../styles/content.css";
 import CourseProgressBar from "./CourseProgressBar";
 import TestRunner from "./TestRunner";
 import VideoRunner from "./VideoRunner";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useLayoutEffect } from "react";
 
 const Content = ({ lesson, progress, setProgress, course }) => {
   const { parseTimeCode } = useCourse();
