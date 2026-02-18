@@ -53,25 +53,23 @@ const Content = ({ lesson, progress, setProgress, course }) => {
   };
   const totalProgress = calculateTotalProgress();
 
-  useEffect(() => {
-    if (!lesson?.lesson?.title) return;
+  useLayoutEffect(() => {
+    if (!lesson) return;
 
-    requestAnimationFrame(() => {
-      if (lesson.type === "video" && videoContainerRef.current) {
-        videoContainerRef.current.scrollIntoView({
-          behavior: "smooth",
-          block: "center",
-        });
-      }
+    if (lesson.type === "video" && videoContainerRef.current) {
+      videoContainerRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+    }
 
-      if (lesson.type === "test" && testContainerRef.current) {
-        testContainerRef.current.scrollIntoView({
-          behavior: "smooth",
-          block: "start",
-        });
-      }
-    });
-  }, [lesson]);
+    if (lesson.type === "test" && testContainerRef.current) {
+      testContainerRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  }, [lesson?.lesson?.id, lesson?.type]);
 
   if (!course || !progress || !progress.videos || !progress.tests) {
     return null;
