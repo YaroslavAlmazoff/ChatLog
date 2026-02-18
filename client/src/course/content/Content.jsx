@@ -54,7 +54,7 @@ const Content = ({ lesson, progress, setProgress, course }) => {
   const totalProgress = calculateTotalProgress();
 
   useEffect(() => {
-    if (!lesson) return;
+    if (!lesson.lesson.title) return;
 
     requestAnimationFrame(() => {
       if (lesson.type === "video" && videoContainerRef.current) {
@@ -71,7 +71,7 @@ const Content = ({ lesson, progress, setProgress, course }) => {
         });
       }
     });
-  }, [lesson?.lesson?.title]);
+  }, [lesson]);
 
   if (!course || !progress || !progress.videos || !progress.tests) {
     return null;
