@@ -54,7 +54,7 @@ const Content = ({ lesson, progress, setProgress, course }) => {
   const totalProgress = calculateTotalProgress();
 
   useEffect(() => {
-    if (!lesson.lesson.title) return;
+    if (!lesson?.lesson?.title) return;
 
     requestAnimationFrame(() => {
       if (lesson.type === "video" && videoContainerRef.current) {
