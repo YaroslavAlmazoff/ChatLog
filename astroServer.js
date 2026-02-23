@@ -30,5 +30,5 @@ app.listen(4000, async () => {
   await AEPController.copyMeteorShowers();
   setInterval(async () => {
     await startNotifications();
-  }, 1 * 60 * 1000);
+  }, 60 * 1000);
 });

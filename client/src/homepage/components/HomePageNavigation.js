@@ -22,42 +22,26 @@ const HomePageNavigation = ({ activeLesson, onSelectLesson }) => {
 
   return (
     <div className="homelinks">
-      {auth.onCourse ? (
-        !loading ? (
-          <>
-            <CourseStructure
-              course={course}
-              selectedItem={activeLesson}
-              onSelectItem={onSelectLesson}
-            />
-          </>
-        ) : (
-          <Loader />
-        )
+      {window.innerWidth > 500 ? (
+        <>
+          {list1(auth.userId).map((el) => (
+            <NavLink key={el.name} className="homelink" to={el.link}>
+              {el.name}
+            </NavLink>
+          ))}
+          {list2().map((el) => (
+            <NavLink key={el.name} className="homelink" to={el.link}>
+              {el.name}
+            </NavLink>
+          ))}
+        </>
       ) : (
         <>
-          {window.innerWidth > 500 ? (
-            <>
-              {list1(auth.userId).map((el) => (
-                <NavLink key={el.name} className="homelink" to={el.link}>
-                  {el.name}
-                </NavLink>
-              ))}
-              {list2().map((el) => (
-                <NavLink key={el.name} className="homelink" to={el.link}>
-                  {el.name}
-                </NavLink>
-              ))}
-            </>
-          ) : (
-            <>
-              {list3(auth.userId).map((el) => (
-                <NavLink key={el.name} className="homelink" to={el.link}>
-                  {el.name}
-                </NavLink>
-              ))}
-            </>
-          )}
+          {list3(auth.userId).map((el) => (
+            <NavLink key={el.name} className="homelink" to={el.link}>
+              {el.name}
+            </NavLink>
+          ))}
         </>
       )}
     </div>
