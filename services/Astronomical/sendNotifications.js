@@ -28,10 +28,10 @@ async function sendNotifications(item, type) {
       .messaging()
       .send(message)
       .then((response) => {
-        console.log("Push уведомление успешно отправлено");
+        //console.log("Push уведомление успешно отправлено");
       })
       .catch(async (error) => {
-        console.log("Ошибка отправки push-уведомления", error);
+        console.log("Ошибка отправки push-уведомления", error, el.token);
         await AEPNotificationToken.deleteOne({ token: el.token });
       });
   });
