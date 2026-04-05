@@ -28,7 +28,7 @@ async function sendNotifications(item, type) {
       .then((response) => {})
       .catch(async (error) => {
         console.log("Ошибка отправки push-уведомления", error, el.token);
-        await AEPNotificationToken.deleteOne({ token: el.token });
+        // await AEPNotificationToken.deleteOne({ token: el.token });
       });
   });
 }
