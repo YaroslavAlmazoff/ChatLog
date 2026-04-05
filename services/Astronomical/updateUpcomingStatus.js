@@ -9,7 +9,7 @@ async function updateUpcomingStatus() {
     const [day, month, year] = event.date.trim().split(".").map(Number);
     const [hours, minutes] = event.time.trim().split(":").map(Number);
     const eventDateTime = new Date(
-      Date.UTC(year, month - 1, day, hours - 3, minutes)
+      Date.UTC(year, month - 1, day, hours - 3, minutes),
     );
 
     if (eventDateTime <= currentDateTime) {
@@ -19,7 +19,7 @@ async function updateUpcomingStatus() {
     }
 
     const oneDayBefore = new Date(
-      eventDateTime.getTime() - 24 * 60 * 60 * 1000
+      eventDateTime.getTime() - 24 * 60 * 60 * 1000,
     );
     const oneHourBefore = new Date(eventDateTime.getTime() - 60 * 60 * 1000);
     if (!event.notifiedDayBefore && currentDateTime >= oneDayBefore) {
@@ -32,7 +32,7 @@ async function updateUpcomingStatus() {
       await event.save();
 
       if (
-        event.includes("Метеорный поток") &&
+        event.text.includes("Метеорный поток") &&
         event.year === new Date().getFullYear()
       ) {
         const [day, month, year] = event.date.split(".");
