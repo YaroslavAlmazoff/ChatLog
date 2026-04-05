@@ -5,7 +5,6 @@ const mongoose = require("mongoose");
 const config = require("config");
 const { startNotifications } = require("./services/Astronomical/AEPController");
 const serviceAccount = require("./chatlog-astro-firebase-adminsdk-vbdrf-6074f068be.json");
-const AEPController = require("./services/Astronomical/AEPController");
 
 const app = express();
 
@@ -27,7 +26,7 @@ admin.initializeApp({
 mongoose.connect(config.get("CONNECTION_URL"), { useNewUrlParser: true });
 app.listen(4000, async () => {
   console.log("HTTP Server 2 running at http://localhost:4000/");
-  await AEPController.copyMeteorShowers();
+  //await AEPController.copyMeteorShowers();
   setInterval(async () => {
     await startNotifications();
   }, 60 * 1000);
