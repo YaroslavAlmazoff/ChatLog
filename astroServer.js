@@ -28,7 +28,7 @@ mongoose.connect(config.get("CONNECTION_URL"), { useNewUrlParser: true });
 app.listen(4000, async () => {
   console.log("HTTP Server 2 running at http://localhost:4000/");
   //await AEPController.copyMeteorShowers();
-  await AEPNotificationToken.deleteMany({});
+  // await AEPNotificationToken.deleteMany({});
   setInterval(async () => {
     await startNotifications();
   }, 60 * 1000);
