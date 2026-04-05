@@ -5,6 +5,7 @@ async function sendNotifications(item, type) {
   const tokens = await AEPNotificationToken.find({});
 
   tokens.forEach((el) => {
+    console.log(el);
     const message = {
       token: el.token,
       notification: {
