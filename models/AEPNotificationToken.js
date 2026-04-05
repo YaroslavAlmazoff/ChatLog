@@ -1,7 +1,7 @@
-const mongoose = require('mongoose')
+const mongoose = require("mongoose");
 
 const AEPNotificationToken = new mongoose.Schema({
-    token: {type: String, required: true}
-})
+  token: { type: String, required: true, unique: true },
+});
 
-module.exports = mongoose.model('AEPNotificationToken', AEPNotificationToken)
+module.exports = mongoose.model("AEPNotificationToken", AEPNotificationToken);
