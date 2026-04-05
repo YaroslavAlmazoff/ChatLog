@@ -98,19 +98,19 @@ class AEPController {
     res.json({ message: "OK" });
   }
   async newToken(req, res) {
-    const token = req.params.token;
-    const tokens = await AEPNotificationToken.find({});
-    let tokenExists = false;
-    tokens.forEach((item) => {
-      if (item.token == token) {
-        tokenExists = true;
-        res.json({ m: "token exists" });
+    try {
+      const token = req.params.token;
+      const existing = await AEPNotificationToken.findOne({ token });
+
+      if (existing) {
         return res.json({ message: "success!" });
       }
-    });
-    if (!tokenExists) {
+
       await AEPNotificationToken.create({ token });
-      res.json({ message: "success!" });
+      return res.json({ message: "success!" });
+    } catch (err) {
+      console.error(err);
+      return res.status(500).json({ message: "error" });
     }
   }
   async startNotifications() {
