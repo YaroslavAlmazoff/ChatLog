@@ -32,13 +32,13 @@ class AEPController {
       const [dayA, monthA, yearA] = a.date.split(".").map(Number);
       const [hoursA, minutesA] = a.time.split(":").map(Number);
       const dateA = new Date(
-        Date.UTC(yearA, monthA - 1, dayA, hoursA, minutesA)
+        Date.UTC(yearA, monthA - 1, dayA, hoursA, minutesA),
       );
 
       const [dayB, monthB, yearB] = b.date.split(".").map(Number);
       const [hoursB, minutesB] = b.time.split(":").map(Number);
       const dateB = new Date(
-        Date.UTC(yearB, monthB - 1, dayB, hoursB, minutesB)
+        Date.UTC(yearB, monthB - 1, dayB, hoursB, minutesB),
       );
 
       return dateB.getTime() - dateA.getTime(); // Сортировка по убыванию
@@ -48,13 +48,13 @@ class AEPController {
       const [dayA, monthA, yearA] = a.date.split(".").map(Number);
       const [hoursA, minutesA] = a.time.split(":").map(Number);
       const dateA = new Date(
-        Date.UTC(yearA, monthA - 1, dayA, hoursA, minutesA)
+        Date.UTC(yearA, monthA - 1, dayA, hoursA, minutesA),
       );
 
       const [dayB, monthB, yearB] = b.date.split(".").map(Number);
       const [hoursB, minutesB] = b.time.split(":").map(Number);
       const dateB = new Date(
-        Date.UTC(yearB, monthB - 1, dayB, hoursB, minutesB)
+        Date.UTC(yearB, monthB - 1, dayB, hoursB, minutesB),
       );
 
       return dateA.getTime() - dateB.getTime();
@@ -102,10 +102,10 @@ class AEPController {
     const tokens = await AEPNotificationToken.find({});
     let tokenExists = false;
     tokens.forEach((item) => {
-      if (item.token === token) {
+      if (item.token == token) {
         tokenExists = true;
         res.json({ m: "token exists" });
-        return;
+        return res.json({ message: "success!" });
       }
     });
     if (!tokenExists) {
@@ -124,7 +124,7 @@ class AEPController {
       .filter(
         (e) =>
           e.text.includes("Метеорный поток") &&
-          e.year === new Date().getFullYear()
+          e.year === new Date().getFullYear(),
       )
       .map((event) => {
         const e = event.toObject();

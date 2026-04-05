@@ -25,7 +25,11 @@ async function sendNotifications(item, type) {
     admin
       .messaging()
       .send(message)
-      .then((response) => {})
+      .then((response) => {
+        console.log("Отправлено токену ", el.token);
+        console.log(response);
+        console.log(el.token);
+      })
       .catch(async (error) => {
         console.log("Ошибка отправки push-уведомления", error, el.token);
         // await AEPNotificationToken.deleteOne({ token: el.token });

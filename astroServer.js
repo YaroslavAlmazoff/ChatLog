@@ -7,13 +7,6 @@ const { startNotifications } = require("./services/Astronomical/AEPController");
 const serviceAccount = require("./chatlog-astro-new-firebase-adminsdk-fbsvc-65040f4638.json");
 const AEPNotificationToken = require("./models/AEPNotificationToken");
 
-const { fetch, Headers, Request, Response } = require("undici");
-
-global.fetch = fetch;
-global.Headers = Headers;
-global.Request = Request;
-global.Response = Response;
-
 const app = express();
 
 app.use(cors());
