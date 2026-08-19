@@ -14,7 +14,8 @@ const AstronomicalEvent = new mongoose.Schema({
   date: { type: String, required: true },
   notifiedDayBefore: { type: Boolean, default: false },
   notifiedHourBefore: { type: Boolean, default: false },
-  type: { type: String, default: "" },
+  type: { type: String, default: null },
+  advanced: { type: Boolean, default: false },
 });
 
 module.exports = mongoose.model("AstronomicalEvent", AstronomicalEvent);

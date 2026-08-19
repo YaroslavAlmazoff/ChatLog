@@ -8,10 +8,12 @@ const AddEvent = () => {
   const [day, setDay] = useState("");
   const [time, setTime] = useState("");
   const [interesting, setInteresting] = useState(false);
+  const [advanced, setAdvanced] = useState(false);
   const [file, setFile] = useState("");
   const [file2, setFile2] = useState("");
   const [information, setInformation] = useState("");
   const [visibility, setVisibility] = useState("");
+  const [type, setType] = useState(null);
   const [sort, setSort] = useState(null);
 
   const fileRef = useRef();
@@ -46,6 +48,8 @@ const AddEvent = () => {
     formData.append("information", information);
     formData.append("visibility", visibility);
     formData.append("year", year);
+    formData.append("type", type);
+    formData.append("advanced", advanced);
 
     setText("");
     setDay("");
@@ -58,6 +62,8 @@ const AddEvent = () => {
     setInformation("");
     setVisibility("");
     setSort(null);
+    setType(null);
+    setAdvanced(false);
 
     await api.post("/api/aep/new-event", formData);
     window.location.reload();
@@ -129,6 +135,14 @@ const AddEvent = () => {
         placeholder="Видимость"
       />
       <input
+        className="input"
+        style={styles}
+        type="text"
+        value={type}
+        onChange={(e) => setType(e.target.value)}
+        placeholder="Тип"
+      />
+      <input
         type="checkbox"
         style={styles}
         value={interesting}
@@ -136,6 +150,15 @@ const AddEvent = () => {
       />
       <span className="text-glow" style={{ color: "white" }}>
         Интересное
+      </span>
+      <input
+        type="checkbox"
+        style={styles}
+        value={advanced}
+        onChange={(e) => setAdvanced(e.isTrusted)}
+      />
+      <span className="text-glow" style={{ color: "white" }}>
+        Продвинутое
       </span>
       <input
         className="input"
