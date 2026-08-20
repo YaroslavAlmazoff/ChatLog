@@ -136,7 +136,7 @@ class AEPController {
       .filter(
         (e) =>
           e.text.includes("Метеорный поток") &&
-          e.year === new Date().getFullYear(),
+          e.year === new Date().getFullYear() - 1,
       )
       .map((event) => {
         const e = event.toObject();
@@ -157,6 +157,19 @@ class AEPController {
 
     await AstronomicalEvent.insertMany(updatedEvents);
   }
+
+  // async addFields() {
+  //   const events = await AstronomicalEvent.find({})
+  //   const updatedEvents = event.map(e => {
+  //     event = e.toObject()
+  //     event.type = null
+  //     event.advanced = false
+
+  //     if(event.text.includes("Противостояние")) {
+  //       event.type = "opposition"
+  //     }
+  //   })
+  // }
 }
 
 module.exports = new AEPController();
