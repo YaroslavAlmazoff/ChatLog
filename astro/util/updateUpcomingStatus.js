@@ -1,8 +1,8 @@
 const { sendNotifications } = require("./sendNotifications");
-const AstronomicalEvent = require("../../models/AstronomicalEvent");
+const AstroEvent = require("../models/AstroEvent");
 
 async function updateUpcomingStatus() {
-  const events = await AstronomicalEvent.find({ upcoming: true });
+  const events = await AstroEvent.find({ upcoming: true });
   const currentDateTime = new Date();
 
   for (const event of events) {
@@ -49,7 +49,7 @@ async function updateUpcomingStatus() {
           upcoming: true,
         };
 
-        await AstronomicalEvent.create(newEvent);
+        await AstroEvent.create(newEvent);
       }
     }
   }

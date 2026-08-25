@@ -3,12 +3,9 @@ const cors = require("cors");
 const admin = require("firebase-admin");
 const mongoose = require("mongoose");
 const config = require("config");
-const {
-  startNotifications,
-  copyMeteorShowers,
-} = require("./services/Astronomical/AEPController");
-const serviceAccount = require("./chatlog-astro-new-firebase-adminsdk-fbsvc-65040f4638.json");
-const AEPNotificationToken = require("./models/AEPNotificationToken");
+const { startNotifications, copyMeteorShowers } = require("./astroController");
+const serviceAccount = require("../chatlog-astro-new-firebase-adminsdk-fbsvc-65040f4638.json");
+const AstroNotificationToken = require("./models/AstroNotificationToken");
 
 const app = express();
 
@@ -30,7 +27,7 @@ admin.initializeApp({
 mongoose.connect(config.get("CONNECTION_URL"), { useNewUrlParser: true });
 app.listen(4000, async () => {
   console.log("HTTP Server 2 running at http://localhost:4000/");
-  await copyMeteorShowers();
+  //await copyMeteorShowers();
   //await AEPNotificationToken.deleteMany({});
   setInterval(async () => {
     await startNotifications();

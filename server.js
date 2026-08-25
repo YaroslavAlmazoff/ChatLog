@@ -26,7 +26,7 @@ const publicRouter = require("./routes/publics");
 const photoRouter = require("./routes/photos");
 const innerAdRouter = require("./routes/innerAds");
 const adRouter = require("./routes/ads");
-const AEPRouter = require("./routes/astronomical/astronomicalEvents");
+const astroRouter = require("./astro/astroRouter");
 const mobileRouter = require("./mobile/routes/mobile");
 const artShopRouter = require("./routes/art/art");
 const groupMessengerRouter = require("./routes/groupMessages");
@@ -81,7 +81,7 @@ app.use("/api/ad", adRouter);
 app.use("/api/games", gamesRouter);
 app.use("/api/store", storeRouter);
 app.use("/api/mobile", mobileRouter);
-app.use("/api/aep", AEPRouter);
+app.use("/api/aep", astroRouter);
 app.use("/api/courses", coursesRouter);
 app.use("/api/art", artShopRouter);
 
@@ -127,7 +127,7 @@ const start = async () => {
     https.createServer(options, app).listen(443, async () => {
       console.log(`The Server has been started on port 443...`);
     });
-    let secondServer = spawn("node", ["astroServer.js"], {
+    let secondServer = spawn("node", ["./astro/astroServer.js"], {
       stdio: "inherit",
     });
 

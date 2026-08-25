@@ -1,33 +1,29 @@
 const uuid = require("uuid");
-const AEPNotificationToken = require("../../models/AEPNotificationToken");
-const AstronomicalEvent = require("../../models/AstronomicalEvent");
-const FileService = require("../FileService");
-const AstronomicalImage = require("../../models/AstronomicalImage");
-const { getMonthNumber } = require("./getMonthNumber");
-const { updateUpcomingStatus } = require("./updateUpcomingStatus");
-const { getCorrectNumber } = require("./getCorrectNumber");
+const AstroNotificationToken = require("./models/AstroNotificationToken");
+const AstroEvent = require("./models/AstroEvent");
+const FileService = require("../services/FileService");
+const AstroImage = require("./models/AstroImage");
+const { getMonthNumber } = require("./util/getMonthNumber");
+const { updateUpcomingStatus } = require("./util/updateUpcomingStatus");
+const { getCorrectNumber } = require("./util/getCorrectNumber");
 
-class AEPController {
+class AstroController {
   async events(req, res) {
-    const events = await AstronomicalEvent.find(); // Получаем все события из базы данных
+    const events = await AstroEvent.find();
 
-    // Разделяем события
     const pastEvents = [];
     const upcomingEvents = [];
 
     events.forEach((event) => {
       if (event.upcoming) {
-        // Если событие прошло
         upcomingEvents.push(event);
       } else {
-        // Если событие еще впереди
         pastEvents.push(event);
       }
     });
 
     const currentYear = new Date().getFullYear();
 
-    // Сортируем массивы
     pastEvents.sort((a, b) => {
       const [dayA, monthA, yearA] = a.date.split(".").map(Number);
       const [hoursA, minutesA] = a.time.split(":").map(Number);
@@ -41,7 +37,7 @@ class AEPController {
         Date.UTC(yearB, monthB - 1, dayB, hoursB, minutesB),
       );
 
-      return dateB.getTime() - dateA.getTime(); // Сортировка по убыванию
+      return dateB.getTime() - dateA.getTime();
     });
 
     upcomingEvents.sort((a, b) => {
@@ -65,7 +61,7 @@ class AEPController {
     const filename = uuid.v4() + ".jpg";
     let text = req.body.text.replace('"', "");
     text = text.replace('"', "");
-    await AstronomicalImage.create({
+    await AstroImage.create({
       imageUrl: filename,
       event: req.params.event,
       text,
@@ -74,7 +70,7 @@ class AEPController {
     res.json("");
   }
   async imagesList(req, res) {
-    const images = await AstronomicalImage.find({ event: req.params.event });
+    const images = await AstroImage.find({ event: req.params.event });
     res.json({ images });
   }
   async newEvent(req, res) {
@@ -91,7 +87,7 @@ class AEPController {
       advanced,
     } = req.body;
     const filename = uuid.v4() + ".png";
-    await AstronomicalEvent.create({
+    await AstroEvent.create({
       text,
       year,
       month: month.toLowerCase(),
@@ -112,13 +108,13 @@ class AEPController {
   async newToken(req, res) {
     try {
       const token = req.params.token;
-      const existing = await AEPNotificationToken.findOne({ token });
+      const existing = await AstroNotificationToken.findOne({ token });
 
       if (existing) {
         return res.json({ message: "success!" });
       }
 
-      await AEPNotificationToken.create({ token });
+      await AstroNotificationToken.create({ token });
       return res.json({ message: "success!" });
     } catch (err) {
       console.error(err);
@@ -130,7 +126,7 @@ class AEPController {
   }
 
   async copyMeteorShowers() {
-    const events = await AstronomicalEvent.find({});
+    const events = await AstroEvent.find({});
 
     const updatedEvents = events
       .filter(
@@ -155,11 +151,11 @@ class AEPController {
         };
       });
 
-    await AstronomicalEvent.insertMany(updatedEvents);
+    await AstroEvent.insertMany(updatedEvents);
   }
 
   // async addFields() {
-  //   const events = await AstronomicalEvent.find({})
+  //   const events = await AstroEvent.find({})
   //   const updatedEvents = event.map(e => {
   //     event = e.toObject()
   //     event.type = null
@@ -172,4 +168,4 @@ class AEPController {
   // }
 }
 
-module.exports = new AEPController();
+module.exports = new AstroController();

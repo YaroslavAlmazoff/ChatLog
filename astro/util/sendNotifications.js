@@ -1,8 +1,8 @@
 const admin = require("firebase-admin");
-const AEPNotificationToken = require("../../models/AEPNotificationToken");
+const AstroNotificationToken = require("../models/AstroNotificationToken");
 
 async function sendNotifications(item, type) {
-  const tokens = await AEPNotificationToken.find({});
+  const tokens = await AstroNotificationToken.find({});
 
   tokens.forEach((el) => {
     console.log(el);

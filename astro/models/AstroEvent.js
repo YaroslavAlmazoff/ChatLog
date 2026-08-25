@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const AstronomicalEvent = new mongoose.Schema({
+const AstroEvent = new mongoose.Schema({
   text: { type: String, required: true },
   year: { type: Number, required: true },
   month: { type: String, required: true },
@@ -18,4 +18,4 @@ const AstronomicalEvent = new mongoose.Schema({
   advanced: { type: Boolean, default: false },
 });
 
-module.exports = mongoose.model("AstronomicalEvent", AstronomicalEvent);
+module.exports = mongoose.model("AstronomicalEvent", AstroEvent);
