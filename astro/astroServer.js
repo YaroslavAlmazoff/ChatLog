@@ -6,6 +6,7 @@ const config = require("config");
 const { startNotifications, copyMeteorShowers } = require("./astroController");
 const serviceAccount = require("../chatlog-astro-new-firebase-adminsdk-fbsvc-65040f4638.json");
 const AstroNotificationToken = require("./models/AstroNotificationToken");
+const authRouter = require("./auth/routes/authRouter");
 
 const app = express();
 

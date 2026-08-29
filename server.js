@@ -44,6 +44,7 @@ const gamesRouter = require("./routes/games");
 const storeRouter = require("./routes/store");
 
 const coursesRouter = require("./routes/courses");
+const aepAuthRouter = require("./astro/auth/routes/authRouter");
 
 process.on("uncaughtException", function (err) {
   console.error(err);
@@ -82,6 +83,7 @@ app.use("/api/games", gamesRouter);
 app.use("/api/store", storeRouter);
 app.use("/api/mobile", mobileRouter);
 app.use("/api/aep", astroRouter);
+app.use("/api/aep/auth", aepAuthRouter);
 app.use("/api/courses", coursesRouter);
 app.use("/api/art", artShopRouter);
 
