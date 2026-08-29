@@ -54,10 +54,6 @@ const login = async (req, res) => {
     });
   }
 
-  if (isUserExists && !user.isVerified) {
-    return res.status(400).json({ message: "User is not verified" });
-  }
-
   if (!(await bcrypt.compare(password, user.password))) {
     return res.status(401).json({ message: "Password is incorrect" });
   }
@@ -75,6 +71,7 @@ const login = async (req, res) => {
     maxAge: 15 * 60 * 1000,
   });
   res.status(200).json({
+    isVerified: user.isVerified,
     refreshToken,
     isUserExists,
     userId: user._id,
