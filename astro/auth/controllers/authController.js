@@ -37,6 +37,14 @@ const login = async (req, res) => {
 
   const { email, password } = req.body;
 
+  console.log(
+    email,
+    process.env.USER,
+    process.env.PASSWORD,
+    process.env.PORT,
+    process.env.HOST,
+  );
+
   let user = await User.findOne({ email });
   const isUserExists = !!user;
   if (!user) {
