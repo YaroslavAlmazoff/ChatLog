@@ -7,6 +7,7 @@ const { validationResult } = require("express-validator");
 const transporter = nodemailer.createTransport({
   host: process.env.EMAIL_HOST,
   port: process.env.EMAIL_PORT,
+  secure: true,
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASSWORD,
@@ -46,12 +47,18 @@ const login = async (req, res) => {
       verificationCode: Math.floor(100000 + Math.random() * 900000).toString(),
     });
 
-    await transporter.sendMail({
-      from: process.env.EMAIL_USER,
-      to: user.email,
-      subject: "Verification code",
-      text: `Your verification code is: ${user.verificationCode}`,
-    });
+    try {
+      await transporter.sendMail({
+        from: process.env.EMAIL_USER,
+        to: user.email,
+        subject: "Verification code",
+        text: `Your verification code is: ${user.verificationCode}`,
+      });
+      console.log("Письмо отправлено");
+    } catch (error) {
+      console.error("Ошибка отправки:");
+      console.error(error);
+    }
   }
 
   if (!(await bcrypt.compare(password, user.password))) {
