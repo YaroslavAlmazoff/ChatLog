@@ -39,10 +39,10 @@ const login = async (req, res) => {
 
   console.log(
     email,
-    process.env.USER,
-    process.env.PASSWORD,
-    process.env.PORT,
-    process.env.HOST,
+    process.env.EMAIL_USER,
+    process.env.EMAIL_PASSWORD,
+    process.env.EMAIL_PORT,
+    process.env.EMAIL_HOST,
   );
 
   let user = await User.findOne({ email });
