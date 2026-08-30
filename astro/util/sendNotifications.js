@@ -6,6 +6,7 @@ async function sendNotifications(item, type) {
 
   tokens.forEach((el) => {
     console.log(el);
+
     const message = {
       token: el.token,
       notification: {

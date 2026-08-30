@@ -110,7 +110,7 @@ const verify = async (req, res) => {
 
 const update = async (req, res) => {
   const { location, favorites, notificationSettings } = req.body;
-  const user = await User.findById(req.user._id);
+  const user = await User.findById(req.user.id);
   console.log(location, favorites, notificationSettings, req.user._id);
   if (!user) {
     return res
