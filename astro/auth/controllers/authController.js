@@ -37,14 +37,6 @@ const login = async (req, res) => {
 
   const { email, password } = req.body;
 
-  console.log(
-    email,
-    process.env.EMAIL_USER,
-    process.env.EMAIL_PASSWORD,
-    process.env.EMAIL_PORT,
-    process.env.EMAIL_HOST,
-  );
-
   let user = await User.findOne({ email });
   const isUserExists = !!user;
   if (!isUserExists) {
@@ -79,15 +71,10 @@ const login = async (req, res) => {
   user.refreshToken = refreshToken;
   await user.save();
 
-  res.cookie("accessToken", accessToken, {
-    httpOnly: true,
-    secure: process.env_NODE_ENV === "production",
-    sameSite: "strict",
-    maxAge: 15 * 60 * 1000,
-  });
   res.status(200).json({
     isVerified: user.isVerified,
     refreshToken,
+    accessToken,
     isUserExists,
     userId: user._id,
     username: user.email.split("@")[0],
@@ -165,13 +152,9 @@ const refresh = async (req, res) => {
   user.refreshToken = newRefreshToken;
   await user.save();
 
-  res.cookie("accessToken", newAccessToken, {
-    httpOnly: true,
-    secure: process.env_NODE_ENV === "production",
-    sameSite: "strict",
-    maxAge: 15 * 60 * 1000,
-  });
-  res.status(200).json({ refreshToken: newRefreshToken });
+  res
+    .status(200)
+    .json({ refreshToken: newRefreshToken, accessToken: newAccessToken });
 };
 
 //добавлен logout
