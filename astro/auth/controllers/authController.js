@@ -90,7 +90,7 @@ const login = async (req, res) => {
     refreshToken,
     isUserExists,
     userId: user._id,
-    username: user.email.split(".")[0],
+    username: user.email.split("@")[0],
     location: user.location,
     favorites: user.favorites,
     notificationSettings: user.notificationSettings,
@@ -124,6 +124,7 @@ const verify = async (req, res) => {
 const update = async (req, res) => {
   const { location, favorites, notificationSettings } = req.body;
   const user = await User.findById(req.user._id);
+  console.log(location, favorites, notificationSettings, req.user._id);
   if (!user) {
     return res
       .status(404)
