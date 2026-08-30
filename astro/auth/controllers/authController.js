@@ -47,14 +47,14 @@ const login = async (req, res) => {
 
   let user = await User.findOne({ email });
   const isUserExists = !!user;
-  if (!user) {
+  if (!isUserExists) {
     const hashedPassword = await bcrypt.hash(password, 10);
     user = await User.create({
       email,
       password: hashedPassword,
       verificationCode: Math.floor(100000 + Math.random() * 900000).toString(),
     });
-
+  } else if (isUserExists && !user.isVerified) {
     try {
       await transporter.sendMail({
         from: process.env.EMAIL_USER,
