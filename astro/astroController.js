@@ -180,8 +180,8 @@ class AstroController {
 
   async getSponsors(req, res) {
     const sponsors = await AstroSponsor.find({});
-    res.json(
-      [
+    res.json({
+      sponsors: [
         { name: "Yaroslav Almazoff", userId: "deadboy16" },
         { name: "HejHog", userId: "ezik" },
         { name: "марго💙", userId: "margo1" },
@@ -190,7 +190,7 @@ class AstroController {
         { name: "Алина Александровна", userId: "nekra" },
         { name: "Sokolovski", userId: "26748848" },
       ].concat(sponsors),
-    );
+    });
   }
 }
 
