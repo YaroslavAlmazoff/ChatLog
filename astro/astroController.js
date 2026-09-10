@@ -6,6 +6,7 @@ const AstroImage = require("./models/AstroImage");
 const { getMonthNumber } = require("./util/getMonthNumber");
 const { updateUpcomingStatus } = require("./util/updateUpcomingStatus");
 const { getCorrectNumber } = require("./util/getCorrectNumber");
+const AstroSponsor = require("./models/AstroSponsor");
 
 class AstroController {
   async events(req, res) {
@@ -108,13 +109,18 @@ class AstroController {
   async newToken(req, res) {
     try {
       const token = req.params.token;
+      const userId = req.params.id;
       const existing = await AstroNotificationToken.findOne({ token });
+      if (!!existing && !existing.userId) {
+        existing.userId = userId;
+        await existing.save();
+      }
 
       if (existing) {
         return res.json({ message: "success!" });
       }
 
-      await AstroNotificationToken.create({ token });
+      await AstroNotificationToken.create({ token, userId });
       return res.json({ message: "success!" });
     } catch (err) {
       console.error(err);
@@ -166,6 +172,30 @@ class AstroController {
   //     }
   //   })
   // }
+
+  async newSponsor(req, res) {
+    await AstroSponsor.create({ name: req.body.name, userId: req.user.id });
+    res.json({ message: "Successful" });
+  }
+
+  async getSponsors(req, res) {
+    const sponsors = await AstroSponsor.find({});
+    if (sponsors.length !== 0) {
+      res.json(
+        [
+          { name: "Yaroslav Almazoff", userId: "deadboy16" },
+          { name: "HejHog", userId: "ezik" },
+          { name: "марго💙", userId: "margo1" },
+          { name: "Анонимys", userId: "juh838roi3mf" },
+          { name: "Myth Eris", userId: "erismynamebitch" },
+          { name: "Алина Александровна", userId: "nekra" },
+          { name: "Sokolovski", userId: "26748848" },
+        ].concat(sponsors),
+      );
+    } else {
+      res.json();
+    }
+  }
 }
 
 module.exports = new AstroController();

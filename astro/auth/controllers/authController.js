@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
 const User = require("../models/AstroUser");
 const { validationResult } = require("express-validator");
+const AstroNotificationToken = require("../../models/AstroNotificationToken");
 
 const transporter = nodemailer.createTransport({
   host: process.env.EMAIL_HOST,
@@ -35,7 +36,7 @@ const login = async (req, res) => {
     });
   }
 
-  const { email, password } = req.body;
+  const { email, password, firebaseToken } = req.body;
 
   let user = await User.findOne({ email });
   const isUserExists = !!user;
@@ -63,6 +64,21 @@ const login = async (req, res) => {
 
   if (!(await bcrypt.compare(password, user.password))) {
     return res.status(401).json({ message: "Password is incorrect" });
+  }
+
+  const notificationToken = await AstroNotificationToken.findOne({
+    token: firebaseToken,
+  });
+  if (!notificationToken) {
+    await AstroNotificationToken.create({
+      token: firebaseToken,
+      userId: user._id,
+    });
+  } else {
+    await AstroNotificationToken.findOneAndUpdate(
+      { token: firebaseToken },
+      { userId: user._id },
+    );
   }
 
   const accessToken = generateAccessToken(user);
