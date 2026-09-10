@@ -1,6 +1,7 @@
 const { Router } = require("express");
 const AstroController = require("./astroController");
 const router = Router();
+const auth = require("./auth/middleware/auth.middleware");
 
 router.get("/events", (req, res) => {
   try {
