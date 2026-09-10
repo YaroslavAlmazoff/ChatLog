@@ -180,21 +180,17 @@ class AstroController {
 
   async getSponsors(req, res) {
     const sponsors = await AstroSponsor.find({});
-    if (sponsors.length !== 0) {
-      res.json(
-        [
-          { name: "Yaroslav Almazoff", userId: "deadboy16" },
-          { name: "HejHog", userId: "ezik" },
-          { name: "марго💙", userId: "margo1" },
-          { name: "Анонимys", userId: "juh838roi3mf" },
-          { name: "Myth Eris", userId: "erismynamebitch" },
-          { name: "Алина Александровна", userId: "nekra" },
-          { name: "Sokolovski", userId: "26748848" },
-        ].concat(sponsors),
-      );
-    } else {
-      res.json();
-    }
+    res.json(
+      [
+        { name: "Yaroslav Almazoff", userId: "deadboy16" },
+        { name: "HejHog", userId: "ezik" },
+        { name: "марго💙", userId: "margo1" },
+        { name: "Анонимys", userId: "juh838roi3mf" },
+        { name: "Myth Eris", userId: "erismynamebitch" },
+        { name: "Алина Александровна", userId: "nekra" },
+        { name: "Sokolovski", userId: "26748848" },
+      ].concat(sponsors),
+    );
   }
 }
 
