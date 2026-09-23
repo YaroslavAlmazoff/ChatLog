@@ -40,7 +40,8 @@ const LPV2Head = () => {
         <div id="fountainTextG_7" class="fountainTextG">
           G
         </div>
-      </div>
+      </div>{" "}
+      // Я врменно убрал возможность зарегистрироваться или войти
       <div className="lpv2-buttons">
         {/* <LPV2Button text="Зарегистрироваться" link="/register" />
         <LPV2Button text="Войти" link="/login" /> */}
