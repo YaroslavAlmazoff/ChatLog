@@ -8,7 +8,7 @@ const LPV2Head = () => {
   useEffect(() => {
     const getDownloadUrl = async () => {
       const response = await api.get(
-        `/api/games/game/63c5a5ffbbe91a6bc281e223`
+        `/api/games/game/63c5a5ffbbe91a6bc281e223`,
       );
       console.log(response);
       setDownloadUrl(response.data.game.downloadUrl);
@@ -42,8 +42,8 @@ const LPV2Head = () => {
         </div>
       </div>
       <div className="lpv2-buttons">
-        <LPV2Button text="Зарегистрироваться" link="/register" />
-        <LPV2Button text="Войти" link="/login" />
+        {/* <LPV2Button text="Зарегистрироваться" link="/register" />
+        <LPV2Button text="Войти" link="/login" /> */}
         {/* {downloadUrl ? (
           <a
             className="button lpv2-button"

@@ -104,8 +104,8 @@ export const useRoutes = () => {
       <Route exact path="/createchat" element={<CreateChat />} /> */}
       <Route path="/greeting" element={<LandingPageV2 />} />
       <Route path="/support" element={<SupportPage />} />
-      <Route path="/register" element={<Register />} />
-      <Route path="/login" element={<Login />} />
+      {/* <Route path="/register" element={<Register />} />
+      <Route path="/login" element={<Login />} /> */}
       <Route path="/portfolio" element={<Portfolio />} />
       <Route exact path="/publics" element={<PublicsPage />} />
       <Route exact path="/public/:id" element={<PublicPage />} />
